@@ -81,6 +81,8 @@ public class RefaccionDao extends DAOGenerales_{
     
     /**
      * Si todas las operaciones se ejecutaron correctamente devuelve true.  
+     * @param vo los datos de la refacción que se quiere guardar.
+     * @return Si todo se guardo correcto retorna true.
      */
     public boolean guardar(RefaccionVo vo){
         String sql = "INSERT INTO "+ RefaccionIT.NOMBRE_TABLA 

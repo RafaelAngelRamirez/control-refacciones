@@ -41,6 +41,8 @@ public class TipoDeDato {
      * fin intenta convertir la cadena por varios métodos a Integer, Float, Double,
      * Date, y Timestamp. Según la coincidencia que encuentre retorna el valor
      * en una variable estatica.
+     * @param dato La cadena de texto de la que se quiere comprobar el tipo de dato que es. 
+     * @return El tipo de dato menos general <b>(int) </b> al más general <b>(String)</b>
      */
     public static int encontrarTipoDeDato(String dato){
         if (isInteger(dato)) {

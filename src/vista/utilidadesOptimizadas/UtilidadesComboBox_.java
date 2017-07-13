@@ -3,18 +3,13 @@ package vista.utilidadesOptimizadas;
 
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
-import controlador.capturadeerrores.CapturaDeSucesos;
-import controlador.capturadeerrores.DescripcionDeSuceso;
-import controlador.capturadeerrores.TipoDeSucesoOErrores;
 import java.awt.Component;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 
 import org.jdesktop.swingx.autocomplete.*;
 
@@ -38,7 +33,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
     
     /**
      *El jComboBox que se cargara con los datos de la consulta. 
-     * @param comboBox
+     * @param comboBox JCombobox
      */
     public void setComponente(JComboBox comboBox) {
         this.comboBox = comboBox;
@@ -52,7 +47,8 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
     /**
     * La columna de donde se obtendra el íd para extraer los datos que se van 
     * a sacar de la base de datos. xP
-     * @param nombreColumnaId
+     * @param nombreColumnaId El nombre de la columna. Se debe tomar desde
+     * una clase IT para que coicida con la tabla.
     */
     public void setNombreColumnaId(String nombreColumnaId) {
         this.nombreColumnaId = nombreColumnaId;
@@ -67,7 +63,8 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
     * El nombre de la columna para cargar en el combo los datos que se quieren 
     * mostrar. Estos estan relacionados en un hashmap que devuelve el id del
     * susodicho.
-     * @param nombreColumnaDatoAMostrar
+     * @param nombreColumnaDatoAMostrar La columna que contiene los datos que se
+     * quieren mostrar en el combobox.
     */
     public void setNombreColumnaDatoAMostrar(String nombreColumnaDatoAMostrar) {
         this.nombreColumnaDatoAMostrar = nombreColumnaDatoAMostrar;
@@ -75,7 +72,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
     
     /**
      *Retorna el dato seleccionado en el combobox.
-     * @param dato El dato del combobox con getSelectedItem.
+     * @return El dato que esta escrito en el combo.
      */
     public String getSelectedItem() {
         return (String) this.comboBox.getSelectedItem();
@@ -112,8 +109,9 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
     
     /**
      * Limpia un elemento en el combo.
+     * @param elementoARemover El object que se quiere remover.
      */
-    public void removeItem(String elementoARemover){
+    public void removeItem(Object elementoARemover){
         this.coordinador.getSystemOut().println("[!]Limpiando elemento de combo!");
         this.comboBox.removeItem(elementoARemover);
     }
@@ -121,6 +119,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
      * Retorna el id del item seleccionado del comboBox que tenemos instanciado.
      * Nos facilita la vida!
      * 
+     * @return Id que corresponde con la BD.
      */
     public int getSelectedItem_idRetorno(){
         if (this.isEmpty()) {
@@ -139,8 +138,8 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
     
     /**
      * Define una accion para el combo cuando se pierde el foco.
-     * @param accionCuandoPierdeElFoco
-     * @param ganadoOPerdido
+     * @param accionCuandoPierdeElFoco La acción que se quiere ejecutar. 
+     * @param ganadoOPerdido Cuando se quiere ejecutar. True ganado, false perdido.
      */
     public void setFocusAction(Runnable accionCuandoPierdeElFoco, 
             boolean ganadoOPerdido) {
@@ -169,7 +168,9 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
     }
     
     /**
-     * Compara el elemento que se le pase contra la lista que contiene el comobo.
+     * Compara el elemento que se le pase contra la lista que contiene el combo.
+     * @param itemEscrito El String a comparar.
+     * @return True si contiene el elemento.
      */
     public boolean contieneElItemEscrito(String itemEscrito){
         this.coordinador.getSystemOut().println("[!]Comprobando si el elemento escrito esta en el combo.", this);
@@ -189,6 +190,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
     /**
      * Obtiene el elemento escrito para compararlo con la lista que contiene.
      * Sirve para agregar un nuevo elemento a la BD.
+     * @return True si contiene el elemento.
      */
     public boolean contieneElItemEscrito(){
         return this.contieneElItemEscrito(this.getText());
@@ -224,8 +226,9 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
    
     /**
      * Selecciona el item que se le pase.
+     * @param objeto El objeto que se quiere seleccionar. 
      */
-    public void setSelectedItem(String objeto){
+    public void setSelectedItem(Object objeto){
         this.comboBox.setSelectedItem(objeto);
     }
 

@@ -69,7 +69,7 @@ public class SenalarErroresSobreGUI_ {
   
     /**
      * Titulo del error.
-     * @param titulo
+     * @param titulo El titulo del error. 
      */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
@@ -77,7 +77,7 @@ public class SenalarErroresSobreGUI_ {
     
      /**
      * Ubicacion en el código. Solo se mostrara si se pone setDepuracion(true);
-     * @param ubicacion
+     * @param ubicacion Donde se genera.
      */
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
@@ -85,7 +85,7 @@ public class SenalarErroresSobreGUI_ {
 
     /**
      * El mensaje de error que se mostrara.
-     * @param error
+     * @param error Mensaje de error.
      */
     public void setMensajeDeError(String error) {
         this.mensajeDeError = error;
@@ -98,7 +98,7 @@ public class SenalarErroresSobreGUI_ {
     /**
      * Modifica el campo de password para darle un color acorde al error.
      *
-     * @param campoPassword
+     * @param campoPassword El componente tipo JPasswordField.
      */
     protected void setCampoPassword(JPasswordField campoPassword) {
        //MODIFICAMOS UN CAMPO PASSWORD PARA DARLE EL ERROR.
@@ -110,7 +110,7 @@ public class SenalarErroresSobreGUI_ {
     /**
      * Modifica el campo de password para restablecerlo al tema original.
      *
-     * @param campoPassword
+     * @param campoPassword El componente tipo JPasswordField.
      */
     protected void setCampoPasswordRestaurar(JPasswordField campoPassword) {
        //MODIFICAMOS UN CAMPO PASSWORD QUITARLE EL ERROR
@@ -121,7 +121,7 @@ public class SenalarErroresSobreGUI_ {
      /**
      * Modifica el campo de texto para darle un color acorde al error.
      *
-     * @param campoTexto
+     * @param campoTexto El componente tipo JTextField.
      */
     protected void setCampoTextoError(JTextField campoTexto){
         campoTexto.setBackground(this.colores.ERROR_TXT_RESALTAR_BG);
@@ -130,7 +130,7 @@ public class SenalarErroresSobreGUI_ {
      /**
      * Modifica el campo de texto para restaurar el color despues del error..
      *
-     * @param campoTexto
+     * @param campoTexto El componente tipo JTextField.
      */
     protected void setCampoTextoRestaurar(JTextField campoTexto){
         campoTexto.setBackground(this.colores.TEMA_TXT_BG);
@@ -139,7 +139,7 @@ public class SenalarErroresSobreGUI_ {
     
     /**
      * Modiica el combobox para darle un color acorde al error.
-     * @param campoComboBox
+     * @param campoComboBox El componente tipo JComboBox.
      */
     protected void setCampoComboBoxError(JComboBox campoComboBox){
         campoComboBox.getEditor().getEditorComponent().setBackground(this.colores.ERROR_TXT_RESALTAR_BG);
@@ -149,7 +149,7 @@ public class SenalarErroresSobreGUI_ {
     
     /**
      * Modiica el combobox para darle un color acorde al error.
-     * @param campoComboBox
+     * @param campoComboBox El componente tipo JComboBox.
      */
     protected void setCampoComboBoxRestaurar(JComboBox campoComboBox){
         campoComboBox.getEditor().getEditorComponent().setBackground(this.colores.TEMA_TXT_BG);
@@ -160,7 +160,7 @@ public class SenalarErroresSobreGUI_ {
     /**
      * Modifica el campo de area de texto para darle un color acorde al error.
      *
-     * @param campoTextoArea
+     * @param campoTextoArea El componente tipo JTextArea.
      */
     protected void setCampoTextoAreaError(JTextArea campoTextoArea){
         campoTextoArea.setBackground(this.colores.ERROR_TXT_RESALTAR_BG);
@@ -169,7 +169,7 @@ public class SenalarErroresSobreGUI_ {
      /**
      * Modifica el campo de area de texto texto para quitar el color del error.
      *
-     * @param campoTextoArea
+     * @param campoTextoArea El componente tipo JTextArea.
      */
     protected void setCampoTextoAreaRestaurar(JTextArea campoTextoArea){
         campoTextoArea.setBackground(this.colores.TEMA_TXT_BG);
@@ -179,7 +179,7 @@ public class SenalarErroresSobreGUI_ {
     /**
      * Modifica el campo de area de texto para darle un color acorde al error.
      *
-     * @param radio
+     * @param radio El componente tipo JRadioButton.
      */
     protected void setRadioError(JRadioButton radio){
         radio.setBackground(this.colores.ERROR_TXT_RESALTAR_BG);
@@ -188,7 +188,7 @@ public class SenalarErroresSobreGUI_ {
      /**
      * Modifica el campo de area de texto texto para quitar el color del error.
      *
-     * @param radio
+     * @param radio El componente tipo JRadioButton.
      */
     protected void setRadioRestaurar(JRadioButton radio){
         radio.setBackground(this.colores.TEMA_FONDO_BG);
@@ -197,7 +197,7 @@ public class SenalarErroresSobreGUI_ {
     
     /**
      * Modifica el espacio que muestra la imagen acorde al error;
-     * @param imagen
+     * @param imagen El componente tipo JXImageView.
      */
     protected void setImagenViewError(JXImageView imagen){
         imagen.setBackground(this.colores.ERROR_TXT_RESALTAR_BG);
@@ -207,7 +207,7 @@ public class SenalarErroresSobreGUI_ {
     
     /**
      * Modifica el espacio que muestra la imagen acorde al error;
-     * @param imagen
+     * @param imagen El componente tipo JXImageView.
      */
     protected void setImagenViewErrorRestaurar(JXImageView imagen){
         imagen.setBackground(this.colores.TEMA_TXT_BG);
@@ -216,7 +216,7 @@ public class SenalarErroresSobreGUI_ {
     
     /**
      * Modifica la lista para señalarla como error.;
-     * @param lista
+     * @param lista El componente tipo JList.
      */
     protected void setListaError(JList lista){
         lista.setBackground(this.colores.ERROR_TXT_RESALTAR_BG);
@@ -226,7 +226,7 @@ public class SenalarErroresSobreGUI_ {
     
     /**
      * Modifica la lista a al color de tema normal.;
-     * @param lista
+     * @param lista El componente tipo JList.
      */
     protected void setListaErrorRestaurar(JList lista){
         lista.setBackground(this.colores.TEMA_FONDO_BG);
@@ -237,7 +237,7 @@ public class SenalarErroresSobreGUI_ {
     
      /**
      * Modifica la etiqueta para señalarla como error.;
-     * @param etiqueta
+     * @param etiqueta El componente tipo JLabel.
      */
     protected void setEtiquetaError(JLabel etiqueta){
         etiqueta.setBackground(this.colores.ERROR_TXT_RESALTAR_BG);
@@ -247,7 +247,7 @@ public class SenalarErroresSobreGUI_ {
     
     /**
      * Modifica la etiqueta al color de tema normal.;
-     * @param etiqueta
+     * @param etiqueta El componente tipo JLabel.
      */
     protected void setEtiquetaErrorRestaurar(JLabel etiqueta){
         etiqueta.setBackground(this.colores.TEMA_FONDO_BG);

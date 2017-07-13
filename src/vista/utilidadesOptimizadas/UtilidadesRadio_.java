@@ -29,6 +29,7 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir_ {
     /**
      * Esta clase ingresa automaticamente los radio butons que se le pasen a 
      * setComponente en un grupo para acceder a ellos. 
+     * @param coordinador El jefe de jefes señores!.
      */
     public UtilidadesRadio_(Coordinador coordinador) {
         super(coordinador);
@@ -39,7 +40,7 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir_ {
     /**
      * Va agrupando los radioButtons que se le pasen de manera automática. 
      * 
-     * @param radio
+     * @param radio El radio que se va añadir al único grupo.
      */
     public void setComponente(JRadioButton radio) {
         this.radios.add(radio);
@@ -49,7 +50,7 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir_ {
     
     /**
      * Retorna true si algúnos de los radioButtons esta seleccionado.  
-     * @return 
+     * @return  True si esta seleccionado. 
      */
     public boolean isSelected(){
         for (JRadioButton radio : radios) {
@@ -63,7 +64,7 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir_ {
     
     /**
      * Retorna el texto del radiobutton seleccionado.  
-     * @return 
+     * @return String que se muestra del radiobutton.
      */
     @Override
     public String getText() {
@@ -85,7 +86,8 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir_ {
     }
     
     /**
-     * Señala un errod sobre el radioButton y muestra un mensaje.  
+     * Señala un erro sobre el radioButton y muestra un mensaje.  
+     * @param mensaje El mensaje a mostrar.
      */
     public void setError(String mensaje) {
         this.setMensajeDeError(mensaje);
@@ -112,6 +114,7 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir_ {
     
     /**
      * Retorna la lista de radios. 
+     * @return Los radios que estan asignados como grupo.
      */
     public List<Component> getThisRadios(){
         List<Component> componentes = new ArrayList<>();
@@ -135,7 +138,7 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir_ {
     /**
      * Selecciona el radio que contenga el nombre coincidiente con el valor
      * que se le pase como parametro.
-     * @param valorDeRadio
+     * @param valorDeRadio El texto que coincide con el radio.
      */
     public void setSelectRadio(String valorDeRadio){
         for (JRadioButton radio : radios) {

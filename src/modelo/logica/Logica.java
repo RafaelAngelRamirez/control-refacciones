@@ -7,17 +7,12 @@ package modelo.logica;
 
 import controlador.Coordinador;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import modelo.FicherosOperaciones;
-import modelo.FicherosOperacionesServidor;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.dao.PaisDao_;
@@ -60,12 +55,13 @@ public class Logica {
     
    /* 
     ========================================================================
-       INICIO DE REGISTRO DE PROVEEDORES Y PAISES
+       INICIO DE REGISTRO DE PROVEEDORES.
     ////////////////////////////////////////////////////////////////////////
     */
     
     /**
      * Guarda un proveedor en la base de datos. 
+     * @param vo Los datos de proveedor para guardar. 
      */
     public void proveedorGuardar(ProveedorVo vo){
         ProveedorDao_ proveedor = new ProveedorDao_(coordinador);
@@ -75,6 +71,8 @@ public class Logica {
     
     /**
      * Revisa si el proveedor proveedorExiste en la base de datos.
+     * @param proveedor El proveedor a comprobar. 
+     * @return  True si existe. 
      */
     public boolean proveedorExiste(String proveedor){
         ProveedorDao_ dao_ = new ProveedorDao_(coordinador);
@@ -84,6 +82,7 @@ public class Logica {
     /**
      * Consulta la lista de todos los proveedores y solo devuelve al proveedor-empresa.
      * 
+     * @return Retorna la lista de proveedores existentes por su campo empresa. 
      */
     public List<ProveedorVo> proveedorConsultarMarcas(){
         ProveedorDao_ dao = new ProveedorDao_(coordinador);
@@ -95,8 +94,8 @@ public class Logica {
      * Consulta la lista de todos los proveedores y solo devuelve al proveedor-
      * empresa que se filtre como parametro.
      * 
-     * @param id
-     * @return 
+     * @param id El id del proveedor a filtrar. 
+     * @return La lista coincidente de proveedores.
      */
     public List<RelacionRefaccionProveedorVo> proveedorConsultarMarcas(int id){
         RelacionRefaccionProveedorDao dao = new RelacionRefaccionProveedorDao(coordinador);
@@ -175,6 +174,18 @@ public class Logica {
         return listaValidaciones;
     }
     
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE REGISTRO DE PROVEEDORES
+    ========================================================================
+    */
+    
+    /* 
+    ========================================================================
+       INICIO DE PAISES
+    ////////////////////////////////////////////////////////////////////////
+    */
+   
     public void paisGuardar(PaisVo vo){
         PaisDao_ paisDao_ = new PaisDao_(coordinador);
         paisDao_.guardar(vo);
@@ -192,22 +203,21 @@ public class Logica {
         return dao.existe(pais);
     }
     
-    
-    
     /* 
     ////////////////////////////////////////////////////////////////////////
-        FIN DE REGISTRO DE PROVEEDORES Y PAISES
+        FIN DE PAISES
     ========================================================================
     */
+    
    /* 
     ========================================================================
-       INICIO DE REGISTRO DE MODELO DE MAQUINAS. MAQUINAMODELO
+       INICIO DE REGISTRO MAQUINAMODELO
     ////////////////////////////////////////////////////////////////////////
     */
     
     /**
-     * Guarda un proveedor en la base de datos. 
-     * @param vo
+     * Guarda una MaquinaModelo en la base de datos. 
+     * @param vo La MaquinaModelo que se guardara. 
      */
     public void maquinaModeloGuardar(MaquinaModeloVo vo){
        MaquinaModeloDao_ dao = new MaquinaModeloDao_(coordinador);
@@ -216,10 +226,12 @@ public class Logica {
     }
     
     /**
-     * Revisa si el proveedor proveedorExiste en la base de datos.
-     * @param modelo
-     * @param anio
-     * @return 
+     * Revisa si la maquinaModelo en la base de datos. Se busca por conincidencia
+     * par de Maquina-Año de manera que si hay un modelo MASS y varios años (1999, 2011)
+     * se busca el par que se quiere como repetido. 
+     * @param modelo El modelo de la máquina que se quiere buscar. 
+     * @param anio El año de la máquina Modelo que se quiere buscar. 
+     * @return  True si encuentra coincidencia. 
      */
     public boolean maquinaModeloExiste(String modelo, int anio ){
         MaquinaModeloDao_ dao = new MaquinaModeloDao_(coordinador);
@@ -228,8 +240,7 @@ public class Logica {
     
     /**
      * Consulta la lista de modelos - año.
-     * 
-     * @return 
+     * @return  Retorna un objeto MaquinaModeloVo.
      */
     public List<MaquinaModeloVo> maquinaModeloConsultarModeloAnio(){
         MaquinaModeloDao_ dao = new MaquinaModeloDao_(coordinador);
@@ -365,7 +376,7 @@ public class Logica {
     
     /* 
     ========================================================================
-       INICIO REGISTRO DE REFACCIONES, UNIDADES Y MATERIALES
+       INICIO REGISTRO DE UNIDADES
     ////////////////////////////////////////////////////////////////////////
     */
     
@@ -384,6 +395,17 @@ public class Logica {
         return dao.consultar();
     }
     
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO DE UNIDADES
+    ========================================================================
+    */
+    
+     /* 
+    ========================================================================
+       INICIO REGISTRO DE MATERIALES
+    ////////////////////////////////////////////////////////////////////////
+    */
     public void materialGuardar(MaterialVo vo){
         MaterialDao_ dao = new MaterialDao_(coordinador);
         dao.guardar(vo);
@@ -399,19 +421,33 @@ public class Logica {
         return dao.consultar();
     }
     
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO DE MATERIALES
+    ========================================================================
+    */
+    
+     /* 
+    ========================================================================
+       INICIO REGISTRO DE REFACCIONES.
+    ////////////////////////////////////////////////////////////////////////
+    */
     public boolean refaccionExisteCodigoInterno (String codigoInterno){
         RefaccionDao dao = new RefaccionDao(coordinador);
         return dao.existeCodigoInterno(codigoInterno);
     }
     
-    /**/
+
+    /**
+     * Comprueba si el código interno existe. 
+     * @param vo El código a buscar. 
+     * @return True si existe. 
+     */
+
     public boolean refaccionExisteCodigoInterno(RefaccionVo vo){
         RefaccionDao dao = new RefaccionDao(coordinador);
         return dao.existeCodigoInterno(vo);
     }
-    
-   
-    
     
     public List<Validacion> refaccionValidarCampos(RefaccionVo vo){
         return refaccionValidarCampos(vo, false);
@@ -628,6 +664,17 @@ public class Logica {
         return d.consultarPorId(id);
     }
     
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO DE REFACCIONES.
+    ========================================================================
+    */
+    
+     /* 
+    ========================================================================
+       INICIO REGISTRO DE IMAGENES.
+    ////////////////////////////////////////////////////////////////////////
+    */
     public String imagenGuardarLista (List<ImagenVo> listaVo){
         ImagenDao_ d = new ImagenDao_(coordinador);
         
@@ -650,22 +697,41 @@ public class Logica {
         d.eliminar(vo);
     }
     
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO DE IMAGENES
+    ========================================================================
+    */
+     /* 
+    ========================================================================
+       INICIO REGISTRO RELACION REFACCION MAQUINA-MODELO
+    ////////////////////////////////////////////////////////////////////////
+    */
     
     public void relacionRefaccionMaquinaModeloGuardarLista(List<RelacionRefaccionMaquinaModeloVo> listaVo){
         RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
         d.guardarLista(listaVo);
     }
     
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO RELACION REFACCION MAQUINA-MODELO
+    ========================================================================
+    */
+  
+     /* 
+    ========================================================================
+       INICIO REGISTRO RELACION REFACCION PROVEEDOR
+    ////////////////////////////////////////////////////////////////////////
+    */
     public void relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
         RelacionRefaccionProveedorDao d = new RelacionRefaccionProveedorDao(coordinador);
         d.guardarLista(listaVo);
     }
     
-    
-    
     /* 
     ////////////////////////////////////////////////////////////////////////
-        FIN REGISTRO DE REFACCIONES, UNIDADES Y MATERIALES
+        FIN REGISTRO RELACION REFACCION PROVEEDOR
     ========================================================================
     */
     

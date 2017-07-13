@@ -344,7 +344,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     
     /**
      * El coordinador del sistema.  
-     * @return 
+     * @return El jefe de jefes, señores!
      */
     public Coordinador getCoordinador() {
         return coordinador;
@@ -352,7 +352,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     
     /**
      *Setea al coordinador del sistema.  
-     * @param coordinador
+     * @param coordinador El jefe de jefes, señores!
      */
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
@@ -360,7 +360,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     
     /**
      * Retorna la resolucion actual de la pantalla. 
-     * @return 
+     * @return  La resolución de la pantalla. 
      */
     public Dimension resolucion(){
         return Toolkit.getDefaultToolkit().getScreenSize();
@@ -368,7 +368,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 
     /**
      * Retorna el panel que se esta mostrando actualmente. 
-     * @return 
+     * @return El panel que se esta manejando en un tipo MenuConstructor. 
+     * @see MenuConstructor
      */
     public MenuConstructor getjPanelActual() {
         if (this.jPanelActual==null) {
@@ -938,7 +939,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
        
        /**
         * La etiqueta en la que se escribiran los datos de la hora.  
-         * @param etiquetaHora
+         * @param etiquetaHora La etiqueta donde se mostrara la hora. 
         */
        public void setEtiquetaHora(JLabel etiquetaHora) {
            this.etiquetaHora = etiquetaHora;
@@ -946,6 +947,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
        
        /**
         * La etiqueta en la que se escribiran los datos de la fecha.  
+         * @param etiquetaFecha La etiqueta donde se mostrara la fecha. 
         */
        public void setEtiquetaFecha(JLabel etiquetaFecha) {
            this.etiquetaFecha = etiquetaFecha;
@@ -1138,7 +1140,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      * Agrega el menuConstructor lista que se debe definir dentro del Jpanel
      * para que se agregue al menu. Una vez que se allan agregado los menús
      * es necesario ejecutar generarMenus() para que se creen los menus. 
-     * @param itemOMenu
+     * @param itemOMenu El elemento MenuConstructor que se va a agregar. 
+     * @see MenuConstructor
      */
     public void addItemOMenu (MenuConstructor itemOMenu){
         this.menuConstructorLista.add(itemOMenu);
@@ -1251,6 +1254,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          * define ningúna acción entonces se ejecutara por defecto el cambio
          * de panel en caso de que este definido uno.
          * 
+         * @return Retorna la acción que ejecutara un item al ser ejecutado .
          */
         public Runnable getAccionDelItem() {
             return accionDelItem;
@@ -1259,6 +1263,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         /**
          * Define la acción que se quiere setear sobre el item. Si no se define 
          * una acción por defecto se ejecutara el cambio de paneles. 
+         * @param accionDelItem La acción que se quiere ejecutar. 
          */
         public void setAccionDelItem(Runnable accionDelItem) {
             if (this.isMenu()) {
@@ -1283,6 +1288,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         
         /**
          * Retorna true si el elemento es un Menu. 
+         * @return True si es menu. 
          */
         public boolean isMenu() {
             return menu;
@@ -1307,7 +1313,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         
         /**
          *Retorna true si es un item.
-         * @return 
+         * @return  True si es item.
          */
         public boolean isItem() {
             return item;
@@ -1333,6 +1339,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         
         /**
          * Retorna el panel al que señala el item. 
+         * @return El panel que se tiene almacenado.  
          */
         public JPanel getThisPanel() {
             try {
@@ -1358,7 +1365,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 
         /**
          * Setea el panel al que se quiere llamar por medio de un item.
-         * @param thisPanel
+         * @param thisPanel El panel que se quiere almacenar. 
          */
         public void setThisPanel(JPanel thisPanel) {
             try {
@@ -1405,7 +1412,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         
         /**
          * La ruta de la imagen que se quiere agregar como icono al menu. 
-         * @return 
+         * @return  La ruta para llegar a la imágen.
          */
         public String getImagen() {
             return imagen;
@@ -1413,7 +1420,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         
         /**
          * Agrega el string para insertar una imagene en el elemento. 
-         * @param imagen
+         * @param imagen La ruta de la imagen que se quiere agregar como icono al menu. 
          */
         public void setImagen(String imagen) {
             this.imagen = imagen;
@@ -1426,7 +1433,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          * seteado todos los paneles, de manera que no se puede hacer en el 
          * constructor del panel. Hay que hacerlo desde aquí y solo una vez. Para
          * eso esta la (@see setAccionInicializacionEjecutada)
-         * @param accionInicialización
+         * @param accionInicialización La acción que se quiere ejecutar al inicializar
+         * el panel. 
          */
         public void setAccionDeInicializacion(Runnable accionInicialización){
             this.accionInicializacion = accionInicialización;
@@ -1434,7 +1442,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         
         /**
          * La acción para inicializar el panel. 
-         * @return 
+         * @return La acción que se ejecutara al inicializar el panel.
          */
         public Runnable getAccionInicializacion() {
             if (accionInicializacion==null) {
@@ -1454,7 +1462,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          * Comprueba que si se ejecuto una sola vez la acción de inicialización
          * del panel. Si no se define siempreAccionInicializadaComo true entonces
          * solo se ejecutara la inicizalización una vez.
-         * @return 
+         * @return  True si se inicializo el panel y isSiempreAccionInicializada() es
+         * false.
          */
         public boolean isAccionInicializacionEjecutada() {
             if (isSiempreAccionInicializada()) {
@@ -1465,7 +1474,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         
         /**
          * Define si se ha inicializado el panel. 
-         * @param accionInicializacionEjecutada
+         * @param accionInicializacionEjecutada True cuando se ejecuto. 
          */
         public void setAccionInicializacionEjecutada(boolean accionInicializacionEjecutada) {
             this.accionInicializacionEjecutada = accionInicializacionEjecutada;
@@ -1480,12 +1489,13 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          * el panel. Para esto dentro de isAccionInicializacionEjecutada comprobamos
          * que este parametro este en true. Si es así entonces retorna siempre 
          * false de manera que ejecute las acciones de inicialización.
+         * @param siempreAccionInicializada True para que sieempre se ejecute la
+         * acción de inicialización o false para que solo ejecute una vez. 
+         * @see #getAccionInicializacion() 
          */
         public void setSiempreAccionInicializada(boolean siempreAccionInicializada) {
             this.siempreAccionInicializada = siempreAccionInicializada;
         }
-        
-        
         
     }
     

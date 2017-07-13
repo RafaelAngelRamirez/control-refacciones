@@ -23,6 +23,7 @@ public class VoGenerales {
      * Retorna un mapa que relaciona el campo vo con su contenido para que las 
      * validaciones se puedan hacer con respecto al getCampo y su nomobre definido
      * dentro de TI.
+     * @return El mapa que contiene las llamadas a los campos get.
      */
     public HashMap<String, Callable> getRelacionCampo() {
         if (relacionCampo.isEmpty()) {

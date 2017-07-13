@@ -168,7 +168,7 @@ public class PanelConsultaRefacciones extends JPanel {
     }
     
     public void mostrarDetalleRefaccion(){
-        coordinador.refaccionMostrarDetalle(_TablaRefacciones.getDatoDeTabla(0));
+        coordinador.refaccionAbrirDetalleRefaccion(_TablaRefacciones.getDatoDeTabla(0));
     }
 
     public Coordinador getCoordinador() {

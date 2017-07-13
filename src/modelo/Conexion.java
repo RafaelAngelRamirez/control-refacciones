@@ -6,10 +6,7 @@ package modelo;
  * and open the template in the editor.
  */
 
-import modelo.TipoDeDato;
-import modelo.ExcepcionPersonalizada;
 import controlador.*;
-import controlador.capturadeerrores.DescripcionDeSuceso;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +54,7 @@ public class Conexion {
      * Gestiona las conexiones con la base de datos. Los datos se añaden modificando
      * directamente esta clase.
      * 
-     * @param controlador 
+     * @param controlador El jefe de jefe, señores!
      */
     public Conexion(Coordinador controlador) {
         this.controlador = controlador;
@@ -82,18 +79,18 @@ public class Conexion {
               return true;    
         } 
         catch(ClassNotFoundException | SQLException e){
-            DescripcionDeSuceso descripcionDeSusceso = new DescripcionDeSuceso();
-            descripcionDeSusceso.setMensajeDeError("[!] NO SE PUDO CONECTAR A LA BD.");
-            descripcionDeSusceso.setDetallesDelError(
-                    "   [-] No se conecto a la base de "
-                    + "datos por alguna razón.  \n\n" + e);
-            descripcionDeSusceso.setUbicacion(this);
-            descripcionDeSusceso.setTipoDeError(
-                    descripcionDeSusceso.tipoDeSucesoOErrores.ERROR_FATAL);
-            
-            
-            this.controlador.getSystemOut().setDescripcionDeSuceso(descripcionDeSusceso);
-            this.controlador.getSystemOut().ejecutar();
+//            DescripcionDeSuceso descripcionDeSusceso = new DescripcionDeSuceso();
+//            descripcionDeSusceso.setMensajeDeError("[!] NO SE PUDO CONECTAR A LA BD.");
+//            descripcionDeSusceso.setDetallesDelError(
+//                    "   [-] No se conecto a la base de "
+//                    + "datos por alguna razón.  \n\n" + e);
+//            descripcionDeSusceso.setUbicacion(this);
+//            descripcionDeSusceso.setTipoDeError(
+//                    descripcionDeSusceso.tipoDeSucesoOErrores.ERROR_FATAL);
+//            
+//            
+//            this.controlador.getSystemOut().setDescripcionDeSuceso(descripcionDeSusceso);
+//            this.controlador.getSystemOut().ejecutar();
             
              JOptionPane.showMessageDialog(
                         null, "No se puede conectar "
@@ -106,6 +103,7 @@ public class Conexion {
     
     /**
      * Si la conexión al servidor se realizo exitosamente.
+     * @return True si la conexión se realizo con éxito. 
      */ 
     public boolean isExitosa() {
         return exitosa;
@@ -115,21 +113,21 @@ public class Conexion {
      /**
      * Solo comando DDL (Data Definition Languaje)(SELECT, 
      * Ejecuta la sentencia que se le pase como parametro. Lo importante de esta 
-     * sentencia es que evita SQLInjection. <br />
+     * sentencia es que evita SQLInjection. <br>
      * 
-     * La estructura a utilizar es la siguiente:<br /> 
+     * La estructura a utilizar es la siguiente:<br> 
      * 
      * <p style="color:rgb(255,255,0);" >
      * sql = "SELECT * FROM tabla WHERE id=? and user=?";
      * </p>
      * 
-     * <br />
+     * <br>
      * 
      * Los singnos de interrogación serán sustituidos por
-     * el número que le pasemos en el HasMap. Por ejemplo:<br />
+     * el número que le pasemos en el HasMap. Por ejemplo:<br>
      * <p style="color:rgb(255,255,0);" >
-     * mapa.put(1, "dato");<br />
-     * mapa.put(2, "dato 2");<br />
+     * mapa.put(1, "dato");<br>
+     * mapa.put(2, "dato 2");<br>
      * </p>
      * 
      * @param sql  La sentencia con '?' para ser sustituido.
@@ -148,21 +146,21 @@ public class Conexion {
      * Solo comando DML (Data Manipulation Languaje)(INSERT, UPDATE, CREATE TABLE,
      * DELETE)
      * Ejecuta la sentencia que se le pase como parametro. Lo importante de esta 
-     * sentencia es que evita SQLInjection. <br />
+     * sentencia es que evita SQLInjection. <br>
      * 
-     * La estructura a utilizar es la siguiente:<br /> 
+     * La estructura a utilizar es la siguiente:<br> 
      * 
      * <p style="color:rgb(255,255,0);" >
      * sql = "INSERT INTO tabla VALUES (null, ?,?) WHERE campo= ?";
      * </p>
      * 
-     * <br />
+     * <br>
      * 
      * Los singnos de interrogación serán sustituidos por
-     * el número que le pasemos en el HasMap. Por ejemplo:<br />
+     * el número que le pasemos en el HasMap. Por ejemplo:<br>
      * <p style="color:rgb(255,255,0);" >
-     * mapa.put(1, "dato");<br />
-     * mapa.put(2, "dato 2");<br />
+     * mapa.put(1, "dato");<br>
+     * mapa.put(2, "dato 2");<br>
      * </p>
      * 
      * @param sql  La sentencia con '?' para ser sustituido.
@@ -181,15 +179,15 @@ public class Conexion {
      * Solo comando DML (Data Manipulation Languaje)(INSERT, UPDATE, CREATE TABLE,
      * DELETE)
      * Ejecuta la sentencia que se le pase como parametro. Lo importante de esta 
-     * sentencia es que evita SQLInjection. <br />
+     * sentencia es que evita SQLInjection. <br>
      * 
-     * La estructura a utilizar es la siguiente:<br /> 
+     * La estructura a utilizar es la siguiente:<br> 
      * 
      * <p style="color:rgb(255,255,0);" >
      * sql = "INSERT INTO tabla VALUES (null, ?)";
      * </p>
      * 
-     * <br />
+     * <br>
      * 
      * El signo de interrogación será sustituido por el valor que se le pase a datos.
      * @param sql  La sentencia con '?' para ser sustituido.
@@ -291,18 +289,18 @@ public class Conexion {
     /**
      * Ejecuta la sentencia que se le pase como parametro. Lo importante de esta 
      * sentencia es que evita SQLInjection. Para pasar más parametros usar la
-     * sobrecarga con HashMap.<br />
+     * sobrecarga con HashMap.<br>
      * 
-     * La estructura a utilizar es la siguiente:<br /> 
+     * La estructura a utilizar es la siguiente:<br> 
      * 
      * <p style="color:rgb(255,255,0);" >
      * sql = "SELECT * FROM tabla WHERE id=?;
      * </p>
      * 
-     * <br />
+     * <br>
      * 
      * El singno de interrogación serán sustituido por el string
-     * que le pasamoscomo dato. Por ejemplo:<br />
+     * que le pasamoscomo dato. Por ejemplo:<br>
      * 
      * @param sql  La sentencia con '?' para ser sustituido.
      * @param dato  El HashMap que contiene los datos para sustituir.
@@ -322,13 +320,13 @@ public class Conexion {
     
     /**
      * Ejecuta una sentencia simple sin parametros en la consulta. 
-     * Por ejemplo:.<br />
+     * Por ejemplo:.<br>
      * 
      * <p style="color:rgb(255,255,0);" >
      * sql = "SELECT * FROM tabla;
      * </p>
      * 
-     * <br />
+     * <br>
      * 
      *
      * @param sql  La sentencia sql.
@@ -343,12 +341,4 @@ public class Conexion {
         ResultSet rs = this.executeQuery(sql, datos);
         return rs;
     }
-
-   
-    
-    
-    
-    
-    
-    
 }

@@ -23,11 +23,10 @@ public class ProveedorDao_ extends DAOGenerales_{
     public ProveedorDao_(Coordinador coordinador) {
         super(coordinador);
         this.it = new ProveedorIT();
-        
-
     }
     /**
      * Guarda un nuevo proveedor. 
+     * @param vo Información del proveedo. 
      */
     public void guardar(ProveedorVo vo) {
         String sql = "INSERT INTO "+ProveedorIT.NOMBRE_TABLA+" "
@@ -42,12 +41,11 @@ public class ProveedorDao_ extends DAOGenerales_{
         d.put(6, vo.getIdPais()+"");
 
         conexion.executeUpdate(sql, d);
-        
     }
     
     /**
      * Retorna todos los proveedores por empresa. 
-     * @return 
+     * @return La lista de proveedores existentes. 
      */
     public List<ProveedorVo> consultarProveedores(){
        
@@ -74,6 +72,8 @@ public class ProveedorDao_ extends DAOGenerales_{
     
     /**
      * Revisa si el proveedor existe en la base de datos.  
+     * @param proveedor El proveedor que se quiere verificar. 
+     * @return True si existe.
      */
     public boolean existe(String proveedor){
         try {
@@ -94,8 +94,4 @@ public class ProveedorDao_ extends DAOGenerales_{
         }
         return false;
     }
-    
-   
-    
-    
 }

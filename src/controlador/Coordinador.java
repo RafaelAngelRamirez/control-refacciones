@@ -158,7 +158,7 @@ public class Coordinador {
     
     /**
     * Inicializa la consola de debugueo.
-     * @param debug
+     * @param debug True si se quiere mostrar la consola de debug. 
     */
     public void inicializarConsola(boolean debug){
        // this.debugueoActivo = debug;
@@ -185,11 +185,9 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    
-    
+    //INTERFAZ
     /**
      * Abre el dialogo para guardar una nueva refacción.
-     * @param dato
      */
     public void proveedorAbrirDialogoGuardarNuevo(){
         //ES NECESARIO LANZAR EL PROCEDIMIENTO DE CONFIGURACIÓN AQUI
@@ -200,8 +198,8 @@ public class Coordinador {
     
     /**
      * Abre el dialogo par guardar una nueva refaccioón pasando como parametro
-     * lo que el usuario escrribio en el detonante de la acción.
-     * @param nuevoElemento
+     * lo que el usuario escribio en el detonante de la acción.
+     * @param nuevoElemento El elemento que se quire escribir en el dialogo. 
      */
     public void proveedoresAbrirDialogo(String nuevoElemento){
         this.getDialogoRegistrarProveedor().configurar();
@@ -209,9 +207,21 @@ public class Coordinador {
         this.getDialogoRegistrarProveedor().setVisible(true);
     }
     
+    //VALIDACIONES
+    /**
+     * Valida la lista de proveedores que se asociaran con una refacción. 
+     * @param lista Lista de datos para comprobar si son validos. 
+     * @return Lista con el resultado de las validaciones.
+     * @see Validacion
+     */
+    public List<Validacion> refaccionValidarCamposProveedor(List<RelacionRefaccionProveedorVo> lista){
+        return this.logica.refaccionValidarCamposProveedor(lista);
+    } 
+    
+    //GUARDAR Y CONSULTAR.
     /**
      * Guarda un proveedor en la base de datos. 
-     * @param vo
+     * @param vo Los datos del proveedor. 
      */
     public void proveedorGuardar(ProveedorVo vo){
         this.logica.proveedorGuardar(vo);
@@ -222,7 +232,7 @@ public class Coordinador {
     
     /**
      * Consulta toda la lista de proveedores y retorna solo el campo empresa.  
-     * @return 
+     * @return  Toda la lista de proveedores existentes. 
      */
     public List<ProveedorVo> proveedoresConsultarMarcas(){
         return this.logica.proveedorConsultarMarcas();
@@ -232,7 +242,10 @@ public class Coordinador {
     /**
      * Consulta toda la lista de proveedores y retorna solo el campo empresa 
      * filtrando las coincidencias con el id que se le pase como parametro.  
-     * @return 
+     * @param id El id que se quiere filtrar en la tabla. 
+     * @return La lista de relaciones entre una refacción y un proveedor dentro de un 
+     * clase para ello.
+     * @see RelacionRefaccionProveedorVo
      */
     public List<RelacionRefaccionProveedorVo> proveedoresConsultarMarcas(int id){
         return this.logica.proveedorConsultarMarcas(id);
@@ -240,12 +253,14 @@ public class Coordinador {
     
     /**
      * Revisa si proveedorExiste un proveedor en la base de datos. 
+     * @param proveedor El nombre del proveedor.
+     * @return Retorna true si existe. 
      */
     public boolean proveedorExiste (String proveedor){
         return this.logica.proveedorExiste(proveedor);
     }
     
-    
+    //VALIDACIONES 
     public List<Validacion> proveedorValidarCampos(ProveedorVo Vo){
         return this.logica.proveedorValidarCampos(Vo);
     
@@ -385,15 +400,8 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
+    
     //VALIDACIONES.
-    
-    
-    public void refaccionAbrirPanelConsultaRefacciones(){
-        this.getMarcoParaVentanaPrincipal()
-                .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_INICIO);
-        
-    }
-    
     
     public List<Validacion> refaccionValidarCampos(RefaccionVo vo){
         return this.logica.refaccionValidarCampos(vo);        
@@ -404,44 +412,16 @@ public class Coordinador {
     
     /**
      * Valida la lista de refaccione que se asociaran con esta refacción. 
-     * @param lista
+     * @param lista La lista de RelacionRefaccionMaquinaModeloVo a validar.
+     * @return Retorna el resultad de la valicacion en una clase Validacion.
+     * @see Validacion
      */
     public List<Validacion> refaccionValidarCamposMaquinaModelo(List<RelacionRefaccionMaquinaModeloVo> lista){
         
         return this.logica.refaccionValidarCamposMaquinaModelo(lista);
     }
     
-    /**
-     * Valida la lista de proveedores que se asociaran con esta refacción. 
-     * @param lista
-     */
-    public List<Validacion> refaccionValidarCamposProveedor(List<RelacionRefaccionProveedorVo> lista){
-        return this.logica.refaccionValidarCamposProveedor(lista);
-    } 
-    
-    public boolean refaccionExisteCodigoInterno(String codigo){
-        return this.logica.refaccionExisteCodigoInterno(codigo);
-    }
-    
-    public List<RefaccionVo> refaccionConsultar(){
-        return this.logica.refaccionConsultar();
-    }
-    
-    public RefaccionVo refaccionConsultar(int id){
-        return this.logica.refaccionConsultar(id);
-    }
-    
-    public List<RefaccionVo> refaccionConsultarTodoBusqueda(String buscar){
-        return this.logica.refaccionConsultarTodoBusqueda(buscar);
-    }
-    
-    public void refaccionActualizarPanerlConsultaRefacciones(){
-        this.getPanelConsultaRefacciones().cargarRefaccionesInicio();
-    }
-    
-    
-    
-    
+    //ABRIR PANEL DIALOGOS
     private Deque<Integer> refaccionesPorModificarId = new ArrayDeque<>();
     private boolean salirDeCicloRefaccionesPorModificar = false;
     /**
@@ -501,27 +481,97 @@ public class Coordinador {
     }
     
     /**
-     * 
+     * Abre el panel para modificar una sola refaccion en secuencia desde el Deque
+     * refaccionesPorModificar. Se utiliza para itinerar hasta que ya no haya 
+     * refacciones en la lista por modificar. Esta funcion llama a la funcion
+     * sobrecargada refaccionAbrirPanelModificar(boolean cancelar) con el parametro
+     * por defecto en falso. De esta manera no jala los datos que esten seleccionados
+     * en la tabla de refacciones.
      */
     public void refaccionAbrirPanelModificar(){
         refaccionAbrirPanelModificar(false);
     }
     
+    /**
+     * Abre el panel para modificar la refacción que se le pase como parametro.
+     * @param idRefaccion El id de la refacción que se quiere modificar. 
+     */
+
     public void refaccionAbrirPanelModificar(int idRefaccion){
         this.getMarcoParaVentanaPrincipal()
                 .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION);
         this.getPanelModificarRefaccion().configurar(idRefaccion, 0);
     }
     
+    public void refaccionAbrirPanelConsultaRefacciones(){
+        this.getMarcoParaVentanaPrincipal()
+                .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_INICIO);
+        
+    }
+    
+    //DETALLE DE REFACCIONES
+    public void refaccionAbrirDetalleRefaccion(String id){
+        this.getDialogoDetalleRefaccion_().configurar(id);
+        this.getDialogoDetalleRefaccion_().setVisible(true);
+    }
+    
+    //DETALLE DE IMAGENES
+    
+    public void refaccionAbrirDetalleImagen(){
+        this.getDialogoDetalleImagen().setVisible(true);
+        this.getDialogoDetalleImagen().configurar();
+    
+    }
+    
+    public void refaccionMostrarDetalleActualizarImagenes(int id){
+        this.getDialogoDetalleRefaccion_().cargarImagenes(id);
+        this.getDialogoDetalleImagen().cargarImagenes();
+    }
     
     //GUARDAR DATOS
     public void refaccionGuardar(RefaccionVo vo){
         this.logica.refaccionGuardar(vo);
     }
     
+    //CONSULTAR DATOS
+    
     public int refaccionConsultarUltimoId(){
         return this.logica.refaccionConsultarUltimoId();
     }
+    
+     public boolean refaccionExisteCodigoInterno(String codigo){
+        return this.logica.refaccionExisteCodigoInterno(codigo);
+    }
+    
+    public List<RefaccionVo> refaccionConsultar(){
+        return this.logica.refaccionConsultar();
+    }
+    
+    public RefaccionVo refaccionConsultar(int id){
+        return this.logica.refaccionConsultar(id);
+    }
+    
+    public List<RefaccionVo> refaccionConsultarTodoBusqueda(String buscar){
+        return this.logica.refaccionConsultarTodoBusqueda(buscar);
+    }
+    
+    public void refaccionActualizarPanerlConsultaRefacciones(){
+        this.getPanelConsultaRefacciones().cargarRefaccionesInicio();
+    }
+    
+    /**
+     * Retorna la lista de imágenes consultadas en DialogoDetalleRefaccion.
+     * @return  Las imágenes ya cargadas en otro dialogo.
+     */ 
+    public List<ImagenVo> refaccionListaDeImagenesDetalles(){
+        return this.getDialogoDetalleRefaccion_().getListaImagenesRefaccion();
+    }
+    
+    //MODIFICAR DATOS.
+    public void refaccionModificar(RefaccionVo vo){
+        this.logica.refaccionModificar(vo);
+    }
+    
     
     //IMAGENES
     public String imagenGuardarLista(List<ImagenVo> vo){
@@ -537,48 +587,64 @@ public class Coordinador {
     }
     
     
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE REFACCION
+    ========================================================================
+    */
     
-    //RELACION REFACCION MAQUINA MODELO
+    /* 
+    ========================================================================
+       INICIO DE RELACION REFACCION MAQUIN-AMODELO
+    ////////////////////////////////////////////////////////////////////////
+    */
     
+    /**
+     * Guarda la lista de maquina-modelo que este relacionada con una refacción
+     * en especifico.
+     * @param listaVo La lista de RelacionRefaccionMaquinaModeloVo que se quiere
+     * guardar. 
+     */
     public void relacionRefaccionMaquinaModeloGuardarLista(
             List <RelacionRefaccionMaquinaModeloVo> listaVo){
         this.logica.relacionRefaccionMaquinaModeloGuardarLista(listaVo);
     }
     
-    public void relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
-        this.logica.relacionRefaccionProveedorGuardarLista(listaVo);
-    }
-    
-    
-    //DETALLE DE REFACCIONES
-    public void refaccionMostrarDetalle(String id){
-        this.getDialogoDetalleRefaccion_().configurar(id);
-        this.getDialogoDetalleRefaccion_().setVisible(true);
-    }
-    
-    //DETALLE DE IMAGENES
-    
-    public void refaccionMostrarDetalleImagen(){
-        this.getDialogoDetalleImagen().setVisible(true);
-        this.getDialogoDetalleImagen().configurar();
-    
-    }
-    
-    public void refaccionMostrarDetalleActualizarImagenes(int id){
-        this.getDialogoDetalleRefaccion_().cargarImagenes(id);
-        this.getDialogoDetalleImagen().cargarImagenes();
-    }
-    
     /**
-     * Retorna la lista de imágenes consultadas en DialogoDetalleRefaccion.
-     */ 
-    public List<ImagenVo> refaccionListaDeImagenesDetalles(){
-        return this.getDialogoDetalleRefaccion_().getListaImagenesRefaccion();
+     * Actualiza la lista de máquinas relacionadas con una refacción.
+     * @param lvo La lista de RelacionRefaccionMaquinaModeloVo que se quieren
+     * actualizar. 
+     */
+    public void relacionRefaccionMaquinaModeloActualizarLista(
+            List<RelacionRefaccionMaquinaModeloVo> lvo){
+        this.logica.relacionRefaccionMaquinaModeloActualizar(lvo);
     }
     
     /* 
     ////////////////////////////////////////////////////////////////////////
-        FIN DE REFACCION
+        FIN DE RELACION REFACCION MAQUIN-AMODELO
+    ========================================================================
+    */
+    
+    
+    /* 
+    ========================================================================
+       INICIO DE RELACION REFACCION PROVEEDOR
+    ////////////////////////////////////////////////////////////////////////
+    */
+    
+    public void relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
+        this.logica.relacionRefaccionProveedorGuardarLista(listaVo);
+    }
+    
+    public void relacionRefaccionProveedorActualizarLista(
+            List<RelacionRefaccionProveedorVo> listaVo){
+        this.logica.relacionRefaccionProveedorActualizarLista(listaVo);
+    }
+    
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE RELACION REFACCION PROVEEDOR
     ========================================================================
     */
     

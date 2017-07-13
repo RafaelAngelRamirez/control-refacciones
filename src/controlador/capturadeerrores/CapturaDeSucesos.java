@@ -19,23 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class CapturaDeSucesos {
 
-    private DescripcionDeSuceso descripcionDeSuceso;
+//    private DescripcionDeSuceso descripcionDeSuceso;
     private final TipoDeSucesoOErrores tiposDeSucesoOErrores = new TipoDeSucesoOErrores();
     public Coordinador coordinador;
     private  boolean debug;
     
     /**
-     * Junto con las clases <code> DescripcionDeSuceso</code>  y <code>TipoDeSucesoOErrores</code> gestiona los 
- errores que se vayan dando en el sistema. 
-     * 
-     * 
-     * @param controlador El coordinador general del sistema. Es necesario para
- pasar el control de la consolaDeErrores en este caso.
-     * @see DescripcionDeSuceso 
-     * @see TipoDeSucesoOErrores
+     * Retorna el jefe de jefes.
+     * @return Si señor!
      */
-  
-
     public Coordinador getCoordinador() {
         return coordinador;
     }
@@ -53,15 +45,11 @@ public class CapturaDeSucesos {
     }
     
     
-    
-    
-    
-    
    
     /**
      * Imprime en la consolaDeErrores de debug sin guardar en log ni en base de datos.  
      * 
-     * @param textoAMostrar
+     * @param textoAMostrar El texto que se mostrara en la consola. 
      */
     public void println(String textoAMostrar){
        this.println(textoAMostrar, null);
@@ -69,9 +57,9 @@ public class CapturaDeSucesos {
      /**
      * Imprime en la consolaDeErrores de debug sin guardar en log ni en base de datos.  
      * 
-     * @param textoAMostrar
-     * @param clase
-     * @param mostarVentanaEmergente
+     * @param textoAMostrar el texto que se mostrara en la consola. 
+     * @param clase La clase de donde se ejecuto la operación.
+     * @param mostarVentanaEmergente Si se quiere mostrar ventana o no. 
      */
     public void println(String textoAMostrar, Object clase, boolean mostarVentanaEmergente){
         if (this.debug) {
@@ -83,8 +71,8 @@ public class CapturaDeSucesos {
     /**
      * Imprime en la consolaDeErrores de debug sin guardar log ni base de datos.  
      * 
-     * @param textoAMostrar
-     * @param clase
+     * @param textoAMostrar El texto que se quiere mostrar. 
+     * @param clase La clase donde se ejecutó la operación. 
      */
     public void println(String textoAMostrar, Object clase){
         String usuario="";
@@ -105,37 +93,37 @@ public class CapturaDeSucesos {
         }
     }
     
-    /**
-     *  Ejecuta las acciones por defecto según el tipo de error que se definio 
-     * al pasar la descripción del suceso.
-     *  
-     */
-    public void ejecutar(){
-        
-        switch(this.descripcionDeSuceso.getTipoDeError()){
-           case 0:
-               this.mostrarMensajeEmergente();
-               this.mostrarErrorEnConsola();
-               this.EJECUTAR_ERROR_FATAL();
-               break;
-           case 2:
-               this.mostrarErrorEnConsola();
-               break;
-            
-               
-           default:
-                JOptionPane.showMessageDialog(null, "ERROR NO DEFINIDO: "
-                + this.descripcionDeSuceso.getTipoDeError());
-       }
-    }
+//    /**
+//     *  Ejecuta las acciones por defecto según el tipo de error que se definio 
+//     * al pasar la descripción del suceso.
+//     *  
+//     */
+//    public void ejecutar(){
+//        
+//        switch(this.descripcionDeSuceso.getTipoDeError()){
+//           case 0:
+//               this.mostrarMensajeEmergente();
+//               this.mostrarErrorEnConsola();
+//               this.EJECUTAR_ERROR_FATAL();
+//               break;
+//           case 2:
+//               this.mostrarErrorEnConsola();
+//               break;
+//            
+//               
+//           default:
+//                JOptionPane.showMessageDialog(null, "ERROR NO DEFINIDO: "
+//                + this.descripcionDeSuceso.getTipoDeError());
+//       }
+//    }
 
-    
-    private void mostrarMensajeEmergente(){
-        //MUESTRA LA VENTANA EMERGENTE CON EL MENSAJE DEFINIDO.
-        JOptionPane.showMessageDialog(this.descripcionDeSuceso.getPadreJFrame(),
-                                      this.descripcionDeSuceso.getMensajeDeError(),
-                                      "ERROR DETECTADO", JOptionPane.ERROR_MESSAGE );
-    }
+//    
+//    private void mostrarMensajeEmergente(){
+//        //MUESTRA LA VENTANA EMERGENTE CON EL MENSAJE DEFINIDO.
+//        JOptionPane.showMessageDialog(this.descripcionDeSuceso.getPadreJFrame(),
+//                                      this.descripcionDeSuceso.getMensajeDeError(),
+//                                      "ERROR DETECTADO", JOptionPane.ERROR_MESSAGE );
+//    }
     
     private void mostrarErrorEnConsola(){
 //        if (this.debug) {
@@ -254,18 +242,18 @@ public class CapturaDeSucesos {
         System.exit(0);
     }
 
-    /**
-     * Recive un objeto tidpo DescripcionDeSuceso para trabajar con la informacion
-     * contenida en el.
-     * @param descripcionDeSuceso
-     * @see DescripcionDeSuceso
-     */
-    public void setDescripcionDeSuceso(DescripcionDeSuceso descripcionDeSuceso) {
-        this.descripcionDeSuceso = descripcionDeSuceso;
-    }
-
-    public DescripcionDeSuceso getDescripcionDeSuceso() {
-        return descripcionDeSuceso;
-    }
+//    /**
+//     * Recive un objeto tidpo DescripcionDeSuceso para trabajar con la informacion
+//     * contenida en el.
+//     * @param descripcionDeSuceso La descripción de lo que paso. 
+//     * @see DescripcionDeSuceso
+//     */
+//    public void setDescripcionDeSuceso(DescripcionDeSuceso descripcionDeSuceso) {
+//        this.descripcionDeSuceso = descripcionDeSuceso;
+//    }
+//
+//    public DescripcionDeSuceso getDescripcionDeSuceso() {
+//        return descripcionDeSuceso;
+//    }
             
 }

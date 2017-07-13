@@ -29,7 +29,7 @@ public class UtilidadesBotones_ {
     
     /**
      * Estable el boton que se utilizara.  
-     * @param boton
+     * @param boton El botón para esta utilidad. 
      */
     public void setComponente(JButton boton){
         this.boton = boton;
@@ -38,6 +38,7 @@ public class UtilidadesBotones_ {
     /**
      * Da la propiedad de ejecutar la acción predeterminada del botón al presionar
      * enter. No confundir con la asinación de una acción.
+     * @param boton Botón que se quiere asignar. 
      */
     public static void setEnterYEspacio(JButton boton){
         InputMap map = new InputMap();

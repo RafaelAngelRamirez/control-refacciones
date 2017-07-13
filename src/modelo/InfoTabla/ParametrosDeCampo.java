@@ -39,6 +39,7 @@ public class ParametrosDeCampo {
     
     /**
      * Nombre del campo como esta definido en la tabla. 
+     * @return El nombre del campo. 
      */
     public String getNombre() {
         return nombre;
@@ -47,7 +48,7 @@ public class ParametrosDeCampo {
     /**
      * Nombre del campo. Definir como esta en la base de datos. 
      * 
-     * @param nombre
+     * @param nombre El nombre del campo como esta en la base de datos. 
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -59,7 +60,7 @@ public class ParametrosDeCampo {
     
     /**
      * Nombre para mostrar del campo. Definir como se quiere mostrar. 
-     * @param nombreParaMostrar
+     * @param nombreParaMostrar El nombre que se mostrara al usuario. 
      */
     public void setNombreParaMostrar(String nombreParaMostrar) {
         this.nombreParaMostrar = nombreParaMostrar;
@@ -77,6 +78,7 @@ public class ParametrosDeCampo {
     
     /**
      * Cantidad de caracteres definidos para el campo en la base de datos. 
+     * @return La longitud de los caracteres que se definieron en la base de datos. 
      */
     public int getLongitudDeCaracteres() {
         Integer a = new Integer(longitudDeCaracteres);
@@ -96,7 +98,7 @@ public class ParametrosDeCampo {
     
     /**
      * Longitud del campo como se definio en la bae de datos. 
-     * @param longitudDeCaracteres
+     * @param longitudDeCaracteres La longitud de los caracteres que se definieron en la base de datos. 
      */
     public void setLongitudDeCaracteres(int longitudDeCaracteres) {
         this.longitudDeCaracteres = longitudDeCaracteres;
@@ -105,7 +107,7 @@ public class ParametrosDeCampo {
     /**
      * Cantidad de decimales definidos para los tipos float y decimal en la 
      * base de datos.
-     * @return 
+     * @return La longitud de los decimales que se definieron en la base de datos. 
      */
     public int getLongitudDeDecimales() {
         try {
@@ -147,10 +149,10 @@ public class ParametrosDeCampo {
     }
 
     /**
-     * Longitud de los decimales en la tabla. No necesario para cadenas. Pero
+     * Longitud de los decimales en la tabla. No necesario para cadenas, pero
      * si es necesario que se defina el tipo de datos para descartar las comprobaciones
      * de este tipo.
-     * @param longitudDeDecimales
+     * @param longitudDeDecimales La longitud de los decimales que se definieron en la base de datos. 
      */
     public void setLongitudDeDecimales(int longitudDeDecimales) {
         try{
@@ -190,6 +192,7 @@ public class ParametrosDeCampo {
     
     /**
      * Tipo de datos definido en la tabla. 
+     * @return Retorna una cadena con el tipo de datos. 
      */
     public String getTipoDeDatos() {
         if (tipoDeDatos.isEmpty()) {
@@ -208,7 +211,7 @@ public class ParametrosDeCampo {
 
     /**
      * Tipo de datos para el campo definido en la tabla. 
-     * @param tipoDeDatos
+     * @param tipoDeDatos Define el tipo de datos que aceptara. 
      */
     public void setTipoDeDatos(String tipoDeDatos) {
         if (!this.tiposDeDatoEnLaBD.contains(tipoDeDatos)) {
@@ -228,10 +231,11 @@ public class ParametrosDeCampo {
     
     /**
      * Retorna true o false según sea el caso definido en la tabla para el campo. 
+     * @return True si permite nulos. 
      */
     public boolean isNulo() {
         Boolean a = new Boolean(nulo);
-        if (a == null) {
+        if (null == null) {
             try {
                 throw new ExcepcionPersonalizada(
                         "No definiste si el campo acepta nulos.",
@@ -246,6 +250,7 @@ public class ParametrosDeCampo {
     
     /**
      *Permite valores nulos dentro de la tabla. 
+     * @param nulo True si se permite nulo. 
      */
     public void setNulo(boolean nulo) {
         if (autoIncrement && nulo) {
@@ -264,6 +269,7 @@ public class ParametrosDeCampo {
     
     /**
      * Retorna true o false según sea el caso definido en la tabla para el campo. 
+     * @return Retorna true si es autoincremente. 
      */
     public boolean isAutoIncrement() {
         Boolean a = autoIncrement;
@@ -282,7 +288,7 @@ public class ParametrosDeCampo {
 
     /**
      * La columna esta definida como autoincrement. 
-     * @param autoIncrement
+     * @param autoIncrement True para definir como autoincrement. 
      */
     public void setAutoIncrement(boolean autoIncrement) {
         if (autoIncrement && nulo) {

@@ -44,6 +44,8 @@ public class UtilidadesModeloDeTabla_ extends DefaultTableModel {
      * Es necesario primero escribir los títulos para que no se sobreescriban
      * los datos.
      * 
+     * @param mapaDatos Mapa de datos super complicado que no entiendo a la 
+     * hora de comentar. XP!!! Hay que comentar esto.
      */
     public void addDatos(HashMap<Integer,String> mapaDatos){
         Object[] fila = new Object[mapaDatos.size()];
@@ -59,7 +61,7 @@ public class UtilidadesModeloDeTabla_ extends DefaultTableModel {
     
     /**
      *Define los encabezados que llevara la tabla. 
-     * @param titulosDeLaTabla
+     * @param titulosDeLaTabla Los títulos que llevara la tabla.
      */
     public void setTitulosDeLaTabla(String[] titulosDeLaTabla) {
         this.setColumnIdentifiers(titulosDeLaTabla);

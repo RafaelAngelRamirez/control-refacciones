@@ -26,9 +26,9 @@ public class MaquinaModeloDao_ extends DAOGenerales_{
     
     /**
      * Revisa si el modelo de la máquina existe en la base de datos. 
-     * @param modelo
-     * @param anio
-     * @return 
+     * @param modelo - El modelo de la máquina. 
+     * @param anio - El año de la maquina.
+     * @return Si existe la combinacion retorn true. 
      */
     public boolean existe(String modelo, int anio){
         try {
@@ -65,6 +65,7 @@ public class MaquinaModeloDao_ extends DAOGenerales_{
     
     /**
      * Consulta todos los modelos.
+     * @return Retorna todas las máquinas-modelo.
      */
     public List<MaquinaModeloVo> consultar(){
         String sql = "SELECT * FROM " +MaquinaModeloIT.NOMBRE_TABLA;

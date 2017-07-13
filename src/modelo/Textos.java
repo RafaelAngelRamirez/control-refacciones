@@ -10,7 +10,10 @@ import java.util.List;
 public class Textos {
     
     /**
-     * Retorna solo letras de la cadea que se le pase.  
+     * Retorna solo letras de la cadena que se le pase.  
+     * @param texto El texto que se quiere filtrar.
+     * @return La cadena limpia de cualquier cosa que no coincida con 
+     * Character.isAlphabetic(c) || Character.isWhitespace(c)
      */
     public static String soloLetras(String texto){
         String nuevoTesto = "";
@@ -25,6 +28,9 @@ public class Textos {
     
     /**
      * Retorna solo números dentro de una cadena de texto.  
+     * @param texto El texo que se quiere filtrar. 
+     * @return  El String que del que se quieren eliminar cualquier cosa que 
+     * no coincida con Character.isDigit(c)
      */
     public static String soloNumeros(String texto){
         String nuevoTesto = "";
@@ -40,6 +46,9 @@ public class Textos {
     /**
      * Escapa los caractéres que puedan impedir el funcionamiento del REGEXP.
      * 
+     * @param texto El texto que será utilizado en REGEXP.
+     * @return La cadena con los caracteres escapados que pudieran perjudijar el 
+     * REGEXP.
      */
     public static String especialREGEX(String texto){
         List<String> ls = new ArrayList<>();
@@ -59,8 +68,5 @@ public class Textos {
             }
         }       
         return String.join("", arreglo);
-    
     }
-    
-    
 }

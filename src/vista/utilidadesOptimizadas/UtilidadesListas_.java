@@ -39,7 +39,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
 
     /**
      * Remueve un elemento de la lista.
-     * @param dato
+     * @param dato El elemento que se quiere remover.
      */
     public void removeElement(Object dato){
         DefaultListModel defaultListModel =(DefaultListModel) this.lista.getModel();
@@ -49,7 +49,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     
     /**
      * Cambia los elementos que se pasen a la segúnda lista.
-     * @param dato
+     * @param dato El dato que se quiere interacambiar.
      */
     public void cambioEntreListas(Object dato){
         DefaultListModel l1 =(DefaultListModel) this.getThis().getModel();
@@ -59,30 +59,38 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
         l2.addElement(dato);
     }
     
-    /**
-     * Nombre que la sentencia sql necesita para recuperar el dato de la 
-     * columna id.
-     */
-    public void setNombreColumnaId(String nombreColumnaId) {
-        this.nombreColumnaId = nombreColumnaId;
-    }
+//    /**
+//     * Nombre que la sentencia sql necesita para recuperar el dato de la 
+//     * columna id.
+//     * @param nombreColumnaId
+//     */
+//    public void setNombreColumnaId(String nombreColumnaId) {
+//        this.nombreColumnaId = nombreColumnaId;
+//    }
     
-    /**
-     * Nombre de la columna que se mostrara dentro de la lista.
-     */
-    public void setNombreDatoAMostrar(String nombreDatoAMostrar) {
-        this.nombreDatoAMostrar = nombreDatoAMostrar;
-    }
+//    /**
+//     * Nombre de la columna que se mostrara dentro de la lista.
+//     * @param nombreColumnaAMostrar La columna conforme a la BD para obtener
+//     * los datos y cargarlos en esta lista. 
+//     */
+//    public void setNombreDatoAMostrar(String nombreColumnaAMostrar) {
+//        this.nombreDatoAMostrar = nombreColumnaAMostrar;
+//    }
     
     /**
     * Lista en la que se cargaran los datos. Para listas dobles con interación
     * tambien es neceasrios agregar setListaAAgregar.
-     * @param lista
+     * @param lista La lista que se quiere manejar con esta utilidad.
     */
     public void setComponente(JList<String> lista) {
         this.lista = lista;
     }
    
+    /**
+     * La lista con la que se intercambiaran datos. Se setea aqui para un manejo
+     * más facil.
+     * @return El componente JList.
+     */
     public UtilidadesListas_ getListaAAgregar() {
         return listaAAgregar;
     }
@@ -91,7 +99,8 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     * Lista en la que se cargaran los datos de la lista principal setComponente()
  cuando se invoque cambioEntreListas().
     * 
-     * @param listaAAgregar
+     * @param listaAAgregar La lista que se quiere manejar para el intercambio de
+     * datos.
     */
     public void setListaAAgregar(UtilidadesListas_ listaAAgregar) {
         this.listaAAgregar = listaAAgregar;
@@ -115,7 +124,8 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
      * Es necesario precisar el id para que este tambien quede almacenado y
      * despues se pueda recuper facilmente. 
      * 
-     * @param datos
+     * @param datos El mapa que contiene los datos relacionados con id para
+     * mostrarse en la lista. 
      */
     public void cargarLista(HashMap <String, Integer> datos) {
         this.coordinador.getSystemOut().println("[i]Cargando datos en lista.", this);
@@ -305,21 +315,23 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
 
     /**
      *  Agrega elementos a la lista uno por uno. Copia todo lo que hay. 
-     * @param txt
+     * @param txt Texto a agregar
      */
     @Override
     public void setText(String txt) {
-        ListModel modelo = this.lista.getModel();
-        DefaultListModel nuevoModelo = new DefaultListModel();
-        for (int i = 0; i < modelo.getSize(); i++) {
-            nuevoModelo.addElement(modelo.getElementAt(i));
-        }
-        nuevoModelo.addElement(txt);
-        this.lista.setModel(nuevoModelo);
+        DefaultListModel modelo = (DefaultListModel)this.lista.getModel();
+        modelo.addElement(txt);
+//        DefaultListModel nuevoModelo = new DefaultListModel();
+//        for (int i = 0; i < modelo.getSize(); i++) {
+//            nuevoModelo.addElement(modelo.getElementAt(i));
+//        }
+//        nuevoModelo.addElement(txt);
+//        this.lista.setModel(nuevoModelo);
     }
     
     /**
      *  Retorna el mapa que contiene la relación que hay entre el elemento y el id; 
+     * @return Un mapa String, int.
      */
     public HashMap getItems(){
         return this.relacionDatoId;
