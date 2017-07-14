@@ -235,7 +235,7 @@ public class ParametrosDeCampo {
      */
     public boolean isNulo() {
         Boolean a = new Boolean(nulo);
-        if (null == null) {
+        if (a == null) {
             try {
                 throw new ExcepcionPersonalizada(
                         "No definiste si el campo acepta nulos.",

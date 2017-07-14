@@ -259,7 +259,7 @@ public class RefaccionDao extends DAOGenerales_{
     
     public boolean modificar(RefaccionVo vo){
         String sql = 
-            "UPDATE TABLE " + RefaccionIT.NOMBRE_TABLA 
+            "UPDATE " + RefaccionIT.NOMBRE_TABLA 
             + " SET " +
                 it.getNombrePDC().getNombre()+ "= ? , " +
                 it.getIdMaterialPDC().getNombre()+ "= ? , " +
@@ -272,15 +272,15 @@ public class RefaccionDao extends DAOGenerales_{
                 it.getDescripcionPDC().getNombre()+ "= ? , " +
                 it.getQueEsPDC().getNombre()+ "= ? , " +
                 it.getParaQueEsPDC().getNombre()+ "= ?   " 
-            + " WHERE " + it.getIdPDC() + "= ?";
+            + " WHERE " + it.getIdPDC().getNombre() + "= ?";
         
         HashMap<Integer, String> mapa = new HashMap<>();
         mapa.put(1, vo.getNombre());
-        mapa.put(2, (String) vo.getIdMaterial());
-        mapa.put(3, (String)vo.getImportancia());
+        mapa.put(2, (int)vo.getIdMaterial()+"");
+        mapa.put(3, (int)vo.getImportancia()+"");
         mapa.put(4, vo.getStockMinimo()+"");
         mapa.put(5, vo.getStockMaximo()+"");
-        mapa.put(6, (String)vo.getUnidad());
+        mapa.put(6, (int)vo.getUnidad()+"");
         mapa.put(7, vo.getCodigoInterno());
         mapa.put(8, vo.getCodigoProveedor());
         mapa.put(9, vo.getDescripcion());
