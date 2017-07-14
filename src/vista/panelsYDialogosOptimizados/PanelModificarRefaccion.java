@@ -1696,8 +1696,8 @@ public class PanelModificarRefaccion extends JPanel {
                 aa.setIdRefaccion(idRefaccion);
             }
 
-            this.getCoordinador().relacionRefaccionMaquinaModeloActualizarLista(listarrmmVo);
-            this.getCoordinador().relacionRefaccionProveedorActualizarLista(listarrpVo);
+            this.getCoordinador().relacionRefaccionMaquinaModeloModificarLista(listarrmmVo);
+            this.getCoordinador().relacionRefaccionProveedorModificarLista(listarrpVo);
                 limpiarTodo();
                 this.coordinador.refaccionActualizarPanerlConsultaRefacciones();
                 JOptionPane.showMessageDialog(

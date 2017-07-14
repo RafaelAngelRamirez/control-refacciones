@@ -13,10 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.InfoTabla.ImagenIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
-import modelo.vo.ImagenVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 
@@ -34,7 +32,7 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         this.it = new RelacionRefaccionMaquinaModeloIT();
     }
     
-    public void guardarLista(List <RelacionRefaccionMaquinaModeloVo> listaVo){
+    public boolean guardarLista(List <RelacionRefaccionMaquinaModeloVo> listaVo){
         //LOS VALUES PARA EL INSERT.
         String values ="";
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
@@ -66,7 +64,7 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         String sql = "INSERT INTO " +RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA 
                 + " VALUES " + values;
                
-        conexion.executeUpdate(sql, mapa);
+        return conexion.executeUpdate(sql, mapa);
     }
     
     public List<RelacionRefaccionMaquinaModeloVo> consultarModeloAnio(int id){
@@ -102,11 +100,15 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         } catch (SQLException ex) {
             Logger.getLogger(RelacionRefaccionMaquinaModeloDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-        
         return lrrmm;
     }
     
+    public boolean modificar(List<RelacionRefaccionMaquinaModeloVo> vo){
+        String sql = "DELETE FROM "+RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA +
+                " WHERE " +it.getIdRefaccionPDC().getNombre() + "=?" ;
+        conexion.executeUpdate(sql, vo.get(0).getIdRefaccion()+"");
+        
+        
+        return guardarLista(vo);
+    }
 }

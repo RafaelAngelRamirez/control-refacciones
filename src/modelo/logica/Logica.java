@@ -625,6 +625,7 @@ public class Logica {
         
         return a;
     }
+    
     public List<Validacion> refaccionValidarCamposProveedor(List<RelacionRefaccionProveedorVo> lista){
         Validacion val = new Validacion();
         RelacionRefaccionProveedorIT it = new RelacionRefaccionProveedorIT();
@@ -662,6 +663,17 @@ public class Logica {
     public RefaccionVo refaccionConsultar(int id){
         RefaccionDao d = new RefaccionDao(coordinador);
         return d.consultarPorId(id);
+    }
+    
+    //MODIFICAR DATOS.
+
+    /**
+     * Modifica la refacción que se le pase como parametro. 
+     * @param vo Los dato de la refacción. 
+     */
+    public void refaccionModificar(RefaccionVo vo){
+        RefaccionDao d = new RefaccionDao(coordinador);
+        d.modificar(vo);
     }
     
     /* 
@@ -707,10 +719,25 @@ public class Logica {
        INICIO REGISTRO RELACION REFACCION MAQUINA-MODELO
     ////////////////////////////////////////////////////////////////////////
     */
-    
+
+    /**
+     * Guarda la lista de MaquinaModelo relacionada con una refaccion. 
+     * @param listaVo La lista de maquina-modelo a guardar. 
+     */
     public void relacionRefaccionMaquinaModeloGuardarLista(List<RelacionRefaccionMaquinaModeloVo> listaVo){
         RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
         d.guardarLista(listaVo);
+    }
+    
+   /**
+     * Actualiza la lista de máquinas relacionadas con una refacción.
+     * @param lvo La lista de RelacionRefaccionMaquinaModeloVo que se quieren
+     * actualizar. 
+     */
+    public boolean relacionRefaccionMaquinaModeloModificarLista(
+            List<RelacionRefaccionMaquinaModeloVo> lvo){
+        RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
+        return d.modificar(lvo);
     }
     
     /* 
@@ -724,10 +751,28 @@ public class Logica {
        INICIO REGISTRO RELACION REFACCION PROVEEDOR
     ////////////////////////////////////////////////////////////////////////
     */
+
+    /**
+     * Guarda la lista de proveedores relacionados con una refaccion.
+     * @param listaVo La lista de proveedores a guardar. 
+     */
+
     public void relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
         RelacionRefaccionProveedorDao d = new RelacionRefaccionProveedorDao(coordinador);
         d.guardarLista(listaVo);
     }
+    
+    /**
+     * Actualiza la lista de máquinas relacionadas con una refacción. 
+     * @param listaVo La lista de proveedores a actualizar. 
+     */
+    public boolean relacionRefaccionProveedorModificarLista(
+            List<RelacionRefaccionProveedorVo> listaVo){
+        RelacionRefaccionProveedorDao d = new RelacionRefaccionProveedorDao(coordinador);
+        return d.modificar(listaVo);
+     }
+    
+    
     
     /* 
     ////////////////////////////////////////////////////////////////////////

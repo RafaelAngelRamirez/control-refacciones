@@ -7,12 +7,8 @@ import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
 import javax.swing.JOptionPane;
-import modelo.InfoTabla.MaquinaIT;
-import modelo.dao.RelacionRefaccionProveedorDao;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenVo;
@@ -26,7 +22,7 @@ import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.UnidadVo;
 import vista.MarcoParaVentanaPrincipal;
 import vista.panelsYDialogosOptimizados.*;
-import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
+
 /**
  * Se controlan todas las interacciónes entre las diferentes ventanas. Se mantiene
  * una sola instancia de conexión, usuario y controlador general.
@@ -443,7 +439,7 @@ public class Coordinador {
             //COMPROBAMOS QUE NO ESTE PUESTRO EN TRUE salirDeCicloRefaccionesPorModificar
             // PARA CONTINUAR MODIFICANDO REFACCIONES.
             if (!salirDeCicloRefaccionesPorModificar) {
-                //SI NO TENEMOS NINGUNA REFACCION POR MODIFAR CARGAMOS LAS QUE
+                //SI NO TENEMOS NINGUNA REFACCION POR MODIFICAR CARGAMOS LAS QUE
                 // ESTEN SELECCIONADAS EN LA TABLA.
                 if (refaccionesPorModificarId.isEmpty()) {
                     refaccionesPorModificarId = this.getPanelConsultaRefacciones().getIdSeleccionados();
@@ -571,8 +567,16 @@ public class Coordinador {
     public void refaccionModificar(RefaccionVo vo){
         this.logica.refaccionModificar(vo);
     }
-    
-    
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE REFACCION
+    ========================================================================
+    */
+    /* 
+    ========================================================================
+       INICIO DE IMAGEN
+    ////////////////////////////////////////////////////////////////////////
+    */
     //IMAGENES
     public String imagenGuardarLista(List<ImagenVo> vo){
         return this.logica.imagenGuardarLista(vo);
@@ -586,12 +590,13 @@ public class Coordinador {
         this.logica.imagenEliminar(vo);
     }
     
-    
     /* 
     ////////////////////////////////////////////////////////////////////////
-        FIN DE REFACCION
+        FIN DE IMAGEN
     ========================================================================
     */
+    
+   
     
     /* 
     ========================================================================
@@ -615,9 +620,9 @@ public class Coordinador {
      * @param lvo La lista de RelacionRefaccionMaquinaModeloVo que se quieren
      * actualizar. 
      */
-    public void relacionRefaccionMaquinaModeloActualizarLista(
+    public void relacionRefaccionMaquinaModeloModificarLista(
             List<RelacionRefaccionMaquinaModeloVo> lvo){
-        this.logica.relacionRefaccionMaquinaModeloActualizar(lvo);
+        this.logica.relacionRefaccionMaquinaModeloModificarLista(lvo);
     }
     
     /* 
@@ -637,9 +642,9 @@ public class Coordinador {
         this.logica.relacionRefaccionProveedorGuardarLista(listaVo);
     }
     
-    public void relacionRefaccionProveedorActualizarLista(
+    public void relacionRefaccionProveedorModificarLista(
             List<RelacionRefaccionProveedorVo> listaVo){
-        this.logica.relacionRefaccionProveedorActualizarLista(listaVo);
+        this.logica.relacionRefaccionProveedorModificarLista(listaVo);
     }
     
     /* 
