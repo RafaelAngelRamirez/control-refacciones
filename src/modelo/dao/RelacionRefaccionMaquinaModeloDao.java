@@ -119,6 +119,7 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
      * Primero los elimina todos y luego los vuelve a guardar. 
      * @param listaVo La lista nueva que se actualizara para la refacción.
      * @return Devuelve verdadero si todo fue bien. 
+     * 
      */
     public boolean modificar( List<RelacionRefaccionMaquinaModeloVo> listaVo){
         String sql = "DELETE FROM "+ RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
