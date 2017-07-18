@@ -33,8 +33,9 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
      * Guarda la lista de relaciones entre refaccionnes y maquinas modelo que
      * se le pase como parametro. 
      * @param listaVo La lista que se quiere guardar. 
+     * @return  True si todo fue correcto. 
      */
-    public void guardarLista(List <RelacionRefaccionMaquinaModeloVo> listaVo){
+    public boolean guardarLista(List <RelacionRefaccionMaquinaModeloVo> listaVo){
         //LOS VALUES PARA EL INSERT.
         String values ="";
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
@@ -66,7 +67,7 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         String sql = "INSERT INTO " +RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA 
                 + " VALUES " + values;
                
-        conexion.executeUpdate(sql, mapa);
+        return conexion.executeUpdate(sql, mapa);
     }
     
     /**
@@ -112,37 +113,10 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         return lrrmm;
     }
     
+    
     public boolean modificar( List<RelacionRefaccionMaquinaModeloVo> listaVo){
-         //LOS VALUES PARA EL INSERT.
-        String values ="";
-        //PARA IR CONTANDO LA POSICION DEL MAPA ?
-        int contador=1;
-        // EL MAPA QUE RELACIONA ? CON EL DATO.
-        HashMap<Integer, String> mapa = new HashMap<>();
-        //CONTADOR PARA EVITAR LA ÚLTIMA COMA DEL SQL.
-        int conComa=1;
-        //RECORREMOS TODAS LOS MODELOS QUE PASAMOS. 
-        for (RelacionRefaccionMaquinaModeloVo vo : listaVo) {
-            // CREAMOS UNO DE ESTO POR CADA MODELO.
-            values += " (?, ?)";
-            //SI ES LA ULTIMA IMAGEN NO LE PONEMOS COMA.
-            if (listaVo.size()>conComa) {
-                values+=", ";
-            }
-            //ASIGNAMOS LOS DATOS AL MAPA DE DOS EN DOS PUESTO QUE ES EN 
-            // TUPLAS QUE LO QUEREMOS MANEJAR.
-            mapa.put( contador, vo.getIdRefaccion()+"");
-            mapa.put( contador+1, vo.getIdMaquinaModelo()+"");
-            //CONTADOR DE MAPA
-            contador+=2;
-            //CONTADOR DE COMAS
-            conComa++;
-        }
-        String sql = "UPDATE " +RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA 
-                + " VALUES " + values;
-               
-        return conexion.executeUpdate(sql, mapa);
+        String sql = "DELETE FROM "+ RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
+                + " WHERE " + it.getIdRefaccionPDC().getNombre() + " =? ";
+        return this.guardarLista(listaVo);
     }
-    
-    
 }
