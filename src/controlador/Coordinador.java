@@ -43,6 +43,7 @@ public class Coordinador {
     private DialogoRefaccionDetalle dialogoRefaccionDetalle;
     private DialogoImagenDetalle dialogoImagenDetalle;
     private DialogoProveedorRegistrar dialogoProveedorRegistrar;
+    private DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar;
     
     
     public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
@@ -55,6 +56,14 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
 
+    public DialogoMaquinaModeloModificar getDialogoMaquinaModeloModificar() {
+        return dialogoMaquinaModeloModificar;
+    }
+
+    public void setDialogoMaquinaModeloModificar(DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar) {
+        this.dialogoMaquinaModeloModificar = dialogoMaquinaModeloModificar;
+    }
+    
     public PanelRefaccionModificar getPanelRefaccionModificar() {
         return panelRefaccionModificar;
     }
@@ -62,6 +71,7 @@ public class Coordinador {
     public void setPanelRefaccionModificar(PanelRefaccionModificar panelRefaccionModificar) {
         this.panelRefaccionModificar = panelRefaccionModificar;
     }
+    
     public DialogoImagenDetalle getDialogoImagenDetalle() {
         return dialogoImagenDetalle;
     }
@@ -308,6 +318,11 @@ public class Coordinador {
         getDialogoMaquinaModeloAgregar().configurar();
         getDialogoMaquinaModeloAgregar().setVisible(true);
     
+    }
+    
+    public void maquinaModeloAbrirDialogoModificar(){
+        getDialogoMaquinaModeloModificar().configurar();
+        getDialogoMaquinaModeloModificar().setVisible(true);
     }
     
     public List<Validacion> maquinaModeloValidarCampos(MaquinaModeloVo vo){

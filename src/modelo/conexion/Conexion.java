@@ -112,10 +112,10 @@ public class Conexion {
      * <br />
      * 
      * Los singnos de interrogación serán sustituidos por
-     * el número que le pasemos en el HasMap. Por ejemplo:<br />
+     * el número que le pasemos en el HasMap. Por ejemplo:<br>
      * <p style="color:rgb(255,255,0);" >
-     * mapa.put(1, "dato");<br />
-     * mapa.put(2, "dato 2");<br />
+     * mapa.put(1, "dato");<br>
+     * mapa.put(2, "dato 2");<br>
      * </p>
      * 
      * @param sql  La sentencia con '?' para ser sustituido.
@@ -134,27 +134,25 @@ public class Conexion {
      * Solo comando DML (Data Manipulation Languaje)(INSERT, UPDATE, CREATE TABLE,
      * DELETE)
      * Ejecuta la sentencia que se le pase como parametro. Lo importante de esta 
-     * sentencia es que evita SQLInjection. <br />
+     * sentencia es que evita SQLInjection. <br>
      * 
-     * La estructura a utilizar es la siguiente:<br /> 
+     * La estructura a utilizar es la siguiente:<br> 
      * 
      * <p style="color:rgb(255,255,0);" >
      * sql = "INSERT INTO tabla VALUES (null, ?,?) WHERE campo= ?";
      * </p>
      * 
-     * <br />
+     * <br>
      * 
      * Los singnos de interrogación serán sustituidos por
-     * el número que le pasemos en el HasMap. Por ejemplo:<br />
+     * el número que le pasemos en el HasMap. Por ejemplo:<br>
      * <p style="color:rgb(255,255,0);" >
-     * mapa.put(1, "dato");<br />
-     * mapa.put(2, "dato 2");<br />
+     * mapa.put(1, "dato");<br>
+     * mapa.put(2, "dato 2");<br>
      * </p>
      * 
      * @param sql  La sentencia con '?' para ser sustituido.
      * @param datos  El HashMap que contiene los datos para sustituir.
-     * @return  ResulSet para iterar en caso de que la consulta haya devuelto
-     * algún dato.
      * 
      * 
      */
@@ -215,18 +213,18 @@ public class Conexion {
     /**
      * Ejecuta la sentencia que se le pase como parametro. Lo importante de esta 
      * sentencia es que evita SQLInjection. Para pasar más parametros usar la
-     * sobrecarga con HashMap.<br />
+     * sobrecarga con HashMap.<br>
      * 
-     * La estructura a utilizar es la siguiente:<br /> 
+     * La estructura a utilizar es la siguiente:<br> 
      * 
      * <p style="color:rgb(255,255,0);" >
      * sql = "SELECT * FROM tabla WHERE id=?;
      * </p>
      * 
-     * <br />
+     * <br>
      * 
      * El singno de interrogación serán sustituido por el string
-     * que le pasamoscomo dato. Por ejemplo:<br />
+     * que le pasamoscomo dato. Por ejemplo:<br>
      * 
      * @param sql  La sentencia con '?' para ser sustituido.
      * @param dato  El HashMap que contiene los datos para sustituir.
@@ -246,13 +244,13 @@ public class Conexion {
     
     /**
      * Ejecuta una sentencia simple sin parametros en la consulta. 
-     * Por ejemplo:.<br />
+     * Por ejemplo:.<br>
      * 
      * <p style="color:rgb(255,255,0);" >
      * sql = "SELECT * FROM tabla;
      * </p>
      * 
-     * <br />
+     * <br>
      * 
      *
      * @param sql  La sentencia con '?' para ser sustituido.

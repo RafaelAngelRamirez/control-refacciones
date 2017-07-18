@@ -74,6 +74,8 @@ public class Principal {
         DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar = new DialogoMaquinaModeloAgregar();
         DialogoRefaccionDetalle dialogoRefaccionDetalle = new DialogoRefaccionDetalle();
         DialogoImagenDetalle dialogoImagenDetalle = new DialogoImagenDetalle();
+        DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar = new DialogoMaquinaModeloModificar();
+        
         
         //RECURSOS VARIOS
         CapturaDeSucesos SystemOut = new CapturaDeSucesos();
@@ -101,6 +103,7 @@ public class Principal {
         dialogoMaquinaModeloAgregar.setCoordinador(coordinador);
         dialogoRefaccionDetalle.setCoordinador(coordinador);
         dialogoImagenDetalle.setCoordinador(coordinador);
+        dialogoMaquinaModeloModificar.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         
@@ -121,7 +124,7 @@ public class Principal {
         coordinador.setDialogoRefaccionDetalle(dialogoRefaccionDetalle);
         coordinador.setDialogoImagenDetalle(dialogoImagenDetalle);
         coordinador.setPanelRefaccionModificar(panelRefaccionModificar);
-        
+        coordinador.setDialogoMaquinaModeloModificar(dialogoMaquinaModeloModificar);
         
         
         /*

@@ -285,8 +285,10 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(104, 127, 13));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_titulo_agregar modelo maquina.png"))); // NOI18N
+        jLabel1.setOpaque(true);
 
         etiquetaModeloMaquina.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaModeloMaquina.setText("Modelo de máquina");
