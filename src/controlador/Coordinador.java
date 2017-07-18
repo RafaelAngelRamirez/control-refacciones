@@ -6,6 +6,7 @@ import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -680,6 +681,87 @@ public class Coordinador {
     ========================================================================
     */
     
+    
+    
+    /* 
+    ========================================================================
+       INICIO DE ACTUALIZACIONES DE TABLA
+    ////////////////////////////////////////////////////////////////////////
+    */
+    
+    private List<OperacionesPorActualizar> listaOperacionesPorActualizar = new ArrayList<>();
+
+    
+    /**
+     * Agrega un elemento que contiene operaciones para actualizar elementos que
+     * dependen de una tabla que se puede modificar desde cualquier parte del sistema.
+     * @param listaOperacionesPorActualizar El objeto que contiene las especificaciones
+     * para ejecutar la actualización de operaciones. 
+     * @see OperacionesPorActualizar
+     * 
+     */
+    public void setListaOperacionesPorActualizar(List<OperacionesPorActualizar> listaOperacionesPorActualizar) {
+        this.listaOperacionesPorActualizar = listaOperacionesPorActualizar;
+    }
+
+    /**
+     * Ejecuta las operaciones para actualizar contenidas en los objetos 
+     * OperacionesPorActualizar que esten actualmente mostrandose y los señala
+     * como actualizados. Si hay algún cambio entontonces se debe modificar
+     * el objeto directamente en la operacion setActualizado a false.
+     */
+    public void ejecutarOperacionesParaActualizar(){
+        for (OperacionesPorActualizar listaOp : listaOperacionesPorActualizar) {
+            if(marcoParaVentanaPrincipal.getjPanelActual().getNombre().equals(listaOp.getPanel().getNombre())) {
+                for (Runnable runnable : listaOp.getOperacionesParaActualizar()) {
+                    runnable.run();
+                    listaOp.setActualizado(true);
+                }
+            }
+        }
+    }
+    
+    public class OperacionesPorActualizar{
+        private MarcoParaVentanaPrincipal.MenuConstructor panel;
+        private List<Runnable> operacionesParaActualizar;
+        private boolean actualizado;
+
+        public void addOperacionParaActualizar(Runnable operacion){
+            operacionesParaActualizar.add(operacion);
+        }
+
+        public List<Runnable> getOperacionesParaActualizar() {
+            return operacionesParaActualizar;
+        }
+
+        public void setOperacionesParaActualizar(List<Runnable> operacionesParaActualizar) {
+            this.operacionesParaActualizar = operacionesParaActualizar;
+        }
+        
+        
+        public MarcoParaVentanaPrincipal.MenuConstructor getPanel() {
+            return panel;
+        }
+
+        public void setPanel(MarcoParaVentanaPrincipal.MenuConstructor panel) {
+            this.panel = panel;
+        }
+
+        public boolean isActualizado() {
+            return actualizado;
+        }
+
+        public void setActualizado(boolean actualizado) {
+            this.actualizado = actualizado;
+        }
+    }
+    
+    
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE ACTUALIZACIONES DE TABLA
+    ========================================================================
+    */
     
     
     /* 
