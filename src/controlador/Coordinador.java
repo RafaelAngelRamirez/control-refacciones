@@ -344,6 +344,16 @@ public class Coordinador {
     
     }
     
+    /**
+     * Busca el objeto que conicida con el id que se le pase como parametro.
+     * @param id - El id que se quiere consultar. 
+     * @return El objeto que coincide con el id. 
+     */
+    public MaquinaModeloVo maquinaModeloConsultarUno(int id){
+        return this.logica.maquinaModeloConsultarUno(id);
+    
+    }
+    
     public List<RelacionRefaccionMaquinaModeloVo> maquinaModeloConsultar(int id){
         return this.logica.maquinaModeloConsultarModeloAnio(id);
     

@@ -245,7 +245,11 @@ public class Logica {
     public List<MaquinaModeloVo> maquinaModeloConsultarModeloAnio(){
         MaquinaModeloDao_ dao = new MaquinaModeloDao_(coordinador);
         return dao.consultar();
-        
+    }
+    
+    public MaquinaModeloVo maquinaModeloConsultarUno(int id){
+        MaquinaModeloDao_ dao = new MaquinaModeloDao_(coordinador);
+        return dao.cosultar(id);
         
     }
     

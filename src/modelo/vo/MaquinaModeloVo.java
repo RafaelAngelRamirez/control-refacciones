@@ -16,7 +16,7 @@ public class MaquinaModeloVo extends VoGenerales{
     int id;
     String modelo;
     int anio;
-    int idProveedor;
+    Object idProveedor;
 
     public MaquinaModeloVo() {
         MaquinaModeloIT it = new MaquinaModeloIT();
@@ -53,7 +53,7 @@ public class MaquinaModeloVo extends VoGenerales{
         this.anio = anio;
     }
 
-    public int getIdProveedor() {
+    public Object getIdProveedor() {
         return idProveedor;
     }
 

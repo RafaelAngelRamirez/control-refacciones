@@ -8,10 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.InfoTabla.ImagenIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
-import modelo.vo.ImagenVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 
@@ -127,4 +125,6 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         conexion.executeUpdate(sql, listaVo.get(0).getIdRefaccion()+"");
         return this.guardarLista(listaVo);
     }
+    
+    
 }

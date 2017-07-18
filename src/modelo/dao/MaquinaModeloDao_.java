@@ -88,4 +88,31 @@ public class MaquinaModeloDao_ extends DAOGenerales_{
         }
         return lista;
     }
+    
+    /**
+     * Retorna la maquina modelo que coicida con el id que se le pase como parametro.
+     * @param id El íd a consultar. 
+     * @return El objeto MaquinaModelo coincidente. 
+     */
+    public MaquinaModeloVo cosultar (int id){
+        MaquinaModeloVo vo = new MaquinaModeloVo();
+        try {
+            String sql = "SELECT * FROM " + MaquinaModeloIT.NOMBRE_TABLA
+                    + " WHERE " + it.getIdPDC().getNombre() + "=?";
+            
+            ResultSet r = conexion.executeQuery(sql, id+"");
+            r.next();
+            vo.setIdProveedor(r.getInt(it.getIdProoveedorPDC().getNombre()));
+            vo.setModelo(r.getString(it.getModeloPDC().getNombre()));
+            vo.setAnio(r.getInt(it.getAnioPDC().getNombre()));
+            vo.setId(r.getInt(it.getIdPDC().getNombre()));
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MaquinaModeloDao_.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vo;
+    }
+    
 }

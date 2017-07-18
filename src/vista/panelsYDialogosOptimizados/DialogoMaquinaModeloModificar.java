@@ -26,6 +26,8 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     private UtilidadesTxt_ _TxtModeloMaquina;
     private UtilidadesComboBox_ _ComboMarca;
     private UtilidadesListas_ _ListaMaquinaModelo;
+    
+    private int idConsultandoseActualmente;
             
     /** Inicializa opciones del dialogo. */
     public DialogoMaquinaModeloModificar() {
@@ -210,6 +212,18 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         this._ComboMarca.setErrorQuitar();
     }
     
+    public void cargarDatosConsultados(){
+        limpiarTodo();
+        idConsultandoseActualmente = _ComboMarca.getSelectedItem_idRetorno();
+        MaquinaModeloVo vo = this.getCoordinador().maquinaModeloConsultarUno(idConsultandoseActualmente);
+        
+        _TxtModeloMaquina.setText(vo.getModelo());
+        _TxtAnio.setText(vo.getAnio()+"");
+        _ComboMarca.setSelectedItem(vo.getIdProveedor()+"");
+        
+        
+    
+    }
     
 
     /** This method is called from within the constructor to

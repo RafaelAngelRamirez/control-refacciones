@@ -7,7 +7,6 @@ package modelo.logica;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
 import modelo.InfoTabla.ParametrosDeCampo;
 
