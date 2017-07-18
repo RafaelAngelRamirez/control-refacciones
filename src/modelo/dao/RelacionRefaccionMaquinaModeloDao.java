@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.dao;
 
 import controlador.Coordinador;
@@ -13,8 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.InfoTabla.ImagenIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
+import modelo.vo.ImagenVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 
@@ -32,7 +29,12 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         this.it = new RelacionRefaccionMaquinaModeloIT();
     }
     
-    public boolean guardarLista(List <RelacionRefaccionMaquinaModeloVo> listaVo){
+    /**
+     * Guarda la lista de relaciones entre refaccionnes y maquinas modelo que
+     * se le pase como parametro. 
+     * @param listaVo La lista que se quiere guardar. 
+     */
+    public void guardarLista(List <RelacionRefaccionMaquinaModeloVo> listaVo){
         //LOS VALUES PARA EL INSERT.
         String values ="";
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
@@ -64,9 +66,16 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         String sql = "INSERT INTO " +RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA 
                 + " VALUES " + values;
                
-        return conexion.executeUpdate(sql, mapa);
+        conexion.executeUpdate(sql, mapa);
     }
     
+    /**
+     * Consulta el modelo y año como pares para luego retornar este dato. Se 
+     * filtra al id de la refacción que se le pase. 
+     * @param id El id de la refacción de la que se quiere consultar 
+     * los modelos dependientes. 
+     * @return La lista de maquinas-modelo relacionadas con la refacción.
+     */
     public List<RelacionRefaccionMaquinaModeloVo> consultarModeloAnio(int id){
         List<RelacionRefaccionMaquinaModeloVo> lrrmm = new ArrayList<>();
         MaquinaModeloIT mmit = new MaquinaModeloIT();
@@ -103,12 +112,37 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         return lrrmm;
     }
     
-    public boolean modificar(List<RelacionRefaccionMaquinaModeloVo> vo){
-        String sql = "DELETE FROM "+RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA +
-                " WHERE " +it.getIdRefaccionPDC().getNombre() + "=?" ;
-        conexion.executeUpdate(sql, vo.get(0).getIdRefaccion()+"");
-        
-        
-        return guardarLista(vo);
+    public boolean modificar( List<RelacionRefaccionMaquinaModeloVo> listaVo){
+         //LOS VALUES PARA EL INSERT.
+        String values ="";
+        //PARA IR CONTANDO LA POSICION DEL MAPA ?
+        int contador=1;
+        // EL MAPA QUE RELACIONA ? CON EL DATO.
+        HashMap<Integer, String> mapa = new HashMap<>();
+        //CONTADOR PARA EVITAR LA ÚLTIMA COMA DEL SQL.
+        int conComa=1;
+        //RECORREMOS TODAS LOS MODELOS QUE PASAMOS. 
+        for (RelacionRefaccionMaquinaModeloVo vo : listaVo) {
+            // CREAMOS UNO DE ESTO POR CADA MODELO.
+            values += " (?, ?)";
+            //SI ES LA ULTIMA IMAGEN NO LE PONEMOS COMA.
+            if (listaVo.size()>conComa) {
+                values+=", ";
+            }
+            //ASIGNAMOS LOS DATOS AL MAPA DE DOS EN DOS PUESTO QUE ES EN 
+            // TUPLAS QUE LO QUEREMOS MANEJAR.
+            mapa.put( contador, vo.getIdRefaccion()+"");
+            mapa.put( contador+1, vo.getIdMaquinaModelo()+"");
+            //CONTADOR DE MAPA
+            contador+=2;
+            //CONTADOR DE COMAS
+            conComa++;
+        }
+        String sql = "UPDATE " +RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA 
+                + " VALUES " + values;
+               
+        return conexion.executeUpdate(sql, mapa);
     }
+    
+    
 }
