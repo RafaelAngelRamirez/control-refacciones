@@ -174,79 +174,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
             _listaALaQueSeAgregaLaSeleccion.getRelacionDatoId().put(valor, id);
             _listaQueSeSelecciona.getRelacionDatoId().remove(valor);
         }
-        
-        
-//        JList<String> listaQueSeSelecciona = _listaQueSeSelecciona.getLista();
-//        JList<String> listaALaQueSeAgregaLaSeleccion=_listaALaQueSeAgregaLaSeleccion.getLista();
-//        
-//        //CARGAMOS LOS DATOS SELECCIONADOS.
-//        List<String> listaDeLosDatosSeleccionados = 
-//                listaQueSeSelecciona.getSelectedValuesList();
-//        
-//        if(listaDeLosDatosSeleccionados.size()>0){
-//            //CARGAMOS LOS DATOS EXISTENTES EN EL MODELO DE LA LISTA POR AGREGAR.
-//            ListModel<String> modeloDeListaALaQueSeAgregaLaSeleccion = 
-//                    listaALaQueSeAgregaLaSeleccion.getModel();
-//
-//            //CARGAMOS LOS DATOS EXISTENTES EN EL MODELO DE LA LISTA QUE SE 
-//            // SELECCIONA
-//            ListModel<String> modeloListaQueSeSelecciona = 
-//                    listaQueSeSelecciona.getModel();
-//            
-//            //LISTA PARA COMPARAR LOS DATOS QUE SE SELCCIONARON CONTRA 
-//            // LOS QUE ESTAN EN EL MODELO.
-//            List <String> listaDeDatosActualizadosParaListaQueSeSelecciona 
-//                    = new ArrayList<String>();
-//            
-//            //CARGAMOS TODOS LOS DATOS EN LA NUEVA LISTA PARA IR ELIMINANDO
-//            // LOS QUE YA COMPARAMOS.
-//            for (int i = 0; i < modeloListaQueSeSelecciona.getSize(); i++) {
-//                String elementoDeLaListaQueSeSelecciona = 
-//                        modeloListaQueSeSelecciona.getElementAt(i);
-//                listaDeDatosActualizadosParaListaQueSeSelecciona
-//                        .add(elementoDeLaListaQueSeSelecciona);
-//            }
-//            
-//            //ELIMINAMOS LOS QUE YA EXISTEN
-//            
-//            for (String listaDeLosDatosSeleccionado : listaDeLosDatosSeleccionados) {
-//                //SANTO DIOS! Aqui copiamos los datos de relacionDatoId a el 
-//                // nuevo hashMap o más bien a la otra lista con la que estamos 
-//                // intercambiando datos. De esta manera podemos llamar más 
-//                // facilmente los dato que tienen registrador y ponerlos en la 
-//                // base de datos.
-//                
-//                _listaALaQueSeAgregaLaSeleccion.getRelacionDatoId().put(listaDeLosDatosSeleccionado
-//                        , _listaQueSeSelecciona.getRelacionDatoId().get(listaDeLosDatosSeleccionado));
-//                _listaQueSeSelecciona.getRelacionDatoId().remove(listaDeLosDatosSeleccionado);
-//                
-//                //AQUI REMOVEMOS DE LA LISTA PARA ACTUALIZARLA.
-//                listaDeDatosActualizadosParaListaQueSeSelecciona
-//                        .remove(listaDeLosDatosSeleccionado);
-//            }
-//       
-//            
-//            //CREAMOS EL NUEVO MODELO PARA ACTUALIZAR LOS DATOS DE LA LISTA
-//            // QUE SE SELCCIONA Y QUE NO LOS MUESTRE UNA VEZ EN QUE ESTEN EN 
-//            // LA LISTA POR AGREGAR.
-//            DefaultListModel<String> modeloParaActualizarDatosListaQueSeSelecciona = new DefaultListModel<>();
-//            for (String elementoActualizado : listaDeDatosActualizadosParaListaQueSeSelecciona) {
-//                modeloParaActualizarDatosListaQueSeSelecciona.addElement(elementoActualizado);
-//            }
-//            listaQueSeSelecciona.setModel(modeloParaActualizarDatosListaQueSeSelecciona);
-//
-//
-//            // CARGAMOS LOS DATOS YA EXISTENTES EN EL NUEVO MODELO PARA LA LISTA.
-//            DefaultListModel<String> modeloParaListaAgregarDatos = new DefaultListModel<>();
-//            for (int i = 0; i < modeloDeListaALaQueSeAgregaLaSeleccion.getSize(); i++) {
-//                String elemento = modeloDeListaALaQueSeAgregaLaSeleccion.getElementAt(i);
-//                modeloParaListaAgregarDatos.addElement(elemento);
-//            }
-//            for (String elemento : listaDeLosDatosSeleccionados) {
-//                modeloParaListaAgregarDatos.addElement(elemento);
-//            }
-//            listaALaQueSeAgregaLaSeleccion.setModel(modeloParaListaAgregarDatos);
-//        }
     }
     
     /**
@@ -325,12 +252,15 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     public void setText(String txt) {
         DefaultListModel modelo = (DefaultListModel)this.lista.getModel();
         modelo.addElement(txt);
-//        DefaultListModel nuevoModelo = new DefaultListModel();
-//        for (int i = 0; i < modelo.getSize(); i++) {
-//            nuevoModelo.addElement(modelo.getElementAt(i));
-//        }
-//        nuevoModelo.addElement(txt);
-//        this.lista.setModel(nuevoModelo);
+    }
+    
+    @Override
+    public void setEditable(boolean editable) {
+        try {
+            throw new ExcepcionPersonalizada("Todavia no esta soportado.", this, "setEditable");
+        } catch (ExcepcionPersonalizada ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
@@ -341,6 +271,10 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
         return this.relacionDatoId;
     }
     
+    /**
+     * Retorna todos los id de la lista. 
+     * @return La lista que contiene los id definidos dentro de la lista. 
+     */
     public List<Integer> getItems_soloId(){
         List<Integer> ids = new ArrayList<>();
         
@@ -350,13 +284,17 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
         }
         return ids;
     }
-
-    @Override
-    public void setEditable(boolean editable) {
-        try {
-            throw new ExcepcionPersonalizada("Todavia no esta soportado.", this, "setEditable");
-        } catch (ExcepcionPersonalizada ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-        }
+    
+    /**
+     * Retorna el id que esta relacionado con el valor que se selecciona.
+     * @return El id relacionado con el valor que se selecciono.
+     */
+    public int getSelectValueId(){
+        HashMap<String, Integer> mapa = this.getItems();
+        return mapa.get(this.getThis().getSelectedValue());
     }
+
+    
+    
+    
 }

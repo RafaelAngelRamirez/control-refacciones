@@ -114,6 +114,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         
         //ACCIONES ESPECELIALES.
         _ComboMarca.setFocusAction(()->this.guardarProoveedor(), false);
+        _ListaMaquinaModelo.setSingleClick(()->this.cargarDatosConsultados());
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
@@ -214,14 +215,12 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     
     public void cargarDatosConsultados(){
         limpiarTodo();
-        idConsultandoseActualmente = _ComboMarca.getSelectedItem_idRetorno();
+        idConsultandoseActualmente = _ListaMaquinaModelo.getSelectValueId();
         MaquinaModeloVo vo = this.getCoordinador().maquinaModeloConsultarUno(idConsultandoseActualmente);
         
         _TxtModeloMaquina.setText(vo.getModelo());
         _TxtAnio.setText(vo.getAnio()+"");
         _ComboMarca.setSelectedItem(vo.getIdProveedor()+"");
-        
-        
     
     }
     
@@ -315,6 +314,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         });
 
         listaMaquinanasModelo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        listaMaquinanasModelo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listaMaquinanasModelo.setFocusable(false);
         listaMaquinanasModelo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -387,7 +387,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
                         .addComponent(etiquetaMarca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar))
@@ -467,7 +467,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
 
         if (todoValido) {
             JOptionPane.showMessageDialog(null, "listo para guardar");
-            limpiarTodo();
+//            limpiarTodo();
             
 //            this.coordinador.maquinaModeloActualizarLista();
             JOptionPane.showMessageDialog(

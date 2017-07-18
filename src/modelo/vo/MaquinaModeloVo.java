@@ -57,7 +57,7 @@ public class MaquinaModeloVo extends VoGenerales{
         return idProveedor;
     }
 
-    public void setIdProveedor(int idProveedor) {
+    public void setIdProveedor(Object idProveedor) {
         this.idProveedor = idProveedor;
     }
     

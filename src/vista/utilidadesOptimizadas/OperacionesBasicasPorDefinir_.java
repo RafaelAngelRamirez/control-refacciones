@@ -12,6 +12,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.logging.Level;
@@ -704,7 +705,7 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
      */
     public void setDobleClick(Runnable accion){
         
-        this.getThis().addMouseListener(new MouseListener() {
+        this.getThis().addMouseListener(new MouseAdapter() {
             
             Runnable accion;
             OperacionesBasicasPorDefinir_ operaciones;
@@ -716,33 +717,41 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
             
             }
             
-            
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount()==2) {
                     this.accion.run();
                 }
             }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
+           
         }.parametros(this, accion));
-    
     }
     
-    
+     /**
+     * Define una acción para cuando se hace click sobre el elemento
+     * @param accion La acción que queremos que se ejecute.
+     */
+    public void setSingleClick(Runnable accion){
+        this.getThis().addMouseListener(new MouseAdapter() {
+            
+            Runnable accion;
+            OperacionesBasicasPorDefinir_ operaciones;
+            
+            MouseListener parametros(OperacionesBasicasPorDefinir_ operaciones, Runnable accion ){
+                this.accion = accion;
+                this.operaciones = operaciones;
+                return this;
+            
+            }
+            
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount()==1) {
+                    this.accion.run();
+                }
+            }
+           
+        }.parametros(this, accion));
+    }
     
 }

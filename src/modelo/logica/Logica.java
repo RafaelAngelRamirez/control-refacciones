@@ -249,7 +249,7 @@ public class Logica {
     
     public MaquinaModeloVo maquinaModeloConsultarUno(int id){
         MaquinaModeloDao_ dao = new MaquinaModeloDao_(coordinador);
-        return dao.cosultar(id);
+        return dao.consultar(id);
         
     }
     

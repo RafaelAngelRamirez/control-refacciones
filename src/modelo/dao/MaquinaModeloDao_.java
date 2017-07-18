@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.InfoTabla.MaquinaModeloIT;
+import modelo.InfoTabla.ProveedorIT;
 import modelo.vo.MaquinaModeloVo;
 
 /**
@@ -94,15 +95,26 @@ public class MaquinaModeloDao_ extends DAOGenerales_{
      * @param id El íd a consultar. 
      * @return El objeto MaquinaModelo coincidente. 
      */
-    public MaquinaModeloVo cosultar (int id){
+    public MaquinaModeloVo consultar (int id){
         MaquinaModeloVo vo = new MaquinaModeloVo();
+        ProveedorIT pit = new ProveedorIT();
         try {
-            String sql = "SELECT * FROM " + MaquinaModeloIT.NOMBRE_TABLA
-                    + " WHERE " + it.getIdPDC().getNombre() + "=?";
+            String sql = "SELECT "
+                    + MaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre() +", "
+                    + MaquinaModeloIT.NOMBRE_TABLA+"."+it.getAnioPDC().getNombre() +", "
+                    + MaquinaModeloIT.NOMBRE_TABLA+"."+it.getModeloPDC().getNombre() +", "
+                    + ProveedorIT.NOMBRE_TABLA+"."+pit.getEmpresaProveedorPDC().getNombre() 
+                    + " FROM " + MaquinaModeloIT.NOMBRE_TABLA
+                    + " INNER JOIN " + ProveedorIT.NOMBRE_TABLA 
+                    + " ON " +
+                    ProveedorIT.NOMBRE_TABLA+"."+pit.getIdPDC().getNombre()
+                    + "=" +
+                    MaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdProoveedorPDC().getNombre()
+                    + " WHERE " + MaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre() + "=?";
             
             ResultSet r = conexion.executeQuery(sql, id+"");
             r.next();
-            vo.setIdProveedor(r.getInt(it.getIdProoveedorPDC().getNombre()));
+            vo.setIdProveedor(r.getString(pit.getEmpresaProveedorPDC().getNombre()));
             vo.setModelo(r.getString(it.getModeloPDC().getNombre()));
             vo.setAnio(r.getInt(it.getAnioPDC().getNombre()));
             vo.setId(r.getInt(it.getIdPDC().getNombre()));
