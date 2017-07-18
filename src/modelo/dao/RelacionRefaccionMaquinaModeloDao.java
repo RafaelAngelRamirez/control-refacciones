@@ -117,6 +117,7 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
     public boolean modificar( List<RelacionRefaccionMaquinaModeloVo> listaVo){
         String sql = "DELETE FROM "+ RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
                 + " WHERE " + it.getIdRefaccionPDC().getNombre() + " =? ";
+        conexion.executeUpdate(sql, listaVo.get(0).getIdRefaccion()+"");
         return this.guardarLista(listaVo);
     }
 }
