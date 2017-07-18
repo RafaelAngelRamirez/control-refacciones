@@ -240,7 +240,7 @@ public class DialogoDetalleRefaccion_ extends JDialog {
     
     /**
      * Carga las imagenes que esten relacionadas con id que se le pase.   
-     * @param id
+     * @param id El id que corresponde a la refacción.
      */
     public void cargarImagenes(int id){
         listaImagenesRefaccion = this.getCoordinador().imagenConsultar(id);
@@ -899,7 +899,7 @@ public class DialogoDetalleRefaccion_ extends JDialog {
 
     private void imagenesRefaccionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenesRefaccionesMouseClicked
         if (evt.getClickCount()==2) {
-            this.getCoordinador().refaccionMostrarDetalleImagen();
+            this.getCoordinador().refaccionAbrirDetalleImagen();
         }
 
     }//GEN-LAST:event_imagenesRefaccionesMouseClicked

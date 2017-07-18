@@ -109,7 +109,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
      * fichero y seleccionarlos pero solo se cargaran las imagenes definidas
      * dentro de filtros.
      * 
-     * @param extencion
+     * @param filtro Filtro a definir.
      */
     public void setFiltros (FileNameExtensionFilter filtro){
         for (int i = 0; i < filtro.getExtensions().length; i++) {
@@ -219,11 +219,10 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
     /**
      *Agrega las imagenes para luego mostrarlas. Es necesario ejecutar cargarPrimeraImagen
      * para que se previzualize esta.
-     * @param url
-     * @param nombre
+     * @param transporteImagenesURL Las url que se mostraran desde el servidor.
      */
-    public void addIMagenes(TransporteImagenesURL t){
-        listaURLsCargadas.add(t);
+    public void addIMagenes(TransporteImagenesURL transporteImagenesURL){
+        listaURLsCargadas.add(transporteImagenesURL);
     }
     
     public void limpiarComponenteURL(){
@@ -236,7 +235,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
 
     /**
      * Devuelve la lista de imagenes cargadas a travez de url.
-     * @return 
+     * @return Lista de TransporteImagenesURL.
      */
     public List<TransporteImagenesURL> getListaURLsCargadas() {
         return listaURLsCargadas;
@@ -244,7 +243,8 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
     
     /**
      * Setea la lista de url desde otro componente imagen View. 
-     * @param listaURLsCargadas 
+     * @param listaURLsCargadas La lista de URL que serán mostradas. Normalemte
+     * se pasa para no cargar de nuevo desde la BD.
      */
     public void setListaURLsCargadas(List<TransporteImagenesURL> listaURLsCargadas) {
         this.listaURLsCargadas = listaURLsCargadas;
@@ -394,7 +394,10 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
     
     /**
      * Obtiene la imagen actual de una lista que fue obtenida desde el servidor.  
-     * @return 
+     * @return  Clase TransporteImagenesURL que contiene la información necesaria
+     * para mostrar la imágen en el componente. 
+     * 
+     * @see TransporteImagenesURL
      */
     public TransporteImagenesURL obtenerImagenActual(){
         if (this.listaURLsCargadas.size()==0) {
@@ -425,7 +428,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
      * Recorre las imagenes cargadas en la clase. True en aumento y viceversa.
      * Esta función es exclusiva para cargar ficheros desde el equipo en que 
      * se esta ejecutando el cliente.
-     * @param direccion
+     * @param direccion True aumenta, false disminuye.
      */    
     public void siguienteAnterior(boolean direccion){
         

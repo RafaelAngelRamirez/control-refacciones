@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.dao;
 
 import controlador.Coordinador;
@@ -34,7 +29,13 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         this.it = new RelacionRefaccionMaquinaModeloIT();
     }
     
-    public void guardarLista(List <RelacionRefaccionMaquinaModeloVo> listaVo){
+    /**
+     * Guarda la lista de relaciones entre refaccionnes y maquinas modelo que
+     * se le pase como parametro. 
+     * @param listaVo La lista que se quiere guardar. 
+     * @return  True si todo fue correcto. 
+     */
+    public boolean guardarLista(List <RelacionRefaccionMaquinaModeloVo> listaVo){
         //LOS VALUES PARA EL INSERT.
         String values ="";
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
@@ -66,9 +67,16 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         String sql = "INSERT INTO " +RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA 
                 + " VALUES " + values;
                
-        conexion.executeUpdate(sql, mapa);
+        return conexion.executeUpdate(sql, mapa);
     }
     
+    /**
+     * Consulta el modelo y año como pares para luego retornar este dato. Se 
+     * filtra al id de la refacción que se le pase. 
+     * @param id El id de la refacción de la que se quiere consultar 
+     * los modelos dependientes. 
+     * @return La lista de maquinas-modelo relacionadas con la refacción.
+     */
     public List<RelacionRefaccionMaquinaModeloVo> consultarModeloAnio(int id){
         List<RelacionRefaccionMaquinaModeloVo> lrrmm = new ArrayList<>();
         MaquinaModeloIT mmit = new MaquinaModeloIT();
@@ -102,11 +110,14 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         } catch (SQLException ex) {
             Logger.getLogger(RelacionRefaccionMaquinaModeloDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-        
         return lrrmm;
     }
     
+    
+    public boolean modificar( List<RelacionRefaccionMaquinaModeloVo> listaVo){
+        String sql = "DELETE FROM "+ RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
+                + " WHERE " + it.getIdRefaccionPDC().getNombre() + " =? ";
+        conexion.executeUpdate(sql, listaVo.get(0).getIdRefaccion()+"");
+        return this.guardarLista(listaVo);
+    }
 }

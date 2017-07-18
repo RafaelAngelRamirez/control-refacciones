@@ -75,9 +75,6 @@ public class Conexion {
                     descripcionDeSusceso.tipoDeSucesoOErrores.ERROR_FATAL);
             
             
-            this.controlador.getSystemOut().setDescripcionDeSuceso(descripcionDeSusceso);
-            this.controlador.getSystemOut().ejecutar();
-            
              JOptionPane.showMessageDialog(
                         null, "No se puede conectar "
                         + "a la base de datos: \n"+e.getMessage());

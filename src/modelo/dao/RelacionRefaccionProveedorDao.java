@@ -26,7 +26,7 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales_{
         this.it = new RelacionRefaccionProveedorIT();
     }
     
-    public void guardarLista(List<RelacionRefaccionProveedorVo> listaVo){
+    public boolean guardarLista(List<RelacionRefaccionProveedorVo> listaVo){
         //LOS VALUES PARA EL INSERT.
         String values ="";
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
@@ -52,13 +52,12 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales_{
             //CONTADOR DE COMAS
             conComa++;
             
-            
         }
         
         String sql = "INSERT INTO " +RelacionRefaccionProveedorIT.NOMBRE_TABLA 
                 +  " VALUES " + values;
                
-        conexion.executeUpdate(sql, mapa);
+        return conexion.executeUpdate(sql, mapa);
     }
     
     public List<RelacionRefaccionProveedorVo> consultarProveedores(int id){
@@ -98,6 +97,14 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales_{
         return lrrpvo;
     }
     
+    
+    public boolean modificar(List<RelacionRefaccionProveedorVo> vo){
+        String sql = "DELETE FROM "+RelacionRefaccionProveedorIT.NOMBRE_TABLA +
+                " WHERE " +it.getIdRefaccionPDC().getNombre() + "=?" ;
+        conexion.executeUpdate(sql, vo.get(0).getIdRefaccion()+"");
+        
+        return guardarLista(vo);
+    }
     
     
    

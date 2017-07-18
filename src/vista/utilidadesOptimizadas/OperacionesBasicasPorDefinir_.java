@@ -69,11 +69,13 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
     
     /**
      * Retorna el texto que tiene el componente. 
+     * @return Texto del componente.
      */
     public abstract String getText();
     
     /**
      * Retorna el texto que tiene el componente. 
+     * @param txt Coloca texto en el componente. 
      */
     public abstract void setText(String txt);
     
@@ -89,11 +91,13 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
     
     /**
      * Devuelve este componente.
+     * @return El componente que see definio en la utilidad. 
      */
     public abstract Component getThis();
     
     /**
      * Permite editar o no el campo. 
+     * @param editable True si lo permite. 
      */
     public abstract void setEditable(boolean editable);
    
@@ -105,6 +109,7 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
     
     /**
      * Define el siguiente componente para el foco.
+     * @param componente El siguiente componente a enfocar. 
      */
     public void setNextFocusableComponent(Component componente) {
         this.componenteSiguienteAEnfocar = componente;
@@ -135,6 +140,8 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
     /**
      * Compara el texto del componente con el que se le pase. 
      * Retorna un booleano si son iguales o no. Nos facilita la vida.
+     * @param textoAcomparar La cadena de texto que se quiere comparar. 
+     * @return  True si son iguales. 
      */
     public boolean equals(String textoAcomparar){
         return textoAcomparar.equals(this.getText());
@@ -317,8 +324,6 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
      * Establece que el campo solo puede recibir los valores [0-9\.] 
      * y define el número máximo de digitios que se quieren introducir 
      * para el campo.
-     * @param maximoDeEnterosOCaracteres - Si el campo es número significan 
-     * digitios enteros, si es texto cualquier caracter.
      *
      */
     public void setSoloNumeros(){
@@ -359,7 +364,6 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
      /**
      * Establece que el campo solo acepte mayusculas y define el número máximo 
      * de caracteres que se quieren introducir para el campo.
-     * @param maximoDeEnterosOCaracteres - Cualquier caracter.
      *
      */
     public void setMayusculas(){
@@ -451,7 +455,8 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
      * Cuando se ingresa un solo parametro se estima que el campo es varchar o
      * int. Para campos con decimales se utiliza la función con dos paramentros.
      * 
-     * @param maximoDeEnterosOCaracteres
+     * @param maximoDeEnterosOCaracteres Cantidad de caracteres a restringir el
+     * campo.
      */
     public void setTamanoDeCampo(int maximoDeEnterosOCaracteres) {
         try {
@@ -470,8 +475,8 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
      * Define el tamaño de campo permitido para el elemento que se definio. 
      * Cuando se ingresan los dos parametros se estima que el campo es de tipo
      * decimal. 
-     * @param maximoDeEnteros
-     * @param maximoDeDecimales
+     * @param maximoDeEnteros Cantidad máxima de caracteres que se soportaran incluido el punto y decimales. 
+     * @param maximoDeDecimales Los decimales máximos que se aceptaran.
      */
     public void setTamanoDeCampo(int maximoDeEnteros, int maximoDeDecimales) {
         
@@ -494,6 +499,7 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
     /**
      * Devuelve el número máximo de caracteres que se pueden escribir dentro de
      * el campo.
+     * @return El número máximo de enteros.
      */
     public int getMaximoDeEnteros() {
         return maximoDeEnteros;
@@ -502,6 +508,7 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
     /**
      * Devuelve el número de máximo de decimales que se pueden escribir dentro
      * de un campo numérico.
+     * @return Número máximo de decimales. 
      */
     public int getMaximoDeDecimales() {
         return maximoDeDecimales;

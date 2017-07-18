@@ -325,7 +325,7 @@ public class PanelModificarRefaccion extends JPanel {
     private List<ImagenVo> listaImagenesRefaccion;
     /**
      * Carga las imagenes que esten relacionadas con id que se le pase.   
-     * @param id
+     * @param id El id que corresponde a la refacción.
      */
     public void cargarImagenes(int id){
         listaImagenesRefaccion = this.coordinador.imagenConsultar(id);
@@ -1677,47 +1677,33 @@ public class PanelModificarRefaccion extends JPanel {
         
         
         if (todoValido) {
-            this.coordinador.refaccionAbrirPanelModificar();
-//            //GUARDAMOS LA REFACCIÓN.
-//            this.coordinador.refaccionGuardar(rVo);
-//            //OBTENEMOS EL ID GENERADO.
-//            int idRefaccion = this.coordinador.refaccionConsultarUltimoId();
-//            if (idRefaccion==-1) {
-//                JOptionPane.showMessageDialog(this, "Hubo un error y se pudo obtener el id. \n"
-//                        + "No se guardaran los datos. \n\n"
-//                        + "Puedes revisar si los datos de la refacción se almacenarón\n"
-//                        + "y asociar de nuevo la información modificandola directamente."
-//                        + "", "Error", JOptionPane.ERROR_MESSAGE);
-//            }else{
-//                //ASOCIAMOS LOS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN
-//                //ALMACENADA. 
-//                for (ImagenVo iVo : listaiVo) {
-//                    iVo.setIdRefaccion(idRefaccion);
-//                }
-//                for (RelacionRefaccionMaquinaModeloVo rr : listarrmmVo) {
-//                    rr.setIdRefaccion(idRefaccion);
-//                }
-//
-//                for (RelacionRefaccionProveedorVo aa : listarrpVo) {
-//                    aa.setIdRefaccion(idRefaccion);
-//                }
-//
-//                String errorImg = this.coordinador.imagenGuardarLista(listaiVo);
-//                this.coordinador.relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo);
-//                this.coordinador.relacionRefaccionProveedorGuardarLista(listarrpVo);
-//                if (errorImg!=null) {
-//                    JOptionPane.showMessageDialog(
-//                            null,
-//                            "No se cargaron las siguientes imagenes: \n\n" + errorImg,
-//                            "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
-//                }
-//                
-//                limpiarTodo();
-//                this.coordinador.refaccionActualizarPanerlConsultaRefacciones();
-//                JOptionPane.showMessageDialog(
-//                        coordinador.getMarcoParaVentanaPrincipal(),
-//                        "Se guardo la refaccción correctamente.");
-//            }
+           
+            //GUARDAMOS LA REFACCIÓN.
+            this.getCoordinador().refaccionModificar(rVo);
+            //OBTENEMOS EL ID GENERADO.
+            int idRefaccion = this.idModificandoseActualmente;
+            //ASOCIAMOS LOS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN
+            //ALMACENADA. 
+            for (ImagenVo iVo : listaiVo) {
+                iVo.setIdRefaccion(idRefaccion);
+            }
+            
+            for (RelacionRefaccionMaquinaModeloVo rr : listarrmmVo) {
+                rr.setIdRefaccion(idRefaccion);
+            }
+
+            for (RelacionRefaccionProveedorVo aa : listarrpVo) {
+                aa.setIdRefaccion(idRefaccion);
+            }
+
+            this.getCoordinador().relacionRefaccionMaquinaModeloModificarLista(listarrmmVo);
+            this.getCoordinador().relacionRefaccionProveedorModificarLista(listarrpVo);
+                limpiarTodo();
+                this.coordinador.refaccionActualizarPanerlConsultaRefacciones();
+                JOptionPane.showMessageDialog(
+                        coordinador.getMarcoParaVentanaPrincipal(),
+                        "Se actualizo la refaccción correctamente.");
+            this.getCoordinador().refaccionAbrirPanelModificar();
         }
     }
     

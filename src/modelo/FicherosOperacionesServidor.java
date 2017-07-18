@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelo;
 
 import controlador.Coordinador;
@@ -111,9 +107,9 @@ public class FicherosOperacionesServidor {
      * This constructor initializes a new HTTP POST request with content type
      * is set to multipart/form-data
      *
-     * @param requestURL
-     * @param charset
-     * @throws IOException
+     * @param requestURL RequestURL
+     * @param charset Charset
+     * @throws IOException Exception
      */
     public SubidaPOST(String requestURL, String charset) throws IOException {
         this.charset = charset;
@@ -159,9 +155,9 @@ public class FicherosOperacionesServidor {
         /**
          * Adds a upload file section to the request
          *
-         * @param fieldName  name attribute in <input type="file" name="..." />
+         * @param fieldName  name attribute in {@literal <input type="file" name="..." />}
          * @param uploadFile a File to be uploaded
-         * @throws IOException
+         * @throws IOException Exception
          */
         public void addFilePart(String fieldName, File uploadFile)
                 throws IOException {
@@ -208,7 +204,7 @@ public class FicherosOperacionesServidor {
          *
          * @return a list of Strings as response in case the server returned
          * status OK, otherwise an exception is thrown.
-         * @throws IOException
+         * @throws IOException Exception
          */
         public String finish() throws IOException {
             StringBuffer response = new StringBuffer();

@@ -28,6 +28,7 @@ public class UtilidadesTxt_ extends OperacionesBasicasPorDefinir_{
 
     /**
      * Setea el JTexField que se le pase como parametro. 
+     * @param txt Componente que se manejara. 
      */
     public void setComponente(JTextField txt) {
         this.txt = txt;
@@ -48,6 +49,7 @@ public class UtilidadesTxt_ extends OperacionesBasicasPorDefinir_{
     /**
      * Revisa que el JTextField este vacio incluyendo una revición de espacios
      * en blanco.
+     * @return True si esta vacio.
      */
     public boolean isEmpty(){
         String texto = this.getText();

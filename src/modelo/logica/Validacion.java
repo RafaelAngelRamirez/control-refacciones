@@ -22,13 +22,14 @@ public class Validacion {
     private String nombreDeCampo;
     private String mensajeDeError;
     private boolean valido;
+    //ESTE ES PARA COMPROBAR SI SE SETEO isValido. 
     private boolean setValidado;
     private String nombreDeCampoParaMostrar;
 
     
     /**
      * Depues de la validación guarda si esta fue válida o no.  
-     * @return 
+     * @return  True si es valido. 
      */
     public boolean isValido() {
         if (!setValidado) {
@@ -44,7 +45,7 @@ public class Validacion {
     
     /**
      * Guarda el resultado de la valiación. 
-     * @param valido
+     * @param valido True si es valido. 
      */
     public void setValido(boolean valido) {
         this.valido = valido;
@@ -53,7 +54,7 @@ public class Validacion {
     
     /**
      * El nombre del campo según la base de datos. 
-     * @return 
+     * @return Cadena de texto con el nombre según la BD.
      */
     public String getNombreDeCampo() {
         if (nombreDeCampo == null) {
@@ -69,9 +70,10 @@ public class Validacion {
     }
     
     /**
-     * El nombre del campo según la base de datos. Utiliar el InfoTable para
+     * El nombre del campo según la base de datos. Utilizar el InfoTable para
      * definirlo. 
-     * @param campoPDC
+     * @param campoPDC Extraido desde camposPDC de la clase. 
+     * @see ParametrosDeCampo
      */
     public void setNombreDeCampo(ParametrosDeCampo campoPDC) {
         this.nombreDeCampo = campoPDC.getNombre();
@@ -80,7 +82,7 @@ public class Validacion {
 
     /**
      * El mensaje de error a mostrar en la validación. 
-     * @return 
+     * @return Cadena de texto que almacena el mensaje de error de la validación.
      */
     public String getMensajeDeError() {
         if (mensajeDeError==null) {
@@ -104,6 +106,7 @@ public class Validacion {
      * "CAMPO:  no puede estar tal cosa.
      * </p>
      * 
+     * @param mensajeDeError Cadena de texto . 
      */
     public void setMensajeDeError(String mensajeDeError) {
         this.mensajeDeError = mensajeDeError;

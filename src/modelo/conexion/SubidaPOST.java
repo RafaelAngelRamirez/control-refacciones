@@ -31,9 +31,9 @@ public class SubidaPOST {
      * This constructor initializes a new HTTP POST request with content type
      * is set to multipart/form-data
      *
-     * @param requestURL
-     * @param charset
-     * @throws IOException
+     * @param requestURL The URL from request.
+     * @param charset The charset. 
+     * @throws IOException The exception.
      */
     public SubidaPOST(String requestURL, String charset) throws IOException {
         this.charset = charset;
@@ -79,9 +79,9 @@ public class SubidaPOST {
     /**
      * Adds a upload file section to the request
      *
-     * @param fieldName  name attribute in <input type="file" name="..." />
+     * @param fieldName  name attribute in {@literal <input type="file" name="..." >}
      * @param uploadFile a File to be uploaded
-     * @throws IOException
+     * @throws java.io.IOException The exception.
      */
     public void addFilePart(String fieldName, File uploadFile)
             throws IOException {
@@ -128,7 +128,7 @@ public class SubidaPOST {
      *
      * @return a list of Strings as response in case the server returned
      * status OK, otherwise an exception is thrown.
-     * @throws IOException
+     * @throws IOException The exception.
      */
     public String finish() throws IOException {
         StringBuffer response = new StringBuffer();
