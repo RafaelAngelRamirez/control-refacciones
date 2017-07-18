@@ -255,17 +255,17 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         MenuConstructor registroRefacciones = new MenuConstructor();
         registroRefacciones.setItem();
         registroRefacciones.setNombre(PANEL_REGISTRAR_NUEVA_REFACCION);
-        registroRefacciones.setThisPanel(this.getCoordinador().getPanelAgregarRefaccion());
+        registroRefacciones.setThisPanel(this.getCoordinador().getPanelRefaccionAgregar());
         registroRefacciones.setPadre(menuTareas);
         registroRefacciones.setAccionDeInicializacion(
-                ()->this.getCoordinador().getPanelAgregarRefaccion().configurar());
+                ()->this.getCoordinador().getPanelRefaccionAgregar().configurar());
         this.addItemOMenu(registroRefacciones);
         
         
         MenuConstructor modificarRefacción = new MenuConstructor();
         modificarRefacción.setItem();
         modificarRefacción.setNombre(PANEL_MODIFICAR_REFACCION);
-        modificarRefacción.setThisPanel(this.getCoordinador().getPanelModificarRefaccion());
+        modificarRefacción.setThisPanel(this.getCoordinador().getPanelRefaccionModificar());
         modificarRefacción.setPadre(menuModificar);
         modificarRefacción.setSiempreAccionInicializada(true);
         modificarRefacción.setAccionDeInicializacion(

@@ -15,17 +15,13 @@
  */
 package controlador;
 
-import vista.panelsYDialogosOptimizados.PanelAgregarRefaccion_;
-import vista.panelsYDialogosOptimizados.PanelConsultaRefacciones;
+import vista.panelsYDialogosOptimizados.PanelRefaccionAgregar;
+import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
 import com.bulenkov.darcula.DarculaLaf;
-import com.sun.javafx.applet.Splash;
-import controlador.Coordinador;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
-import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicLookAndFeel;
@@ -69,15 +65,15 @@ public class Principal {
         ConsolaDeErrores consolaDeErrores = new ConsolaDeErrores();
         
         //PANELES
-        PanelConsultaRefacciones panelPrincipal = new PanelConsultaRefacciones();
-        PanelAgregarRefaccion_ panelAgregarRefaccion = new PanelAgregarRefaccion_();
-        PanelModificarRefaccion panelModificarRefaccion = new PanelModificarRefaccion();
+        PanelRefaccionesConsulta panelConsultaRefacciones = new PanelRefaccionesConsulta();
+        PanelRefaccionAgregar panelRefaccionAgregar = new PanelRefaccionAgregar();
+        PanelRefaccionModificar panelRefaccionModificar = new PanelRefaccionModificar();
         
         //DIALOGOS
-        DialogoRegistrarProveedor_ dialogoRegistrarProveedor_ = new DialogoRegistrarProveedor_();
-        DialogoAgregarMaquinaModelo_ dialogoAgregarMaquina_ = new DialogoAgregarMaquinaModelo_();
-        DialogoDetalleRefaccion_ dialogoDetalleRefaccion_ = new DialogoDetalleRefaccion_();
-        DialogoDetalleImagen dialogoDetalleImagen = new DialogoDetalleImagen();
+        DialogoProveedorRegistrar dialogoProveedorRegistrar = new DialogoProveedorRegistrar();
+        DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar = new DialogoMaquinaModeloAgregar();
+        DialogoRefaccionDetalle dialogoRefaccionDetalle = new DialogoRefaccionDetalle();
+        DialogoImagenDetalle dialogoImagenDetalle = new DialogoImagenDetalle();
         
         //RECURSOS VARIOS
         CapturaDeSucesos SystemOut = new CapturaDeSucesos();
@@ -96,15 +92,17 @@ public class Principal {
         */
         marcoParaVentanaPrincipal.setCoordinador(coordinador);
         SystemOut.setCoordinador(coordinador);
-        panelPrincipal.setCoordinador(coordinador);
-        panelAgregarRefaccion.setCoordinador(coordinador);
-        dialogoRegistrarProveedor_.setCoordinador(coordinador);
-        logica.setCoordinador(coordinador);
-        dialogoAgregarMaquina_.setCoordinador(coordinador);
-        dialogoDetalleRefaccion_.setCoordinador(coordinador);
-        dialogoDetalleImagen.setCoordinador(coordinador);
-        panelModificarRefaccion.setCoordinador(coordinador);
         
+        panelConsultaRefacciones.setCoordinador(coordinador);
+        panelRefaccionAgregar.setCoordinador(coordinador);
+        panelRefaccionModificar.setCoordinador(coordinador);
+        
+        dialogoProveedorRegistrar.setCoordinador(coordinador);
+        dialogoMaquinaModeloAgregar.setCoordinador(coordinador);
+        dialogoRefaccionDetalle.setCoordinador(coordinador);
+        dialogoImagenDetalle.setCoordinador(coordinador);
+        
+        logica.setCoordinador(coordinador);
         
         /*
         ====================================================================
@@ -115,14 +113,14 @@ public class Principal {
         coordinador.setMarcoParaVentanaPrincipal(marcoParaVentanaPrincipal);
         coordinador.setConsolaDeErrores(consolaDeErrores);
         coordinador.setSystemOut(SystemOut);
-        coordinador.setPanelPrincipal(panelPrincipal);
-        coordinador.setPanelAgregarRefaccion(panelAgregarRefaccion);
-        coordinador.setDialogoRegistrarProveedor(dialogoRegistrarProveedor_);
+        coordinador.setPanelRefaccionConsulta(panelConsultaRefacciones);
+        coordinador.setPanelRefaccionAgregar(panelRefaccionAgregar);
+        coordinador.setDialogoProveedorRegistrar(dialogoProveedorRegistrar);
         coordinador.setLogica(logica);
-        coordinador.setDialogoAgregarMaquina_(dialogoAgregarMaquina_);
-        coordinador.setDialogoDetalleRefaccion_(dialogoDetalleRefaccion_);
-        coordinador.setDialogoDetalleImagen(dialogoDetalleImagen);
-        coordinador.setPanelModificarRefaccion(panelModificarRefaccion);
+        coordinador.setDialogoMaquinaModeloAgregar(dialogoMaquinaModeloAgregar);
+        coordinador.setDialogoRefaccionDetalle(dialogoRefaccionDetalle);
+        coordinador.setDialogoImagenDetalle(dialogoImagenDetalle);
+        coordinador.setPanelRefaccionModificar(panelRefaccionModificar);
         
         
         

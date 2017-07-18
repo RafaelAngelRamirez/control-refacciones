@@ -1,8 +1,8 @@
 
 package controlador;
 
-import vista.panelsYDialogosOptimizados.PanelAgregarRefaccion_;
-import vista.panelsYDialogosOptimizados.PanelConsultaRefacciones;
+import vista.panelsYDialogosOptimizados.PanelRefaccionAgregar;
+import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
 import java.util.ArrayDeque;
@@ -33,18 +33,20 @@ public class Coordinador {
     private MarcoParaVentanaPrincipal marcoParaVentanaPrincipal;
     private ConsolaDeErrores consolaDeErrores;
     private CapturaDeSucesos SystemOut;
-    private PanelConsultaRefacciones panelPrincipal;
-    private PanelAgregarRefaccion_ panelAgregarRefaccion;
-    private DialogoRegistrarProveedor_ dialogoRegistrarProveedor;
     private Logica logica;
-    private DialogoAgregarMaquinaModelo_ dialogoAgregarMaquina_;
-    private DialogoDetalleRefaccion_ dialogoDetalleRefaccion_;
-    private DialogoDetalleImagen dialogoDetalleImagen;
-    private PanelModificarRefaccion panelModificarRefaccion;
+    
+    private PanelRefaccionesConsulta panelRefaccionConsulta;
+    private PanelRefaccionAgregar panelRefaccionAgregar;
+    private PanelRefaccionModificar panelRefaccionModificar;
+    
+    private DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar;
+    private DialogoRefaccionDetalle dialogoRefaccionDetalle;
+    private DialogoImagenDetalle dialogoImagenDetalle;
+    private DialogoProveedorRegistrar dialogoProveedorRegistrar;
     
     
-    public DialogoDetalleRefaccion_ getDialogoDetalleRefaccion_() {    
-        return dialogoDetalleRefaccion_;
+    public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
+        return dialogoRefaccionDetalle;
     }
     
     /*
@@ -53,31 +55,31 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
 
-    public PanelModificarRefaccion getPanelModificarRefaccion() {
-        return panelModificarRefaccion;
+    public PanelRefaccionModificar getPanelRefaccionModificar() {
+        return panelRefaccionModificar;
     }
 
-    public void setPanelModificarRefaccion(PanelModificarRefaccion panelModificarRefaccion) {
-        this.panelModificarRefaccion = panelModificarRefaccion;
+    public void setPanelRefaccionModificar(PanelRefaccionModificar panelRefaccionModificar) {
+        this.panelRefaccionModificar = panelRefaccionModificar;
     }
-    public DialogoDetalleImagen getDialogoDetalleImagen() {
-        return dialogoDetalleImagen;
+    public DialogoImagenDetalle getDialogoImagenDetalle() {
+        return dialogoImagenDetalle;
     }
 
-    public void setDialogoDetalleImagen(DialogoDetalleImagen dialogoDetalleImagen) {
-        this.dialogoDetalleImagen = dialogoDetalleImagen;
+    public void setDialogoImagenDetalle(DialogoImagenDetalle dialogoImagenDetalle) {
+        this.dialogoImagenDetalle = dialogoImagenDetalle;
     }
     
-    public void setDialogoDetalleRefaccion_(DialogoDetalleRefaccion_ dialogoDetalleRefaccion_) {
-        this.dialogoDetalleRefaccion_ = dialogoDetalleRefaccion_;
+    public void setDialogoRefaccionDetalle(DialogoRefaccionDetalle dialogoRefaccionDetalle) {
+        this.dialogoRefaccionDetalle = dialogoRefaccionDetalle;
     }
 
-    public DialogoAgregarMaquinaModelo_ getDialogoAgregarMaquina_() {
-        return dialogoAgregarMaquina_;
+    public DialogoMaquinaModeloAgregar getDialogoMaquinaModeloAgregar() {
+        return dialogoMaquinaModeloAgregar;
     }
 
-    public void setDialogoAgregarMaquina_(DialogoAgregarMaquinaModelo_ dialogoAgregarMaquina_) {
-        this.dialogoAgregarMaquina_ = dialogoAgregarMaquina_;
+    public void setDialogoMaquinaModeloAgregar(DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar) {
+        this.dialogoMaquinaModeloAgregar = dialogoMaquinaModeloAgregar;
     }
     
     public Logica getLogica() {
@@ -88,29 +90,29 @@ public class Coordinador {
         this.logica = logica;
     }
 
-    public DialogoRegistrarProveedor_ getDialogoRegistrarProveedor() {
-        return dialogoRegistrarProveedor;
+    public DialogoProveedorRegistrar getDialogoProveedorRegistrar() {
+        return dialogoProveedorRegistrar;
     }
 
-    public void setDialogoRegistrarProveedor(DialogoRegistrarProveedor_ dialogoRegistrarProveedor) {
-        this.dialogoRegistrarProveedor = dialogoRegistrarProveedor;
+    public void setDialogoProveedorRegistrar(DialogoProveedorRegistrar dialogoProveedorRegistrar) {
+        this.dialogoProveedorRegistrar = dialogoProveedorRegistrar;
     }
     
-    public PanelAgregarRefaccion_ getPanelAgregarRefaccion() {
+    public PanelRefaccionAgregar getPanelRefaccionAgregar() {
        
-        return panelAgregarRefaccion;
+        return panelRefaccionAgregar;
     }
 
-    public void setPanelAgregarRefaccion(PanelAgregarRefaccion_ panelAgregarRefaccion) {
-        this.panelAgregarRefaccion = panelAgregarRefaccion;
+    public void setPanelRefaccionAgregar(PanelRefaccionAgregar panelRefaccionAgregar) {
+        this.panelRefaccionAgregar = panelRefaccionAgregar;
     }
     
-    public PanelConsultaRefacciones getPanelConsultaRefacciones() {
-        return panelPrincipal;
+    public PanelRefaccionesConsulta getPanelConsultaRefacciones() {
+        return panelRefaccionConsulta;
     }
 
-    public void setPanelPrincipal(PanelConsultaRefacciones panelPrincipal) {
-        this.panelPrincipal = panelPrincipal;
+    public void setPanelRefaccionConsulta(PanelRefaccionesConsulta panelRefaccionConsulta) {
+        this.panelRefaccionConsulta = panelRefaccionConsulta;
     }
     
     public MarcoParaVentanaPrincipal getMarcoParaVentanaPrincipal() {
@@ -188,8 +190,8 @@ public class Coordinador {
     public void proveedorAbrirDialogoGuardarNuevo(){
         //ES NECESARIO LANZAR EL PROCEDIMIENTO DE CONFIGURACIÓN AQUI
         // PARA QUE LAS INSTANCIAS QUE REQUIEREN SE SETEAN POR COMPLETO.
-        this.getDialogoRegistrarProveedor().configurar();
-        this.getDialogoRegistrarProveedor().setVisible(true);
+        this.getDialogoProveedorRegistrar().configurar();
+        this.getDialogoProveedorRegistrar().setVisible(true);
     }
     
     /**
@@ -198,9 +200,9 @@ public class Coordinador {
      * @param nuevoElemento El elemento que se quire escribir en el dialogo. 
      */
     public void proveedoresAbrirDialogo(String nuevoElemento){
-        this.getDialogoRegistrarProveedor().configurar();
-        this.getDialogoRegistrarProveedor().setProveedorPrecargado(nuevoElemento);
-        this.getDialogoRegistrarProveedor().setVisible(true);
+        this.getDialogoProveedorRegistrar().configurar();
+        this.getDialogoProveedorRegistrar().setProveedorPrecargado(nuevoElemento);
+        this.getDialogoProveedorRegistrar().setVisible(true);
     }
     
     //VALIDACIONES
@@ -223,7 +225,7 @@ public class Coordinador {
         this.logica.proveedorGuardar(vo);
     }
     public void proveedorActualizarLista(){
-        this.getPanelAgregarRefaccion().cargarListaProveedor();
+        this.getPanelRefaccionAgregar().cargarListaProveedor();
     }
     
     /**
@@ -303,8 +305,8 @@ public class Coordinador {
     */
     
     public void maquinaModeloAbrirDialogo(){
-        getDialogoAgregarMaquina_().configurar();
-        getDialogoAgregarMaquina_().setVisible(true);
+        getDialogoMaquinaModeloAgregar().configurar();
+        getDialogoMaquinaModeloAgregar().setVisible(true);
     
     }
     
@@ -319,7 +321,7 @@ public class Coordinador {
     }
     
     public void maquinaModeloActualizarLista(){
-        this.getPanelAgregarRefaccion().cargarListaMaquinaModelo();
+        this.getPanelRefaccionAgregar().cargarListaMaquinaModelo();
     }
     
     public List<MaquinaModeloVo> maquinaModeloConsultar(){
@@ -450,7 +452,7 @@ public class Coordinador {
                     // SI refaccionesPorModificarId NO ESTA VACIO ENTONCES
                     //ABRIMOS EL PANEL, LE PASAMOS EL ID A MODIFICAR Y QUITAMOS
                     // DE LA FILA ESE ID. 
-                    this.getPanelModificarRefaccion().configurar(
+                    this.getPanelRefaccionModificar().configurar(
                             refaccionesPorModificarId.pop(),
                             refaccionesPorModificarId.size()
                     );
@@ -496,7 +498,7 @@ public class Coordinador {
     public void refaccionAbrirPanelModificar(int idRefaccion){
         this.getMarcoParaVentanaPrincipal()
                 .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION);
-        this.getPanelModificarRefaccion().configurar(idRefaccion, 0);
+        this.getPanelRefaccionModificar().configurar(idRefaccion, 0);
     }
     
     public void refaccionAbrirPanelConsultaRefacciones(){
@@ -507,21 +509,21 @@ public class Coordinador {
     
     //DETALLE DE REFACCIONES
     public void refaccionAbrirDetalleRefaccion(String id){
-        this.getDialogoDetalleRefaccion_().configurar(id);
-        this.getDialogoDetalleRefaccion_().setVisible(true);
+        this.getDialogoRefaccionDetalle().configurar(id);
+        this.getDialogoRefaccionDetalle().setVisible(true);
     }
     
     //DETALLE DE IMAGENES
     
     public void refaccionAbrirDetalleImagen(){
-        this.getDialogoDetalleImagen().setVisible(true);
-        this.getDialogoDetalleImagen().configurar();
+        this.getDialogoImagenDetalle().setVisible(true);
+        this.getDialogoImagenDetalle().configurar();
     
     }
     
     public void refaccionMostrarDetalleActualizarImagenes(int id){
-        this.getDialogoDetalleRefaccion_().cargarImagenes(id);
-        this.getDialogoDetalleImagen().cargarImagenes();
+        this.getDialogoRefaccionDetalle().cargarImagenes(id);
+        this.getDialogoImagenDetalle().cargarImagenes();
     }
     
     //GUARDAR DATOS
@@ -560,7 +562,7 @@ public class Coordinador {
      * @return  Las imágenes ya cargadas en otro dialogo.
      */ 
     public List<ImagenVo> refaccionListaDeImagenesDetalles(){
-        return this.getDialogoDetalleRefaccion_().getListaImagenesRefaccion();
+        return this.getDialogoRefaccionDetalle().getListaImagenesRefaccion();
     }
     
     //MODIFICAR DATOS.
