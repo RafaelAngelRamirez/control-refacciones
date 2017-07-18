@@ -86,6 +86,7 @@ public class Conexion {
     
     /**
      * Si la conexión al servidor se realizo exitosamente.
+     * @return  Devuelve true si fue exitosa. 
      */ 
     public boolean isExitosa() {
         return exitosa;
@@ -93,6 +94,7 @@ public class Conexion {
     
     /**
      * Url actual del servidor. 
+     * @return Devuelve la url del servidor. 
      */
     public String getUrlServidor() {
         return urlServidor;
@@ -101,15 +103,15 @@ public class Conexion {
      /**
      * Solo comando DDL (Data Definition Languaje)(SELECT, 
      * Ejecuta la sentencia que se le pase como parametro. Lo importante de esta 
-     * sentencia es que evita SQLInjection. <br />
+     * sentencia es que evita SQLInjection. <br>
      * 
-     * La estructura a utilizar es la siguiente:<br /> 
+     * La estructura a utilizar es la siguiente:<br> 
      * 
      * <p style="color:rgb(255,255,0);" >
      * sql = "SELECT * FROM tabla WHERE id=? and user=?";
      * </p>
      * 
-     * <br />
+     * <br>
      * 
      * Los singnos de interrogación serán sustituidos por
      * el número que le pasemos en el HasMap. Por ejemplo:<br>

@@ -2,13 +2,30 @@
 package vista.panelsYDialogosOptimizados;
 
 import controlador.Coordinador;
+import java.util.HashMap;
+import java.util.List;
+import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
+import modelo.InfoTabla.MaquinaModeloIT;
+import modelo.InfoTabla.ProveedorIT;
+import modelo.logica.Validacion;
+import modelo.vo.MaquinaModeloVo;
+import modelo.vo.ProveedorVo;
+import vista.utilidadesOptimizadas.UtilidadesBotones_;
+import vista.utilidadesOptimizadas.UtilidadesComboBox_;
+import vista.utilidadesOptimizadas.UtilidadesListas_;
+import vista.utilidadesOptimizadas.UtilidadesTxt_;
 
 /**
  * Este dialogo permite modificar una MaquinaModelo. 
  * @author Particular
  */
 public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
-    Coordinador coordinador;
+    private Coordinador coordinador;
+    private UtilidadesTxt_ _TxtAnio;
+    private UtilidadesTxt_ _TxtModeloMaquina;
+    private UtilidadesComboBox_ _ComboMarca;
+    private UtilidadesListas_ _ListaMaquinaModelo;
             
     /** Inicializa opciones del dialogo. */
     public DialogoMaquinaModeloModificar() {
@@ -16,7 +33,113 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     }
     
     public void configurar(){
-    
+     /*
+        =======================================================================
+            INICIO CONFIGURACIONES DIALOGO
+        ///////////////////////////////////////////////////////////////////////
+
+        Los dialogos nos los estoy configurando de manera complicada. Solo lo
+        básico para que funcionen en modal.
+        
+        */ 
+     
+        setModal(true);
+        setResizable(false);
+        setTitle("Modificar maquina-modelo");
+        setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        
+        /* 
+        ////////////////////////////////////////////////////////////////////////
+            FIN SETEO DE UTILIDADES
+        ========================================================================
+        */
+        
+         /*
+        =======================================================================
+            INICIO SETEO NOMBRES DE ETIQUETA
+        ///////////////////////////////////////////////////////////////////////
+        */
+        
+        MaquinaModeloIT mmit = new MaquinaModeloIT();
+        ProveedorIT pit = new ProveedorIT();
+        etiquetaAno.setText(mmit.getAnioPDC().getNombreParaMostrar());
+        etiquetaMarca.setText("Marca-"+pit.getEmpresaProveedorPDC().getNombreParaMostrar());
+        etiquetaModeloMaquina.setText(mmit.getModeloPDC().getNombreParaMostrar());
+        
+        /* 
+        ////////////////////////////////////////////////////////////////////////
+            FIN SETEO NOMBRES DE ETIQUETA
+        ========================================================================
+        */
+        /*
+        =======================================================================
+            INICIO SETEO UTILIDADES
+        ///////////////////////////////////////////////////////////////////////
+        */
+        //INICIAMOS LAS UTILIDADES.
+        
+        _TxtAnio = new UtilidadesTxt_ (getCoordinador());
+        _TxtModeloMaquina = new UtilidadesTxt_ (getCoordinador());
+        _ComboMarca = new UtilidadesComboBox_ (getCoordinador());
+        _ListaMaquinaModelo = new UtilidadesListas_(getCoordinador());
+        
+        
+        //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
+        
+        _TxtAnio.setComponente(txtAnio);
+        _TxtModeloMaquina.setComponente(txtModeloMaquina);
+        _ComboMarca.setComponente(comboMarca);
+        _ListaMaquinaModelo.setComponente(listaMaquinanasModelo);
+       
+        //ASIGNAMOS EL TAMAÑO DE CAMPO
+        _TxtAnio.setTamanoDeCampo(mmit.getAnioPDC().getLongitudDeCaracteres());
+        _TxtModeloMaquina.setTamanoDeCampo(mmit.getModeloPDC().getLongitudDeCaracteres());
+        _ComboMarca.setTamanoDeCampo(pit.getEmpresaProveedorPDC().getLongitudDeCaracteres());
+        
+        //CAMPOS QUE REQUIEREN TEXO EN MAYUSCULAS.
+        _TxtModeloMaquina.setMayusculas();
+        _ComboMarca.setMayusculas();
+        
+        //CAMPOS SOLO NUMEROS.
+        _TxtAnio.setSoloNumeros();
+        
+        //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
+        _TxtAnio.setEspaciosEnBlanco();
+        _TxtModeloMaquina.setEspaciosEnBlanco();
+        _ComboMarca.setEspaciosEnBlanco();
+                
+        
+        //ACCIONES ESPECELIALES.
+        _ComboMarca.setFocusAction(()->this.guardarProoveedor(), false);
+        
+        //ACCIONES DE BOTONES
+        UtilidadesBotones_.setEnterYEspacio(btnCancelar);
+        UtilidadesBotones_.setEnterYEspacio(btnGuardar);
+        
+        
+        /* 
+        ////////////////////////////////////////////////////////////////////////
+            FIN SETEO DE UTILIDADES
+        ========================================================================
+        */
+        /*
+        =======================================================================
+            INICIO CARGA DE ELEMENTOS 
+        ///////////////////////////////////////////////////////////////////////
+        */
+            cargarComboMarca();
+            cargarListaMaquinaModelo();
+        
+        /* 
+        ////////////////////////////////////////////////////////////////////////
+            FIN CARGA DE ELEMENTOS 
+        ========================================================================
+        */
+        
+        
+        
+        
     }
 
     public Coordinador getCoordinador() {
@@ -25,6 +148,66 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
 
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
+    }
+    
+    public void guardarProoveedor(){
+        String proveedor = _ComboMarca.getText();
+        if (!proveedor.equals("")) {
+            if (this.coordinador.proveedorExiste(proveedor)) {
+                _ComboMarca.setSelectedItem(proveedor);
+            }else{
+                int r = JOptionPane.showConfirmDialog(this,
+                    "¿Estas segúro que quieres agregar '"+proveedor+"' "
+                    + "\n como proveedor-empresa nueva?",
+                    "¿Guardar nuevo proveedor-empresa?", 
+                    JOptionPane.YES_NO_OPTION);
+
+                if (r==0) {
+                    this.coordinador.proveedoresAbrirDialogo(proveedor);
+                    this.cargarComboMarca();
+                    _ComboMarca.setSelectedItem(proveedor);
+                    
+                }else{
+                    _ComboMarca.setText("");
+                }
+            }
+        }
+    }
+    
+    public void cargarComboMarca(){
+        List<ProveedorVo> l = this.coordinador.proveedoresConsultarMarcas();
+        HashMap<String, Integer> map = new HashMap<>();
+        
+        for (ProveedorVo vo : l) {
+            map.put(vo.getEmpresa(), vo.getId());
+        }
+
+
+        _ComboMarca.cargarCombo(map);
+    
+    }
+    
+    public void cargarListaMaquinaModelo(){
+        List<MaquinaModeloVo> lista = this.coordinador.maquinaModeloConsultar();
+        HashMap<String, Integer> datos = new HashMap<>();
+        _ListaMaquinaModelo.limpiar();
+        for (MaquinaModeloVo vo : lista) {
+            String modeloAnio = vo.getModelo() + " " +vo.getAnio();
+            datos.put(modeloAnio, vo.getId());
+        }
+        
+        
+        _ListaMaquinaModelo.cargarLista(datos);
+    }
+    
+    private void limpiarTodo(){
+        this._TxtModeloMaquina.setText("");
+        this._TxtAnio.setText("");
+        this._ComboMarca.setText("");
+        
+        this._TxtModeloMaquina.setErrorQuitar();
+        this._TxtAnio.setErrorQuitar();
+        this._ComboMarca.setErrorQuitar();
     }
     
     
@@ -48,7 +231,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listaMaquinas = new javax.swing.JList<>();
+        listaMaquinanasModelo = new javax.swing.JList<>();
         btnCancelar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -117,14 +300,14 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
             }
         });
 
-        listaMaquinas.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        listaMaquinas.setFocusable(false);
-        listaMaquinas.addMouseListener(new java.awt.event.MouseAdapter() {
+        listaMaquinanasModelo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        listaMaquinanasModelo.setFocusable(false);
+        listaMaquinanasModelo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaMaquinasMouseClicked(evt);
+                listaMaquinanasModeloMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(listaMaquinas);
+        jScrollPane3.setViewportView(listaMaquinanasModelo);
 
         btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
@@ -269,14 +452,13 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         }
 
         if (todoValido) {
-            coordinador.maquinaModeloGuardar(vo);
+            JOptionPane.showMessageDialog(null, "listo para guardar");
             limpiarTodo();
-            dispose();
-            this.coordinador.maquinaModeloActualizarLista();
+            
+//            this.coordinador.maquinaModeloActualizarLista();
             JOptionPane.showMessageDialog(
                 coordinador.getMarcoParaVentanaPrincipal(),
-                "Se guardo correctamente el modelo.");
-
+                "Se modifico correctamente la refacción.");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -286,9 +468,9 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     private void cancelar(){
         this.dispose();
     }
-    private void listaMaquinasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaMaquinasMouseClicked
+    private void listaMaquinanasModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaMaquinanasModeloMouseClicked
 
-    }//GEN-LAST:event_listaMaquinasMouseClicked
+    }//GEN-LAST:event_listaMaquinanasModeloMouseClicked
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
         // TODO add your handling code here:
@@ -350,7 +532,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     private javax.swing.JLabel etiquetaModeloMaquina;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JList<String> listaMaquinas;
+    private javax.swing.JList<String> listaMaquinanasModelo;
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtModeloMaquina;
     // End of variables declaration//GEN-END:variables

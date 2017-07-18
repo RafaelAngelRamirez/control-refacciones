@@ -307,10 +307,14 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     }
     
     /**
+     * Limpia la lista controlada por esta utilidad y si la lista de intercambio
+     * es !=null entonces tambien la limpia. 
      */
     public void limpiar(){
         this.lista.setModel(new DefaultListModel<>());
-        this.listaAAgregar.getLista().setModel(new DefaultListModel<>());
+        if (this.listaAAgregar!=null) {
+            this.listaAAgregar.getLista().setModel(new DefaultListModel<>());
+        }
     }
 
     /**

@@ -272,6 +272,16 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 ()->this.getCoordinador().refaccionAbrirPanelModificar());
         this.addItemOMenu(modificarRefacción);
 
+        
+        MenuConstructor modificarMaquinaModelo = new MenuConstructor();
+        modificarMaquinaModelo.setItem();
+        modificarMaquinaModelo.setNombre("Modificar maquina-modelo");
+        modificarMaquinaModelo.setPadre(menuModificar);
+        modificarMaquinaModelo.setAccionDelItem(
+                ()->this.getCoordinador().maquinaModeloAbrirDialogoModificar());
+        this.addItemOMenu(modificarMaquinaModelo);
+        
+        
         //GENERAMOS EL MENU.
         this.generarMenus();
         
