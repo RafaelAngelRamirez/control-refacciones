@@ -390,24 +390,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoRefaccionDetalleOPA.addOperacionParaActualizar(
                 ()->this.getCoordinador().refaccionActualizarPanelAgregarRefaccion());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoRefaccionDetalleOPA);
-//        
-//        MenuConstructor modificarMaquinaModelo = new MenuConstructor();
-//        modificarMaquinaModelo.setItem();
-//        modificarMaquinaModelo.setNombre("Modificar maquina-modelo");
-//        modificarMaquinaModelo.setPadre(menuModificar);
-//        modificarMaquinaModelo.setAccionDelItem(
-//                ()->this.getCoordinador().maquinaModeloAbrirDialogoModificar());
-//        modificarMaquinaModelo.setDialog(this.getCoordinador().getDialogoMaquinaModeloModificar());
-//        this.addItemOMenu(modificarMaquinaModelo);
-//        
-//        Coordinador.OperacionesPorActualizar modificarMaquinaModeloOPA 
-//                = getCoordinador().new OperacionesPorActualizar();
-//        modificarMaquinaModeloOPA.setPanel(registroRefacciones);
-//        modificarMaquinaModeloOPA.addOperacionParaActualizar(
-//                ()->this.getCoordinador().refaccionActualizarPanelAgregarRefaccion());
-//        this.getCoordinador().addListaOperacionesPorActualizar(modificarMaquinaModeloOPA);
-        
-        
         
         
         //GENERAMOS EL MENU.
