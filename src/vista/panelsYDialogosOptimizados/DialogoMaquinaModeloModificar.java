@@ -131,8 +131,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
             INICIO CARGA DE ELEMENTOS 
         ///////////////////////////////////////////////////////////////////////
         */
-            cargarComboMarca();
-            cargarListaMaquinaModelo();
+            cargarCombosYListas();
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -201,6 +200,11 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         
         
         _ListaMaquinaModelo.cargarLista(datos);
+    }
+    
+    public void cargarCombosYListas(){
+        cargarComboMarca();
+        cargarListaMaquinaModelo();
     }
     
     private void limpiarTodo(){
@@ -469,7 +473,6 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "listo para guardar");
 //            limpiarTodo();
             
-//            this.coordinador.maquinaModeloActualizarLista();
             JOptionPane.showMessageDialog(
                 coordinador.getMarcoParaVentanaPrincipal(),
                 "Se modifico correctamente la refacción.");

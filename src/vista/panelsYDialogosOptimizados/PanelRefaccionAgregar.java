@@ -1590,7 +1590,7 @@ public class PanelRefaccionAgregar extends JPanel {
                 }
                 
                 limpiarTodo();
-                this.coordinador.refaccionActualizarPanerlConsultaRefacciones();
+                this.coordinador.refaccionActualizarPanelConsultaRefacciones();
                 JOptionPane.showMessageDialog(
                         coordinador.getMarcoParaVentanaPrincipal(),
                         "Se guardo la refaccción correctamente.");

@@ -8,8 +8,12 @@ import controlador.capturadeerrores.ConsolaDeErrores;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
+import modelo.InfoTabla.MaquinaModeloIT;
+import modelo.InfoTabla.ProveedorIT;
+import modelo.InfoTabla.RefaccionIT;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenVo;
@@ -336,8 +340,10 @@ public class Coordinador {
     
     }
     
-    public void maquinaModeloActualizarLista(){
-        this.getPanelRefaccionAgregar().cargarListaMaquinaModelo();
+    //ACTUALIZAR
+    public void maquinaModeloActualizarDialogoModificar(){
+        this.getDialogoMaquinaModeloModificar().cargarCombosYListas();
+        
     }
     
     public List<MaquinaModeloVo> maquinaModeloConsultar(){
@@ -529,7 +535,7 @@ public class Coordinador {
     
     public void refaccionAbrirPanelConsultaRefacciones(){
         this.getMarcoParaVentanaPrincipal()
-                .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_INICIO);
+                .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES);
         
     }
     
@@ -579,8 +585,20 @@ public class Coordinador {
         return this.logica.refaccionConsultarTodoBusqueda(buscar);
     }
     
-    public void refaccionActualizarPanerlConsultaRefacciones(){
+   
+    
+    //ACTUALIZAR 
+    
+    public void refaccionActualizarPanelConsultaRefacciones(){
         this.getPanelConsultaRefacciones().cargarRefaccionesInicio();
+    }
+    
+    public void refaccionActualizarPanelAgregarRefaccion(){
+        this.getPanelRefaccionAgregar().cargarListasYCombos();
+    }
+    
+    public void refaccionActualizarPanelModificar(){
+        this.getPanelRefaccionModificar().cargarListasYCombos();
     }
     
     /**
@@ -694,14 +712,14 @@ public class Coordinador {
     
     /**
      * Agrega un elemento que contiene operaciones para actualizar elementos que
-     * dependen de una tabla que se puede modificar desde cualquier parte del sistema.
-     * @param listaOperacionesPorActualizar El objeto que contiene las especificaciones
+     * dependen de una tabla y que se puede modificar desde cualquier parte del sistema.
+     * @param op El objeto que contiene las especificaciones
      * para ejecutar la actualización de operaciones. 
      * @see OperacionesPorActualizar
      * 
      */
-    public void setListaOperacionesPorActualizar(List<OperacionesPorActualizar> listaOperacionesPorActualizar) {
-        this.listaOperacionesPorActualizar = listaOperacionesPorActualizar;
+    public void addListaOperacionesPorActualizar(OperacionesPorActualizar op) {
+        this.listaOperacionesPorActualizar.add(op);
     }
 
     /**
@@ -711,14 +729,37 @@ public class Coordinador {
      * el objeto directamente en la operacion setActualizado a false.
      */
     public void ejecutarOperacionesParaActualizar(){
+        JOptionPane.showMessageDialog(null, "ejecutar operaciones de actualizacion!!!!!");
         for (OperacionesPorActualizar listaOp : listaOperacionesPorActualizar) {
             if(marcoParaVentanaPrincipal.getjPanelActual().getNombre().equals(listaOp.getPanel().getNombre())) {
-                for (Runnable runnable : listaOp.getOperacionesParaActualizar()) {
-                    runnable.run();
-                    listaOp.setActualizado(true);
-                }
+                listaOp.actualizar();
             }
         }
+    }
+    
+    public void huboUnCambioEnTabla(String nombreDeLaTabla){
+        //ESTE MAMA LO UTILIZAMOS PARA GUARDAR LOS PANELES QUE FUERON MODIFICADOS
+        // Y QUE SE TIENEN QUE GUARDAR. 
+        HashMap<String, Boolean> mapa = new HashMap<>();
+        switch(nombreDeLaTabla){
+            case RefaccionIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, true);
+                break;
+            case ProveedorIT.NOMBRE_TABLA:    
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, true);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, true);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, true);
+                break;
+            case MaquinaModeloIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, true);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, true);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, true);
+                break;
+            case 
+                    
+            
+        }
+        
     }
     
     public class OperacionesPorActualizar{
@@ -726,31 +767,74 @@ public class Coordinador {
         private List<Runnable> operacionesParaActualizar;
         private boolean actualizado;
 
+        public OperacionesPorActualizar() {
+            this.actualizado = false;
+            this.operacionesParaActualizar = new ArrayList<>();
+        }
+        /**
+         * Almacena las operaciones de actualización que se ejecutaran cada vez
+         * que el panel actual coincida con el definido dentro de este elemento.
+         * 
+         * @param operacion La operación que se quiere ejecutar. 
+         */
         public void addOperacionParaActualizar(Runnable operacion){
             operacionesParaActualizar.add(operacion);
         }
 
+        /**
+         * Lista de operaciones definidas para actualizar en el panel. 
+         * @return Las operaciones definidas para ejecutar. 
+         */
         public List<Runnable> getOperacionesParaActualizar() {
             return operacionesParaActualizar;
         }
-
-        public void setOperacionesParaActualizar(List<Runnable> operacionesParaActualizar) {
-            this.operacionesParaActualizar = operacionesParaActualizar;
-        }
         
-        
+        /**
+         * El panel en objeto tipo MenuConstructor que se quiere comparar. 
+         * @return El panel guardado.
+         * @see Menuconstructor
+         */
         public MarcoParaVentanaPrincipal.MenuConstructor getPanel() {
             return panel;
         }
 
+        /**
+         * Añade el menuConstructor que contiene el Jpanel para compararlo
+         * con el que se esta visualizando. 
+         * @param panel El MenuConstructor 
+         */
         public void setPanel(MarcoParaVentanaPrincipal.MenuConstructor panel) {
             this.panel = panel;
         }
 
+        /**
+         * Independientemente de las cantidad de operaciones definidas para 
+         * actualizar esta función retorna true si ejecutaron todas las operaciones
+         * de actualización y retorna false cuando es necesario ejecutar las 
+         * operaciones. 
+         * @return Devuelve true si se ejecutaron todas las operaciones de actualización.
+         * 
+         */
         public boolean isActualizado() {
             return actualizado;
         }
+        
+        /**
+         * Ejecuta las operaciones de actualzacion definidas en {@see addOperacionParaActualizar() } 
+         * y cambia el estado de {@see isActualizado()} a false;
+         */
+        public void actualizar(){
+            for (Runnable runnable : operacionesParaActualizar) {
+                runnable.run();
+            }
+            setActualizado(false);
+        }
 
+        /**
+         * Despues de que se ejecutan las operaciones en {@see: getOperacionesParaActualizar()}
+         * 
+         * @param actualizado
+         */
         public void setActualizado(boolean actualizado) {
             this.actualizado = actualizado;
         }
