@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
 /**
@@ -239,6 +240,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
      */
     public void limpiar(){
         this.lista.setModel(new DefaultListModel<>());
+        JOptionPane.showMessageDialog(null, "esta limpiando");
         if (this.listaAAgregar!=null) {
             this.listaAAgregar.getLista().setModel(new DefaultListModel<>());
         }

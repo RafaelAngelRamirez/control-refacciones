@@ -200,7 +200,7 @@ public class Coordinador {
     
     //INTERFAZ
     /**
-     * Abre el dialogo para guardar una nueva refacción.
+     * Abre el dialogo para guardar un nuevo proveedor.
      */
     public void proveedorAbrirDialogoGuardarNuevo(){
         //ES NECESARIO LANZAR EL PROCEDIMIENTO DE CONFIGURACIÓN AQUI
@@ -545,6 +545,17 @@ public class Coordinador {
         this.getDialogoRefaccionDetalle().setVisible(true);
     }
     
+    public void refaccionAbrirDetalleRefaccion(){
+        int a = this.getPanelConsultaRefacciones().getIdSeleccionado();
+        if (a==-1) {
+            JOptionPane.showMessageDialog(null, "Selecciona un elemento de la \n"
+                    + "tabla para mostrarlo.");
+ 
+        }else{
+            refaccionAbrirDetalleRefaccion(a+"");
+        }
+    }
+    
     //DETALLE DE IMAGENES
     
     public void refaccionAbrirDetalleImagen(){
@@ -755,7 +766,9 @@ public class Coordinador {
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, true);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, true);
                 break;
-            case 
+            case "a":
+                break;
+                   
                     
             
         }

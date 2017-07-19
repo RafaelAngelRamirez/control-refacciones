@@ -166,7 +166,7 @@ public class PanelRefaccionesConsulta extends JPanel {
     }
     
     public void mostrarDetalleRefaccion(){
-        coordinador.refaccionAbrirDetalleRefaccion(_TablaRefacciones.getDatoDeTabla(0));
+        coordinador.refaccionAbrirDetalleRefaccion(_TablaRefacciones.getDatoDeTabla(0)+"");
     }
 
     public Coordinador getCoordinador() {
@@ -278,6 +278,9 @@ public class PanelRefaccionesConsulta extends JPanel {
         return tablaRefacciones;
     }
 
+    /**
+     * Retorna todos los id seleccionados.
+     */
     public Deque<Integer> getIdSeleccionados(){
         Deque<Integer> i = new ArrayDeque<>();
         List<Object> a = this._TablaRefacciones.getDatoDeTabla_Seleccionados(0);
@@ -285,6 +288,15 @@ public class PanelRefaccionesConsulta extends JPanel {
             i.add(Integer.parseInt((String)o));
         }
          return i;
+    }
+    
+    /**
+     * Retorna el 1er id seleccionado. 
+     * @return Numero de id guadarado en la columna id. 
+     */ 
+    public int getIdSeleccionado(){
+        int a = Integer.parseInt(this._TablaRefacciones.getDatoDeTabla(0)+"");
+        return a;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

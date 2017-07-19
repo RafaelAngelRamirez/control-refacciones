@@ -203,7 +203,8 @@ public class DialogoRefaccionDetalle extends JDialog {
     }
     
     public void cargarElementos(int id){
-         RefaccionVo rvo = this.getCoordinador().refaccionConsultar(id);
+        
+        RefaccionVo rvo = this.getCoordinador().refaccionConsultar(id);
         
         _TxtNombreDeLaRefaccion.setText(rvo.getNombre());
         _TxtCodigo.setText(rvo.getCodigoInterno());

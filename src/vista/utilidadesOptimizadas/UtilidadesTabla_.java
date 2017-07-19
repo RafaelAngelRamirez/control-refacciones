@@ -211,12 +211,13 @@ public class UtilidadesTabla_ extends OperacionesBasicasPorDefinir_{
      * Recupera el dato de la columna donde se le de doble click de la columna
      * que se especique como parametro.
      * @param columna La columna de la que se obtendra el dato.
-     * @return El dato que coincida.
+     * @return El dato que coincida o -1 si la tabla no esta seleccionada
      */
-    public String getDatoDeTabla(int columna){
-        
-        return getDatoDeTabla(tabla.getSelectedRow(),
-                columna);
+    public Object getDatoDeTabla(int columna){
+        if (tabla.getSelectedRow()==-1) {
+            return -1;
+        }
+        return getDatoDeTabla(tabla.getSelectedRow(),columna);
     }
     
     /**
