@@ -393,13 +393,13 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
         String a = _TxtAnio.getText();
         //NO PUEDES PASAR UN INT NULO.
         if (a.equals("")) {
-            vo.setAnio(0);
+            vo.setAnio(-1);
         }else{
             vo.setAnio(Integer.parseInt(a));
         }
         vo.setIdProveedor(_ComboMarca.getSelectedItem_idRetorno());
         vo.setModelo(_TxtModeloMaquina.getText());
-        
+        vo.setId(-1);
         List<Validacion> validaciones = 
                 this.coordinador.maquinaModeloValidarCampos(vo);
         
@@ -447,13 +447,10 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
                 todoValido = false;
             }
         }
-        
         if (todoValido) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Se guardo correctamente el modelo.");
-            limpiarTodo();
             coordinador.maquinaModeloGuardar(vo);
+            JOptionPane.showMessageDialog(null,"Se guardo correctamente el modelo.");
+            limpiarTodo();
             this.getCoordinador().huboUnCambioEnTabla(MaquinaModeloIT.NOMBRE_TABLA);
             this.getCoordinador().ejecutarOperacionesParaActualizar();
             dispose();

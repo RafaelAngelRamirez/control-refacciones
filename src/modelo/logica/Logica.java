@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.FicherosOperaciones;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
@@ -273,6 +274,7 @@ public class Logica {
         List<ParametrosDeCampo> listaPDC =b.getCamposPDC();
         //RECORREMOS CADA CAMPO.
         for (ParametrosDeCampo parametrosDeCampo : listaPDC) {
+            JOptionPane.showMessageDialog(null, "parametros de campo:"+parametrosDeCampo.getNombre());
             try {
                 /*
                 ----------------------------------------------------------------
@@ -298,11 +300,13 @@ public class Logica {
                         
                     }else{
                         val.setValido(true);
+                        val.setMensajeDeError("todo bien");
                     }
                     listaValidaciones.add(val);
                 } 
-                
-                if (!parametrosDeCampo.isPermiteRepetido() && !valorAValidar.isEmpty()) {
+                //-1 SE REQUIER POR QUE LAS VARBIABLES CON INT NO PUEDEN ESTAR NULAS. -1 ES EL ESTANDAR QUE NUNCA 
+                // VA A TOCAR LA VALIDACION.
+                if (!parametrosDeCampo.isPermiteRepetido() && !valorAValidar.isEmpty() && !valorAValidar.equals(-1)) {
                     //VALIDAMOS LOS CAMPOS QUE NO PUEDEN REPETIRSE.
                     Validacion val = new Validacion();
                     val.setNombreDeCampo(parametrosDeCampo);
@@ -313,6 +317,7 @@ public class Logica {
                         val.setValido(false);
                     }else{
                         val.setValido(true);
+                        val.setMensajeDeError("todo bien");
                     }
                     listaValidaciones.add(val);
                 }
@@ -332,6 +337,7 @@ public class Logica {
                         val1.setValido(false);
                     }else{
                         val1.setValido(true);
+                        val1.setMensajeDeError("todo bien");
                     }
                     Validacion val2 = new Validacion();
                     val2.setNombreDeCampo(parametrosDeCampo);
@@ -342,6 +348,7 @@ public class Logica {
                         val2.setValido(false);
                     }else{
                         val2.setValido(true);
+                        val2.setMensajeDeError("todo bien");
                     }
                     
                     //AÑO FUERA DEL RANGO 1960-ACTUAL.
@@ -355,10 +362,9 @@ public class Logica {
                     if (anio<1960 || anio>year+1) {
                         val3.setMensajeDeError("El año debe estar entre 1960 y " + (year+1)+".");
                         val3.setValido(false);
-                    System.out.println("falso");
                     }else{
                         val3.setValido(true);
-                    System.out.println("verdadero");
+                        val3.setMensajeDeError("todo bien");
                     }
                     
                     listaValidaciones.add(val1);

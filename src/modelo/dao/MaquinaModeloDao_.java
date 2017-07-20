@@ -51,7 +51,7 @@ public class MaquinaModeloDao_ extends DAOGenerales_{
         return false;
     }
     
-    public void guardar(MaquinaModeloVo vo){
+    public boolean guardar(MaquinaModeloVo vo){
         String sql = "INSERT INTO " + MaquinaModeloIT.NOMBRE_TABLA 
                 +" VALUES (null, ?, ? , ?)";
         
@@ -60,7 +60,7 @@ public class MaquinaModeloDao_ extends DAOGenerales_{
         d.put(2, vo.getAnio()+"");
         d.put(3, vo.getIdProveedor()+"");
         
-        conexion.executeUpdate(sql, d);
+       return conexion.executeUpdate(sql, d);
         
     }
     

@@ -23,6 +23,7 @@ public class MaquinaModeloIT extends ITGenerales{
     public MaquinaModeloIT() {
        
         idPDC.setNombre("id");
+        idPDC.setNombreParaMostrar("ID");
         idPDC.setLongitudDeCaracteres(11);
         idPDC.setTipoDeDatos("int");
         idPDC.setNulo(false);

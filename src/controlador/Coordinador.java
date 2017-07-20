@@ -743,11 +743,20 @@ public class Coordinador {
     public void ejecutarOperacionesParaActualizar(){
         JOptionPane.showMessageDialog(null, "ejecutar operaciones de actualizacion!!!!!");
         for (OperacionesPorActualizar listaOp : listaOperacionesPorActualizar) {
-            if(marcoParaVentanaPrincipal.getjPanelActual().getNombre().equals(listaOp.getPanel().getNombre())) {
-                if (!listaOp.isActualizado()) {
+            if (!listaOp.isActualizado()) {
+                if (listaOp.getPanel().getThisPanel()!=null) {
                     JOptionPane.showMessageDialog(null, "actualizando panel:"+listaOp.getPanel().getNombre());
-                    listaOp.actualizar();
+                }else{
+                    JOptionPane.showMessageDialog(null, "actualizando dialogo:"+listaOp.getPanel().getNombre());
+                    
                 }
+                
+
+//                if (listaOp.getPanel().getThisPanel().isVisible()) {
+//
+//                }
+//
+//                listaOp.actualizar();
             }
         }
     }
@@ -759,30 +768,42 @@ public class Coordinador {
         HashMap<String, Boolean> mapa = new HashMap<>();
         switch(nombreDeLaTabla){
             case RefaccionIT.NOMBRE_TABLA:
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, true);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
                 break;
             case ProveedorIT.NOMBRE_TABLA:    
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, true);
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, true);
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, true);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
                 break;
             case MaquinaModeloIT.NOMBRE_TABLA:
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, true);
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, true);
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, true);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
                 break;
-            
         }
-        for (Map.Entry<String, Boolean> entrada : mapa.entrySet()) {
-            String nombreDelPanel = entrada.getKey();
-            Boolean valor = entrada.getValue();
+        for (Map.Entry<String, Boolean> entry : mapa.entrySet()) {
+            String key = entry.getKey();
+            Boolean value = entry.getValue();
+            System.out.println(key);
+            System.out.println(value);
+        }
+        
+        String tempo = "";
+        for (Map.Entry<String, Boolean> d : mapa.entrySet()) {
+            String nombre = d.getKey();
+            Boolean actualizado = d.getValue();
             for (OperacionesPorActualizar lop : listaOperacionesPorActualizar) {
-                if (lop.getPanel().getNombre().equals(nombreDelPanel)) {
-                    lop.setActualizado(valor);
+                if (lop.getPanel().getNombre().equals(nombre)) {
+                    tempo += lop.getPanel().getNombre()+"\n";
+                    lop.setActualizado(actualizado);
                     break;
                 }
             }
         }
+        String b= "Paneles para actualizar: \n"+tempo;
+        JOptionPane.showMessageDialog(null, b);
+        
+        
     }
     
     public class OperacionesPorActualizar{
@@ -848,6 +869,7 @@ public class Coordinador {
          */
         public void actualizar(){
             for (Runnable runnable : operacionesParaActualizar) {
+                JOptionPane.showMessageDialog(null, "ejecutando accion de actualizacion");
                 runnable.run();
             }
             setActualizado(false);
