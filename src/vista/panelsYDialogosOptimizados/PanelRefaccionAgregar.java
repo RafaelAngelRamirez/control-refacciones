@@ -244,6 +244,14 @@ public class PanelRefaccionAgregar extends JPanel {
         _ComboUnidad.setFocusAction(()->guardarUnidad(), false);
         _ComboMaterial.setFocusAction(()->guardarMaterial(), false);
         
+        _ListaProveedor.setSingleClick(()->_ListaProveedor.cambioEntreListas(false));
+        _ListaProveedorSeleccionado.setSingleClick(()->_ListaProveedor.cambioEntreListas(true));
+
+        _ListaMaquinaModelo.setSingleClick(()->_ListaMaquinaModelo.cambioEntreListas(false));
+        _ListasMaquinasSeleccionadas.setSingleClick(()->_ListaMaquinaModelo.cambioEntreListas(true));
+        
+        
+        
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
@@ -1347,7 +1355,7 @@ public class PanelRefaccionAgregar extends JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarNuevaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevaMaquinaActionPerformed
-        this.getCoordinador().maquinaModeloAbrirDialogo();
+        this.getCoordinador().maquinaModeloAbrirDialogoAgregar();
     }//GEN-LAST:event_btnAgregarNuevaMaquinaActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed

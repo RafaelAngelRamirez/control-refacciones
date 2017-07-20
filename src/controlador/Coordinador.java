@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
@@ -319,7 +320,7 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    public void maquinaModeloAbrirDialogo(){
+    public void maquinaModeloAbrirDialogoAgregar(){
         getDialogoMaquinaModeloAgregar().configurar();
         getDialogoMaquinaModeloAgregar().setVisible(true);
     
@@ -743,7 +744,10 @@ public class Coordinador {
         JOptionPane.showMessageDialog(null, "ejecutar operaciones de actualizacion!!!!!");
         for (OperacionesPorActualizar listaOp : listaOperacionesPorActualizar) {
             if(marcoParaVentanaPrincipal.getjPanelActual().getNombre().equals(listaOp.getPanel().getNombre())) {
-                listaOp.actualizar();
+                if (!listaOp.isActualizado()) {
+                    JOptionPane.showMessageDialog(null, "actualizando panel:"+listaOp.getPanel().getNombre());
+                    listaOp.actualizar();
+                }
             }
         }
     }
@@ -751,6 +755,7 @@ public class Coordinador {
     public void huboUnCambioEnTabla(String nombreDeLaTabla){
         //ESTE MAMA LO UTILIZAMOS PARA GUARDAR LOS PANELES QUE FUERON MODIFICADOS
         // Y QUE SE TIENEN QUE GUARDAR. 
+        JOptionPane.showMessageDialog(null, "se señalo un cambio en la tabla:"+nombreDeLaTabla);
         HashMap<String, Boolean> mapa = new HashMap<>();
         switch(nombreDeLaTabla){
             case RefaccionIT.NOMBRE_TABLA:
@@ -766,13 +771,18 @@ public class Coordinador {
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, true);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, true);
                 break;
-            case "a":
-                break;
-                   
-                    
             
         }
-        
+        for (Map.Entry<String, Boolean> entrada : mapa.entrySet()) {
+            String nombreDelPanel = entrada.getKey();
+            Boolean valor = entrada.getValue();
+            for (OperacionesPorActualizar lop : listaOperacionesPorActualizar) {
+                if (lop.getPanel().getNombre().equals(nombreDelPanel)) {
+                    lop.setActualizado(valor);
+                    break;
+                }
+            }
+        }
     }
     
     public class OperacionesPorActualizar{
@@ -781,7 +791,7 @@ public class Coordinador {
         private boolean actualizado;
 
         public OperacionesPorActualizar() {
-            this.actualizado = false;
+            this.actualizado = true;
             this.operacionesParaActualizar = new ArrayList<>();
         }
         /**

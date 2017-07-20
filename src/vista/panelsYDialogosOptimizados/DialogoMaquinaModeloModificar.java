@@ -434,7 +434,6 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
                     _TxtAnio.setError();
                     _TxtModeloMaquina.setError(validacione.getMensajeDeError());
                     modeloYAnioMal = true;
-
                 }else{
                     _TxtModeloMaquina.setErrorQuitar();
                     _TxtAnio.setErrorQuitar();
@@ -445,7 +444,6 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
             if (validacione.getNombreDeCampo().equals(iT.getAnioPDC().getNombre())) {
                 if (!validacione.isValido()) {
                     _TxtAnio.setError(validacione.getMensajeDeError());
-
                 }else{
                     if (!modeloYAnioMal) {
                         _TxtAnio.setErrorQuitar();
@@ -458,7 +456,6 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
             if (validacione.getNombreDeCampo().equals(iT.getIdProoveedorPDC().getNombre())) {
                 if (!validacione.isValido()) {
                     _ComboMarca.setError(validacione.getMensajeDeError());
-
                 }else{
                     _ComboMarca.setErrorQuitar();
                 }

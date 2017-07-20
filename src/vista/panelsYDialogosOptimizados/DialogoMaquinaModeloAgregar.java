@@ -16,6 +16,7 @@ import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.ProveedorVo;
+import vista.MarcoParaVentanaPrincipal;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.utilidadesOptimizadas.UtilidadesTxt_;
@@ -448,14 +449,14 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
         }
         
         if (todoValido) {
-            coordinador.maquinaModeloGuardar(vo);
-            limpiarTodo();
-            dispose();
-            this.coordinador.maquinaModeloActualizarLista();
             JOptionPane.showMessageDialog(
-                    coordinador.getMarcoParaVentanaPrincipal(),
+                    null,
                     "Se guardo correctamente el modelo.");
-            
+            limpiarTodo();
+            coordinador.maquinaModeloGuardar(vo);
+            this.getCoordinador().huboUnCambioEnTabla(MaquinaModeloIT.NOMBRE_TABLA);
+            this.getCoordinador().ejecutarOperacionesParaActualizar();
+            dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 

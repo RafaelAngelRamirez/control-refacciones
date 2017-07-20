@@ -99,7 +99,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     /**
      * Nombre del dialogo Maquina modelo agregar
      */
-    public static String DIALOGO_MAQUINA_MODELO_AGREGAR = "Agregar maquina-modelo";
+    public static String DIALOGO_MAQUINA_MODELO_AGREGAR = "Registrar maquina-modelo";
     /**
      * Nombre del dialogo Maquina modelo modificar
      */
@@ -390,7 +390,22 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoRefaccionDetalleOPA.addOperacionParaActualizar(
                 ()->this.getCoordinador().refaccionActualizarPanelAgregarRefaccion());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoRefaccionDetalleOPA);
+        //-------------------------------
+        MenuConstructor dialogoMaquinaModeloAgregar = new MenuConstructor();
+        dialogoMaquinaModeloAgregar.setItem();
+        dialogoMaquinaModeloAgregar.setNombre(DIALOGO_MAQUINA_MODELO_AGREGAR);
+        dialogoMaquinaModeloAgregar.setPadre(menuAgregarRegistrar);
+        dialogoMaquinaModeloAgregar.setAccionDelItem(
+                ()->this.getCoordinador().maquinaModeloAbrirDialogoAgregar());
+        dialogoMaquinaModeloAgregar.setDialog(this.getCoordinador().getDialogoMaquinaModeloAgregar());
+        this.addItemOMenu(dialogoMaquinaModeloAgregar);
         
+        Coordinador.OperacionesPorActualizar dialogoMaquinaModeloAgregarOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        dialogoMaquinaModeloAgregarOPA.setPanel(dialogoMaquinaModeloAgregar);
+        dialogoMaquinaModeloAgregarOPA.addOperacionParaActualizar(
+                ()->JOptionPane.showMessageDialog(null, "¿Que deberia ir aqui?? operacoin de actualización"));
+        this.getCoordinador().addListaOperacionesPorActualizar(dialogoMaquinaModeloAgregarOPA);
         
         //GENERAMOS EL MENU.
         this.generarMenus();

@@ -1466,7 +1466,7 @@ public class PanelRefaccionModificar extends JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarNuevaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevaMaquinaActionPerformed
-        this.coordinador.maquinaModeloAbrirDialogo();
+        this.coordinador.maquinaModeloAbrirDialogoAgregar();
     }//GEN-LAST:event_btnAgregarNuevaMaquinaActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed

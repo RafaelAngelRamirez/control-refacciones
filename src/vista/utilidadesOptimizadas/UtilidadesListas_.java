@@ -240,7 +240,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
      */
     public void limpiar(){
         this.lista.setModel(new DefaultListModel<>());
-        JOptionPane.showMessageDialog(null, "esta limpiando");
         if (this.listaAAgregar!=null) {
             this.listaAAgregar.getLista().setModel(new DefaultListModel<>());
         }
