@@ -302,7 +302,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 = getCoordinador().new OperacionesPorActualizar();
         consultaRefaccionesOPA.setPanel(panelConsultaRefacciones);
         consultaRefaccionesOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().refaccionActualizarPanelModificar());
+                ()->this.getCoordinador().refaccionActualizarPanelConsultaRefacciones());
         this.getCoordinador().addListaOperacionesPorActualizar(consultaRefaccionesOPA);
         
         
@@ -404,7 +404,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 = getCoordinador().new OperacionesPorActualizar();
         dialogoMaquinaModeloAgregarOPA.setPanel(dialogoMaquinaModeloAgregar);
         dialogoMaquinaModeloAgregarOPA.addOperacionParaActualizar(
-                ()->JOptionPane.showMessageDialog(null, "¿Que deberia ir aqui?? operacoin de actualización"));
+                ()->this.getCoordinador().maquinaModeloActualizarDialogoAgregar());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoMaquinaModeloAgregarOPA);
         
         //GENERAMOS EL MENU.

@@ -240,9 +240,9 @@ public class Coordinador {
     public void proveedorGuardar(ProveedorVo vo){
         this.logica.proveedorGuardar(vo);
     }
-    public void proveedorActualizarLista(){
-        this.getPanelRefaccionAgregar().cargarListaProveedor();
-    }
+//    public void proveedorActualizarLista(){
+//        this.getPanelRefaccionAgregar().cargarListaProveedor();
+//    }
     
     /**
      * Consulta toda la lista de proveedores y retorna solo el campo empresa.  
@@ -344,7 +344,10 @@ public class Coordinador {
     //ACTUALIZAR
     public void maquinaModeloActualizarDialogoModificar(){
         this.getDialogoMaquinaModeloModificar().cargarCombosYListas();
-        
+    }
+    
+    public void maquinaModeloActualizarDialogoAgregar(){
+        this.getDialogoMaquinaModeloAgregar().consultarProveedores();
     }
     
     public List<MaquinaModeloVo> maquinaModeloConsultar(){
@@ -720,7 +723,8 @@ public class Coordinador {
     */
     
     private List<OperacionesPorActualizar> listaOperacionesPorActualizar = new ArrayList<>();
-
+    
+    
     
     /**
      * Agrega un elemento que contiene operaciones para actualizar elementos que
@@ -745,60 +749,80 @@ public class Coordinador {
         for (OperacionesPorActualizar listaOp : listaOperacionesPorActualizar) {
             if (!listaOp.isActualizado()) {
                 if (listaOp.getPanel().getThisPanel()!=null) {
-                    JOptionPane.showMessageDialog(null, "actualizando panel:"+listaOp.getPanel().getNombre());
+                    if (listaOp.getPanel().getThisPanel().isShowing()) {
+                        JOptionPane.showMessageDialog(null, "actualizando panel por que esta visible:"+listaOp.getPanel().getNombre());
+                        listaOp.actualizar();
+                    }
                 }else{
-                    JOptionPane.showMessageDialog(null, "actualizando dialogo:"+listaOp.getPanel().getNombre());
-                    
+                    if (listaOp.getPanel().getThisDialog().isShowing()) {
+                        JOptionPane.showMessageDialog(null, "actualizando dialogo por que esta visible:"+listaOp.getPanel().getNombre());
+                        listaOp.actualizar();
+                    }                     
                 }
-                
-
-//                if (listaOp.getPanel().getThisPanel().isVisible()) {
-//
-//                }
-//
-//                listaOp.actualizar();
             }
         }
     }
+
     
+    /**
+     * Ejecuta las operaciones para actualizar contenidas en los objetos 
+     * OperacionesPorActualizar que esten actualmente mostrandose y los señala
+     * como actualizados. Si hay algún cambio entontonces se debe modificar
+     * el objeto directamente en la operacion setActualizado a false.
+     * @param nombreDeLaTabla Esta función recive el nombre de la tabla que se modifico 
+     * para setearla en la lista de actualizaciones. Con esta función no es necesario 
+     * llamar a {@link huboUnCambioEnTabla(String nombreDeLaTabla)} 
+     */
+    public void ejecutarOperacionesParaActualizar(String nombreDeLaTabla){
+        huboUnCambioEnTabla(nombreDeLaTabla);
+        ejecutarOperacionesParaActualizar();
+    }
+    
+    /**
+     * Esta función recive el nombre de la tabla que se modifico para setearla
+     * en la lista de actualizaciones despues {@see ejecutarOperacionesParaActualizar()}
+     * se tiene que llamar para que se actualize lo que este visible. 
+     * @param nombreDeLaTabla
+     */
     public void huboUnCambioEnTabla(String nombreDeLaTabla){
-        //ESTE MAMA LO UTILIZAMOS PARA GUARDAR LOS PANELES QUE FUERON MODIFICADOS
+        //ESTE MAPA LO UTILIZAMOS PARA GUARDAR LOS PANELES QUE FUERON MODIFICADOS
         // Y QUE SE TIENEN QUE GUARDAR. 
-        JOptionPane.showMessageDialog(null, "se señalo un cambio en la tabla:"+nombreDeLaTabla);
         HashMap<String, Boolean> mapa = new HashMap<>();
+        //EN CON ESTE SWITCH RECIVMOS LAS TABLAS MODIFICADAS Y SETEAMOS 
+        // EN EL MAPA LOS COMPONENTES QUE DEBEN DE ACTUALIZARSE PARA QUE 
+        // QUEDEN ACTUALIZADOS.
         switch(nombreDeLaTabla){
             case RefaccionIT.NOMBRE_TABLA:
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
                 break;
             case ProveedorIT.NOMBRE_TABLA:    
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_MODIFICAR, false);
                 break;
             case MaquinaModeloIT.NOMBRE_TABLA:
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
-                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
                 break;
         }
-        String tempo = "";
         for (Map.Entry<String, Boolean> d : mapa.entrySet()) {
+            //RECORREMOS TODOS LOS PANELES QUE SETEAMOS EN EL MAPA Y EXTRAEMOS
+            // LOS DATOS.
             String nombre = d.getKey();
             Boolean actualizado = d.getValue();
             for (OperacionesPorActualizar lop : listaOperacionesPorActualizar) {
-                JOptionPane.showMessageDialog(null,"MAPA| "+ nombre +"-"+lop.getPanel().getNombre()+" |LISTA");
+                //RECORREMOS TODOS LOS PANELES Y DIALOGOS QUE HAY Y LOS COMPARAMOS
+                //CONTRA EL MAPA. LAS COINCIDENCIAS LAS MODIFICAMOS PARA QUE EN 
+                // ejecutarOperacionesParaActualizar SE EJECUTEN LAS DEBIDAS OPERACIONES
+                // DE ACTUALIZACIÓN.
                 if (lop.getPanel().getNombre().equals(nombre)) {
-                    tempo += lop.getPanel().getNombre()+"\n";
                     lop.setActualizado(actualizado);
-                    
                 }
             }
         }
-        String b= "Paneles para actualizar: \n"+tempo;
-        JOptionPane.showMessageDialog(null, b);
-        
-        
     }
     
     public class OperacionesPorActualizar{
@@ -814,7 +838,7 @@ public class Coordinador {
          * Almacena las operaciones de actualización que se ejecutaran cada vez
          * que el panel actual coincida con el definido dentro de este elemento.
          * 
-         * @param operacion La operación que se quiere ejecutar. 
+         * @param operacion La operaciones que se quieren ir agregando para ejecutarse. 
          */
         public void addOperacionParaActualizar(Runnable operacion){
             operacionesParaActualizar.add(operacion);
@@ -864,7 +888,7 @@ public class Coordinador {
          */
         public void actualizar(){
             for (Runnable runnable : operacionesParaActualizar) {
-                JOptionPane.showMessageDialog(null, "ejecutando accion de actualizacion");
+                JOptionPane.showMessageDialog(null, "ejecutando accion de actualizacion en clase" + this.panel.getNombre());
                 runnable.run();
             }
             setActualizado(false);

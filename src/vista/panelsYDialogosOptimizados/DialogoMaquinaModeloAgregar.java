@@ -451,8 +451,7 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
             coordinador.maquinaModeloGuardar(vo);
             JOptionPane.showMessageDialog(null,"Se guardo correctamente el modelo.");
             limpiarTodo();
-            this.getCoordinador().huboUnCambioEnTabla(MaquinaModeloIT.NOMBRE_TABLA);
-            this.getCoordinador().ejecutarOperacionesParaActualizar();
+            this.getCoordinador().ejecutarOperacionesParaActualizar(MaquinaModeloIT.NOMBRE_TABLA);
             dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

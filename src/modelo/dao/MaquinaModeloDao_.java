@@ -69,7 +69,8 @@ public class MaquinaModeloDao_ extends DAOGenerales_{
      * @return Retorna todas las máquinas-modelo.
      */
     public List<MaquinaModeloVo> consultar(){
-        String sql = "SELECT * FROM " +MaquinaModeloIT.NOMBRE_TABLA;
+        String sql = "SELECT * FROM " +MaquinaModeloIT.NOMBRE_TABLA 
+                + " ORDER BY " + it.getModeloPDC().getNombre() + " ASC" ;
         List<MaquinaModeloVo> lista = new ArrayList<>();
         try {
             

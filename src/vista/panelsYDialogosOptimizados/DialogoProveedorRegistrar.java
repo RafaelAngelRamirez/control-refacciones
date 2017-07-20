@@ -17,6 +17,7 @@ import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
+import vista.MarcoParaVentanaPrincipal;
 import vista.utilidadesOptimizadas.*;
 
 /**
@@ -502,14 +503,13 @@ public class DialogoProveedorRegistrar extends JDialog {
         }
         
         if (todoValido) {
-            this.coordinador.proveedorGuardar(vo);
+            this.getCoordinador().proveedorGuardar(vo);
             this.limpiarTodo();
             this.dispose();
-            this.coordinador.proveedorActualizarLista();
-            
-            
+            this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
+
             JOptionPane.showMessageDialog(
-                    this.coordinador.getMarcoParaVentanaPrincipal(), 
+                    this.getCoordinador().getMarcoParaVentanaPrincipal(), 
                     "Se guardo correctamente el proveedor.");
         }
         
