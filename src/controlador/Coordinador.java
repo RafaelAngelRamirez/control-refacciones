@@ -11,10 +11,15 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.ExcepcionPersonalizada;
 import modelo.InfoTabla.MaquinaModeloIT;
+import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
+import modelo.InfoTabla.UnidadIT;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenVo;
@@ -806,6 +811,18 @@ public class Coordinador {
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
                 mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
+                break;
+            case MaterialIT.NOMBRE_TABLA:
+                break;
+            case UnidadIT.NOMBRE_TABLA:
+                break;
+            default:
+                        try {
+                            throw new ExcepcionPersonalizada("Parece que la tabla que quieres actualizar no ha "
+                                    + "\nsido definida dentro de la operación. ", this, "huboUnCambioEnTabla()");
+                        } catch (ExcepcionPersonalizada ex) {
+                            Logger.getLogger(Coordinador.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                 break;
         }
         for (Map.Entry<String, Boolean> d : mapa.entrySet()) {

@@ -324,7 +324,7 @@ public class PanelRefaccionAgregar extends JPanel {
         _ComboUnidad.cargarCombo(map);
     }
     public void cargarComboMaterial(){
-        List<MaterialVo> l = this.coordinador.materialConsultar();
+        List<MaterialVo> l = this.getCoordinador().materialConsultar();
         HashMap<String, Integer> map = new HashMap<>();
         for (MaterialVo vo : l) {
             map.put(vo.getMaterial(), vo.getId());
@@ -335,7 +335,7 @@ public class PanelRefaccionAgregar extends JPanel {
     public void guardarUnidad(){
         String unidad = _ComboUnidad.getText();
         if (!unidad.isEmpty()) {
-            if (this.coordinador.unidadExiste(unidad)) {
+            if (this.getCoordinador().unidadExiste(unidad)) {
                 _ComboUnidad.setSelectedItem(unidad);
 
             }else{
@@ -347,7 +347,8 @@ public class PanelRefaccionAgregar extends JPanel {
                 if (op == JOptionPane.YES_OPTION) {
                     UnidadVo vo = new UnidadVo();
                     vo.setUnidad(unidad);
-                    this.coordinador.unidadGuardar(vo);
+//                    this.getCoordinador().unidadGuardar(vo);
+                    this.getCoordinador().ejecutarOperacionesParaActualizar(UnidadIT.NOMBRE_TABLA);
                     this.cargarComboUnidad();
                     _ComboUnidad.setSelectedItem(unidad);
                 }
@@ -370,7 +371,8 @@ public class PanelRefaccionAgregar extends JPanel {
                 if (op == JOptionPane.YES_OPTION) {
                     MaterialVo vo = new MaterialVo();
                     vo.setMaterial(material);
-                    this.coordinador.materialGuardar(vo);
+//                    this.getCoordinador().materialGuardar(vo);
+                    this.getCoordinador().ejecutarOperacionesParaActualizar(MaterialIT.NOMBRE_TABLA);
                     this.cargarComboMaterial();
                     _ComboMaterial.setSelectedItem(material);
                 }
@@ -1559,9 +1561,6 @@ public class PanelRefaccionAgregar extends JPanel {
             }
         }
         
-        
-        
-        
         if (todoValido) {
             //GUARDAMOS LA REFACCIÓN.
             this.coordinador.refaccionGuardar(rVo);
@@ -1587,9 +1586,9 @@ public class PanelRefaccionAgregar extends JPanel {
                     aa.setIdRefaccion(idRefaccion);
                 }
 
-                String errorImg = this.coordinador.imagenGuardarLista(listaiVo);
-                this.coordinador.relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo);
-                this.coordinador.relacionRefaccionProveedorGuardarLista(listarrpVo);
+                String errorImg = this.getCoordinador().imagenGuardarLista(listaiVo);
+                this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo);
+                this.getCoordinador().relacionRefaccionProveedorGuardarLista(listarrpVo);
                 if (errorImg!=null) {
                     JOptionPane.showMessageDialog(
                             null,
@@ -1598,7 +1597,10 @@ public class PanelRefaccionAgregar extends JPanel {
                 }
                 
                 limpiarTodo();
-                this.coordinador.refaccionActualizarPanelConsultaRefacciones();
+                this.getCoordinador().huboUnCambioEnTabla(RefaccionIT.NOMBRE_TABLA);
+                this.getCoordinador().huboUnCambioEnTabla(UnidadIT.NOMBRE_TABLA);
+                this.getCoordinador().huboUnCambioEnTabla(MaterialIT.NOMBRE_TABLA);
+                this.getCoordinador().ejecutarOperacionesParaActualizar();
                 JOptionPane.showMessageDialog(
                         coordinador.getMarcoParaVentanaPrincipal(),
                         "Se guardo la refaccción correctamente.");
