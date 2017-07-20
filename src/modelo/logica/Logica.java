@@ -274,7 +274,6 @@ public class Logica {
         List<ParametrosDeCampo> listaPDC =b.getCamposPDC();
         //RECORREMOS CADA CAMPO.
         for (ParametrosDeCampo parametrosDeCampo : listaPDC) {
-            JOptionPane.showMessageDialog(null, "parametros de campo:"+parametrosDeCampo.getNombre());
             try {
                 /*
                 ----------------------------------------------------------------

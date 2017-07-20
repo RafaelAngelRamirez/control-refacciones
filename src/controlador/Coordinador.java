@@ -779,24 +779,19 @@ public class Coordinador {
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
                 break;
         }
-        for (Map.Entry<String, Boolean> entry : mapa.entrySet()) {
-            String key = entry.getKey();
-            Boolean value = entry.getValue();
-            System.out.println(key);
-            System.out.println(value);
-        }
-        
         String tempo = "";
         for (Map.Entry<String, Boolean> d : mapa.entrySet()) {
             String nombre = d.getKey();
             Boolean actualizado = d.getValue();
             for (OperacionesPorActualizar lop : listaOperacionesPorActualizar) {
+                JOptionPane.showMessageDialog(null,"MAPA| "+ nombre +"-"+lop.getPanel().getNombre()+" |LISTA");
                 if (lop.getPanel().getNombre().equals(nombre)) {
                     tempo += lop.getPanel().getNombre()+"\n";
                     lop.setActualizado(actualizado);
-                    break;
+                    
                 }
             }
         }

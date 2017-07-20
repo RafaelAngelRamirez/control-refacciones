@@ -335,7 +335,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 
         Coordinador.OperacionesPorActualizar modificarRefaccionOPA 
                 = getCoordinador().new OperacionesPorActualizar();
-        modificarRefaccionOPA.setPanel(registroRefacciones);
+        modificarRefaccionOPA.setPanel(modificarRefaccion);
         modificarRefaccionOPA.addOperacionParaActualizar(
                 ()->this.getCoordinador().refaccionActualizarPanelAgregarRefaccion());
         this.getCoordinador().addListaOperacionesPorActualizar(modificarRefaccionOPA);
