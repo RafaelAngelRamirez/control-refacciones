@@ -388,7 +388,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 = getCoordinador().new OperacionesPorActualizar();
         dialogoRefaccionDetalleOPA.setPanel(dialogoRefaccionDetalle);
         dialogoRefaccionDetalleOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().refaccionActualizarPanelAgregarRefaccion());
+                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoRefaccionDetalleOPA);
         //-------------------------------
         MenuConstructor dialogoMaquinaModeloAgregar = new MenuConstructor();
@@ -406,6 +406,22 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoMaquinaModeloAgregarOPA.addOperacionParaActualizar(
                 ()->this.getCoordinador().maquinaModeloActualizarDialogoAgregar());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoMaquinaModeloAgregarOPA);
+        //-------------------------------
+        MenuConstructor dialogoImagenDetalle = new MenuConstructor();
+        dialogoImagenDetalle.setItem();
+        dialogoImagenDetalle.setNombre(DIALOGO_IMAGEN_DETALLE);
+        dialogoImagenDetalle.setPadre(menuConsultar);
+        dialogoImagenDetalle.setAccionDelItem(
+                ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
+        dialogoImagenDetalle.setDialog(this.getCoordinador().getDialogoImagenDetalle());
+        this.addItemOMenu(dialogoImagenDetalle);
+        
+        Coordinador.OperacionesPorActualizar dialogoImagenDetalleOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        dialogoImagenDetalleOPA.setPanel(dialogoImagenDetalle);
+        dialogoImagenDetalleOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
+        this.getCoordinador().addListaOperacionesPorActualizar(dialogoImagenDetalleOPA);
         
         //GENERAMOS EL MENU.
         this.generarMenus();

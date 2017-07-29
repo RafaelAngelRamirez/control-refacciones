@@ -241,9 +241,15 @@ public class PanelRefaccionModificar extends JPanel {
         getBtnGuardar().setNextFocusableComponent(getBtnCancelar());
         getBtnCancelar().setNextFocusableComponent(_TxtNombreDeLaRefaccion.getThis());
 
-        //ACCIONES ESPECELIALES.
+        //ACCIONES ESPECIALES.
         _ComboUnidad.setFocusAction(()->guardarUnidad(), false);
         _ComboMaterial.setFocusAction(()->guardarMaterial(), false);
+        
+        _ListaProveedor.setSingleClick(()->this._ListaProveedor.cambioEntreListas(false));
+        _ListaProveedorSeleccionado.setSingleClick(()->this._ListaProveedor.cambioEntreListas(true));
+
+        _ListaMaquinaModelo.setSingleClick(()->_ListaMaquinaModelo.cambioEntreListas(false));
+        _ListasMaquinasSeleccionadas.setSingleClick(()->_ListaMaquinaModelo.cambioEntreListas(true));
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.InfoTabla.ImagenIT;
 import modelo.vo.ImagenVo;
 import org.jdesktop.swingx.JXImageView;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
@@ -24,8 +25,10 @@ import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
  * @author Particular
  */
 public class DialogoImagenDetalle extends javax.swing.JDialog {
-    Coordinador coordinador;
-    int idRefaccion;
+    private Coordinador coordinador;
+    private int idRefaccion;
+    
+    
     
     UtilidadesJXViewImage_ _ImagenesRefacciones;
     
@@ -149,23 +152,27 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
      */
     public void cargarImagenes(){
         List<ImagenVo> livo = this.getCoordinador().refaccionListaDeImagenesDetalles();
-        _ImagenesRefacciones.limpiarComponenteURL();
-        setIdRefaccion(livo.get(0).getIdRefaccion());
-        for (ImagenVo vo : livo) {
-            
-            UtilidadesJXViewImage_.TransporteImagenesURL t;
-            t = new UtilidadesJXViewImage_.TransporteImagenesURL();
-                t.setIdImagen(HEIGHT);
-            t.setIdImagen(vo.getIdRefaccion());
-            t.setNombreImagen(vo.getNombreParaMostrar());
-            t.setNombreImagenServidor(vo.getNombreServidor());
-            t.setUrl(vo.getUrlImagen());
-            
-            _ImagenesRefacciones.addIMagenes(t);
-        
+        int i = this.getCoordinador().getDialogoRefaccionDetalle().getIdRefaccion();
+        setIdRefaccion(i);
+        if (livo.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Esta refacción no tiene imágenes.");
+        }else{
+            _ImagenesRefacciones.limpiarComponenteURL();
+            for (ImagenVo vo : livo) {
+
+                UtilidadesJXViewImage_.TransporteImagenesURL t;
+                t = new UtilidadesJXViewImage_.TransporteImagenesURL();
+                    t.setIdImagen(HEIGHT);
+                t.setIdImagen(vo.getIdRefaccion());
+                t.setNombreImagen(vo.getNombreParaMostrar());
+                t.setNombreImagenServidor(vo.getNombreServidor());
+                t.setUrl(vo.getUrlImagen());
+
+                _ImagenesRefacciones.addIMagenes(t);
+
+            }
+            _ImagenesRefacciones.cargarPrimeraImagen();
         }
-        _ImagenesRefacciones.cargarPrimeraImagen();
-        
     }
 
     /**
@@ -358,13 +365,13 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
                 vo.setIdRefaccion(imagenEliminar.getIdImagen());
                 vo.setNombreServidor(imagenEliminar.getNombreImagenServidor());
                 this.getCoordinador().imagenEliminar(vo);
-                this.getCoordinador().refaccionMostrarDetalleActualizarImagenes(vo.getIdRefaccion());
+//                this.getCoordinador().refaccionMostrarDetalleActualizarImagenes(vo.getIdRefaccion());
+                this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenIT.NOMBRE_TABLA);
             }
         }
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
 
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
-
         _ImagenesRefacciones.setFiltros(new FileNameExtensionFilter("Imagenes", "jpg", "gif", "png", "tiff", "jpeg"));
         _ImagenesRefacciones.cargarImagenes();
         List<ImagenVo> listaiVo = new ArrayList<>();
@@ -377,8 +384,8 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
             listaiVo.add(vo);
             
         }
-        
-        String errorImg = this.coordinador.imagenGuardarLista(listaiVo);
+        JOptionPane.showMessageDialog(null, "vamos a guardar una nueva imagen desdde detella imagen");
+        String errorImg = this.getCoordinador().imagenGuardarLista(listaiVo);
         if (errorImg!=null) {
                JOptionPane.showMessageDialog(
                             null,
@@ -386,7 +393,8 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
                             "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
         }
         
-        this.getCoordinador().refaccionMostrarDetalleActualizarImagenes(getIdRefaccion());
+//        this.getCoordinador().refaccionMostrarDetalleActualizarImagenes();
+        this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenIT.NOMBRE_TABLA);
         
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 

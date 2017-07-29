@@ -15,8 +15,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
+import modelo.InfoTabla.ImagenIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
+import modelo.InfoTabla.PaisIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.UnidadIT;
@@ -573,8 +575,8 @@ public class Coordinador {
     
     }
     
-    public void refaccionMostrarDetalleActualizarImagenes(int id){
-        this.getDialogoRefaccionDetalle().cargarImagenes(id);
+    public void refaccionMostrarDetalleActualizarImagenes(){
+        this.getDialogoRefaccionDetalle().cargarImagenes();
         this.getDialogoImagenDetalle().cargarImagenes();
     }
     
@@ -793,6 +795,7 @@ public class Coordinador {
         //ESTE MAPA LO UTILIZAMOS PARA GUARDAR LOS PANELES QUE FUERON MODIFICADOS
         // Y QUE SE TIENEN QUE GUARDAR. 
         HashMap<String, Boolean> mapa = new HashMap<>();
+        
         //EN CON ESTE SWITCH RECIVMOS LAS TABLAS MODIFICADAS Y SETEAMOS 
         // EN EL MAPA LOS COMPONENTES QUE DEBEN DE ACTUALIZARSE PARA QUE 
         // QUEDEN ACTUALIZADOS.
@@ -813,13 +816,24 @@ public class Coordinador {
                 mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
                 break;
             case MaterialIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
                 break;
             case UnidadIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+                break;
+            case ImagenIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_IMAGEN_DETALLE, false);
+                break;
+            case PaisIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
                 break;
             default:
                         try {
                             throw new ExcepcionPersonalizada("Parece que la tabla que quieres actualizar no ha "
-                                    + "\nsido definida dentro de la operación. ", this, "huboUnCambioEnTabla()");
+                                    + "\nsido definida dentro de la operación. : ------  "+nombreDeLaTabla, this, "huboUnCambioEnTabla()");
                         } catch (ExcepcionPersonalizada ex) {
                             Logger.getLogger(Coordinador.class.getName()).log(Level.SEVERE, null, ex);
                         }

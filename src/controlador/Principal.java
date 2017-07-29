@@ -29,8 +29,6 @@ import modelo.logica.Logica;
 import vista.*;
 import vista.panelsYDialogosOptimizados.*;
 
-
-
 /**
  *
  * @author Rafael Ángel Ramírez Estrada

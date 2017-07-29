@@ -194,7 +194,7 @@ public class DialogoRefaccionDetalle extends JDialog {
         ///////////////////////////////////////////////////////////////////////
         */
         idRefaccion = Integer.parseInt(id);
-        cargarElementos(idRefaccion);
+        cargarElementos();
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN CARGA DE ELEMENTOS 
@@ -202,9 +202,9 @@ public class DialogoRefaccionDetalle extends JDialog {
         */
     }
     
-    public void cargarElementos(int id){
+    public void cargarElementos(){
         
-        RefaccionVo rvo = this.getCoordinador().refaccionConsultar(id);
+        RefaccionVo rvo = this.getCoordinador().refaccionConsultar(idRefaccion);
         
         _TxtNombreDeLaRefaccion.setText(rvo.getNombre());
         _TxtCodigo.setText(rvo.getCodigoInterno());
@@ -218,7 +218,7 @@ public class DialogoRefaccionDetalle extends JDialog {
         _TxtQueEs.setText(rvo.getQueEs());
         _TxtParaQueEs.setText(rvo.getParaQueEs());
         
-        List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(id);
+        List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
         HashMap<String, Integer> pvoMapa = new HashMap<>();
         for (RelacionRefaccionProveedorVo vo : lpvo) {
             pvoMapa.put(vo.getProveedorVo().getEmpresa(), vo.getIdProveedor());
@@ -226,7 +226,7 @@ public class DialogoRefaccionDetalle extends JDialog {
         _ListaProveedor.cargarLista(pvoMapa);
         
         
-        List<RelacionRefaccionMaquinaModeloVo> lmmvo = this.getCoordinador().maquinaModeloConsultar(id);
+        List<RelacionRefaccionMaquinaModeloVo> lmmvo = this.getCoordinador().maquinaModeloConsultar(idRefaccion);
         HashMap<String, Integer> mmvoMapa = new HashMap<>();
         for (RelacionRefaccionMaquinaModeloVo vo : lmmvo) {
             mmvoMapa.put(vo.getMaquinaModeloVo().getModelo()
@@ -235,15 +235,15 @@ public class DialogoRefaccionDetalle extends JDialog {
         }
         _ListaMaquinaModelo.cargarLista(mmvoMapa);
         
-        cargarImagenes(id);
+        cargarImagenes();
         
     }
     
     /**
      * Carga las imagenes que esten relacionadas con id que se le pase.   
-     * @param id El id que corresponde a la refacción.
      */
-    public void cargarImagenes(int id){
+    public void cargarImagenes(){
+        int id = idRefaccion;
         listaImagenesRefaccion = this.getCoordinador().imagenConsultar(id);
         _ImagenesRefacciones.limpiarComponenteURL();
         for (ImagenVo vo : listaImagenesRefaccion) {
@@ -257,7 +257,8 @@ public class DialogoRefaccionDetalle extends JDialog {
         _ImagenesRefacciones.cargarPrimeraImagen();
         
     }
-
+    
+    
     public List<ImagenVo> getListaImagenesRefaccion() {
         return listaImagenesRefaccion;
     }
@@ -265,6 +266,16 @@ public class DialogoRefaccionDetalle extends JDialog {
     public void setListaImagenesRefaccion(List<ImagenVo> listaImagenesRefaccion) {
         this.listaImagenesRefaccion = listaImagenesRefaccion;
     }
+
+    public int getIdRefaccion() {
+        return idRefaccion;
+    }
+
+    public void setIdRefaccion(int idRefaccion) {
+        this.idRefaccion = idRefaccion;
+    }
+    
+    
        
     
     public Coordinador getCoordinador() {
@@ -891,7 +902,6 @@ public class DialogoRefaccionDetalle extends JDialog {
 
     private void btnRegresarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarImagenActionPerformed
         _ImagenesRefacciones.imagenAnterior();
-
     }//GEN-LAST:event_btnRegresarImagenActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -902,7 +912,6 @@ public class DialogoRefaccionDetalle extends JDialog {
         if (evt.getClickCount()==2) {
             this.getCoordinador().refaccionAbrirDetalleImagen();
         }
-
     }//GEN-LAST:event_imagenesRefaccionesMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
