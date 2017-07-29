@@ -16,7 +16,7 @@ import modelo.vo.MaquinaModeloVo;
  *
  * @author Particular
  */
-public class MaquinaModeloDao_ extends DAOGenerales_{
+public class MaquinaModeloDao_ extends DAOGenerales{
     
     private final MaquinaModeloIT it;
     

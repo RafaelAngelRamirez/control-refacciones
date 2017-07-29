@@ -25,7 +25,7 @@ import modelo.InfoTabla.ImportanciaIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.*;
 import modelo.logica.Validacion;
-import modelo.vo.ImagenVo;
+import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.ProveedorVo;
@@ -1365,7 +1365,7 @@ public class PanelRefaccionAgregar extends JPanel {
         RefaccionVo rVo = new RefaccionVo();
         
         //LAS LISTAS QUE CONTENDRAN LOS DATOS PARA LAS MULTIPLES RELACIONES QUE TENEMOS.
-        List<ImagenVo> listaiVo = new ArrayList<>();
+        List<ImagenRefaccionVo> listaiVo = new ArrayList<>();
         List<RelacionRefaccionMaquinaModeloVo> listarrmmVo = new ArrayList<>();
         List<RelacionRefaccionProveedorVo> listarrpVo = new ArrayList<>();
               
@@ -1421,7 +1421,7 @@ public class PanelRefaccionAgregar extends JPanel {
         //CARGAMOS LAS IMAGENES QUE VAN RELACIONARSE CON ESTA REFACCIÓN.
         List<File>file = _ImagenesRefacciones.getImagenesPorCargar();
         for (File f : file) {
-            ImagenVo vo = new ImagenVo();
+            ImagenRefaccionVo vo = new ImagenRefaccionVo();
             vo.setFicheroImagen(f);
             vo.setNombreParaMostrar(f.getName());
             listaiVo.add(vo);
@@ -1576,7 +1576,7 @@ public class PanelRefaccionAgregar extends JPanel {
             }else{
                 //ASOCIAMOS LOS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN
                 //ALMACENADA. 
-                for (ImagenVo iVo : listaiVo) {
+                for (ImagenRefaccionVo iVo : listaiVo) {
                     iVo.setIdRefaccion(idRefaccion);
                 }
                 for (RelacionRefaccionMaquinaModeloVo rr : listarrmmVo) {

@@ -16,7 +16,7 @@ import modelo.vo.*;
  *
  * @author Particular
  */
-public class ProveedorDao_ extends DAOGenerales_{
+public class ProveedorDao_ extends DAOGenerales{
 
     private final ProveedorIT it;
 

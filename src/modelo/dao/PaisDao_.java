@@ -17,7 +17,7 @@ import modelo.vo.*;
  *
  * @author Particular
  */
-public class PaisDao_ extends DAOGenerales_{
+public class PaisDao_ extends DAOGenerales{
 
     Conexion conexion = new Conexion(coordinador);
     PaisIT it;

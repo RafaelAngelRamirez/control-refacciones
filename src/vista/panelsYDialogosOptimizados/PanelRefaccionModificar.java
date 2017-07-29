@@ -25,7 +25,7 @@ import modelo.InfoTabla.ImportanciaIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.*;
 import modelo.logica.Validacion;
-import modelo.vo.ImagenVo;
+import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.ProveedorVo;
@@ -328,7 +328,7 @@ public class PanelRefaccionModificar extends JPanel {
         _ListasMaquinasSeleccionadas.cargarLista(mmvoMapa);
         cargarImagenes(id);
     }
-    private List<ImagenVo> listaImagenesRefaccion;
+    private List<ImagenRefaccionVo> listaImagenesRefaccion;
     /**
      * Carga las imagenes que esten relacionadas con id que se le pase.   
      * @param id El id que corresponde a la refacción.
@@ -336,7 +336,7 @@ public class PanelRefaccionModificar extends JPanel {
     public void cargarImagenes(int id){
         listaImagenesRefaccion = this.coordinador.imagenConsultar(id);
         _ImagenesRefacciones.limpiarComponenteURL();
-        for (ImagenVo vo : listaImagenesRefaccion) {
+        for (ImagenRefaccionVo vo : listaImagenesRefaccion) {
             UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
             t.setIdImagen(vo.getIdRefaccion());
             t.setNombreImagen(vo.getNombreParaMostrar());
@@ -1387,10 +1387,10 @@ public class PanelRefaccionModificar extends JPanel {
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
         _ImagenesRefacciones.setFiltros(new FileNameExtensionFilter("Imagenes", "jpg", "gif", "png", "tiff", "jpeg"));
         _ImagenesRefacciones.cargarImagenes();
-        List<ImagenVo> listaiVo = new ArrayList<>();
+        List<ImagenRefaccionVo> listaiVo = new ArrayList<>();
         List<File> file = _ImagenesRefacciones.getImagenesPorCargar();
         for (File f : file) {
-            ImagenVo vo = new ImagenVo();
+            ImagenRefaccionVo vo = new ImagenRefaccionVo();
             vo.setIdRefaccion(idModificandoseActualmente);
             vo.setFicheroImagen(f);
             vo.setNombreParaMostrar(f.getName());
@@ -1431,7 +1431,7 @@ public class PanelRefaccionModificar extends JPanel {
                     JOptionPane.YES_NO_OPTION, 
                     JOptionPane.WARNING_MESSAGE);
             if (r==JOptionPane.YES_OPTION) {
-                ImagenVo vo = new ImagenVo();
+                ImagenRefaccionVo vo = new ImagenRefaccionVo();
                 vo.setIdRefaccion(imagenEliminar.getIdImagen());
                 vo.setNombreServidor(imagenEliminar.getNombreImagenServidor());
                 this.getCoordinador().imagenEliminar(vo);
@@ -1479,7 +1479,7 @@ public class PanelRefaccionModificar extends JPanel {
         RefaccionVo rVo = new RefaccionVo();
         
         //LAS LISTAS QUE CONTENDRAN LOS DATOS PARA LAS MULTIPLES RELACIONES QUE TENEMOS.
-        List<ImagenVo> listaiVo = new ArrayList<>();
+        List<ImagenRefaccionVo> listaiVo = new ArrayList<>();
         List<RelacionRefaccionMaquinaModeloVo> listarrmmVo = new ArrayList<>();
         List<RelacionRefaccionProveedorVo> listarrpVo = new ArrayList<>();
               
@@ -1536,7 +1536,7 @@ public class PanelRefaccionModificar extends JPanel {
         //CARGAMOS LAS IMAGENES QUE VAN RELACIONARSE CON ESTA REFACCIÓN.
         List<File>file = _ImagenesRefacciones.getImagenesPorCargar();
         for (File f : file) {
-            ImagenVo vo = new ImagenVo();
+            ImagenRefaccionVo vo = new ImagenRefaccionVo();
             vo.setFicheroImagen(f);
             vo.setNombreParaMostrar(f.getName());
             listaiVo.add(vo);
@@ -1689,7 +1689,7 @@ public class PanelRefaccionModificar extends JPanel {
             int idRefaccion = this.idModificandoseActualmente;
             //ASOCIAMOS LOS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN
             //ALMACENADA. 
-            for (ImagenVo iVo : listaiVo) {
+            for (ImagenRefaccionVo iVo : listaiVo) {
                 iVo.setIdRefaccion(idRefaccion);
             }
             

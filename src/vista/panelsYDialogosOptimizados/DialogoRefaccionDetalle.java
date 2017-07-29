@@ -25,7 +25,7 @@ import vista.utilidadesOptimizadas.UtilidadesTxt_;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import modelo.vo.ImagenVo;
+import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
@@ -38,7 +38,7 @@ import modelo.vo.RelacionRefaccionProveedorVo;
 public class DialogoRefaccionDetalle extends JDialog {
     private Coordinador coordinador;
     private int idRefaccion;
-    private List<ImagenVo> listaImagenesRefaccion;
+    private List<ImagenRefaccionVo> listaImagenesRefaccion;
     
     private UtilidadesJXViewImage_ _ImagenesRefacciones;
     
@@ -246,7 +246,7 @@ public class DialogoRefaccionDetalle extends JDialog {
         int id = idRefaccion;
         listaImagenesRefaccion = this.getCoordinador().imagenConsultar(id);
         _ImagenesRefacciones.limpiarComponenteURL();
-        for (ImagenVo vo : listaImagenesRefaccion) {
+        for (ImagenRefaccionVo vo : listaImagenesRefaccion) {
             UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
             t.setIdImagen(vo.getIdRefaccion());
             t.setNombreImagen(vo.getNombreParaMostrar());
@@ -259,11 +259,11 @@ public class DialogoRefaccionDetalle extends JDialog {
     }
     
     
-    public List<ImagenVo> getListaImagenesRefaccion() {
+    public List<ImagenRefaccionVo> getListaImagenesRefaccion() {
         return listaImagenesRefaccion;
     }
 
-    public void setListaImagenesRefaccion(List<ImagenVo> listaImagenesRefaccion) {
+    public void setListaImagenesRefaccion(List<ImagenRefaccionVo> listaImagenesRefaccion) {
         this.listaImagenesRefaccion = listaImagenesRefaccion;
     }
 

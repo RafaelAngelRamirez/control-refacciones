@@ -15,7 +15,7 @@ import modelo.vo.*;
  *
  * @author Particular
  */
-public class UnidadDao_ extends DAOGenerales_{
+public class UnidadDao_ extends DAOGenerales{
     
     private final UnidadIT it;
     public UnidadDao_ (Coordinador coordinador) {

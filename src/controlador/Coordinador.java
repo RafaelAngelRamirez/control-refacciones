@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
-import modelo.InfoTabla.ImagenIT;
+import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.PaisIT;
@@ -24,7 +24,7 @@ import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.UnidadIT;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
-import modelo.vo.ImagenVo;
+import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
@@ -627,7 +627,7 @@ public class Coordinador {
      * Retorna la lista de imágenes consultadas en DialogoDetalleRefaccion.
      * @return  Las imágenes ya cargadas en otro dialogo.
      */ 
-    public List<ImagenVo> refaccionListaDeImagenesDetalles(){
+    public List<ImagenRefaccionVo> refaccionListaDeImagenesDetalles(){
         return this.getDialogoRefaccionDetalle().getListaImagenesRefaccion();
     }
     
@@ -646,15 +646,15 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     //IMAGENES
-    public String imagenGuardarLista(List<ImagenVo> vo){
+    public String imagenGuardarLista(List<ImagenRefaccionVo> vo){
         return this.logica.imagenGuardarLista(vo);
     }
     
-    public List<ImagenVo> imagenConsultar(int id){
+    public List<ImagenRefaccionVo> imagenConsultar(int id){
         return this.logica.imagenConsultar(id);
     }
     
-    public void imagenEliminar(ImagenVo vo){
+    public void imagenEliminar(ImagenRefaccionVo vo){
         this.logica.imagenEliminar(vo);
     }
     
@@ -823,7 +823,7 @@ public class Coordinador {
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
                 break;
-            case ImagenIT.NOMBRE_TABLA:
+            case ImagenRefaccionIT.NOMBRE_TABLA:
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
                 mapa.put(MarcoParaVentanaPrincipal.DIALOGO_IMAGEN_DETALLE, false);
                 break;

@@ -14,8 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import modelo.InfoTabla.ImagenIT;
-import modelo.vo.ImagenVo;
+import modelo.InfoTabla.ImagenRefaccionIT;
+import modelo.vo.ImagenRefaccionVo;
 import org.jdesktop.swingx.JXImageView;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
@@ -151,14 +151,14 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
      * del coordinador.
      */
     public void cargarImagenes(){
-        List<ImagenVo> livo = this.getCoordinador().refaccionListaDeImagenesDetalles();
+        List<ImagenRefaccionVo> livo = this.getCoordinador().refaccionListaDeImagenesDetalles();
         int i = this.getCoordinador().getDialogoRefaccionDetalle().getIdRefaccion();
         setIdRefaccion(i);
         if (livo.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Esta refacción no tiene imágenes.");
         }else{
             _ImagenesRefacciones.limpiarComponenteURL();
-            for (ImagenVo vo : livo) {
+            for (ImagenRefaccionVo vo : livo) {
 
                 UtilidadesJXViewImage_.TransporteImagenesURL t;
                 t = new UtilidadesJXViewImage_.TransporteImagenesURL();
@@ -361,12 +361,12 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
                     JOptionPane.YES_NO_OPTION, 
                     JOptionPane.WARNING_MESSAGE);
             if (r==JOptionPane.YES_OPTION) {
-                ImagenVo vo = new ImagenVo();
+                ImagenRefaccionVo vo = new ImagenRefaccionVo();
                 vo.setIdRefaccion(imagenEliminar.getIdImagen());
                 vo.setNombreServidor(imagenEliminar.getNombreImagenServidor());
                 this.getCoordinador().imagenEliminar(vo);
 //                this.getCoordinador().refaccionMostrarDetalleActualizarImagenes(vo.getIdRefaccion());
-                this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenIT.NOMBRE_TABLA);
+                this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenRefaccionIT.NOMBRE_TABLA);
             }
         }
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
@@ -374,10 +374,10 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
         _ImagenesRefacciones.setFiltros(new FileNameExtensionFilter("Imagenes", "jpg", "gif", "png", "tiff", "jpeg"));
         _ImagenesRefacciones.cargarImagenes();
-        List<ImagenVo> listaiVo = new ArrayList<>();
+        List<ImagenRefaccionVo> listaiVo = new ArrayList<>();
         List<File> file = _ImagenesRefacciones.getImagenesPorCargar();
         for (File f : file) {
-            ImagenVo vo = new ImagenVo();
+            ImagenRefaccionVo vo = new ImagenRefaccionVo();
             vo.setIdRefaccion(getIdRefaccion());
             vo.setFicheroImagen(f);
             vo.setNombreParaMostrar(f.getName());
@@ -394,7 +394,7 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
         }
         
 //        this.getCoordinador().refaccionMostrarDetalleActualizarImagenes();
-        this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenIT.NOMBRE_TABLA);
+        this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenRefaccionIT.NOMBRE_TABLA);
         
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 

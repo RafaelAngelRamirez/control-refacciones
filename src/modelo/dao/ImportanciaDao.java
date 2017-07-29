@@ -14,7 +14,7 @@ import modelo.vo.ImportanciaVo;
  *
  * @author Particular
  */
-public class ImportanciaDao extends DAOGenerales_{
+public class ImportanciaDao extends DAOGenerales{
        
 
     private final ImportanciaIT it;

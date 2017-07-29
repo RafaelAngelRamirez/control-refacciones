@@ -73,6 +73,9 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
         this.zoom();
     }
     
+    /**
+     *  Limpia el componenet dejandolo como recien seteado. 
+     */
     public void limpiar(){
         this.imagenesPorCargar.clear();
         try {

@@ -17,7 +17,7 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
  *
  * @author Particular
  */
-public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
+public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
 
     RelacionRefaccionMaquinaModeloIT it;
   

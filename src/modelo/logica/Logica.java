@@ -21,7 +21,7 @@ import modelo.InfoTabla.ParametrosDeCampo;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
-import modelo.dao.ImagenDao_;
+import modelo.dao.ImagenRefaccionDao;
 import modelo.dao.MaquinaModeloDao_;
 import modelo.dao.MaterialDao_;
 import modelo.dao.ProveedorDao_;
@@ -29,7 +29,7 @@ import modelo.dao.RefaccionDao;
 import modelo.dao.RelacionRefaccionMaquinaModeloDao;
 import modelo.dao.RelacionRefaccionProveedorDao;
 import modelo.dao.UnidadDao_;
-import modelo.vo.ImagenVo;
+import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
@@ -696,10 +696,10 @@ public class Logica {
        INICIO REGISTRO DE IMAGENES.
     ////////////////////////////////////////////////////////////////////////
     */
-    public String imagenGuardarLista (List<ImagenVo> listaVo){
-        ImagenDao_ d = new ImagenDao_(coordinador);
+    public String imagenGuardarLista (List<ImagenRefaccionVo> listaVo){
+        ImagenRefaccionDao d = new ImagenRefaccionDao(coordinador);
         
-        for (ImagenVo vo : listaVo) {
+        for (ImagenRefaccionVo vo : listaVo) {
             File renombrado = FicherosOperaciones.duplicarYRenombrar(vo.getFicheroImagen());
             vo.setNombreServidor(renombrado.getName());
             vo.setFicheroImagen(renombrado);
@@ -708,13 +708,13 @@ public class Logica {
         return d.guardarLista(listaVo);
     }
     
-    public List<ImagenVo> imagenConsultar(int id){
-        ImagenDao_ d = new ImagenDao_(coordinador);
+    public List<ImagenRefaccionVo> imagenConsultar(int id){
+        ImagenRefaccionDao d = new ImagenRefaccionDao(coordinador);
         return d.consultar(id);
     }
     
-    public void imagenEliminar(ImagenVo vo){
-        ImagenDao_ d = new ImagenDao_(coordinador);
+    public void imagenEliminar(ImagenRefaccionVo vo){
+        ImagenRefaccionDao d = new ImagenRefaccionDao(coordinador);
         d.eliminar(vo);
     }
     

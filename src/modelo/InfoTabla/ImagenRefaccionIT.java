@@ -12,18 +12,18 @@ import javax.swing.JOptionPane;
  *
  * @author Particular
  */
-public class ImagenIT extends ITGenerales{
+public class ImagenRefaccionIT extends ITGenerales{
     
     /*
     * El nombre de la tabla en la base de datos. 
     */
-    public static final String NOMBRE_TABLA = "imagen";
+    public static final String NOMBRE_TABLA = "imagenRefaccion";
     
     private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
     private ParametrosDeCampo nombreParaMostarPDC = new ParametrosDeCampo();
     private ParametrosDeCampo nombreServidorPDC = new ParametrosDeCampo();
 
-    public ImagenIT() {
+    public ImagenRefaccionIT() {
         
         
         idRefaccionPDC.setNombre("idRefaccion");

@@ -12,12 +12,12 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.InfoTabla.PaisIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
-import vista.MarcoParaVentanaPrincipal;
 import vista.utilidadesOptimizadas.*;
 
 /**
@@ -34,6 +34,7 @@ public class DialogoProveedorRegistrar extends JDialog {
     UtilidadesTxt_ _TxtPaginaWeb;
     UtilidadesTxt_ _TxtEmail;
     UtilidadesComboBox_ _ComboPais;
+    UtilidadesJXViewImage_ _ImagenesProveedor;
     
     /**
      * Creates new form RegistrarProveedort
@@ -104,6 +105,7 @@ public class DialogoProveedorRegistrar extends JDialog {
         this._TxtPaginaWeb = new UtilidadesTxt_(getCoordinador());
         this._TxtEmail = new UtilidadesTxt_(getCoordinador());
         this._ComboPais = new UtilidadesComboBox_(getCoordinador());
+        this._ImagenesProveedor = new UtilidadesJXViewImage_(coordinador);
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         _TxtEmpresa.setComponente(txtEmpresa);
@@ -112,6 +114,10 @@ public class DialogoProveedorRegistrar extends JDialog {
         _TxtPaginaWeb.setComponente(txtPaginaWeb); 
         _TxtEmail.setComponente(txtEmail); 
         _ComboPais.setComponente(comboPais);
+        _ImagenesProveedor.setComponente(imagenView);
+        _ImagenesProveedor.setjLabelContador(etiquetaContadorImagenes);
+        
+        
        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         _TxtEmpresa.setTamanoDeCampo(pit.getEmpresaProveedorPDC().getLongitudDeCaracteres());
@@ -121,7 +127,7 @@ public class DialogoProveedorRegistrar extends JDialog {
         _TxtEmail.setTamanoDeCampo(pit.getEmailPDC().getLongitudDeCaracteres());
         _ComboPais.setTamanoDeCampo(paisit.getPaisPDC().getLongitudDeCaracteres());
         
-        //CAMPOS QUE REQUIEREN TEXO EN MAYUSCULAS.
+        //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         _TxtEmpresa.setMayusculas();
         _TxtNombreContacto.setMayusculas();
         _ComboPais.setMayusculas();
@@ -234,6 +240,12 @@ public class DialogoProveedorRegistrar extends JDialog {
         txtNombreContacto = new javax.swing.JTextField();
         comboPais = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        imagenView = new org.jdesktop.swingx.JXImageView();
+        etiquetaContadorImagenes = new javax.swing.JLabel();
+        btnSiguienteImagen = new javax.swing.JButton();
+        btnRegresarImagen = new javax.swing.JButton();
+        btnAgregarImagen = new javax.swing.JButton();
+        btnEliminarImagen = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -307,22 +319,96 @@ public class DialogoProveedorRegistrar extends JDialog {
         comboPais.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         comboPais.setMinimumSize(new java.awt.Dimension(195, 32));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setBackground(new java.awt.Color(104, 126, 13));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_titulo_agregar proveedor.png"))); // NOI18N
+        jLabel1.setOpaque(true);
+
+        imagenView.setOpaque(false);
+
+        etiquetaContadorImagenes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        etiquetaContadorImagenes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        etiquetaContadorImagenes.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        etiquetaContadorImagenes.setOpaque(true);
+
+        btnSiguienteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_siguiente.png"))); // NOI18N
+        btnSiguienteImagen.setFocusable(false);
+        btnSiguienteImagen.setOpaque(false);
+        btnSiguienteImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteImagenActionPerformed(evt);
+            }
+        });
+
+        btnRegresarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_anterios.png"))); // NOI18N
+        btnRegresarImagen.setFocusable(false);
+        btnRegresarImagen.setOpaque(false);
+        btnRegresarImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarImagenActionPerformed(evt);
+            }
+        });
+
+        btnAgregarImagen.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnAgregarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_mas.png"))); // NOI18N
+        btnAgregarImagen.setText("Agregar");
+        btnAgregarImagen.setOpaque(false);
+        btnAgregarImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarImagenActionPerformed(evt);
+            }
+        });
+
+        btnEliminarImagen.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnEliminarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnEliminarImagen.setText("Eliminar");
+        btnEliminarImagen.setOpaque(false);
+        btnEliminarImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarImagenActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout imagenViewLayout = new javax.swing.GroupLayout(imagenView);
+        imagenView.setLayout(imagenViewLayout);
+        imagenViewLayout.setHorizontalGroup(
+            imagenViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imagenViewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(imagenViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(etiquetaContadorImagenes, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, imagenViewLayout.createSequentialGroup()
+                        .addComponent(btnRegresarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSiguienteImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminarImagen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAgregarImagen)))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        imagenViewLayout.setVerticalGroup(
+            imagenViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imagenViewLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(imagenViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSiguienteImagen)
+                    .addComponent(btnRegresarImagen)
+                    .addGroup(imagenViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAgregarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminarImagen)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(etiquetaContadorImagenes, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(199, 199, 199)
-                .addComponent(btnCancelar)
-                .addGap(18, 18, 18)
-                .addComponent(btnGuardar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(etiquetaNombrecontacto)
                     .addComponent(etiquetaEmpresa)
@@ -343,42 +429,49 @@ public class DialogoProveedorRegistrar extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(etiquetaPais)
-                            .addComponent(comboPais, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(20, 20, 20))
+                            .addComponent(comboPais, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnGuardar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(etiquetaEmpresa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(etiquetaNombrecontacto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombreContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaTelefono)
-                    .addComponent(etiquetaPaginaWeb))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaEmail)
-                    .addComponent(etiquetaPais))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(etiquetaEmpresa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(etiquetaNombrecontacto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombreContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(etiquetaTelefono)
+                            .addComponent(etiquetaPaginaWeb))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(etiquetaEmail)
+                            .addComponent(etiquetaPais))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnCancelar)))
+                    .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -396,6 +489,7 @@ public class DialogoProveedorRegistrar extends JDialog {
         this._TxtPaginaWeb.setText("");
         this._TxtTelefono.setText("");
         this._ComboPais.setText("");
+        
         
         this._TxtEmail.setErrorQuitar();
         this._TxtEmpresa.setErrorQuitar();
@@ -423,6 +517,7 @@ public class DialogoProveedorRegistrar extends JDialog {
         if (todoVacio) {
             this.limpiarTodo();
             this.dispose();
+            
         }else{
         
             int respuesta = JOptionPane.showConfirmDialog(
@@ -525,6 +620,24 @@ public class DialogoProveedorRegistrar extends JDialog {
         
     }//GEN-LAST:event_formWindowActivated
 
+    private void btnSiguienteImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteImagenActionPerformed
+        _ImagenesProveedor.siguienteAnterior(true);
+    }//GEN-LAST:event_btnSiguienteImagenActionPerformed
+
+    private void btnRegresarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarImagenActionPerformed
+        _ImagenesProveedor.siguienteAnterior(false);
+    }//GEN-LAST:event_btnRegresarImagenActionPerformed
+
+    private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
+
+        _ImagenesProveedor.setFiltros(new FileNameExtensionFilter("Imagenes", "jpg", "gif", "png", "tiff", "jpeg"));
+        _ImagenesProveedor.cargarImagenes();
+    }//GEN-LAST:event_btnAgregarImagenActionPerformed
+
+    private void btnEliminarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarImagenActionPerformed
+        _ImagenesProveedor.eliminarImagenSeleccionada();
+    }//GEN-LAST:event_btnEliminarImagenActionPerformed
+
     private void cargarComboPaises(){
         List<PaisVo> listaPaises = this.coordinador.PaisConsultar();
         HashMap<String, Integer> datosPaises = new HashMap<>();
@@ -577,15 +690,21 @@ public class DialogoProveedorRegistrar extends JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarImagen;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminarImagen;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnRegresarImagen;
+    private javax.swing.JButton btnSiguienteImagen;
     private javax.swing.JComboBox<String> comboPais;
+    private javax.swing.JLabel etiquetaContadorImagenes;
     private javax.swing.JLabel etiquetaEmail;
     private javax.swing.JLabel etiquetaEmpresa;
     private javax.swing.JLabel etiquetaNombrecontacto;
     private javax.swing.JLabel etiquetaPaginaWeb;
     private javax.swing.JLabel etiquetaPais;
     private javax.swing.JLabel etiquetaTelefono;
+    private org.jdesktop.swingx.JXImageView imagenView;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEmpresa;

@@ -7,21 +7,21 @@ package modelo.vo;
 
 import java.io.File;
 import java.net.URL;
-import modelo.InfoTabla.ImagenIT;
+import modelo.InfoTabla.ImagenRefaccionIT;
 
 /**
  *
  * @author Particular
  */
-public class ImagenVo extends VoGenerales{
-    int idRefaccion;
-    String nombreParaMostrar;
-    String nombreServidor;
-    File ficheroImagen;
-    URL urlImagen;
+public class ImagenRefaccionVo extends VoGenerales{
+    private int idRefaccion;
+    private String nombreParaMostrar;
+    private String nombreServidor;
+    private File ficheroImagen;
+    private URL urlImagen;
 
-    public ImagenVo() {
-        ImagenIT i = new ImagenIT();
+    public ImagenRefaccionVo() {
+        ImagenRefaccionIT i = new ImagenRefaccionIT();
         relacionCampo.put(i.getIdRefaccionPDC().getNombre(), ()->this.getIdRefaccion());
         relacionCampo.put(i.getNombreParaMostarPDC().getNombre(), ()->this.getNombreParaMostrar());
         relacionCampo.put(i.getNombreServidorPDC().getNombre(), ()->this.getNombreServidor());

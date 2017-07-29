@@ -14,7 +14,7 @@ import modelo.vo.MaterialVo;
  *
  * @author Particular
  */
-public class MaterialDao_ extends DAOGenerales_{
+public class MaterialDao_ extends DAOGenerales{
    
     MaterialIT it;
     public MaterialDao_(Coordinador coordinador) {

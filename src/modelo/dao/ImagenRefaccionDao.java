@@ -7,10 +7,8 @@ package modelo.dao;
 
 import controlador.Coordinador;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,23 +16,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.InfoTabla.ImagenIT;
+import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.ConexionDatos;
 import modelo.FicherosOperacionesServidor;
-import modelo.vo.ImagenVo;
+import modelo.vo.ImagenRefaccionVo;
 /**
  *
  * @author Particular
  */
-public class ImagenDao_ extends DAOGenerales_{
+public class ImagenRefaccionDao extends DAOGenerales{
     
-    private final ImagenIT it;
-    public ImagenDao_(Coordinador coordinador) {
+    private final ImagenRefaccionIT it;
+    public ImagenRefaccionDao(Coordinador coordinador) {
         super(coordinador);
-        this.it = new ImagenIT();
+        this.it = new ImagenRefaccionIT();
     }
     
-    public String guardarLista(List<ImagenVo> listaVo){
+    public String guardarLista(List<ImagenRefaccionVo> listaVo){
         //CONTENDRA EL NOMBRE DE LAS IMAGENES QUE NO SE PUDIERON SUBIR.
         String retornoErrores=null;
         //LOS VALUES PARA EL INSERT.
@@ -46,7 +44,7 @@ public class ImagenDao_ extends DAOGenerales_{
         //CONTADOR PARA EVITAR LA ÚLTIMA COMA DEL SQL.
         int conComa=1;
         //RECORREMOS TODAS LAS IMAGENES QUE PASAMOS. 
-        for (ImagenVo vo : listaVo) {
+        for (ImagenRefaccionVo vo : listaVo) {
             //SI NO SE PUEDE SUBIR LA IMAGEN AL SERVIDOR NO LA GUARDAMOS EN LA
             // BD Y RETORNAMOS SU NOMBRE COMO ERROR.
             if (subirImagenesAServidor(vo.getFicheroImagen())) {
@@ -72,7 +70,7 @@ public class ImagenDao_ extends DAOGenerales_{
             
         }
         
-        String sql = "INSERT INTO " +ImagenIT.NOMBRE_TABLA 
+        String sql = "INSERT INTO " +ImagenRefaccionIT.NOMBRE_TABLA 
                 + " VALUES " + values;
         if (!values.isEmpty()) {
             conexion.executeUpdate(sql, mapa);
@@ -94,15 +92,15 @@ public class ImagenDao_ extends DAOGenerales_{
     
     }
     
-    public List<ImagenVo> consultar(int id){
-        List<ImagenVo> livo = new ArrayList<>();
-        String sql = "SELECT * FROM " + ImagenIT.NOMBRE_TABLA 
+    public List<ImagenRefaccionVo> consultar(int id){
+        List<ImagenRefaccionVo> livo = new ArrayList<>();
+        String sql = "SELECT * FROM " + ImagenRefaccionIT.NOMBRE_TABLA 
                 + " WHERE " + it.getIdRefaccionPDC().getNombre() +"= ?";
         ResultSet r = conexion.executeQuery(sql, id+"");
 
         try {
             while (r.next()) {
-                ImagenVo v = new ImagenVo();
+                ImagenRefaccionVo v = new ImagenRefaccionVo();
                 v.setNombreParaMostrar(r.getString(it.getNombreParaMostarPDC().getNombre()));
                 v.setNombreServidor(r.getString(it.getNombreServidorPDC().getNombre()));
                 v.setIdRefaccion(r.getInt(it.getIdRefaccionPDC().getNombre()));
@@ -114,16 +112,14 @@ public class ImagenDao_ extends DAOGenerales_{
                 
                 livo.add(v);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ImagenDao_.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(ImagenDao_.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | MalformedURLException ex) {
+            Logger.getLogger(ImagenRefaccionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return livo;
     }
     
-    public void eliminar (ImagenVo vo){
-        String sql = "DELETE FROM " + ImagenIT.NOMBRE_TABLA
+    public void eliminar (ImagenRefaccionVo vo){
+        String sql = "DELETE FROM " + ImagenRefaccionIT.NOMBRE_TABLA
                 + " WHERE "
                 + it.getIdRefaccionPDC().getNombre()
                 + "=?  AND "
