@@ -328,6 +328,7 @@ public class PanelRefaccionAgregar extends JPanel {
         HashMap<String, Integer> map = new HashMap<>();
         for (MaterialVo vo : l) {
             map.put(vo.getMaterial(), vo.getId());
+            System.out.println("este es el id que nos dice que no esta: "+vo.getId());
         }
         _ComboMaterial.cargarCombo(map);
     }
@@ -347,7 +348,7 @@ public class PanelRefaccionAgregar extends JPanel {
                 if (op == JOptionPane.YES_OPTION) {
                     UnidadVo vo = new UnidadVo();
                     vo.setUnidad(unidad);
-//                    this.getCoordinador().unidadGuardar(vo);
+                    this.getCoordinador().unidadGuardar(vo);
                     this.getCoordinador().ejecutarOperacionesParaActualizar(UnidadIT.NOMBRE_TABLA);
                     this.cargarComboUnidad();
                     _ComboUnidad.setSelectedItem(unidad);

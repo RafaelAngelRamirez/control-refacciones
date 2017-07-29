@@ -125,6 +125,13 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
         if (this.isEmpty()) {
             return -1;
         }else{
+            System.out.println("estamos en el combo:");
+            for (Map.Entry<String, Integer> entry : relacionDatoId.entrySet()) {
+                String key = entry.getKey();
+                Integer value = entry.getValue();
+                System.out.println("relacionDatoId: " + key + "- "+value);
+                
+            }
             return this.relacionDatoId.get((String)this.comboBox.getSelectedItem());
         }
     }
