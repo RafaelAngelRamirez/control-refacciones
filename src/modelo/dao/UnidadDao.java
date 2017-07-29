@@ -15,10 +15,10 @@ import modelo.vo.*;
  *
  * @author Particular
  */
-public class UnidadDao_ extends DAOGenerales{
+public class UnidadDao extends DAOGenerales{
     
     private final UnidadIT it;
-    public UnidadDao_ (Coordinador coordinador) {
+    public UnidadDao (Coordinador coordinador) {
         super(coordinador);
         it = new UnidadIT();
     }
@@ -46,7 +46,7 @@ public class UnidadDao_ extends DAOGenerales{
             }
             return l;
         } catch (SQLException ex) {
-            Logger.getLogger(UnidadDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UnidadDao.class.getName()).log(Level.SEVERE, null, ex);
         }
             return l;
     }
@@ -62,7 +62,7 @@ public class UnidadDao_ extends DAOGenerales{
                 return true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UnidadDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UnidadDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

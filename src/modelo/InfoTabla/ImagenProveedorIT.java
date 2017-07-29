@@ -13,7 +13,7 @@ public class ImagenProveedorIT extends ITGenerales{
     /*
     * El nombre de la tabla en la base de datos. 
     */
-    public static final String NOMBRE_TABLA = "imagenRefaccion";
+    public static final String NOMBRE_TABLA = "imagenProveedor";
     
     private ParametrosDeCampo idProveedorPDC = new ParametrosDeCampo();
     private ParametrosDeCampo nombreParaMostarPDC = new ParametrosDeCampo();

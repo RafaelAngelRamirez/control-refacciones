@@ -16,11 +16,11 @@ import modelo.vo.*;
  *
  * @author Particular
  */
-public class ProveedorDao_ extends DAOGenerales{
+public class ProveedorDao extends DAOGenerales{
 
     private final ProveedorIT it;
 
-    public ProveedorDao_(Coordinador coordinador) {
+    public ProveedorDao(Coordinador coordinador) {
         super(coordinador);
         this.it = new ProveedorIT();
     }
@@ -64,7 +64,7 @@ public class ProveedorDao_ extends DAOGenerales{
                 l.add(vo);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProveedorDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProveedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return l;
     }
@@ -90,8 +90,20 @@ public class ProveedorDao_ extends DAOGenerales{
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(ProveedorDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProveedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public int consultarUltimoId(){
+        String sql = "SELECT MAX("+it.getIdPDC().getNombre()+") FROM "+ProveedorIT.NOMBRE_TABLA;
+        ResultSet r = conexion.executeQuery(sql);
+        try {
+            r.next();
+            return r.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(RefaccionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 }

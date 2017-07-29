@@ -16,11 +16,11 @@ import modelo.vo.MaquinaModeloVo;
  *
  * @author Particular
  */
-public class MaquinaModeloDao_ extends DAOGenerales{
+public class MaquinaModeloDao extends DAOGenerales{
     
     private final MaquinaModeloIT it;
     
-    public MaquinaModeloDao_(Coordinador coordinador) {
+    public MaquinaModeloDao(Coordinador coordinador) {
         super(coordinador);
         this.it = new MaquinaModeloIT();
     }
@@ -46,7 +46,7 @@ public class MaquinaModeloDao_ extends DAOGenerales{
                 return true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MaquinaModeloDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MaquinaModeloDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -86,7 +86,7 @@ public class MaquinaModeloDao_ extends DAOGenerales{
             }
             return lista;
         } catch (SQLException ex) {
-            Logger.getLogger(MaquinaModeloDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MaquinaModeloDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }
@@ -123,7 +123,7 @@ public class MaquinaModeloDao_ extends DAOGenerales{
             
             
         } catch (SQLException ex) {
-            Logger.getLogger(MaquinaModeloDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MaquinaModeloDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return vo;
     }

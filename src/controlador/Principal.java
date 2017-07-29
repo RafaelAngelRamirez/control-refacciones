@@ -139,8 +139,8 @@ public class Principal {
         ====================================================================
         */
         
-        new modelo.dao.ProveedorDao_(coordinador);
-        new modelo.dao.PaisDao_(coordinador);
+        new modelo.dao.ProveedorDao(coordinador);
+        new modelo.dao.PaisDao(coordinador);
         
         /**/
         

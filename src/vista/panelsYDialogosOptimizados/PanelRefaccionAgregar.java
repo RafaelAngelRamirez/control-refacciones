@@ -1564,12 +1564,11 @@ public class PanelRefaccionAgregar extends JPanel {
         
         if (todoValido) {
             //GUARDAMOS LA REFACCIÓN.
-            this.coordinador.refaccionGuardar(rVo);
+            this.getCoordinador().refaccionGuardar(rVo);
             //OBTENEMOS EL ID GENERADO.
-            int idRefaccion = this.coordinador.refaccionConsultarUltimoId();
+            int idRefaccion = this.getCoordinador().refaccionConsultarUltimoId();
             if (idRefaccion==-1) {
-                JOptionPane.showMessageDialog(this, "Hubo un error y se pudo obtener el id. \n"
-                        + "No se guardaran los datos. \n\n"
+                JOptionPane.showMessageDialog(this, "Hubo un error y se pudieron guardar algúnos datos.\n\n"
                         + "Puedes revisar si los datos de la refacción se almacenarón\n"
                         + "y asociar de nuevo la información modificandola directamente."
                         + "", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1587,7 +1586,7 @@ public class PanelRefaccionAgregar extends JPanel {
                     aa.setIdRefaccion(idRefaccion);
                 }
 
-                String errorImg = this.getCoordinador().imagenGuardarLista(listaiVo);
+                String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
                 this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo);
                 this.getCoordinador().relacionRefaccionProveedorGuardarLista(listarrpVo);
                 if (errorImg!=null) {
@@ -1601,6 +1600,7 @@ public class PanelRefaccionAgregar extends JPanel {
                 this.getCoordinador().huboUnCambioEnTabla(RefaccionIT.NOMBRE_TABLA);
                 this.getCoordinador().huboUnCambioEnTabla(UnidadIT.NOMBRE_TABLA);
                 this.getCoordinador().huboUnCambioEnTabla(MaterialIT.NOMBRE_TABLA);
+                this.getCoordinador().huboUnCambioEnTabla(ImagenRefaccionIT.NOMBRE_TABLA);
                 this.getCoordinador().ejecutarOperacionesParaActualizar();
                 JOptionPane.showMessageDialog(
                         coordinador.getMarcoParaVentanaPrincipal(),

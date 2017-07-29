@@ -17,13 +17,13 @@ import modelo.vo.*;
  *
  * @author Particular
  */
-public class PaisDao_ extends DAOGenerales{
+public class PaisDao extends DAOGenerales{
 
     Conexion conexion = new Conexion(coordinador);
     PaisIT it;
             
 
-    public PaisDao_(Coordinador coordinador) {
+    public PaisDao(Coordinador coordinador) {
         super(coordinador);
         this.it = new PaisIT();
         
@@ -57,7 +57,7 @@ public class PaisDao_ extends DAOGenerales{
                 lista.add(a);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PaisDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PaisDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return lista;
@@ -79,7 +79,7 @@ public class PaisDao_ extends DAOGenerales{
             return false;
             
         } catch (SQLException ex) {
-            Logger.getLogger(PaisDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PaisDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return false;

@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
+import modelo.InfoTabla.ImagenProveedorIT;
 import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
@@ -24,6 +25,7 @@ import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.UnidadIT;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
+import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
@@ -247,9 +249,10 @@ public class Coordinador {
     public void proveedorGuardar(ProveedorVo vo){
         this.logica.proveedorGuardar(vo);
     }
-//    public void proveedorActualizarLista(){
-//        this.getPanelRefaccionAgregar().cargarListaProveedor();
-//    }
+    
+    public int proveedorConsultarUltimoId(){
+        return this.logica.proveedorConsultarUltimoId();
+    }
     
     /**
      * Consulta toda la lista de proveedores y retorna solo el campo empresa.  
@@ -642,28 +645,51 @@ public class Coordinador {
     */
     /* 
     ========================================================================
-       INICIO DE IMAGEN
+       INICIO DE IMAGENREFACCION
     ////////////////////////////////////////////////////////////////////////
     */
     //IMAGENES
-    public String imagenGuardarLista(List<ImagenRefaccionVo> vo){
-        return this.logica.imagenGuardarLista(vo);
+    public String imagenRefaccionGuardarLista(List<ImagenRefaccionVo> vo){
+        return this.logica.imagenRefaccionGuardarLista(vo);
     }
     
-    public List<ImagenRefaccionVo> imagenConsultar(int id){
-        return this.logica.imagenConsultar(id);
+    public List<ImagenRefaccionVo> imagenRefaccionConsultar(int id){
+        return this.logica.imagenRefaccionConsultar(id);
     }
     
     public void imagenEliminar(ImagenRefaccionVo vo){
-        this.logica.imagenEliminar(vo);
+        this.logica.imagenRefaccionEliminar(vo);
     }
     
     /* 
     ////////////////////////////////////////////////////////////////////////
-        FIN DE IMAGEN
+        FIN DE IMAGENREFACCION
     ========================================================================
     */
     
+    /* 
+    ========================================================================
+       INICIO DE IMAGENPROVEEDOR
+    ////////////////////////////////////////////////////////////////////////
+    */
+    //IMAGENES
+    public String imagenProveedorGuardarLista(List<ImagenProveedorVo> vo){
+        return this.logica.imagenProveedorGuardarLista(vo);
+    }
+    
+    public List<ImagenProveedorVo> imagenProveedorConsultar(int id){
+        return this.logica.imagenProveedorConsultar(id);
+    }
+    
+    public void imagenProveedorEliminar(ImagenProveedorVo vo){
+        this.logica.imagenProveedorEliminar(vo);
+    }
+    
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE IMAGENPROVEEDOR
+    ========================================================================
+    */
    
     
     /* 
@@ -714,6 +740,8 @@ public class Coordinador {
             List<RelacionRefaccionProveedorVo> listaVo){
         this.logica.relacionRefaccionProveedorModificarLista(listaVo);
     }
+    
+    
     
     /* 
     ////////////////////////////////////////////////////////////////////////
@@ -830,10 +858,13 @@ public class Coordinador {
             case PaisIT.NOMBRE_TABLA:
                 mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
                 break;
+            case ImagenProveedorIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
+                break;
             default:
                         try {
                             throw new ExcepcionPersonalizada("Parece que la tabla que quieres actualizar no ha "
-                                    + "\nsido definida dentro de la operación. : ------  "+nombreDeLaTabla, this, "huboUnCambioEnTabla()");
+                                    + "\nsido definida dentro de la funcion 'huboUnCambioEnTabla()'. FALTA AGREGAR ESTA TABLA:->   "+nombreDeLaTabla, this, "huboUnCambioEnTabla()");
                         } catch (ExcepcionPersonalizada ex) {
                             Logger.getLogger(Coordinador.class.getName()).log(Level.SEVERE, null, ex);
                         }

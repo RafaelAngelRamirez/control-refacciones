@@ -14,10 +14,10 @@ import modelo.vo.MaterialVo;
  *
  * @author Particular
  */
-public class MaterialDao_ extends DAOGenerales{
+public class MaterialDao extends DAOGenerales{
    
     MaterialIT it;
-    public MaterialDao_(Coordinador coordinador) {
+    public MaterialDao(Coordinador coordinador) {
         super(coordinador);
         it = new MaterialIT();
     
@@ -42,7 +42,7 @@ public class MaterialDao_ extends DAOGenerales{
                 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MaterialDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MaterialDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return l;
     }
@@ -58,7 +58,7 @@ public class MaterialDao_ extends DAOGenerales{
                 return true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MaterialDao_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MaterialDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

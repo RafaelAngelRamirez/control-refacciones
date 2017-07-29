@@ -244,7 +244,7 @@ public class DialogoRefaccionDetalle extends JDialog {
      */
     public void cargarImagenes(){
         int id = idRefaccion;
-        listaImagenesRefaccion = this.getCoordinador().imagenConsultar(id);
+        listaImagenesRefaccion = this.getCoordinador().imagenRefaccionConsultar(id);
         _ImagenesRefacciones.limpiarComponenteURL();
         for (ImagenRefaccionVo vo : listaImagenesRefaccion) {
             UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();

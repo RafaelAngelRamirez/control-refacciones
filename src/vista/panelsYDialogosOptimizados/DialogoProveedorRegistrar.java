@@ -6,6 +6,8 @@
 package vista.panelsYDialogosOptimizados;
 
 import controlador.Coordinador;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JComboBox;
@@ -13,9 +15,11 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.InfoTabla.ImagenProveedorIT;
 import modelo.InfoTabla.PaisIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
+import modelo.vo.ImagenProveedorVo;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
 import vista.utilidadesOptimizadas.*;
@@ -483,6 +487,7 @@ public class DialogoProveedorRegistrar extends JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
     
     private void limpiarTodo(){
+        _ImagenesProveedor.limpiar();
         this._TxtEmail.setText("");
         this._TxtEmpresa.setText("");
         this._TxtNombreContacto.setText("");
@@ -568,6 +573,8 @@ public class DialogoProveedorRegistrar extends JDialog {
      * Guarda un nuevo proveedor. 
      */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        List<ImagenProveedorVo> listapVo = new ArrayList<>();
+        
         ProveedorVo vo = new ProveedorVo();
         vo.setId(-1);
         vo.setEmail(_TxtEmail.getText());
@@ -576,15 +583,22 @@ public class DialogoProveedorRegistrar extends JDialog {
         vo.setNombreContacto(_TxtNombreContacto.getText());
         vo.setPaginaWeb(_TxtPaginaWeb.getText());
         vo.setTelefono(_TxtTelefono.getText());
-
-        List<Validacion> validaciones = this.coordinador.proveedorValidarCampos(vo);
+        
+        List<File> file = _ImagenesProveedor.getImagenesPorCargar();
+        for (File f : file) {
+            ImagenProveedorVo pvo = new ImagenProveedorVo();
+            pvo.setFicheroImagen(f);
+            pvo.setNombreParaMostrar(f.getName());
+            listapVo.add(pvo);
+        }
+        
+        List<Validacion> validaciones = this.getCoordinador().proveedorValidarCampos(vo);
         boolean todoValido = true;
         ProveedorIT iT = new ProveedorIT();
         for (Validacion validacione : validaciones) {
             if (validacione.getNombreDeCampo().equals(iT.getEmpresaProveedorPDC().getNombre())) {
                 if (!validacione.isValido()) {
                     _TxtEmpresa.setError(validacione.getMensajeDeError());
-                    
                 }else{
                     _TxtEmpresa.setErrorQuitar();
                 }
@@ -598,18 +612,41 @@ public class DialogoProveedorRegistrar extends JDialog {
         }
         
         if (todoValido) {
+            //GUARDAMOS LA REFACCION
             this.getCoordinador().proveedorGuardar(vo);
-            this.limpiarTodo();
-            this.dispose();
-            this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
+            //OBTENEMOS EL ID GENERADO.
+            int idProveedor = this.getCoordinador().proveedorConsultarUltimoId();
+            if (idProveedor==-1) {
+                JOptionPane.showMessageDialog(this, "Hubo un error y no se pudieron guardar algúnos datos.\n\n"
+                       + "Puedes revisar si los datos de la refacción se almacenarón\n"
+                       + "y asociar de nuevo la información modificandola directamente."
+                       + "", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, idProveedor);
+                //ASOCIAMOS LS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN ALMACENADA. 
+                for (ImagenProveedorVo pVo : listapVo) {
+                    pVo.setIdProveedor(idProveedor);
+                }
+                
+                String errorImg = this.getCoordinador().imagenProveedorGuardarLista(listapVo);
+                if (errorImg!=null) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "No se cargaron las siguientes imagenes: \n\n" + errorImg,
+                            "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                limpiarTodo();
+                this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
+                this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
+                this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
 
-            JOptionPane.showMessageDialog(
-                    this.getCoordinador().getMarcoParaVentanaPrincipal(), 
-                    "Se guardo correctamente el proveedor.");
+                this.dispose();
+                JOptionPane.showMessageDialog(
+                        this.getCoordinador().getMarcoParaVentanaPrincipal(), 
+                        "Se guardo correctamente el proveedor.");
+            }
         }
-        
-        
-        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

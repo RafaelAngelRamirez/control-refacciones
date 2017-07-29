@@ -334,7 +334,7 @@ public class PanelRefaccionModificar extends JPanel {
      * @param id El id que corresponde a la refacción.
      */
     public void cargarImagenes(int id){
-        listaImagenesRefaccion = this.coordinador.imagenConsultar(id);
+        listaImagenesRefaccion = this.coordinador.imagenRefaccionConsultar(id);
         _ImagenesRefacciones.limpiarComponenteURL();
         for (ImagenRefaccionVo vo : listaImagenesRefaccion) {
             UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
@@ -1398,7 +1398,7 @@ public class PanelRefaccionModificar extends JPanel {
             
         }
         
-        String errorImg = this.coordinador.imagenGuardarLista(listaiVo);
+        String errorImg = this.coordinador.imagenRefaccionGuardarLista(listaiVo);
         if (errorImg!=null) {
                JOptionPane.showMessageDialog(
                             null,

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import modelo.InfoTabla.ProveedorIT;
-import modelo.dao.ProveedorDao_;
+import modelo.dao.ProveedorDao;
 
 /**
  *

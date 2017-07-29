@@ -385,7 +385,7 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
             
         }
         JOptionPane.showMessageDialog(null, "vamos a guardar una nueva imagen desdde detella imagen");
-        String errorImg = this.getCoordinador().imagenGuardarLista(listaiVo);
+        String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
         if (errorImg!=null) {
                JOptionPane.showMessageDialog(
                             null,
