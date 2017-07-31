@@ -4,11 +4,7 @@ package controlador.capturadeerrores;
 import controlador.Coordinador;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.ExcepcionPersonalizada;
-import vista.utilidadesOptimizadas.Suceso;
 
 /**
  * Esta clase se encarga de administrar los sucesos que ocurren en el programa.

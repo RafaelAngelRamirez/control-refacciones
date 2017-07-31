@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import vista.utilidadesOptimizadas.Suceso;
+import controlador.capturadeerrores.Suceso;
 
 /**
  * Gestión de las conexiones a la base de datos.

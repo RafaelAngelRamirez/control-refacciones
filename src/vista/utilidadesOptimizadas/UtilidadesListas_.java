@@ -1,6 +1,7 @@
 
 package vista.utilidadesOptimizadas;
 
+import controlador.capturadeerrores.Suceso;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.util.ArrayList;

@@ -88,6 +88,7 @@ public class Principal {
         DialogoRefaccionDetalle dialogoRefaccionDetalle = new DialogoRefaccionDetalle();
         DialogoImagenDetalle dialogoImagenDetalle = new DialogoImagenDetalle();
         DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar = new DialogoMaquinaModeloModificar();
+        DialogoProveedorModificar dialogoProveedorModificar = new DialogoProveedorModificar();
         
         //COORDINADORES
         Coordinador coordinador = new Coordinador();
@@ -113,6 +114,7 @@ public class Principal {
         dialogoRefaccionDetalle.setCoordinador(coordinador);
         dialogoImagenDetalle.setCoordinador(coordinador);
         dialogoMaquinaModeloModificar.setCoordinador(coordinador);
+        dialogoProveedorModificar.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         
@@ -134,6 +136,7 @@ public class Principal {
         coordinador.setDialogoImagenDetalle(dialogoImagenDetalle);
         coordinador.setPanelRefaccionModificar(panelRefaccionModificar);
         coordinador.setDialogoMaquinaModeloModificar(dialogoMaquinaModeloModificar);
+        coordinador.setDialogoProveedorModificar(dialogoProveedorModificar);
         
         
 //        /*

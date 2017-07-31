@@ -74,8 +74,6 @@ public class PanelRefaccionAgregar extends JPanel {
      */
     public PanelRefaccionAgregar() {
         initComponents();
-       
-
 
     }
 

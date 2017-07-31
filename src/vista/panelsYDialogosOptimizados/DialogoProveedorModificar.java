@@ -39,6 +39,7 @@ public class DialogoProveedorModificar extends JDialog {
     UtilidadesTxt_ _TxtEmail;
     UtilidadesComboBox_ _ComboPais;
     UtilidadesJXViewImage_ _ImagenesProveedor;
+    UtilidadesListas_ _ListaProveedores;
     
     /**
      * Creates new form RegistrarProveedort
@@ -110,6 +111,7 @@ public class DialogoProveedorModificar extends JDialog {
         this._TxtEmail = new UtilidadesTxt_(getCoordinador());
         this._ComboPais = new UtilidadesComboBox_(getCoordinador());
         this._ImagenesProveedor = new UtilidadesJXViewImage_(coordinador);
+        this._ListaProveedores = new UtilidadesListas_(coordinador);
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         _TxtEmpresa.setComponente(txtEmpresa);
@@ -120,8 +122,8 @@ public class DialogoProveedorModificar extends JDialog {
         _ComboPais.setComponente(comboPais);
         _ImagenesProveedor.setComponente(imagenView);
         _ImagenesProveedor.setjLabelContador(etiquetaContadorImagenes);
-        
-        
+        _ListaProveedores.setComponente(listaProveedores);
+                
        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         _TxtEmpresa.setTamanoDeCampo(pit.getEmpresaProveedorPDC().getLongitudDeCaracteres());
@@ -145,6 +147,7 @@ public class DialogoProveedorModificar extends JDialog {
         
         //ACCIONES ESPECELIALES.
         _ComboPais.setFocusAction(()->this.guardarPais(), false);
+        _ListaProveedores.setSingleClick(()->JOptionPane.showMessageDialog(null, "No definido todavia"));
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
@@ -161,6 +164,7 @@ public class DialogoProveedorModificar extends JDialog {
         ///////////////////////////////////////////////////////////////////////
         */
             this.cargarComboPaises();
+            this.cargarListaProveedores();
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -203,20 +207,7 @@ public class DialogoProveedorModificar extends JDialog {
     public JTextField getTxtTelefono() {
         return txtTelefono;
     }
-
-    public String getProveedorPrecargado() {
-        return _TxtEmpresa.getText();
-    }
     
-    /**
-     * Setea dentro del campo empresa el nombre que se le pase como parametro.
-     * 
-     * @param proveedorPrecargado El proveedor que quiere que se muestre.
-     */
-    public void setProveedorPrecargado(String proveedorPrecargado) {
-        _TxtEmpresa.setText(proveedorPrecargado);
-        this.proveedorPrecargado = proveedorPrecargado;
-    }
     
     
 
@@ -250,6 +241,9 @@ public class DialogoProveedorModificar extends JDialog {
         btnRegresarImagen = new javax.swing.JButton();
         btnAgregarImagen = new javax.swing.JButton();
         btnEliminarImagen = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        listaProveedores = new javax.swing.JList<>();
+        btnCancelar1 = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -406,13 +400,35 @@ public class DialogoProveedorModificar extends JDialog {
                 .addGap(10, 10, 10))
         );
 
+        listaProveedores.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        listaProveedores.setFocusable(false);
+        listaProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaProveedoresMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(listaProveedores);
+
+        btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnCancelar1.setText("Eliminar Proveedor");
+        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCancelar1)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(etiquetaNombrecontacto)
                     .addComponent(etiquetaEmpresa)
@@ -450,32 +466,40 @@ public class DialogoProveedorModificar extends JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(etiquetaEmpresa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(etiquetaNombrecontacto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNombreContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(etiquetaTelefono)
-                            .addComponent(etiquetaPaginaWeb))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(etiquetaEmail)
-                            .addComponent(etiquetaPais))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(etiquetaNombrecontacto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNombreContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(etiquetaTelefono)
+                                    .addComponent(etiquetaPaginaWeb))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(etiquetaEmail)
+                                    .addComponent(etiquetaPais))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar)
-                            .addComponent(btnCancelar)))
-                    .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnCancelar))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCancelar1)
+                        .addContainerGap())))
         );
 
         pack();
@@ -486,6 +510,16 @@ public class DialogoProveedorModificar extends JDialog {
         this.cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
     
+    public void cargarListaProveedores(){
+        List<ProveedorVo> listPvo = this.getCoordinador().proveedoresConsultarMarcas();
+        HashMap<String, Integer> mapa = new HashMap<>();
+        for (ProveedorVo vo : listPvo) {
+            mapa.put(vo.getEmpresa(), vo.getId());
+        }
+        _ListaProveedores.limpiar();
+        _ListaProveedores.cargarLista(mapa);
+    
+    }
     private void limpiarTodo(){
         _ImagenesProveedor.limpiar();
         this._TxtEmail.setText("");
@@ -675,7 +709,15 @@ public class DialogoProveedorModificar extends JDialog {
         _ImagenesProveedor.eliminarImagenSeleccionada();
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
 
-    private void cargarComboPaises(){
+    private void listaProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaProveedoresMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaProveedoresMouseClicked
+
+    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelar1ActionPerformed
+
+    public void cargarComboPaises(){
         List<PaisVo> listaPaises = this.coordinador.PaisConsultar();
         HashMap<String, Integer> datosPaises = new HashMap<>();
         for (PaisVo listaPaise : listaPaises) {
@@ -737,6 +779,7 @@ public class DialogoProveedorModificar extends JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarImagen;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCancelar1;
     private javax.swing.JButton btnEliminarImagen;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresarImagen;
@@ -751,6 +794,8 @@ public class DialogoProveedorModificar extends JDialog {
     private javax.swing.JLabel etiquetaTelefono;
     private org.jdesktop.swingx.JXImageView imagenView;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JList<String> listaProveedores;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEmpresa;
     private javax.swing.JTextField txtNombreContacto;

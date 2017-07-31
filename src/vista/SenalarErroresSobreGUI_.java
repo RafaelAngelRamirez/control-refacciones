@@ -11,7 +11,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import vista.utilidadesOptimizadas.Suceso;
 import org.jdesktop.swingx.JXImageView;
 import vista.utilidadesOptimizadas.Colores_;
 

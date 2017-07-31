@@ -59,6 +59,7 @@ public class Coordinador {
     private DialogoImagenDetalle dialogoImagenDetalle;
     private DialogoProveedorRegistrar dialogoProveedorRegistrar;
     private DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar;
+    private DialogoProveedorModificar dialogoProveedorModificar;
     
     
     public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
@@ -70,6 +71,14 @@ public class Coordinador {
     GETS AND SETS
     ////////////////////////////////////////////////////////////////////////
      */
+
+    public DialogoProveedorModificar getDialogoProveedorModificar() {
+        return dialogoProveedorModificar;
+    }
+
+    public void setDialogoProveedorModificar(DialogoProveedorModificar dialogoProveedorModificar) {
+        this.dialogoProveedorModificar = dialogoProveedorModificar;
+    }
 
     public DialogoMaquinaModeloModificar getDialogoMaquinaModeloModificar() {
         return dialogoMaquinaModeloModificar;
@@ -147,57 +156,10 @@ public class Coordinador {
     public void setMarcoParaVentanaPrincipal(MarcoParaVentanaPrincipal marcoParaVentanaPrincipal) {
         this.marcoParaVentanaPrincipal = marcoParaVentanaPrincipal;
     }
-    
-//    public ConsolaDeErrores getConsolaDeErrores() {
-//        return consolaDeErrores;
-//    }
-//
-//    public void setConsolaDeErrores(ConsolaDeErrores consolaDeErrores) {
-//        this.consolaDeErrores = consolaDeErrores;
-//    }
-//
-//    public CapturaDeSucesos getSystemOut() {
-//        return SystemOut;
-//    }
-//
-//    public void setSystemOut(CapturaDeSucesos SystemOut) {
-//        this.SystemOut = SystemOut;
-//    }
-    
-    
 
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN GETS AND SETS
-    ========================================================================
-    */
-    
-    
-//     /* 
-//    ========================================================================
-//       CONSOLA DE DEBUG
-//    ////////////////////////////////////////////////////////////////////////
-//    */
-//    
-//    /**
-//    * Inicializa la consola de debugueo.
-//     * @param debug True si se quiere mostrar la consola de debug. 
-//    */
-//    public void inicializarConsola(boolean debug){
-//       // this.debugueoActivo = debug;
-//        if (debug) {
-//            this.getSystemOut().setDebug(debug);
-//            this.getConsolaDeErrores().setTitle("Consola de debugueo.");
-//            this.getConsolaDeErrores().getTxtAreaConsola().setEditable(false);
-//            String mensajeDeConsola = "[!] MODO DEBUG ACTIVADO \n"
-//                    + "[!] PARA DESACTIVAR ESTA CONSOLA MODIFCA LA CLASE CONTROLADOR.|\n";
-//            this.getConsolaDeErrores().getTxtAreaConsola().setText(mensajeDeConsola);
-//            this.getConsolaDeErrores().setVisible(true);
-//        }        
-//    }
-    /* 
-    ////////////////////////////////////////////////////////////////////////
-        FIN CONSOLA DE DEBUG
     ========================================================================
     */
     
@@ -229,6 +191,20 @@ public class Coordinador {
         this.getDialogoProveedorRegistrar().setProveedorPrecargado(nuevoElemento);
         this.getDialogoProveedorRegistrar().setVisible(true);
     }
+    
+    public void proveedoresAbrirDialogoModificar(){
+        this.getDialogoProveedorModificar().configurar();
+        this.getDialogoProveedorModificar().setVisible(true);
+    }
+    
+    public void proveedorDialogoModificarActualizarPais(){
+        this.getDialogoProveedorModificar().cargarComboPaises();
+    }
+    public void proveedorDialogoModificarActualizarListaProveedores(){
+        this.getDialogoProveedorModificar().cargarListaProveedores();
+    }
+    
+    
     
     //VALIDACIONES
     /**
