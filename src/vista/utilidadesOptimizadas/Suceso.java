@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo.vo;
+package vista.utilidadesOptimizadas;
 
 import controlador.capturadeerrores.CapturaDeSucesos;
 import java.util.logging.Level;

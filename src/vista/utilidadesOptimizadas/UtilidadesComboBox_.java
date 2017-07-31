@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import modelo.vo.Suceso;
 
 import org.jdesktop.swingx.autocomplete.*;
 

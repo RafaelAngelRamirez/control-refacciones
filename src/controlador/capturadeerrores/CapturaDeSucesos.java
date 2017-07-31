@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
-import modelo.vo.Suceso;
+import vista.utilidadesOptimizadas.Suceso;
 
 /**
  * Esta clase se encarga de administrar los sucesos que ocurren en el programa.

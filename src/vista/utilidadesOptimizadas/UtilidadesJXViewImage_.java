@@ -24,7 +24,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import modelo.vo.Suceso;
 import org.jdesktop.swingx.JXImageView;
 
 /**
@@ -417,7 +416,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
      */
     private void setDeImagen(){
         try {
-
+            
             TransporteImagenesURL tpiurl = listaURLsCargadas.get(contadorPosicionImagenWeb);
             String etiqueta = (contadorPosicionImagenWeb+1)+"/"+listaURLsCargadas.size()+ ":"+tpiurl.getNombreImagen();
 

@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.vo.Suceso;
+import vista.utilidadesOptimizadas.Suceso;
 
 /**
  * Gestión de las conexiones a la base de datos.
@@ -265,8 +265,6 @@ public class Conexion {
         }
         return rs;
     }
-    
-    
     
     
     /**

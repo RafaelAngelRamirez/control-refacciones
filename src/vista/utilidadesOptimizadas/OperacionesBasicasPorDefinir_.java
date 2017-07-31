@@ -5,6 +5,7 @@
  */
 package vista.utilidadesOptimizadas;
 
+import vista.SenalarErroresSobreGUI_;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import controlador.capturadeerrores.CapturaDeSucesos;
@@ -20,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import modelo.vo.Suceso;
 
 /**
  * Operaciones básicas sobre los componentes gráficos.

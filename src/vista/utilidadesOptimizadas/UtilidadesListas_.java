@@ -13,7 +13,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
-import modelo.vo.Suceso;
 
 /**
  * Utilidades para el fácil manejo de las listas.

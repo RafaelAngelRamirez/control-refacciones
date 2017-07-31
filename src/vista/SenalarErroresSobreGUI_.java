@@ -1,4 +1,4 @@
-package vista.utilidadesOptimizadas;
+package vista;
 
 import controlador.Coordinador;
 import java.awt.Color;
@@ -11,8 +11,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import modelo.vo.Suceso;
+import vista.utilidadesOptimizadas.Suceso;
 import org.jdesktop.swingx.JXImageView;
+import vista.utilidadesOptimizadas.Colores_;
 
 /**
  * Los errores que aqui se muestran son los generados sobre la GUI. Comúnmente
