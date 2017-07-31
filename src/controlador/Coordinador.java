@@ -173,28 +173,28 @@ public class Coordinador {
     */
     
     
-     /* 
-    ========================================================================
-       CONSOLA DE DEBUG
-    ////////////////////////////////////////////////////////////////////////
-    */
-    
-    /**
-    * Inicializa la consola de debugueo.
-     * @param debug True si se quiere mostrar la consola de debug. 
-    */
-    public void inicializarConsola(boolean debug){
-       // this.debugueoActivo = debug;
-        if (debug) {
-            this.getSystemOut().setDebug(debug);
-            this.getConsolaDeErrores().setTitle("Consola de debugueo.");
-            this.getConsolaDeErrores().getTxtAreaConsola().setEditable(false);
-            String mensajeDeConsola = "[!] MODO DEBUG ACTIVADO \n"
-                    + "[!] PARA DESACTIVAR ESTA CONSOLA MODIFCA LA CLASE CONTROLADOR.|\n";
-            this.getConsolaDeErrores().getTxtAreaConsola().setText(mensajeDeConsola);
-            this.getConsolaDeErrores().setVisible(true);
-        }        
-    }
+//     /* 
+//    ========================================================================
+//       CONSOLA DE DEBUG
+//    ////////////////////////////////////////////////////////////////////////
+//    */
+//    
+//    /**
+//    * Inicializa la consola de debugueo.
+//     * @param debug True si se quiere mostrar la consola de debug. 
+//    */
+//    public void inicializarConsola(boolean debug){
+//       // this.debugueoActivo = debug;
+//        if (debug) {
+//            this.getSystemOut().setDebug(debug);
+//            this.getConsolaDeErrores().setTitle("Consola de debugueo.");
+//            this.getConsolaDeErrores().getTxtAreaConsola().setEditable(false);
+//            String mensajeDeConsola = "[!] MODO DEBUG ACTIVADO \n"
+//                    + "[!] PARA DESACTIVAR ESTA CONSOLA MODIFCA LA CLASE CONTROLADOR.|\n";
+//            this.getConsolaDeErrores().getTxtAreaConsola().setText(mensajeDeConsola);
+//            this.getConsolaDeErrores().setVisible(true);
+//        }        
+//    }
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN CONSOLA DE DEBUG

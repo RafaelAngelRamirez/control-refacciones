@@ -59,31 +59,23 @@ public class Principal {
             INSTANCIAMOS LAS CLASES PRINCIPALES
         ====================================================================
         */
-        
-        //RECURSOS VARIOS
-        CapturaDeSucesos SystemOut_ = new CapturaDeSucesos(System.out);
-        
-        //SOBREESCRIBIMOS LA SALIDA DE CONSOLA.
-//        PrintStream myStream = new PrintStream(System.out) {
-//            
-//            CapturaDeSucesos SystemOut;
-//            public PrintStream parametros(CapturaDeSucesos a){
-//                SystemOut = a;
-//                return this;
-//            }
-//            
-//            @Override
-//            public void println(String x) {
-//                SystemOut.println(x);
-//            }
-//        }.parametros(SystemOut);
-        System.setOut(SystemOut_);
-        
-        //VENTANA PRINCIPAL
-        MarcoParaVentanaPrincipal marcoParaVentanaPrincipal = new MarcoParaVentanaPrincipal();
+        final boolean ESTADO_DE_DEBUG = true;
         
         //VENTANAS SECUNDARIAS
         ConsolaDeErrores consolaDeErrores = new ConsolaDeErrores();
+        consolaDeErrores.setVisible(ESTADO_DE_DEBUG);
+        //RECURSOS VARIOS
+        CapturaDeSucesos SystemOut_ = new CapturaDeSucesos(System.out);
+        SystemOut_.setDebug(ESTADO_DE_DEBUG);
+        SystemOut_.setConsolaDeErrores(consolaDeErrores);
+        System.setOut(SystemOut_);
+        
+        
+        
+        
+        
+        //VENTANA PRINCIPAL
+        MarcoParaVentanaPrincipal marcoParaVentanaPrincipal = new MarcoParaVentanaPrincipal();
         
         //PANELES
         PanelRefaccionesConsulta panelConsultaRefacciones = new PanelRefaccionesConsulta();
@@ -131,7 +123,7 @@ public class Principal {
         */
         
         coordinador.setMarcoParaVentanaPrincipal(marcoParaVentanaPrincipal);
-        coordinador.setConsolaDeErrores(consolaDeErrores);
+//        coordinador.setConsolaDeErrores(consolaDeErrores);
 //        coordinador.setSystemOut(SystemOut_);
         coordinador.setPanelRefaccionConsulta(panelConsultaRefacciones);
         coordinador.setPanelRefaccionAgregar(panelRefaccionAgregar);
@@ -144,14 +136,14 @@ public class Principal {
         coordinador.setDialogoMaquinaModeloModificar(dialogoMaquinaModeloModificar);
         
         
-        /*
-        ====================================================================
-            PARAMETROS DE INICIALIZACIÓN
-        ====================================================================
-        */
-        
-        coordinador.inicializarConsola(true);
-        
+//        /*
+//        ====================================================================
+//            PARAMETROS DE INICIALIZACIÓN
+//        ====================================================================
+//        */
+//        
+//        coordinador.inicializarConsola(true);
+//        
         /*
         ====================================================================
             PARA CLASES ESTATICAS QUE SE UTILIZAN AL PRINCIPIO.

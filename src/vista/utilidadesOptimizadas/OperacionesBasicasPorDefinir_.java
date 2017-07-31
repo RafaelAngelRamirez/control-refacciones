@@ -7,6 +7,7 @@ package vista.utilidadesOptimizadas;
 
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
+import controlador.capturadeerrores.CapturaDeSucesos;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -19,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import modelo.vo.Suceso;
 
 /**
  * Operaciones básicas sobre los componentes gráficos.
@@ -123,7 +125,7 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
     
     /**/
     private void componenteAEnfocar(){
-        this.coordinador.getSystemOut().println(
+        System.out.println(
                 "[!] Componente ejecutando accion:" + this.nombre );
         
         this.componenteSiguienteAEnfocar.requestFocusInWindow();
@@ -151,8 +153,12 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
         
     protected void setFocusAction(Runnable accionCuandoPierdeElfoco, 
             Component esteComponente, boolean ganadoPerdido){
-        this.coordinador.getSystemOut().println("[!] Asignando acción de foco a "
-                + "componente: "+ this.nombre, this);
+        Suceso s = new Suceso();
+        s.setTextoAMostrar("[!] Asignando acción de foco a "
+                + "componente: "+ this.nombre);
+        s.setClase(this);
+        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+        System.out.println(s);
         
         esteComponente.addFocusListener( new FocusListener() {
             
@@ -228,12 +234,18 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
             int codigoDeCaracter, 
             int evento){
 
-        this.coordinador.getSystemOut().println(
+        Suceso s = new Suceso();
+        s.setClase(this);
+        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+        s.setTextoAMostrar(
             "[!] Asignando accion a: '"+this.nombre+"'"
                     + "\n"
                     + "\tTecla:" + codigoDeCaracter
                     + "\tEvento:" + evento
-                    + "\tTecla:" + codigoDeCaracter, this);
+                    + "\tTecla:" + codigoDeCaracter);
+        System.out.println(s);
+        
+        
         esteComponente.setFocusTraversalKeysEnabled(false);
         esteComponente.addKeyListener( new KeyListener() {
             
@@ -626,16 +638,14 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
 
             @Override
             public void focusLost(FocusEvent e) {
-                this.operaciones
-                        .coordinador.getSystemOut()
-                        .println("[+]Mayusculas foco perdido: " + this.operaciones.nombre);
+                System.out.println("[+]Mayusculas foco perdido: " + this.operaciones.nombre);
                 //AQUI LE DECIMOS QUE CORTE LA CADENA SI ESTA MÁS LARGA DE LO 
                 // QUE DEFINIMOS EN setMaximoDeCaracteres(int numero); xP
                 // Y TAMBIEN PONE EN MAYUSCULAS TODA LA CADENA SI SE SETEO COMO MAYUSCULAS,
                 // POR SI ACASO PASA ALGO COMO PEGAR TEXTO EN MINUSCULAS.
                 String texto = this.operaciones.filtrarCantidadDeLetras(this.operaciones.getText());
                 if (this.operaciones.solicitadoMayusculas) {
-                    this.operaciones.coordinador.getSystemOut().println(""
+                    System.out.println(""
                             + "     [!]MAYUSCULAS SOLICITADAS - Cadena puesta en mayusculas.");
                     this.operaciones.setText(texto.toUpperCase());
                 }
@@ -673,7 +683,11 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
     //SOBRE CARGA PARA LLAMAR LA FUNCION QUITAR ESPACIOS SOBREANTES DESDE UN 
     //RUNNABLE.
     private void quitarEspaciosSobrantes(){
-        this.coordinador.getSystemOut().println("[i]Ajustanto espacios: " + this.nombre ,this);
+        Suceso s = new Suceso();
+        s.setTextoAMostrar("[i]Ajustanto espacios: " + this.nombre);
+        s.setClase(this);
+        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+        System.out.println(s);
         this.setText(this.quitarEspaciosSobrantes(this.getText()));
     }
     

@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
+import modelo.vo.Suceso;
 
 /**
  * Utilidades para el facil manejo de las tablas.
@@ -153,7 +154,11 @@ public class UtilidadesTabla_ extends OperacionesBasicasPorDefinir_{
     public void setTableModel( UtilidadesModeloDeTabla_ tableModel) {
         this.tableModel = tableModel;
         this.tabla.setModel(tableModel);
-        this.coordinador.getSystemOut().println("[!]Tabla cargada con éxito", this);
+        
+        Suceso s = new Suceso();
+        s.setClase(this);
+        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+        s.setTextoAMostrar("[!]Tabla cargada con éxito");
         //TOMAMOS LAS COLUMNAS DEL MODELO Y DEFINIMOS SU TAMAÑO.
         TableColumnModel columnModel = this.tabla.getColumnModel();
 
