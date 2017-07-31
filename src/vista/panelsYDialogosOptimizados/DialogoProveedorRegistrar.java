@@ -637,14 +637,14 @@ public class DialogoProveedorRegistrar extends JDialog {
                 }
                 
                 limpiarTodo();
-                this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
-                this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
-                this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
-
                 this.dispose();
                 JOptionPane.showMessageDialog(
                         this.getCoordinador().getMarcoParaVentanaPrincipal(), 
                         "Se guardo correctamente el proveedor.");
+                //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
+                this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
+                this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
+                this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

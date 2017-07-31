@@ -785,12 +785,12 @@ public class Coordinador {
             if (!listaOp.isActualizado()) {
                 if (listaOp.getPanel().getThisPanel()!=null) {
                     if (listaOp.getPanel().getThisPanel().isShowing()) {
-                        JOptionPane.showMessageDialog(null, "actualizando panel por que esta visible:"+listaOp.getPanel().getNombre());
+                        JOptionPane.showMessageDialog(null, "actualizando panel por que esta visible->"+listaOp.getPanel().getNombre());
                         listaOp.actualizar();
                     }
                 }else{
                     if (listaOp.getPanel().getThisDialog().isShowing()) {
-                        JOptionPane.showMessageDialog(null, "actualizando dialogo por que esta visible:"+listaOp.getPanel().getNombre());
+                        JOptionPane.showMessageDialog(null, "actualizando dialogo por que esta visible->"+listaOp.getPanel().getNombre());
                         listaOp.actualizar();
                     }                     
                 }
@@ -950,7 +950,7 @@ public class Coordinador {
          */
         public void actualizar(){
             for (Runnable runnable : operacionesParaActualizar) {
-                JOptionPane.showMessageDialog(null, "ejecutando accion de actualizacion en clase" + this.panel.getNombre());
+                JOptionPane.showMessageDialog(null, "ejecutando accion de actualizacion en clase: " + this.panel.getNombre());
                 runnable.run();
             }
             setActualizado(false);
