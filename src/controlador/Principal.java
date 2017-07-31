@@ -20,6 +20,7 @@ import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
 import com.bulenkov.darcula.DarculaLaf;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
+import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -37,6 +38,7 @@ public class Principal {
 
     
     public static void main(String[] args) {
+        
         iniciarPrograma();
     }
     
@@ -50,11 +52,32 @@ public class Principal {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+       
+        
         /*
         ====================================================================
             INSTANCIAMOS LAS CLASES PRINCIPALES
         ====================================================================
         */
+        
+        //RECURSOS VARIOS
+        CapturaDeSucesos SystemOut_ = new CapturaDeSucesos(System.out);
+        
+        //SOBREESCRIBIMOS LA SALIDA DE CONSOLA.
+//        PrintStream myStream = new PrintStream(System.out) {
+//            
+//            CapturaDeSucesos SystemOut;
+//            public PrintStream parametros(CapturaDeSucesos a){
+//                SystemOut = a;
+//                return this;
+//            }
+//            
+//            @Override
+//            public void println(String x) {
+//                SystemOut.println(x);
+//            }
+//        }.parametros(SystemOut);
+        System.setOut(SystemOut_);
         
         //VENTANA PRINCIPAL
         MarcoParaVentanaPrincipal marcoParaVentanaPrincipal = new MarcoParaVentanaPrincipal();
@@ -74,10 +97,6 @@ public class Principal {
         DialogoImagenDetalle dialogoImagenDetalle = new DialogoImagenDetalle();
         DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar = new DialogoMaquinaModeloModificar();
         
-        
-        //RECURSOS VARIOS
-        CapturaDeSucesos SystemOut = new CapturaDeSucesos();
-        
         //COORDINADORES
         Coordinador coordinador = new Coordinador();
         
@@ -91,7 +110,7 @@ public class Principal {
         ====================================================================
         */
         marcoParaVentanaPrincipal.setCoordinador(coordinador);
-        SystemOut.setCoordinador(coordinador);
+        SystemOut_.setCoordinador(coordinador);
         
         panelConsultaRefacciones.setCoordinador(coordinador);
         panelRefaccionAgregar.setCoordinador(coordinador);
@@ -113,7 +132,7 @@ public class Principal {
         
         coordinador.setMarcoParaVentanaPrincipal(marcoParaVentanaPrincipal);
         coordinador.setConsolaDeErrores(consolaDeErrores);
-        coordinador.setSystemOut(SystemOut);
+//        coordinador.setSystemOut(SystemOut_);
         coordinador.setPanelRefaccionConsulta(panelConsultaRefacciones);
         coordinador.setPanelRefaccionAgregar(panelRefaccionAgregar);
         coordinador.setDialogoProveedorRegistrar(dialogoProveedorRegistrar);
@@ -138,7 +157,8 @@ public class Principal {
             PARA CLASES ESTATICAS QUE SE UTILIZAN AL PRINCIPIO.
         ====================================================================
         */
-        
+        //LAS PONEMOS AQUI POR QUE OCUPAMOS LAS VARIABLES ESTATICAS, DE OTRA
+        // MANERA NO SE CARGAR Y DA ERROR!
         new modelo.dao.ProveedorDao(coordinador);
         new modelo.dao.PaisDao(coordinador);
         
@@ -150,7 +170,7 @@ public class Principal {
             INICIO DE SISTEMA
         ====================================================================
         */
-        SystemOut.println("[+]Iniciando sistema");
+        System.out.println("[+] Iniciando sistema");
         marcoParaVentanaPrincipal.init();
         marcoParaVentanaPrincipal.setVisible(true);
         

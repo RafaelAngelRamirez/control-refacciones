@@ -358,6 +358,8 @@ public class PanelRefaccionAgregar extends JPanel {
         }
     }
     
+    
+    
     public void guardarMaterial(){
         String material = _ComboMaterial.getText();
         if (!material.isEmpty()) {
@@ -373,7 +375,7 @@ public class PanelRefaccionAgregar extends JPanel {
                 if (op == JOptionPane.YES_OPTION) {
                     MaterialVo vo = new MaterialVo();
                     vo.setMaterial(material);
-//                    this.getCoordinador().materialGuardar(vo);
+                    this.getCoordinador().materialGuardar(vo);
                     this.getCoordinador().ejecutarOperacionesParaActualizar(MaterialIT.NOMBRE_TABLA);
                     this.cargarComboMaterial();
                     _ComboMaterial.setSelectedItem(material);

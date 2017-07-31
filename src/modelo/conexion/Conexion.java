@@ -46,7 +46,7 @@ public class Conexion {
         this.controlador = controlador;
         //this.capturaDeSuscesos = new CapturaDeSucesos(this.controlador);
         //this.capturaDeSuscesos.println("[+] CONECTANDO A LA BASE DE DATOS.");
-        this.controlador.getSystemOut().println("[+] CONECTANDO A LA BASE DE DATOS.");
+        System.out.println("[+] CONECTANDO A LA BASE DE DATOS.");
         this.exitosa = Miconexion();
     }
 
@@ -61,8 +61,8 @@ public class Conexion {
                     this.contrasenaServidor);
             //ELIMI
             //this.stm=this.conexion.createStatement();
-            this.controlador.getSystemOut().println("[+] CONEXIÓN EXITOSA: "+this.urlServidor );
-              return true;    
+            System.out.println("[+] CONEXIÓN EXITOSA: "+this.urlServidor );
+            return true;    
         } 
         catch(ClassNotFoundException | SQLException e){
             DescripcionDeSuceso descripcionDeSusceso = new DescripcionDeSuceso();
@@ -128,7 +128,7 @@ public class Conexion {
      * 
      */
     public ResultSet executeQuery (String sql, HashMap<Integer, String> datos){
-        this.controlador.getSystemOut().println("[SQL] EJECUTANDO QUERY", this);
+        System.out.println("[SQL] EJECUTANDO QUERY", this);
         return this.ejecutarSentencia(sql, datos, true);
     }
     

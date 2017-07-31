@@ -46,8 +46,8 @@ import vista.panelsYDialogosOptimizados.*;
 public class Coordinador {
     
     private MarcoParaVentanaPrincipal marcoParaVentanaPrincipal;
-    private ConsolaDeErrores consolaDeErrores;
-    private CapturaDeSucesos SystemOut;
+//    private ConsolaDeErrores consolaDeErrores;
+//    private CapturaDeSucesos SystemOut;
     private Logica logica;
     
     private PanelRefaccionesConsulta panelRefaccionConsulta;
@@ -148,21 +148,21 @@ public class Coordinador {
         this.marcoParaVentanaPrincipal = marcoParaVentanaPrincipal;
     }
     
-    public ConsolaDeErrores getConsolaDeErrores() {
-        return consolaDeErrores;
-    }
-
-    public void setConsolaDeErrores(ConsolaDeErrores consolaDeErrores) {
-        this.consolaDeErrores = consolaDeErrores;
-    }
-
-    public CapturaDeSucesos getSystemOut() {
-        return SystemOut;
-    }
-
-    public void setSystemOut(CapturaDeSucesos SystemOut) {
-        this.SystemOut = SystemOut;
-    }
+//    public ConsolaDeErrores getConsolaDeErrores() {
+//        return consolaDeErrores;
+//    }
+//
+//    public void setConsolaDeErrores(ConsolaDeErrores consolaDeErrores) {
+//        this.consolaDeErrores = consolaDeErrores;
+//    }
+//
+//    public CapturaDeSucesos getSystemOut() {
+//        return SystemOut;
+//    }
+//
+//    public void setSystemOut(CapturaDeSucesos SystemOut) {
+//        this.SystemOut = SystemOut;
+//    }
     
     
 
