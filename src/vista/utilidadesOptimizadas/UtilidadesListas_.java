@@ -13,6 +13,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import modelo.vo.Suceso;
 
 /**
  * Utilidades para el fácil manejo de las listas.
@@ -129,7 +130,12 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
      * mostrarse en la lista. 
      */
     public void cargarLista(HashMap <String, Integer> datos) {
-        this.coordinador.getSystemOut().println("[i]Cargando datos en lista.", this);
+        Suceso s = new Suceso();
+        s.setClase(this);
+        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+        s.setTextoAMostrar("[i]Cargando datos en lista.");
+        System.out.println(s);
+        
         DefaultListModel<String> modelo  =
                 new DefaultListModel<String>();
             
@@ -140,22 +146,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
             modelo.addElement(datoColumna);
             this.relacionDatoId.put(datoColumna, id);
         }
-//            
-//            
-//            while ()) {                
-//                String datoDeColumna = 
-//                        this.controlador.conexion.rst
-//                            .getString(this.nombreDatoAMostrar);
-//                String datoId =
-//                        this.controlador.conexion.rst
-//                            .getString(this.nombreColumnaId);
-//                
-//                modelo.addElement(datoDeColumna);
-//                this.relacionDatoId.put(datoDeColumna, datoId);
-//            }
-//            
         this.lista.setModel(modelo);
-// ????? SI HAY DOS LISTAS REINICIAMOS LA OTRA PARA NO DUPLICAR DATOS.
             
     }
     

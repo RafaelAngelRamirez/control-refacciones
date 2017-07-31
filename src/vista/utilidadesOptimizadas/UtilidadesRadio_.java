@@ -45,7 +45,7 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir_ {
     public void setComponente(JRadioButton radio) {
         this.radios.add(radio);
         this.grupo.add(radio);
-        this.coordinador.getSystemOut().println("[!]Radio button seteado: " + radio.getText());
+        System.out.println("[!]Radio button seteado: " + radio.getText());
     }
     
     /**
