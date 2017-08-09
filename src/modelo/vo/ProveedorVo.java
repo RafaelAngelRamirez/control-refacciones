@@ -23,7 +23,7 @@ public class ProveedorVo extends VoGenerales{
     private String email;
     private String empresa;
     private String paginaWeb;
-    private int idPais;
+    private Object idPais;
     
    
 
@@ -92,11 +92,11 @@ public class ProveedorVo extends VoGenerales{
         this.paginaWeb = paginaWeb;
     }
 
-    public int getIdPais() {
+    public Object getIdPais() {
         return idPais;
     }
 
-    public void setIdPais(int idPais) {
+    public void setIdPais(Object idPais) {
         this.idPais = idPais;
     }
     

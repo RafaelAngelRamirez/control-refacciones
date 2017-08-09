@@ -292,7 +292,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Vista/imagenes/iconos_titulo_agregar proveedor.png"/>
+          <Image iconType="3" name="/Vista/imagenes/iconos_titulo_ modificar proveedor.png"/>
         </Property>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>

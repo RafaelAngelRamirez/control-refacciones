@@ -229,6 +229,10 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
         listaURLsCargadas.add(transporteImagenesURL);
     }
     
+    /**
+     * Limpia el componente dejandolo como recien seteado. Este se utiliza para
+     * las veces que se cargan imagenes desde la web. 
+     */
     public void limpiarComponenteURL(){
         listaURLsCargadas.clear();
         contadorPosicionImagenWeb=0;

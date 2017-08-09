@@ -3,8 +3,6 @@ package controlador;
 
 import vista.panelsYDialogosOptimizados.PanelRefaccionAgregar;
 import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
-import controlador.capturadeerrores.CapturaDeSucesos;
-import controlador.capturadeerrores.ConsolaDeErrores;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -249,6 +247,10 @@ public class Coordinador {
      */
     public List<RelacionRefaccionProveedorVo> proveedoresConsultarMarcas(int id){
         return this.logica.proveedorConsultarMarcas(id);
+    }
+    
+    public ProveedorVo proveedorConsultar(int id){
+        return this.logica.proveedorConsultar(id);
     }
     
     /**

@@ -24,7 +24,6 @@ import vista.utilidadesOptimizadas.UtilidadesTxtArea_;
 import vista.utilidadesOptimizadas.UtilidadesTxt_;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;

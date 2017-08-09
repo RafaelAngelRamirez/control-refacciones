@@ -319,7 +319,7 @@ public class DialogoProveedorModificar extends JDialog {
 
         jLabel1.setBackground(new java.awt.Color(104, 126, 13));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_titulo_agregar proveedor.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_titulo_ modificar proveedor.png"))); // NOI18N
         jLabel1.setOpaque(true);
 
         imagenView.setOpaque(false);
@@ -504,7 +504,49 @@ public class DialogoProveedorModificar extends JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void cargarProveedorSeleccionado(){
+        limpiarTodo();
+        int id = _ListaProveedores.getSelectValueId();
+        ProveedorVo vo = this.getCoordinador().proveedorConsultar(id);
+        List<ImagenProveedorVo> iVo = this.getCoordinador().imagenProveedorConsultar(id);
+        
+        _ImagenesProveedor.limpiarComponenteURL();
+        for (ImagenProveedorVo iv : iVo) {
+            UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
+            t.setIdImagen(iv.getIdProveedor());
+            t.setNombreImagen(iv.getNombreParaMostrar());
+            t.setNombreImagenServidor(iv.getNombreServidor());
+            t.setUrl(iv.getUrlImagen());
+            _ImagenesProveedor.addIMagenes(t);
+        }
+        _ImagenesProveedor.cargarPrimeraImagen();
+        
+        _ComboPais.setText(vo.getIdPais()+"");
+        _TxtEmail.setText(vo.getEmail());
+        _TxtEmpresa.setText(vo.getEmpresa());
+        _TxtNombreContacto.setText(vo.getNombreContacto());
+        _TxtPaginaWeb.setText(vo.getPaginaWeb());
+        _TxtTelefono.setText(vo.getTelefono());
+        
+    }
+    
+    public void cargarImagenes(){
+        int id = _ListaProveedores.getSelectValueId();
+        List<ImagenProveedorVo> listaImagenProVo = this.getCoordinador().imagenProveedorConsultar(id);
+        
+        for (ImagenProveedorVo vo : listaImagenProVo) {
+            UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
+            t.setIdImagen(vo.getIdProveedor());
+            t.setNombreImagen(vo.getNombreParaMostrar());
+            t.setNombreImagenServidor(vo.getNombreServidor());
+            t.setUrl(vo.getUrlImagen());
+            _ImagenesProveedor.addIMagenes(t);
+        }
+        _ImagenesProveedor.cargarPrimeraImagen();
+        
+        
+    }
    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.cancelar();
@@ -521,7 +563,7 @@ public class DialogoProveedorModificar extends JDialog {
     
     }
     private void limpiarTodo(){
-        _ImagenesProveedor.limpiar();
+        _ImagenesProveedor.limpiarComponenteURL();
         this._TxtEmail.setText("");
         this._TxtEmpresa.setText("");
         this._TxtNombreContacto.setText("");

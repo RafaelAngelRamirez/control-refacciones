@@ -105,6 +105,11 @@ public class Logica {
         
     }
     
+    public ProveedorVo proveedorConsultar(int id){
+        ProveedorDao d = new ProveedorDao(coordinador);
+        return d.consultar(id);
+    }
+    
     /**
      * Valida los campos según la definición que se le da en la clase Dao en la
      * lista de tipo ParametrosDeCampo.

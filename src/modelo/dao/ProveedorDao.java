@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.Conexion;
+import modelo.InfoTabla.PaisIT;
 import modelo.vo.*;
 
 /**
@@ -105,5 +106,43 @@ public class ProveedorDao extends DAOGenerales{
             Logger.getLogger(RefaccionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
+    }
+    
+    public ProveedorVo consultar(int id){
+        PaisIT pit = new PaisIT();
+        ProveedorVo vo = new ProveedorVo();
+        String sql = "SELECT "+
+                ProveedorIT.NOMBRE_TABLA+"."+it.getNombreContactoPDC().getNombre() +", "+
+                ProveedorIT.NOMBRE_TABLA+"."+it.getTelefonoPDC().getNombre() +", "+
+                ProveedorIT.NOMBRE_TABLA+"."+it.getEmailPDC().getNombre() +", "+
+                ProveedorIT.NOMBRE_TABLA+"."+it.getEmpresaProveedorPDC().getNombre() +", "+
+                ProveedorIT.NOMBRE_TABLA+"."+it.getPaginaWebPDC().getNombre() +", "+
+                PaisIT.NOMBRE_TABLA+"."+pit.getPaisPDC().getNombre()+", "+
+                " FROM " 
+                + ProveedorIT.NOMBRE_TABLA +
+                " INNER JOIN " 
+                + PaisIT.NOMBRE_TABLA+
+                " ON "
+                + ProveedorIT.NOMBRE_TABLA+"."+it.getIdPaisPDC().getNombre()+
+                " = "
+                + PaisIT.NOMBRE_TABLA+"."+pit.getPaisPDC().getNombre()+
+                " WHERE " +
+                it.getIdPDC().getNombre() +" =?";
+        ResultSet r = conexion.executeQuery(sql, id+"");
+        try {
+            r.next();
+            vo.setEmail(r.getString(it.getEmailPDC().getNombre()));
+            vo.setEmpresa(r.getString(it.getEmpresaProveedorPDC().getNombre()));
+            vo.setId(r.getInt(it.getIdPDC().getNombre()));
+            vo.setIdPais(r.getString(pit.getPaisPDC().getNombre()));
+            vo.setNombreContacto(r.getString(it.getNombreContactoPDC().getNombre()));
+            vo.setPaginaWeb(r.getString(it.getPaginaWebPDC().getNombre()));
+            vo.setTelefono(r.getString(it.getTelefonoPDC().getNombre()));
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProveedorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vo;
     }
 }
