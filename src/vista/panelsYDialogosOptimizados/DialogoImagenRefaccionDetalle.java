@@ -24,7 +24,7 @@ import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
  *
  * @author Particular
  */
-public class DialogoImagenDetalle extends javax.swing.JDialog {
+public class DialogoImagenRefaccionDetalle extends javax.swing.JDialog {
     private Coordinador coordinador;
     private int idRefaccion;
     
@@ -36,7 +36,7 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
     /**
      * Creates new form DialogoDetalleRefaccion
      */
-    public DialogoImagenDetalle() {
+    public DialogoImagenRefaccionDetalle() {
         initComponents();
     }
 
@@ -364,7 +364,7 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
                 ImagenRefaccionVo vo = new ImagenRefaccionVo();
                 vo.setIdRefaccion(imagenEliminar.getIdImagen());
                 vo.setNombreServidor(imagenEliminar.getNombreImagenServidor());
-                this.getCoordinador().imagenEliminar(vo);
+                this.getCoordinador().imagenRefaccionEliminar(vo);
 //                this.getCoordinador().refaccionMostrarDetalleActualizarImagenes(vo.getIdRefaccion());
                 this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenRefaccionIT.NOMBRE_TABLA);
             }
@@ -384,7 +384,6 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
             listaiVo.add(vo);
             
         }
-        JOptionPane.showMessageDialog(null, "vamos a guardar una nueva imagen desdde detella imagen");
         String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
         if (errorImg!=null) {
                JOptionPane.showMessageDialog(
@@ -393,7 +392,6 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
                             "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
         }
         
-//        this.getCoordinador().refaccionMostrarDetalleActualizarImagenes();
         this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenRefaccionIT.NOMBRE_TABLA);
         
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
@@ -423,14 +421,18 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogoImagenDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogoImagenRefaccionDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogoImagenDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogoImagenRefaccionDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogoImagenDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogoImagenRefaccionDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogoImagenDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogoImagenRefaccionDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -439,7 +441,7 @@ public class DialogoImagenDetalle extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogoImagenDetalle dialog = new DialogoImagenDetalle();
+                DialogoImagenRefaccionDetalle dialog = new DialogoImagenRefaccionDetalle();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

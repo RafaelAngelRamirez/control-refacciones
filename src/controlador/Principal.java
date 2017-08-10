@@ -86,7 +86,7 @@ public class Principal {
         DialogoProveedorRegistrar dialogoProveedorRegistrar = new DialogoProveedorRegistrar();
         DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar = new DialogoMaquinaModeloAgregar();
         DialogoRefaccionDetalle dialogoRefaccionDetalle = new DialogoRefaccionDetalle();
-        DialogoImagenDetalle dialogoImagenDetalle = new DialogoImagenDetalle();
+        DialogoImagenRefaccionDetalle dialogoImagenDetalle = new DialogoImagenRefaccionDetalle();
         DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar = new DialogoMaquinaModeloModificar();
         DialogoProveedorModificar dialogoProveedorModificar = new DialogoProveedorModificar();
         

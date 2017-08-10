@@ -198,7 +198,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
                         + "==============================================\n"
                         + "==============================================\n"
                         + "==============================================\n"
-                        + "[ERROR] PARECE QUE NO SE CARGO NINGUNA IMAGEN\\n"
+                        + "[ERROR] PARECE QUE NO SE CARGO NINGUNA IMAGEN \n"
                         + "==============================================\n"
                         + "==============================================\n"
                         + "==============================================\n"

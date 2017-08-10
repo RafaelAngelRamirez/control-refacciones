@@ -12,8 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 
 /**
  * Utilidades para el fácil manejo de las listas.
@@ -24,6 +22,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     private String nombreColumnaId, nombreDatoAMostrar;
     private JList<String> lista;
     private UtilidadesListas_ listaAAgregar;
+    
     
     private HashMap<Object, Integer> relacionDatoId  = new HashMap();
 

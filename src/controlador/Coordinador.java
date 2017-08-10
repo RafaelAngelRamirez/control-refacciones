@@ -54,7 +54,7 @@ public class Coordinador {
     
     private DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar;
     private DialogoRefaccionDetalle dialogoRefaccionDetalle;
-    private DialogoImagenDetalle dialogoImagenDetalle;
+    private DialogoImagenRefaccionDetalle dialogoImagenDetalle;
     private DialogoProveedorRegistrar dialogoProveedorRegistrar;
     private DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar;
     private DialogoProveedorModificar dialogoProveedorModificar;
@@ -94,11 +94,11 @@ public class Coordinador {
         this.panelRefaccionModificar = panelRefaccionModificar;
     }
     
-    public DialogoImagenDetalle getDialogoImagenDetalle() {
+    public DialogoImagenRefaccionDetalle getDialogoImagenDetalle() {
         return dialogoImagenDetalle;
     }
 
-    public void setDialogoImagenDetalle(DialogoImagenDetalle dialogoImagenDetalle) {
+    public void setDialogoImagenDetalle(DialogoImagenRefaccionDetalle dialogoImagenDetalle) {
         this.dialogoImagenDetalle = dialogoImagenDetalle;
     }
     
@@ -202,6 +202,10 @@ public class Coordinador {
         this.getDialogoProveedorModificar().cargarListaProveedores();
     }
     
+    public void proveedorDialogoModificarActualizarImagenes(){
+        this.getDialogoProveedorModificar().cargarImagenes();
+    }
+    
     
     
     //VALIDACIONES
@@ -222,6 +226,10 @@ public class Coordinador {
      */
     public void proveedorGuardar(ProveedorVo vo){
         this.logica.proveedorGuardar(vo);
+    }
+    
+    public void proveedorModificar(ProveedorVo vo){
+        this.logica.proveedorModificar(vo);
     }
     
     public int proveedorConsultarUltimoId(){
@@ -635,7 +643,7 @@ public class Coordinador {
         return this.logica.imagenRefaccionConsultar(id);
     }
     
-    public void imagenEliminar(ImagenRefaccionVo vo){
+    public void imagenRefaccionEliminar(ImagenRefaccionVo vo){
         this.logica.imagenRefaccionEliminar(vo);
     }
     
@@ -838,6 +846,7 @@ public class Coordinador {
                 break;
             case ImagenProveedorIT.NOMBRE_TABLA:
                 mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_MODIFICAR, false);
                 break;
             default:
                         try {

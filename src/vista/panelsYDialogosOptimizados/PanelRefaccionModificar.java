@@ -1399,12 +1399,12 @@ public class PanelRefaccionModificar extends JPanel {
             
         }
         
-        String errorImg = this.coordinador.imagenRefaccionGuardarLista(listaiVo);
+        String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
         if (errorImg!=null) {
                JOptionPane.showMessageDialog(
-                            null,
-                            "No se cargaron las siguientes imagenes: \n\n" + errorImg,
-                            "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
+                    null,
+                    "No se cargaron las siguientes imagenes: \n\n" + errorImg,
+                    "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -1435,7 +1435,7 @@ public class PanelRefaccionModificar extends JPanel {
                 ImagenRefaccionVo vo = new ImagenRefaccionVo();
                 vo.setIdRefaccion(imagenEliminar.getIdImagen());
                 vo.setNombreServidor(imagenEliminar.getNombreImagenServidor());
-                this.getCoordinador().imagenEliminar(vo);
+                this.getCoordinador().imagenRefaccionEliminar(vo);
                 this.cargarImagenes(idModificandoseActualmente);
             }
         }

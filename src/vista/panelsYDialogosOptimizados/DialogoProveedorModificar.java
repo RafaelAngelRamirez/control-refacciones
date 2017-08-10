@@ -30,22 +30,23 @@ import vista.utilidadesOptimizadas.*;
  */
 public class DialogoProveedorModificar extends JDialog {
     private Coordinador coordinador;
+    private int id;
     
-    String proveedorPrecargado;
-    UtilidadesTxt_ _TxtEmpresa;
-    UtilidadesTxt_ _TxtNombreContacto;
-    UtilidadesTxt_ _TxtTelefono;
-    UtilidadesTxt_ _TxtPaginaWeb;
-    UtilidadesTxt_ _TxtEmail;
-    UtilidadesComboBox_ _ComboPais;
-    UtilidadesJXViewImage_ _ImagenesProveedor;
-    UtilidadesListas_ _ListaProveedores;
+    private UtilidadesTxt_ _TxtEmpresa;
+    private UtilidadesTxt_ _TxtNombreContacto;
+    private UtilidadesTxt_ _TxtTelefono;
+    private UtilidadesTxt_ _TxtPaginaWeb;
+    private UtilidadesTxt_ _TxtEmail;
+    private UtilidadesComboBox_ _ComboPais;
+    private UtilidadesJXViewImage_ _ImagenesProveedor;
+    private UtilidadesListas_ _ListaProveedores;
     
     /**
      * Creates new form RegistrarProveedort
      */
     public DialogoProveedorModificar() {
         initComponents();
+        this.id = -1;
     }
     
     /**
@@ -507,36 +508,38 @@ public class DialogoProveedorModificar extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
     
     public void cargarProveedorSeleccionado(){
-        limpiarTodo();
-        int id = _ListaProveedores.getSelectValueId();
-        if (id!=0) {
-            ProveedorVo vo = this.getCoordinador().proveedorConsultar(id);
+        this.id = _ListaProveedores.getSelectValueId();
+        if (id!=-1) {
+            limpiarTodo();
+            if (id!=0) {
+                ProveedorVo vo = this.getCoordinador().proveedorConsultar(id);
 
-            _ComboPais.setText(vo.getIdPais()+"");
-            _TxtEmail.setText(vo.getEmail());
-            _TxtEmpresa.setText(vo.getEmpresa());
-            _TxtNombreContacto.setText(vo.getNombreContacto());
-            _TxtPaginaWeb.setText(vo.getPaginaWeb());
-            _TxtTelefono.setText(vo.getTelefono());
-            cargarImagenes();
+                _ComboPais.setText(vo.getIdPais()+"");
+                _TxtEmail.setText(vo.getEmail());
+                _TxtEmpresa.setText(vo.getEmpresa());
+                _TxtNombreContacto.setText(vo.getNombreContacto());
+                _TxtPaginaWeb.setText(vo.getPaginaWeb());
+                _TxtTelefono.setText(vo.getTelefono());
+                cargarImagenes();
+            }
         }
     }
     
     public void cargarImagenes(){
-        int id = _ListaProveedores.getSelectValueId();
-        List<ImagenProveedorVo> listaImagenProVo = this.getCoordinador().imagenProveedorConsultar(id);
-        
-        for (ImagenProveedorVo vo : listaImagenProVo) {
-            UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
-            t.setIdImagen(vo.getIdProveedor());
-            t.setNombreImagen(vo.getNombreParaMostrar());
-            t.setNombreImagenServidor(vo.getNombreServidor());
-            t.setUrl(vo.getUrlImagen());
-            _ImagenesProveedor.addIMagenes(t);
+        int id = this.id;
+        if (this.id!=-1) {
+            List<ImagenProveedorVo> listaImagenProVo = this.getCoordinador().imagenProveedorConsultar(id);
+            _ImagenesProveedor.limpiarComponenteURL();
+            for (ImagenProveedorVo vo : listaImagenProVo) {
+                UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
+                t.setIdImagen(vo.getIdProveedor());
+                t.setNombreImagen(vo.getNombreParaMostrar());
+                t.setNombreImagenServidor(vo.getNombreServidor());
+                t.setUrl(vo.getUrlImagen());
+                _ImagenesProveedor.addIMagenes(t);
+            }
+            _ImagenesProveedor.cargarPrimeraImagen();
         }
-        _ImagenesProveedor.cargarPrimeraImagen();
-        
-        
     }
    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -554,6 +557,7 @@ public class DialogoProveedorModificar extends JDialog {
     
     }
     private void limpiarTodo(){
+        
         _ImagenesProveedor.limpiarComponenteURL();
         this._TxtEmail.setText("");
         this._TxtEmpresa.setText("");
@@ -640,77 +644,48 @@ public class DialogoProveedorModificar extends JDialog {
      * Guarda un nuevo proveedor. 
      */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        List<ImagenProveedorVo> listapVo = new ArrayList<>();
-        
-        ProveedorVo vo = new ProveedorVo();
-        vo.setId(-1);
-        vo.setEmail(_TxtEmail.getText());
-        vo.setEmpresa(_TxtEmpresa.getText());
-        vo.setIdPais(_ComboPais.getSelectedItem_idRetorno());
-        vo.setNombreContacto(_TxtNombreContacto.getText());
-        vo.setPaginaWeb(_TxtPaginaWeb.getText());
-        vo.setTelefono(_TxtTelefono.getText());
-        
-        List<File> file = _ImagenesProveedor.getImagenesPorCargar();
-        for (File f : file) {
-            ImagenProveedorVo pvo = new ImagenProveedorVo();
-            pvo.setFicheroImagen(f);
-            pvo.setNombreParaMostrar(f.getName());
-            listapVo.add(pvo);
-        }
-        
-        List<Validacion> validaciones = this.getCoordinador().proveedorValidarCampos(vo);
-        boolean todoValido = true;
-        ProveedorIT iT = new ProveedorIT();
-        for (Validacion validacione : validaciones) {
-            if (validacione.getNombreDeCampo().equals(iT.getEmpresaProveedorPDC().getNombre())) {
-                if (!validacione.isValido()) {
-                    _TxtEmpresa.setError(validacione.getMensajeDeError());
-                }else{
-                    _TxtEmpresa.setErrorQuitar();
-                }
-            }
+
+        if (id==-1) {
             
-            if(!validacione.isValido()){
-                String mensaje = validacione.getNombreDeCampo()+":"+validacione.getMensajeDeError();
-                JOptionPane.showMessageDialog(null, mensaje);
-                todoValido = false;
+        }else{
+            ProveedorVo vo = new ProveedorVo();
+            vo.setId(id);
+            vo.setEmail(_TxtEmail.getText());
+            vo.setEmpresa(_TxtEmpresa.getText());
+            vo.setIdPais(_ComboPais.getSelectedItem_idRetorno());
+            vo.setNombreContacto(_TxtNombreContacto.getText());
+            vo.setPaginaWeb(_TxtPaginaWeb.getText());
+            vo.setTelefono(_TxtTelefono.getText());
+
+            List<Validacion> validaciones = this.getCoordinador().proveedorValidarCampos(vo);
+            boolean todoValido = true;
+            ProveedorIT iT = new ProveedorIT();
+            for (Validacion validacione : validaciones) {
+                if (validacione.getNombreDeCampo().equals(iT.getEmpresaProveedorPDC().getNombre())) {
+                    if (!validacione.isValido()) {
+                        _TxtEmpresa.setError(validacione.getMensajeDeError());
+                    }else{
+                        _TxtEmpresa.setErrorQuitar();
+                    }
+                }
+
+                if(!validacione.isValido()){
+                    String mensaje = validacione.getNombreDeCampo()+":"+validacione.getMensajeDeError();
+                    JOptionPane.showMessageDialog(null, mensaje);
+                    todoValido = false;
+                }
             }
-        }
-        
-        if (todoValido) {
-            //GUARDAMOS LA REFACCION
-            this.getCoordinador().proveedorGuardar(vo);
-            //OBTENEMOS EL ID GENERADO.
-            int idProveedor = this.getCoordinador().proveedorConsultarUltimoId();
-            if (idProveedor==-1) {
-                JOptionPane.showMessageDialog(this, "Hubo un error y no se pudieron guardar algúnos datos.\n\n"
-                       + "Puedes revisar si los datos de la refacción se almacenarón\n"
-                       + "y asociar de nuevo la información modificandola directamente."
-                       + "", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, idProveedor);
-                //ASOCIAMOS LS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN ALMACENADA. 
-                for (ImagenProveedorVo pVo : listapVo) {
-                    pVo.setIdProveedor(idProveedor);
-                }
-                
-                String errorImg = this.getCoordinador().imagenProveedorGuardarLista(listapVo);
-                if (errorImg!=null) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "No se cargaron las siguientes imagenes: \n\n" + errorImg,
-                            "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
-                }
-                
+
+            if (todoValido) {
+                //ACTUALIZAMOS LA REFACCIÓN.
+                this.getCoordinador().proveedorModificar(vo);
+
                 limpiarTodo();
-                this.dispose();
                 JOptionPane.showMessageDialog(
                         this.getCoordinador().getMarcoParaVentanaPrincipal(), 
-                        "Se guardo correctamente el proveedor.");
+                        "Se modifico correctamente el proveedor.");
                 //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
                 this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
-                this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
                 this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
             }
         }
@@ -725,21 +700,55 @@ public class DialogoProveedorModificar extends JDialog {
     }//GEN-LAST:event_formWindowActivated
 
     private void btnSiguienteImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteImagenActionPerformed
-        _ImagenesProveedor.siguienteAnterior(true);
+        _ImagenesProveedor.imagenSiguiente();
     }//GEN-LAST:event_btnSiguienteImagenActionPerformed
 
     private void btnRegresarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarImagenActionPerformed
-        _ImagenesProveedor.siguienteAnterior(false);
+        _ImagenesProveedor.imagenAnterior();
     }//GEN-LAST:event_btnRegresarImagenActionPerformed
 
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
-
         _ImagenesProveedor.setFiltros(new FileNameExtensionFilter("Imagenes", "jpg", "gif", "png", "tiff", "jpeg"));
         _ImagenesProveedor.cargarImagenes();
+        List<ImagenProveedorVo> listaiVo = new ArrayList<>();
+        List<File> file = _ImagenesProveedor.getImagenesPorCargar();
+        for (File f : file) {
+            ImagenProveedorVo vo = new ImagenProveedorVo();
+            vo.setIdProveedor(_ListaProveedores.getSelectValueId());
+            vo.setFicheroImagen(f);
+            vo.setNombreParaMostrar(f.getName());
+            listaiVo.add(vo);
+        }
+        
+        String errorImg = this.getCoordinador().imagenProveedorGuardarLista(listaiVo);
+        if (errorImg!=null) {
+            JOptionPane.showMessageDialog(
+                null,
+                "No se cargaron las siguientes imagenes: \n\n" + errorImg,
+                "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);    
+        }
+        this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenProveedorIT.NOMBRE_TABLA);
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 
     private void btnEliminarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarImagenActionPerformed
-        _ImagenesProveedor.eliminarImagenSeleccionada();
+        UtilidadesJXViewImage_.TransporteImagenesURL imgEliminar = _ImagenesProveedor.obtenerImagenActual();
+        if (imgEliminar!=null) {
+            int r = JOptionPane.showConfirmDialog(
+                    this, 
+                    "¿Estas segúro que quieres eliminar la imágen?"
+                            + "\n Esta acción no se puede deshacer.",
+                    "Eliminar imagen.", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.WARNING_MESSAGE);
+            if (r==JOptionPane.YES_OPTION) {
+                ImagenProveedorVo vo = new ImagenProveedorVo();
+                vo.setIdProveedor(imgEliminar.getIdImagen());
+                vo.setNombreServidor(imgEliminar.getNombreImagenServidor());
+                this.getCoordinador().imagenProveedorEliminar(vo);
+                this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenProveedorIT.NOMBRE_TABLA);
+            }
+        }
+
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
 
     private void listaProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaProveedoresMouseClicked

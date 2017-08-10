@@ -432,6 +432,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 ()->this.getCoordinador().proveedorDialogoModificarActualizarListaProveedores());
         dialogoProveedorModificarOPA.addOperacionParaActualizar(
                 ()->this.getCoordinador().proveedorDialogoModificarActualizarPais());
+        dialogoProveedorModificarOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().proveedorDialogoModificarActualizarImagenes());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoProveedorModificarOPA);
         
         //-------------------------------
