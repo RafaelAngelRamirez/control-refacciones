@@ -112,12 +112,13 @@ public class ProveedorDao extends DAOGenerales{
         PaisIT pit = new PaisIT();
         ProveedorVo vo = new ProveedorVo();
         String sql = "SELECT "+
+                ProveedorIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre() +", "+
                 ProveedorIT.NOMBRE_TABLA+"."+it.getNombreContactoPDC().getNombre() +", "+
                 ProveedorIT.NOMBRE_TABLA+"."+it.getTelefonoPDC().getNombre() +", "+
                 ProveedorIT.NOMBRE_TABLA+"."+it.getEmailPDC().getNombre() +", "+
                 ProveedorIT.NOMBRE_TABLA+"."+it.getEmpresaProveedorPDC().getNombre() +", "+
                 ProveedorIT.NOMBRE_TABLA+"."+it.getPaginaWebPDC().getNombre() +", "+
-                PaisIT.NOMBRE_TABLA+"."+pit.getPaisPDC().getNombre()+", "+
+                PaisIT.NOMBRE_TABLA+"."+pit.getPaisPDC().getNombre()+
                 " FROM " 
                 + ProveedorIT.NOMBRE_TABLA +
                 " INNER JOIN " 
@@ -125,20 +126,20 @@ public class ProveedorDao extends DAOGenerales{
                 " ON "
                 + ProveedorIT.NOMBRE_TABLA+"."+it.getIdPaisPDC().getNombre()+
                 " = "
-                + PaisIT.NOMBRE_TABLA+"."+pit.getPaisPDC().getNombre()+
-                " WHERE " +
-                it.getIdPDC().getNombre() +" =?";
+                + PaisIT.NOMBRE_TABLA+"."+pit.getIdPDC().getNombre()+
+                " WHERE " 
+                +ProveedorIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre() +" =?";
         ResultSet r = conexion.executeQuery(sql, id+"");
         try {
-            r.next();
-            vo.setEmail(r.getString(it.getEmailPDC().getNombre()));
-            vo.setEmpresa(r.getString(it.getEmpresaProveedorPDC().getNombre()));
-            vo.setId(r.getInt(it.getIdPDC().getNombre()));
-            vo.setIdPais(r.getString(pit.getPaisPDC().getNombre()));
-            vo.setNombreContacto(r.getString(it.getNombreContactoPDC().getNombre()));
-            vo.setPaginaWeb(r.getString(it.getPaginaWebPDC().getNombre()));
-            vo.setTelefono(r.getString(it.getTelefonoPDC().getNombre()));
-            
+            if (r.next()) {
+                vo.setEmail(r.getString(it.getEmailPDC().getNombre()));
+                vo.setEmpresa(r.getString(it.getEmpresaProveedorPDC().getNombre()));
+                vo.setId(r.getInt(it.getIdPDC().getNombre()));
+                vo.setIdPais(r.getString(pit.getPaisPDC().getNombre()));
+                vo.setNombreContacto(r.getString(it.getNombreContactoPDC().getNombre()));
+                vo.setPaginaWeb(r.getString(it.getPaginaWebPDC().getNombre()));
+                vo.setTelefono(r.getString(it.getTelefonoPDC().getNombre()));
+            }
             
         } catch (SQLException ex) {
             Logger.getLogger(ProveedorDao.class.getName()).log(Level.SEVERE, null, ex);

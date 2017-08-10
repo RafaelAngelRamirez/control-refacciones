@@ -1108,8 +1108,9 @@ public class PanelRefaccionModificar extends JPanel {
         txtCodigoDelProveedor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtCodigoDelProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCodigoDelProveedor.setAutoscrolls(false);
-        txtCodigoDelProveedor.setMaximumSize(new java.awt.Dimension(140, 30));
-        txtCodigoDelProveedor.setMinimumSize(new java.awt.Dimension(140, 30));
+        txtCodigoDelProveedor.setMaximumSize(new java.awt.Dimension(184, 30));
+        txtCodigoDelProveedor.setMinimumSize(new java.awt.Dimension(184, 30));
+        txtCodigoDelProveedor.setPreferredSize(new java.awt.Dimension(184, 31));
 
         radioBotones.add(radioAkta);
         radioAkta.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -1201,7 +1202,7 @@ public class PanelRefaccionModificar extends JPanel {
                                     .addComponent(txtStockMin)
                                     .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                                     .addComponent(etiquetaCodigoDelProveedor)
-                                    .addComponent(txtCodigoDelProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(etiquetaCodigoInterno))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -147,7 +147,7 @@ public class DialogoProveedorModificar extends JDialog {
         
         //ACCIONES ESPECELIALES.
         _ComboPais.setFocusAction(()->this.guardarPais(), false);
-        _ListaProveedores.setSingleClick(()->JOptionPane.showMessageDialog(null, "No definido todavia"));
+        _ListaProveedores.setSingleClick(()->cargarProveedorSeleccionado());
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
@@ -165,6 +165,7 @@ public class DialogoProveedorModificar extends JDialog {
         */
             this.cargarComboPaises();
             this.cargarListaProveedores();
+            
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -508,27 +509,17 @@ public class DialogoProveedorModificar extends JDialog {
     public void cargarProveedorSeleccionado(){
         limpiarTodo();
         int id = _ListaProveedores.getSelectValueId();
-        ProveedorVo vo = this.getCoordinador().proveedorConsultar(id);
-        List<ImagenProveedorVo> iVo = this.getCoordinador().imagenProveedorConsultar(id);
-        
-        _ImagenesProveedor.limpiarComponenteURL();
-        for (ImagenProveedorVo iv : iVo) {
-            UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
-            t.setIdImagen(iv.getIdProveedor());
-            t.setNombreImagen(iv.getNombreParaMostrar());
-            t.setNombreImagenServidor(iv.getNombreServidor());
-            t.setUrl(iv.getUrlImagen());
-            _ImagenesProveedor.addIMagenes(t);
+        if (id!=0) {
+            ProveedorVo vo = this.getCoordinador().proveedorConsultar(id);
+
+            _ComboPais.setText(vo.getIdPais()+"");
+            _TxtEmail.setText(vo.getEmail());
+            _TxtEmpresa.setText(vo.getEmpresa());
+            _TxtNombreContacto.setText(vo.getNombreContacto());
+            _TxtPaginaWeb.setText(vo.getPaginaWeb());
+            _TxtTelefono.setText(vo.getTelefono());
+            cargarImagenes();
         }
-        _ImagenesProveedor.cargarPrimeraImagen();
-        
-        _ComboPais.setText(vo.getIdPais()+"");
-        _TxtEmail.setText(vo.getEmail());
-        _TxtEmpresa.setText(vo.getEmpresa());
-        _TxtNombreContacto.setText(vo.getNombreContacto());
-        _TxtPaginaWeb.setText(vo.getPaginaWeb());
-        _TxtTelefono.setText(vo.getTelefono());
-        
     }
     
     public void cargarImagenes(){

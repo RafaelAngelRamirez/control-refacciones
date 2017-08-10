@@ -1041,8 +1041,9 @@ public class PanelRefaccionAgregar extends JPanel {
         txtCodigoDelProveedor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtCodigoDelProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCodigoDelProveedor.setAutoscrolls(false);
-        txtCodigoDelProveedor.setMaximumSize(new java.awt.Dimension(140, 30));
-        txtCodigoDelProveedor.setMinimumSize(new java.awt.Dimension(140, 30));
+        txtCodigoDelProveedor.setMaximumSize(new java.awt.Dimension(184, 30));
+        txtCodigoDelProveedor.setMinimumSize(new java.awt.Dimension(184, 30));
+        txtCodigoDelProveedor.setPreferredSize(new java.awt.Dimension(184, 31));
 
         radioBotones.add(radioAkta);
         radioAkta.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -1131,13 +1132,12 @@ public class PanelRefaccionAgregar extends JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(etiquetaStockMin)
-                                    .addComponent(txtStockMin)
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                                    .addComponent(etiquetaCodigoDelProveedor)
-                                    .addComponent(txtCodigoDelProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(etiquetaCodigoInterno))
+                                .addComponent(etiquetaStockMin)
+                                .addComponent(txtStockMin)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                                .addComponent(etiquetaCodigoDelProveedor)
+                                .addComponent(etiquetaCodigoInterno)
+                                .addComponent(txtCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(etiquetaUnidad)
@@ -1209,7 +1209,7 @@ public class PanelRefaccionAgregar extends JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(etiquetaCodigoDelProveedor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(etiquetaDescripcion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

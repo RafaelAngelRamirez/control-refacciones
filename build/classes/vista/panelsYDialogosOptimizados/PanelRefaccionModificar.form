@@ -100,7 +100,7 @@
                                   <Component id="txtStockMin" linkSize="11" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtCodigo" linkSize="11" pref="184" max="32767" attributes="0"/>
                                   <Component id="etiquetaCodigoDelProveedor" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtCodigoDelProveedor" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtCodigoDelProveedor" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
                               </Group>
                               <Component id="etiquetaCodigoInterno" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -893,10 +893,13 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="autoscrolls" type="boolean" value="false"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[140, 30]"/>
+          <Dimension value="[184, 30]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[140, 30]"/>
+          <Dimension value="[184, 30]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[184, 31]"/>
         </Property>
       </Properties>
     </Component>
