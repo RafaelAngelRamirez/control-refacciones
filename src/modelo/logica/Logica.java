@@ -81,6 +81,16 @@ public class Logica {
         return dao_.existe(proveedor);
     }
     
+    public boolean proveedorExiste(ProveedorVo vo){
+        ProveedorDao dao = new ProveedorDao(coordinador);
+        return dao.existe(vo);
+    }
+    
+    public boolean proveedorModificar(ProveedorVo vo){
+        ProveedorDao dao = new ProveedorDao(coordinador);
+        return dao.modificar(vo);
+    }
+    
     /**
      * Consulta la lista de todos los proveedores y solo devuelve al proveedor-empresa.
      * 
@@ -121,7 +131,7 @@ public class Logica {
      * @param vo - La información que vamos a validad. 
      * @return La lista de campos validados con error.
      */
-    public List<Validacion> proveedorValidarCampos (ProveedorVo vo){
+    public List<Validacion> proveedorValidarCampos (ProveedorVo vo, boolean valindadoUpdate){
         //LA LISTA QUE SE RETORNA DE VALIDACIONES.
         List<Validacion> listaValidaciones = new ArrayList<>();
         
@@ -166,11 +176,20 @@ public class Logica {
                     //VALIDAMOS LOS CAMPOS QUE NO PUEDEN REPETIRSE.
                     Validacion val = new Validacion();
                     val.setNombreDeCampo(parametrosDeCampo);
-                    if (this.proveedorExiste(valorAValidar)) {
-                        val.setMensajeDeError("El valor '"+valorAValidar+"' ya existe en la base." );
-                        val.setValido(false);
+                    if (valindadoUpdate) {
+                        if (this.proveedorExiste(vo)) {
+                            val.setMensajeDeError("El valor '"+vo.getEmpresa()+"' ya fue asignado a otro proveedor.");
+                            val.setValido(false);
+                        }else{
+                            val.setValido(true);
+                        }
                     }else{
-                        val.setValido(true);
+                        if (this.proveedorExiste(valorAValidar)) {
+                            val.setMensajeDeError("El valor '"+valorAValidar+"' ya existe en la base." );
+                            val.setValido(false);
+                        }else{
+                            val.setValido(true);
+                        }
                     }
                     listaValidaciones.add(val);
                 }
@@ -544,7 +563,7 @@ public class Logica {
                  if(!_PDC.isPermiteRepetido()&& !valor.isEmpty()){
                      Validacion vRepetido = new Validacion();
                      vRepetido.setNombreDeCampo(_PDC);
-                     //EL CODIGO INTERNO NO PUEDE REPETIRSE, PERO EL ID NO SE OCUPA
+                     //EL CODIGO INTERNO NO PUEDE REPETIRSE, EL ID NO SE OCUPA
                      //COMPROBAR POR LO TANTO CUANDO PASE A COMPROBARSE SE
                      //DEFINIRA COMO TRUE DE QUE PASO LA VALIDACION.
                      // CUANDO SE VALIDA UN UPDATE EL CÓDIGO INTERNO SE VALIDA

@@ -656,7 +656,7 @@ public class DialogoProveedorModificar extends JDialog {
             vo.setPaginaWeb(_TxtPaginaWeb.getText());
             vo.setTelefono(_TxtTelefono.getText());
 
-            List<Validacion> validaciones = this.getCoordinador().proveedorValidarCampos(vo);
+            List<Validacion> validaciones = this.getCoordinador().proveedorValidarCampos(vo, true);
             boolean todoValido = true;
             ProveedorIT iT = new ProveedorIT();
             for (Validacion validacione : validaciones) {
@@ -669,23 +669,28 @@ public class DialogoProveedorModificar extends JDialog {
                 }
 
                 if(!validacione.isValido()){
-                    String mensaje = validacione.getNombreDeCampo()+":"+validacione.getMensajeDeError();
-                    JOptionPane.showMessageDialog(null, mensaje);
                     todoValido = false;
                 }
             }
 
             if (todoValido) {
                 //ACTUALIZAMOS LA REFACCIÓN.
-                this.getCoordinador().proveedorModificar(vo);
+                if (this.getCoordinador().proveedorModificar(vo)) {
+                    limpiarTodo();
+                    JOptionPane.showMessageDialog(
+                            this.getCoordinador().getMarcoParaVentanaPrincipal(), 
+                            "Se modifico correctamente el proveedor.");
+                    //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
+                    this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
+                    this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
+                    this.getCoordinador().ejecutarOperacionesParaActualizar();
+                    
+                }else{
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Algo sucedio y no se modifico el proveedor.");
+                }
 
-                limpiarTodo();
-                JOptionPane.showMessageDialog(
-                        this.getCoordinador().getMarcoParaVentanaPrincipal(), 
-                        "Se modifico correctamente el proveedor.");
-                //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
-                this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
-                this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -754,7 +759,8 @@ public class DialogoProveedorModificar extends JDialog {
         ProveedorVo vo = new ProveedorVo();
         vo.setId(this.id);
         vo.setEmpresa(this._TxtEmpresa.getText());
-        if (vo.getId()!=0) {
+       
+        if (vo.getId()!=-1) {
             int r = JOptionPane.showConfirmDialog(
                     this, 
                     "¿Estas segúro que quieres eliminar al proveedor '"+vo.getEmpresa()+"'?"
@@ -778,6 +784,12 @@ public class DialogoProveedorModificar extends JDialog {
                 this.getCoordinador().ejecutarOperacionesParaActualizar();
                 this.limpiarTodo();
             }        
+        }else{
+            JOptionPane.showMessageDialog(
+                    this, 
+                    "No has seleccionado ningún elemento de la lista.", 
+                    "No seleccionado", 
+                    JOptionPane.WARNING_MESSAGE);
         }
 
         

@@ -228,8 +228,8 @@ public class Coordinador {
         this.logica.proveedorGuardar(vo);
     }
     
-    public void proveedorModificar(ProveedorVo vo){
-        this.logica.proveedorModificar(vo);
+    public boolean proveedorModificar(ProveedorVo vo){
+        return this.logica.proveedorModificar(vo);
     }
     
     public boolean proveedorEliminar(ProveedorVo vo){
@@ -276,8 +276,12 @@ public class Coordinador {
     
     //VALIDACIONES 
     public List<Validacion> proveedorValidarCampos(ProveedorVo Vo){
-        return this.logica.proveedorValidarCampos(Vo);
+        return this.logica.proveedorValidarCampos(Vo, false);
     
+    }
+    
+    public List<Validacion> proveedorValidarCampos(ProveedorVo vo, boolean validandoUpdate){
+        return this.logica.proveedorValidarCampos(vo, validandoUpdate);
     }
     /* 
     ////////////////////////////////////////////////////////////////////////

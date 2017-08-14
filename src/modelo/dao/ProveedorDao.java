@@ -97,6 +97,38 @@ public class ProveedorDao extends DAOGenerales{
         return false;
     }
     
+    /**
+     * Revisa si el proveedor existe en la base de datos comparando su id y el 
+     * nombre la de empresa. De esta manera se verifica que el update no repita
+     * los nombres de empresa al modificarse. 
+     * @param vo El objeto a ProveedorVo a comparar. 
+     * @return True si existe.
+     */
+    public boolean existe(ProveedorVo vo){
+        try {
+            String sql = "SELECT COUNT(*) FROM " + ProveedorIT.NOMBRE_TABLA
+                    + " WHERE "+ it.getEmpresaProveedorPDC().getNombre() + "= ?"
+                    + " AND " + it.getIdPDC().getNombre() + "<> ?";
+            
+            HashMap<Integer, String > datos= new HashMap<>();
+            datos.put(1, vo.getEmpresa());
+            datos.put(2, vo.getId()+"");
+            
+            ResultSet r = conexion.executeQuery(sql, datos);
+            r.next();
+            int a = r.getInt(1);
+            if (a>0) {
+                return true;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProveedorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    
+    
     public int consultarUltimoId(){
         String sql = "SELECT MAX("+it.getIdPDC().getNombre()+") FROM "+ProveedorIT.NOMBRE_TABLA;
         ResultSet r = conexion.executeQuery(sql);
@@ -157,5 +189,31 @@ public class ProveedorDao extends DAOGenerales{
         JOptionPane.showMessageDialog(null, vo.getId());
                 
         return conexion.executeUpdate(sql, vo.getId()+"");
+    }
+    
+    public boolean modificar(ProveedorVo vo){
+        
+        String sql = "UPDATE " + ProveedorIT.NOMBRE_TABLA 
+                +" SET " + 
+                it.getEmpresaProveedorPDC().getNombre() + "=?, "+
+                it.getNombreContactoPDC().getNombre() + "=?, "+
+                it.getTelefonoPDC().getNombre() + "=?, "+
+                it.getPaginaWebPDC().getNombre() + "=?, "+
+                it.getEmailPDC().getNombre() + "=?, "+
+                it.getIdPaisPDC().getNombre() + "=? "
+                +" WHERE "+
+                it.getIdPDC().getNombre() +" = ?";
+        
+        HashMap<Integer, String> map = new HashMap<>();
+        map.put(1, vo.getEmpresa());
+        map.put(2, vo.getNombreContacto());
+        map.put(3, vo.getTelefono());
+        map.put(4, vo.getPaginaWeb());
+        map.put(5, vo.getEmail());
+        map.put(6, vo.getIdPais()+"");
+        map.put(7, vo.getId()+"");
+        
+        return conexion.executeUpdate(sql, map);
+        
     }
 }
