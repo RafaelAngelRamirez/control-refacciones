@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.Conexion;
 import modelo.InfoTabla.PaisIT;
@@ -145,5 +146,16 @@ public class ProveedorDao extends DAOGenerales{
             Logger.getLogger(ProveedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return vo;
+    }
+    
+    public boolean eliminar(ProveedorVo vo){
+        String sql = 
+                "DELETE FROM " + ProveedorIT.NOMBRE_TABLA 
+                +" WHERE " +
+                it.getIdPDC().getNombre() + " = ?";
+        
+        JOptionPane.showMessageDialog(null, vo.getId());
+                
+        return conexion.executeUpdate(sql, vo.getId()+"");
     }
 }

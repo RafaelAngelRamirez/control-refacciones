@@ -92,6 +92,13 @@
                   <Component id="filler4" min="-2" pref="439" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="259" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="filler1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="filler2" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -99,8 +106,8 @@
                               <Component id="txtStockMin" linkSize="11" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtCodigo" linkSize="11" pref="184" max="32767" attributes="0"/>
                               <Component id="etiquetaCodigoDelProveedor" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtCodigoDelProveedor" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
                               <Component id="etiquetaCodigoInterno" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCodigoDelProveedor" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -122,8 +129,13 @@
                       <Component id="jScrollPane1" alignment="1" min="-2" pref="394" max="-2" attributes="0"/>
                   </Group>
                   <Component id="etiquetaQueEs" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
+                          <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jScrollPane7" alignment="1" min="-2" pref="394" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -132,20 +144,6 @@
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="filler1" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="filler2" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="etiquetaRefaccionesPendientesPorModificar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="filler7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -195,7 +193,7 @@
                           <Group type="102" attributes="0">
                               <Component id="etiquetaCodigoDelProveedor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtCodigoDelProveedor" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCodigoDelProveedor" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -214,18 +212,14 @@
                               <Component id="jScrollPane7" min="-2" pref="52" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                               <Component id="filler1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="etiquetaRefaccionesPendientesPorModificar" min="-2" pref="25" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="filler7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="filler2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="filler2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -1016,24 +1010,6 @@
       </Properties>
       <AuxValues>
         <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="etiquetaRefaccionesPendientesPorModificar">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Refacciones pendientes"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.Box$Filler" name="filler7">
-      <Properties>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[0, 32767]"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
       </AuxValues>
     </Component>
   </SubComponents>

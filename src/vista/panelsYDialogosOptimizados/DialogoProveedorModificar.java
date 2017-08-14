@@ -148,7 +148,7 @@ public class DialogoProveedorModificar extends JDialog {
         
         //ACCIONES ESPECELIALES.
         _ComboPais.setFocusAction(()->this.guardarPais(), false);
-        _ListaProveedores.setSingleClick(()->cargarProveedorSeleccionado());
+        _ListaProveedores.setValueChange(()->cargarProveedorSeleccionado());
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
@@ -245,7 +245,7 @@ public class DialogoProveedorModificar extends JDialog {
         btnEliminarImagen = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         listaProveedores = new javax.swing.JList<>();
-        btnCancelar1 = new javax.swing.JButton();
+        btnEliminarProveedor = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -404,19 +404,14 @@ public class DialogoProveedorModificar extends JDialog {
 
         listaProveedores.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         listaProveedores.setFocusable(false);
-        listaProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaProveedoresMouseClicked(evt);
-            }
-        });
         jScrollPane5.setViewportView(listaProveedores);
 
-        btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
-        btnCancelar1.setText("Eliminar Proveedor");
-        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarProveedor.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnEliminarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnEliminarProveedor.setText("Eliminar Proveedor");
+        btnEliminarProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelar1ActionPerformed(evt);
+                btnEliminarProveedorActionPerformed(evt);
             }
         });
 
@@ -428,7 +423,7 @@ public class DialogoProveedorModificar extends JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCancelar1)
+                    .addComponent(btnEliminarProveedor)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -500,7 +495,7 @@ public class DialogoProveedorModificar extends JDialog {
                     .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCancelar1)
+                        .addComponent(btnEliminarProveedor)
                         .addContainerGap())))
         );
 
@@ -753,13 +748,38 @@ public class DialogoProveedorModificar extends JDialog {
 
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
 
-    private void listaProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaProveedoresMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaProveedoresMouseClicked
+    private void btnEliminarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProveedorActionPerformed
+        ProveedorVo vo = new ProveedorVo();
+        vo.setId(this.id);
+        vo.setEmpresa(this._TxtEmpresa.getText());
+        if (vo.getId()!=0) {
+            int r = JOptionPane.showConfirmDialog(
+                    this, 
+                    "¿Estas segúro que quieres eliminar al proveedor '"+vo.getEmpresa()+"'?"
+                            + "\n Esta acción no se puede deshacer.",
+                    "Eliminar proveedor '"+vo.getEmpresa()+"'.", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.WARNING_MESSAGE);
+        
+            if (r==JOptionPane.YES_OPTION) {
+                
+                this.getCoordinador().proveedorEliminar(vo);
+                UtilidadesJXViewImage_.TransporteImagenesURL imgEliminar = _ImagenesProveedor.obtenerImagenActual();
+                if (imgEliminar!=null) {
+                    ImagenProveedorVo iPvo = new ImagenProveedorVo();
+                    iPvo.setIdProveedor(imgEliminar.getIdImagen());
+                    iPvo.setNombreServidor(imgEliminar.getNombreImagenServidor());
+                    this.getCoordinador().imagenProveedorEliminar(iPvo);
+                }
+                this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
+                this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
+                this.getCoordinador().ejecutarOperacionesParaActualizar();
+                this.limpiarTodo();
+            }        
+        }
 
-    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelar1ActionPerformed
+        
+    }//GEN-LAST:event_btnEliminarProveedorActionPerformed
 
     public void cargarComboPaises(){
         List<PaisVo> listaPaises = this.coordinador.PaisConsultar();
@@ -823,8 +843,8 @@ public class DialogoProveedorModificar extends JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarImagen;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnCancelar1;
     private javax.swing.JButton btnEliminarImagen;
+    private javax.swing.JButton btnEliminarProveedor;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresarImagen;
     private javax.swing.JButton btnSiguienteImagen;

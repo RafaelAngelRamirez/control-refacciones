@@ -242,11 +242,11 @@ public class PanelRefaccionAgregar extends JPanel {
         _ComboUnidad.setFocusAction(()->guardarUnidad(), false);
         _ComboMaterial.setFocusAction(()->guardarMaterial(), false);
         
-        _ListaProveedor.setSingleClick(()->_ListaProveedor.cambioEntreListas(false));
-        _ListaProveedorSeleccionado.setSingleClick(()->_ListaProveedor.cambioEntreListas(true));
+        _ListaProveedor.setValueChange(()->_ListaProveedor.cambioEntreListas(false));
+        _ListaProveedorSeleccionado.setValueChange(()->_ListaProveedor.cambioEntreListas(true));
 
-        _ListaMaquinaModelo.setSingleClick(()->_ListaMaquinaModelo.cambioEntreListas(false));
-        _ListasMaquinasSeleccionadas.setSingleClick(()->_ListaMaquinaModelo.cambioEntreListas(true));
+        _ListaMaquinaModelo.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(false));
+        _ListasMaquinasSeleccionadas.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(true));
         
         
         

@@ -10,8 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ListChangeListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * Utilidades para el fácil manejo de las listas.
@@ -283,6 +286,28 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     public int getSelectValueId(){
         HashMap<String, Integer> mapa = this.getItems();
         return mapa.get(this.getThis().getSelectedValue());
+    }
+    
+    /**
+     * Ejecuta la operación que se le pase como parametro al detectase un cambio
+     * en la lista. 
+     * @param r La operación que se quiere ejecutar. 
+     */
+    public void setValueChange(Runnable r){
+        this.getThis().addListSelectionListener(new ListSelectionListener() {
+            
+            Runnable r = null;
+            public ListSelectionListener parametros(Runnable r){
+                this.r = r;
+                return this;
+            }
+            
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                r.run();
+            }
+        }.parametros(r));
+    
     }
 
     

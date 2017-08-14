@@ -110,6 +110,11 @@ public class Logica {
         return d.consultar(id);
     }
     
+    public boolean proveedorEliminar(ProveedorVo vo){
+        ProveedorDao dao = new ProveedorDao(coordinador);
+        return dao.eliminar(vo);
+    }
+    
     /**
      * Valida los campos según la definición que se le da en la clase Dao en la
      * lista de tipo ParametrosDeCampo.
