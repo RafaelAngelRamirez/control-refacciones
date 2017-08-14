@@ -285,6 +285,9 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
      */
     public int getSelectValueId(){
         HashMap<String, Integer> mapa = this.getItems();
+        if (this.getThis().getSelectedValue()==null) {
+            return -1;
+        }
         return mapa.get(this.getThis().getSelectedValue());
     }
     
