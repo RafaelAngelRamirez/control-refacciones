@@ -646,12 +646,14 @@ public class DialogoProveedorModificar extends JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
         if (id==-1) {
-            
+            JOptionPane.showMessageDialog(this, "No has seleccionado ningún"
+                    + " proveedor de la lista. ");
         }else{
             ProveedorVo vo = new ProveedorVo();
             vo.setId(id);
             vo.setEmail(_TxtEmail.getText());
             vo.setEmpresa(_TxtEmpresa.getText());
+            
             vo.setIdPais(_ComboPais.getSelectedItem_idRetorno());
             vo.setNombreContacto(_TxtNombreContacto.getText());
             vo.setPaginaWeb(_TxtPaginaWeb.getText());

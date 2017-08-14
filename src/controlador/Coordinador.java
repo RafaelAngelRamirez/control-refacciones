@@ -232,6 +232,10 @@ public class Coordinador {
         this.logica.proveedorModificar(vo);
     }
     
+    public boolean proveedorEliminar(ProveedorVo vo){
+        return this.logica.proveedorEliminar(vo);
+    }
+    
     public int proveedorConsultarUltimoId(){
         return this.logica.proveedorConsultarUltimoId();
     }
