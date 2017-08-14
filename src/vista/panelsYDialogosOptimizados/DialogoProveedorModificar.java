@@ -505,7 +505,7 @@ public class DialogoProveedorModificar extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
     
     public void cargarProveedorSeleccionado(){
-        this.id = _ListaProveedores.getSelectValueId();
+        this.id = _ListaProveedores.getSelectValueId(); 
         if (id!=-1) {
             limpiarTodo();
             if (id!=0) {
