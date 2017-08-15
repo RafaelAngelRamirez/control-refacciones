@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.vo.MaquinaModeloVo;
@@ -133,6 +134,24 @@ public class MaquinaModeloDao extends DAOGenerales{
                 + " WHERE " +
                 it.getIdPDC().getNombre() +" = ?";
         return conexion.executeUpdate(sql, vo.getId()+"");
+    }
+    
+    public boolean modificar(MaquinaModeloVo vo){
+        String sql = "UPDATE " + MaquinaModeloIT.NOMBRE_TABLA 
+                +" SET " +
+                it.getModeloPDC().getNombre() + " = ?,"+
+                it.getAnioPDC().getNombre() + " = ?,"+
+                it.getIdProoveedorPDC().getNombre() + " = ?"
+                +" WHERE " + it.getIdPDC().getNombre() +"=?";
+                
+        HashMap<Integer, String> mapa = new HashMap<>();
+        mapa.put(1, vo.getModelo());
+        mapa.put(2, vo.getAnio()+"");
+        mapa.put(3, vo.getIdProveedor()+"");
+        mapa.put(4, vo.getId()+"");
+        
+        
+        return conexion.executeUpdate(sql, mapa);
     }
     
 }

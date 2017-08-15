@@ -59,6 +59,11 @@ public class RelacionRefaccionMaquinaModeloVo extends VoGenerales{
     public void setIdRefaccion(int idRefaccion) {
         this.idRefaccion = idRefaccion;
     }
+
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

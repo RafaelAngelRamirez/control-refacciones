@@ -9,7 +9,7 @@ package modelo.vo;
  *
  * @author Particular
  */
-public class MaquinaVo {
+public class MaquinaVo extends VoGenerales{
     int id;
     int idMaquinasModelo;
     String descripcion;
@@ -54,6 +54,11 @@ public class MaquinaVo {
 
     public void setNumeroDeMaquina(String numeroDeMaquina) {
         this.numeroDeMaquina = numeroDeMaquina;
+    }
+
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

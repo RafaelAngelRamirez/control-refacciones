@@ -416,10 +416,11 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         String a = _TxtAnio.getText();
         //NO PUEDES PASAR UN INT NULO.
         if (a.equals("")) {
-            vo.setAnio(0);
+            vo.setAnio(-1);
         }else{
             vo.setAnio(Integer.parseInt(a));
         }
+        vo.setId(this.idConsultandoseActualmente);
         vo.setIdProveedor(_ComboMarca.getSelectedItem_idRetorno());
         vo.setModelo(_TxtModeloMaquina.getText());
 
@@ -469,12 +470,22 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         }
 
         if (todoValido) {
-            JOptionPane.showMessageDialog(null, "listo para guardar");
-//            limpiarTodo();
+            if (this.getCoordinador().maquinaModeloModificar(vo)) {
+                
+                this.getCoordinador().huboUnCambioEnTabla(MaquinaModeloIT.NOMBRE_TABLA);
+                this.getCoordinador().ejecutarOperacionesParaActualizar();
+                limpiarTodo();
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Se modifico correctamente la refacción.");
+            }else{
+                JOptionPane.showMessageDialog(
+                        this, 
+                        "No se pudo modificar el modelo.", 
+                        "Error modificando el modelo", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
             
-            JOptionPane.showMessageDialog(
-                coordinador.getMarcoParaVentanaPrincipal(),
-                "Se modifico correctamente la refacción.");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 

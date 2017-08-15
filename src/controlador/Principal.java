@@ -68,7 +68,7 @@ public class Principal {
         CapturaDeSucesos SystemOut_ = new CapturaDeSucesos(System.out);
         SystemOut_.setDebug(ESTADO_DE_DEBUG);
         SystemOut_.setConsolaDeErrores(consolaDeErrores);
-//        System.setOut(SystemOut_);
+        System.setOut(SystemOut_);
         
         
         

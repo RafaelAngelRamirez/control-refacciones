@@ -5,7 +5,6 @@
  */
 package controlador.capturadeerrores;
 
-import controlador.capturadeerrores.CapturaDeSucesos;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.ExcepcionPersonalizada;
@@ -95,10 +94,5 @@ import modelo.ExcepcionPersonalizada;
         public void setTextoAMostrar(String textoAMostrar) {
             this.textoAMostrar = textoAMostrar;
         }
-        
-        
-        
-        
-        
     }
     

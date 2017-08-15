@@ -60,5 +60,19 @@ public class MaquinaModeloVo extends VoGenerales{
     public void setIdProveedor(Object idProveedor) {
         this.idProveedor = idProveedor;
     }
+
+    @Override
+    public String toString() {
+        
+        String f = "= ";
+        String separador = "\n--------------------------";
+        String titulo = separador +"\n"+this.getClass().getSimpleName();
+        String a = "      |           id"+f+getId()+"\n"+
+                   "      |       modelo"+f+getModelo()+"\n"+
+                   "      |          año"+f+getAnio()+"\n"+
+                   "      |  idProveedor"+f+getIdProveedor()+"\n";
+
+        return titulo +"\n"+a +separador;
+    }
     
 }

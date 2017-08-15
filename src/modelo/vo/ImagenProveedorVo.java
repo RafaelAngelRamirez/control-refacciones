@@ -68,6 +68,11 @@ public class ImagenProveedorVo extends VoGenerales{
     public void setUrlImagen(URL urlImagen) {
         this.urlImagen = urlImagen;
     }
+
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

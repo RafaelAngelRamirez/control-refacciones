@@ -67,6 +67,11 @@ public class ImagenRefaccionVo extends VoGenerales{
     public void setNombreParaMostrar(String nombreParaMostrar) {
         this.nombreParaMostrar = nombreParaMostrar;
     }
+
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
             

@@ -340,8 +340,12 @@ public class Coordinador {
     
     }
     
-    public void maquinaModeloGuardar(MaquinaModeloVo vo){
-        this.logica.maquinaModeloGuardar(vo);
+    public boolean maquinaModeloGuardar(MaquinaModeloVo vo){
+        return this.logica.maquinaModeloGuardar(vo);
+    }
+    
+    public boolean maquinaModeloModificar(MaquinaModeloVo vo){
+        return this.logica.maquinaModeloModificar(vo);
     }
     
     public boolean maquinaModeloEliminar(MaquinaModeloVo vo){

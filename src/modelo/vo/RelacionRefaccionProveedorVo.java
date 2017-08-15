@@ -57,5 +57,10 @@ public class RelacionRefaccionProveedorVo extends VoGenerales{
     public void setIdProveedor(int idProveedor) {
         this.idProveedor = idProveedor;
     }
+
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

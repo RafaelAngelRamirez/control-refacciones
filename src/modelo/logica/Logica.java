@@ -255,11 +255,17 @@ public class Logica {
     /**
      * Guarda una MaquinaModelo en la base de datos. 
      * @param vo La MaquinaModelo que se guardara. 
+     * @return  True si se guardo correctamente. 
      */
-    public void maquinaModeloGuardar(MaquinaModeloVo vo){
+    public boolean maquinaModeloGuardar(MaquinaModeloVo vo){
        MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
-       dao.guardar(vo);
-                
+       return dao.guardar(vo);
+    }
+    
+    public boolean maquinaModeloModificar(MaquinaModeloVo vo){
+        MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
+        return dao.modificar(vo);
+    
     }
     
     /**
