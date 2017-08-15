@@ -323,7 +323,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         
         /**
          * /////////////////////////////////////////////////
-         *      MENU CONSULTAR
+         *     MENU CONSULTAR   
          * /////////////////////////////////////////////////
          */
         MenuConstructor panelConsultaRefacciones = new MenuConstructor();
