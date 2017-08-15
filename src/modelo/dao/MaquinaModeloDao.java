@@ -128,4 +128,11 @@ public class MaquinaModeloDao extends DAOGenerales{
         return vo;
     }
     
+    public boolean eliminar(MaquinaModeloVo vo){
+        String sql = "DELETE FROM " + MaquinaModeloIT.NOMBRE_TABLA 
+                + " WHERE " +
+                it.getIdPDC().getNombre() +" = ?";
+        return conexion.executeUpdate(sql, vo.getId()+"");
+    }
+    
 }

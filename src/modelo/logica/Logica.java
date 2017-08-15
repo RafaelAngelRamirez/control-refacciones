@@ -263,6 +263,16 @@ public class Logica {
     }
     
     /**
+     * Elimina la máquina-modelo que se le pase como parametro.
+     * @param vo El id de la maquina-modelo a eliminar. 
+     * @return True si se elimino correctamente. 
+     */
+    public boolean maquinaModeloEliminar(MaquinaModeloVo vo){
+        MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
+        return dao.eliminar(vo);
+    }
+    
+    /**
      * Revisa si la maquinaModelo en la base de datos. Se busca por conincidencia
      * par de Maquina-Año de manera que si hay un modelo MASS y varios años (1999, 2011)
      * se busca el par que se quiere como repetido. 

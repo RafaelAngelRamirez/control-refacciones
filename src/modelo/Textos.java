@@ -62,6 +62,12 @@ public class Textos {
         ls.add("(");
         ls.add(")");
         ls.add("`");
+        ls.add("$");
+        ls.add("^");
+        ls.add("?");
+        ls.add("[");
+        ls.add("{");
+            
         String[] arreglo = texto.split("");
         for (int i = 0; i < arreglo.length; i++) {
             for (String simbolo : ls) {
@@ -74,7 +80,9 @@ public class Textos {
                     break;
                 }
             }
-        }       
-        return String.join("", arreglo);
+        }
+        String a = String.join("", arreglo);
+        System.out.println("[REGEXP]-> "+a);
+        return a;
     }
 }

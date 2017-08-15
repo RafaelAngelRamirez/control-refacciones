@@ -305,6 +305,11 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          *      CREAMOS LOS MENUS
          * /////////////////////////////////////////////////
          */
+        MenuConstructor menuConsultar = new MenuConstructor();
+        menuConsultar.setMenu();
+        menuConsultar.setNombre("Consultar");
+        this.addItemOMenu(menuConsultar);
+        
         MenuConstructor menuAgregarRegistrar = new MenuConstructor();
         menuAgregarRegistrar.setMenu();
         menuAgregarRegistrar.setNombre("Agregar/Registrar");
@@ -315,10 +320,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         menuModificar.setNombre("Modificar");
         this.addItemOMenu(menuModificar);
         
-        MenuConstructor menuConsultar = new MenuConstructor();
-        menuConsultar.setMenu();
-        menuConsultar.setNombre("Consultar");
-        this.addItemOMenu(menuConsultar);
         
         /**
          * /////////////////////////////////////////////////
@@ -349,7 +350,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoRefaccionDetalle.setPadre(menuConsultar);
         dialogoRefaccionDetalle.setAccionDelItem(
                 ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
-        dialogoRefaccionDetalle.setDialog(this.getCoordinador().getDialogoMaquinaModeloModificar());
+        dialogoRefaccionDetalle.setDialog(this.getCoordinador().getDialogoRefaccionDetalle());
         this.addItemOMenu(dialogoRefaccionDetalle);
         
         Coordinador.OperacionesPorActualizar dialogoRefaccionDetalleOPA 

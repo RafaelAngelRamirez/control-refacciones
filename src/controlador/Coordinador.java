@@ -342,7 +342,10 @@ public class Coordinador {
     
     public void maquinaModeloGuardar(MaquinaModeloVo vo){
         this.logica.maquinaModeloGuardar(vo);
+    }
     
+    public boolean maquinaModeloEliminar(MaquinaModeloVo vo){
+        return this.logica.maquinaModeloEliminar(vo);
     }
     
     //ACTUALIZAR
@@ -836,6 +839,7 @@ public class Coordinador {
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
                 mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_MODIFICAR, false);
                 break;
             case MaterialIT.NOMBRE_TABLA:
                 mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);

@@ -220,7 +220,9 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     public void cargarDatosConsultados(){
         limpiarTodo();
         idConsultandoseActualmente = _ListaMaquinaModelo.getSelectValueId();
-        MaquinaModeloVo vo = this.getCoordinador().maquinaModeloConsultarUno(idConsultandoseActualmente);
+        MaquinaModeloVo vo = 
+                this.getCoordinador()
+                        .maquinaModeloConsultarUno(idConsultandoseActualmente);
         
         _TxtModeloMaquina.setText(vo.getModelo());
         _TxtAnio.setText(vo.getAnio()+"");
@@ -487,7 +489,29 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     }//GEN-LAST:event_listaMaquinanasModeloMouseClicked
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
-        // TODO add your handling code here:
+        MaquinaModeloVo vo = new MaquinaModeloVo();
+        vo.setId(this.idConsultandoseActualmente);
+        vo.setModelo(this._TxtModeloMaquina.getText());
+        vo.setAnio(Integer.parseInt(this._TxtAnio.getText()));
+        if (vo.getId()!=-1) {
+            int r = JOptionPane.showConfirmDialog(
+                    this, 
+                    "¿Estas segúro que quieres eliminar este modelo?\n "
+                    + "Esta acción no se puede deshacer.", 
+                    "Confirmar eliminar modelo.", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.WARNING_MESSAGE);
+            if (r==JOptionPane.YES_OPTION) {
+                if(this.getCoordinador().maquinaModeloEliminar(vo)){
+                    this.getCoordinador().huboUnCambioEnTabla(MaquinaModeloIT.NOMBRE_TABLA);
+                    this.getCoordinador().ejecutarOperacionesParaActualizar();
+                    this.limpiarTodo();
+                    JOptionPane.showMessageDialog(
+                            this, 
+                            "Se eliminó '"+vo.getModelo()+" "+vo.getAnio()+"' correctamente.");
+                }
+            }
+        }
     }//GEN-LAST:event_btnCancelar1ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
