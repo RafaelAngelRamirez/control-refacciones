@@ -293,7 +293,6 @@ public class PanelRefaccionAgregar extends JPanel {
     public void cargarListaProveedor(){
         List<ProveedorVo> lista = this.coordinador.proveedoresConsultarMarcas();
         HashMap<String, Integer> datos= new HashMap<>();
-        JOptionPane.showMessageDialog(null, _ListaProveedor);
         _ListaProveedor.limpiar();
         for (ProveedorVo vo : lista) {
             datos.put(vo.getEmpresa(), vo.getId());

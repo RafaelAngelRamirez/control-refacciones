@@ -186,7 +186,6 @@ public class ProveedorDao extends DAOGenerales{
                 +" WHERE " +
                 it.getIdPDC().getNombre() + " = ?";
         
-        JOptionPane.showMessageDialog(null, vo.getId());
                 
         return conexion.executeUpdate(sql, vo.getId()+"");
     }

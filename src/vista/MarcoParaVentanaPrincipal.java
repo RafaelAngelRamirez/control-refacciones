@@ -66,11 +66,17 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     private ScrollPane contenedorParaPaneles;
     //EL JPANEL ACTUAL. NOS AYUDARA A CAMBIAR DE PANELES. TIENEN SUS SET Y GETS
     private MenuConstructor jPanelActual;
-//    private JPanel jPanelActual;
     //El ménu para agregar las acciones. 
     private Menu menu;
     // LA BARRA DE TITULO DE LA VENTANA CON EL FONDO DE COLOR (DEPENDE DE CUAL)
     private BarraTitulo barraTitulo;
+    
+    
+    //ACCION DE BOTON DE INICIO.
+    // ESTE BOTON DEFINE LA ACCIÓN DE LA IMAGEN DE INICIO QUE SE
+    // QUIERE REALIZAR AL HACER UN CLICK.
+    private Runnable accionMenuInicio;
+    
     
     
     
@@ -199,6 +205,23 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         URL imageURL;
         imageURL = this.getClass().getResource("imagenes/iconos_icono_principal.png");
         JLabel iconoEtiquetaPrincipal = new JLabel(new ImageIcon(imageURL));
+        /**
+         ASIGNAMOS LA ACCIÓN DE EJECUCIÓN DEL ICONO DE LA BARRA. 
+         */
+        this.accionMenuInicio = ()->this.getCoordinador().refaccionAbrirPanelConsultaRefacciones();
+        iconoEtiquetaPrincipal.addMouseListener(new MouseAdapter() {
+            
+            Runnable r;
+            public MouseAdapter parametros(Runnable r){
+                this.r = r;
+                return this;
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                this.r.run();
+                System.out.println("[+] Ejecutando accion de menú inicio.");
+            }
+        }.parametros(this.accionMenuInicio));
         
         /**
          CREAMOS EL PANEL QUE CONTIENE EL RELOJ, LA FECH Y LOS BOTONES DE INTERACCIÓN

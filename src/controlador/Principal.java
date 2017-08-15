@@ -61,14 +61,14 @@ public class Principal {
         */
         final boolean ESTADO_DE_DEBUG = true;
         
-        //VENTANAS SECUNDARIAS
+//        //VENTANAS SECUNDARIAS
         ConsolaDeErrores consolaDeErrores = new ConsolaDeErrores();
         consolaDeErrores.setVisible(ESTADO_DE_DEBUG);
         //RECURSOS VARIOS
         CapturaDeSucesos SystemOut_ = new CapturaDeSucesos(System.out);
         SystemOut_.setDebug(ESTADO_DE_DEBUG);
         SystemOut_.setConsolaDeErrores(consolaDeErrores);
-        System.setOut(SystemOut_);
+//        System.setOut(SystemOut_);
         
         
         

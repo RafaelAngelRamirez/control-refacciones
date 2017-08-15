@@ -622,7 +622,6 @@ public class DialogoProveedorRegistrar extends JDialog {
                        + "y asociar de nuevo la información modificandola directamente."
                        + "", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, idProveedor);
                 //ASOCIAMOS LS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN ALMACENADA. 
                 for (ImagenProveedorVo pVo : listapVo) {
                     pVo.setIdProveedor(idProveedor);

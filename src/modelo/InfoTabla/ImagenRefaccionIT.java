@@ -79,12 +79,12 @@ public class ImagenRefaccionIT extends ITGenerales{
         this.nombreParaMostarPDC = nombreParaMostarPDC;
     }
     
-    public String subirImagen(File file){
-        JOptionPane.showMessageDialog(null, "pendiente subir imagenes.");
-        return "";
-                
-    }
-    
+//    public String subirImagen(File file){
+//        JOptionPane.showMessageDialog(null, "pendiente subir imagenes.");
+//        return "";
+//                
+//    }
+//    
     
     
 }
