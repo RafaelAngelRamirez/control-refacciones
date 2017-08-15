@@ -1,17 +1,30 @@
 
 package controlador;
 
-import vista.panelsYDialogosOptimizados.PanelAgregarRefaccion_;
-import vista.panelsYDialogosOptimizados.PanelConsultaRefacciones;
-import controlador.capturadeerrores.CapturaDeSucesos;
-import controlador.capturadeerrores.ConsolaDeErrores;
+import vista.panelsYDialogosOptimizados.PanelRefaccionAgregar;
+import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.ExcepcionPersonalizada;
+import modelo.InfoTabla.ImagenProveedorIT;
+import modelo.InfoTabla.ImagenRefaccionIT;
+import modelo.InfoTabla.MaquinaModeloIT;
+import modelo.InfoTabla.MaterialIT;
+import modelo.InfoTabla.PaisIT;
+import modelo.InfoTabla.ProveedorIT;
+import modelo.InfoTabla.RefaccionIT;
+import modelo.InfoTabla.UnidadIT;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
-import modelo.vo.ImagenVo;
+import modelo.vo.ImagenProveedorVo;
+import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
@@ -31,20 +44,24 @@ import vista.panelsYDialogosOptimizados.*;
 public class Coordinador {
     
     private MarcoParaVentanaPrincipal marcoParaVentanaPrincipal;
-    private ConsolaDeErrores consolaDeErrores;
-    private CapturaDeSucesos SystemOut;
-    private PanelConsultaRefacciones panelPrincipal;
-    private PanelAgregarRefaccion_ panelAgregarRefaccion;
-    private DialogoRegistrarProveedor_ dialogoRegistrarProveedor;
+//    private ConsolaDeErrores consolaDeErrores;
+//    private CapturaDeSucesos SystemOut;
     private Logica logica;
-    private DialogoAgregarMaquinaModelo_ dialogoAgregarMaquina_;
-    private DialogoDetalleRefaccion_ dialogoDetalleRefaccion_;
-    private DialogoDetalleImagen dialogoDetalleImagen;
-    private PanelModificarRefaccion panelModificarRefaccion;
+    
+    private PanelRefaccionesConsulta panelRefaccionConsulta;
+    private PanelRefaccionAgregar panelRefaccionAgregar;
+    private PanelRefaccionModificar panelRefaccionModificar;
+    
+    private DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar;
+    private DialogoRefaccionDetalle dialogoRefaccionDetalle;
+    private DialogoImagenRefaccionDetalle dialogoImagenDetalle;
+    private DialogoProveedorRegistrar dialogoProveedorRegistrar;
+    private DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar;
+    private DialogoProveedorModificar dialogoProveedorModificar;
     
     
-    public DialogoDetalleRefaccion_ getDialogoDetalleRefaccion_() {    
-        return dialogoDetalleRefaccion_;
+    public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
+        return dialogoRefaccionDetalle;
     }
     
     /*
@@ -53,31 +70,48 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
 
-    public PanelModificarRefaccion getPanelModificarRefaccion() {
-        return panelModificarRefaccion;
+    public DialogoProveedorModificar getDialogoProveedorModificar() {
+        return dialogoProveedorModificar;
     }
 
-    public void setPanelModificarRefaccion(PanelModificarRefaccion panelModificarRefaccion) {
-        this.panelModificarRefaccion = panelModificarRefaccion;
-    }
-    public DialogoDetalleImagen getDialogoDetalleImagen() {
-        return dialogoDetalleImagen;
+    public void setDialogoProveedorModificar(DialogoProveedorModificar dialogoProveedorModificar) {
+        this.dialogoProveedorModificar = dialogoProveedorModificar;
     }
 
-    public void setDialogoDetalleImagen(DialogoDetalleImagen dialogoDetalleImagen) {
-        this.dialogoDetalleImagen = dialogoDetalleImagen;
+    public DialogoMaquinaModeloModificar getDialogoMaquinaModeloModificar() {
+        return dialogoMaquinaModeloModificar;
+    }
+
+    public void setDialogoMaquinaModeloModificar(DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar) {
+        this.dialogoMaquinaModeloModificar = dialogoMaquinaModeloModificar;
     }
     
-    public void setDialogoDetalleRefaccion_(DialogoDetalleRefaccion_ dialogoDetalleRefaccion_) {
-        this.dialogoDetalleRefaccion_ = dialogoDetalleRefaccion_;
+    public PanelRefaccionModificar getPanelRefaccionModificar() {
+        return panelRefaccionModificar;
     }
 
-    public DialogoAgregarMaquinaModelo_ getDialogoAgregarMaquina_() {
-        return dialogoAgregarMaquina_;
+    public void setPanelRefaccionModificar(PanelRefaccionModificar panelRefaccionModificar) {
+        this.panelRefaccionModificar = panelRefaccionModificar;
+    }
+    
+    public DialogoImagenRefaccionDetalle getDialogoImagenDetalle() {
+        return dialogoImagenDetalle;
     }
 
-    public void setDialogoAgregarMaquina_(DialogoAgregarMaquinaModelo_ dialogoAgregarMaquina_) {
-        this.dialogoAgregarMaquina_ = dialogoAgregarMaquina_;
+    public void setDialogoImagenDetalle(DialogoImagenRefaccionDetalle dialogoImagenDetalle) {
+        this.dialogoImagenDetalle = dialogoImagenDetalle;
+    }
+    
+    public void setDialogoRefaccionDetalle(DialogoRefaccionDetalle dialogoRefaccionDetalle) {
+        this.dialogoRefaccionDetalle = dialogoRefaccionDetalle;
+    }
+
+    public DialogoMaquinaModeloAgregar getDialogoMaquinaModeloAgregar() {
+        return dialogoMaquinaModeloAgregar;
+    }
+
+    public void setDialogoMaquinaModeloAgregar(DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar) {
+        this.dialogoMaquinaModeloAgregar = dialogoMaquinaModeloAgregar;
     }
     
     public Logica getLogica() {
@@ -88,29 +122,29 @@ public class Coordinador {
         this.logica = logica;
     }
 
-    public DialogoRegistrarProveedor_ getDialogoRegistrarProveedor() {
-        return dialogoRegistrarProveedor;
+    public DialogoProveedorRegistrar getDialogoProveedorRegistrar() {
+        return dialogoProveedorRegistrar;
     }
 
-    public void setDialogoRegistrarProveedor(DialogoRegistrarProveedor_ dialogoRegistrarProveedor) {
-        this.dialogoRegistrarProveedor = dialogoRegistrarProveedor;
+    public void setDialogoProveedorRegistrar(DialogoProveedorRegistrar dialogoProveedorRegistrar) {
+        this.dialogoProveedorRegistrar = dialogoProveedorRegistrar;
     }
     
-    public PanelAgregarRefaccion_ getPanelAgregarRefaccion() {
+    public PanelRefaccionAgregar getPanelRefaccionAgregar() {
        
-        return panelAgregarRefaccion;
+        return panelRefaccionAgregar;
     }
 
-    public void setPanelAgregarRefaccion(PanelAgregarRefaccion_ panelAgregarRefaccion) {
-        this.panelAgregarRefaccion = panelAgregarRefaccion;
+    public void setPanelRefaccionAgregar(PanelRefaccionAgregar panelRefaccionAgregar) {
+        this.panelRefaccionAgregar = panelRefaccionAgregar;
     }
     
-    public PanelConsultaRefacciones getPanelConsultaRefacciones() {
-        return panelPrincipal;
+    public PanelRefaccionesConsulta getPanelConsultaRefacciones() {
+        return panelRefaccionConsulta;
     }
 
-    public void setPanelPrincipal(PanelConsultaRefacciones panelPrincipal) {
-        this.panelPrincipal = panelPrincipal;
+    public void setPanelRefaccionConsulta(PanelRefaccionesConsulta panelRefaccionConsulta) {
+        this.panelRefaccionConsulta = panelRefaccionConsulta;
     }
     
     public MarcoParaVentanaPrincipal getMarcoParaVentanaPrincipal() {
@@ -120,57 +154,10 @@ public class Coordinador {
     public void setMarcoParaVentanaPrincipal(MarcoParaVentanaPrincipal marcoParaVentanaPrincipal) {
         this.marcoParaVentanaPrincipal = marcoParaVentanaPrincipal;
     }
-    
-    public ConsolaDeErrores getConsolaDeErrores() {
-        return consolaDeErrores;
-    }
-
-    public void setConsolaDeErrores(ConsolaDeErrores consolaDeErrores) {
-        this.consolaDeErrores = consolaDeErrores;
-    }
-
-    public CapturaDeSucesos getSystemOut() {
-        return SystemOut;
-    }
-
-    public void setSystemOut(CapturaDeSucesos SystemOut) {
-        this.SystemOut = SystemOut;
-    }
-    
-    
 
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN GETS AND SETS
-    ========================================================================
-    */
-    
-    
-     /* 
-    ========================================================================
-       CONSOLA DE DEBUG
-    ////////////////////////////////////////////////////////////////////////
-    */
-    
-    /**
-    * Inicializa la consola de debugueo.
-     * @param debug True si se quiere mostrar la consola de debug. 
-    */
-    public void inicializarConsola(boolean debug){
-       // this.debugueoActivo = debug;
-        if (debug) {
-            this.getSystemOut().setDebug(debug);
-            this.getConsolaDeErrores().setTitle("Consola de debugueo.");
-            this.getConsolaDeErrores().getTxtAreaConsola().setEditable(false);
-            String mensajeDeConsola = "[!] MODO DEBUG ACTIVADO \n"
-                    + "[!] PARA DESACTIVAR ESTA CONSOLA MODIFCA LA CLASE CONTROLADOR.|\n";
-            this.getConsolaDeErrores().getTxtAreaConsola().setText(mensajeDeConsola);
-            this.getConsolaDeErrores().setVisible(true);
-        }        
-    }
-    /* 
-    ////////////////////////////////////////////////////////////////////////
-        FIN CONSOLA DE DEBUG
     ========================================================================
     */
     
@@ -183,13 +170,13 @@ public class Coordinador {
     
     //INTERFAZ
     /**
-     * Abre el dialogo para guardar una nueva refacción.
+     * Abre el dialogo para guardar un nuevo proveedor.
      */
     public void proveedorAbrirDialogoGuardarNuevo(){
         //ES NECESARIO LANZAR EL PROCEDIMIENTO DE CONFIGURACIÓN AQUI
         // PARA QUE LAS INSTANCIAS QUE REQUIEREN SE SETEAN POR COMPLETO.
-        this.getDialogoRegistrarProveedor().configurar();
-        this.getDialogoRegistrarProveedor().setVisible(true);
+        this.getDialogoProveedorRegistrar().configurar();
+        this.getDialogoProveedorRegistrar().setVisible(true);
     }
     
     /**
@@ -198,10 +185,28 @@ public class Coordinador {
      * @param nuevoElemento El elemento que se quire escribir en el dialogo. 
      */
     public void proveedoresAbrirDialogo(String nuevoElemento){
-        this.getDialogoRegistrarProveedor().configurar();
-        this.getDialogoRegistrarProveedor().setProveedorPrecargado(nuevoElemento);
-        this.getDialogoRegistrarProveedor().setVisible(true);
+        this.getDialogoProveedorRegistrar().configurar();
+        this.getDialogoProveedorRegistrar().setProveedorPrecargado(nuevoElemento);
+        this.getDialogoProveedorRegistrar().setVisible(true);
     }
+    
+    public void proveedoresAbrirDialogoModificar(){
+        this.getDialogoProveedorModificar().configurar();
+        this.getDialogoProveedorModificar().setVisible(true);
+    }
+    
+    public void proveedorDialogoModificarActualizarPais(){
+        this.getDialogoProveedorModificar().cargarComboPaises();
+    }
+    public void proveedorDialogoModificarActualizarListaProveedores(){
+        this.getDialogoProveedorModificar().cargarListaProveedores();
+    }
+    
+    public void proveedorDialogoModificarActualizarImagenes(){
+        this.getDialogoProveedorModificar().cargarImagenes();
+    }
+    
+    
     
     //VALIDACIONES
     /**
@@ -222,8 +227,17 @@ public class Coordinador {
     public void proveedorGuardar(ProveedorVo vo){
         this.logica.proveedorGuardar(vo);
     }
-    public void proveedorActualizarLista(){
-        this.getPanelAgregarRefaccion().cargarListaProveedor();
+    
+    public boolean proveedorModificar(ProveedorVo vo){
+        return this.logica.proveedorModificar(vo);
+    }
+    
+    public boolean proveedorEliminar(ProveedorVo vo){
+        return this.logica.proveedorEliminar(vo);
+    }
+    
+    public int proveedorConsultarUltimoId(){
+        return this.logica.proveedorConsultarUltimoId();
     }
     
     /**
@@ -247,6 +261,10 @@ public class Coordinador {
         return this.logica.proveedorConsultarMarcas(id);
     }
     
+    public ProveedorVo proveedorConsultar(int id){
+        return this.logica.proveedorConsultar(id);
+    }
+    
     /**
      * Revisa si proveedorExiste un proveedor en la base de datos. 
      * @param proveedor El nombre del proveedor.
@@ -258,8 +276,12 @@ public class Coordinador {
     
     //VALIDACIONES 
     public List<Validacion> proveedorValidarCampos(ProveedorVo Vo){
-        return this.logica.proveedorValidarCampos(Vo);
+        return this.logica.proveedorValidarCampos(Vo, false);
     
+    }
+    
+    public List<Validacion> proveedorValidarCampos(ProveedorVo vo, boolean validandoUpdate){
+        return this.logica.proveedorValidarCampos(vo, validandoUpdate);
     }
     /* 
     ////////////////////////////////////////////////////////////////////////
@@ -302,10 +324,15 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    public void maquinaModeloAbrirDialogo(){
-        getDialogoAgregarMaquina_().configurar();
-        getDialogoAgregarMaquina_().setVisible(true);
+    public void maquinaModeloAbrirDialogoAgregar(){
+        getDialogoMaquinaModeloAgregar().configurar();
+        getDialogoMaquinaModeloAgregar().setVisible(true);
     
+    }
+    
+    public void maquinaModeloAbrirDialogoModificar(){
+        getDialogoMaquinaModeloModificar().configurar();
+        getDialogoMaquinaModeloModificar().setVisible(true);
     }
     
     public List<Validacion> maquinaModeloValidarCampos(MaquinaModeloVo vo){
@@ -313,17 +340,39 @@ public class Coordinador {
     
     }
     
-    public void maquinaModeloGuardar(MaquinaModeloVo vo){
-        this.logica.maquinaModeloGuardar(vo);
-    
+    public boolean maquinaModeloGuardar(MaquinaModeloVo vo){
+        return this.logica.maquinaModeloGuardar(vo);
     }
     
-    public void maquinaModeloActualizarLista(){
-        this.getPanelAgregarRefaccion().cargarListaMaquinaModelo();
+    public boolean maquinaModeloModificar(MaquinaModeloVo vo){
+        return this.logica.maquinaModeloModificar(vo);
+    }
+    
+    public boolean maquinaModeloEliminar(MaquinaModeloVo vo){
+        return this.logica.maquinaModeloEliminar(vo);
+    }
+    
+    //ACTUALIZAR
+    public void maquinaModeloActualizarDialogoModificar(){
+        this.getDialogoMaquinaModeloModificar().cargarCombosYListas();
+    }
+    
+    public void maquinaModeloActualizarDialogoAgregar(){
+        this.getDialogoMaquinaModeloAgregar().consultarProveedores();
     }
     
     public List<MaquinaModeloVo> maquinaModeloConsultar(){
         return this.logica.maquinaModeloConsultarModeloAnio();
+    
+    }
+    
+    /**
+     * Busca el objeto que conicida con el id que se le pase como parametro.
+     * @param id - El id que se quiere consultar. 
+     * @return El objeto que coincide con el id. 
+     */
+    public MaquinaModeloVo maquinaModeloConsultarUno(int id){
+        return this.logica.maquinaModeloConsultarUno(id);
     
     }
     
@@ -450,7 +499,7 @@ public class Coordinador {
                     // SI refaccionesPorModificarId NO ESTA VACIO ENTONCES
                     //ABRIMOS EL PANEL, LE PASAMOS EL ID A MODIFICAR Y QUITAMOS
                     // DE LA FILA ESE ID. 
-                    this.getPanelModificarRefaccion().configurar(
+                    this.getPanelRefaccionModificar().configurar(
                             refaccionesPorModificarId.pop(),
                             refaccionesPorModificarId.size()
                     );
@@ -496,32 +545,43 @@ public class Coordinador {
     public void refaccionAbrirPanelModificar(int idRefaccion){
         this.getMarcoParaVentanaPrincipal()
                 .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION);
-        this.getPanelModificarRefaccion().configurar(idRefaccion, 0);
+        this.getPanelRefaccionModificar().configurar(idRefaccion, 0);
     }
     
     public void refaccionAbrirPanelConsultaRefacciones(){
         this.getMarcoParaVentanaPrincipal()
-                .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_INICIO);
+                .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES);
         
     }
     
     //DETALLE DE REFACCIONES
     public void refaccionAbrirDetalleRefaccion(String id){
-        this.getDialogoDetalleRefaccion_().configurar(id);
-        this.getDialogoDetalleRefaccion_().setVisible(true);
+        this.getDialogoRefaccionDetalle().configurar(id);
+        this.getDialogoRefaccionDetalle().setVisible(true);
+    }
+    
+    public void refaccionAbrirDetalleRefaccion(){
+        int a = this.getPanelConsultaRefacciones().getIdSeleccionado();
+        if (a==-1) {
+            JOptionPane.showMessageDialog(null, "Selecciona un elemento de la \n"
+                    + "tabla para mostrarlo.");
+ 
+        }else{
+            refaccionAbrirDetalleRefaccion(a+"");
+        }
     }
     
     //DETALLE DE IMAGENES
     
     public void refaccionAbrirDetalleImagen(){
-        this.getDialogoDetalleImagen().setVisible(true);
-        this.getDialogoDetalleImagen().configurar();
+        this.getDialogoImagenDetalle().setVisible(true);
+        this.getDialogoImagenDetalle().configurar();
     
     }
     
-    public void refaccionMostrarDetalleActualizarImagenes(int id){
-        this.getDialogoDetalleRefaccion_().cargarImagenes(id);
-        this.getDialogoDetalleImagen().cargarImagenes();
+    public void refaccionMostrarDetalleActualizarImagenes(){
+        this.getDialogoRefaccionDetalle().cargarImagenes();
+        this.getDialogoImagenDetalle().cargarImagenes();
     }
     
     //GUARDAR DATOS
@@ -551,16 +611,28 @@ public class Coordinador {
         return this.logica.refaccionConsultarTodoBusqueda(buscar);
     }
     
-    public void refaccionActualizarPanerlConsultaRefacciones(){
+   
+    
+    //ACTUALIZAR 
+    
+    public void refaccionActualizarPanelConsultaRefacciones(){
         this.getPanelConsultaRefacciones().cargarRefaccionesInicio();
+    }
+    
+    public void refaccionActualizarPanelAgregarRefaccion(){
+        this.getPanelRefaccionAgregar().cargarListasYCombos();
+    }
+    
+    public void refaccionActualizarPanelModificar(){
+        this.getPanelRefaccionModificar().cargarListasYCombos();
     }
     
     /**
      * Retorna la lista de imágenes consultadas en DialogoDetalleRefaccion.
      * @return  Las imágenes ya cargadas en otro dialogo.
      */ 
-    public List<ImagenVo> refaccionListaDeImagenesDetalles(){
-        return this.getDialogoDetalleRefaccion_().getListaImagenesRefaccion();
+    public List<ImagenRefaccionVo> refaccionListaDeImagenesDetalles(){
+        return this.getDialogoRefaccionDetalle().getListaImagenesRefaccion();
     }
     
     //MODIFICAR DATOS.
@@ -574,28 +646,51 @@ public class Coordinador {
     */
     /* 
     ========================================================================
-       INICIO DE IMAGEN
+       INICIO DE IMAGENREFACCION
     ////////////////////////////////////////////////////////////////////////
     */
     //IMAGENES
-    public String imagenGuardarLista(List<ImagenVo> vo){
-        return this.logica.imagenGuardarLista(vo);
+    public String imagenRefaccionGuardarLista(List<ImagenRefaccionVo> vo){
+        return this.logica.imagenRefaccionGuardarLista(vo);
     }
     
-    public List<ImagenVo> imagenConsultar(int id){
-        return this.logica.imagenConsultar(id);
+    public List<ImagenRefaccionVo> imagenRefaccionConsultar(int id){
+        return this.logica.imagenRefaccionConsultar(id);
     }
     
-    public void imagenEliminar(ImagenVo vo){
-        this.logica.imagenEliminar(vo);
+    public void imagenRefaccionEliminar(ImagenRefaccionVo vo){
+        this.logica.imagenRefaccionEliminar(vo);
     }
     
     /* 
     ////////////////////////////////////////////////////////////////////////
-        FIN DE IMAGEN
+        FIN DE IMAGENREFACCION
     ========================================================================
     */
     
+    /* 
+    ========================================================================
+       INICIO DE IMAGENPROVEEDOR
+    ////////////////////////////////////////////////////////////////////////
+    */
+    //IMAGENES
+    public String imagenProveedorGuardarLista(List<ImagenProveedorVo> vo){
+        return this.logica.imagenProveedorGuardarLista(vo);
+    }
+    
+    public List<ImagenProveedorVo> imagenProveedorConsultar(int id){
+        return this.logica.imagenProveedorConsultar(id);
+    }
+    
+    public void imagenProveedorEliminar(ImagenProveedorVo vo){
+        this.logica.imagenProveedorEliminar(vo);
+    }
+    
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE IMAGENPROVEEDOR
+    ========================================================================
+    */
    
     
     /* 
@@ -647,12 +742,239 @@ public class Coordinador {
         this.logica.relacionRefaccionProveedorModificarLista(listaVo);
     }
     
+    
+    
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE RELACION REFACCION PROVEEDOR
     ========================================================================
     */
     
+    
+    
+    /* 
+    ========================================================================
+       INICIO DE ACTUALIZACIONES DE TABLA
+    ////////////////////////////////////////////////////////////////////////
+    */
+    
+    private List<OperacionesPorActualizar> listaOperacionesPorActualizar = new ArrayList<>();
+    
+    
+    
+    /**
+     * Agrega un elemento que contiene operaciones para actualizar elementos que
+     * dependen de una tabla y que se puede modificar desde cualquier parte del sistema.
+     * @param op El objeto que contiene las especificaciones
+     * para ejecutar la actualización de operaciones. 
+     * @see OperacionesPorActualizar
+     * 
+     */
+    public void addListaOperacionesPorActualizar(OperacionesPorActualizar op) {
+        this.listaOperacionesPorActualizar.add(op);
+    }
+
+    /**
+     * Ejecuta las operaciones para actualizar contenidas en los objetos 
+     * OperacionesPorActualizar que esten actualmente mostrandose y los señala
+     * como actualizados. Si hay algún cambio entontonces se debe modificar
+     * el objeto directamente en la operacion setActualizado a false.
+     */
+    public void ejecutarOperacionesParaActualizar(){
+//        JOptionPane.showMessageDialog(null, "ejecutar operaciones de actualizacion!!!!!");
+        for (OperacionesPorActualizar listaOp : listaOperacionesPorActualizar) {
+            if (!listaOp.isActualizado()) {
+                if (listaOp.getPanel().getThisPanel()!=null) {
+                    if (listaOp.getPanel().getThisPanel().isShowing()) {
+//                        JOptionPane.showMessageDialog(null, "actualizando panel por que esta visible->"+listaOp.getPanel().getNombre());
+                        listaOp.actualizar();
+                    }
+                }else{
+                    if (listaOp.getPanel().getThisDialog().isShowing()) {
+//                        JOptionPane.showMessageDialog(null, "actualizando dialogo por que esta visible->"+listaOp.getPanel().getNombre());
+                        listaOp.actualizar();
+                    }                     
+                }
+            }
+        }
+    }
+
+    
+    /**
+     * Ejecuta las operaciones para actualizar contenidas en los objetos 
+     * OperacionesPorActualizar que esten actualmente mostrandose y los señala
+     * como actualizados. Si hay algún cambio entontonces se debe modificar
+     * el objeto directamente en la operacion setActualizado a false.
+     * @param nombreDeLaTabla Esta función recive el nombre de la tabla que se modifico 
+     * para setearla en la lista de actualizaciones. Con esta función no es necesario 
+     * llamar a {@link huboUnCambioEnTabla(String nombreDeLaTabla)} 
+     */
+    public void ejecutarOperacionesParaActualizar(String nombreDeLaTabla){
+        huboUnCambioEnTabla(nombreDeLaTabla);
+        ejecutarOperacionesParaActualizar();
+    }
+    
+    /**
+     * Esta función recive el nombre de la tabla que se modifico para setearla
+     * en la lista de actualizaciones despues {@see ejecutarOperacionesParaActualizar()}
+     * se tiene que llamar para que se actualize lo que este visible. 
+     * @param nombreDeLaTabla
+     */
+    public void huboUnCambioEnTabla(String nombreDeLaTabla){
+        //ESTE MAPA LO UTILIZAMOS PARA GUARDAR LOS PANELES QUE FUERON MODIFICADOS
+        // Y QUE SE TIENEN QUE GUARDAR. 
+        HashMap<String, Boolean> mapa = new HashMap<>();
+        
+        //EN CON ESTE SWITCH RECIVMOS LAS TABLAS MODIFICADAS Y SETEAMOS 
+        // EN EL MAPA LOS COMPONENTES QUE DEBEN DE ACTUALIZARSE PARA QUE 
+        // QUEDEN ACTUALIZADOS.
+        switch(nombreDeLaTabla){
+            case RefaccionIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
+                break;
+            case ProveedorIT.NOMBRE_TABLA:    
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_MODIFICAR, false);
+                break;
+            case MaquinaModeloIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_MODIFICAR, false);
+                break;
+            case MaterialIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+                break;
+            case UnidadIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+                break;
+            case ImagenRefaccionIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_IMAGEN_DETALLE, false);
+                break;
+            case PaisIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
+                break;
+            case ImagenProveedorIT.NOMBRE_TABLA:
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
+                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_MODIFICAR, false);
+                break;
+            default:
+                        try {
+                            throw new ExcepcionPersonalizada("Parece que la tabla que quieres actualizar no ha "
+                                    + "\nsido definida dentro de la funcion 'huboUnCambioEnTabla()'. FALTA AGREGAR ESTA TABLA:->   "+nombreDeLaTabla, this, "huboUnCambioEnTabla()");
+                        } catch (ExcepcionPersonalizada ex) {
+                            Logger.getLogger(Coordinador.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                break;
+        }
+        for (Map.Entry<String, Boolean> d : mapa.entrySet()) {
+            //RECORREMOS TODOS LOS PANELES QUE SETEAMOS EN EL MAPA Y EXTRAEMOS
+            // LOS DATOS.
+            String nombre = d.getKey();
+            Boolean actualizado = d.getValue();
+            for (OperacionesPorActualizar lop : listaOperacionesPorActualizar) {
+                //RECORREMOS TODOS LOS PANELES Y DIALOGOS QUE HAY Y LOS COMPARAMOS
+                //CONTRA EL MAPA. LAS COINCIDENCIAS LAS MODIFICAMOS PARA QUE EN 
+                // ejecutarOperacionesParaActualizar SE EJECUTEN LAS DEBIDAS OPERACIONES
+                // DE ACTUALIZACIÓN.
+                if (lop.getPanel().getNombre().equals(nombre)) {
+                    lop.setActualizado(actualizado);
+                }
+            }
+        }
+    }
+    
+    public class OperacionesPorActualizar{
+        private MarcoParaVentanaPrincipal.MenuConstructor panel;
+        private List<Runnable> operacionesParaActualizar;
+        private boolean actualizado;
+
+        public OperacionesPorActualizar() {
+            this.actualizado = true;
+            this.operacionesParaActualizar = new ArrayList<>();
+        }
+        /**
+         * Almacena las operaciones de actualización que se ejecutaran cada vez
+         * que el panel actual coincida con el definido dentro de este elemento.
+         * 
+         * @param operacion La operaciones que se quieren ir agregando para ejecutarse. 
+         */
+        public void addOperacionParaActualizar(Runnable operacion){
+            operacionesParaActualizar.add(operacion);
+        }
+
+        /**
+         * Lista de operaciones definidas para actualizar en el panel. 
+         * @return Las operaciones definidas para ejecutar. 
+         */
+        public List<Runnable> getOperacionesParaActualizar() {
+            return operacionesParaActualizar;
+        }
+        
+        /**
+         * El panel en objeto tipo MenuConstructor que se quiere comparar. 
+         * @return El panel guardado.
+         * @see Menuconstructor
+         */
+        public MarcoParaVentanaPrincipal.MenuConstructor getPanel() {
+            return panel;
+        }
+
+        /**
+         * Añade el menuConstructor que contiene el Jpanel para compararlo
+         * con el que se esta visualizando. 
+         * @param panel El MenuConstructor 
+         */
+        public void setPanel(MarcoParaVentanaPrincipal.MenuConstructor panel) {
+            this.panel = panel;
+        }
+
+        /**
+         * Independientemente de las cantidad de operaciones definidas para 
+         * actualizar esta función retorna true si ejecutaron todas las operaciones
+         * de actualización y retorna false cuando es necesario ejecutar las 
+         * operaciones. 
+         * @return Devuelve true si se ejecutaron todas las operaciones de actualización.
+         * 
+         */
+        public boolean isActualizado() {
+            return actualizado;
+        }
+        
+        /**
+         * Ejecuta las operaciones de actualzacion definidas en {@see addOperacionParaActualizar() } 
+         * y cambia el estado de {@see isActualizado()} a false;
+         */
+        public void actualizar(){
+            for (Runnable runnable : operacionesParaActualizar) {
+                //JOptionPane.showMessageDialog(null, "ejecutando accion de actualizacion en clase: " + this.panel.getNombre());
+                runnable.run();
+            }
+            setActualizado(false);
+        }
+
+        /**
+         * Despues de que se ejecutan las operaciones en {@see: getOperacionesParaActualizar()}
+         * 
+         * @param actualizado
+         */
+        public void setActualizado(boolean actualizado) {
+            this.actualizado = actualizado;
+        }
+    }
+    
+    
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE ACTUALIZACIONES DE TABLA
+    ========================================================================
+    */
     
     
     /* 

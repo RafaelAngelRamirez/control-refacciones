@@ -7,12 +7,14 @@ package modelo;
  */
 
 import controlador.*;
+import controlador.capturadeerrores.CapturaDeSucesos;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import controlador.capturadeerrores.Suceso;
 
 /**
  * Gestión de las conexiones a la base de datos.
@@ -38,7 +40,7 @@ public class Conexion {
         this.controlador = controlador;
         //this.capturaDeSuscesos = new CapturaDeSucesos(this.controlador);
         //this.capturaDeSuscesos.println("[+] CONECTANDO A LA BASE DE DATOS.");
-        this.controlador.getSystemOut().println("[+] CONECTANDO A LA BASE DE DATOS.");
+        System.out.println("[+] CONECTANDO A LA BASE DE DATOS.");
         this.exitosa = Miconexion();
     }
 
@@ -51,8 +53,8 @@ public class Conexion {
                     +ConexionDatos.BD,
                     ConexionDatos.USUARIO_SERVIDOR,
                     ConexionDatos.CONTRASENA_SERVIDOR);
-            this.controlador.getSystemOut().println("[+] CONEXIÓN EXITOSA: "+ConexionDatos.URL_SERVIDOR );
-              return true;    
+            System.out.println("[+] CONEXIÓN EXITOSA: "+ConexionDatos.URL_SERVIDOR );
+            return true;    
         } 
         catch(ClassNotFoundException | SQLException e){
             
@@ -102,7 +104,11 @@ public class Conexion {
      * 
      */
     public ResultSet executeQuery (String sql, HashMap<Integer, String> datos){
-        this.controlador.getSystemOut().println("[SQL] EJECUTANDO QUERY", this);
+        Suceso s = new Suceso();
+        s.setClase(this);
+        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+        s.setTextoAMostrar("[SQL] EJECUTANDO QUERY");
+        System.out.println(s);
         return this.ejecutarSentencia(sql, datos, true);
     }
     
@@ -134,7 +140,11 @@ public class Conexion {
      * 
      */
     public boolean executeUpdate(String sql, HashMap<Integer, String> datos){
-        this.controlador.getSystemOut().println("[SQL] EJECUTANDO UPDATE", this);
+        Suceso s = new Suceso();
+        s.setClase(this);
+        s.setTextoAMostrar("[SQL] EJECUTANDO UPDATE");
+        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+        System.out.println(s);
         this.ejecutarSentencia(sql, datos, false);
         return queryExitoso;
     }
@@ -160,7 +170,11 @@ public class Conexion {
      * 
      */
     public boolean executeUpdate(String sql, String datos){
-        this.controlador.getSystemOut().println("[SQL] EJECUTANDO UPDATE", this);
+        Suceso s = new Suceso();
+        s.setClase(this);
+        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+        s.setTextoAMostrar("[SQL] EJECUTANDO UPDATE");
+        System.out.println(s);
         HashMap<Integer, String> map = new HashMap<>();
         map.put(1, datos);
         this.executeUpdate(sql, map);
@@ -235,8 +249,13 @@ public class Conexion {
                 preparedStatement.executeUpdate();
             }
             String sqlMostrar = preparedStatement.toString().split(":")[1];
-            this.controlador.getSystemOut().println(
-                    "[SQL]" + sqlMostrar, this);
+            
+            Suceso s = new Suceso();
+            s.setClase(this);
+            s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+            s.setTextoAMostrar("[SQL]" + sqlMostrar);
+            System.out.println(s);
+            
             this.queryExitoso = true;
         } catch (SQLException ex) {
             System.out.println("ERROR ->" + preparedStatement.toString());
@@ -246,8 +265,6 @@ public class Conexion {
         }
         return rs;
     }
-    
-    
     
     
     /**

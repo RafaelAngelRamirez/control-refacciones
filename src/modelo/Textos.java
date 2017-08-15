@@ -57,16 +57,32 @@ public class Textos {
         ls.add("/");
         ls.add("*");
         ls.add(".");
+        ls.add("'");
+        ls.add("\\");
+        ls.add("(");
+        ls.add(")");
+        ls.add("`");
+        ls.add("$");
+        ls.add("^");
+        ls.add("?");
+        ls.add("[");
+        ls.add("{");
+            
         String[] arreglo = texto.split("");
         for (int i = 0; i < arreglo.length; i++) {
             for (String simbolo : ls) {
                 if (simbolo.equals(arreglo[i])) {
-                    System.out.println("sustitucion:" + simbolo);
+                    System.out.println(
+                              " ------------------------\n"
+                            + " [REGEXP]sustitucion:" + simbolo+"\n"
+                            + " ------------------------");
                     arreglo[i] = "\\\\"+arreglo[i];
                     break;
                 }
             }
-        }       
-        return String.join("", arreglo);
+        }
+        String a = String.join("", arreglo);
+        System.out.println("[REGEXP]-> "+a);
+        return a;
     }
 }

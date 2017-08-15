@@ -17,7 +17,6 @@ public class ConexionDatos {
      * Dirección del servidor de datos e imagenes. 
      */
     public static final String URL_SERVIDOR = "127.0.0.1/";
-    
     /**
      *La ruta donde se alojaran las imagenes.  
      */
@@ -34,12 +33,10 @@ public class ConexionDatos {
      *El fichero php que recivira las imagenes. 
      */
     public static final String SUBIDA_IMAGEN = PROTOCOLO + URL_SERVIDOR+"$u63_4rc8iv0.php";
-    
     /**
      *El fichero php que elimina la imagen en el servidor. 
      */
     public static final String ELIMINAR_IMAGEN = PROTOCOLO + URL_SERVIDOR+"3l1m1n4r.php";
-    
     /**
      *Ruta para acceder a las imagenes en el servidor.
      */

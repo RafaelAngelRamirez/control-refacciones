@@ -18,7 +18,7 @@ import modelo.vo.*;
  *
  * @author Particular
  */
-public class RelacionRefaccionProveedorDao extends DAOGenerales_{
+public class RelacionRefaccionProveedorDao extends DAOGenerales{
    
     RelacionRefaccionProveedorIT it;
     public RelacionRefaccionProveedorDao(Coordinador coordinador) {

@@ -1,6 +1,7 @@
 
 package vista.utilidadesOptimizadas;
 
+import controlador.capturadeerrores.Suceso;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;
@@ -153,7 +154,11 @@ public class UtilidadesTabla_ extends OperacionesBasicasPorDefinir_{
     public void setTableModel( UtilidadesModeloDeTabla_ tableModel) {
         this.tableModel = tableModel;
         this.tabla.setModel(tableModel);
-        this.coordinador.getSystemOut().println("[!]Tabla cargada con éxito", this);
+        
+        Suceso s = new Suceso();
+        s.setClase(this);
+        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+        s.setTextoAMostrar("[!]Tabla cargada con éxito");
         //TOMAMOS LAS COLUMNAS DEL MODELO Y DEFINIMOS SU TAMAÑO.
         TableColumnModel columnModel = this.tabla.getColumnModel();
 
@@ -211,12 +216,13 @@ public class UtilidadesTabla_ extends OperacionesBasicasPorDefinir_{
      * Recupera el dato de la columna donde se le de doble click de la columna
      * que se especique como parametro.
      * @param columna La columna de la que se obtendra el dato.
-     * @return El dato que coincida.
+     * @return El dato que coincida o -1 si la tabla no esta seleccionada
      */
-    public String getDatoDeTabla(int columna){
-        
-        return getDatoDeTabla(tabla.getSelectedRow(),
-                columna);
+    public Object getDatoDeTabla(int columna){
+        if (tabla.getSelectedRow()==-1) {
+            return -1;
+        }
+        return getDatoDeTabla(tabla.getSelectedRow(),columna);
     }
     
     /**

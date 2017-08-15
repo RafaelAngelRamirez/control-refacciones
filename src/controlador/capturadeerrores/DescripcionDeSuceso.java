@@ -14,7 +14,6 @@ public class DescripcionDeSuceso {
     private String detallesDelError;
     private int tipoDeError;
     private String ubicacion;
-    public final TipoDeSucesoOErrores tipoDeSucesoOErrores = new TipoDeSucesoOErrores();
     private JFrame padreJFrame;
 
      /**

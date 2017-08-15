@@ -8,10 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.InfoTabla.ImagenIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
-import modelo.vo.ImagenVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 
@@ -19,7 +17,7 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
  *
  * @author Particular
  */
-public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
+public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
 
     RelacionRefaccionMaquinaModeloIT it;
   
@@ -113,11 +111,20 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales_{
         return lrrmm;
     }
     
-    
+    /**
+     * Modifica la lista que este relaciona con el idRefaccion que se le pase
+     * como parametro a todos los objetos RelacionRefaccionMaquinaModeloVo.
+     * Primero los elimina todos y luego los vuelve a guardar. 
+     * @param listaVo La lista nueva que se actualizara para la refacción.
+     * @return Devuelve verdadero si todo fue bien. 
+     * 
+     */
     public boolean modificar( List<RelacionRefaccionMaquinaModeloVo> listaVo){
         String sql = "DELETE FROM "+ RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
                 + " WHERE " + it.getIdRefaccionPDC().getNombre() + " =? ";
         conexion.executeUpdate(sql, listaVo.get(0).getIdRefaccion()+"");
         return this.guardarLista(listaVo);
     }
+    
+    
 }

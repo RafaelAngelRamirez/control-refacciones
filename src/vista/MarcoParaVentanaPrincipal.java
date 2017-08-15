@@ -26,6 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -50,6 +51,13 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     
     
     private Coordinador coordinador;
+    //LA ACCION DE ACTUALIZACION QUE SE EJECUTARA SIEMPRE ANTES DE ABRIR UN PANEL
+    // SIRVE PARA LOS MENUS E ITEMS QUE SE MODIFIQUEN FUERA DEL PANEL Y
+    // QUE ES NECESARIO RECARGAR PERO QUE EN EL MOMENTO NO SE PUEDE Y POR
+    // TANTO HAY QUE HACERLO CUANDO EL PANEL ESTE VISIBLE. 
+    // ESTA VARIABLE SOLO GUARDA LA OPERACION QUE SE TIENE QUE DEFINIR. 
+    // PARA DEFINIRLA HAY QUE USAR EL CONTROLADOR. 
+    private Runnable operacionActualizacion;
    
     
     //ESTE EL JSCROLL PANE QUE PERMITE QUE AL REDIMECIONAR EL JFRAME ESTE TENGA
@@ -58,21 +66,62 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     private ScrollPane contenedorParaPaneles;
     //EL JPANEL ACTUAL. NOS AYUDARA A CAMBIAR DE PANELES. TIENEN SUS SET Y GETS
     private MenuConstructor jPanelActual;
-//    private JPanel jPanelActual;
     //El ménu para agregar las acciones. 
     private Menu menu;
     // LA BARRA DE TITULO DE LA VENTANA CON EL FONDO DE COLOR (DEPENDE DE CUAL)
     private BarraTitulo barraTitulo;
     
     
+    //ACCION DE BOTON DE INICIO.
+    // ESTE BOTON DEFINE LA ACCIÓN DE LA IMAGEN DE INICIO QUE SE
+    // QUIERE REALIZAR AL HACER UN CLICK.
+    private Runnable accionMenuInicio;
+    
+    
+    
+    
 //        /*------------------------------------------------------------
-//            NOMBRAMOS LOS PANELES CON VARIABLES ESTATICAS
-//            PARA IDENTIFICARLOS Y LLAMARLOS POR FUERA. SOLO PANELES.
+//            NOMBRAMOS LOS PANELES Y DIALOGOS CON VARIABLES ESTATICAS
+//            PARA IDENTIFICARLOS Y LLAMARLOS POR FUERA. ESTE MISMO NOMBRE
+//            SE MUESTRA EN LOS MENUS.
 //        ------------------------------------------------------------*/
-    public static String PANEL_INICIO = "Inicio";
+    /**
+     * Nombre del panel principal donde se consultar las refacciones al 
+     * iniciar el sistema.
+     */
+    public static String PANEL_CONSULTAR_REFACCIONES = "Consultar refacciones";
+    /**
+     * Nombre del panel registro de refacciones.
+     */
     public static String PANEL_REGISTRAR_NUEVA_REFACCION = "Registrar nueva refacción";
+    /**
+     * Nombre del panel para modificar refacciones. 
+     */
     public static String PANEL_MODIFICAR_REFACCION = "Modificar refacción";
-
+    /**
+     * Dialogo Imagen detalle.
+     */
+    public static String DIALOGO_IMAGEN_DETALLE = "Detalle de imagen";
+    /**
+     * Nombre del dialogo Maquina modelo agregar
+     */
+    public static String DIALOGO_MAQUINA_MODELO_AGREGAR = "Registrar maquina-modelo";
+    /**
+     * Nombre del dialogo Maquina modelo modificar
+     */
+    public static String DIALOGO_MAQUINA_MODELO_MODIFICAR = "Modificar maquina-modelo";
+    /**
+     * Nombre del dialogo proveedor registrar.
+     */
+    public static String DIALOGO_PROVEEDOR_REGISTRAR = "Registrar proveedor";
+    /**
+     * Nombre del dialogo proveedor modificar.
+     */
+    public static String DIALOGO_PROVEEDOR_MODIFICAR = "Modificar proveedor";
+    /**
+     * Nombre del dialogo refaccion detalle.
+     */
+    public static String DIALOGO_REFACCION_DETALLE = "Detalle refacción";
     
     
    
@@ -156,6 +205,23 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         URL imageURL;
         imageURL = this.getClass().getResource("imagenes/iconos_icono_principal.png");
         JLabel iconoEtiquetaPrincipal = new JLabel(new ImageIcon(imageURL));
+        /**
+         ASIGNAMOS LA ACCIÓN DE EJECUCIÓN DEL ICONO DE LA BARRA. 
+         */
+        this.accionMenuInicio = ()->this.getCoordinador().refaccionAbrirPanelConsultaRefacciones();
+        iconoEtiquetaPrincipal.addMouseListener(new MouseAdapter() {
+            
+            Runnable r;
+            public MouseAdapter parametros(Runnable r){
+                this.r = r;
+                return this;
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                this.r.run();
+                System.out.println("[+] Ejecutando accion de menú inicio.");
+            }
+        }.parametros(this.accionMenuInicio));
         
         /**
          CREAMOS EL PANEL QUE CONTIENE EL RELOJ, LA FECH Y LOS BOTONES DE INTERACCIÓN
@@ -198,14 +264,14 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 //        MenuConstructor p1 = new MenuConstructor();
 //        p1.setItem();
 //        p1.setNombre("Agregar Empresa");
-//        p1.setThisPanel(this.coordinador.getFormulario());
+//        p1.setPanel(this.coordinador.getFormulario());
 //        p1.setImagen("imagenes/iconos_mas.png");
 //        p1.setPadre(mArchivo);
 //        
 //        MenuConstructor p2 = new MenuConstructor();
 //        p2.setItem();
 //        p2.setNombre("Ventana Roja");
-//        p2.setThisPanel(this.coordinador.getPanelPrimeraVentana());
+//        p2.setPanel(this.coordinador.getPanelPrimeraVentana());
 //        p2.setImagen("imagenes/iconos_palomita.png");
 //        p2.setPadre(mArchivo);
 //        
@@ -230,53 +296,219 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 //            NOMBRAMOS LOS PANELES CON VARIABLES ESTATICAS
 //            PARA IDENTIFICARLOS Y LLAMARLOS POR FUERA. SOLO PANELES.
 //        ------------------------------------------------------------*/
-            
-        MenuConstructor menuTareas = new MenuConstructor();
-        menuTareas.setMenu();
-        menuTareas.setNombre("Agregar/Registrar");
-        this.addItemOMenu(menuTareas);
+        
+        //LA OPERACION GENERAL DE ACTUALIZACION
+        operacionActualizacion = ()->this.getCoordinador().ejecutarOperacionesParaActualizar();
+        
+        /**
+         * /////////////////////////////////////////////////
+         *      CREAMOS LOS MENUS
+         * /////////////////////////////////////////////////
+         */
+        MenuConstructor menuConsultar = new MenuConstructor();
+        menuConsultar.setMenu();
+        menuConsultar.setNombre("Consultar");
+        this.addItemOMenu(menuConsultar);
+        
+        MenuConstructor menuAgregarRegistrar = new MenuConstructor();
+        menuAgregarRegistrar.setMenu();
+        menuAgregarRegistrar.setNombre("Agregar/Registrar");
+        this.addItemOMenu(menuAgregarRegistrar);
         
         MenuConstructor menuModificar = new MenuConstructor();
         menuModificar.setMenu();
         menuModificar.setNombre("Modificar");
         this.addItemOMenu(menuModificar);
         
-        MenuConstructor panelPrincipalGestionRefacciones = new MenuConstructor();
-        panelPrincipalGestionRefacciones.setItem();
-        panelPrincipalGestionRefacciones.setNombre(PANEL_INICIO);
-        panelPrincipalGestionRefacciones.setThisPanel(this.getCoordinador().getPanelConsultaRefacciones());
-        panelPrincipalGestionRefacciones.setPadre(menuTareas);
-        panelPrincipalGestionRefacciones.setAccionDeInicializacion(
+        
+        /**
+         * /////////////////////////////////////////////////
+         *      MENU CONSULTAR
+         * /////////////////////////////////////////////////
+         */
+        MenuConstructor panelConsultaRefacciones = new MenuConstructor();
+        panelConsultaRefacciones.setItem();
+        panelConsultaRefacciones.setNombre(PANEL_CONSULTAR_REFACCIONES);
+        panelConsultaRefacciones.setPanel(this.getCoordinador().getPanelConsultaRefacciones());
+        panelConsultaRefacciones.setPadre(menuConsultar);
+        panelConsultaRefacciones.setAccionDeInicializacion(
                 ()->this.getCoordinador().getPanelConsultaRefacciones().configurar());
+        this.addItemOMenu(panelConsultaRefacciones);
         
-        this.addItemOMenu(panelPrincipalGestionRefacciones);
         
+        Coordinador.OperacionesPorActualizar consultaRefaccionesOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        consultaRefaccionesOPA.setPanel(panelConsultaRefacciones);
+        consultaRefaccionesOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().refaccionActualizarPanelConsultaRefacciones());
+        this.getCoordinador().addListaOperacionesPorActualizar(consultaRefaccionesOPA);
+        
+        //-------------------------------
+        MenuConstructor dialogoRefaccionDetalle = new MenuConstructor();
+        dialogoRefaccionDetalle.setItem();
+        dialogoRefaccionDetalle.setNombre(DIALOGO_REFACCION_DETALLE);
+        dialogoRefaccionDetalle.setPadre(menuConsultar);
+        dialogoRefaccionDetalle.setAccionDelItem(
+                ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
+        dialogoRefaccionDetalle.setDialog(this.getCoordinador().getDialogoRefaccionDetalle());
+        this.addItemOMenu(dialogoRefaccionDetalle);
+        
+        Coordinador.OperacionesPorActualizar dialogoRefaccionDetalleOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        dialogoRefaccionDetalleOPA.setPanel(dialogoRefaccionDetalle);
+        dialogoRefaccionDetalleOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
+        this.getCoordinador().addListaOperacionesPorActualizar(dialogoRefaccionDetalleOPA);
+        
+        /**
+         * /////////////////////////////////////////////////
+         *      MENU AGREGAR-REGISTRAR
+         * /////////////////////////////////////////////////
+         */
         
         MenuConstructor registroRefacciones = new MenuConstructor();
         registroRefacciones.setItem();
         registroRefacciones.setNombre(PANEL_REGISTRAR_NUEVA_REFACCION);
-        registroRefacciones.setThisPanel(this.getCoordinador().getPanelAgregarRefaccion());
-        registroRefacciones.setPadre(menuTareas);
+        registroRefacciones.setPanel(this.getCoordinador().getPanelRefaccionAgregar());
+        registroRefacciones.setPadre(menuAgregarRegistrar);
         registroRefacciones.setAccionDeInicializacion(
-                ()->this.getCoordinador().getPanelAgregarRefaccion().configurar());
+                ()->this.getCoordinador().getPanelRefaccionAgregar().configurar());
         this.addItemOMenu(registroRefacciones);
         
+        Coordinador.OperacionesPorActualizar registroRefaccionesOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        registroRefaccionesOPA.setPanel(registroRefacciones);
+        registroRefaccionesOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().refaccionActualizarPanelAgregarRefaccion());
+        this.getCoordinador().addListaOperacionesPorActualizar(registroRefaccionesOPA);
         
-        MenuConstructor modificarRefacción = new MenuConstructor();
-        modificarRefacción.setItem();
-        modificarRefacción.setNombre(PANEL_MODIFICAR_REFACCION);
-        modificarRefacción.setThisPanel(this.getCoordinador().getPanelModificarRefaccion());
-        modificarRefacción.setPadre(menuModificar);
-        modificarRefacción.setSiempreAccionInicializada(true);
-        modificarRefacción.setAccionDeInicializacion(
+        //-------------------------------
+        MenuConstructor dialogoProveedorRegistrar = new MenuConstructor();
+        dialogoProveedorRegistrar.setItem();
+        dialogoProveedorRegistrar.setNombre(DIALOGO_PROVEEDOR_REGISTRAR);
+        dialogoProveedorRegistrar.setPadre(menuAgregarRegistrar);
+        dialogoProveedorRegistrar.setAccionDelItem(
+                ()->this.getCoordinador().proveedorAbrirDialogoGuardarNuevo());
+        dialogoProveedorRegistrar.setDialog(this.getCoordinador().getDialogoProveedorRegistrar());
+        this.addItemOMenu(dialogoProveedorRegistrar);
+        
+        Coordinador.OperacionesPorActualizar dialogoProveedorRegistrarOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        dialogoProveedorRegistrarOPA.setPanel(dialogoProveedorRegistrar);
+        dialogoProveedorRegistrarOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().refaccionActualizarPanelAgregarRefaccion());
+        this.getCoordinador().addListaOperacionesPorActualizar(dialogoProveedorRegistrarOPA);
+        
+         //-------------------------------
+        MenuConstructor dialogoMaquinaModeloAgregar = new MenuConstructor();
+        dialogoMaquinaModeloAgregar.setItem();
+        dialogoMaquinaModeloAgregar.setNombre(DIALOGO_MAQUINA_MODELO_AGREGAR);
+        dialogoMaquinaModeloAgregar.setPadre(menuAgregarRegistrar);
+        dialogoMaquinaModeloAgregar.setAccionDelItem(
+                ()->this.getCoordinador().maquinaModeloAbrirDialogoAgregar());
+        dialogoMaquinaModeloAgregar.setDialog(this.getCoordinador().getDialogoMaquinaModeloAgregar());
+        this.addItemOMenu(dialogoMaquinaModeloAgregar);
+        
+        Coordinador.OperacionesPorActualizar dialogoMaquinaModeloAgregarOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        dialogoMaquinaModeloAgregarOPA.setPanel(dialogoMaquinaModeloAgregar);
+        dialogoMaquinaModeloAgregarOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().maquinaModeloActualizarDialogoAgregar());
+        this.getCoordinador().addListaOperacionesPorActualizar(dialogoMaquinaModeloAgregarOPA);
+        
+        /**
+         * /////////////////////////////////////////////////
+         *      MENU MODIFICAR
+         * /////////////////////////////////////////////////
+         */
+        
+        MenuConstructor modificarRefaccion = new MenuConstructor();
+        modificarRefaccion.setItem();
+        modificarRefaccion.setNombre(PANEL_MODIFICAR_REFACCION);
+        modificarRefaccion.setPanel(this.getCoordinador().getPanelRefaccionModificar());
+        modificarRefaccion.setPadre(menuModificar);
+        modificarRefaccion.setSiempreAccionInicializada(true);
+        modificarRefaccion.setAccionDeInicializacion(
                 ()->this.getCoordinador().refaccionAbrirPanelModificar());
-        this.addItemOMenu(modificarRefacción);
+        this.addItemOMenu(modificarRefaccion);
 
+        Coordinador.OperacionesPorActualizar modificarRefaccionOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        modificarRefaccionOPA.setPanel(modificarRefaccion);
+        modificarRefaccionOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().refaccionActualizarPanelAgregarRefaccion());
+        this.getCoordinador().addListaOperacionesPorActualizar(modificarRefaccionOPA);
+        
+        //-------------------------------
+        MenuConstructor dialogoProveedorModificar = new MenuConstructor();
+        dialogoProveedorModificar.setItem();
+        dialogoProveedorModificar.setNombre(DIALOGO_PROVEEDOR_MODIFICAR);
+        dialogoProveedorModificar.setPadre(menuModificar);
+        dialogoProveedorModificar.setAccionDelItem(
+                ()->this.getCoordinador().proveedoresAbrirDialogoModificar());
+        dialogoProveedorModificar.setDialog(this.getCoordinador().getDialogoProveedorModificar());
+        this.addItemOMenu(dialogoProveedorModificar);
+        
+        Coordinador.OperacionesPorActualizar dialogoProveedorModificarOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        dialogoProveedorModificarOPA.setPanel(dialogoProveedorModificar);
+        dialogoProveedorModificarOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().proveedorDialogoModificarActualizarListaProveedores());
+        dialogoProveedorModificarOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().proveedorDialogoModificarActualizarPais());
+        dialogoProveedorModificarOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().proveedorDialogoModificarActualizarImagenes());
+        this.getCoordinador().addListaOperacionesPorActualizar(dialogoProveedorModificarOPA);
+        
+        //-------------------------------
+        MenuConstructor dialogoModificarMaquinaModelo = new MenuConstructor();
+        dialogoModificarMaquinaModelo.setItem();
+        dialogoModificarMaquinaModelo.setNombre(DIALOGO_MAQUINA_MODELO_MODIFICAR);
+        dialogoModificarMaquinaModelo.setPadre(menuModificar);
+        dialogoModificarMaquinaModelo.setAccionDelItem(
+                ()->this.getCoordinador().maquinaModeloAbrirDialogoModificar());
+        dialogoModificarMaquinaModelo.setDialog(this.getCoordinador().getDialogoMaquinaModeloModificar());
+        this.addItemOMenu(dialogoModificarMaquinaModelo);
+        
+        Coordinador.OperacionesPorActualizar modificarMaquinaModeloOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        modificarMaquinaModeloOPA.setPanel(dialogoModificarMaquinaModelo);
+        modificarMaquinaModeloOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().maquinaModeloActualizarDialogoModificar());
+        this.getCoordinador().addListaOperacionesPorActualizar(modificarMaquinaModeloOPA);
+        
+        //-------------------------------
+        MenuConstructor dialogoImagenDetalle = new MenuConstructor();
+        dialogoImagenDetalle.setItem();
+        dialogoImagenDetalle.setNombre(DIALOGO_IMAGEN_DETALLE);
+        dialogoImagenDetalle.setPadre(menuConsultar);
+        dialogoImagenDetalle.setAccionDelItem(
+                ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
+        dialogoImagenDetalle.setDialog(this.getCoordinador().getDialogoImagenDetalle());
+        this.addItemOMenu(dialogoImagenDetalle);
+        
+        Coordinador.OperacionesPorActualizar dialogoImagenDetalleOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        dialogoImagenDetalleOPA.setPanel(dialogoImagenDetalle);
+        dialogoImagenDetalleOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
+        this.getCoordinador().addListaOperacionesPorActualizar(dialogoImagenDetalleOPA);
+       
+        
+        
+        //AÑADIMOS LOS DIALOGOS.
+       
+       
+        
+       
+        
+       
+        
         //GENERAMOS EL MENU.
         this.generarMenus();
         
         //ASIGNAMOS EL PANEL QUE ABRIRA POR DEFECTO
-        this.setJPanelActual(panelPrincipalGestionRefacciones);
+        this.setJPanelActual(panelConsultaRefacciones);
         
         /*
         ------------------------------------------------------------
@@ -423,16 +655,16 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             //COLOR DE LA LETRA.
             etiqueta.setForeground(Color.WHITE);
             //AL CONSTRUIR SETEAMOS EL TITULO.
-            this.tituloPrincipal = titulo;
-            this.setTitulo("");
+            tituloPrincipal = titulo;
+            setTitulo("");
             //AÑADIMOS LA ETIQUETA AL PANEL.
-            this.setLayout(new GridLayout());
+            setLayout(new GridLayout());
             
-            this.add(etiqueta);
+            add(etiqueta);
             
-            this.setPreferredSize(new Dimension(this.getWidth(), 16));
+            setPreferredSize(new Dimension(this.getWidth(), 16));
             //LE DAMOS EL COLORCITO AZUL
-            this.setBackground(new Color(0,158,227));
+            setBackground(new Color(0,158,227));
         }
         /*
         * El título que llevara la ventana. 
@@ -540,10 +772,12 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 item.addMouseListener( new MouseAdapter() {
                     //LA ACCION
                     Runnable accion;
+                    Runnable aPerpetua;
                     //EL PROCEDIMIENTO PARA PASAR A LA FUNCION ANOMINA EL PARAMETRO
                     // DESEADO.
-                    public MouseListener parametros(Runnable accion){
+                    public MouseListener parametros(Runnable accion, Runnable a){
                         this.accion = accion;
+                        this.aPerpetua = a;
                         return this;
                     }
                     
@@ -552,8 +786,14 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                         //AL PRESIONAR EL ELEMENTO SE EJECUTA LA ACCIÓN.
                         this.accion.run();
                     }
+                    
+                    @Override
+                    public void mouseReleased(MouseEvent e){
+                        aPerpetua.run();
+                    
+                    }
 
-                }.parametros(accion));
+                }.parametros(accion, operacionActualizacion));
                 //AÑADIMOS EL ITEM AL ELEMENTO GENRALIZANTE. 
                 elemento.setItem(item);
             }
@@ -1228,6 +1468,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         private boolean menu;
         private boolean item;
         private JPanel thisPanel;
+        private JDialog thisDialog;
         
         
         private String nombre;
@@ -1247,6 +1488,29 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         public MenuConstructor() {
         }
 
+        public JDialog getThisDialog() {
+            if (thisDialog == null) {
+                try {
+                    throw new ExcepcionPersonalizada("No has definido un dialgo.", this, "getThisDialog");
+                } catch (ExcepcionPersonalizada ex) {
+                    Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else if( thisPanel!=null){
+                try {
+                    throw new ExcepcionPersonalizada(" No puedes tener un dialgo y un panel en el mismo objeto.", this, "getThisDialog");
+                } catch (ExcepcionPersonalizada ex) {
+                    Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return thisDialog;
+        }
+
+        public void setDialog(JDialog thisDialog) {
+            
+            this.thisDialog = thisDialog;
+        }
+        
+        
         
         
         /**
@@ -1367,7 +1631,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          * Setea el panel al que se quiere llamar por medio de un item.
          * @param thisPanel El panel que se quiere almacenar. 
          */
-        public void setThisPanel(JPanel thisPanel) {
+        public void setPanel(JPanel thisPanel) {
             try {
                 if (this.menu==true) {
                     throw new ExcepcionPersonalizada(

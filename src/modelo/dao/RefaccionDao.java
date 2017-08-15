@@ -20,7 +20,7 @@ import modelo.vo.RefaccionVo;
  *
  * @author Particular
  */
-public class RefaccionDao extends DAOGenerales_{
+public class RefaccionDao extends DAOGenerales{
     
     RefaccionIT it;
     public RefaccionDao(Coordinador coordinador) {

@@ -15,20 +15,22 @@ import java.util.logging.Logger;
 import modelo.FicherosOperaciones;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
-import modelo.dao.PaisDao_;
+import modelo.dao.PaisDao;
 import modelo.InfoTabla.ParametrosDeCampo;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
-import modelo.dao.ImagenDao_;
-import modelo.dao.MaquinaModeloDao_;
-import modelo.dao.MaterialDao_;
-import modelo.dao.ProveedorDao_;
+import modelo.dao.ImagenProveedorDao;
+import modelo.dao.ImagenRefaccionDao;
+import modelo.dao.MaquinaModeloDao;
+import modelo.dao.MaterialDao;
+import modelo.dao.ProveedorDao;
 import modelo.dao.RefaccionDao;
 import modelo.dao.RelacionRefaccionMaquinaModeloDao;
 import modelo.dao.RelacionRefaccionProveedorDao;
-import modelo.dao.UnidadDao_;
-import modelo.vo.ImagenVo;
+import modelo.dao.UnidadDao;
+import modelo.vo.ImagenProveedorVo;
+import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
@@ -64,7 +66,7 @@ public class Logica {
      * @param vo Los datos de proveedor para guardar. 
      */
     public void proveedorGuardar(ProveedorVo vo){
-        ProveedorDao_ proveedor = new ProveedorDao_(coordinador);
+        ProveedorDao proveedor = new ProveedorDao(coordinador);
         proveedor.guardar(vo);
                 
     }
@@ -75,8 +77,18 @@ public class Logica {
      * @return  True si existe. 
      */
     public boolean proveedorExiste(String proveedor){
-        ProveedorDao_ dao_ = new ProveedorDao_(coordinador);
+        ProveedorDao dao_ = new ProveedorDao(coordinador);
         return dao_.existe(proveedor);
+    }
+    
+    public boolean proveedorExiste(ProveedorVo vo){
+        ProveedorDao dao = new ProveedorDao(coordinador);
+        return dao.existe(vo);
+    }
+    
+    public boolean proveedorModificar(ProveedorVo vo){
+        ProveedorDao dao = new ProveedorDao(coordinador);
+        return dao.modificar(vo);
     }
     
     /**
@@ -85,7 +97,7 @@ public class Logica {
      * @return Retorna la lista de proveedores existentes por su campo empresa. 
      */
     public List<ProveedorVo> proveedorConsultarMarcas(){
-        ProveedorDao_ dao = new ProveedorDao_(coordinador);
+        ProveedorDao dao = new ProveedorDao(coordinador);
         return dao.consultarProveedores();
         
     }
@@ -103,13 +115,23 @@ public class Logica {
         
     }
     
+    public ProveedorVo proveedorConsultar(int id){
+        ProveedorDao d = new ProveedorDao(coordinador);
+        return d.consultar(id);
+    }
+    
+    public boolean proveedorEliminar(ProveedorVo vo){
+        ProveedorDao dao = new ProveedorDao(coordinador);
+        return dao.eliminar(vo);
+    }
+    
     /**
      * Valida los campos según la definición que se le da en la clase Dao en la
      * lista de tipo ParametrosDeCampo.
      * @param vo - La información que vamos a validad. 
      * @return La lista de campos validados con error.
      */
-    public List<Validacion> proveedorValidarCampos (ProveedorVo vo){
+    public List<Validacion> proveedorValidarCampos (ProveedorVo vo, boolean valindadoUpdate){
         //LA LISTA QUE SE RETORNA DE VALIDACIONES.
         List<Validacion> listaValidaciones = new ArrayList<>();
         
@@ -154,11 +176,20 @@ public class Logica {
                     //VALIDAMOS LOS CAMPOS QUE NO PUEDEN REPETIRSE.
                     Validacion val = new Validacion();
                     val.setNombreDeCampo(parametrosDeCampo);
-                    if (this.proveedorExiste(valorAValidar)) {
-                        val.setMensajeDeError("El valor '"+valorAValidar+"' ya existe en la base." );
-                        val.setValido(false);
+                    if (valindadoUpdate) {
+                        if (this.proveedorExiste(vo)) {
+                            val.setMensajeDeError("El valor '"+vo.getEmpresa()+"' ya fue asignado a otro proveedor.");
+                            val.setValido(false);
+                        }else{
+                            val.setValido(true);
+                        }
                     }else{
-                        val.setValido(true);
+                        if (this.proveedorExiste(valorAValidar)) {
+                            val.setMensajeDeError("El valor '"+valorAValidar+"' ya existe en la base." );
+                            val.setValido(false);
+                        }else{
+                            val.setValido(true);
+                        }
                     }
                     listaValidaciones.add(val);
                 }
@@ -174,6 +205,12 @@ public class Logica {
         return listaValidaciones;
     }
     
+    public int proveedorConsultarUltimoId(){
+        ProveedorDao dao = new ProveedorDao(coordinador);
+        return dao.consultarUltimoId();
+    
+    }
+    
      /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE REGISTRO DE PROVEEDORES
@@ -187,19 +224,19 @@ public class Logica {
     */
    
     public void paisGuardar(PaisVo vo){
-        PaisDao_ paisDao_ = new PaisDao_(coordinador);
+        PaisDao paisDao_ = new PaisDao(coordinador);
         paisDao_.guardar(vo);
         
     
     }
     
     public List <PaisVo> paisConsultar(){
-        PaisDao_ dao = new PaisDao_(coordinador);
+        PaisDao dao = new PaisDao(coordinador);
         return dao.consultar();
     }
     
     public boolean paisExiste(String pais){
-        PaisDao_ dao = new PaisDao_(coordinador);
+        PaisDao dao = new PaisDao(coordinador);
         return dao.existe(pais);
     }
     
@@ -218,11 +255,27 @@ public class Logica {
     /**
      * Guarda una MaquinaModelo en la base de datos. 
      * @param vo La MaquinaModelo que se guardara. 
+     * @return  True si se guardo correctamente. 
      */
-    public void maquinaModeloGuardar(MaquinaModeloVo vo){
-       MaquinaModeloDao_ dao = new MaquinaModeloDao_(coordinador);
-       dao.guardar(vo);
-                
+    public boolean maquinaModeloGuardar(MaquinaModeloVo vo){
+       MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
+       return dao.guardar(vo);
+    }
+    
+    public boolean maquinaModeloModificar(MaquinaModeloVo vo){
+        MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
+        return dao.modificar(vo);
+    
+    }
+    
+    /**
+     * Elimina la máquina-modelo que se le pase como parametro.
+     * @param vo El id de la maquina-modelo a eliminar. 
+     * @return True si se elimino correctamente. 
+     */
+    public boolean maquinaModeloEliminar(MaquinaModeloVo vo){
+        MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
+        return dao.eliminar(vo);
     }
     
     /**
@@ -234,7 +287,7 @@ public class Logica {
      * @return  True si encuentra coincidencia. 
      */
     public boolean maquinaModeloExiste(String modelo, int anio ){
-        MaquinaModeloDao_ dao = new MaquinaModeloDao_(coordinador);
+        MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
         return dao.existe(modelo, anio);
     }
     
@@ -243,9 +296,13 @@ public class Logica {
      * @return  Retorna un objeto MaquinaModeloVo.
      */
     public List<MaquinaModeloVo> maquinaModeloConsultarModeloAnio(){
-        MaquinaModeloDao_ dao = new MaquinaModeloDao_(coordinador);
+        MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
         return dao.consultar();
-        
+    }
+    
+    public MaquinaModeloVo maquinaModeloConsultarUno(int id){
+        MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
+        return dao.consultar(id);
         
     }
     
@@ -294,11 +351,13 @@ public class Logica {
                         
                     }else{
                         val.setValido(true);
+                        val.setMensajeDeError("todo bien");
                     }
                     listaValidaciones.add(val);
                 } 
-                
-                if (!parametrosDeCampo.isPermiteRepetido() && !valorAValidar.isEmpty()) {
+                //-1 SE REQUIER POR QUE LAS VARBIABLES CON INT NO PUEDEN ESTAR NULAS. -1 ES EL ESTANDAR QUE NUNCA 
+                // VA A TOCAR LA VALIDACION.
+                if (!parametrosDeCampo.isPermiteRepetido() && !valorAValidar.isEmpty() && !valorAValidar.equals(-1)) {
                     //VALIDAMOS LOS CAMPOS QUE NO PUEDEN REPETIRSE.
                     Validacion val = new Validacion();
                     val.setNombreDeCampo(parametrosDeCampo);
@@ -309,6 +368,7 @@ public class Logica {
                         val.setValido(false);
                     }else{
                         val.setValido(true);
+                        val.setMensajeDeError("todo bien");
                     }
                     listaValidaciones.add(val);
                 }
@@ -328,6 +388,7 @@ public class Logica {
                         val1.setValido(false);
                     }else{
                         val1.setValido(true);
+                        val1.setMensajeDeError("todo bien");
                     }
                     Validacion val2 = new Validacion();
                     val2.setNombreDeCampo(parametrosDeCampo);
@@ -338,6 +399,7 @@ public class Logica {
                         val2.setValido(false);
                     }else{
                         val2.setValido(true);
+                        val2.setMensajeDeError("todo bien");
                     }
                     
                     //AÑO FUERA DEL RANGO 1960-ACTUAL.
@@ -351,10 +413,9 @@ public class Logica {
                     if (anio<1960 || anio>year+1) {
                         val3.setMensajeDeError("El año debe estar entre 1960 y " + (year+1)+".");
                         val3.setValido(false);
-                    System.out.println("falso");
                     }else{
                         val3.setValido(true);
-                    System.out.println("verdadero");
+                        val3.setMensajeDeError("todo bien");
                     }
                     
                     listaValidaciones.add(val1);
@@ -381,17 +442,17 @@ public class Logica {
     */
     
     public void unidadGuardar(UnidadVo vo){
-        UnidadDao_ dao = new UnidadDao_(coordinador);
+        UnidadDao dao = new UnidadDao(coordinador);
         dao.guardar(vo);
     }
     
     public boolean unidadExiste(String unidad){
-        UnidadDao_ dao = new UnidadDao_(coordinador);
+        UnidadDao dao = new UnidadDao(coordinador);
         return dao.existe(unidad);
     }
     
     public List<UnidadVo> unidadConsultar(){
-        UnidadDao_ dao = new UnidadDao_(coordinador);
+        UnidadDao dao = new UnidadDao(coordinador);
         return dao.consultar();
     }
     
@@ -407,17 +468,17 @@ public class Logica {
     ////////////////////////////////////////////////////////////////////////
     */
     public void materialGuardar(MaterialVo vo){
-        MaterialDao_ dao = new MaterialDao_(coordinador);
+        MaterialDao dao = new MaterialDao(coordinador);
         dao.guardar(vo);
     }
     
     public boolean materialExiste(String material){
-        MaterialDao_ dao = new MaterialDao_(coordinador);
+        MaterialDao dao = new MaterialDao(coordinador);
         return dao.existe(material);
     }
     
     public List<MaterialVo> materialConsultar(){
-        MaterialDao_ dao = new MaterialDao_(coordinador);
+        MaterialDao dao = new MaterialDao(coordinador);
         return dao.consultar();
     }
     
@@ -518,7 +579,7 @@ public class Logica {
                  if(!_PDC.isPermiteRepetido()&& !valor.isEmpty()){
                      Validacion vRepetido = new Validacion();
                      vRepetido.setNombreDeCampo(_PDC);
-                     //EL CODIGO INTERNO NO PUEDE REPETIRSE, PERO EL ID NO SE OCUPA
+                     //EL CODIGO INTERNO NO PUEDE REPETIRSE, EL ID NO SE OCUPA
                      //COMPROBAR POR LO TANTO CUANDO PASE A COMPROBARSE SE
                      //DEFINIRA COMO TRUE DE QUE PASO LA VALIDACION.
                      // CUANDO SE VALIDA UN UPDATE EL CÓDIGO INTERNO SE VALIDA
@@ -684,13 +745,13 @@ public class Logica {
     
      /* 
     ========================================================================
-       INICIO REGISTRO DE IMAGENES.
+       INICIO REGISTRO DE IMAGENESREFACCION.
     ////////////////////////////////////////////////////////////////////////
     */
-    public String imagenGuardarLista (List<ImagenVo> listaVo){
-        ImagenDao_ d = new ImagenDao_(coordinador);
+    public String imagenRefaccionGuardarLista (List<ImagenRefaccionVo> listaVo){
+        ImagenRefaccionDao d = new ImagenRefaccionDao(coordinador);
         
-        for (ImagenVo vo : listaVo) {
+        for (ImagenRefaccionVo vo : listaVo) {
             File renombrado = FicherosOperaciones.duplicarYRenombrar(vo.getFicheroImagen());
             vo.setNombreServidor(renombrado.getName());
             vo.setFicheroImagen(renombrado);
@@ -699,19 +760,51 @@ public class Logica {
         return d.guardarLista(listaVo);
     }
     
-    public List<ImagenVo> imagenConsultar(int id){
-        ImagenDao_ d = new ImagenDao_(coordinador);
+    public List<ImagenRefaccionVo> imagenRefaccionConsultar(int id){
+        ImagenRefaccionDao d = new ImagenRefaccionDao(coordinador);
         return d.consultar(id);
     }
     
-    public void imagenEliminar(ImagenVo vo){
-        ImagenDao_ d = new ImagenDao_(coordinador);
+    public void imagenRefaccionEliminar(ImagenRefaccionVo vo){
+        ImagenRefaccionDao d = new ImagenRefaccionDao(coordinador);
         d.eliminar(vo);
     }
     
     /* 
     ////////////////////////////////////////////////////////////////////////
-        FIN REGISTRO DE IMAGENES
+        FIN REGISTRO DE IMAGENESREFACCION
+    ========================================================================
+    */
+     /* 
+    ========================================================================
+       INICIO REGISTRO DE IMAGENESPROVEEDOR.
+    ////////////////////////////////////////////////////////////////////////
+    */
+    public String imagenProveedorGuardarLista (List<ImagenProveedorVo> listaVo){
+        ImagenProveedorDao d = new ImagenProveedorDao(coordinador);
+        
+        for (ImagenProveedorVo vo : listaVo) {
+            File renombrado = FicherosOperaciones.duplicarYRenombrar(vo.getFicheroImagen());
+            vo.setNombreServidor(renombrado.getName());
+            vo.setFicheroImagen(renombrado);
+        }
+        
+        return d.guardarLista(listaVo);
+    }
+    
+    public List<ImagenProveedorVo> imagenProveedorConsultar(int id){
+        ImagenProveedorDao d = new ImagenProveedorDao(coordinador);
+        return d.consultar(id);
+    }
+    
+    public void imagenProveedorEliminar(ImagenProveedorVo vo){
+        ImagenProveedorDao d = new ImagenProveedorDao(coordinador);
+        d.eliminar(vo);
+    }
+    
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO DE IMAGENESPROVEEDOR
     ========================================================================
     */
      /* 

@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.vo;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import modelo.InfoTabla.ProveedorIT;
-import modelo.dao.ProveedorDao_;
+import modelo.dao.ProveedorDao;
 
 /**
  *
@@ -23,7 +18,7 @@ public class ProveedorVo extends VoGenerales{
     private String email;
     private String empresa;
     private String paginaWeb;
-    private int idPais;
+    private Object idPais;
     
    
 
@@ -92,12 +87,17 @@ public class ProveedorVo extends VoGenerales{
         this.paginaWeb = paginaWeb;
     }
 
-    public int getIdPais() {
+    public Object getIdPais() {
         return idPais;
     }
 
-    public void setIdPais(int idPais) {
+    public void setIdPais(Object idPais) {
         this.idPais = idPais;
+    }
+
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

@@ -1,6 +1,7 @@
 
 package vista.utilidadesOptimizadas;
 
+import controlador.capturadeerrores.Suceso;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.util.ArrayList;
@@ -9,9 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ListChangeListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.ListModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * Utilidades para el fácil manejo de las listas.
@@ -22,6 +25,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     private String nombreColumnaId, nombreDatoAMostrar;
     private JList<String> lista;
     private UtilidadesListas_ listaAAgregar;
+    
     
     private HashMap<Object, Integer> relacionDatoId  = new HashMap();
 
@@ -128,7 +132,12 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
      * mostrarse en la lista. 
      */
     public void cargarLista(HashMap <String, Integer> datos) {
-        this.coordinador.getSystemOut().println("[i]Cargando datos en lista.", this);
+        Suceso s = new Suceso();
+        s.setClase(this);
+        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+        s.setTextoAMostrar("[i]Cargando datos en lista.");
+        System.out.println(s);
+        
         DefaultListModel<String> modelo  =
                 new DefaultListModel<String>();
             
@@ -139,22 +148,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
             modelo.addElement(datoColumna);
             this.relacionDatoId.put(datoColumna, id);
         }
-//            
-//            
-//            while ()) {                
-//                String datoDeColumna = 
-//                        this.controlador.conexion.rst
-//                            .getString(this.nombreDatoAMostrar);
-//                String datoId =
-//                        this.controlador.conexion.rst
-//                            .getString(this.nombreColumnaId);
-//                
-//                modelo.addElement(datoDeColumna);
-//                this.relacionDatoId.put(datoDeColumna, datoId);
-//            }
-//            
         this.lista.setModel(modelo);
-// ????? SI HAY DOS LISTAS REINICIAMOS LA OTRA PARA NO DUPLICAR DATOS.
             
     }
     
@@ -174,79 +168,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
             _listaALaQueSeAgregaLaSeleccion.getRelacionDatoId().put(valor, id);
             _listaQueSeSelecciona.getRelacionDatoId().remove(valor);
         }
-        
-        
-//        JList<String> listaQueSeSelecciona = _listaQueSeSelecciona.getLista();
-//        JList<String> listaALaQueSeAgregaLaSeleccion=_listaALaQueSeAgregaLaSeleccion.getLista();
-//        
-//        //CARGAMOS LOS DATOS SELECCIONADOS.
-//        List<String> listaDeLosDatosSeleccionados = 
-//                listaQueSeSelecciona.getSelectedValuesList();
-//        
-//        if(listaDeLosDatosSeleccionados.size()>0){
-//            //CARGAMOS LOS DATOS EXISTENTES EN EL MODELO DE LA LISTA POR AGREGAR.
-//            ListModel<String> modeloDeListaALaQueSeAgregaLaSeleccion = 
-//                    listaALaQueSeAgregaLaSeleccion.getModel();
-//
-//            //CARGAMOS LOS DATOS EXISTENTES EN EL MODELO DE LA LISTA QUE SE 
-//            // SELECCIONA
-//            ListModel<String> modeloListaQueSeSelecciona = 
-//                    listaQueSeSelecciona.getModel();
-//            
-//            //LISTA PARA COMPARAR LOS DATOS QUE SE SELCCIONARON CONTRA 
-//            // LOS QUE ESTAN EN EL MODELO.
-//            List <String> listaDeDatosActualizadosParaListaQueSeSelecciona 
-//                    = new ArrayList<String>();
-//            
-//            //CARGAMOS TODOS LOS DATOS EN LA NUEVA LISTA PARA IR ELIMINANDO
-//            // LOS QUE YA COMPARAMOS.
-//            for (int i = 0; i < modeloListaQueSeSelecciona.getSize(); i++) {
-//                String elementoDeLaListaQueSeSelecciona = 
-//                        modeloListaQueSeSelecciona.getElementAt(i);
-//                listaDeDatosActualizadosParaListaQueSeSelecciona
-//                        .add(elementoDeLaListaQueSeSelecciona);
-//            }
-//            
-//            //ELIMINAMOS LOS QUE YA EXISTEN
-//            
-//            for (String listaDeLosDatosSeleccionado : listaDeLosDatosSeleccionados) {
-//                //SANTO DIOS! Aqui copiamos los datos de relacionDatoId a el 
-//                // nuevo hashMap o más bien a la otra lista con la que estamos 
-//                // intercambiando datos. De esta manera podemos llamar más 
-//                // facilmente los dato que tienen registrador y ponerlos en la 
-//                // base de datos.
-//                
-//                _listaALaQueSeAgregaLaSeleccion.getRelacionDatoId().put(listaDeLosDatosSeleccionado
-//                        , _listaQueSeSelecciona.getRelacionDatoId().get(listaDeLosDatosSeleccionado));
-//                _listaQueSeSelecciona.getRelacionDatoId().remove(listaDeLosDatosSeleccionado);
-//                
-//                //AQUI REMOVEMOS DE LA LISTA PARA ACTUALIZARLA.
-//                listaDeDatosActualizadosParaListaQueSeSelecciona
-//                        .remove(listaDeLosDatosSeleccionado);
-//            }
-//       
-//            
-//            //CREAMOS EL NUEVO MODELO PARA ACTUALIZAR LOS DATOS DE LA LISTA
-//            // QUE SE SELCCIONA Y QUE NO LOS MUESTRE UNA VEZ EN QUE ESTEN EN 
-//            // LA LISTA POR AGREGAR.
-//            DefaultListModel<String> modeloParaActualizarDatosListaQueSeSelecciona = new DefaultListModel<>();
-//            for (String elementoActualizado : listaDeDatosActualizadosParaListaQueSeSelecciona) {
-//                modeloParaActualizarDatosListaQueSeSelecciona.addElement(elementoActualizado);
-//            }
-//            listaQueSeSelecciona.setModel(modeloParaActualizarDatosListaQueSeSelecciona);
-//
-//
-//            // CARGAMOS LOS DATOS YA EXISTENTES EN EL NUEVO MODELO PARA LA LISTA.
-//            DefaultListModel<String> modeloParaListaAgregarDatos = new DefaultListModel<>();
-//            for (int i = 0; i < modeloDeListaALaQueSeAgregaLaSeleccion.getSize(); i++) {
-//                String elemento = modeloDeListaALaQueSeAgregaLaSeleccion.getElementAt(i);
-//                modeloParaListaAgregarDatos.addElement(elemento);
-//            }
-//            for (String elemento : listaDeLosDatosSeleccionados) {
-//                modeloParaListaAgregarDatos.addElement(elemento);
-//            }
-//            listaALaQueSeAgregaLaSeleccion.setModel(modeloParaListaAgregarDatos);
-//        }
     }
     
     /**
@@ -307,10 +228,14 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     }
     
     /**
+     * Limpia la lista controlada por esta utilidad y si la lista de intercambio
+     * es !=null entonces tambien la limpia. 
      */
     public void limpiar(){
         this.lista.setModel(new DefaultListModel<>());
-        this.listaAAgregar.getLista().setModel(new DefaultListModel<>());
+        if (this.listaAAgregar!=null) {
+            this.listaAAgregar.getLista().setModel(new DefaultListModel<>());
+        }
     }
 
     /**
@@ -321,12 +246,15 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     public void setText(String txt) {
         DefaultListModel modelo = (DefaultListModel)this.lista.getModel();
         modelo.addElement(txt);
-//        DefaultListModel nuevoModelo = new DefaultListModel();
-//        for (int i = 0; i < modelo.getSize(); i++) {
-//            nuevoModelo.addElement(modelo.getElementAt(i));
-//        }
-//        nuevoModelo.addElement(txt);
-//        this.lista.setModel(nuevoModelo);
+    }
+    
+    @Override
+    public void setEditable(boolean editable) {
+        try {
+            throw new ExcepcionPersonalizada("Todavia no esta soportado.", this, "setEditable");
+        } catch (ExcepcionPersonalizada ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
@@ -337,6 +265,10 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
         return this.relacionDatoId;
     }
     
+    /**
+     * Retorna todos los id de la lista. 
+     * @return La lista que contiene los id definidos dentro de la lista. 
+     */
     public List<Integer> getItems_soloId(){
         List<Integer> ids = new ArrayList<>();
         
@@ -346,13 +278,42 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
         }
         return ids;
     }
-
-    @Override
-    public void setEditable(boolean editable) {
-        try {
-            throw new ExcepcionPersonalizada("Todavia no esta soportado.", this, "setEditable");
-        } catch (ExcepcionPersonalizada ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+    
+    /**
+     * Retorna el id que esta relacionado con el valor que se selecciona.
+     * @return El id relacionado con el valor que se selecciono.
+     */
+    public int getSelectValueId(){
+        HashMap<String, Integer> mapa = this.getItems();
+        if (this.getThis().getSelectedValue()==null) {
+            return -1;
         }
+        return mapa.get(this.getThis().getSelectedValue());
     }
+    
+    /**
+     * Ejecuta la operación que se le pase como parametro al detectase un cambio
+     * en la lista. 
+     * @param r La operación que se quiere ejecutar. 
+     */
+    public void setValueChange(Runnable r){
+        this.getThis().addListSelectionListener(new ListSelectionListener() {
+            
+            Runnable r = null;
+            public ListSelectionListener parametros(Runnable r){
+                this.r = r;
+                return this;
+            }
+            
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                r.run();
+            }
+        }.parametros(r));
+    
+    }
+
+    
+    
+    
 }

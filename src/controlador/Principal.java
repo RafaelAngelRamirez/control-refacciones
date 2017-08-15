@@ -15,25 +15,20 @@
  */
 package controlador;
 
-import vista.panelsYDialogosOptimizados.PanelAgregarRefaccion_;
-import vista.panelsYDialogosOptimizados.PanelConsultaRefacciones;
+import vista.panelsYDialogosOptimizados.PanelRefaccionAgregar;
+import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
 import com.bulenkov.darcula.DarculaLaf;
-import com.sun.javafx.applet.Splash;
-import controlador.Coordinador;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
-import java.awt.Font;
+import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import modelo.logica.Logica;
 import vista.*;
 import vista.panelsYDialogosOptimizados.*;
-
-
 
 /**
  *
@@ -43,6 +38,7 @@ public class Principal {
 
     
     public static void main(String[] args) {
+        
         iniciarPrograma();
     }
     
@@ -56,31 +52,43 @@ public class Principal {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+       
+        
         /*
         ====================================================================
             INSTANCIAMOS LAS CLASES PRINCIPALES
         ====================================================================
         */
+        final boolean ESTADO_DE_DEBUG = true;
+        
+//        //VENTANAS SECUNDARIAS
+        ConsolaDeErrores consolaDeErrores = new ConsolaDeErrores();
+        consolaDeErrores.setVisible(ESTADO_DE_DEBUG);
+        //RECURSOS VARIOS
+        CapturaDeSucesos SystemOut_ = new CapturaDeSucesos(System.out);
+        SystemOut_.setDebug(ESTADO_DE_DEBUG);
+        SystemOut_.setConsolaDeErrores(consolaDeErrores);
+        System.setOut(SystemOut_);
+        
+        
+        
+        
         
         //VENTANA PRINCIPAL
         MarcoParaVentanaPrincipal marcoParaVentanaPrincipal = new MarcoParaVentanaPrincipal();
         
-        //VENTANAS SECUNDARIAS
-        ConsolaDeErrores consolaDeErrores = new ConsolaDeErrores();
-        
         //PANELES
-        PanelConsultaRefacciones panelPrincipal = new PanelConsultaRefacciones();
-        PanelAgregarRefaccion_ panelAgregarRefaccion = new PanelAgregarRefaccion_();
-        PanelModificarRefaccion panelModificarRefaccion = new PanelModificarRefaccion();
+        PanelRefaccionesConsulta panelConsultaRefacciones = new PanelRefaccionesConsulta();
+        PanelRefaccionAgregar panelRefaccionAgregar = new PanelRefaccionAgregar();
+        PanelRefaccionModificar panelRefaccionModificar = new PanelRefaccionModificar();
         
         //DIALOGOS
-        DialogoRegistrarProveedor_ dialogoRegistrarProveedor_ = new DialogoRegistrarProveedor_();
-        DialogoAgregarMaquinaModelo_ dialogoAgregarMaquina_ = new DialogoAgregarMaquinaModelo_();
-        DialogoDetalleRefaccion_ dialogoDetalleRefaccion_ = new DialogoDetalleRefaccion_();
-        DialogoDetalleImagen dialogoDetalleImagen = new DialogoDetalleImagen();
-        
-        //RECURSOS VARIOS
-        CapturaDeSucesos SystemOut = new CapturaDeSucesos();
+        DialogoProveedorRegistrar dialogoProveedorRegistrar = new DialogoProveedorRegistrar();
+        DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar = new DialogoMaquinaModeloAgregar();
+        DialogoRefaccionDetalle dialogoRefaccionDetalle = new DialogoRefaccionDetalle();
+        DialogoImagenRefaccionDetalle dialogoImagenDetalle = new DialogoImagenRefaccionDetalle();
+        DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar = new DialogoMaquinaModeloModificar();
+        DialogoProveedorModificar dialogoProveedorModificar = new DialogoProveedorModificar();
         
         //COORDINADORES
         Coordinador coordinador = new Coordinador();
@@ -95,16 +103,20 @@ public class Principal {
         ====================================================================
         */
         marcoParaVentanaPrincipal.setCoordinador(coordinador);
-        SystemOut.setCoordinador(coordinador);
-        panelPrincipal.setCoordinador(coordinador);
-        panelAgregarRefaccion.setCoordinador(coordinador);
-        dialogoRegistrarProveedor_.setCoordinador(coordinador);
-        logica.setCoordinador(coordinador);
-        dialogoAgregarMaquina_.setCoordinador(coordinador);
-        dialogoDetalleRefaccion_.setCoordinador(coordinador);
-        dialogoDetalleImagen.setCoordinador(coordinador);
-        panelModificarRefaccion.setCoordinador(coordinador);
+        SystemOut_.setCoordinador(coordinador);
         
+        panelConsultaRefacciones.setCoordinador(coordinador);
+        panelRefaccionAgregar.setCoordinador(coordinador);
+        panelRefaccionModificar.setCoordinador(coordinador);
+        
+        dialogoProveedorRegistrar.setCoordinador(coordinador);
+        dialogoMaquinaModeloAgregar.setCoordinador(coordinador);
+        dialogoRefaccionDetalle.setCoordinador(coordinador);
+        dialogoImagenDetalle.setCoordinador(coordinador);
+        dialogoMaquinaModeloModificar.setCoordinador(coordinador);
+        dialogoProveedorModificar.setCoordinador(coordinador);
+        
+        logica.setCoordinador(coordinador);
         
         /*
         ====================================================================
@@ -113,35 +125,37 @@ public class Principal {
         */
         
         coordinador.setMarcoParaVentanaPrincipal(marcoParaVentanaPrincipal);
-        coordinador.setConsolaDeErrores(consolaDeErrores);
-        coordinador.setSystemOut(SystemOut);
-        coordinador.setPanelPrincipal(panelPrincipal);
-        coordinador.setPanelAgregarRefaccion(panelAgregarRefaccion);
-        coordinador.setDialogoRegistrarProveedor(dialogoRegistrarProveedor_);
+//        coordinador.setConsolaDeErrores(consolaDeErrores);
+//        coordinador.setSystemOut(SystemOut_);
+        coordinador.setPanelRefaccionConsulta(panelConsultaRefacciones);
+        coordinador.setPanelRefaccionAgregar(panelRefaccionAgregar);
+        coordinador.setDialogoProveedorRegistrar(dialogoProveedorRegistrar);
         coordinador.setLogica(logica);
-        coordinador.setDialogoAgregarMaquina_(dialogoAgregarMaquina_);
-        coordinador.setDialogoDetalleRefaccion_(dialogoDetalleRefaccion_);
-        coordinador.setDialogoDetalleImagen(dialogoDetalleImagen);
-        coordinador.setPanelModificarRefaccion(panelModificarRefaccion);
+        coordinador.setDialogoMaquinaModeloAgregar(dialogoMaquinaModeloAgregar);
+        coordinador.setDialogoRefaccionDetalle(dialogoRefaccionDetalle);
+        coordinador.setDialogoImagenDetalle(dialogoImagenDetalle);
+        coordinador.setPanelRefaccionModificar(panelRefaccionModificar);
+        coordinador.setDialogoMaquinaModeloModificar(dialogoMaquinaModeloModificar);
+        coordinador.setDialogoProveedorModificar(dialogoProveedorModificar);
         
         
-        
-        /*
-        ====================================================================
-            PARAMETROS DE INICIALIZACIÓN
-        ====================================================================
-        */
-        
-        coordinador.inicializarConsola(true);
-        
+//        /*
+//        ====================================================================
+//            PARAMETROS DE INICIALIZACIÓN
+//        ====================================================================
+//        */
+//        
+//        coordinador.inicializarConsola(true);
+//        
         /*
         ====================================================================
             PARA CLASES ESTATICAS QUE SE UTILIZAN AL PRINCIPIO.
         ====================================================================
         */
-        
-        new modelo.dao.ProveedorDao_(coordinador);
-        new modelo.dao.PaisDao_(coordinador);
+        //LAS PONEMOS AQUI POR QUE OCUPAMOS LAS VARIABLES ESTATICAS, DE OTRA
+        // MANERA NO SE CARGAR Y DA ERROR!
+        new modelo.dao.ProveedorDao(coordinador);
+        new modelo.dao.PaisDao(coordinador);
         
         /**/
         
@@ -151,7 +165,7 @@ public class Principal {
             INICIO DE SISTEMA
         ====================================================================
         */
-        SystemOut.println("[+]Iniciando sistema");
+        System.out.println("[+] Iniciando sistema");
         marcoParaVentanaPrincipal.init();
         marcoParaVentanaPrincipal.setVisible(true);
         

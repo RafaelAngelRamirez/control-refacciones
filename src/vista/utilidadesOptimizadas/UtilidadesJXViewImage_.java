@@ -5,6 +5,7 @@
  */
 package vista.utilidadesOptimizadas;
 
+import controlador.capturadeerrores.Suceso;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.event.MouseAdapter;
@@ -73,6 +74,9 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
         this.zoom();
     }
     
+    /**
+     *  Limpia el componenet dejandolo como recien seteado. 
+     */
     public void limpiar(){
         this.imagenesPorCargar.clear();
         try {
@@ -157,13 +161,13 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
         //ESCOGEMOS LOS FICHEROS.
         if(respuesta == JFileChooser.APPROVE_OPTION){
             File[] imagenes = jFileChooser.getSelectedFiles();
-            this.coordinador.getSystemOut().println("[!] Imagenes seleccionadas");
+            System.out.println("[!] Imagenes seleccionadas");
             for (File archivo : imagenes) {
                 for (String ext : this.extencionesAdmitidas) {
                     if(archivo.getName().indexOf(ext) != -1){
                         //ESTAS SON LAS IMAGENES QUE SE CARGARAN EN EL PREVIO.   
                         this.imagenesPorCargar.add(archivo);
-                        this.coordinador.getSystemOut().println("     | " +archivo.getName());
+                        System.out.println("     | " +archivo.getName());
                         //MUY IMPORTANTE ESTE BREAK PARA QUE NO CARGA VARIAS 
                         // VECES LA MISMA IMAGEN.
                         break;
@@ -184,17 +188,17 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
 //        try {
             if (!listaURLsCargadas.isEmpty()) {
                 
-                this.coordinador.getSystemOut().println("[!] Imagenes cargadas");
+                System.out.println("[!] Imagenes cargadas");
                 contadorPosicionImagenWeb =0;
                 //CARGA LA PRIMERA IMAGEN DE LA LISTA.
                 this.setDeImagen();
             }else{
-                this.coordinador.getSystemOut().println(""
+                System.out.println(""
                         + "==============================================\n"
                         + "==============================================\n"
                         + "==============================================\n"
                         + "==============================================\n"
-                        + "[ERROR] PARECE QUE NO SE CARGO NINGUNA IMAGEN\\n"
+                        + "[ERROR] PARECE QUE NO SE CARGO NINGUNA IMAGEN \n"
                         + "==============================================\n"
                         + "==============================================\n"
                         + "==============================================\n"
@@ -225,6 +229,10 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
         listaURLsCargadas.add(transporteImagenesURL);
     }
     
+    /**
+     * Limpia el componente dejandolo como recien seteado. Este se utiliza para
+     * las veces que se cargan imagenes desde la web. 
+     */
     public void limpiarComponenteURL(){
         listaURLsCargadas.clear();
         contadorPosicionImagenWeb=0;
@@ -413,7 +421,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
      */
     private void setDeImagen(){
         try {
-
+            
             TransporteImagenesURL tpiurl = listaURLsCargadas.get(contadorPosicionImagenWeb);
             String etiqueta = (contadorPosicionImagenWeb+1)+"/"+listaURLsCargadas.size()+ ":"+tpiurl.getNombreImagen();
 
@@ -449,7 +457,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
                 //NO HAY IMAGENES CARGARDAS.
                 String mensaje = "No se a cargado ningúna imagen.";
                 JOptionPane.showMessageDialog(this.formularioPadre, mensaje);
-                this.coordinador.getSystemOut().println("[!] " + mensaje);
+                System.out.println("[!] " + mensaje);
                 reiniciar();
             }
         }else{
@@ -457,7 +465,11 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
             if (this.imagenActiva == null) {
                 //NO SE HA CARGADO LA PRIMERA IMAGEN
                 //INICIAMOS EL CONTADOR.
-                this.coordinador.getSystemOut().println("[!]Iniciando vista previa.", this);
+                Suceso s = new Suceso();
+                s.setClase(this);
+                s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+                s.setTextoAMostrar("[!]Iniciando vista previa.");
+                System.out.println(s);
                 this.contadorImagenActiva = 0;
                 this.imagenActiva = this.imagenesPorCargar.get(
                         this.contadorImagenActiva);
@@ -466,7 +478,11 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
                     this.jxImagenView.setImage(this.imagenActiva);
                     
                 } catch (IOException ex) {
-                    this.coordinador.getSystemOut().println("[ERROR] ALGO PASO", this);
+                    Suceso s1 = new Suceso();
+                    s1.setClase(this);
+                    s1.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+                    s1.setTextoAMostrar("[ERROR] ALGO PASO");
+                    System.out.println(s1);
                     JOptionPane.showMessageDialog(this.formularioPadre,
                             "La imagen no se puede cargar. \n Se eliminara"
                                     + "de la lista.");
@@ -477,25 +493,49 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
             }else{
                     //HAY UNA IMAGEN ACTIVA POR QUE YA SE HABIA MOSTRADO EL PREVIO.
                 if (direccion) {
-                    this.coordinador.getSystemOut().println("[!]Cambiando vista previa - derecha.", this);
+                    Suceso s1 = new Suceso();
+                    s1.setClase(this);
+                    s1.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+                    s1.setTextoAMostrar("[!]Cambiando vista previa - derecha.");
+                    System.out.println(s1);
                     //HACIA LA DERECHA.
                     if ((this.imagenesPorCargar.size()-1)>this.contadorImagenActiva) {
                         //TODAVIA HAY MÁS IMAGENES POR CARGAR.
-                        this.coordinador.getSystemOut().println("[!]Hay más imagenes - derecha.", this);
+                        Suceso s2 = new Suceso();
+                        s2.setClase(this);
+                        s2.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+                        s2.setTextoAMostrar("[!]Hay más imagenes - derecha.");
+                        System.out.println(s2);
                         this.contadorImagenActiva++;
                     }else{
                         //LLEGAMOS AL FINAL DE LA LISTA.
-                        this.coordinador.getSystemOut().println("[!]No hay más imagenes - reiniciando.", this);
+                        Suceso s2 = new Suceso();
+                        s2.setClase(this);
+                        s2.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+                        s2.setTextoAMostrar("[!]No hay más imagenes - reiniciando.");
+                        System.out.println(s2);
                         this.contadorImagenActiva = 0;
                     }
                 } else {
                     //HACIA LA IZQUIERDA
-                    this.coordinador.getSystemOut().println("[!]Cambiando vista previa - izquierda.", this);
+                    Suceso s1 = new Suceso();
+                    s1.setClase(this);
+                    s1.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+                    s1.setTextoAMostrar("[!]Cambiando vista previa - izquierda.");
+                    System.out.println(s1);
                     if (this.contadorImagenActiva==0) {
-                        this.coordinador.getSystemOut().println("[!]Hay más imagenes - izquierda.", this);
+                        Suceso s2 = new Suceso();
+                        s2.setClase(this);
+                        s2.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+                        s2.setTextoAMostrar("[!]Hay más imagenes - izquierda.");
+                        System.out.println(s2);
                         this.contadorImagenActiva = this.imagenesPorCargar.size()-1;
                     } else {
-                        this.coordinador.getSystemOut().println("[!]No hay más imagenes - reiniciando..", this);
+                        Suceso s3 = new Suceso();
+                        s3.setClase(this);
+                        s3.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+                        s3.setTextoAMostrar("[!]No hay más imagenes - reiniciando.");
+                        System.out.println(s3);
                         this.contadorImagenActiva--;
                     }
                 }
@@ -504,17 +544,21 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
                 //DEFINIMOS LA IMAGEN POR CARGAR.
                 this.imagenActiva = 
                         this.imagenesPorCargar.get(this.contadorImagenActiva);
-                this.coordinador.getSystemOut().println(
+                System.out.println(
                         "[INFO]Imágen activa: " + this.imagenActiva.getName());
                 try {
                     //LA COLOCAMOS EL EL PREVIO.
                     this.jxImagenView.setImage(this.imagenActiva);
                 } catch (IOException ex) {
-                    this.coordinador.getSystemOut().println("[ERROR] ALGO PASO",this);
+                    Suceso s3 = new Suceso();
+                    s3.setClase(this);
+                    s3.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
+                    s3.setTextoAMostrar("[ERROR] ALGO PASO");
+                    System.out.println(s3);
                     String a = "La imagen "+imagenActiva.getName()+" no se puede cargar. "
                                     + "\n Se eliminara de la lista.";
                     JOptionPane.showMessageDialog(this.formularioPadre,a);
-                    this.coordinador.getSystemOut().println("[ERROR] " + a,this);
+                    System.out.println("[ERROR] " + a);
                     this.imagenesPorCargar.remove(this.imagenActiva);
                     siguienteAnterior(direccion);
                     Logger.getLogger(UtilidadesJXViewImage_.class
@@ -532,7 +576,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
     
     
     private void comprobarVisibilidadDeImagenes(){
-        this.coordinador.getSystemOut().println("[!]Comptrobando compatibilidad de imagenes.");
+        System.out.println("[!]Comptrobando compatibilidad de imagenes.");
                 
         for (File file : imagenesPorCargar) {
             //FILE SOLO LO UTILIZE PARA ITINERAR EN EL TOTAL DE IMAGENES.
@@ -543,10 +587,10 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
     }
     
 //    private void escalarImagen(){
-//        this.coordinador.getSystemOut().println("[!] Escalando imagen.", this);
+//        System.out.println("[!] Escalando imagen.", this);
 //        try {
 //            BufferedImage imagen = ImageIO.read(this.imagenActiva);
-//            this.coordinador.getSystemOut().println("        [-] Tamaño de imagen:" 
+//            System.out.println("        [-] Tamaño de imagen:" 
 //                    + imagen.getHeight() +  "x" +imagen.getWidth(), this);
 //            double vistaAltura = this.jxImagenView.getHeight();
 //            double vistaAnchura = this.jxImagenView.getWidth();
@@ -584,7 +628,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
                     this.seEliminoUltimaImagen = false;
                 }
                 this.siguienteAnterior(true);
-                this.coordinador.getSystemOut().println("[!!] "+a);
+                System.out.println("[!!] "+a);
                 JOptionPane.showMessageDialog(this.formularioPadre, a );
 
             }else{

@@ -15,7 +15,7 @@ import modelo.ExcepcionPersonalizada;
  *
  * @author Particular
  */
-public class VoGenerales {
+public abstract class VoGenerales {
     
     protected HashMap<String, Callable> relacionCampo = new HashMap<>();
     
@@ -36,5 +36,8 @@ public class VoGenerales {
         }
         return relacionCampo;
     }
+    
+    @Override
+    public abstract String toString();
     
 }
