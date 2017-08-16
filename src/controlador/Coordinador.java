@@ -58,6 +58,7 @@ public class Coordinador {
     private DialogoProveedorRegistrar dialogoProveedorRegistrar;
     private DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar;
     private DialogoProveedorModificar dialogoProveedorModificar;
+    private DialogoEntradaLote dialogoEntradaLote;
     
     
     public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
@@ -70,6 +71,14 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
 
+    public DialogoEntradaLote getDialogoEntradaLote() {
+        return dialogoEntradaLote;
+    }
+
+    public void setDialogoEntradaLote(DialogoEntradaLote dialogoEntradaLote) {
+        this.dialogoEntradaLote = dialogoEntradaLote;
+    }
+    
     public DialogoProveedorModificar getDialogoProveedorModificar() {
         return dialogoProveedorModificar;
     }
@@ -977,6 +986,21 @@ public class Coordinador {
     */
     
     
+    /* 
+    ========================================================================
+       INICIO DE ENTRADA LOTE
+    ////////////////////////////////////////////////////////////////////////
+    */
+        public void entradaLoteAbrirDialogo(){
+            this.getDialogoEntradaLote().setVisible(true);
+            this.getDialogoEntradaLote().configurar();
+        }
+        
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE ENTRADA LOTE
+    ========================================================================
+    */
     /* 
     ========================================================================
        INICIO DE ALGO

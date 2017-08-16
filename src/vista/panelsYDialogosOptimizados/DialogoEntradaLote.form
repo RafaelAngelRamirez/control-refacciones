@@ -25,17 +25,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="imagenesRefacciones" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="comboUnidad" max="32767" attributes="0"/>
+                      <Component id="comboBusqueda" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="92" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="etiquetaNombreDeLaRefaccion" min="-2" pref="375" max="-2" attributes="0"/>
+                          <Component id="txtNombreDeLaRefaccion" alignment="0" min="-2" pref="435" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="0" attributes="0">
@@ -49,64 +51,44 @@
                                   <Component id="etiquetaExistencia" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                      <Component id="etiquetaCodigoDelProveedor" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="58" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="txtStockMin" linkSize="1" pref="109" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="txtStockMax" linkSize="1" min="-2" pref="109" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="txtCodigoProveedor" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
-                                          <Component id="etiquetaCodigoInterno4" alignment="1" min="-2" pref="201" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="txtStockMin" linkSize="1" pref="109" max="32767" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="txtStockMax" linkSize="1" min="-2" pref="109" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="etiquetaStockMax" min="-2" pref="109" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="etiquetaStockMin" min="-2" pref="109" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="etiquetaCodigoInterno2" alignment="1" min="-2" pref="203" max="-2" attributes="0"/>
-                                          <Component id="txtCodigo1" alignment="1" min="-2" pref="203" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="etiquetaStockMax" min="-2" pref="109" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="etiquetaStockMin" min="-2" pref="109" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="etiquetaCantidadQueEntra" alignment="1" min="-2" pref="203" max="-2" attributes="0"/>
+                                  <Component id="txtCantidadQueEntra" alignment="1" min="-2" pref="203" max="-2" attributes="0"/>
+                                  <Component id="txtCodigoProveedor" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="etiquetaCodigoDelProveedor" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="etiquetaPedidoEnEspera" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btnSalir1" min="-2" pref="97" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnSalir" min="-2" pref="97" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel1" min="-2" pref="431" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtCodigo" pref="203" max="32767" attributes="0"/>
-                                          <Component id="etiquetaCodigoInterno1" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="jScrollPane1" alignment="0" pref="436" max="32767" attributes="0"/>
-                                      <Component id="comboUnidad1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="etiquetaNombreDeLaRefaccion2" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="etiquetaNombreDeLaRefaccion" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btnSalir1" min="-2" pref="97" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnSalir" min="-2" pref="97" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel1" min="-2" pref="431" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="0" pref="436" max="32767" attributes="0"/>
+                                  <Component id="comboEmpleadoQueReciveLote" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="etiquetaEmpleadoQueReciveElLote" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="etiquetaObservaciones" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="etiquetaFechaDeLote" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtFechaDeLote" alignment="0" pref="226" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="100" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="etiquetaNombreDeLaRefaccion1" min="-2" pref="375" max="-2" attributes="0"/>
-                                  <Component id="txtNombreDeLaRefaccion" alignment="0" min="-2" pref="435" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -119,24 +101,19 @@
               <Component id="jLabel1" min="-2" pref="65" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="comboUnidad" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="comboBusqueda" min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="etiquetaNombreDeLaRefaccion1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="etiquetaNombreDeLaRefaccion" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Component id="txtNombreDeLaRefaccion" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="etiquetaCodigoInterno" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="etiquetaCodigoDelProveedor" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="etiquetaCodigoInterno" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="etiquetaCodigoDelProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="txtCodigoInterno" min="-2" max="-2" attributes="0"/>
@@ -146,10 +123,10 @@
                   <Group type="102" attributes="0">
                       <Component id="txtCodigoProveedor" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="etiquetaCodigoInterno4" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="etiquetaPedidoEnEspera" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="txtExistencia" min="-2" pref="48" max="-2" attributes="0"/>
@@ -171,22 +148,22 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="etiquetaCodigoInterno1" min="-2" max="-2" attributes="0"/>
+                      <Component id="etiquetaFechaDeLote" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtCodigo" linkSize="5" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtFechaDeLote" linkSize="5" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="etiquetaCodigoInterno2" min="-2" max="-2" attributes="0"/>
+                      <Component id="etiquetaCantidadQueEntra" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtCodigo1" linkSize="5" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCantidadQueEntra" linkSize="5" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="etiquetaNombreDeLaRefaccion2" min="-2" max="-2" attributes="0"/>
+              <Component id="etiquetaEmpleadoQueReciveElLote" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="comboUnidad1" min="-2" pref="32" max="-2" attributes="0"/>
+              <Component id="comboEmpleadoQueReciveLote" min="-2" pref="32" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="etiquetaNombreDeLaRefaccion" min="-2" max="-2" attributes="0"/>
+              <Component id="etiquetaObservaciones" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="92" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -200,7 +177,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="etiquetaNombreDeLaRefaccion">
+    <Component class="javax.swing.JLabel" name="etiquetaObservaciones">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="0"/>
@@ -213,7 +190,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="0"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="text" type="java.lang.String" value="Stock Min"/>
       </Properties>
     </Component>
@@ -226,16 +203,13 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="012345.123"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtStockMinActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaStockMax">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="0"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="text" type="java.lang.String" value="Stock Max"/>
       </Properties>
     </Component>
@@ -429,7 +403,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboUnidad">
+    <Component class="javax.swing.JComboBox" name="comboBusqueda">
       <Properties>
         <Property name="editable" type="boolean" value="true"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -439,14 +413,11 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboUnidadActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="etiquetaCodigoInterno4">
+    <Component class="javax.swing.JLabel" name="etiquetaPedidoEnEspera">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="ff" red="ff" type="rgb"/>
@@ -470,7 +441,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="txtDescripcion">
+        <Component class="javax.swing.JTextArea" name="txtObservaciones">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -484,7 +455,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="etiquetaCodigoInterno1">
+    <Component class="javax.swing.JLabel" name="etiquetaFechaDeLote">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri Light" size="24" style="1"/>
@@ -494,7 +465,7 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCodigo">
+    <Component class="javax.swing.JTextField" name="txtFechaDeLote">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="36" style="0"/>
@@ -524,7 +495,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="etiquetaCodigoInterno2">
+    <Component class="javax.swing.JLabel" name="etiquetaCantidadQueEntra">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri Light" size="24" style="1"/>
@@ -534,7 +505,7 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCodigo1">
+    <Component class="javax.swing.JTextField" name="txtCantidadQueEntra">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="36" style="0"/>
@@ -550,7 +521,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboUnidad1">
+    <Component class="javax.swing.JComboBox" name="comboEmpleadoQueReciveLote">
       <Properties>
         <Property name="editable" type="boolean" value="true"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -560,14 +531,11 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboUnidad1ActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="etiquetaNombreDeLaRefaccion1">
+    <Component class="javax.swing.JLabel" name="etiquetaNombreDeLaRefaccion">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="0"/>
@@ -575,7 +543,7 @@
         <Property name="text" type="java.lang.String" value="Nombre de la refacci&#xf3;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="etiquetaNombreDeLaRefaccion2">
+    <Component class="javax.swing.JLabel" name="etiquetaEmpleadoQueReciveElLote">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="0"/>

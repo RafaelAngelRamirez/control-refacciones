@@ -122,6 +122,10 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      * Nombre del dialogo refaccion detalle.
      */
     public static String DIALOGO_REFACCION_DETALLE = "Detalle refacción";
+    /**
+     * Nombre del dialogo entrada lote.
+     */
+    public static String DIALOGO_ENTRADA_LOTE = "Entrada Lote";
     
     
    
@@ -310,15 +314,41 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         menuConsultar.setNombre("Consultar");
         this.addItemOMenu(menuConsultar);
         
+        MenuConstructor modificarDatos = new MenuConstructor();
+        modificarDatos.setMenu();
+        modificarDatos.setNombre("Modificar datos");
+        this.addItemOMenu(modificarDatos);
+        
+        
+        
         MenuConstructor menuAgregarRegistrar = new MenuConstructor();
         menuAgregarRegistrar.setMenu();
         menuAgregarRegistrar.setNombre("Agregar/Registrar");
+        menuAgregarRegistrar.setPadre(modificarDatos);
         this.addItemOMenu(menuAgregarRegistrar);
         
         MenuConstructor menuModificar = new MenuConstructor();
         menuModificar.setMenu();
         menuModificar.setNombre("Modificar");
+        menuModificar.setPadre(modificarDatos);
         this.addItemOMenu(menuModificar);
+        
+        MenuConstructor menuEntradasSalidas = new MenuConstructor();
+        menuEntradasSalidas.setMenu();
+        menuEntradasSalidas.setNombre("Entradas/Salidas");
+        this.addItemOMenu(menuEntradasSalidas);
+        
+        MenuConstructor menuEntradas = new MenuConstructor();
+        menuEntradas.setMenu();
+        menuEntradas.setNombre("Entradas");
+        menuEntradas.setPadre(menuEntradasSalidas);
+        this.addItemOMenu(menuEntradas);
+        
+        MenuConstructor menuSalidas = new MenuConstructor();
+        menuSalidas.setMenu();
+        menuSalidas.setNombre("Salidas");
+        menuSalidas.setPadre(menuEntradasSalidas);
+        this.addItemOMenu(menuSalidas);
         
         
         /**
@@ -494,6 +524,29 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoImagenDetalleOPA);
        
+        /**
+         * /////////////////////////////////////////////////
+         *      MENU ENTRADAS/SALIDAS
+         * /////////////////////////////////////////////////
+         */
+        
+        MenuConstructor dialogoEntradaLote = new MenuConstructor();
+        dialogoEntradaLote.setItem();
+        dialogoEntradaLote.setNombre(DIALOGO_ENTRADA_LOTE);
+        dialogoEntradaLote.setPadre(menuEntradas);
+        dialogoEntradaLote.setAccionDelItem(
+                ()->this.getCoordinador().entradaLoteAbrirDialogo());
+        dialogoEntradaLote.setDialog(this.getCoordinador().getDialogoEntradaLote());
+        this.addItemOMenu(dialogoEntradaLote);
+        
+        Coordinador.OperacionesPorActualizar dialogoEntradaLoteOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        dialogoEntradaLoteOPA.setPanel(dialogoEntradaLote);
+        dialogoEntradaLoteOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
+        this.getCoordinador().addListaOperacionesPorActualizar(dialogoEntradaLoteOPA);
+        
+        
         
         
         //AÑADIMOS LOS DIALOGOS.

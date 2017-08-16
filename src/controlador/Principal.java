@@ -20,7 +20,6 @@ import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
 import com.bulenkov.darcula.DarculaLaf;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
-import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -89,7 +88,7 @@ public class Principal {
         DialogoImagenRefaccionDetalle dialogoImagenDetalle = new DialogoImagenRefaccionDetalle();
         DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar = new DialogoMaquinaModeloModificar();
         DialogoProveedorModificar dialogoProveedorModificar = new DialogoProveedorModificar();
-        
+        DialogoEntradaLote dialogoEntradaLote = new DialogoEntradaLote();
         //COORDINADORES
         Coordinador coordinador = new Coordinador();
         
@@ -115,6 +114,7 @@ public class Principal {
         dialogoImagenDetalle.setCoordinador(coordinador);
         dialogoMaquinaModeloModificar.setCoordinador(coordinador);
         dialogoProveedorModificar.setCoordinador(coordinador);
+        dialogoEntradaLote.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         
@@ -137,6 +137,7 @@ public class Principal {
         coordinador.setPanelRefaccionModificar(panelRefaccionModificar);
         coordinador.setDialogoMaquinaModeloModificar(dialogoMaquinaModeloModificar);
         coordinador.setDialogoProveedorModificar(dialogoProveedorModificar);
+        coordinador.setDialogoEntradaLote(dialogoEntradaLote);
         
         
 //        /*
