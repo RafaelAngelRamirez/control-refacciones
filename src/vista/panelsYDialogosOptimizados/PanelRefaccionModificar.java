@@ -307,13 +307,13 @@ public class PanelRefaccionModificar extends JPanel {
         //CARGAMOS LOS DATOS YA GUARDADOS EN SUS LISTAS Y LOS ELIMINANOD DE LA 
         // OTRA. 
         
-        HashMap<String, Integer> pvoMapa = new HashMap<>();
+        HashMap<String, Object> pvoMapa = new HashMap<>();
         for (RelacionRefaccionProveedorVo vo : lpvo) {
             _ListaProveedor.removeElement(vo.getProveedorVo().getEmpresa());
             pvoMapa.put(vo.getProveedorVo().getEmpresa(), vo.getIdProveedor());
         }
         
-        HashMap<String, Integer> mmvoMapa = new HashMap<>();
+        HashMap<String, Object> mmvoMapa = new HashMap<>();
         for (RelacionRefaccionMaquinaModeloVo vo : lmmvo) {
             _ListaMaquinaModelo.removeElement(
                     vo.getMaquinaModeloVo().getModelo()
@@ -365,7 +365,7 @@ public class PanelRefaccionModificar extends JPanel {
     
     public void cargarListaProveedor(){
         List<ProveedorVo> lista = this.coordinador.proveedoresConsultarMarcas();
-        HashMap<String, Integer> datos= new HashMap<>();
+        HashMap<String, Object> datos= new HashMap<>();
         _ListaProveedor.limpiar();
         for (ProveedorVo vo : lista) {
             datos.put(vo.getEmpresa(), vo.getId());
@@ -375,7 +375,7 @@ public class PanelRefaccionModificar extends JPanel {
     }
     public void cargarListaMaquinaModelo(){
         List<MaquinaModeloVo> lista = this.coordinador.maquinaModeloConsultar();
-        HashMap<String, Integer> datos = new HashMap<>();
+        HashMap<String, Object> datos = new HashMap<>();
         _ListaMaquinaModelo.limpiar();
         for (MaquinaModeloVo vo : lista) {
             String modeloAnio = vo.getModelo() + " " +vo.getAnio();
@@ -385,7 +385,7 @@ public class PanelRefaccionModificar extends JPanel {
     }
     public void cargarComboUnidad(){
         List<UnidadVo> l = this.coordinador.unidadConsultar();
-        HashMap<String, Integer> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         
         for (UnidadVo vo : l) {
             map.put(vo.getUnidad(), vo.getId());
@@ -394,7 +394,7 @@ public class PanelRefaccionModificar extends JPanel {
     }
     public void cargarComboMaterial(){
         List<MaterialVo> l = this.coordinador.materialConsultar();
-        HashMap<String, Integer> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         for (MaterialVo vo : l) {
             map.put(vo.getMaterial(), vo.getId());
         }
@@ -1527,10 +1527,10 @@ public class PanelRefaccionModificar extends JPanel {
         
         
         //CARGAMOS LAS MAQUINAS-MODELO QUE VAN A RELACIONARSE CON ESTA REFACCION
-        List<Integer> mmSeleccinadas = _ListasMaquinasSeleccionadas.getItems_soloId();
-        for (Integer s : mmSeleccinadas) {
+        List<Object> mmSeleccinadas = _ListasMaquinasSeleccionadas.getItems_soloId();
+        for (Object s : mmSeleccinadas) {
             RelacionRefaccionMaquinaModeloVo rrmmVo = new RelacionRefaccionMaquinaModeloVo();
-            rrmmVo.setIdMaquinaModelo(s);
+            rrmmVo.setIdMaquinaModelo((int)s);
             listarrmmVo.add(rrmmVo);
         }
         
@@ -1544,10 +1544,10 @@ public class PanelRefaccionModificar extends JPanel {
         }
         
         //CARGAMOS LOS PROVEEDORES QUE VAN A RELACIONARSE CON ESTA REFACCIÓN.
-        List<Integer> pSeleccionado = _ListaProveedorSeleccionado.getItems_soloId();
-        for (Integer i : pSeleccionado) {
+        List<Object> pSeleccionado = _ListaProveedorSeleccionado.getItems_soloId();
+        for (Object i : pSeleccionado) {
             RelacionRefaccionProveedorVo v = new RelacionRefaccionProveedorVo();
-            v.setIdProveedor(i);
+            v.setIdProveedor((int)i);
             listarrpVo.add(v);
         }
         

@@ -17,6 +17,7 @@ import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir_;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
+import vista.utilidadesOptimizadas.UtilidadesListas_;
 import vista.utilidadesOptimizadas.UtilidadesTxtArea_;
 import vista.utilidadesOptimizadas.UtilidadesTxt_;
 
@@ -28,7 +29,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
 
     private Coordinador coordinador;
     
-    private UtilidadesComboBox_ _comboBusqueda;
+    private UtilidadesTxt_ _txtBusqueda;
+    private UtilidadesListas_ _listaResultados;
     private UtilidadesTxt_ _txtNombreDeLaRefaccion;
     private UtilidadesTxt_ _txtCodigoInterno;
     private UtilidadesTxt_ _txtCodigoProveedor;
@@ -106,7 +108,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         */
         //INICIAMOS LAS UTILIDADES.
         
-        _comboBusqueda = new UtilidadesComboBox_(coordinador);
+        _txtBusqueda = new UtilidadesTxt_(coordinador);
+        _listaResultados = new UtilidadesListas_(coordinador);
         _txtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
         _txtCodigoInterno = new UtilidadesTxt_(coordinador);
         _txtCodigoProveedor = new UtilidadesTxt_(coordinador);
@@ -122,7 +125,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         
-        _comboBusqueda.setComponente(this.comboBusqueda);
+        _txtBusqueda.setComponente(this.txtBusqueda);
+        _listaResultados.setComponente(listaResultados);
         _txtNombreDeLaRefaccion.setComponente(this.txtNombreDeLaRefaccion);
         _txtCodigoInterno.setComponente(this.txtCodigoInterno);
         _txtCodigoProveedor.setComponente(this.txtCodigoProveedor);
@@ -140,7 +144,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
-        _comboBusqueda.setTamanoDeCampo(300);
+        _txtBusqueda.setTamanoDeCampo(300);
         _txtFechaDeLote.setTamanoDeCampo(elit.getFechaRecepcionLotePDC().getLongitudDeCaracteres());
         _txtCantidadQueEntra.setTamanoDeCampo(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
         _txtObservaciones.setTamanoDeCampo(elit.getObservacionesPDC().getLongitudDeCaracteres());
@@ -150,7 +154,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         
         _txtObservaciones.setMayusculas();
-        _comboBusqueda.setMayusculas();
+        _txtBusqueda.setMayusculas();
         _comboEmpleadoQueReciveLote.setMayusculas();
         _txtObservaciones.setMayusculas();
                 
@@ -159,24 +163,25 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtCantidadQueEntra.setSoloNumeros(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
         
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
-        _comboBusqueda.setEspaciosEnBlanco();
+        _txtBusqueda.setEspaciosEnBlanco();
         _txtCantidadQueEntra.setEspaciosEnBlanco();
         _txtObservaciones.setEspaciosEnBlanco();
         _comboEmpleadoQueReciveLote.setEspaciosEnBlanco();
         
         //TRAVEL POLICY
         
-        _comboBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
+        _txtBusqueda.setNextFocusableComponent(_listaResultados.getThis());
+        _listaResultados.setNextFocusableComponent(_txtFechaDeLote.getThis());
         _txtObservaciones.setNextFocusableComponent(btnGuardar);
-        btnGuardar.setNextFocusableComponent(btnCancelar);
-        btnCancelar.setNextFocusableComponent(_comboBusqueda.getThis());
+        btnGuardar.setNextFocusableComponent(btnSalir1);
+        btnSalir1.setNextFocusableComponent(_txtBusqueda.getThis());
         
         //ACCIONES ESPECIALES.
-        _comboBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir_.TECLA_CUALQUIERA);
+        _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir_.TECLA_CUALQUIERA);
         
         
         //ACCIONES DE BOTONES
-        UtilidadesBotones_.setEnterYEspacio(btnCancelar);
+        UtilidadesBotones_.setEnterYEspacio(btnSalir1);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
         
@@ -237,7 +242,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         txtUnidad = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        comboBusqueda = new javax.swing.JComboBox<>();
         etiquetaPedidoEnEspera = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObservaciones = new javax.swing.JTextArea();
@@ -249,14 +253,12 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         comboEmpleadoQueReciveLote = new javax.swing.JComboBox<>();
         etiquetaNombreDeLaRefaccion = new javax.swing.JLabel();
         etiquetaEmpleadoQueReciveElLote = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
+        btnSalir1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listaResultados = new javax.swing.JList<>();
+        txtBusqueda = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
 
         etiquetaObservaciones.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaObservaciones.setText("Observaciones");
@@ -388,9 +390,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_buscar.png"))); // NOI18N
 
-        comboBusqueda.setEditable(true);
-        comboBusqueda.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-
         etiquetaPedidoEnEspera.setBackground(new java.awt.Color(255, 255, 0));
         etiquetaPedidoEnEspera.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
         etiquetaPedidoEnEspera.setForeground(new java.awt.Color(0, 0, 0));
@@ -453,12 +452,22 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         etiquetaEmpleadoQueReciveElLote.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaEmpleadoQueReciveElLote.setText("Empleado que recive el lote.");
 
-        btnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnSalir1.setText("Cancelar");
+        btnSalir1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnSalir1ActionPerformed(evt);
+            }
+        });
+
+        listaResultados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(listaResultados);
+
+        txtBusqueda.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBusquedaActionPerformed(evt);
             }
         });
 
@@ -470,13 +479,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                 .addComponent(imagenesRefacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBusqueda, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -504,7 +507,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                                     .addComponent(etiquetaCantidadQueEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnCancelar)
+                                    .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -517,7 +520,16 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                                         .addComponent(txtFechaDeLote, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                                         .addComponent(etiquetaFechaDeLote, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addComponent(etiquetaExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(100, 100, 100))))
+                        .addGap(100, 100, 100))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBusqueda))
+                            .addComponent(jScrollPane2))
+                        .addContainerGap())))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtStockMax, txtStockMin});
@@ -527,10 +539,12 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             .addComponent(imagenesRefacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBusqueda))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(comboBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(etiquetaNombreDeLaRefaccion)
                 .addGap(8, 8, 8)
@@ -580,8 +594,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnSalir1))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtStockMax, txtStockMin});
@@ -610,24 +624,23 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }
     
     private void busqueda(){
-        cargarRefaccion(_comboBusqueda.getText());
+        cargarRefaccion(_txtBusqueda.getText());
     }
     
     private void cargarRefaccion(String busqueda){
-        HashMap<String, RefaccionVo> datos = new HashMap<>();
+        HashMap<String, Object> datos = new HashMap<>();
         List<RefaccionVo> listaVo = this.coordinador.refaccionConsultarTodoBusqueda(busqueda);
         for (RefaccionVo vo : listaVo) {
             
             datos.put(vo.getNombre()+" | " +vo.getCodigoInterno()+"|"+vo.getCodigoProveedor(), vo);
         }
         
-        _comboBusqueda.cargarCombo(datos);
-        
+        _listaResultados.cargarLista(datos);
         
         
     }
     private void limpiar(){
-        _comboBusqueda.limpiar();
+        _txtBusqueda.setText("");
         _txtNombreDeLaRefaccion.setText("");
         _txtCodigoInterno.setText("");
         _txtCodigoProveedor.setText("");
@@ -648,23 +661,22 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             this.dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
         salir();
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    }//GEN-LAST:event_btnSalir1ActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        salir();
-    }//GEN-LAST:event_formWindowClosing
+    private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBusquedaActionPerformed
 
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresarImagen;
+    private javax.swing.JButton btnSalir1;
     private javax.swing.JButton btnSiguienteImagen;
-    private javax.swing.JComboBox<String> comboBusqueda;
     private javax.swing.JComboBox<String> comboEmpleadoQueReciveLote;
     private javax.swing.JLabel etiquetaCantidadQueEntra;
     private javax.swing.JLabel etiquetaCodigoDelProveedor;
@@ -682,6 +694,9 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> listaResultados;
+    private javax.swing.JTextField txtBusqueda;
     private javax.swing.JTextField txtCantidadQueEntra;
     private javax.swing.JTextField txtCodigoInterno;
     private javax.swing.JTextField txtCodigoProveedor;

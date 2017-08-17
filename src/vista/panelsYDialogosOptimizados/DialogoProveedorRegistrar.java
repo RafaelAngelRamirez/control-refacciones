@@ -676,7 +676,7 @@ public class DialogoProveedorRegistrar extends JDialog {
 
     private void cargarComboPaises(){
         List<PaisVo> listaPaises = this.coordinador.PaisConsultar();
-        HashMap<String, Integer> datosPaises = new HashMap<>();
+        HashMap<String, Object> datosPaises = new HashMap<>();
         for (PaisVo listaPaise : listaPaises) {
             datosPaises.put(listaPaise.getPais(), listaPaise.getId());
         }

@@ -500,6 +500,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
                             "La imagen no se puede cargar. \n Se eliminara"
                                     + "de la lista.");
                     this.imagenesPorCargar.remove(imagenActiva);
+                    
                     Logger.getLogger(UtilidadesJXViewImage_
                             .class.getName()).log(Level.SEVERE, null, ex);
                 }

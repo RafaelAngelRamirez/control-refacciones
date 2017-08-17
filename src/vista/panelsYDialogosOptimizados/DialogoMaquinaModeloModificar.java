@@ -178,7 +178,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     
     public void cargarComboMarca(){
         List<ProveedorVo> l = this.coordinador.proveedoresConsultarMarcas();
-        HashMap<String, Integer> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         
         for (ProveedorVo vo : l) {
             map.put(vo.getEmpresa(), vo.getId());
@@ -191,7 +191,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     
     public void cargarListaMaquinaModelo(){
         List<MaquinaModeloVo> lista = this.coordinador.maquinaModeloConsultar();
-        HashMap<String, Integer> datos = new HashMap<>();
+        HashMap<String, Object> datos = new HashMap<>();
         _ListaMaquinaModelo.limpiar();
         for (MaquinaModeloVo vo : lista) {
             String modeloAnio = vo.getModelo() + " " +vo.getAnio();

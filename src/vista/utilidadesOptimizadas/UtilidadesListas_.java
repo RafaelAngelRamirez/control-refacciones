@@ -27,17 +27,17 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     private UtilidadesListas_ listaAAgregar;
     
     
-    private HashMap<Object, Integer> relacionDatoId  = new HashMap();
+    private HashMap<Object, Object> relacionDatoId  = new HashMap();
 
     public UtilidadesListas_(Coordinador controlador) {
         super(controlador);
     }
 
-    public HashMap<Object, Integer> getRelacionDatoId() {
+    public HashMap<Object, Object> getRelacionDatoId() {
         return relacionDatoId;
     }
 
-    public void setRelacionDatoId(HashMap<Object, Integer> relacionDatoId) {
+    public void setRelacionDatoId(HashMap<Object, Object> relacionDatoId) {
         this.relacionDatoId = relacionDatoId;
     }
 
@@ -131,7 +131,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
      * @param datos El mapa que contiene los datos relacionados con id para
      * mostrarse en la lista. 
      */
-    public void cargarLista(HashMap <String, Integer> datos) {
+    public void cargarLista(HashMap <String, Object> datos) {
         Suceso s = new Suceso();
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
@@ -141,8 +141,8 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
         DefaultListModel<String> modelo  =
                 new DefaultListModel<String>();
             
-        for (Map.Entry<String, Integer> datosMap : datos.entrySet()) {
-            Integer id = datosMap.getValue();
+        for (Map.Entry<String, Object> datosMap : datos.entrySet()) {
+            Object id = datosMap.getValue();
             String datoColumna = datosMap.getKey();
             
             modelo.addElement(datoColumna);
@@ -164,7 +164,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
             
             agregarAqui.addElement(valor);
             quitarDeAqui.removeElement(valor);
-            int id = _listaQueSeSelecciona.getRelacionDatoId().get(valor);
+            Object id = _listaQueSeSelecciona.getRelacionDatoId().get(valor);
             _listaALaQueSeAgregaLaSeleccion.getRelacionDatoId().put(valor, id);
             _listaQueSeSelecciona.getRelacionDatoId().remove(valor);
         }
@@ -266,14 +266,14 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     }
     
     /**
-     * Retorna todos los id de la lista. 
+     * Retorna todos los id(u objetos) de la lista. 
      * @return La lista que contiene los id definidos dentro de la lista. 
      */
-    public List<Integer> getItems_soloId(){
-        List<Integer> ids = new ArrayList<>();
+    public List<Object> getItems_soloId(){
+        List<Object> ids = new ArrayList<>();
         
-        for (Map.Entry<Object, Integer> entry : relacionDatoId.entrySet()) {
-            int dato = entry.getValue();
+        for (Map.Entry<Object, Object> entry : relacionDatoId.entrySet()) {
+            Object dato = entry.getValue();
             ids.add(dato);
         }
         return ids;

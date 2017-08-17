@@ -5,18 +5,15 @@
  */
 package vista.panelsYDialogosOptimizados;
 import controlador.Coordinador;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.MaquinaModeloIT;
-import modelo.InfoTabla.PaisIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.ProveedorVo;
-import vista.MarcoParaVentanaPrincipal;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.utilidadesOptimizadas.UtilidadesTxt_;
@@ -180,7 +177,7 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
     
     public void consultarProveedores(){
         List<ProveedorVo> l = this.coordinador.proveedoresConsultarMarcas();
-        HashMap<String, Integer> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         
         for (ProveedorVo vo : l) {
             map.put(vo.getEmpresa(), vo.getId());

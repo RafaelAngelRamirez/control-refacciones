@@ -22,7 +22,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
     
     private JComboBox comboBox;
    
-    private HashMap<String, Integer> relacionDatoId = new HashMap<>();
+    private HashMap<String, Object> relacionDatoId = new HashMap<>();
     private String nombreColumnaId, nombreColumnaDatoAMostrar;
 //    private Runnable accionCuandoPierdeElFoco;
     
@@ -84,18 +84,19 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
      * @param datos El primer string es el valor y el segúndo es el id que se
      * quiere almacenear para relacionarlo al seleccionar un elemento del combo.
      */
-    public void cargarCombo(HashMap <String, Integer> datos){
+    public void cargarCombo(HashMap <String, Object> datos){
         this.limpiar();
-        DefaultComboBoxModel<String> m
-                    = new DefaultComboBoxModel<String>();
+//        DefaultComboBoxModel<String> m
+//                    = new DefaultComboBoxModel<String>();
+        DefaultComboBoxModel<String> m = (DefaultComboBoxModel < String >)this.comboBox.getModel();
         
         this.relacionDatoId = datos;
-        for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+        for (Map.Entry<String, Object> entry : datos.entrySet()) {
             String valor = entry.getKey();
             m.addElement(valor);
         }    
-        this.comboBox.setModel(m);
-        this.autoCompletar();
+//        this.comboBox.setModel(m);
+//        this.autoCompletar();
     }
        
 
@@ -117,19 +118,20 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
         this.comboBox.removeItem(elementoARemover);
     }
     /**
-     * Retorna el id del item seleccionado del comboBox que tenemos instanciado.
+     * Retorna el id del item seleccionado del comboBox que tenemos instanciado 
+     * ó el objeto que deseamos que se retorne.
      * Nos facilita la vida!
      * 
-     * @return Id que corresponde con la BD.
+     * @return Id que corresponde con la BD o el objeto que queremos que nos retorne.
      */
-    public int getSelectedItem_idRetorno(){
+    public Object getSelectedItem_idRetorno(){
         if (this.isEmpty()) {
             return -1;
         }else{
             System.out.println("estamos en el combo:");
-            for (Map.Entry<String, Integer> entry : relacionDatoId.entrySet()) {
+            for (Map.Entry<String, Object> entry : relacionDatoId.entrySet()) {
                 String key = entry.getKey();
-                Integer value = entry.getValue();
+                Object value = entry.getValue();
                 System.out.println("relacionDatoId: " + key + "- "+value);
                 
             }

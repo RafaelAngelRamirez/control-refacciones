@@ -218,7 +218,7 @@ public class DialogoRefaccionDetalle extends JDialog {
         _TxtParaQueEs.setText(rvo.getParaQueEs());
         
         List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
-        HashMap<String, Integer> pvoMapa = new HashMap<>();
+        HashMap<String, Object> pvoMapa = new HashMap<>();
         for (RelacionRefaccionProveedorVo vo : lpvo) {
             pvoMapa.put(vo.getProveedorVo().getEmpresa(), vo.getIdProveedor());
         }
@@ -226,7 +226,7 @@ public class DialogoRefaccionDetalle extends JDialog {
         
         
         List<RelacionRefaccionMaquinaModeloVo> lmmvo = this.getCoordinador().maquinaModeloConsultar(idRefaccion);
-        HashMap<String, Integer> mmvoMapa = new HashMap<>();
+        HashMap<String, Object> mmvoMapa = new HashMap<>();
         for (RelacionRefaccionMaquinaModeloVo vo : lmmvo) {
             mmvoMapa.put(vo.getMaquinaModeloVo().getModelo()
                     + " "+vo.getMaquinaModeloVo().getAnio(), 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.panelsYDialogosOptimizados;
 
 import controlador.Coordinador;
@@ -545,7 +540,7 @@ public class DialogoProveedorModificar extends JDialog {
     
     public void cargarListaProveedores(){
         List<ProveedorVo> listPvo = this.getCoordinador().proveedoresConsultarMarcas();
-        HashMap<String, Integer> mapa = new HashMap<>();
+        HashMap<String, Object> mapa = new HashMap<>();
         for (ProveedorVo vo : listPvo) {
             mapa.put(vo.getEmpresa(), vo.getId());
         }
@@ -797,7 +792,7 @@ public class DialogoProveedorModificar extends JDialog {
 
     public void cargarComboPaises(){
         List<PaisVo> listaPaises = this.coordinador.PaisConsultar();
-        HashMap<String, Integer> datosPaises = new HashMap<>();
+        HashMap<String, Object> datosPaises = new HashMap<>();
         for (PaisVo listaPaise : listaPaises) {
             datosPaises.put(listaPaise.getPais(), listaPaise.getId());
         }
