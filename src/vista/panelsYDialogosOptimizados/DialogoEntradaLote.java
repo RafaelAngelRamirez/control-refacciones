@@ -124,10 +124,16 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
+        
         _txtFechaDeLote.setTamanoDeCampo(elit.getFechaRecepcionLotePDC().getLongitudDeCaracteres());
         _txtCantidadQueEntra.setTamanoDeCampo(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
-        
+        _txtObservaciones.setTamanoDeCampo(elit.getObservacionesPDC().getLongitudDeCaracteres());
+        _comboEmpleadoQueReciveLote.setTamanoDeCampo();
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
+        
+        _txtObservaciones.setMayusculas();
+        _comboBusqueda.setMayusculas();
+        _comboEmpleadoQueReciveLote.setMayusculas();
         
         //CAMPOS NUMÉRICOS
         
