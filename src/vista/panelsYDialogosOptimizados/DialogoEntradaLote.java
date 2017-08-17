@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.RefaccionIT;
+import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
 import vista.utilidadesOptimizadas.UtilidadesTxtArea_;
@@ -168,6 +169,9 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         //ACCIONES ESPECELIALES.
         
         //ACCIONES DE BOTONES
+        UtilidadesBotones_.setEnterYEspacio(btnCancelar);
+        UtilidadesBotones_.setEnterYEspacio(btnGuardar);
+        
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -180,8 +184,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             INICIO CARGA DE ELEMENTOS 
         ///////////////////////////////////////////////////////////////////////
         */
-//        idRefaccion = Integer.parseInt(id);
-//        cargarElementos();
+
+
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN CARGA DE ELEMENTOS 
@@ -576,11 +580,11 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSiguienteImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteImagenActionPerformed
-        _ImagenesRefacciones.imagenSiguiente();
+        _imagenesRefaccion.imagenSiguiente();
     }//GEN-LAST:event_btnSiguienteImagenActionPerformed
 
     private void btnRegresarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarImagenActionPerformed
-        _ImagenesRefacciones.imagenAnterior();
+        _imagenesRefaccion.imagenAnterior();
     }//GEN-LAST:event_btnRegresarImagenActionPerformed
 
     private void imagenesRefaccionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenesRefaccionesMouseClicked
@@ -590,60 +594,37 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }//GEN-LAST:event_imagenesRefaccionesMouseClicked
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        salir();
-        }
+       JOptionPane.showMessageDialog(null, "pendiente configuracion");
+    }
+    
+    private void limpiar(){
+        _comboBusqueda.limpiar();
+        _txtNombreDeLaRefaccion.setText("");
+        _txtCodigoInterno.setText("");
+        _txtCodigoProveedor.setText("");
+        _txtExistencia.setText("");
+        _txtStockMax.setText("");
+        _txtStockMin.setText("");
+        _txtUnidad.setText("");
+        _txtFechaDeLote.setText("");
+        _txtCantidadQueEntra.setText("");
+        _comboEmpleadoQueReciveLote.limpiar();
+        _txtObservaciones.setText("");
+        _imagenesRefaccion.limpiarComponenteURL();
+    }
 
-        private void salir(){
+    private void salir(){
             this.setVisible(false);
+            limpiar();
             this.dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        salir();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogoEntradaLote.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogoEntradaLote.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogoEntradaLote.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogoEntradaLote.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogoEntradaLote dialog = new DialogoEntradaLote();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

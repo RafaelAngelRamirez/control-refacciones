@@ -8,11 +8,7 @@ package vista.utilidadesOptimizadas;
  
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import modelo.ExcepcionPersonalizada;
-import vista.utilidadesOptimizadas.UtilidadesTabla_;
  
 /**
  * Definimos un modelo de tabla propio para que las celdas no sean editables
@@ -26,6 +22,7 @@ public class UtilidadesModeloDeTabla_ extends DefaultTableModel {
     /**
      * Define la posibilidad de editar la columna. En este caso solo esta definida
      * como false por que no queremos que se edite la tabla. 
+     * @return NA
      */
        
     @Override
