@@ -7,6 +7,7 @@ package vista.panelsYDialogosOptimizados;
 
 import controlador.Coordinador;
 import javax.swing.JOptionPane;
+import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.RefaccionIT;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.utilidadesOptimizadas.UtilidadesTxtArea_;
@@ -71,6 +72,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         */
         
         RefaccionIT rit = new RefaccionIT();
+        EntradaLoteIT elit = new EntradaLoteIT();
         
         
         etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
@@ -121,6 +123,9 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtObservaciones.setComponente(this.txtObservaciones);
         
         //ASIGNAMOS EL TAMAÑO DE CAMPO
+        
+        _txtFechaDeLote.setTamanoDeCampo(elit.getFechaRecepcionLotePDC().getLongitudDeCaracteres());
+        _txtCantidadQueEntra.setTamanoDeCampo(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         

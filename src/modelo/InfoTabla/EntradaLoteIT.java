@@ -16,6 +16,7 @@ public class EntradaLoteIT extends ITGenerales{
     private ParametrosDeCampo cantidadPDC = new ParametrosDeCampo();
     private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
     private ParametrosDeCampo idEmpleadoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo observacionesPDC = new ParametrosDeCampo();
 
     public EntradaLoteIT() {
         idPDC.setNombre("id");
@@ -58,11 +59,20 @@ public class EntradaLoteIT extends ITGenerales{
         idEmpleadoPDC.setAutoIncrement(false);
         idEmpleadoPDC.setPermiteRepetido(true);
         
+        observacionesPDC.setNombre("observaciones");
+        observacionesPDC.setNombreParaMostrar("Observaciones");
+        observacionesPDC.setLongitudDeCaracteres(200);
+        observacionesPDC.setTipoDeDatos("varchar");
+        observacionesPDC.setNulo(true);
+        observacionesPDC.setAutoIncrement(false);
+        observacionesPDC.setPermiteRepetido(true);
+        
         camposPDC.add(idPDC);
         camposPDC.add(fechaRecepcionLotePDC);
         camposPDC.add(cantidadPDC);
         camposPDC.add(idRefaccionPDC);
         camposPDC.add(idEmpleadoPDC);
+        camposPDC.add(observacionesPDC);
     
     
     }
@@ -106,10 +116,14 @@ public class EntradaLoteIT extends ITGenerales{
     public void setIdEmpleadoPDC(ParametrosDeCampo idEmpleadoPDC) {
         this.idEmpleadoPDC = idEmpleadoPDC;
     }
+
+    public ParametrosDeCampo getObservacionesPDC() {
+        return observacionesPDC;
+    }
+
+    public void setObservacionesPDC(ParametrosDeCampo observacionesPDC) {
+        this.observacionesPDC = observacionesPDC;
+    }
     
-    
-    
-    
-            
     
 }
