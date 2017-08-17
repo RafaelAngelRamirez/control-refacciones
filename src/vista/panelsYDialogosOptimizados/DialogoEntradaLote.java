@@ -6,10 +6,14 @@
 package vista.panelsYDialogosOptimizados;
 
 import controlador.Coordinador;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.RefaccionIT;
+import modelo.vo.RefaccionVo;
+import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir_;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
@@ -136,7 +140,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
-        
+        _comboBusqueda.setTamanoDeCampo(300);
         _txtFechaDeLote.setTamanoDeCampo(elit.getFechaRecepcionLotePDC().getLongitudDeCaracteres());
         _txtCantidadQueEntra.setTamanoDeCampo(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
         _txtObservaciones.setTamanoDeCampo(elit.getObservacionesPDC().getLongitudDeCaracteres());
@@ -162,11 +166,14 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         //TRAVEL POLICY
         
+        _comboBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
         _txtObservaciones.setNextFocusableComponent(btnGuardar);
         btnGuardar.setNextFocusableComponent(btnCancelar);
         btnCancelar.setNextFocusableComponent(_comboBusqueda.getThis());
         
-        //ACCIONES ESPECELIALES.
+        //ACCIONES ESPECIALES.
+        _comboBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir_.TECLA_CUALQUIERA);
+        
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
@@ -245,6 +252,11 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         etiquetaObservaciones.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaObservaciones.setText("Observaciones");
@@ -597,6 +609,23 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
        JOptionPane.showMessageDialog(null, "pendiente configuracion");
     }
     
+    private void busqueda(){
+        cargarRefaccion(_comboBusqueda.getText());
+    }
+    
+    private void cargarRefaccion(String busqueda){
+        HashMap<String, RefaccionVo> datos = new HashMap<>();
+        List<RefaccionVo> listaVo = this.coordinador.refaccionConsultarTodoBusqueda(busqueda);
+        for (RefaccionVo vo : listaVo) {
+            
+            datos.put(vo.getNombre()+" | " +vo.getCodigoInterno()+"|"+vo.getCodigoProveedor(), vo);
+        }
+        
+        _comboBusqueda.cargarCombo(datos);
+        
+        
+        
+    }
     private void limpiar(){
         _comboBusqueda.limpiar();
         _txtNombreDeLaRefaccion.setText("");
@@ -622,6 +651,10 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         salir();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        salir();
+    }//GEN-LAST:event_formWindowClosing
 
     
     

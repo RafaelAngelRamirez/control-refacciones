@@ -141,7 +141,27 @@ public class RefaccionVo extends VoGenerales{
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String a = "Clase: "+this.getClass().getSimpleName()+"\n";
+        String b= "       | ";
+        
+        String c =  "\n             Id" +b+ id+
+                    "\n    idRefaccion" +b+ nombre+
+                    "\n         nombre" +b+ nombre+    
+                    "\n     idMaterial" +b+ idMaterial+    
+                    "\n    importancia" +b+ importancia+   
+                    "\n    stockMaximo" +b+ stockMaximo+   
+                    "\n    stockMinimo" +b+ stockMinimo+   
+                    "\n         unidad" +b+ unidad+    
+                    "\n  codigoInterno" +b+ codigoInterno+ 
+                    "\ncodigoProveedor" +b+ codigoProveedor+   
+                    "\n    descripcion" +b+ descripcion+   
+                    "\n          queEs" +b+ queEs+ 
+                    "\n      paraQueEs" +b+ paraQueEs;
+
+        String d =  "----------------------";
+        
+        
+        return a+d+c+d;
     }
     
             

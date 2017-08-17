@@ -86,7 +86,7 @@ public class PanelRefaccionesConsulta extends JPanel {
         //TRAVEL POLICY
         
 
-        //ACCIONES ESPECELIALES.
+        //ACCIONES ESPECIALES.
         _TxtFiltrarRefaccion.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir_.TECLA_CUALQUIERA);
         _TablaRefacciones.setDobleClick(()->this.mostrarDetalleRefaccion());
         
