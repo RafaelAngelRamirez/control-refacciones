@@ -59,6 +59,11 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
         this.formularioPadre = formularioPadre;
     }
 
+    /**
+     * El componente que se gestionara. Para contar las imágenes existe {@see: setjLabelContador}
+     * que realiza las tareas sobre la etiqueta sin necesidad de ningúna intervención.
+     * @param jxImagenView
+     */
     public void setComponente(JXImageView jxImagenView) {
         if (jxImagenView==null) {
             try {
@@ -91,10 +96,18 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
         
     }
     
+    /**
+     * El jLabel que se utilizara para ir contando las imágenes. 
+     * @param jLabelContador
+     */
     public void setjLabelContador(JLabel jLabelContador) {
         this.jLabelContador = jLabelContador;
     }
     
+    /**
+     * El JLabel que muestra el contador de imágenes. 
+     * @return
+     */
     public JLabel getjLabelContador(){
         if (this.jLabelContador == null) {
             try {

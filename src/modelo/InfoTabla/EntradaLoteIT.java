@@ -36,9 +36,9 @@ public class EntradaLoteIT extends ITGenerales{
 
         cantidadPDC.setNombre("cantidad");
         cantidadPDC.setNombreParaMostrar("Cantidad que entra");
+        cantidadPDC.setTipoDeDatos("float");
         cantidadPDC.setLongitudDeCaracteres(10);
         cantidadPDC.setLongitudDeDecimales(3);
-        cantidadPDC.setTipoDeDatos("float");
         cantidadPDC.setNulo(false);
         cantidadPDC.setAutoIncrement(false);
         cantidadPDC.setPermiteRepetido(true);
