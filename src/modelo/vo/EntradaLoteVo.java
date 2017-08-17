@@ -19,6 +19,7 @@ public class EntradaLoteVo extends VoGenerales{
     private float cantidad;
     private int idRefaccion;
     private int idEmpleado;
+    private String observaciones;
 
     public EntradaLoteVo() {
         EntradaLoteIT i = new EntradaLoteIT();
@@ -27,10 +28,19 @@ public class EntradaLoteVo extends VoGenerales{
         relacionCampo.put(i.getCantidadPDC().getNombre(), ()->this.getCantidad());
         relacionCampo.put(i.getIdRefaccionPDC().getNombre(), ()->this.getIdRefaccion());
         relacionCampo.put(i.getIdEmpleadoPDC().getNombre(), ()->this.getIdEmpleado());
+        relacionCampo.put(i.getObservacionesPDC().getNombre(), ()->this.getObservaciones());
         
     
     }
 
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+    
     public int getId() {
         return id;
     }
