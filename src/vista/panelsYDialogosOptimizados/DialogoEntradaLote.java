@@ -7,6 +7,7 @@ package vista.panelsYDialogosOptimizados;
 
 import controlador.Coordinador;
 import javax.swing.JOptionPane;
+import modelo.InfoTabla.RefaccionIT;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.utilidadesOptimizadas.UtilidadesTxtArea_;
 import vista.utilidadesOptimizadas.UtilidadesTxt_;
@@ -29,7 +30,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     private UtilidadesTxt_ _txtUnidad;
     private UtilidadesTxt_ _txtFechaDeLote;
     private UtilidadesTxt_ _txtCantidadQueEntra;
-    private UtilidadesComboBox_ _comboEmpleadoQueReciveElLote;
+    private UtilidadesComboBox_ _comboEmpleadoQueReciveLote;
     private UtilidadesTxtArea_ _txtObservaciones;
     
     
@@ -68,12 +69,16 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             INICIO SETEO NOMBRES DE ETIQUETA
         ///////////////////////////////////////////////////////////////////////
         */
-       
-        etiquetaNombreDeLaRefaccion.setText(text);
-        etiquetaCodigoDelProveedor.setText(rit.getCodigoProveedorPDC().getNombreParaMostrar());
+        
+        RefaccionIT rit = new RefaccionIT();
+        
+        
+        etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
         etiquetaCodigoInterno.setText(rit.getCodigoInternoPDC().getNombreParaMostrar());
+        etiquetaCodigoDelProveedor.setText(rit.getCodigoProveedorPDC().getNombreParaMostrar());
         etiquetaStockMax.setText(rit.getStockMaximoPDC().getNombreParaMostrar());
         etiquetaStockMin.setText(rit.getStockMinimoPDC().getNombreParaMostrar());
+        
                
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -87,51 +92,34 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         */
         //INICIAMOS LAS UTILIDADES.
         
-        _ImagenesRefacciones = new UtilidadesJXViewImage_(coordinador);
-    
-        _TxtUnidad = new UtilidadesTxt_(coordinador);
-
-        _ListaProveedor = new UtilidadesListas_(coordinador);
-        _ListaMaquinaModelo = new UtilidadesListas_(coordinador);
-
-        _TxtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
-        _TxtCodigo = new UtilidadesTxt_(coordinador);
-        _TxtStockMin = new UtilidadesTxt_(coordinador);
-        _TxtStockMax = new UtilidadesTxt_(coordinador);
-        _TxtCodigoDelProveedor = new UtilidadesTxt_(coordinador);
-
-        _TxtDescripcion = new UtilidadesTxtArea_(coordinador);
-        _TxtQueEs = new UtilidadesTxtArea_(coordinador);
-        _TxtParaQueEs = new UtilidadesTxtArea_(coordinador);
-
-        _TxtImportancia = new UtilidadesTxt_(coordinador);
-        
-        _TxtDeQueEstaEcho = new UtilidadesTxt_(coordinador);
-        
+        _comboBusqueda = new UtilidadesComboBox_(coordinador);
+        _txtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
+        _txtCodigoInterno = new UtilidadesTxt_(coordinador);
+        _txtCodigoProveedor = new UtilidadesTxt_(coordinador);
+        _txtExistencia = new UtilidadesTxt_(coordinador);
+        _txtStockMax = new UtilidadesTxt_(coordinador);
+        _txtStockMin = new UtilidadesTxt_(coordinador);
+        _txtUnidad = new UtilidadesTxt_(coordinador);
+        _txtFechaDeLote = new UtilidadesTxt_(coordinador);
+        _txtCantidadQueEntra = new UtilidadesTxt_(coordinador);
+        _comboEmpleadoQueReciveLote = new UtilidadesComboBox_(coordinador);
+        _txtObservaciones = new UtilidadesTxtArea_(coordinador);
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         
-        _ImagenesRefacciones.setComponente(getImagenesRefacciones());
-        _ImagenesRefacciones.setjLabelContador(getEtiquetaNombreImagen());
-    
-        _TxtUnidad.setComponente(getTxtUnidad());
-
-        _ListaProveedor.setComponente(getListaProveedores());
-        _ListaMaquinaModelo.setComponente(getListaMaquinas());
-
-        _TxtNombreDeLaRefaccion.setComponente(getTxtNombreDeLaRefaccion());
-        _TxtCodigo.setComponente(getTxtCodigoInterno());
-        _TxtStockMin.setComponente(getTxtStockMin());
-        _TxtStockMax.setComponente(getTxtStockMax());
-        _TxtCodigoDelProveedor.setComponente(getTxtCodigoProveedor());
-        _TxtDeQueEstaEcho.setComponente(getTxtDeQueEstaEcho());
-
-        _TxtDescripcion.setComponente(getTxtDescripcion());
-        _TxtQueEs.setComponente(getTxtQueEs());
-        _TxtParaQueEs.setComponente(getTxtParaQueEs());
-
-        _TxtImportancia.setComponente(getTxtImportancia());
-       
+        _comboBusqueda.setComponente(this.comboBusqueda);
+        _txtNombreDeLaRefaccion.setComponente(this.txtNombreDeLaRefaccion);
+        _txtCodigoInterno.setComponente(this.txtCodigoInterno);
+        _txtCodigoProveedor.setComponente(this.txtCodigoProveedor);
+        _txtExistencia.setComponente(this.txtExistencia);
+        _txtStockMax.setComponente(this.txtStockMax);
+        _txtStockMin.setComponente(this.txtStockMin);
+        _txtUnidad.setComponente(this.txtUnidad);
+        _txtFechaDeLote.setComponente(this.txtFechaDeLote);
+        _txtCantidadQueEntra.setComponente(this.txtCantidadQueEntra);
+        _comboEmpleadoQueReciveLote.setComponente(this.comboEmpleadoQueReciveLote);
+        _txtObservaciones.setComponente(this.txtObservaciones);
+        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
