@@ -29,7 +29,6 @@ public class EntradaLoteVo extends VoGenerales{
         relacionCampo.put(i.getIdRefaccionPDC().getNombre(), ()->this.getIdRefaccion());
         relacionCampo.put(i.getIdEmpleadoPDC().getNombre(), ()->this.getIdEmpleado());
         relacionCampo.put(i.getObservacionesPDC().getNombre(), ()->this.getObservaciones());
-        
     
     }
 
