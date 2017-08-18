@@ -61,8 +61,15 @@ public class Coordinador {
     private DialogoEntradaLote dialogoEntradaLote;
     
     
+    
     public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
         return dialogoRefaccionDetalle;
+    }
+    
+    public void salirDelSistema(){
+        JOptionPane.showMessageDialog(null, "saliendo!");
+        System.exit(0);
+    
     }
     
     /*

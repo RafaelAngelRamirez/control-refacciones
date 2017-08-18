@@ -236,7 +236,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          CREAMOS EL PANEL QUE CONTIENE EL RELOJ, LA FECH Y LOS BOTONES DE INTERACCIÓN
          DE LA VENTANA.
          */
-        RelojYBotonesDeCierre rybdc = new RelojYBotonesDeCierre();
+        RelojYBotonesDeCierre rybdc = new RelojYBotonesDeCierre(coordinador);
         
         /*
         ORDENAMOS LOS PANELES AGREGANDOLOS A SU RESPECTIVO PADRE. TENER CUIDADDO
@@ -354,6 +354,11 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         menuSalidas.setNombre("Salidas");
         menuSalidas.setPadre(menuEntradasSalidas);
         this.addItemOMenu(menuSalidas);
+        
+        MenuConstructor menuSystema = new MenuConstructor();
+        menuSystema.setMenu();
+        menuSystema.setNombre("Systema");
+        this.addItemOMenu(menuSystema);
         
         
         /**
@@ -553,7 +558,21 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoEntradaLoteOPA);
         
-        
+         /**
+         * /////////////////////////////////////////////////
+         *      MENU SYSTEMA
+         * /////////////////////////////////////////////////
+         */
+         
+        MenuConstructor salirSystema = new MenuConstructor();
+        salirSystema.setItem();
+        salirSystema.setNombre("Salir");
+        salirSystema.setPadre(menuSystema);
+        salirSystema.setAccionDelItem(
+                ()->coordinador.salirDelSistema());
+        KeyStroke atajo_Salir = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK);
+        salirSystema.setAtajoDeTeclado(atajo_Salir);
+        this.addItemOMenu(salirSystema);
         
         
         //AÑADIMOS LOS DIALOGOS.
@@ -1028,12 +1047,13 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         private JButton minimizarBtn;
         private JButton maximizarBtn;
         private JButton encimaBtn;
+        private Coordinador coordinador;
 
         private JFrame ventanaPrincipal;
 
-        public RelojYBotonesDeCierre() {
+        public RelojYBotonesDeCierre(Coordinador coordinador) {
 
-
+            this.coordinador = coordinador;
             //EL PANEL QUE CONTENDRA EL RELOJ.
             JPanel reloj = new JPanel();
 
@@ -1201,8 +1221,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         ANTES DE CERRAR CERÁ AQUI.
         */
         private void cerrar(){
-            JOptionPane.showMessageDialog(this.getVentanaPrincipal(), "sin definir");
-                System.exit(0);
+            this.coordinador.salirDelSistema();
         }
 
         /**
