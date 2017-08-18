@@ -15,6 +15,7 @@ import modelo.InfoTabla.RefaccionIT;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import vista.FechaYHora;
+import vista.FechaYHoraCabecera;
 import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -181,9 +182,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
         _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
         _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
-        _txtFechaDeLote.setKeyRelease(()->formatoFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
-        new FechaYHora();
-        _txtFechaDeLote.setText(FechaYHora);
+        _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
+        
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnSalir1);
@@ -620,8 +620,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
        JOptionPane.showMessageDialog(null, "pendiente configuracion");
     }
-    private void formatoFecha(){
-        this.get
+    private void autocompletadoDeFecha(){
+       
     
     }
     private void busqueda(){
@@ -671,7 +671,9 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtUnidad.setText(vo.getUnidad()+"");
         _txtStockMax.setText(vo.getStockMaximo()+"");
         _txtStockMin.setText(vo.getStockMinimo()+"");
+        
         _txtFechaDeLote.setFocus();
+        _txtFechaDeLote.setText(FechaYHora.fechaActual_ddmmaa());
         
         //CARGAMOS LAS IMAGENES. 
         cargarImagenes(vo.getId());

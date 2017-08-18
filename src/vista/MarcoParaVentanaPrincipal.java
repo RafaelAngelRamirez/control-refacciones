@@ -1061,7 +1061,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             JPanel botones = new JPanel();
 
             //LLAMAMOS A LA CLASE FECHA Y HORA Y LAS AGREGAMOS A SUS PANELES.
-            FechaYHora fechaHora = new FechaYHora();
+            FechaYHoraCabecera fechaHora = new FechaYHoraCabecera();
             JLabel hora = new JLabel();
             JLabel fecha = new JLabel();
             JLabel relleno= new JLabel("-");
@@ -1279,13 +1279,13 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 //    * tambien brinda algúnas otras utilidades.
 //    * @author Rafael Ángel Ramírez Estrada
 //    */
-//    public class FechaYHora implements Runnable {
+//    public class FechaYHoraCabecera implements Runnable {
 //
 //       private Thread hilo1;
 //       private JLabel etiquetaHora;
 //       private JLabel etiquetaFecha;
 //
-//       public FechaYHora()  {
+//       public FechaYHoraCabecera()  {
 //           this.iniciar();
 //       }
 //       
@@ -1377,7 +1377,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 //                try {
 //                    Thread.sleep(1000);
 //                } catch (InterruptedException ex) {
-//                    Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
+//                    Logger.getLogger(FechaYHoraCabecera.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 //            }
 //       }
