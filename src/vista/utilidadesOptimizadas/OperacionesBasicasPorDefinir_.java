@@ -9,7 +9,6 @@ import controlador.capturadeerrores.Suceso;
 import vista.SenalarErroresSobreGUI_;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
-import controlador.capturadeerrores.CapturaDeSucesos;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -22,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  * Operaciones básicas sobre los componentes gráficos.
@@ -52,8 +52,10 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
     
     //CONSTANTES DE TECLAS PARA KEYCODE
     public static final int TECLA_TABULADOR = 9;
+    public static final int TECLA_ENTER = 10;
     public static final int TECLA_TABULADOR_ESPECIAL = 9998;
     public static final int TECLA_CUALQUIERA = 9999;
+    public static final int TECLA_CUALQUIERA_EXCEPTO_ENTER = 9997;
     
     int evitarEjecucionDoble = 0;
     
@@ -274,9 +276,10 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
             @Override
             public void keyPressed(KeyEvent e) {
                 this.ejecutarAccion(e, 2);
-                if (this.codigoDeCaracter==e.getKeyChar()) {
-                    this.accion.run();
-                }
+//                if (this.codigoDeCaracter==e.getKeyChar()) {
+//                    this.accion.run();
+//                }
+                
             }
 
             @Override
@@ -287,15 +290,17 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
             
             public void ejecutarAccion(KeyEvent e, int ev){
                 // EL VALOR QUE ASIGNAMOS PARA COMPROBAR QUE EVENTO SE SOLICITO
+                // DESDE SUS RESPECTIVOS EVENTOS.
                 // 1 Typed
                 // 2 Pressed
                 // 3 Released
-
+                
+                boolean enterEjecutado = false;
                 if(evento==ev){
                     switch (e.getKeyCode()){
                         case 1:
                             
-                        
+                      
                         case 9:
                             //EL TABULADOR ES UN CASO MUY ESPECIAL POR QUE 
                             // REQUERIMOS EN OCASIONES EJECUTAR DOS ACCIONES.
@@ -305,16 +310,18 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
                             // Y TERMINA EJECUTANDO LA FUNCIÓN DOS VECES. 
                             // PARA EVITARLO DECLARAMOS UNA VARIABLE GLOBAL QUE CUENTE
                             // O SUME 1 SI YA SE EJECUTO LA ACCION DEL TABULADOR.
+                            JOptionPane.showMessageDialog(null, "aha!!");
                             if (codigoDeCaracter == 9 && obpd.evitarEjecucionDoble == 0) {
                                 obpd.evitarEjecucionDoble++;
                                 this.accion.run();
-                            }else if (codigoDeCaracter == 9998 && obpd.evitarEjecucionDoble == 0){
+                            }else if (codigoDeCaracter == TECLA_TABULADOR_ESPECIAL && obpd.evitarEjecucionDoble == 0){
                                 obpd.evitarEjecucionDoble++;
                                 this.accion.run();
                             }else{
                                 obpd.evitarEjecucionDoble =0;
                             }
                             break;
+                        
                         //DESACTIVAMOS ESTAS TECLAS POR EL MOMENTO.
                         case 39://FLECHA derecha
                         case 37://FLECHA izquierda
@@ -322,8 +329,24 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
                         case 16://TECLA SHIFT
                         case 17://TECLA CONTROL
                             break;
+                        case 10:
+                            
+                            if(codigoDeCaracter==TECLA_ENTER){
+                                this.accion.run();
+                                enterEjecutado = true;
+                                break;
+                            }
+                            
+                            
                         default:
-                                if(this.codigoDeCaracter == 9999){
+                                if(codigoDeCaracter==TECLA_CUALQUIERA_EXCEPTO_ENTER){
+                                   System.out.println("||||||||||||||||||TECLA CULAQUIERA EXEPTO ENTER!!"+e.getKeyChar()); 
+                                   this.accion.run();
+                                   break;
+                                }
+                                
+                                if(this.codigoDeCaracter == TECLA_CUALQUIERA && !enterEjecutado){
+                                    System.out.println("||||||||||||||||||cualquierTecla!!!"+e.getKeyChar());
                                     this.accion.run();
                                 };
                             break;

@@ -170,14 +170,15 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         //TRAVEL POLICY
         
-        _txtBusqueda.setNextFocusableComponent(_listaResultados.getThis());
-        _listaResultados.setNextFocusableComponent(_txtFechaDeLote.getThis());
+        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
         _txtObservaciones.setNextFocusableComponent(btnGuardar);
         btnGuardar.setNextFocusableComponent(btnSalir1);
         btnSalir1.setNextFocusableComponent(_txtBusqueda.getThis());
         
         //ACCIONES ESPECIALES.
-        _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir_.TECLA_CUALQUIERA);
+        _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir_.TECLA_CUALQUIERA_EXCEPTO_ENTER);
+        _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir_.TECLA_ENTER);
+        
         
         
         //ACCIONES DE BOTONES
@@ -461,7 +462,12 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             }
         });
 
+        jScrollPane2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+
+        listaResultados.setFont(new java.awt.Font("Lucida Console", 0, 16)); // NOI18N
         listaResultados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaResultados.setOpaque(false);
+        listaResultados.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(listaResultados);
 
         txtBusqueda.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -624,20 +630,52 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }
     
     private void busqueda(){
-        cargarRefaccion(_txtBusqueda.getText());
+        cargarRefaccionesEnLista(_txtBusqueda.getText());
     }
     
-    private void cargarRefaccion(String busqueda){
+    private void cargarRefaccionesEnLista(String busqueda){
+        _listaResultados.limpiar();
         HashMap<String, Object> datos = new HashMap<>();
+        
         List<RefaccionVo> listaVo = this.coordinador.refaccionConsultarTodoBusqueda(busqueda);
         for (RefaccionVo vo : listaVo) {
             
-            datos.put(vo.getNombre()+" | " +vo.getCodigoInterno()+"|"+vo.getCodigoProveedor(), vo);
+            datos.put(
+                    formatearEspacios(30, vo.getNombre())+
+                    formatearEspacios(15, vo.getCodigoInterno())+
+                    formatearEspacios(15, vo.getCodigoProveedor()), vo);
         }
-        
+               
         _listaResultados.cargarLista(datos);
         
         
+    }
+    
+    public void cargarRefaccionParaEntrada(){
+        JOptionPane.showMessageDialog(null, "cargar para entrada!");
+    }
+    
+    private String formatearEspacios(int totalEspacio, String texto){
+    
+        String espacio = "";
+        String cadenaNueva = "";
+        if (totalEspacio>texto.length()) {
+            int espaciosEnBlanco = totalEspacio-texto.length();
+            for (int i = 0; i < espaciosEnBlanco-1; i++) {
+                espacio+=" ";
+            }
+            espacio+=(" ");
+            cadenaNueva += texto+espacio;
+        }else{
+            String subTexto = texto.substring(0, totalEspacio-4);
+            espacio+="... ";
+            cadenaNueva += subTexto+espacio;
+            
+        }
+        return cadenaNueva;
+        
+        
+    
     }
     private void limpiar(){
         _txtBusqueda.setText("");
