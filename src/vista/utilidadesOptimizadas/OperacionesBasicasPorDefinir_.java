@@ -336,7 +336,6 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
                                 break;
                             }
                             
-                            
                         default:
                                 //SI SE PRESIONA CUALQUIER TECLA EXEPTO ENTER
                                 // ENTRA AQUI.

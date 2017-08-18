@@ -10,6 +10,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -35,6 +39,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
 import modelo.ExcepcionPersonalizada;
 
@@ -537,6 +542,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEntradaLote.setAccionDelItem(
                 ()->this.getCoordinador().entradaLoteAbrirDialogo());
         dialogoEntradaLote.setDialog(this.getCoordinador().getDialogoEntradaLote());
+        KeyStroke atajo_CtrlE = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK);
+        dialogoEntradaLote.setAtajoDeTeclado(atajo_CtrlE);
         this.addItemOMenu(dialogoEntradaLote);
         
         Coordinador.OperacionesPorActualizar dialogoEntradaLoteOPA 
@@ -745,7 +752,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          * @param imagen Icono que se mostrara al lado del item o menu.
          * @see this.setMenu()
          */
-        public void setItem(String padre, String nombre, Runnable accion, String imagen){
+        public void setItem(String padre, String nombre, Runnable accion, String imagen, KeyStroke atajoTeclado){
         
             try {
                 if (accion == null) {
@@ -754,7 +761,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                     throw new ExcepcionPersonalizada("No definiste un nombre para el item.", this, "setItem");
                 }
                 
-                this.agregarMenuEItem(padre, nombre, accion, imagen);
+                this.agregarMenuEItem(padre, nombre, accion, imagen, atajoTeclado);
             } catch (ExcepcionPersonalizada ex) {
                 Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -776,7 +783,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                     throw new ExcepcionPersonalizada("No definiste un nombre para el menu.", this, "setMenu");
                 }
                
-                this.agregarMenuEItem(padre, nombre, null, imagen);
+                this.agregarMenuEItem(padre, nombre, null, imagen, null);
             } catch (ExcepcionPersonalizada ex) {
                 Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -791,7 +798,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          * @param imagen Icono que se mostrara al lado del item o menu.
          * 
          */
-        private void agregarMenuEItem(String padre, String nombre, Runnable accion, String imagen){
+        private void agregarMenuEItem(String padre, String nombre, Runnable accion, String imagen, KeyStroke atajoDeTeclado){
             //CONTENEDOR DE TODOS LOS ELEMENTOS DEL MENU
             ElementoItemOMenu elemento = new ElementoItemOMenu();
             
@@ -822,32 +829,73 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 item.setIcon( image);
                 //AÑADIMOS LA ACCION QUE QUEREMOS QUE EJECUTE EL ITEM.
                 // SOLO EN mousePressed.
-                item.addMouseListener( new MouseAdapter() {
+                item.addActionListener(new java.awt.event.ActionListener(){
                     //LA ACCION
                     Runnable accion;
                     Runnable aPerpetua;
                     //EL PROCEDIMIENTO PARA PASAR A LA FUNCION ANOMINA EL PARAMETRO
                     // DESEADO.
-                    public MouseListener parametros(Runnable accion, Runnable a){
+                    public ActionListener parametros(Runnable accion, Runnable a){
                         this.accion = accion;
                         this.aPerpetua = a;
                         return this;
                     }
                     
+//                    @Override
+//                    public void mousePressed(MouseEvent e) {
+//                        //AL PRESIONAR EL ELEMENTO SE EJECUTA LA ACCIÓN.
+//                        this.accion.run();
+//                    }
+//                    
+//                    @Override
+//                    public void mouseReleased(MouseEvent e){
+//                        aPerpetua.run();
+//                    
+//                    }
+
                     @Override
-                    public void mousePressed(MouseEvent e) {
-                        //AL PRESIONAR EL ELEMENTO SE EJECUTA LA ACCIÓN.
+                    public void actionPerformed(ActionEvent e) {
                         this.accion.run();
-                    }
-                    
-                    @Override
-                    public void mouseReleased(MouseEvent e){
-                        aPerpetua.run();
-                    
+                        this.aPerpetua.run();
+                        
                     }
 
                 }.parametros(accion, operacionActualizacion));
+                
+                
+//                item.addMouseListener( new MouseAdapter() {
+//                    //LA ACCION
+//                    Runnable accion;
+//                    Runnable aPerpetua;
+//                    //EL PROCEDIMIENTO PARA PASAR A LA FUNCION ANOMINA EL PARAMETRO
+//                    // DESEADO.
+//                    public MouseListener parametros(Runnable accion, Runnable a){
+//                        this.accion = accion;
+//                        this.aPerpetua = a;
+//                        return this;
+//                    }
+//                    
+//                    @Override
+//                    public void mousePressed(MouseEvent e) {
+//                        //AL PRESIONAR EL ELEMENTO SE EJECUTA LA ACCIÓN.
+//                        this.accion.run();
+//                    }
+//                    
+//                    @Override
+//                    public void mouseReleased(MouseEvent e){
+//                        aPerpetua.run();
+//                    
+//                    }
+//
+//                }.parametros(accion, operacionActualizacion));
+                
+                //SI HAY UN keyStroke!= null ENTONCES GENERAMOS SE LO AÑADIMOS AL ITEM.
+                if (atajoDeTeclado!=null) {
+                    item.setAccelerator(atajoDeTeclado);
+                }
+                
                 //AÑADIMOS EL ITEM AL ELEMENTO GENRALIZANTE. 
+                
                 elemento.setItem(item);
             }
             //EL NOMBRE DEL ELEMENTO QUE SE MOSTRARA.
@@ -1484,7 +1532,12 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                             LA FUNCION DENTRO DE LA INSTANCIA DE MENU SABE QUE 
                             HACER CUANDO LA IMAGEN QUE LE PASAMOS ESTA EN NULL.
                             */
-                            menuConstructor.getImagen());
+                            menuConstructor.getImagen(),
+                            /*
+                            AQUI VA UN COMENTARIO INTELIGENTE, PERO COMO NO SE
+                            QUE PONER VOYA DECIR QUE ESTE ES EL ATAJO DE TECLADO.
+                            */
+                            menuConstructor.getAtajoDeTeclado());
                             
                 } else {
                     this.menu.setItem(
@@ -1502,7 +1555,12 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                             LA FUNCION DENTRO DE LA INSTANCIA DE MENU SABE QUE 
                             HACER CUANDO LA IMAGEN QUE LE PASAMOS ESTA EN NULL.
                             */
-                            menuConstructor.getImagen());
+                            menuConstructor.getImagen(),
+                            /*
+                            AQUI VA UN COMENTARIO INTELIGENTE, PERO COMO NO SE
+                            QUE PONER VOYA DECIR QUE ESTE ES EL ATAJO DE TECLADO.
+                            */
+                            menuConstructor.getAtajoDeTeclado());
                 }
             }
         }
@@ -1532,6 +1590,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         private Runnable accionInicializacion;
         private boolean accionInicializacionEjecutada = false;
         private boolean siempreAccionInicializada = false;
+        
+        private KeyStroke atajoDeTeclado;
 
 
         /**
@@ -1813,6 +1873,26 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         public void setSiempreAccionInicializada(boolean siempreAccionInicializada) {
             this.siempreAccionInicializada = siempreAccionInicializada;
         }
+
+        /**
+         * Define el atajo de teclado que se quiere mostrar. Esto solo se toma
+         * en cuenta para los items, no para los menus. 
+         * @return 
+         */
+        public KeyStroke getAtajoDeTeclado() {
+            return atajoDeTeclado;
+        }
+
+        /**
+         * Setea el objeto KeyStroke que contiene el atajo de teclado deseado.
+         * Normalmente yo lo genero desde netbeans XP.
+         * @param atajoDeTeclado
+         */
+        public void setAtajoDeTeclado(KeyStroke atajoDeTeclado) {
+            this.atajoDeTeclado = atajoDeTeclado;
+        }
+        
+        
         
     }
     
