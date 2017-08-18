@@ -5,7 +5,7 @@
  */
 package vista.utilidadesOptimizadas;
 
-import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir_;
+import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;
@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  *
  * @author Particular
  */
-public class UtilidadesTxt_ extends OperacionesBasicasPorDefinir_{
+public class UtilidadesTxt_ extends OperacionesBasicasPorDefinir{
     
     //Coordinador coordinador;
     JTextField txt;

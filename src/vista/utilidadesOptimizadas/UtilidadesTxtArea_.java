@@ -16,7 +16,7 @@ import javax.swing.JTextArea;
  *
  * @author Particular
  */
-public class UtilidadesTxtArea_ extends OperacionesBasicasPorDefinir_{
+public class UtilidadesTxtArea_ extends OperacionesBasicasPorDefinir{
 
     private JTextArea txt;
     private Coordinador coordinador;

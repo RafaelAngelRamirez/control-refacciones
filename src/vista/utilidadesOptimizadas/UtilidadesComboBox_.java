@@ -18,7 +18,7 @@ import org.jdesktop.swingx.autocomplete.*;
  *  Utilidades para el facil manejo de los comboBox.
  * @author Rafael Angel Ramirez Estrada
  */
-public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir_{
+public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
     
     private JComboBox comboBox;
    

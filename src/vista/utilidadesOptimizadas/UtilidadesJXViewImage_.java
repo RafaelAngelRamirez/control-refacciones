@@ -31,7 +31,7 @@ import org.jdesktop.swingx.JXImageView;
  *
  * @author Particular
  */
-public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir_ {
+public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
     
     private List<File> imagenesPorCargar = new ArrayList<>();
     private List<TransporteImagenesURL> listaURLsCargadas = new ArrayList<>();

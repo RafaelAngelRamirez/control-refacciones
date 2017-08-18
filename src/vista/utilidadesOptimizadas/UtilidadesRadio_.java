@@ -14,13 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
-import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir_;
+import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 
 /**
  *
  * @author Particular
  */
-public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir_ {
+public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir {
 
     ButtonGroup grupo;
     List <JRadioButton> radios = new ArrayList<JRadioButton>();

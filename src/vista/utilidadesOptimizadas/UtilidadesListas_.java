@@ -20,7 +20,7 @@ import javax.swing.event.ListSelectionListener;
  * Utilidades para el fácil manejo de las listas.
  * @author Rafael Ángel Ramírez Estrada
  */
-public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
+public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
     
     private String nombreColumnaId, nombreDatoAMostrar;
     private JList<String> lista;

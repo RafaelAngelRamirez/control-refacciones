@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
  * Operaciones básicas sobre los componentes gráficos.
  * @author Particular
  */
-public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobreGUI_{
+public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreGUI_{
     
     private Component componenteSiguienteAEnfocar;
     private String nombre;
@@ -66,7 +66,7 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
     
     
     
-    public OperacionesBasicasPorDefinir_(Coordinador controlador) {
+    public OperacionesBasicasPorDefinir(Coordinador controlador) {
         super(controlador);
         
     }
@@ -137,7 +137,7 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
             try {
                 throw new ExcepcionPersonalizada("No has seteado mayusculas o números para el campo", this);
             } catch (ExcepcionPersonalizada ex) {
-                Logger.getLogger(OperacionesBasicasPorDefinir_.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OperacionesBasicasPorDefinir.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -250,17 +250,17 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
         
         
         esteComponente.setFocusTraversalKeysEnabled(false);
-        esteComponente.addKeyListener( new KeyListener() {
+        esteComponente.addKeyListener(new KeyListener() {
             
             Runnable accion;
             int codigoDeCaracter;
             int evento;
-            OperacionesBasicasPorDefinir_ obpd;
+            OperacionesBasicasPorDefinir obpd;
             
             public KeyListener parametros(Runnable accion, 
                     int codigoDeCaracter, 
                     int evento,
-                    OperacionesBasicasPorDefinir_ obpd){
+                    OperacionesBasicasPorDefinir obpd){
                 this.accion = accion;
                 this.codigoDeCaracter = codigoDeCaracter;
                 this.evento = evento;
@@ -503,7 +503,7 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
             this.filtroDecaracteres("cantidad");
         } catch (ExcepcionPersonalizada ex) {
             
-            Logger.getLogger(OperacionesBasicasPorDefinir_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OperacionesBasicasPorDefinir.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
    
@@ -527,7 +527,7 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
             this.filtroDecaracteres("cantidad");
         } catch (ExcepcionPersonalizada ex) {
             
-            Logger.getLogger(OperacionesBasicasPorDefinir_.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OperacionesBasicasPorDefinir.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
    
@@ -567,9 +567,9 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
             
             //LA FUNCION parametros QUE UTILIZAMOS PARA PASAR PARAMETROS Y 
             // EL CONTROLADOR A ESTA INSTANCIA ¿HUERFANA?
-            OperacionesBasicasPorDefinir_ operaciones;
+            OperacionesBasicasPorDefinir operaciones;
             String tipoDeFiltro;
-            KeyListener parametros(OperacionesBasicasPorDefinir_ operaciones,
+            KeyListener parametros(OperacionesBasicasPorDefinir operaciones,
                     String tipoDeFiltro){
                 this.operaciones = operaciones;
                 this.tipoDeFiltro = tipoDeFiltro;
@@ -627,7 +627,7 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
                                         ,operaciones);
                             } catch (ExcepcionPersonalizada ex) {
 
-                                Logger.getLogger(OperacionesBasicasPorDefinir_
+                                Logger.getLogger(OperacionesBasicasPorDefinir
                                         .class.getName()).log(Level.SEVERE, null, ex);
                             }
                             break;
@@ -650,8 +650,8 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
         }.parametros(this, tipoDeFiltro));
         
         this.getThis().addFocusListener(new FocusListener() {
-            OperacionesBasicasPorDefinir_ operaciones;
-            FocusListener operaciones  (OperacionesBasicasPorDefinir_ operaciones){
+            OperacionesBasicasPorDefinir operaciones;
+            FocusListener operaciones  (OperacionesBasicasPorDefinir operaciones){
                 this.operaciones = operaciones;
                 return this;
             }
@@ -745,9 +745,9 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
         this.getThis().addMouseListener(new MouseAdapter() {
             
             Runnable accion;
-            OperacionesBasicasPorDefinir_ operaciones;
+            OperacionesBasicasPorDefinir operaciones;
             
-            MouseListener parametros(OperacionesBasicasPorDefinir_ operaciones, Runnable accion ){
+            MouseListener parametros(OperacionesBasicasPorDefinir operaciones, Runnable accion ){
                 this.accion = accion;
                 this.operaciones = operaciones;
                 return this;
@@ -772,9 +772,9 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
         this.getThis().addMouseListener(new MouseAdapter() {
             
             Runnable accion;
-            OperacionesBasicasPorDefinir_ operaciones;
+            OperacionesBasicasPorDefinir operaciones;
             
-            MouseListener parametros(OperacionesBasicasPorDefinir_ operaciones, Runnable accion ){
+            MouseListener parametros(OperacionesBasicasPorDefinir operaciones, Runnable accion ){
                 this.accion = accion;
                 this.operaciones = operaciones;
                 return this;

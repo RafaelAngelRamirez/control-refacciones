@@ -18,7 +18,7 @@ import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.UnidadIT;
 import modelo.vo.RefaccionVo;
 import vista.utilidadesOptimizadas.UtilidadesModeloDeTabla_;
-import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir_;
+import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 import vista.utilidadesOptimizadas.UtilidadesTabla_;
 import vista.utilidadesOptimizadas.UtilidadesTxt_;
 
@@ -87,7 +87,7 @@ public class PanelRefaccionesConsulta extends JPanel {
         
 
         //ACCIONES ESPECIALES.
-        _TxtFiltrarRefaccion.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir_.TECLA_CUALQUIERA);
+        _TxtFiltrarRefaccion.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
         _TablaRefacciones.setDobleClick(()->this.mostrarDetalleRefaccion());
         
         

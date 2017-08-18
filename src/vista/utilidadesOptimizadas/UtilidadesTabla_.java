@@ -17,7 +17,7 @@ import javax.swing.table.TableColumnModel;
  * Utilidades para el facil manejo de las tablas.
  * @author Particular
  */
-public class UtilidadesTabla_ extends OperacionesBasicasPorDefinir_{
+public class UtilidadesTabla_ extends OperacionesBasicasPorDefinir{
     
     private JTable tabla;
     private String[] columnasDeLaTabla;

@@ -12,8 +12,10 @@ import javax.swing.JOptionPane;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.RefaccionIT;
+import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
-import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir_;
+import vista.FechaYHora;
+import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
@@ -176,10 +178,12 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         btnSalir1.setNextFocusableComponent(_txtBusqueda.getThis());
         
         //ACCIONES ESPECIALES.
-        _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir_.TECLA_CUALQUIERA_EXCEPTO_ENTER);
-        _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir_.TECLA_ENTER);
+        _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
+        _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
         _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
-        
+        _txtFechaDeLote.setKeyRelease(()->formatoFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
+        new FechaYHora();
+        _txtFechaDeLote.setText(FechaYHora);
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnSalir1);
@@ -278,11 +282,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         etiquetaStockMax.setText("Stock Max");
 
         imagenesRefacciones.setOpaque(false);
-        imagenesRefacciones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                imagenesRefaccionesMouseClicked(evt);
-            }
-        });
 
         btnSiguienteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_siguiente.png"))); // NOI18N
         btnSiguienteImagen.setFocusable(false);
@@ -618,16 +617,13 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _imagenesRefaccion.imagenAnterior();
     }//GEN-LAST:event_btnRegresarImagenActionPerformed
 
-    private void imagenesRefaccionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenesRefaccionesMouseClicked
-        if (evt.getClickCount()==2) {
-            this.getCoordinador().refaccionAbrirDetalleImagen();
-        }
-    }//GEN-LAST:event_imagenesRefaccionesMouseClicked
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
        JOptionPane.showMessageDialog(null, "pendiente configuracion");
     }
+    private void formatoFecha(){
+        this.get
     
+    }
     private void busqueda(){
         if (!_txtBusqueda.isEmpty()) {
             cargarRefaccionesEnLista(_txtBusqueda.getText());
@@ -676,6 +672,28 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtStockMax.setText(vo.getStockMaximo()+"");
         _txtStockMin.setText(vo.getStockMinimo()+"");
         _txtFechaDeLote.setFocus();
+        
+        //CARGAMOS LAS IMAGENES. 
+        cargarImagenes(vo.getId());
+        _txtBusqueda.setText("");
+        _listaResultados.limpiar();
+        
+        
+    }
+    
+    public void cargarImagenes(int id){
+       
+        List<ImagenRefaccionVo> listaImagenesRefaccion = this.getCoordinador().imagenRefaccionConsultar(id);
+        _imagenesRefaccion.limpiarComponenteURL();
+        for (ImagenRefaccionVo vo : listaImagenesRefaccion) {
+            UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
+            t.setIdImagen(vo.getIdRefaccion());
+            t.setNombreImagen(vo.getNombreParaMostrar());
+            t.setNombreImagenServidor(vo.getNombreServidor());
+            t.setUrl(vo.getUrlImagen());
+            _imagenesRefaccion.addIMagenes(t);
+        }
+        _imagenesRefaccion.cargarPrimeraImagen();
         
     }
     
