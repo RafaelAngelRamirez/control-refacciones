@@ -219,7 +219,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     
     public void cargarDatosConsultados(){
         limpiarTodo();
-        idConsultandoseActualmente = _ListaMaquinaModelo.getSelectValueId();
+        idConsultandoseActualmente = (int)_ListaMaquinaModelo.getSelectValueId();
         MaquinaModeloVo vo = 
                 this.getCoordinador()
                         .maquinaModeloConsultarUno(idConsultandoseActualmente);

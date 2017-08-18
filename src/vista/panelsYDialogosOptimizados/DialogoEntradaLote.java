@@ -178,13 +178,12 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         //ACCIONES ESPECIALES.
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir_.TECLA_CUALQUIERA_EXCEPTO_ENTER);
         _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir_.TECLA_ENTER);
-        
+        _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
         
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnSalir1);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
-        
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -464,7 +463,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
 
         jScrollPane2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 
-        listaResultados.setFont(new java.awt.Font("Lucida Console", 0, 16)); // NOI18N
+        listaResultados.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         listaResultados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listaResultados.setOpaque(false);
         listaResultados.setRequestFocusEnabled(false);
@@ -630,7 +629,12 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }
     
     private void busqueda(){
-        cargarRefaccionesEnLista(_txtBusqueda.getText());
+        if (!_txtBusqueda.isEmpty()) {
+            cargarRefaccionesEnLista(_txtBusqueda.getText());
+        }else{
+            _listaResultados.limpiar();
+            limpiar();
+        }
     }
     
     private void cargarRefaccionesEnLista(String busqueda){
@@ -641,9 +645,10 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         for (RefaccionVo vo : listaVo) {
             
             datos.put(
-                    formatearEspacios(30, vo.getNombre())+
+                    formatearEspacios(25, vo.getNombre())+
                     formatearEspacios(15, vo.getCodigoInterno())+
-                    formatearEspacios(15, vo.getCodigoProveedor()), vo);
+                    formatearEspacios(15, vo.getCodigoProveedor())+
+                    formatearEspacios(20, vo.getDescripcion()),vo);
         }
                
         _listaResultados.cargarLista(datos);
@@ -652,7 +657,26 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }
     
     public void cargarRefaccionParaEntrada(){
-        JOptionPane.showMessageDialog(null, "cargar para entrada!");
+        RefaccionVo vo;
+        HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
+        if (!_listaResultados.getThis().isSelectionEmpty()) {
+            vo = (RefaccionVo) datos.get(_listaResultados.getSelectValueId());
+            mostrarRefaccionParaEntrada(vo);
+        }else if (!_listaResultados.isEmpty()) {
+            vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+            mostrarRefaccionParaEntrada(vo);
+        }
+    }
+    
+    public void mostrarRefaccionParaEntrada(RefaccionVo vo){
+        _txtNombreDeLaRefaccion.setText(vo.getNombre());
+        _txtCodigoInterno.setText(vo.getCodigoInterno());
+        _txtCodigoProveedor.setText(vo.getCodigoProveedor());
+        _txtUnidad.setText(vo.getUnidad()+"");
+        _txtStockMax.setText(vo.getStockMaximo()+"");
+        _txtStockMin.setText(vo.getStockMinimo()+"");
+        _txtFechaDeLote.setFocus();
+        
     }
     
     private String formatearEspacios(int totalEspacio, String texto){
@@ -664,11 +688,11 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             for (int i = 0; i < espaciosEnBlanco-1; i++) {
                 espacio+=" ";
             }
-            espacio+=(" ");
+            espacio+=("|");
             cadenaNueva += texto+espacio;
         }else{
             String subTexto = texto.substring(0, totalEspacio-4);
-            espacio+="... ";
+            espacio+="...|";
             cadenaNueva += subTexto+espacio;
             
         }

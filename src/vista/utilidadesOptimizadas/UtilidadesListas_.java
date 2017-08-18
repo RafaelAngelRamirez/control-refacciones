@@ -201,6 +201,11 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
         this.setListaErrorRestaurar(this.lista);
     }
     
+    /**
+     * Comprueba a travez del modelo de la lista el tamaño de este y si es menor
+     * que 0 retorna true!
+     * @return True si esta vacio y getSize()=0
+     */
     public boolean isEmpty(){
         return !(this.lista.getModel().getSize()>0);
     }
@@ -281,11 +286,12 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir_{
     
     /**
      * Retorna el id que esta relacionado con el valor que se selecciona.
-     * @return El id relacionado con el valor que se selecciono.
+     * @return El id relacionado con el valor que se selecciono o en caso contrario -1.
      */
-    public int getSelectValueId(){
-        HashMap<String, Integer> mapa = this.getItems();
+    public Object getSelectValueId(){
+        HashMap<String, Object> mapa = this.getItems();
         if (this.getThis().getSelectedValue()==null) {
+            
             return -1;
         }
         return mapa.get(this.getThis().getSelectedValue());

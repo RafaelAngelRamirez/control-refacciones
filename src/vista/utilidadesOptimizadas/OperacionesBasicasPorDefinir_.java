@@ -310,7 +310,6 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
                             // Y TERMINA EJECUTANDO LA FUNCIÓN DOS VECES. 
                             // PARA EVITARLO DECLARAMOS UNA VARIABLE GLOBAL QUE CUENTE
                             // O SUME 1 SI YA SE EJECUTO LA ACCION DEL TABULADOR.
-                            JOptionPane.showMessageDialog(null, "aha!!");
                             if (codigoDeCaracter == 9 && obpd.evitarEjecucionDoble == 0) {
                                 obpd.evitarEjecucionDoble++;
                                 this.accion.run();
@@ -339,14 +338,15 @@ public  abstract class OperacionesBasicasPorDefinir_ extends SenalarErroresSobre
                             
                             
                         default:
+                                //SI SE PRESIONA CUALQUIER TECLA EXEPTO ENTER
+                                // ENTRA AQUI.
                                 if(codigoDeCaracter==TECLA_CUALQUIERA_EXCEPTO_ENTER){
-                                   System.out.println("||||||||||||||||||TECLA CULAQUIERA EXEPTO ENTER!!"+e.getKeyChar()); 
                                    this.accion.run();
                                    break;
                                 }
-                                
+                                // SI TODO VA BIEN Y NO SE PRESIONO ENTER (DEFINIDO DESDE
+                                // SU CORRESPONDIENTE 
                                 if(this.codigoDeCaracter == TECLA_CUALQUIERA && !enterEjecutado){
-                                    System.out.println("||||||||||||||||||cualquierTecla!!!"+e.getKeyChar());
                                     this.accion.run();
                                 };
                             break;

@@ -500,7 +500,7 @@ public class DialogoProveedorModificar extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
     
     public void cargarProveedorSeleccionado(){
-        this.id = _ListaProveedores.getSelectValueId(); 
+        this.id = (int)_ListaProveedores.getSelectValueId(); 
         if (id!=-1) {
             limpiarTodo();
             if (id!=0) {
@@ -713,7 +713,7 @@ public class DialogoProveedorModificar extends JDialog {
         List<File> file = _ImagenesProveedor.getImagenesPorCargar();
         for (File f : file) {
             ImagenProveedorVo vo = new ImagenProveedorVo();
-            vo.setIdProveedor(_ListaProveedores.getSelectValueId());
+            vo.setIdProveedor((int)_ListaProveedores.getSelectValueId());
             vo.setFicheroImagen(f);
             vo.setNombreParaMostrar(f.getName());
             listaiVo.add(vo);
