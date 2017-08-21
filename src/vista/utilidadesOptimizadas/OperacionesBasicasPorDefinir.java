@@ -572,7 +572,6 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
     public boolean isTextSelected(){
         if (this.getThis() instanceof JTextField) {
             JTextField campo = (JTextField) this.getThis();
-//            JOptionPane.showMessageDialog(null, campo.getSelectedText());
             if (campo.getSelectedText()!= null) {
                
                 return true;
@@ -613,8 +612,13 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                         //QUITAMOS EL CARACTER CUANDO SE SUPERO EL MÁXIMO DEFINIDO.
                         e.setKeyChar('\0');
                     }else{
-                        System.out.println("----------------------------Este es el caracter para sobreescribir el texto: "+e.getKeyChar()
-                        +"\nEl filtro invocado:"+tipoDeFiltro );
+                        //EN CASO DE QUE EL TEXTO QUE SE ESTA LIMITANDO ESTE SELECCIONADO
+                        // SE PONE EN VERDADERO ESTA VARIABLE PARA QUE SE UTILIZE
+                        // EL FILTRO QUE SE DEFINIO PARA EL CAMPO. DE ESTE MANERA
+                        // LOGRAMOS QUE SI SE PRESIONA OTRA TECLA QUE NO CORRESPONDA
+                        // AL FILTRO ESTE NO SE ESCRIBA, EN CAMBIO, SI SE PRESIONA
+                        // UNA LETRA QUE PERTENEZCA AL FILTRO ENTONCES LA SELECCIÓN
+                        // SI SE SOBREESCRIBE. 
                         revisarCaracterParaSobreescribirSeleccion = true;
                     }
                 }
@@ -623,13 +627,11 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                 //LIMITAMOS EL NUMERO DE CARACTERES.
                 //limitarEntradaDeCaracteres COMPRUEBA QUE NO SE INTRODUZCAN MÁS
                 // CARACTERES DE LOS QUE SE ESPECIFICAN.
-                    System.out.println("----------------------------esta entrando a limitar!");
                     //CARGAMOS EL CHAR DIGITADO.
                     char c = e.getKeyChar();
                     //FILTRAMOS SEGÚN EL TIPO DE FILTRO Xp.
                     switch(tipoDeFiltro){
                         case "mayusculas":
-                    System.out.println("----------------------------esta entrando a mayusculas!");
                             //COMPROBAMOS CADA TECLA INTRODUCIDA Y LA CONVIERTIMOS
                             // A MAYUSCULAS SI NO LO ESTA.
                             if (Character.isLowerCase(c)) {
