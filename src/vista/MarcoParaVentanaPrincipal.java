@@ -19,12 +19,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +51,21 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     
     
     private Coordinador coordinador;
+    
+    /**
+      * Fuentes 
+      */
+
+    Font fuenteMenu = new Font("Calibri", Font.BOLD, 18);
+    Font fuenteItem = new Font("Calibri", Font.PLAIN, 18);
+    Font fuenteFechaYHora = new Font("Calibri", Font.PLAIN, 21);
+
+
+     ///////////////////////
+        
+
+
+
     //LA ACCION DE ACTUALIZACION QUE SE EJECUTARA SIEMPRE ANTES DE ABRIR UN PANEL
     // SIRVE PARA LOS MENUS E ITEMS QUE SE MODIFIQUEN FUERA DEL PANEL Y
     // QUE ES NECESARIO RECARGAR PERO QUE EN EL MOMENTO NO SE PUEDE Y POR
@@ -139,6 +149,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      * contendra todos los elementos gráficos. Es la base de todo. 
      */
     public void init(){
+     
         
         //EL TAMAÑO POR DEFECTO DE APERTURA DE LA VENTANA.
         // POR EL MOMENTO LO DEJAREMOS EN EL TAMAÑO DE LA RESOLUCIÓN 1440x900
@@ -836,6 +847,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             if (accion == null) {
                 //CREAMOS UN OBJETO TIPO JMenu.
                 JMenu menu = new JMenu(nombre);
+                //ASIGNAMOS LA FUENTE
+                menu.setFont(fuenteMenu);
                 //ASIGNAMOS LA IMAGEN AL MENU.
                 menu.setIcon(image);
                 //SETEAMOS EL MENU DENTRO DEL ELEMENTO CONTENEDOR GENERALIZANTE.
@@ -844,6 +857,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 //DADO QUE SI SE DEFINIO UNA ACCIÓN SUPONEMOS QUE ES UN ITEM Y 
                 // UN OBJETO JMenuItem.
                 JMenuItem item = new JMenuItem(nombre);
+                //ASIGNAMOS LA FUENTE.
+                item.setFont(fuenteItem);
                 //ASIGAMOS LA IMAGEN QUE LO ACOMPAÑARA.
                 item.setIcon( image);
                 //AÑADIMOS LA ACCION QUE QUEREMOS QUE EJECUTE EL ITEM.
@@ -1061,7 +1076,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             JPanel botones = new JPanel();
 
             //LLAMAMOS A LA CLASE FECHA Y HORA Y LAS AGREGAMOS A SUS PANELES.
-            FechaYHoraCabecera fechaHora = new FechaYHoraCabecera();
+            HiloParaFechaYHoraCabecera fechaHora = new HiloParaFechaYHoraCabecera();
             JLabel hora = new JLabel();
             JLabel fecha = new JLabel();
             JLabel relleno= new JLabel("-");
@@ -1069,7 +1084,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             fechaHora.setEtiquetaHora(hora);
             fechaHora.setEtiquetaFecha(fecha);
             
-            Font fuenteFechaYHora = new Font("Arial", 0, 21);
             hora.setFont(fuenteFechaYHora);
             fecha.setFont(fuenteFechaYHora);
 
@@ -1279,13 +1293,13 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 //    * tambien brinda algúnas otras utilidades.
 //    * @author Rafael Ángel Ramírez Estrada
 //    */
-//    public class FechaYHoraCabecera implements Runnable {
+//    public class HiloParaFechaYHoraCabecera implements Runnable {
 //
 //       private Thread hilo1;
 //       private JLabel etiquetaHora;
 //       private JLabel etiquetaFecha;
 //
-//       public FechaYHoraCabecera()  {
+//       public HiloParaFechaYHoraCabecera()  {
 //           this.iniciar();
 //       }
 //       
@@ -1377,7 +1391,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 //                try {
 //                    Thread.sleep(1000);
 //                } catch (InterruptedException ex) {
-//                    Logger.getLogger(FechaYHoraCabecera.class.getName()).log(Level.SEVERE, null, ex);
+//                    Logger.getLogger(HiloParaFechaYHoraCabecera.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 //            }
 //       }
@@ -1531,6 +1545,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 this.menu.setMenu(menuConstructor.getPadre(),
                         menuConstructor.getNombre(), 
                         menuConstructor.getImagen());
+                
             }
             //CREAMOS LOS ITEMS
             if (menuConstructor.isItem()) {

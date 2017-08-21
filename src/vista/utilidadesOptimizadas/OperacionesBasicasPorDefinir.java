@@ -411,8 +411,12 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
         this.solicitadoMayusculas = true;
     }
     
+    /**
+     * Permite que el campo contenga la fecha con formato dd/mm/aa.
+     */
     public void setPermitirSoloFecha_ddmmaa(){
         this.filtroDecaracteres("fecha_ddmmaa");
+        this.reclamarMayusculasOMinusculas = false;
         
     }
     

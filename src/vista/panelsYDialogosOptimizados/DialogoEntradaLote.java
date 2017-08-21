@@ -15,7 +15,7 @@ import modelo.InfoTabla.RefaccionIT;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import vista.FechaYHora;
-import vista.FechaYHoraCabecera;
+import vista.HiloParaFechaYHoraCabecera;
 import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -646,10 +646,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }
     private void busqueda(){
         if (!_txtBusqueda.isEmpty()) {
-            deshabilitarCamposParaRellenar(false);
             cargarRefaccionesEnLista(_txtBusqueda.getText());
         }else{
-            deshabilitarCamposParaRellenar(true);
             _listaResultados.limpiar();
             limpiar();
         }
@@ -676,7 +674,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     
     public void cargarRefaccionParaEntrada(){
         if (!_txtBusqueda.isEmpty()) {
-            
+            deshabilitarCamposParaRellenar(false);
             RefaccionVo vo;
             HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
             if (!_listaResultados.getThis().isSelectionEmpty()) {
@@ -698,7 +696,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtStockMin.setText(vo.getStockMinimo()+"");
         
         _txtFechaDeLote.setFocus();
-        _txtFechaDeLote.setText(FechaYHora.fechaActual_ddmmaa());
+        _txtFechaDeLote.setText(FechaYHora.Actual.getDdmmaa("/"));
         _txtFechaDeLote.getThis().setSelectionStart(0);
         _txtFechaDeLote.getThis().setSelectionEnd(_txtFechaDeLote.getText().length());
         
@@ -744,11 +742,10 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             
         }
         return cadenaNueva;
-        
-        
-    
     }
+    
     private void limpiar(){
+        deshabilitarCamposParaRellenar(true);
         _txtBusqueda.setText("");
         _txtNombreDeLaRefaccion.setText("");
         _txtCodigoInterno.setText("");
