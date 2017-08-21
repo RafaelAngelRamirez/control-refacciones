@@ -56,9 +56,9 @@ public class MarcoParaVentanaPrincipal extends JFrame{
       * Fuentes 
       */
 
-    Font fuenteMenu = new Font("Calibri", Font.BOLD, 18);
-    Font fuenteItem = new Font("Calibri", Font.PLAIN, 18);
-    Font fuenteFechaYHora = new Font("Calibri", Font.PLAIN, 21);
+    Font fuenteMenu = new Font("Calibri light", Font.BOLD, 15);
+    Font fuenteItem = new Font("Calibri light", Font.PLAIN, 18);
+    Font fuenteFechaYHora = new Font("Calibri light", Font.PLAIN, 22);
 
 
      ///////////////////////
@@ -325,50 +325,59 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          *      CREAMOS LOS MENUS
          * /////////////////////////////////////////////////
          */
+        String imgMenus = "imagenes/iconos_siguiente.png";
+        
         MenuConstructor menuConsultar = new MenuConstructor();
         menuConsultar.setMenu();
         menuConsultar.setNombre("Consultar");
+        menuConsultar.setImagen(imgMenus);
         this.addItemOMenu(menuConsultar);
         
         MenuConstructor modificarDatos = new MenuConstructor();
         modificarDatos.setMenu();
         modificarDatos.setNombre("Modificar datos");
+        modificarDatos.setImagen(imgMenus);
         this.addItemOMenu(modificarDatos);
-        
         
         
         MenuConstructor menuAgregarRegistrar = new MenuConstructor();
         menuAgregarRegistrar.setMenu();
         menuAgregarRegistrar.setNombre("Agregar/Registrar");
         menuAgregarRegistrar.setPadre(modificarDatos);
+        menuAgregarRegistrar.setImagen(imgMenus);
         this.addItemOMenu(menuAgregarRegistrar);
         
         MenuConstructor menuModificar = new MenuConstructor();
         menuModificar.setMenu();
         menuModificar.setNombre("Modificar");
         menuModificar.setPadre(modificarDatos);
+        menuModificar.setImagen(imgMenus);
         this.addItemOMenu(menuModificar);
         
         MenuConstructor menuEntradasSalidas = new MenuConstructor();
         menuEntradasSalidas.setMenu();
         menuEntradasSalidas.setNombre("Entradas/Salidas");
+        menuEntradasSalidas.setImagen(imgMenus);
         this.addItemOMenu(menuEntradasSalidas);
         
         MenuConstructor menuEntradas = new MenuConstructor();
         menuEntradas.setMenu();
         menuEntradas.setNombre("Entradas");
         menuEntradas.setPadre(menuEntradasSalidas);
+        menuEntradas.setImagen(imgMenus);
         this.addItemOMenu(menuEntradas);
         
         MenuConstructor menuSalidas = new MenuConstructor();
         menuSalidas.setMenu();
         menuSalidas.setNombre("Salidas");
         menuSalidas.setPadre(menuEntradasSalidas);
+        menuSalidas.setImagen(imgMenus);
         this.addItemOMenu(menuSalidas);
         
         MenuConstructor menuSystema = new MenuConstructor();
         menuSystema.setMenu();
         menuSystema.setNombre("Opciones de Sistema");
+        menuSystema.setImagen(imgMenus);
         this.addItemOMenu(menuSystema);
         
         
