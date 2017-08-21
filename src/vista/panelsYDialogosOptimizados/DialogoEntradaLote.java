@@ -203,14 +203,18 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         /*
         =======================================================================
-            INICIO CARGA DE ELEMENTOS 
+            INICIO CARGA DE ELEMENTOS Y CONFIGURACIONES
         ///////////////////////////////////////////////////////////////////////
         */
-
+        
+        this.deshabilitarCamposParaRellenar(true);
+        
+        
+        
 
         /* 
         ////////////////////////////////////////////////////////////////////////
-            FIN CARGA DE ELEMENTOS 
+            FIN CARGA DE ELEMENTOS Y CONFIGURACIONES
         ========================================================================
         */    
     
@@ -221,6 +225,16 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
 
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
+    }
+    
+    public void deshabilitarCamposParaRellenar(boolean deshabilitar){
+        deshabilitar = !deshabilitar;
+        
+        _txtFechaDeLote.getThis().setEnabled(deshabilitar);
+        _txtCantidadQueEntra.getThis().setEnabled(deshabilitar);
+        _comboEmpleadoQueReciveLote.getThis().setEnabled(deshabilitar);
+        _txtObservaciones.getThis().setEnabled(deshabilitar);
+        btnGuardar.setEnabled(deshabilitar);
     }
     
 
@@ -632,9 +646,10 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }
     private void busqueda(){
         if (!_txtBusqueda.isEmpty()) {
-            
+            deshabilitarCamposParaRellenar(false);
             cargarRefaccionesEnLista(_txtBusqueda.getText());
         }else{
+            deshabilitarCamposParaRellenar(true);
             _listaResultados.limpiar();
             limpiar();
         }
