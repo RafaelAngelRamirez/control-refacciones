@@ -100,11 +100,11 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         _ComboMarca.setTamanoDeCampo(pit.getEmpresaProveedorPDC().getLongitudDeCaracteres());
         
         //CAMPOS QUE REQUIEREN TEXO EN MAYUSCULAS.
-        _TxtModeloMaquina.setMayusculas();
-        _ComboMarca.setMayusculas();
+        _TxtModeloMaquina.setPermitirSoloMayusculas();
+        _ComboMarca.setPermitirSoloMayusculas();
         
         //CAMPOS SOLO NUMEROS.
-        _TxtAnio.setSoloNumeros();
+        _TxtAnio.setPermitirSoloNumeros();
         
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
         _TxtAnio.setEspaciosEnBlanco();

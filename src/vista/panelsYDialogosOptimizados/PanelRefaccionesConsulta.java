@@ -76,7 +76,7 @@ public class PanelRefaccionesConsulta extends JPanel {
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         
-        _TxtFiltrarRefaccion.setMayusculas();
+        _TxtFiltrarRefaccion.setPermitirSoloMayusculas();
         
         //CAMPOS NUMÉRICOS
         

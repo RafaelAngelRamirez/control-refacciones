@@ -156,15 +156,17 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         
-        _txtObservaciones.setMayusculas();
-        _txtBusqueda.setMayusculas();
-        _comboEmpleadoQueReciveLote.setMayusculas();
-        _txtObservaciones.setMayusculas();
-        _txtFechaDeLote.setMayusculas();
+        _txtObservaciones.setPermitirSoloMayusculas();
+        _txtBusqueda.setPermitirSoloMayusculas();
+        _comboEmpleadoQueReciveLote.setPermitirSoloMayusculas();
+        _txtObservaciones.setPermitirSoloMayusculas();
+        
+        //CAMPOS QUE REQUIEREN FECHA. 
+        _txtFechaDeLote.setPermitirSoloFecha_ddmmaa();
                 
         //CAMPOS NUMÉRICOS
         
-        _txtCantidadQueEntra.setSoloNumeros(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
+        _txtCantidadQueEntra.setPermitirSoloNumeros(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
         
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
         _txtBusqueda.setEspaciosEnBlanco();

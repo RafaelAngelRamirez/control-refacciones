@@ -364,7 +364,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
      * para el campo.
      *
      */
-    public void setSoloNumeros(){
+    public void setPermitirSoloNumeros(){
         this.filtroDecaracteres("numeros");
         this.setFocusAction(
                 ()->this.invocarFiltradoDeNumerosySetearEnComponente(),
@@ -388,7 +388,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
      * digitios, si es texto cualquier caracter.
      * @param maximoDeDecimales - Solo para decimales. 
      */
-    public void setSoloNumeros(int maximoDeEnterosOCaracteres, int maximoDeDecimales){
+    public void setPermitirSoloNumeros(int maximoDeEnterosOCaracteres, int maximoDeDecimales){
         this.filtroDecaracteres("numeros");
         this.setFocusAction(
                 ()->this.invocarFiltradoDeNumerosySetearEnComponente(),
@@ -404,11 +404,16 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
      * de caracteres que se quieren introducir para el campo.
      *
      */
-    public void setMayusculas(){
+    public void setPermitirSoloMayusculas(){
         this.filtroDecaracteres("mayusculas");
         //this.setTamanoDeCampo(maximoDeEnterosOCaracteres);
         this.reclamarMayusculasOMinusculas = false;
         this.solicitadoMayusculas = true;
+    }
+    
+    public void setPermitirSoloFecha_ddmmaa(){
+        this.filtroDecaracteres("fecha_ddmmaa");
+        
     }
     
     //INVOCAMOS ESTA FUNCIÓN DESDE EL FOCUS ACTION PARA QUE CADA VEZ QUE 
@@ -503,7 +508,8 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                 throw new ExcepcionPersonalizada("El valor del campo no puede ser 0.",this);
             }
             this.maximoDeEnteros = maximoDeEnterosOCaracteres;
-            this.filtroDecaracteres("cantidad");
+            
+//            this.filtroDecaracteres("cantidad");
         } catch (ExcepcionPersonalizada ex) {
             
             Logger.getLogger(OperacionesBasicasPorDefinir.class.getName()).log(Level.SEVERE, null, ex);
@@ -527,7 +533,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
             
             this.maximoDeEnteros = maximoDeEnteros;
             this.maximoDeDecimales = maximoDeDecimales;
-            this.filtroDecaracteres("cantidad");
+//            this.filtroDecaracteres("cantidad");
         } catch (ExcepcionPersonalizada ex) {
             
             Logger.getLogger(OperacionesBasicasPorDefinir.class.getName()).log(Level.SEVERE, null, ex);
@@ -566,8 +572,9 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
     public boolean isTextSelected(){
         if (this.getThis() instanceof JTextField) {
             JTextField campo = (JTextField) this.getThis();
-            
+//            JOptionPane.showMessageDialog(null, campo.getSelectedText());
             if (campo.getSelectedText()!= null) {
+               
                 return true;
             }
         }
@@ -589,6 +596,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
             // EL CONTROLADOR A ESTA INSTANCIA ¿HUERFANA?
             OperacionesBasicasPorDefinir operaciones;
             String tipoDeFiltro;
+            boolean revisarCaracterParaSobreescribirSeleccion = false;
             KeyListener parametros(OperacionesBasicasPorDefinir operaciones,
                     String tipoDeFiltro){
                 this.operaciones = operaciones;
@@ -598,15 +606,30 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                         
             @Override
             public void keyTyped(KeyEvent e) {
+                if(!this.operaciones.limitarEntradaDeCaracteres()){
+                    //SI EL TEXTO ESTA SELECCIONADO ENTONCES PERMITIMOS QUE
+                    // SE SIGA ESCRIBIENDO PARA QUE SE ELIMINE TODO LO SELECCIONADO.
+                    if (!this.operaciones.isTextSelected()) {
+                        //QUITAMOS EL CARACTER CUANDO SE SUPERO EL MÁXIMO DEFINIDO.
+                        e.setKeyChar('\0');
+                    }else{
+                        System.out.println("----------------------------Este es el caracter para sobreescribir el texto: "+e.getKeyChar()
+                        +"\nEl filtro invocado:"+tipoDeFiltro );
+                        revisarCaracterParaSobreescribirSeleccion = true;
+                    }
+                }
+                                
+                if(this.operaciones.limitarEntradaDeCaracteres() || revisarCaracterParaSobreescribirSeleccion){
                 //LIMITAMOS EL NUMERO DE CARACTERES.
                 //limitarEntradaDeCaracteres COMPRUEBA QUE NO SE INTRODUZCAN MÁS
                 // CARACTERES DE LOS QUE SE ESPECIFICAN.
-                if(this.operaciones.limitarEntradaDeCaracteres()){
+                    System.out.println("----------------------------esta entrando a limitar!");
                     //CARGAMOS EL CHAR DIGITADO.
                     char c = e.getKeyChar();
                     //FILTRAMOS SEGÚN EL TIPO DE FILTRO Xp.
                     switch(tipoDeFiltro){
                         case "mayusculas":
+                    System.out.println("----------------------------esta entrando a mayusculas!");
                             //COMPROBAMOS CADA TECLA INTRODUCIDA Y LA CONVIERTIMOS
                             // A MAYUSCULAS SI NO LO ESTA.
                             if (Character.isLowerCase(c)) {
@@ -627,13 +650,22 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                                 e.setKeyChar('\0');
                             }
                             break;
-                            
-                        case "cantidad":
-                            //ES PARA LIMITAR LA CANTIDAD DE CARACTERES DE 
-                            // CUALQUIER TIPO. ESTA VACIO POR QUE NO QUITA TEXTO, 
-                            // SOLO UTILIZA EL e.setKeyChar('\0') PARA QUE NO 
-                            // SE PUEDA SEGUIR ESCRIBIENDO DENTRO DEL COMPONENTE.
+                        case "fecha_ddmmaa":
+                            // SOLO PERMITIMOS NÚMEROS Y / PARA QUE SE AÑADAN 
+                            // AL CAMPO TIPO FECHA. 
+                            if (Character.isDigit(c) || c == '/') {
+                                e.setKeyChar(c);
+                            }else{
+                                e.setKeyChar('\0');
+                            }
                             break;
+                            
+//                        case "cantidad":
+//                            //ES PARA LIMITAR LA CANTIDAD DE CARACTERES DE 
+//                            // CUALQUIER TIPO. ESTA VACIO POR QUE NO QUITA TEXTO, 
+//                            // SOLO UTILIZA EL e.setKeyChar('\0') PARA QUE NO 
+//                            // SE PUEDA SEGUIR ESCRIBIENDO DENTRO DEL COMPONENTE.
+//                            break;
                         default:
                             
                             try {
@@ -641,7 +673,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                                         "[>>>] Filtro no definido: "+tipoDeFiltro
                                        + "\nParece que el filtro de caracteres no coincide.\n"
                                        + "Definiste: " + tipoDeFiltro + " y solamente estan definidos\n"
-                                       + "'mayusculas', 'numeros' y 'cantidad'." 
+                                       + "'mayusculas', 'numeros' y fecha_ddmmaa." 
                                         ,operaciones);
                             } catch (ExcepcionPersonalizada ex) {
 
@@ -650,14 +682,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                             }
                             break;
                     }
-                }else{
-                    //SI EL TEXTO ESTA SELECCIONADO ENTONCES PERMITIMOS QUE
-                    // SE SIGA ESCRIBIENDO PARA QUE SE ELIMINE TODO LO SELECCIONADO.
-                    if (!this.operaciones.isTextSelected()) {
-                        System.out.println("si esta seleccionado!");
-                        //QUITAMOS EL CARACTER CUANDO SE SUPERO EL MÁXIMO DEFINIDO.
-                        e.setKeyChar('\0');
-                    }
+                    revisarCaracterParaSobreescribirSeleccion = false;
                 }
             }
         }.parametros(this, tipoDeFiltro));

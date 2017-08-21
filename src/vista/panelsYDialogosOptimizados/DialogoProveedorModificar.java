@@ -130,9 +130,9 @@ public class DialogoProveedorModificar extends JDialog {
         _ComboPais.setTamanoDeCampo(paisit.getPaisPDC().getLongitudDeCaracteres());
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
-        _TxtEmpresa.setMayusculas();
-        _TxtNombreContacto.setMayusculas();
-        _ComboPais.setMayusculas();
+        _TxtEmpresa.setPermitirSoloMayusculas();
+        _TxtNombreContacto.setPermitirSoloMayusculas();
+        _ComboPais.setPermitirSoloMayusculas();
         
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
         _TxtEmpresa.setEspaciosEnBlanco();

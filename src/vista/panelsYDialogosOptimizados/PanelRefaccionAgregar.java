@@ -190,20 +190,20 @@ public class PanelRefaccionAgregar extends JPanel {
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         
-        _ComboUnidad.setMayusculas();
-        _ComboMaterial.setMayusculas();
+        _ComboUnidad.setPermitirSoloMayusculas();
+        _ComboMaterial.setPermitirSoloMayusculas();
 
-        _TxtNombreDeLaRefaccion.setMayusculas();
-        _TxtCodigo.setMayusculas();
-        _TxtCodigoDelProveedor.setMayusculas();
+        _TxtNombreDeLaRefaccion.setPermitirSoloMayusculas();
+        _TxtCodigo.setPermitirSoloMayusculas();
+        _TxtCodigoDelProveedor.setPermitirSoloMayusculas();
 
-        _TxtDescripcion.setMayusculas();
-        _TxtQueEs.setMayusculas();
-        _TxtParaQueEs.setMayusculas();
+        _TxtDescripcion.setPermitirSoloMayusculas();
+        _TxtQueEs.setPermitirSoloMayusculas();
+        _TxtParaQueEs.setPermitirSoloMayusculas();
         
         //CAMPOS NUMÉRICOS
-        _TxtStockMin.setSoloNumeros();
-        _TxtStockMax.setSoloNumeros();
+        _TxtStockMin.setPermitirSoloNumeros();
+        _TxtStockMax.setPermitirSoloNumeros();
         
         
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.

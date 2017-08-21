@@ -66,8 +66,6 @@ public class FechaYHora {
     
     
     private static String autoCompletar_ddmmaa(String fecha){
-        fecha = "22/11/16";
-        
         if () {
             
         }
