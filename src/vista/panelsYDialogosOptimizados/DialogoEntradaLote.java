@@ -160,6 +160,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtBusqueda.setMayusculas();
         _comboEmpleadoQueReciveLote.setMayusculas();
         _txtObservaciones.setMayusculas();
+        _txtFechaDeLote.setMayusculas();
                 
         //CAMPOS NUMÉRICOS
         
@@ -174,6 +175,9 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         //TRAVEL POLICY
         
         _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
+        _txtFechaDeLote.setNextFocusableComponent(_txtCantidadQueEntra.getThis());
+        _txtCantidadQueEntra.setNextFocusableComponent(_comboEmpleadoQueReciveLote.getThis());
+        _comboEmpleadoQueReciveLote.setNextFocusableComponent(_txtObservaciones.getThis());
         _txtObservaciones.setNextFocusableComponent(btnGuardar);
         btnGuardar.setNextFocusableComponent(btnSalir1);
         btnSalir1.setNextFocusableComponent(_txtBusqueda.getThis());
@@ -626,6 +630,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }
     private void busqueda(){
         if (!_txtBusqueda.isEmpty()) {
+            
             cargarRefaccionesEnLista(_txtBusqueda.getText());
         }else{
             _listaResultados.limpiar();
@@ -653,14 +658,17 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }
     
     public void cargarRefaccionParaEntrada(){
-        RefaccionVo vo;
-        HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
-        if (!_listaResultados.getThis().isSelectionEmpty()) {
-            vo = (RefaccionVo) datos.get(_listaResultados.getSelectValueId());
-            mostrarRefaccionParaEntrada(vo);
-        }else if (!_listaResultados.isEmpty()) {
-            vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
-            mostrarRefaccionParaEntrada(vo);
+        if (!_txtBusqueda.isEmpty()) {
+            
+            RefaccionVo vo;
+            HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
+            if (!_listaResultados.getThis().isSelectionEmpty()) {
+                vo = (RefaccionVo) datos.get(_listaResultados.getSelectValueId());
+                mostrarRefaccionParaEntrada(vo);
+            }else if (!_listaResultados.isEmpty()) {
+                vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+                mostrarRefaccionParaEntrada(vo);
+            }
         }
     }
     
@@ -674,6 +682,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         _txtFechaDeLote.setFocus();
         _txtFechaDeLote.setText(FechaYHora.fechaActual_ddmmaa());
+        _txtFechaDeLote.getThis().setSelectionStart(0);
+        _txtFechaDeLote.getThis().setSelectionEnd(_txtFechaDeLote.getText().length());
         
         //CARGAMOS LAS IMAGENES. 
         cargarImagenes(vo.getId());

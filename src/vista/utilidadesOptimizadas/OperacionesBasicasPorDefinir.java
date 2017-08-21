@@ -12,6 +12,7 @@ import controlador.Coordinador;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  * Operaciones básicas sobre los componentes gráficos.
@@ -481,6 +483,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
             //ESTA LINEA ES PARA LOS COMBOBOX
             return true;
         }else if (this.getText().split("").length+1>this.maximoDeEnteros) {
+            
             return false;
         } 
         return true;
@@ -553,6 +556,23 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
     public String getNombre(){
         return this.nombre;
     }
+    
+    /**
+     * Devuevle true si el texto esta seleccionado. Esta función ayuda a que
+     * se borre el texto que se escribe en los campos cuando este se limite por
+     * sus cantidad de caracteres. 
+     * @return True si la selección coincide con el tamaño de la cadena escrita. 
+     */
+    public boolean isTextSelected(){
+        if (this.getThis() instanceof JTextField) {
+            JTextField campo = (JTextField) this.getThis();
+            
+            if (campo.getSelectedText()!= null) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     
     //FILTRA CARACTER POR CARACTER PARA SOLO OBTENER, SEGÚN EL tipoDeFiltro
@@ -563,7 +583,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
     private void filtroDecaracteres(String tipoDeFiltro){
         
         //ESCUCHA DE TECLAS.
-        this.getThis().addKeyListener(new KeyListener() {
+        this.getThis().addKeyListener(new KeyAdapter() {
             
             //LA FUNCION parametros QUE UTILIZAMOS PARA PASAR PARAMETROS Y 
             // EL CONTROLADOR A ESTA INSTANCIA ¿HUERFANA?
@@ -575,9 +595,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                 this.tipoDeFiltro = tipoDeFiltro;
                 return this;
             }
-            
-            
-            
+                        
             @Override
             public void keyTyped(KeyEvent e) {
                 //LIMITAMOS EL NUMERO DE CARACTERES.
@@ -633,20 +651,15 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                             break;
                     }
                 }else{
-                    //QUITAMOS EL CARACTER CUANDO SE SUPERO EL MÁXIMO DEFINIDO.
-                    e.setKeyChar('\0');
+                    //SI EL TEXTO ESTA SELECCIONADO ENTONCES PERMITIMOS QUE
+                    // SE SIGA ESCRIBIENDO PARA QUE SE ELIMINE TODO LO SELECCIONADO.
+                    if (!this.operaciones.isTextSelected()) {
+                        System.out.println("si esta seleccionado!");
+                        //QUITAMOS EL CARACTER CUANDO SE SUPERO EL MÁXIMO DEFINIDO.
+                        e.setKeyChar('\0');
+                    }
                 }
             }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-            
-            
         }.parametros(this, tipoDeFiltro));
         
         this.getThis().addFocusListener(new FocusListener() {

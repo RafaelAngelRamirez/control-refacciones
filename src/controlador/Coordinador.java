@@ -62,15 +62,25 @@ public class Coordinador {
     
     
     
-    public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
-        return dialogoRefaccionDetalle;
-    }
-    
     public void salirDelSistema(){
         JOptionPane.showMessageDialog(null, "saliendo!");
         System.exit(0);
     
     }
+    
+    /**
+     * Comprueba que el forma de fecha que se le pase sea correcto.
+     * @param fecha
+     */
+    public void comprobarFecha(String fecha, int formatoDeFecha){
+    
+    }
+    
+    
+    public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
+        return dialogoRefaccionDetalle;
+    }
+    
     
     /*
     ========================================================================

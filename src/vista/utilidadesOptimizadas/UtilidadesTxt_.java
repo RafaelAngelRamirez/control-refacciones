@@ -75,17 +75,14 @@ public class UtilidadesTxt_ extends OperacionesBasicasPorDefinir{
         this.setCampoTextoRestaurar(this.txt);
     }
 
-    @Override
     public void setFocus() {
         this.txt.requestFocusInWindow();
     }
 
-    @Override
-    public Component getThis() {
+    public JTextField getThis() {
         return this.txt;
     }
 
-    @Override
     public void setEditable(boolean editable) {
         
         this.txt.setEditable(editable);

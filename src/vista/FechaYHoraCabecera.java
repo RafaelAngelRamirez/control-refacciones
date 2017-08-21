@@ -30,6 +30,7 @@ import javax.swing.JLabel;
        public void iniciar(){
            this.hilo1 = new Thread(this);
            this.hilo1.start();
+           
        }
        
        /**
