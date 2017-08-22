@@ -89,6 +89,9 @@ public class Principal {
         DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar = new DialogoMaquinaModeloModificar();
         DialogoProveedorModificar dialogoProveedorModificar = new DialogoProveedorModificar();
         DialogoEntradaLote dialogoEntradaLote = new DialogoEntradaLote();
+        DialogoAgregarEmpleado dialogoAgregarEmpleado = new DialogoAgregarEmpleado();
+        
+        
         //COORDINADORES
         Coordinador coordinador = new Coordinador();
         
@@ -115,6 +118,7 @@ public class Principal {
         dialogoMaquinaModeloModificar.setCoordinador(coordinador);
         dialogoProveedorModificar.setCoordinador(coordinador);
         dialogoEntradaLote.setCoordinador(coordinador);
+        dialogoAgregarEmpleado.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         
@@ -138,7 +142,7 @@ public class Principal {
         coordinador.setDialogoMaquinaModeloModificar(dialogoMaquinaModeloModificar);
         coordinador.setDialogoProveedorModificar(dialogoProveedorModificar);
         coordinador.setDialogoEntradaLote(dialogoEntradaLote);
-        
+        coordinador.setDialogoEmpleadoAgregar(dialogoAgregarEmpleado);
         
 //        /*
 //        ====================================================================

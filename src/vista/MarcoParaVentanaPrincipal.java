@@ -58,7 +58,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 
     Font fuenteMenu = new Font("Calibri light", Font.BOLD, 15);
     Font fuenteItem = new Font("Calibri light", Font.PLAIN, 18);
-    Font fuenteFechaYHora = new Font("Calibri light", Font.PLAIN, 22);
+    Font fuenteFechaYHora = new Font("Calibri light", Font.PLAIN, 20);
 
 
      ///////////////////////
@@ -140,7 +140,11 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     /**
      * Nombre del dialogo entrada lote.
      */
-    public static String DIALOGO_ENTRADA_LOTE = "Entrada Lote";
+    public static String DIALOGO_ENTRADA_LOTE = "Entrada lote";
+    /**
+     * Nombre del dialogo agregar empleado.
+     */
+    public static String DIALOGO_EMPLEADO_AGREGAR = "Agregar empleado";
     
     
    
@@ -475,6 +479,24 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoMaquinaModeloAgregarOPA.addOperacionParaActualizar(
                 ()->this.getCoordinador().maquinaModeloActualizarDialogoAgregar());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoMaquinaModeloAgregarOPA);
+         //-------------------------------
+        
+        MenuConstructor dialogoEmpleadoAgregar = new MenuConstructor();
+        dialogoEmpleadoAgregar.setItem();
+        dialogoEmpleadoAgregar.setNombre(DIALOGO_EMPLEADO_AGREGAR);
+        dialogoEmpleadoAgregar.setPadre(menuAgregarRegistrar);
+        dialogoEmpleadoAgregar.setAccionDelItem(
+                ()->this.getCoordinador().empleadoAbrirDialogo());
+        dialogoEmpleadoAgregar.setDialog(this.getCoordinador().getDialogoEmpleadoAgregar());
+        this.addItemOMenu(dialogoEmpleadoAgregar);
+        
+        Coordinador.OperacionesPorActualizar dialogoEmpleadoAgregarOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        dialogoEmpleadoAgregarOPA.setPanel(dialogoEmpleadoAgregar);
+        dialogoEmpleadoAgregarOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().maquinaModeloActualizarDialogoAgregar());
+        this.getCoordinador().addListaOperacionesPorActualizar(dialogoEmpleadoAgregarOPA);
+        
         
         /**
          * /////////////////////////////////////////////////

@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
 
 /**
@@ -21,31 +20,33 @@ public class FechaYHora {
     
     public static final int FECHA_DD_MM_AA = 0;
     private static final Calendar CALENDAR = Calendar.getInstance();
-
+    private static String mantener="";
+    private static String caracterDeSeparacion="/";
     protected FechaYHora() {
     }
     
     
     
     public static class Actual{
-        
-        private static String ddmmaa, hora, minutos, segundos, hhmm, hhmmss;
+        private static String dd, ddmmaa, mm, hora, minutos, segundos, hhmm, hhmmss;
        
         
         private static final int diaDelMes = CALENDAR.get(Calendar.DAY_OF_MONTH);
         private static final int diaDelAnio = CALENDAR.get(Calendar.DAY_OF_YEAR);
-        private static final int mes = CALENDAR.get(Calendar.MONTH);
+        private static final int mes = CALENDAR.get(Calendar.MONTH)+1;
         private static final int anio = CALENDAR.get(Calendar.YEAR);
         private static final int diaDeLaSemana = CALENDAR.get(Calendar.DAY_OF_WEEK);
         
         
-        private static String caracterDeSeparacion;
+        
         
         
         private static final HashMap<Integer, String > diasDeLaSemana = new HashMap<>();
         private static final HashMap<Integer, String > mesesDelAnio = new HashMap<>();
         
         static{
+            
+            
             diasDeLaSemana.put(1, "domingo");
             diasDeLaSemana.put(2, "lunes");
             diasDeLaSemana.put(3, "martes");
@@ -66,6 +67,18 @@ public class FechaYHora {
             mesesDelAnio.put(10, "octubre");
             mesesDelAnio.put(11, "noviembre");
             mesesDelAnio.put(12, "diciembre");
+            
+            //EL NUMERO DE DIAS FORMATEADO
+            if (diaDelMes<10) 
+                dd = "0"+diaDelMes;
+            else
+                dd = diaDelMes+"";
+            
+            //EL NUMERO DE MES FORMATEADO. 
+            if (mes<10) 
+                mm = "0"+mes;
+                else
+                mm = mes+"";
         }
         
         private static final String diaCompleto = diasDeLaSemana.get(diaDeLaSemana);
@@ -116,6 +129,15 @@ public class FechaYHora {
         }
 
         /**
+         * Retorna el dia del mes formateado 0#, ##.
+         * @return El día de la semana formateado. 
+         */
+        public static String getDia_dd() {
+            return dd;
+        }
+              
+
+        /**
          * Retorna el númeo que corresponde al día del año. 
          * @return El día del año. 
          */
@@ -129,6 +151,13 @@ public class FechaYHora {
          */
         public static int getMes() {
             return mes;
+        }
+        /**
+         * Retorna el número del mes actual formateado como 0#, ##. 
+         * @return El número del mes actual. 
+         */
+        public static String getMes_mm() {
+            return mm;
         }
 
         /**
@@ -168,7 +197,7 @@ public class FechaYHora {
          * @return La fecha actual formateada. 
          */
         public static String getFecha_Ddmmaa(){
-            return getDdmmaa("/");
+            return getDdmmaa(FechaYHora.caracterDeSeparacion);
         }
         
         /**
@@ -182,19 +211,11 @@ public class FechaYHora {
                     if (caracterDeSeparacion.length()>1) {
                             throw new ExcepcionPersonalizada("Solo se permite un caracter de separación.\n \tSe definio: "+caracterDeSeparacion,"FechaYHora");
                     }
-                    Actual.caracterDeSeparacion=caracterDeSeparacion;
-                    String diaS, mesS;
-                    if (diaDelMes<10) 
-                        diaS = "0"+diaDelMes;
-                    else
-                        diaS = diaDelMes+"";
+                    
+                    FechaYHora.caracterDeSeparacion=caracterDeSeparacion;
+                   
 
-                    if (mes<10) 
-                        mesS = "0"+mes;
-                        else
-                        mesS = mes+"";
-
-                    ddmmaa = diaS+Actual.caracterDeSeparacion+mesS+Actual.caracterDeSeparacion+anioAA;
+                    ddmmaa = getDia_dd()+FechaYHora.caracterDeSeparacion+mm+FechaYHora.caracterDeSeparacion+anioAA;
                 } catch (ExcepcionPersonalizada ex) {
                     Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -244,10 +265,6 @@ public class FechaYHora {
             hhmmss = horaFormateada.format(date);
             return hhmmss;
         }
-        
-        
-        
-                
     }
     
     /**
@@ -262,8 +279,7 @@ public class FechaYHora {
         
         switch(formato){
             case FECHA_DD_MM_AA:
-                autoCompletar_ddmmaa(fecha);
-                break;
+                return autoCompletar_ddmmaa(fecha);
             default:
         {
             try {
@@ -272,20 +288,43 @@ public class FechaYHora {
                 Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-                        
-                break;
+            break;
         }
-        
         return a;
-    
     }
     
     
     private static String autoCompletar_ddmmaa(String fecha){
-        if () {
-            
+        if (mantener.length()>fecha.length()) {
+            //NO HACEMOS NADA POR QUE ESTAMOS BORRANDO.
+            mantener = fecha;
+            return mantener;
         }
         
+        if (fecha.length()==1) {
+            if (fecha.equals(Actual.getDiaDelMes()+"")) {
+                mantener = Actual.getDia_dd();
+                return mantener;
+            }
+            mantener = fecha;
+            return mantener;
+        }
+        
+        if (fecha.length()==2) {
+            mantener = fecha+caracterDeSeparacion;
+            return mantener;
+        }
+        
+        if (fecha.length()==4) {
+            String a = fecha.split(caracterDeSeparacion)[1];
+            if (a.equals(Actual.getMes()+"")) {
+                mantener = fecha.split(caracterDeSeparacion)[0]+"/"+Actual.getMes_mm()+"/"+Actual.anioAA;
+                return mantener;
+            }
+        }
+        
+        mantener = fecha;
+        return mantener;
     }
     
 }

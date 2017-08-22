@@ -641,7 +641,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
        JOptionPane.showMessageDialog(null, "pendiente configuracion");
     }
     private void autocompletadoDeFecha(){
-       
+       _txtFechaDeLote.setText(FechaYHora.autoCompletarFecha(_txtFechaDeLote.getText(), FechaYHora.FECHA_DD_MM_AA));
     
     }
     private void busqueda(){
@@ -674,15 +674,22 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     
     public void cargarRefaccionParaEntrada(){
         if (!_txtBusqueda.isEmpty()) {
-            deshabilitarCamposParaRellenar(false);
-            RefaccionVo vo;
+            RefaccionVo vo =null;
             HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
-            if (!_listaResultados.getThis().isSelectionEmpty()) {
-                vo = (RefaccionVo) datos.get(_listaResultados.getSelectValueId());
+            
+                if (!_listaResultados.getThis().isSelectionEmpty()) {
+                    vo = (RefaccionVo) datos.get(_listaResultados.getSelectValueId());
+                }else if (!_listaResultados.isEmpty()) {
+                    vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+                }
+                
+            if (vo!=null) {
+                deshabilitarCamposParaRellenar(false);
                 mostrarRefaccionParaEntrada(vo);
-            }else if (!_listaResultados.isEmpty()) {
-                vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
-                mostrarRefaccionParaEntrada(vo);
+            }else{
+                JOptionPane.showMessageDialog(this, "No hubo coicidencias con tu busqueda.");
+                limpiar();
+                deshabilitarCamposParaRellenar(true);
             }
         }
     }

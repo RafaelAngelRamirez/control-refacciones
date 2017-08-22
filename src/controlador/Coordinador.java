@@ -23,6 +23,7 @@ import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.UnidadIT;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
+import modelo.vo.DepartamentoVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
@@ -59,7 +60,7 @@ public class Coordinador {
     private DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar;
     private DialogoProveedorModificar dialogoProveedorModificar;
     private DialogoEntradaLote dialogoEntradaLote;
-    
+    private DialogoAgregarEmpleado dialogoEmpleadoAgregar;
     
     
     public void salirDelSistema(){
@@ -75,19 +76,24 @@ public class Coordinador {
     public void comprobarFecha(String fecha, int formatoDeFecha){
     
     }
-    
-    
-    public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
-        return dialogoRefaccionDetalle;
-    }
-    
-    
+
     /*
     ========================================================================
     GETS AND SETS
     ////////////////////////////////////////////////////////////////////////
      */
+    
+    public DialogoAgregarEmpleado getDialogoEmpleadoAgregar() {    
+        return dialogoEmpleadoAgregar;
+    }
+    public void setDialogoEmpleadoAgregar(DialogoAgregarEmpleado dialogoEmpleadoAgregar) {
+        this.dialogoEmpleadoAgregar = dialogoEmpleadoAgregar;
+    }
 
+    public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
+        return dialogoRefaccionDetalle;
+    }
+    
     public DialogoEntradaLote getDialogoEntradaLote() {
         return dialogoEntradaLote;
     }
@@ -752,6 +758,51 @@ public class Coordinador {
     ========================================================================
     */
     
+    /* 
+    ========================================================================
+       INICIO DE EMPLEADO
+    ////////////////////////////////////////////////////////////////////////
+    */
+    
+    public void empleadoAbrirDialogo(){
+        this.getDialogoEmpleadoAgregar().setVisible(true);
+        this.getDialogoEmpleadoAgregar().configurar();
+    }
+    
+    public void empleadoActualizar(){
+        JOptionPane.showMessageDialog(null, "pendiente implementacion");
+    }
+    
+    
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE EMPLEADO
+    ========================================================================
+    */
+    /* 
+    ========================================================================
+       INICIO DE DEPARTAMENTO
+    ////////////////////////////////////////////////////////////////////////
+    */
+    
+    public boolean departamentoGuardar(DepartamentoVo vo){
+    
+    
+    }
+    
+    public List<DepartamentoVo> departamentoConsultarTodo(){
+    
+    
+    }
+    
+    
+    
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE DEPARTAMENTO
+    ========================================================================
+    */
+    
     
     /* 
     ========================================================================
@@ -1018,6 +1069,7 @@ public class Coordinador {
         FIN DE ENTRADA LOTE
     ========================================================================
     */
+    
     /* 
     ========================================================================
        INICIO DE ALGO
