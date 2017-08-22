@@ -30,7 +30,7 @@ public class PaisDao extends DAOGenerales{
 
 
     public boolean guardar(PaisVo vo) {
-        HashMap<Integer, String> datos = new HashMap<>();
+        HashMap<Integer, Object> datos = new HashMap<>();
         
         datos.put(1, vo.getId()+"");
         datos.put(2, vo.getPais());

@@ -28,7 +28,7 @@ public class ImportanciaDao extends DAOGenerales{
     public void registrar(ImportanciaVo vo) {
         String sql = "INSERT INTO "+ImportanciaIT.NOMBRE_TABLA+" VALUES (null, ?)";
                        
-        HashMap<Integer, String> mapaDatos = new HashMap<>();
+        HashMap<Integer, Object> mapaDatos = new HashMap<>();
         mapaDatos.put(1, vo.getImportancia());
         conexion.executeUpdate(sql, mapaDatos);
            

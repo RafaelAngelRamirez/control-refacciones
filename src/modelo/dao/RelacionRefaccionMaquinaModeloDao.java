@@ -39,7 +39,7 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
         int contador=1;
         // EL MAPA QUE RELACIONA ? CON EL DATO.
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         //CONTADOR PARA EVITAR LA ÚLTIMA COMA DEL SQL.
         int conComa=1;
         //RECORREMOS TODAS LOS MODELOS QUE PASAMOS. 

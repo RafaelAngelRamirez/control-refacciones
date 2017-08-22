@@ -969,7 +969,7 @@ public class Logica {
                                 val.setValido(true);
                             }
                         }else{
-                            if (this.empleadoExiste(valorAValidar)) {
+                            if (this.empleadoExiste(vo)) {
                                 val.setMensajeDeError("El valor '"+valorAValidar
                                         +"' ya existe en la base." );
                                 val.setValido(false);

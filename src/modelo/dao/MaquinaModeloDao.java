@@ -37,7 +37,7 @@ public class MaquinaModeloDao extends DAOGenerales{
             String sql = "SELECT COUNT(*) FROM " +MaquinaModeloIT.NOMBRE_TABLA
                     +" WHERE "+it.getModeloPDC().getNombre()+"=? AND "
                     + it.getAnioPDC().getNombre() +"=?";
-            HashMap<Integer, String > datos= new HashMap<>();
+            HashMap<Integer, Object > datos= new HashMap<>();
             datos.put(1, modelo);
             datos.put(2, ""+anio);
             ResultSet r = conexion.executeQuery(sql, datos);
@@ -56,7 +56,7 @@ public class MaquinaModeloDao extends DAOGenerales{
         String sql = "INSERT INTO " + MaquinaModeloIT.NOMBRE_TABLA 
                 +" VALUES (null, ?, ? , ?)";
         
-        HashMap<Integer, String> d = new HashMap<>();
+        HashMap<Integer, Object> d = new HashMap<>();
         d.put(1, vo.getModelo());
         d.put(2, vo.getAnio()+"");
         d.put(3, vo.getIdProveedor()+"");
@@ -144,7 +144,7 @@ public class MaquinaModeloDao extends DAOGenerales{
                 it.getIdProoveedorPDC().getNombre() + " = ?"
                 +" WHERE " + it.getIdPDC().getNombre() +"=?";
                 
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getModelo());
         mapa.put(2, vo.getAnio()+"");
         mapa.put(3, vo.getIdProveedor()+"");

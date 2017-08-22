@@ -40,7 +40,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
         int contador=1;
         // EL MAPA QUE RELACIONA ? CON EL DATO.
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         //CONTADOR PARA EVITAR LA ÚLTIMA COMA DEL SQL.
         int conComa=1;
         //RECORREMOS TODAS LAS IMAGENES QUE PASAMOS. 
@@ -126,7 +126,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
                 + it.getNombreServidorPDC().getNombre()
                 + "=?";
         
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getIdRefaccion()+"");
         mapa.put(2, vo.getNombreServidor());
         conexion.executeUpdate(sql, mapa);

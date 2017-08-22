@@ -48,7 +48,7 @@ public class RefaccionDao extends DAOGenerales{
             String sql = "SELECT COUNT(*) FROM " + RefaccionIT.NOMBRE_TABLA
                     + " WHERE " +  it.getCodigoInternoPDC().getNombre() + "= ?"
                     + " AND " + it.getIdPDC().getNombre() + "!= ?";
-            HashMap<Integer, String> mapa = new HashMap<>();
+            HashMap<Integer, Object> mapa = new HashMap<>();
             mapa.put(1, vo.getCodigoInterno());
             mapa.put(2, vo.getId()+"");
             
@@ -86,14 +86,14 @@ public class RefaccionDao extends DAOGenerales{
     public boolean guardar(RefaccionVo vo){
         String sql = "INSERT INTO "+ RefaccionIT.NOMBRE_TABLA 
                 + " VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         
         mapa.put(1, vo.getNombre());
-        mapa.put(2, vo.getIdMaterial()+"");
-        mapa.put(3, vo.getImportancia()+"");
-        mapa.put(4, vo.getStockMinimo()+"");
-        mapa.put(5, vo.getStockMaximo()+"");
-        mapa.put(6, vo.getUnidad()+"");
+        mapa.put(2, vo.getIdMaterial());
+        mapa.put(3, vo.getImportancia());
+        mapa.put(4, vo.getStockMinimo());
+        mapa.put(5, vo.getStockMaximo());
+        mapa.put(6, vo.getUnidad());
         mapa.put(7, vo.getCodigoInterno());
         mapa.put(8, vo.getCodigoProveedor());
         mapa.put(9, vo.getDescripcion());
@@ -273,19 +273,19 @@ public class RefaccionDao extends DAOGenerales{
                 it.getParaQueEsPDC().getNombre()+ "= ?   " 
             + " WHERE " + it.getIdPDC().getNombre() + "= ?";
         
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getNombre());
-        mapa.put(2, (int)vo.getIdMaterial()+"");
-        mapa.put(3, (int)vo.getImportancia()+"");
-        mapa.put(4, vo.getStockMinimo()+"");
-        mapa.put(5, vo.getStockMaximo()+"");
-        mapa.put(6, (int)vo.getUnidad()+"");
+        mapa.put(2, (int)vo.getIdMaterial());
+        mapa.put(3, (int)vo.getImportancia());
+        mapa.put(4, vo.getStockMinimo());
+        mapa.put(5, vo.getStockMaximo());
+        mapa.put(6, (int)vo.getUnidad());
         mapa.put(7, vo.getCodigoInterno());
         mapa.put(8, vo.getCodigoProveedor());
         mapa.put(9, vo.getDescripcion());
         mapa.put(10, vo.getQueEs());
         mapa.put(11, vo.getParaQueEs());
-        mapa.put(12, vo.getId()+"");
+        mapa.put(12, vo.getId());
         
         return conexion.executeUpdate(sql, mapa);
     

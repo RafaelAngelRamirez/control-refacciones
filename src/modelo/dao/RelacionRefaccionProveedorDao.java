@@ -3,14 +3,12 @@ package modelo.dao;
 import controlador.Coordinador;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import modelo.ExcepcionPersonalizada;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.InfoTabla.ProveedorIT;
-import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.vo.*;
 
@@ -32,7 +30,7 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
         int contador=1;
         // EL MAPA QUE RELACIONA ? CON EL DATO.
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         //CONTADOR PARA EVITAR LA ÚLTIMA COMA DEL SQL.
         int conComa=1;
         //RECORREMOS TODAS LAS IMAGENES QUE PASAMOS. 
