@@ -20,6 +20,7 @@ import modelo.InfoTabla.ParametrosDeCampo;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
+import modelo.dao.DepartamentoDao;
 import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
 import modelo.dao.MaquinaModeloDao;
@@ -29,6 +30,7 @@ import modelo.dao.RefaccionDao;
 import modelo.dao.RelacionRefaccionMaquinaModeloDao;
 import modelo.dao.RelacionRefaccionProveedorDao;
 import modelo.dao.UnidadDao;
+import modelo.vo.DepartamentoVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
@@ -870,6 +872,31 @@ public class Logica {
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN REGISTRO RELACION REFACCION PROVEEDOR
+    ========================================================================
+    */
+    
+  
+     /* 
+    ========================================================================
+       INICIO DEPARTAMENTO
+    ////////////////////////////////////////////////////////////////////////
+    */
+        public boolean departamentoGuardar(DepartamentoVo vo){
+            DepartamentoDao d = new DepartamentoDao(coordinador);
+            return d.guardar(vo);
+            
+        }
+        
+        public List<DepartamentoVo> departamentoConsultarTodo(){
+            DepartamentoDao d = new DepartamentoDao(coordinador);
+            return d.consultarTodo();
+        
+        }
+    
+    
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO DEPARTAMENTO
     ========================================================================
     */
     

@@ -786,12 +786,12 @@ public class Coordinador {
     */
     
     public boolean departamentoGuardar(DepartamentoVo vo){
-    
+        return this.logica.departamentoGuardar(vo);
     
     }
     
     public List<DepartamentoVo> departamentoConsultarTodo(){
-    
+        return this.logica.departamentoConsultarTodo();
     
     }
     
