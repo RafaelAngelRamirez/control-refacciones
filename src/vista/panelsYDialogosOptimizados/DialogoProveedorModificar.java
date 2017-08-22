@@ -590,7 +590,7 @@ public class DialogoProveedorModificar extends JDialog {
         
             int respuesta = JOptionPane.showConfirmDialog(
                     this, "¿Estas segúro que quieres cancelar?\n "
-                            + "Se perderan los dato.", "Confirmar cancelación.",
+                            + "Se perderan los datos.", "Confirmar cancelación.",
                             JOptionPane.YES_NO_OPTION);
             if (respuesta==JOptionPane.YES_OPTION) {
                 this.setVisible(false);
@@ -685,7 +685,6 @@ public class DialogoProveedorModificar extends JDialog {
                             this,
                             "Algo sucedio y no se modifico el proveedor.");
                 }
-
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

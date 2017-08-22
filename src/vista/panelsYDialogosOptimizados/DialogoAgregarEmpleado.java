@@ -7,7 +7,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
+import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
+import modelo.vo.EmpleadoVo;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.utilidadesOptimizadas.UtilidadesTxt_;
@@ -21,6 +23,7 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
     
     UtilidadesTxt_ _txtNombre;
     UtilidadesComboBox_ _comboDepartamentos;
+    boolean empleadoAdelantado= false;
     
     /**
      * Creates new form DialogoAgregarEmpleado
@@ -222,8 +225,12 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
             INICIO CARGA DE ELEMENTOS 
         ///////////////////////////////////////////////////////////////////////
         */
-            _txtNombre.setText(empleadoAdelantado);
-            this.cargarComboDepartamentos();
+        _txtNombre.setText(empleadoAdelantado);
+        this.cargarComboDepartamentos();
+            
+        if (empleadoAdelantado.equals("")) {
+            this.empleadoAdelantado = true;
+        }
             
         
         /* 
@@ -320,7 +327,46 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
 
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
+        EmpleadoVo vo = new EmpleadoVo();
+        vo.setNombre(_txtNombre.getText());
+        vo.setIdDepartamento(_comboDepartamentos.getSelectedItem_idRetorno());
+        
+        List<Validacion> validaciones = this.getCoordinador().empleadoValidarCampos(vo);
+        DepartamentoIT it = new DepartamentoIT();
+        
+        boolean todoValido = true;
+        
+        for (Validacion val : validaciones) {
+            if (val.getNombreDeCampo().equals(it.getDepartamentoPDC().getNombre())) {
+                if (!val.isValido()) {
+                    _txtNombre.setError(val.getMensajeDeError());
+                }else{
+                    _txtNombre.setErrorQuitar();
+                }
+            }
+            
+            if (!val.isValido()) {
+                String mensaje = val.getNombreDeCampo()+":"+val.getMensajeDeError();
+                JOptionPane.showMessageDialog(this, mensaje);
+                todoValido = false;
+            }
+            
+            if (todoValido) {
+                //GUARDAMOS EL EMPLEADO.
+                boolean guardadoCorrecto = this.getCoordinador().empleadoGuardar(vo);
+                if (guardadoCorrecto) {
+                    limpiar();
+                    JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
+                    if (empleadoAdelantado) {
+                        dispose();
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Algo sucedio y no se guardo el empleado.", "No se guardo el empleado.", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        
+                
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 

@@ -606,7 +606,7 @@ public class DialogoProveedorRegistrar extends JDialog {
             
             if(!validacione.isValido()){
                 String mensaje = validacione.getNombreDeCampo()+":"+validacione.getMensajeDeError();
-                JOptionPane.showMessageDialog(null, mensaje);
+                JOptionPane.showMessageDialog(this, mensaje);
                 todoValido = false;
             }
         }

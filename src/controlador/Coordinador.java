@@ -24,6 +24,7 @@ import modelo.InfoTabla.UnidadIT;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
+import modelo.vo.EmpleadoVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
@@ -772,6 +773,21 @@ public class Coordinador {
     public void empleadoActualizar(){
         JOptionPane.showMessageDialog(null, "pendiente implementacion");
     }
+    
+    public List<Validacion> empleadoValidarCampos(EmpleadoVo vo){
+    
+    
+    }
+    
+    public boolean empleadoGuardar(EmpleadoVo vo ){
+        
+    }
+    
+    public int empleadoConsultarUltimoId(){
+    
+    }
+    
+    
     
     
     /* 

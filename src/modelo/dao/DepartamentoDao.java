@@ -29,7 +29,7 @@ public class DepartamentoDao extends DAOGenerales{
     
     
     public boolean guardar(DepartamentoVo vo){
-        String sql = "INSERT INTO " + DepartamentoIT.NOMBRE_TABLA + " VALUES (?)";
+        String sql = "INSERT INTO " + DepartamentoIT.NOMBRE_TABLA + " VALUES (null, ?)";
         return conexion.executeUpdate(sql, vo.getDepartamento());
     }
     
