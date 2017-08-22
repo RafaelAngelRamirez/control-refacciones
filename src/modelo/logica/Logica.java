@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.FicherosOperaciones;
+import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.dao.PaisDao;
@@ -21,6 +22,7 @@ import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.dao.DepartamentoDao;
+import modelo.dao.EmpleadoDao;
 import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
 import modelo.dao.MaquinaModeloDao;
@@ -31,6 +33,7 @@ import modelo.dao.RelacionRefaccionMaquinaModeloDao;
 import modelo.dao.RelacionRefaccionProveedorDao;
 import modelo.dao.UnidadDao;
 import modelo.vo.DepartamentoVo;
+import modelo.vo.EmpleadoVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
@@ -897,6 +900,110 @@ public class Logica {
      /* 
     ////////////////////////////////////////////////////////////////////////
         FIN REGISTRO DEPARTAMENTO
+    ========================================================================
+    */
+     /* 
+    ========================================================================
+       INICIO EMPLEADO
+    ////////////////////////////////////////////////////////////////////////
+    */
+        
+        
+        public List<Validacion> empleadoValidarCampos(EmpleadoVo vo){
+            return empleadoValidarCampos(vo, false);
+        }
+
+        public List<Validacion> empleadoValidarCampos(EmpleadoVo vo, boolean validandoUpdate){
+            //LA LISTA QUE SE RETORNA DE VALIDACIONES.
+            List<Validacion> listaValidaciones = new ArrayList<>();
+
+            //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO.
+            EmpleadoIT b = new EmpleadoIT();
+            List<ParametrosDeCampo> listaPDC =b.getCamposPDC();
+            //RECORREMOS CADA CAMPO.
+            for (ParametrosDeCampo parametrosDeCampo : listaPDC) {
+                try {
+                    //----COMPROBAMOS QUE EL CAMPO NO ESTE NULO CUANDO ASÍ LO SOLICITA.
+
+                    //EL NOMBRE DEL CAMPO QUE VAMOS A VALIDAR.
+
+                    String NombreDelCampoActual = parametrosDeCampo.getNombre();
+                    //EL VALOR QUE TIENE ACTUALMENTE EL CAMPO. ESTE MAPA CONTIENE
+                    // LA FUNCION CALLABLE QUE RELACIONA EL NOMBRE DEL CAMPO CON EL 
+                    // VALOR TOMADO ACTUALMENTE. SE DEFINE EN EL VO Y SE HEREDA DE
+                    // VOGeneral.
+                    String valorAValidar =vo.getRelacionCampo()
+                            .get(NombreDelCampoActual).call()+ "";
+                    if (!parametrosDeCampo.isNulo()) {
+                        //EL OBJETO QUE SE VA A RETORNAR PARA SEÑALAR LOS ERRORES SOBRE LA GUI.
+                        Validacion val = new Validacion();
+                        //DEFINIMOS EL CAMPO QUE SE ESTA VALIDANDO.
+                        val.setNombreDeCampo(parametrosDeCampo);
+
+                        //COMPROBAMOS QUE A VO SE LE HAYA PASADO UN VALOR.
+                        if (valorAValidar.isEmpty()) {
+                            //DEFINIMOS EL MENSAJE EN ESTE CASO.
+                            val.setMensajeDeError("No puede estar vacio.");
+                            //GUADAMOS EL VALOR FALSE POR QUE NO SE HA DEFINIDO. 
+                            val.setValido(false);
+
+                        }else{
+                            val.setValido(true);
+                        }
+
+                        listaValidaciones.add(val);
+
+                    } 
+
+                    if (!parametrosDeCampo.isPermiteRepetido() 
+                            && !valorAValidar.isEmpty()) {
+                        //VALIDAMOS LOS CAMPOS QUE NO PUEDEN REPETIRSE.
+                        Validacion val = new Validacion();
+                        val.setNombreDeCampo(parametrosDeCampo);
+                        if (validandoUpdate) {
+                            if (this.empleadoExiste(vo)) {
+                                val.setMensajeDeError("El valor '"+vo.getNombre()
+                                        +"' ya fue asignado a otro empleado.");
+                                val.setValido(false);
+                            }else{
+                                val.setValido(true);
+                            }
+                        }else{
+                            if (this.empleadoExiste(valorAValidar)) {
+                                val.setMensajeDeError("El valor '"+valorAValidar
+                                        +"' ya existe en la base." );
+                                val.setValido(false);
+                            }else{
+                                val.setValido(true);
+                            }
+                        }
+                        listaValidaciones.add(val);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return listaValidaciones;
+    }
+        
+    public boolean empleadoExiste(EmpleadoVo vo ){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.existe(vo);
+    }
+    public boolean empleadoGuardar(EmpleadoVo vo ){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.guardar(vo);
+    }
+
+    public int empleadoConsultarUltimoId(){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.consultarUltimoId();
+    }
+      
+    
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO EMPLEADO
     ========================================================================
     */
     

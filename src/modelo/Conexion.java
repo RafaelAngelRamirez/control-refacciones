@@ -103,7 +103,7 @@ public class Conexion {
      * 
      * 
      */
-    public ResultSet executeQuery (String sql, HashMap<Integer, String> datos){
+    public ResultSet executeQuery (String sql, HashMap<Integer, Object> datos){
         Suceso s = new Suceso();
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
@@ -139,7 +139,7 @@ public class Conexion {
      * 
      * 
      */
-    public boolean executeUpdate(String sql, HashMap<Integer, String> datos){
+    public boolean executeUpdate(String sql, HashMap<Integer, Object> datos){
         Suceso s = new Suceso();
         s.setClase(this);
         s.setTextoAMostrar("[SQL] EJECUTANDO UPDATE");
@@ -175,7 +175,7 @@ public class Conexion {
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
         s.setTextoAMostrar("[SQL] EJECUTANDO UPDATE");
         System.out.println(s);
-        HashMap<Integer, String> map = new HashMap<>();
+        HashMap<Integer, Object> map = new HashMap<>();
         map.put(1, datos);
         this.executeUpdate(sql, map);
         return this.queryExitoso;
@@ -186,7 +186,7 @@ public class Conexion {
     // Definition Languaje). Para esto necesitamos executeUpdate que si lo permite.
     // executeUpdate retorna un entero que por el momento no estamos capturando.
     // 
-    private ResultSet ejecutarSentencia (String sql, HashMap<Integer, String> datos, boolean executeOrUpdate){
+    private ResultSet ejecutarSentencia (String sql, HashMap<Integer, Object> datos, boolean executeOrUpdate){
         
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
@@ -203,9 +203,9 @@ public class Conexion {
             
             preparedStatement = this.conexion.prepareStatement(sql);
             if (datos!=null) {
-                for (Map.Entry<Integer, String> entry : datos.entrySet()) {
+                for (Map.Entry<Integer, Object> entry : datos.entrySet()) {
                     Integer posicion = entry.getKey();
-                    String dato = entry.getValue();
+                    String dato = entry.getValue()+"";
                     System.out.println("depurando conexion preparedstatement");
                     switch(TipoDeDato.encontrarTipoDeDato(dato)){
                         case TipoDeDato.STRING:
@@ -292,7 +292,7 @@ public class Conexion {
      */
     public ResultSet executeQuery (String sql, String dato){
         //PARA FACILITAR LAS CONSULTAS CUANDO SOLO SEA UN DATO.
-        HashMap<Integer, String> datos = new HashMap<>();
+        HashMap<Integer, Object> datos = new HashMap<>();
         datos.put(1, dato);
         ResultSet rs = this.executeQuery(sql, datos);
         return rs;
@@ -318,7 +318,7 @@ public class Conexion {
      */
     public ResultSet executeQuery (String sql){
         //PARA FACILITAR LAS CONSULTAS CUANDO SOLO SEA UN DATO.
-        HashMap<Integer, String> datos = null;
+        HashMap<Integer, Object> datos = null;
         ResultSet rs = this.executeQuery(sql, datos);
         return rs;
     }

@@ -775,16 +775,15 @@ public class Coordinador {
     }
     
     public List<Validacion> empleadoValidarCampos(EmpleadoVo vo){
-    
-    
+        return this.logica.empleadoValidarCampos(vo);
     }
     
     public boolean empleadoGuardar(EmpleadoVo vo ){
-        
+        return this.logica.empleadoGuardar(vo);
     }
     
     public int empleadoConsultarUltimoId(){
-    
+        return this.logica.empleadoConsultarUltimoId();
     }
     
     

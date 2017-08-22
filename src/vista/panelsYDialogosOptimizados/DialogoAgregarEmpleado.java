@@ -361,13 +361,13 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
                         dispose();
                     }
                 }else{
-                    JOptionPane.showMessageDialog(this, "Algo sucedio y no se guardo el empleado.", "No se guardo el empleado.", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, 
+                            "Algo sucedio y no se guardo el empleado.", 
+                            "No se guardo el empleado.", 
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
-        
-                
-        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
