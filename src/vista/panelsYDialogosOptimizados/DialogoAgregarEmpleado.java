@@ -294,25 +294,22 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         boolean todoVacio = true;
         if (!_txtNombre.isEmpty() ||
             !_comboDepartamentos.isEmpty()) {
-            todoVacio=true;
+            todoVacio=false;
         }
-        
         if (todoVacio) {
             limpiar();
             this.setVisible(false);
-            this.dispose();
+//            this.dispose();
             return true;
             
         } else {
-            int respuesta = JOptionPane.showConfirmDialog(
-                    this, "¿Estas segúro que quieres cancelar?\n "
-                            + "Se perderan los datos.", "Confirmar cancelación.",
-                            JOptionPane.YES_NO_OPTION);
-            if (respuesta==JOptionPane.YES_OPTION) {
-                this.setVisible(false);
-                this.limpiar();
-                this.dispose();
+            if (empleadoAdelantado && !_txtNombre.isEmpty()) {
+                this.getCoordinador().entradaLoteDialogoSetearItemCombo(_txtNombre.getText());
             }
+            this.limpiar();
+            this.setVisible(false);
+//                this.dispose();
+            
         }
         return true;
     }
@@ -358,11 +355,12 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
             boolean guardadoCorrecto = this.getCoordinador().empleadoGuardar(vo);
             if (guardadoCorrecto) {
                 limpiar();
-                JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
                 if (empleadoAdelantado) {
+                    this.getCoordinador().entradaLoteDialogoSetearItemCombo(vo.getNombre());
                     this.setVisible(false);
-                    this.dispose();
+//                    this.dispose();
                 }
+                JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
             }else{
                 JOptionPane.showMessageDialog(this, 
                         "Algo sucedio y no se guardo el empleado.", 

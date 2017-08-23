@@ -87,7 +87,9 @@ public class EmpleadoDao extends DAOGenerales{
                 +" INNER JOIN "+
                 DepartamentoIT.NOMBRE_TABLA
                 +" ON "+
-                it.getIdDepartamentoPDC().getNombre()+" = "+dit.getIdPDC().getNombre();
+                EmpleadoIT.NOMBRE_TABLA+"."+it.getIdDepartamentoPDC().getNombre()
+                +" = "+
+                DepartamentoIT.NOMBRE_TABLA+"."+dit.getIdPDC().getNombre();
         
         ResultSet r = conexion.executeQuery(sql);
         try {

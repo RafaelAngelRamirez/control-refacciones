@@ -770,6 +770,13 @@ public class Coordinador {
         this.getDialogoEmpleadoAgregar().configurar();
     }
     
+    public void empleadoAbrirDialogo(String empleadoNuevo){
+        this.getDialogoEmpleadoAgregar().setVisible(true);
+        this.getDialogoEmpleadoAgregar().configurar(empleadoNuevo);
+    }
+    
+    
+    
     public void empleadoActualizar(){
         JOptionPane.showMessageDialog(null, "pendiente implementacion");
     }
@@ -1081,6 +1088,11 @@ public class Coordinador {
         public void entradaLoteAbrirDialogo(){
             this.getDialogoEntradaLote().setVisible(true);
             this.getDialogoEntradaLote().configurar();
+        }
+        
+        
+        public void entradaLoteDialogoSetearItemCombo(Object item){
+            this.getDialogoEntradaLote().setearItemComboEmpleado(item);
         }
         
     /* 

@@ -5,6 +5,8 @@ import controlador.capturadeerrores.Suceso;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -182,14 +184,14 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
      * @param itemEscrito El String a comparar.
      * @return True si contiene el elemento.
      */
-    public boolean contieneElItemEscrito(String itemEscrito){
+    public boolean contieneElItemEscrito(Object itemEscrito){
         Suceso s = new Suceso();
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
         s.setTextoAMostrar("[!]Comprobando si el elemento escrito esta en el combo.");
         System.out.println(s);
         
-        String elementoEscrito = itemEscrito;
+        String elementoEscrito = itemEscrito+"";
         DefaultComboBoxModel modelo = (DefaultComboBoxModel) this.comboBox.getModel();
         for (int i = 0; i < modelo.getSize(); i++) {
             String elemento =(String) modelo.getElementAt(i);
@@ -284,24 +286,46 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
         return false;
     }
     
-    
-    
+    /**
+     * Retorna el editor de este combobox, no el JCombobox. Este sirve para 
+     * setear directamente el texto en el campo. 
+     *
+     * @return 
+     */
     @Override
     public Component getThis() {
         return this.comboBox.getEditor().getEditorComponent();
     }
-
-    @Override
-    public void setEditable(boolean editable) {
-        try {
-            throw new ExcepcionPersonalizada("Todavia no esta soportado.", this, "setEditable");
-        } catch (ExcepcionPersonalizada ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-        }
+    
+    /**
+     * Retorna el JComboBox seteado en esta utilidad. 
+     * @return
+     */
+    public JComboBox getThisComboBox(){
+        return this.comboBox;
     }
     
+    public void setEditable(boolean editable) {
+        this.getThisComboBox().setEditable(editable);
+    }
     
-
-    
-    
+    /**
+     * Ejecuta una acción que se le pase como parametro al seleccionar un item de la tabla. 
+     * @param accion La acción que se quiere ejecutar. 
+     */
+    public void setSelectionAction(Runnable accion){
+        comboBox.addActionListener(new ActionListener() {
+            
+            Runnable accion;
+            public ActionListener operacion(Runnable accion){
+                this.accion = accion;
+                return this;
+            }
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                accion.run();
+            }
+        }.operacion(accion));
+    }
 }
