@@ -96,7 +96,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
             m.addElement(valor);
         }    
 //        this.comboBox.setModel(m);
-//        this.autoCompletar();
+        this.autoCompletar();
     }
        
 

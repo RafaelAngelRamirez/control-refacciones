@@ -228,7 +228,7 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         _txtNombre.setText(empleadoAdelantado);
         this.cargarComboDepartamentos();
             
-        if (empleadoAdelantado.equals("")) {
+        if (!empleadoAdelantado.equals("")) {
             this.empleadoAdelantado = true;
         }
             
@@ -299,7 +299,8 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         
         if (todoVacio) {
             limpiar();
-            dispose();
+            this.setVisible(false);
+            this.dispose();
             return true;
             
         } else {
@@ -350,22 +351,23 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, mensaje);
                 todoValido = false;
             }
-            
-            if (todoValido) {
-                //GUARDAMOS EL EMPLEADO.
-                boolean guardadoCorrecto = this.getCoordinador().empleadoGuardar(vo);
-                if (guardadoCorrecto) {
-                    limpiar();
-                    JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
-                    if (empleadoAdelantado) {
-                        dispose();
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(this, 
-                            "Algo sucedio y no se guardo el empleado.", 
-                            "No se guardo el empleado.", 
-                            JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if (todoValido) {
+            //GUARDAMOS EL EMPLEADO.
+            boolean guardadoCorrecto = this.getCoordinador().empleadoGuardar(vo);
+            if (guardadoCorrecto) {
+                limpiar();
+                JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
+                if (empleadoAdelantado) {
+                    this.setVisible(false);
+                    this.dispose();
                 }
+            }else{
+                JOptionPane.showMessageDialog(this, 
+                        "Algo sucedio y no se guardo el empleado.", 
+                        "No se guardo el empleado.", 
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

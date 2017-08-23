@@ -15,7 +15,6 @@ import modelo.InfoTabla.RefaccionIT;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import vista.FechaYHora;
-import vista.HiloParaFechaYHoraCabecera;
 import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;

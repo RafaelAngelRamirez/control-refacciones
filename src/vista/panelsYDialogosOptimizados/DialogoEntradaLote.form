@@ -71,10 +71,8 @@
                                   <Component id="comboEmpleadoQueReciveLote" alignment="0" max="32767" attributes="0"/>
                                   <Component id="etiquetaEmpleadoQueReciveElLote" alignment="0" max="32767" attributes="0"/>
                                   <Component id="etiquetaObservaciones" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="txtFechaDeLote" alignment="0" pref="206" max="32767" attributes="0"/>
-                                      <Component id="etiquetaFechaDeLote" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="txtFechaDeLote" alignment="0" pref="206" max="32767" attributes="0"/>
+                                  <Component id="etiquetaFechaDeLote" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="etiquetaExistencia" alignment="0" max="32767" attributes="0"/>
