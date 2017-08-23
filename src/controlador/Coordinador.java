@@ -786,6 +786,10 @@ public class Coordinador {
         return this.logica.empleadoConsultarUltimoId();
     }
     
+    public List<EmpleadoVo> empleadoConsultarTodo(){
+        return this.logica.empleadoConsultarTodo();
+    }
+    
     
     
     

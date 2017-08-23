@@ -999,6 +999,11 @@ public class Logica {
         EmpleadoDao d = new EmpleadoDao(coordinador);
         return d.consultarUltimoId();
     }
+    
+    public List<EmpleadoVo> empleadoConsultarTodo(){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.consultarTodo();
+    }
       
     
      /* 

@@ -5,13 +5,16 @@
  */
 package vista.panelsYDialogosOptimizados;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import controlador.Coordinador;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.RefaccionIT;
+import modelo.vo.EmpleadoVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import vista.FechaYHora;
@@ -207,6 +210,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         */
         
         this.deshabilitarCamposParaRellenar(true);
+        this.cargarComboEmpleados();
         
         
         
@@ -650,6 +654,27 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             _listaResultados.limpiar();
             limpiar();
         }
+    }
+    
+    public void cargarComboEmpleados(){
+        cargarComboEmpleados("");
+    }
+    public void cargarComboEmpleados(Object item){
+        List<EmpleadoVo> listVo = new ArrayList<>();
+        listVo = this.getCoordinador().empleadoConsultarTodo();
+        HashMap<String, Object> mapa = new HashMap<>();
+        for (EmpleadoVo vo : listVo) {
+            
+            mapa.put(vo.getNombre()+"("+vo.getIdDepartamento()+")", vo.getId());
+        }
+        
+        _comboEmpleadoQueReciveLote.cargarCombo(mapa);
+        
+        if (_comboEmpleadoQueReciveLote.contieneElItemEscrito(item+"")) {
+            _comboEmpleadoQueReciveLote.setSelectedItem(item);
+        }
+        
+        
     }
     
     private void cargarRefaccionesEnLista(String busqueda){
