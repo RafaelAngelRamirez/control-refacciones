@@ -46,6 +46,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     private UtilidadesTxt_ _txtFechaDeLote;
     private UtilidadesTxt_ _txtCantidadQueEntra;
     private UtilidadesComboBox_ _comboEmpleadoQueReciveLote;
+    private UtilidadesTxt_ _txtDepartamento;
     private UtilidadesTxtArea_ _txtObservaciones;
     private UtilidadesJXViewImage_ _imagenesRefaccion;
     
@@ -126,6 +127,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtCantidadQueEntra = new UtilidadesTxt_(coordinador);
         _comboEmpleadoQueReciveLote = new UtilidadesComboBox_(coordinador);
         _txtObservaciones = new UtilidadesTxtArea_(coordinador);
+        _txtDepartamento = new UtilidadesTxt_(coordinador);
         _imagenesRefaccion = new UtilidadesJXViewImage_(coordinador);
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -142,6 +144,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtFechaDeLote.setComponente(this.txtFechaDeLote);
         _txtCantidadQueEntra.setComponente(this.txtCantidadQueEntra);
         _comboEmpleadoQueReciveLote.setComponente(this.comboEmpleadoQueReciveLote);
+        _txtDepartamento.setComponente(txtDepartamento);
         _txtObservaciones.setComponente(this.txtObservaciones);
         
         _imagenesRefaccion.setComponente(imagenesRefacciones);
@@ -227,9 +230,18 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         return coordinador;
     }
     
-    public void cargarDepartamentoDeEmpleado(){
-        JOptionPane.showMessageDialog(null, _comboEmpleadoQueReciveLote.getSelectedItem());
-    
+    public boolean cargarDepartamentoDeEmpleado(){
+        System.out.println("aqui se ejecuto por que biene de setar item combo empleado----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n");
+        Object vo = _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
+        if (vo instanceof Integer) {
+            _txtDepartamento.setText("");
+            return false;
+        }else if(vo instanceof EmpleadoVo){
+            EmpleadoVo eVo = (EmpleadoVo) vo;
+            _txtDepartamento.setText(eVo.getIdDepartamento()+"");
+            return false;
+        }
+        return true;
     }
 
     public void setCoordinador(Coordinador coordinador) {
@@ -239,6 +251,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     public void setearItemComboEmpleado(Object item){
         if (_comboEmpleadoQueReciveLote.contieneElItemEscrito(item)) {
             _comboEmpleadoQueReciveLote.setSelectedItem(item);
+        JOptionPane.showMessageDialog(null, "aqui tambien no fue bien ");
         }else{
             _comboEmpleadoQueReciveLote.setText("");
             _comboEmpleadoQueReciveLote.setFocus();
@@ -515,7 +528,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         });
 
         txtDepartamento.setEditable(false);
-        txtDepartamento.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtDepartamento.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txtDepartamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDepartamento.setText("012345.123");
         txtDepartamento.setFocusable(false);
@@ -648,7 +661,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnSalir1))
-                .addGap(0, 5, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtStockMax, txtStockMin, txtUnidad});
@@ -692,7 +705,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         HashMap<String, Object> mapa = new HashMap<>();
         for (EmpleadoVo vo : listVo) {
             
-            mapa.put(vo.getNombre()+" ("+vo.getIdDepartamento()+")", vo.getId());
+            mapa.put(vo.getNombre(), vo);
         }
         
         _comboEmpleadoQueReciveLote.cargarCombo(mapa);
@@ -845,6 +858,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtUnidad.setText("");
         _txtFechaDeLote.setText("");
         _txtCantidadQueEntra.setText("");
+        
         _txtObservaciones.setText("");
         _imagenesRefaccion.limpiarComponenteURL();
     }

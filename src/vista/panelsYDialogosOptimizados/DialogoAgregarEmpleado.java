@@ -352,15 +352,15 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         
         if (todoValido) {
             //GUARDAMOS EL EMPLEADO.
-            boolean guardadoCorrecto = this.getCoordinador().empleadoGuardar(vo);
-            if (guardadoCorrecto) {
+            if (this.getCoordinador().empleadoGuardar(vo)) {
                 limpiar();
                 if (empleadoAdelantado) {
+                    JOptionPane.showMessageDialog(null, "hasta aqui nos fue bien"+vo.getNombre());
+                    this.dispose();
                     this.getCoordinador().entradaLoteDialogoSetearItemCombo(vo.getNombre());
-                    this.setVisible(false);
+                JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
 //                    this.dispose();
                 }
-                JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
             }else{
                 JOptionPane.showMessageDialog(this, 
                         "Algo sucedio y no se guardo el empleado.", 

@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 import org.jdesktop.swingx.autocomplete.*;
 
@@ -280,6 +281,10 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
             return true;
         }
         
+        if (getSelectedItem()==null) {
+            return true;
+        }
+    
         if (this.getSelectedItem().equals("")) {
             return true;
         }
