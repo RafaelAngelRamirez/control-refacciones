@@ -10,8 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
+import modelo.Textos;
 
 /**
  * Esta clase gestiona todo lo relacionado con el formato de horas y tiempo. 
@@ -298,7 +301,7 @@ public class FechaYHora {
     
     
     private static String autoCompletar_ddmmaa(String fecha){
-        if (mantener.length()>fecha.length()) {
+         if (mantener.length()>fecha.length()) {
             //NO HACEMOS NADA POR QUE ESTAMOS BORRANDO.
             mantener = fecha;
             return mantener;
@@ -340,34 +343,81 @@ public class FechaYHora {
         }
         
         if (fecha.length()==5) {
-            JOptionPane.showMessageDialog(null, "entro aquiiiiii");
-            if (true) {
-                
-            }
-            
-            
-            
-            
-            
             String a = fecha.split("")[4];
+            
+            String b = fecha.split(caracterDeSeparacion)[1];
+            
             List<String> n = new ArrayList<>();
-            n.add("0");
             n.add("1");
             n.add("2");
+            n.add("3");
+            n.add("4");
+            n.add("5");
+            n.add("6");
+            n.add("7");
+            n.add("8");
+            n.add("9");
+            
+            List<String> n1 = new ArrayList<>();
+            n1.add("3");
+            n1.add("4");
+            n1.add("5");
+            n1.add("6");
+            n1.add("7");
+            n1.add("8");
+            n1.add("9");
+            
+            List<String> m = new ArrayList<>();
+            m.add("0");
+            m.add("1");
+            m.add("2");
+
+            System.out.println("--------------------------a:"+a);
+            System.out.println("--------------------------b:"+b);
+            System.out.println("--------------------------b:"+fecha.length());
+            System.out.println("----fecha.split(\"\")[4]---:"+fecha.split("")[4]);
+            if (b.split("")[0].equals("0")&&n.contains(b.split("")[1])) {
+                mantener = fecha+caracterDeSeparacion+Actual.anioAA;
+                return mantener;
+                        
+            }
            
-            if (n.contains(a)) {
+            if (fecha.split("")[3].equals("1") && m.contains(a)) {
+                
                 mantener = fecha
                         +caracterDeSeparacion+Actual.anioAA;
-            }else{
-                mantener = a;
                 return mantener;
             }
             
+            if (fecha.split("")[3].equals("1") && n1.contains(a)) {
+                String z = fecha.split(caracterDeSeparacion)[1].split("")[0];
+                mantener = b
+                        +caracterDeSeparacion+z;
+                return mantener;
+            }
         }
+        
+        
         
         
         mantener = fecha;
         return mantener;
+    }
+    
+    private static String comprobarFormatoDe_ddmmaa(String fecha){
+        if (fecha.length()==8) {
+            
+            String patS = "^([0-2][0-9]|3[0-1])(["+Textos.especialREGEX(caracterDeSeparacion)+"])(0[1-9]|1[0-2])\\2(\\d{2})";
+
+            Pattern patron = Pattern.compile(patS);
+            Matcher matcher = patron.matcher(fecha);
+            if (matcher.matches()) {
+                return fecha;
+            }
+            return "";
+        }
+        
+        return fecha;
     }
     
 }
