@@ -1,4 +1,4 @@
-package vista;
+package utilidades;
 
 import controlador.Coordinador;
 import java.awt.Color;
@@ -12,7 +12,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import org.jdesktop.swingx.JXImageView;
-import vista.utilidadesOptimizadas.Colores_;
+import utilidades.Colores_;
 
 /**
  * Los errores que aqui se muestran son los generados sobre la GUI. Comúnmente

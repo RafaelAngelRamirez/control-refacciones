@@ -1,5 +1,5 @@
 
-package vista.utilidadesOptimizadas;
+package utilidades;
 
 import controlador.capturadeerrores.Suceso;
 import controlador.Coordinador;

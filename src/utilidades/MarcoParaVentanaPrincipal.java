@@ -1,4 +1,4 @@
-package vista;
+package utilidades;
 
 import controlador.Coordinador;
 import java.awt.BorderLayout;

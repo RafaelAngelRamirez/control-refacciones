@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista.utilidadesOptimizadas;
+package utilidades;
 
-import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
+import utilidades.OperacionesBasicasPorDefinir;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;

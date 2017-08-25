@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista.utilidadesOptimizadas;
+package utilidades;
 
 import controlador.capturadeerrores.Suceso;
 import modelo.ExcepcionPersonalizada;

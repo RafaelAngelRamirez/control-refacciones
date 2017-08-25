@@ -34,13 +34,13 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.UnidadVo;
 import org.jdesktop.swingx.JXImageView;
-import vista.utilidadesOptimizadas.UtilidadesBotones_;
-import vista.utilidadesOptimizadas.UtilidadesComboBox_;
-import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
-import vista.utilidadesOptimizadas.UtilidadesListas_;
-import vista.utilidadesOptimizadas.UtilidadesRadio_;
-import vista.utilidadesOptimizadas.UtilidadesTxtArea_;
-import vista.utilidadesOptimizadas.UtilidadesTxt_;
+import utilidades.UtilidadesBotones_;
+import utilidades.UtilidadesComboBox_;
+import utilidades.UtilidadesJXViewImage_;
+import utilidades.UtilidadesListas_;
+import utilidades.UtilidadesRadio_;
+import utilidades.UtilidadesTxtArea_;
+import utilidades.UtilidadesTxt_;
 
 /**
  *

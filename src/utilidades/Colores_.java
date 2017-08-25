@@ -1,7 +1,7 @@
 /**
  * MANEJO DE COLORES PARA LA INTERFAZ
  */
-package vista.utilidadesOptimizadas;
+package utilidades;
 
 import java.awt.Color;
 

@@ -10,9 +10,9 @@ import modelo.InfoTabla.EmpleadoIT;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
-import vista.utilidadesOptimizadas.UtilidadesBotones_;
-import vista.utilidadesOptimizadas.UtilidadesComboBox_;
-import vista.utilidadesOptimizadas.UtilidadesTxt_;
+import utilidades.UtilidadesBotones_;
+import utilidades.UtilidadesComboBox_;
+import utilidades.UtilidadesTxt_;
 
 /**
  *

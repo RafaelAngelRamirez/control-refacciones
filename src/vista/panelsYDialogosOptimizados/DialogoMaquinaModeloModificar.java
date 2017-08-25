@@ -11,10 +11,10 @@ import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.ProveedorVo;
-import vista.utilidadesOptimizadas.UtilidadesBotones_;
-import vista.utilidadesOptimizadas.UtilidadesComboBox_;
-import vista.utilidadesOptimizadas.UtilidadesListas_;
-import vista.utilidadesOptimizadas.UtilidadesTxt_;
+import utilidades.UtilidadesBotones_;
+import utilidades.UtilidadesComboBox_;
+import utilidades.UtilidadesListas_;
+import utilidades.UtilidadesTxt_;
 
 /**
  * Este dialogo permite modificar una MaquinaModelo. 

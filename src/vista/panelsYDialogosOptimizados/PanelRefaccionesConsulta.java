@@ -17,10 +17,10 @@ import modelo.InfoTabla.ImportanciaIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.UnidadIT;
 import modelo.vo.RefaccionVo;
-import vista.utilidadesOptimizadas.UtilidadesModeloDeTabla_;
-import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
-import vista.utilidadesOptimizadas.UtilidadesTabla_;
-import vista.utilidadesOptimizadas.UtilidadesTxt_;
+import utilidades.UtilidadesModeloDeTabla_;
+import utilidades.OperacionesBasicasPorDefinir;
+import utilidades.UtilidadesTabla_;
+import utilidades.UtilidadesTxt_;
 
 /**
  *

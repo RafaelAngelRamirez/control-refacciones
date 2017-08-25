@@ -12,7 +12,7 @@ import modelo.InfoTabla.ImportanciaIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.UnidadIT;
-import modelo.Textos;
+import utilidades.Textos;
 import modelo.vo.RefaccionVo;
 
 /**
