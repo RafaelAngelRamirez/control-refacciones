@@ -1,13 +1,5 @@
 package vista.panelsYDialogosOptimizados;
 
-<<<<<<< HEAD
-import utilidades.UtilidadesBotones_;
-import utilidades.UtilidadesComboBox_;
-import utilidades.UtilidadesListas_;
-import utilidades.UtilidadesJXViewImage_;
-import vista.utilidades.UtilidadesTxt_;
-=======
->>>>>>> parent of d0a5173... REacomodamos muchisisisisisisisisismas cosas.
 import controlador.Coordinador;
 import java.io.File;
 import java.util.ArrayList;

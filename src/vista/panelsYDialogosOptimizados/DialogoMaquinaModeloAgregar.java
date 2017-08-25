@@ -14,15 +14,9 @@ import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.ProveedorVo;
-<<<<<<< HEAD
-import utilidades.UtilidadesBotones_;
-import utilidades.UtilidadesComboBox_;
-import vista.utilidades.UtilidadesTxt_;
-=======
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.utilidadesOptimizadas.UtilidadesTxt_;
->>>>>>> parent of d0a5173... REacomodamos muchisisisisisisisisismas cosas.
 
 /**
  *

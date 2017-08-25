@@ -18,17 +18,10 @@ import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import org.jdesktop.swingx.JXImageView;
-<<<<<<< HEAD
-import utilidades.UtilidadesJXViewImage_;
-import utilidades.UtilidadesListas_;
-import utilidades.UtilidadesTxtArea_;
-import vista.utilidades.UtilidadesTxt_;
-=======
 import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
 import vista.utilidadesOptimizadas.UtilidadesListas_;
 import vista.utilidadesOptimizadas.UtilidadesTxtArea_;
 import vista.utilidadesOptimizadas.UtilidadesTxt_;
->>>>>>> parent of d0a5173... REacomodamos muchisisisisisisisisismas cosas.
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import modelo.vo.ImagenRefaccionVo;
