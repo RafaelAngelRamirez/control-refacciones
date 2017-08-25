@@ -3,11 +3,14 @@ package vista;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
 
 /**
@@ -316,12 +319,52 @@ public class FechaYHora {
         }
         
         if (fecha.length()==4) {
+            if (fecha.split("")[3].equals(caracterDeSeparacion)) {
+                mantener=fecha.substring(0, 3);
+                return mantener;
+            }
             String a = fecha.split(caracterDeSeparacion)[1];
             if (a.equals(Actual.getMes()+"")) {
-                mantener = fecha.split(caracterDeSeparacion)[0]+"/"+Actual.getMes_mm()+"/"+Actual.anioAA;
+                mantener = fecha.split(caracterDeSeparacion)[0]
+                        +caracterDeSeparacion+Actual.getMes_mm()
+                        +caracterDeSeparacion+Actual.anioAA;
+                return mantener;
+            }
+            
+            if (!a.equals("1")&& !a.equals(caracterDeSeparacion)&& !a.equals("0")) {
+                mantener = fecha.split(caracterDeSeparacion)[0]
+                        +caracterDeSeparacion+"0"+a
+                        +caracterDeSeparacion+Actual.anioAA;
                 return mantener;
             }
         }
+        
+        if (fecha.length()==5) {
+            JOptionPane.showMessageDialog(null, "entro aquiiiiii");
+            if (true) {
+                
+            }
+            
+            
+            
+            
+            
+            String a = fecha.split("")[4];
+            List<String> n = new ArrayList<>();
+            n.add("0");
+            n.add("1");
+            n.add("2");
+           
+            if (n.contains(a)) {
+                mantener = fecha
+                        +caracterDeSeparacion+Actual.anioAA;
+            }else{
+                mantener = a;
+                return mantener;
+            }
+            
+        }
+        
         
         mantener = fecha;
         return mantener;
