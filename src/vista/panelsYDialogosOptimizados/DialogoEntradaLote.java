@@ -5,7 +5,6 @@
  */
 package vista.panelsYDialogosOptimizados;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import controlador.Coordinador;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -178,7 +177,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         //TRAVEL POLICY
         
-        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
+//        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
         _txtFechaDeLote.setNextFocusableComponent(_txtCantidadQueEntra.getThis());
         _txtCantidadQueEntra.setNextFocusableComponent(_comboEmpleadoQueReciveLote.getThis());
         _comboEmpleadoQueReciveLote.setNextFocusableComponent(_txtObservaciones.getThis());
@@ -189,10 +188,11 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         //ACCIONES ESPECIALES.
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
         _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
+        _txtBusqueda.setKeyPressAction(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
+        
         _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
         _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
         _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
-        _comboEmpleadoQueReciveLote.setSelectionAction(()->cargarDepartamentoDeEmpleado());
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnSalir1);
@@ -226,24 +226,21 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     public Coordinador getCoordinador() {
         return coordinador;
     }
-<<<<<<< HEAD
 
-=======
-    
-    public boolean cargarDepartamentoDeEmpleado(){
-        System.out.println("aqui se ejecuto por que biene de setar item combo empleado----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n");
-        Object vo = _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
-        if (vo instanceof Integer) {
-            _txtDepartamento.setText("");
-            return false;
-        }else if(vo instanceof EmpleadoVo){
-            EmpleadoVo eVo = (EmpleadoVo) vo;
-            _txtDepartamento.setText(eVo.getIdDepartamento()+"");
-            return false;
-        }
-        return true;
-    }
->>>>>>> parent of 1175614... Texto.formatearEspacio agregado.
+//    
+//    public boolean cargarDepartamentoDeEmpleado(){
+//        System.out.println("aqui se ejecuto por que biene de setar item combo empleado----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n");
+//        Object vo = _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
+//        if (vo instanceof Integer) {
+//            _txtDepartamento.setText("");
+//            return false;
+//        }else if(vo instanceof EmpleadoVo){
+//            EmpleadoVo eVo = (EmpleadoVo) vo;
+//            _txtDepartamento.setText(eVo.getIdDepartamento()+"");
+//            return false;
+//        }
+//        return true;
+//    }
 
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
@@ -252,7 +249,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     public void setearItemComboEmpleado(Object item){
         if (_comboEmpleadoQueReciveLote.contieneElItemEscrito(item)) {
             _comboEmpleadoQueReciveLote.setSelectedItem(item);
-        JOptionPane.showMessageDialog(null, "aqui tambien no fue bien ");
         }else{
             _comboEmpleadoQueReciveLote.setText("");
             _comboEmpleadoQueReciveLote.setFocus();
@@ -495,7 +491,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         txtCantidadQueEntra.setMinimumSize(new java.awt.Dimension(140, 30));
 
         comboEmpleadoQueReciveLote.setEditable(true);
-        comboEmpleadoQueReciveLote.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
+        comboEmpleadoQueReciveLote.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         comboEmpleadoQueReciveLote.setMaximumSize(new java.awt.Dimension(436, 32767));
         comboEmpleadoQueReciveLote.setPreferredSize(new java.awt.Dimension(436, 24));
 
@@ -699,13 +695,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         
         for (EmpleadoVo vo : listVo) {
-            mapa.put(
-                    Textos.formatearEspacios(
-                            eit.getNombrePDC().getLongitudDeCaracteres(),
-                            vo.getNombre(), "|")
-                    , vo);
-            
             mapa.put(vo.getNombre(), vo);
+            
         }
         
         _comboEmpleadoQueReciveLote.cargarCombo(mapa);
