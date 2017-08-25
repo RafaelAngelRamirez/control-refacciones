@@ -1,5 +1,5 @@
 
-package utilidades;
+package vista.utilidadesOptimizadas;
 
 import controlador.capturadeerrores.Suceso;
 import modelo.ExcepcionPersonalizada;

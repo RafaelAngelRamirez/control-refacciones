@@ -36,7 +36,7 @@ import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.UnidadVo;
-import utilidades.MarcoParaVentanaPrincipal;
+import vista.MarcoParaVentanaPrincipal;
 import vista.panelsYDialogosOptimizados.*;
 
 /**

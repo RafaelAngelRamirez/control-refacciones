@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilidades;
+package vista.utilidadesOptimizadas;
 
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
-import utilidades.OperacionesBasicasPorDefinir;
+import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 
 /**
  *

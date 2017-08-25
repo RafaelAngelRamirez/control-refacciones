@@ -17,8 +17,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.vo.ImagenRefaccionVo;
 import org.jdesktop.swingx.JXImageView;
-import utilidades.UtilidadesBotones_;
-import utilidades.UtilidadesJXViewImage_;
+import vista.utilidadesOptimizadas.UtilidadesBotones_;
+import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
 
 /**
  *

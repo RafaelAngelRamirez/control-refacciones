@@ -5,10 +5,6 @@
  */
 package vista.panelsYDialogosOptimizados;
 
-import utilidades.UtilidadesBotones_;
-import utilidades.UtilidadesComboBox_;
-import utilidades.UtilidadesJXViewImage_;
-import utilidades.UtilidadesTxt_;
 import controlador.Coordinador;
 import java.io.File;
 import java.util.ArrayList;
@@ -26,6 +22,7 @@ import modelo.logica.Validacion;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
+import vista.utilidadesOptimizadas.*;
 
 /**
  *

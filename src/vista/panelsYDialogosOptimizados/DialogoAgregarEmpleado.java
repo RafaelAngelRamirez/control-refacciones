@@ -10,9 +10,15 @@ import modelo.InfoTabla.EmpleadoIT;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
+<<<<<<< HEAD
 import utilidades.UtilidadesBotones_;
 import utilidades.UtilidadesComboBox_;
 import vista.utilidades.UtilidadesTxt_;
+=======
+import vista.utilidadesOptimizadas.UtilidadesBotones_;
+import vista.utilidadesOptimizadas.UtilidadesComboBox_;
+import vista.utilidadesOptimizadas.UtilidadesTxt_;
+>>>>>>> parent of d0a5173... REacomodamos muchisisisisisisisisismas cosas.
 
 /**
  *

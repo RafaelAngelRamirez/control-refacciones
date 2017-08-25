@@ -1,5 +1,5 @@
 
-package utilidades;
+package vista;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

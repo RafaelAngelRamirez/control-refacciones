@@ -16,6 +16,7 @@ import modelo.InfoTabla.RefaccionIT;
 import modelo.vo.EmpleadoVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
+<<<<<<< HEAD
 import utilidades.FechaYHora;
 import utilidades.OperacionesBasicasPorDefinir;
 import utilidades.UtilidadesBotones_;
@@ -24,6 +25,16 @@ import utilidades.UtilidadesJXViewImage_;
 import utilidades.UtilidadesListas_;
 import utilidades.UtilidadesTxtArea_;
 import vista.utilidades.UtilidadesTxt_;
+=======
+import vista.FechaYHora;
+import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
+import vista.utilidadesOptimizadas.UtilidadesBotones_;
+import vista.utilidadesOptimizadas.UtilidadesComboBox_;
+import vista.utilidadesOptimizadas.UtilidadesJXViewImage_;
+import vista.utilidadesOptimizadas.UtilidadesListas_;
+import vista.utilidadesOptimizadas.UtilidadesTxtArea_;
+import vista.utilidadesOptimizadas.UtilidadesTxt_;
+>>>>>>> parent of d0a5173... REacomodamos muchisisisisisisisisismas cosas.
 
 /**
  *
