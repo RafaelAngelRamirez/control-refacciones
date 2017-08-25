@@ -11,11 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.RefaccionIT;
-import modelo.Textos;
 import modelo.vo.EmpleadoVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
@@ -91,7 +89,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         RefaccionIT rit = new RefaccionIT();
         EntradaLoteIT elit = new EntradaLoteIT();
         EmpleadoIT eit = new EmpleadoIT();
-        DepartamentoIT dit = new DepartamentoIT();
         
         etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
         etiquetaCodigoInterno.setText(rit.getCodigoInternoPDC().getNombreParaMostrar());
@@ -228,8 +225,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     public Coordinador getCoordinador() {
         return coordinador;
     }
-//    
-   
+
 
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
@@ -238,6 +234,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     public void setearItemComboEmpleado(Object item){
         if (_comboEmpleadoQueReciveLote.contieneElItemEscrito(item)) {
             _comboEmpleadoQueReciveLote.setSelectedItem(item);
+        JOptionPane.showMessageDialog(null, "aqui tambien no fue bien ");
         }else{
             _comboEmpleadoQueReciveLote.setText("");
             _comboEmpleadoQueReciveLote.setFocus();
@@ -681,7 +678,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         HashMap<String, Object> mapa = new HashMap<>();
         
         EmpleadoIT eit = new EmpleadoIT();
-        DepartamentoIT dit = new DepartamentoIT();
         
         
         for (EmpleadoVo vo : listVo) {
@@ -690,6 +686,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                             eit.getNombrePDC().getLongitudDeCaracteres(),
                             vo.getNombre(), "|")
                     , vo);
+            
+            mapa.put(vo.getNombre(), vo);
         }
         
         _comboEmpleadoQueReciveLote.cargarCombo(mapa);
@@ -700,8 +698,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         
     }
-    
-   
     
     private void guardarEmpleado(){
         String elementoEscrito = this._comboEmpleadoQueReciveLote.getText();
@@ -741,10 +737,10 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         for (RefaccionVo vo : listaVo) {
             
             datos.put(
-                    Textos.formatearEspacios(25, vo.getNombre(), "|")+
-                    Textos.formatearEspacios(15, vo.getCodigoInterno(), "|")+
-                    Textos.formatearEspacios(15, vo.getCodigoProveedor(), "|")+
-                    Textos.formatearEspacios(20, vo.getDescripcion(), " "),vo);
+                    formatearEspacios(25, vo.getNombre())+
+                    formatearEspacios(15, vo.getCodigoInterno())+
+                    formatearEspacios(15, vo.getCodigoProveedor())+
+                    formatearEspacios(20, vo.getDescripcion()),vo);
         }
                
         _listaResultados.cargarLista(datos);
@@ -811,7 +807,25 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
     }
     
-
+    private String formatearEspacios(int totalEspacio, String texto){
+    
+        String espacio = "";
+        String cadenaNueva = "";
+        if (totalEspacio>texto.length()) {
+            int espaciosEnBlanco = totalEspacio-texto.length();
+            for (int i = 0; i < espaciosEnBlanco-1; i++) {
+                espacio+=" ";
+            }
+            espacio+=("|");
+            cadenaNueva += texto+espacio;
+        }else{
+            String subTexto = texto.substring(0, totalEspacio-4);
+            espacio+="...|";
+            cadenaNueva += subTexto+espacio;
+            
+        }
+        return cadenaNueva;
+    }
     
     private void limpiar(){
         deshabilitarCamposParaRellenar(true);

@@ -360,7 +360,9 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
                 limpiar();
                 JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
                 if (empleadoAdelantado) {
+                    
                     this.getCoordinador().entradaLoteDialogoSetearItemCombo(vo.getNombre());
+                    
                     this.dispose();
                     
                 }

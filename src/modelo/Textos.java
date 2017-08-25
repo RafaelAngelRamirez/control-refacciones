@@ -2,8 +2,6 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -86,73 +84,5 @@ public class Textos {
         String a = String.join("", arreglo);
         System.out.println("[REGEXP]-> "+a);
         return a;
-    }
-    
-    /**
-     * Formatea un texto  en base al espacio que se le asigne de manera siguiente:
-     * <br>totalEspacio=10
-     * <br>texto='Hola'
-     * <br>caracter='|'
-     * 
-     * <br><br>Resultado: <p> "Hola_____|"</p> (El caracter '_' representa un
-     * espacio en blanco.)
-     * <br>
-     * Si el texto supera a el espacio asignado entonces se acortara con '...' 
-     * más el caracter de separación asignado
-     * 
-     * @param totalEspacio El espacio total del que se quitara el string de separación
-     * y el tamaño del texto. El mínimo permitido es 5.
-     * @param texto
-     * @param caracterDeSeparación
-     * @return
-     */
-    public static String formatearEspacios(int totalEspacio, String texto, String caracterDeSeparación){
-        try {
-            
-            if (totalEspacio<5) {
-                throw new ExcepcionPersonalizada(
-                        "El totalEspacio no puede ser menor que 5.",
-                        "Textos",
-                        "formatearEspacios()");
-            }
-            
-            if (caracterDeSeparación.length()>1) {
-                throw new ExcepcionPersonalizada(
-                        "caracterDeSeparación no puede contener más de uno.",
-                        "Textos",
-                        "formatearEspacios()");
-                
-            }
-            if (caracterDeSeparación.length()<1) {
-                throw new ExcepcionPersonalizada(
-                        "caracterDeSeparación debe contener por lo menos uno.",
-                        "Textos",
-                        "formatearEspacios()");
-                
-            }
-
-        
-            String espacio = "";
-            String cadenaNueva = "";
-            if (totalEspacio>texto.length()) {
-                int espaciosEnBlanco = totalEspacio-texto.length();
-                for (int i = 0; i < espaciosEnBlanco-1; i++) {
-                    espacio+=" ";
-                }
-                espacio+=(caracterDeSeparación);
-                cadenaNueva += texto+espacio;
-            }else{
-                String subTexto = texto.substring(0, totalEspacio-4);
-                espacio+="..."+caracterDeSeparación;
-                cadenaNueva += subTexto+espacio;
-
-            }
-
-            return cadenaNueva;
-        
-        } catch (ExcepcionPersonalizada ex) {
-            Logger.getLogger(Textos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 }
