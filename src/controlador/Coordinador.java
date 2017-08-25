@@ -866,7 +866,13 @@ public class Coordinador {
         
         
         public void entradaLoteDialogoSetearItemCombo(Object item){
+            this.entradaLoteActualizarComboEmpleados();
             this.getDialogoEntradaLote().setearItemComboEmpleado(item);
+        }
+        
+        public void entradaLoteActualizarComboEmpleados(){
+            this.getDialogoEntradaLote().cargarComboEmpleados();
+        
         }
         
     /* 

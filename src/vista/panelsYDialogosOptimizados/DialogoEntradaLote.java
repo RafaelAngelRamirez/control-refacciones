@@ -735,7 +735,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                     if (respuesta==JOptionPane.YES_OPTION) {
                         this.getCoordinador().empleadoAbrirDialogo(elementoEscrito);
                         this.cargarComboEmpleados();
-                        this._comboEmpleadoQueReciveLote.setSelectedItem(elementoEscrito);
                     }else{
                         this._comboEmpleadoQueReciveLote.getThisComboBox().setSelectedIndex(0);
                     }
