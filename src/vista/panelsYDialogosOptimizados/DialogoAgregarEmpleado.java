@@ -296,27 +296,25 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
     }
     
     public boolean cancelar(){
-//        this.dispose();
-//        boolean todoVacio = true;
-//        if (!_txtNombre.isEmpty() ||
-//            !_comboDepartamentos.isEmpty()) {
-//            todoVacio=false;
-//        }
-////        if (todoVacio) {
-//            limpiar();
-////            this.setVisible(false);
-////            this.dispose();
-//            return true;
-//            
-//        } else {
-//            if (empleadoAdelantado && !_txtNombre.isEmpty()) {
-//                this.getCoordinador().entradaLoteDialogoSetearItemCombo(_txtNombre.getText());
-//            }
-//            this.limpiar();
-////            this.setVisible(false);
-////                this.dispose();
+        this.dispose();
+        boolean todoVacio = true;
+        if (!_txtNombre.isEmpty() ||
+            !_comboDepartamentos.isEmpty()) {
+            todoVacio=false;
+        }
+        if (todoVacio) {
+            limpiar();
+            this.dispose();
+            return true;
             
-//        }
+        } else {
+            if (empleadoAdelantado && !_txtNombre.isEmpty()) {
+                this.getCoordinador().entradaLoteDialogoSetearItemCombo(_txtNombre.getText());
+            }
+            this.limpiar();
+            this.dispose();
+            
+        }
         return true;
     }
     
