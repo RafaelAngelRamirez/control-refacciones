@@ -12,7 +12,7 @@ import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
 import utilidades.UtilidadesBotones_;
 import utilidades.UtilidadesComboBox_;
-import utilidades.UtilidadesTxt_;
+import vista.utilidades.UtilidadesTxt_;
 
 /**
  *

@@ -40,7 +40,7 @@ import utilidades.UtilidadesJXViewImage_;
 import utilidades.UtilidadesListas_;
 import utilidades.UtilidadesRadio_;
 import utilidades.UtilidadesTxtArea_;
-import utilidades.UtilidadesTxt_;
+import vista.utilidades.UtilidadesTxt_;
 
 /**
  *

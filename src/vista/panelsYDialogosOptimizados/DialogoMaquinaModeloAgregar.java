@@ -16,7 +16,7 @@ import modelo.vo.MaquinaModeloVo;
 import modelo.vo.ProveedorVo;
 import utilidades.UtilidadesBotones_;
 import utilidades.UtilidadesComboBox_;
-import utilidades.UtilidadesTxt_;
+import vista.utilidades.UtilidadesTxt_;
 
 /**
  *

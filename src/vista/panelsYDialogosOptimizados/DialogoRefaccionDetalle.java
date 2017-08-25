@@ -21,7 +21,7 @@ import org.jdesktop.swingx.JXImageView;
 import utilidades.UtilidadesJXViewImage_;
 import utilidades.UtilidadesListas_;
 import utilidades.UtilidadesTxtArea_;
-import utilidades.UtilidadesTxt_;
+import vista.utilidades.UtilidadesTxt_;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import modelo.vo.ImagenRefaccionVo;

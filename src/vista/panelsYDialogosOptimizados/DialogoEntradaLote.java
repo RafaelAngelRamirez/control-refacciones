@@ -23,7 +23,7 @@ import utilidades.UtilidadesComboBox_;
 import utilidades.UtilidadesJXViewImage_;
 import utilidades.UtilidadesListas_;
 import utilidades.UtilidadesTxtArea_;
-import utilidades.UtilidadesTxt_;
+import vista.utilidades.UtilidadesTxt_;
 
 /**
  *

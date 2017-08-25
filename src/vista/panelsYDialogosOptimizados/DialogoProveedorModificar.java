@@ -4,7 +4,7 @@ import utilidades.UtilidadesBotones_;
 import utilidades.UtilidadesComboBox_;
 import utilidades.UtilidadesListas_;
 import utilidades.UtilidadesJXViewImage_;
-import utilidades.UtilidadesTxt_;
+import vista.utilidades.UtilidadesTxt_;
 import controlador.Coordinador;
 import java.io.File;
 import java.util.ArrayList;

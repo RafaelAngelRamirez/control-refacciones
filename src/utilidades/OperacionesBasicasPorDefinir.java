@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JTextField;
+import vista.utilidades.SenalarErroresSobreGUI_;
 
 /**
  * Operaciones básicas sobre los componentes gráficos.
