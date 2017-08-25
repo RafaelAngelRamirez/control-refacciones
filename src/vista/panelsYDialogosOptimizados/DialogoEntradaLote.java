@@ -192,6 +192,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
         _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
         _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
+        _comboEmpleadoQueReciveLote.setSelectionAction(()->cargarDepartamentoDeEmpleado());
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnSalir1);
@@ -225,7 +226,24 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     public Coordinador getCoordinador() {
         return coordinador;
     }
+<<<<<<< HEAD
 
+=======
+    
+    public boolean cargarDepartamentoDeEmpleado(){
+        System.out.println("aqui se ejecuto por que biene de setar item combo empleado----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n");
+        Object vo = _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
+        if (vo instanceof Integer) {
+            _txtDepartamento.setText("");
+            return false;
+        }else if(vo instanceof EmpleadoVo){
+            EmpleadoVo eVo = (EmpleadoVo) vo;
+            _txtDepartamento.setText(eVo.getIdDepartamento()+"");
+            return false;
+        }
+        return true;
+    }
+>>>>>>> parent of 1175614... Texto.formatearEspacio agregado.
 
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
