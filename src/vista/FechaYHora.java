@@ -25,6 +25,7 @@ public class FechaYHora {
    
     
     public static final int FECHA_DD_MM_AA = 0;
+    private static List<Integer> listaDePatrones;
     private static final Calendar CALENDAR = Calendar.getInstance();
     private static String mantener="";
     private static String caracterDeSeparacion="/";
@@ -52,7 +53,10 @@ public class FechaYHora {
         
         static{
             
-            
+            listaDePatrones = new ArrayList<>();
+            listaDePatrones.add(FECHA_DD_MM_AA);
+                    
+                    
             diasDeLaSemana.put(1, "domingo");
             diasDeLaSemana.put(2, "lunes");
             diasDeLaSemana.put(3, "martes");
@@ -276,9 +280,9 @@ public class FechaYHora {
     /**
      * Según el formato del texto que se le pasa ayuda a autocompletar la fecha
      * retornando la predicción más posible según el formato escogído. 
-     * @param fecha
-     * @param formato
-     * @return
+     * @param fecha El string que contiene la fecha que se hira autocompeltando.
+     * @param formato El formato que se quiere autocompletar.
+     * @return Retorna la fecha autocompletada. 
      */
     public static String autoCompletarFecha(String fecha, int formato){
         String a = null;
@@ -372,10 +376,6 @@ public class FechaYHora {
             m.add("1");
             m.add("2");
 
-            System.out.println("--------------------------a:"+a);
-            System.out.println("--------------------------b:"+b);
-            System.out.println("--------------------------b:"+fecha.length());
-            System.out.println("----fecha.split(\"\")[4]---:"+fecha.split("")[4]);
             if (b.split("")[0].equals("0")&&n.contains(b.split("")[1])) {
                 mantener = fecha+caracterDeSeparacion+Actual.anioAA;
                 return mantener;
@@ -404,20 +404,40 @@ public class FechaYHora {
         return mantener;
     }
     
-    private static String comprobarFormatoDe_ddmmaa(String fecha){
+    /**
+     * Comprueba si el formato de fecha que se le pase coincide contra el especificado
+     * 
+     * @param fecha El string que se quiere comprobar. 
+     * @return True si el patrón definido coincide contra la cadena. 
+     */
+    public static boolean comprobarFormatoDe_ddmmaa(String fecha, int patronDeFecha){
+        if (!listaDePatrones.contains(patronDeFecha)) {
+            throw new Error("No es un patro de fecha valido");
+        }
+        String patS="";
+        
+        switch(patronDeFecha){
+            case FECHA_DD_MM_AA:
+                patS = "^([0-2][0-9]|3[0-1])(["+Textos.especialREGEX(caracterDeSeparacion)+"])(0[1-9]|1[0-2])\\2(\\d{2})";
+                break;
+            default:
+                throw new Error("No has definido una acción para el patron.");
+             
+        }
+        
         if (fecha.length()==8) {
             
-            String patS = "^([0-2][0-9]|3[0-1])(["+Textos.especialREGEX(caracterDeSeparacion)+"])(0[1-9]|1[0-2])\\2(\\d{2})";
 
             Pattern patron = Pattern.compile(patS);
             Matcher matcher = patron.matcher(fecha);
             if (matcher.matches()) {
-                return fecha;
+                return true;
             }
-            return "";
+           
         }
         
-        return fecha;
+        
+        return false;
     }
     
 }
