@@ -48,7 +48,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     private UtilidadesTxt_ _txtFechaDeLote;
     private UtilidadesTxt_ _txtCantidadQueEntra;
     private UtilidadesComboBox_ _comboEmpleadoQueReciveLote;
-    private UtilidadesTxt_ _txtDepartamento;
     private UtilidadesTxtArea_ _txtObservaciones;
     private UtilidadesJXViewImage_ _imagenesRefaccion;
     
@@ -130,7 +129,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtCantidadQueEntra = new UtilidadesTxt_(coordinador);
         _comboEmpleadoQueReciveLote = new UtilidadesComboBox_(coordinador);
         _txtObservaciones = new UtilidadesTxtArea_(coordinador);
-        _txtDepartamento = new UtilidadesTxt_(coordinador);
         _imagenesRefaccion = new UtilidadesJXViewImage_(coordinador);
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -147,7 +145,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtFechaDeLote.setComponente(this.txtFechaDeLote);
         _txtCantidadQueEntra.setComponente(this.txtCantidadQueEntra);
         _comboEmpleadoQueReciveLote.setComponente(this.comboEmpleadoQueReciveLote);
-        _txtDepartamento.setComponente(txtDepartamento);
         _txtObservaciones.setComponente(this.txtObservaciones);
         
         _imagenesRefaccion.setComponente(imagenesRefacciones);
@@ -231,20 +228,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     public Coordinador getCoordinador() {
         return coordinador;
     }
-    
-//    public boolean cargarDepartamentoDeEmpleado(){
-//        System.out.println("aqui se ejecuto por que biene de setar item combo empleado----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n");
-//        Object vo = _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
-//        if (vo instanceof Integer) {
-//            _txtDepartamento.setText("");
-//            return false;
-//        }else if(vo instanceof EmpleadoVo){
-//            EmpleadoVo eVo = (EmpleadoVo) vo;
-//            _txtDepartamento.setText(eVo.getIdDepartamento()+"");
-//            return false;
-//        }
-//        return true;
-//    }
+//    
+   
 
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
@@ -313,7 +298,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         listaResultados = new javax.swing.JList<>();
         txtBusqueda = new javax.swing.JTextField();
-        txtDepartamento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -496,7 +480,9 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         txtCantidadQueEntra.setMinimumSize(new java.awt.Dimension(140, 30));
 
         comboEmpleadoQueReciveLote.setEditable(true);
-        comboEmpleadoQueReciveLote.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        comboEmpleadoQueReciveLote.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
+        comboEmpleadoQueReciveLote.setMaximumSize(new java.awt.Dimension(436, 32767));
+        comboEmpleadoQueReciveLote.setPreferredSize(new java.awt.Dimension(436, 24));
 
         etiquetaNombreDeLaRefaccion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion.setText("Nombre de la refacción");
@@ -528,12 +514,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             }
         });
 
-        txtDepartamento.setEditable(false);
-        txtDepartamento.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        txtDepartamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDepartamento.setText("012345.123");
-        txtDepartamento.setFocusable(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -542,7 +522,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                 .addComponent(imagenesRefacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addGap(100, 100, 100)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -575,15 +555,12 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1)
                                     .addComponent(etiquetaEmpleadoQueReciveElLote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(etiquetaObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(etiquetaFechaDeLote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(comboEmpleadoQueReciveLote, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDepartamento))
-                                    .addComponent(txtFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboEmpleadoQueReciveLote, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(etiquetaExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(100, 100, 100))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -651,9 +628,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(etiquetaEmpleadoQueReciveElLote)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboEmpleadoQueReciveLote, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(comboEmpleadoQueReciveLote, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(etiquetaObservaciones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -704,9 +679,17 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         listVo = this.getCoordinador().empleadoConsultarTodo();
         HashMap<String, Object> mapa = new HashMap<>();
+        
+        EmpleadoIT eit = new EmpleadoIT();
+        DepartamentoIT dit = new DepartamentoIT();
+        
+        
         for (EmpleadoVo vo : listVo) {
-            
-            mapa.put(vo.getNombre() + "|", vo);
+            mapa.put(
+                    Textos.formatearEspacios(
+                            eit.getNombrePDC().getLongitudDeCaracteres(),
+                            vo.getNombre(), "|")
+                    , vo);
         }
         
         _comboEmpleadoQueReciveLote.cargarCombo(mapa);
@@ -892,7 +875,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     private javax.swing.JTextField txtCantidadQueEntra;
     private javax.swing.JTextField txtCodigoInterno;
     private javax.swing.JTextField txtCodigoProveedor;
-    private javax.swing.JTextField txtDepartamento;
     private javax.swing.JTextField txtExistencia;
     private javax.swing.JTextField txtFechaDeLote;
     private javax.swing.JTextField txtNombreDeLaRefaccion;

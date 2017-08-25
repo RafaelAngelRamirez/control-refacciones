@@ -2,18 +2,17 @@
 package vista.utilidadesOptimizadas;
 
 import controlador.capturadeerrores.Suceso;
-import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.JList;
 
 import org.jdesktop.swingx.autocomplete.*;
 
@@ -332,5 +331,5 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
                 accion.run();
             }
         }.operacion(accion));
-    }
+    }    
 }
