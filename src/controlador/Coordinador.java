@@ -1,6 +1,7 @@
 
 package controlador;
 
+import java.awt.Component;
 import vista.panelsYDialogosOptimizados.PanelRefaccionAgregar;
 import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
 import java.util.ArrayDeque;
@@ -853,6 +854,27 @@ public class Coordinador {
     ========================================================================
     */
     
+     /* 
+    ========================================================================
+       INICIO DE ENTRADA LOTE
+    ////////////////////////////////////////////////////////////////////////
+    */
+        public void entradaLoteAbrirDialogo(){
+            this.getDialogoEntradaLote().setVisible(true);
+            this.getDialogoEntradaLote().configurar();
+        }
+        
+        
+        public void entradaLoteDialogoSetearItemCombo(Object item){
+            this.getDialogoEntradaLote().setearItemComboEmpleado(item);
+        }
+        
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE ENTRADA LOTE
+    ========================================================================
+    */
+    
     
     
     /* 
@@ -1080,26 +1102,7 @@ public class Coordinador {
     */
     
     
-    /* 
-    ========================================================================
-       INICIO DE ENTRADA LOTE
-    ////////////////////////////////////////////////////////////////////////
-    */
-        public void entradaLoteAbrirDialogo(){
-            this.getDialogoEntradaLote().setVisible(true);
-            this.getDialogoEntradaLote().configurar();
-        }
-        
-        
-        public void entradaLoteDialogoSetearItemCombo(Object item){
-            this.getDialogoEntradaLote().setearItemComboEmpleado(item);
-        }
-        
-    /* 
-    ////////////////////////////////////////////////////////////////////////
-        FIN DE ENTRADA LOTE
-    ========================================================================
-    */
+   
     
     /* 
     ========================================================================

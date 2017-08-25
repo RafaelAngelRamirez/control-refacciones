@@ -50,6 +50,11 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(98, 15, 89));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -148,10 +153,10 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         básico para que funcionen en modal.
         
         */ 
-        setModal(true);
+        setModal(false);
         setResizable(false);
         setTitle("Agregar nuevo empleado");
-        setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         
         /* 
@@ -291,26 +296,27 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
     }
     
     public boolean cancelar(){
-        boolean todoVacio = true;
-        if (!_txtNombre.isEmpty() ||
-            !_comboDepartamentos.isEmpty()) {
-            todoVacio=false;
-        }
-        if (todoVacio) {
-            limpiar();
-            this.setVisible(false);
-//            this.dispose();
-            return true;
+//        this.dispose();
+//        boolean todoVacio = true;
+//        if (!_txtNombre.isEmpty() ||
+//            !_comboDepartamentos.isEmpty()) {
+//            todoVacio=false;
+//        }
+////        if (todoVacio) {
+//            limpiar();
+////            this.setVisible(false);
+////            this.dispose();
+//            return true;
+//            
+//        } else {
+//            if (empleadoAdelantado && !_txtNombre.isEmpty()) {
+//                this.getCoordinador().entradaLoteDialogoSetearItemCombo(_txtNombre.getText());
+//            }
+//            this.limpiar();
+////            this.setVisible(false);
+////                this.dispose();
             
-        } else {
-            if (empleadoAdelantado && !_txtNombre.isEmpty()) {
-                this.getCoordinador().entradaLoteDialogoSetearItemCombo(_txtNombre.getText());
-            }
-            this.limpiar();
-            this.setVisible(false);
-//                this.dispose();
-            
-        }
+//        }
         return true;
     }
     
@@ -354,11 +360,10 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
             //GUARDAMOS EL EMPLEADO.
             if (this.getCoordinador().empleadoGuardar(vo)) {
                 limpiar();
-                if (empleadoAdelantado) {
-                    JOptionPane.showMessageDialog(null, "hasta aqui nos fue bien"+vo.getNombre());
-                    this.dispose();
-                    this.getCoordinador().entradaLoteDialogoSetearItemCombo(vo.getNombre());
                 JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
+                if (empleadoAdelantado) {
+                    JOptionPane.showMessageDialog(this, "hasta aqui nos fue bien"+vo.getNombre());
+//                    this.getCoordinador().entradaLoteDialogoSetearItemCombo(vo.getNombre());
 //                    this.dispose();
                 }
             }else{
@@ -373,6 +378,10 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

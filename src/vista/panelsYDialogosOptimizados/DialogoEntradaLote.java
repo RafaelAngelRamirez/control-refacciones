@@ -717,11 +717,11 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
     }
     
-    private boolean guardarEmpleado(){
+    private void guardarEmpleado(){
         String elementoEscrito = this._comboEmpleadoQueReciveLote.getText();
         if (this._comboEmpleadoQueReciveLote.contieneElItemEscrito()) {
             this._comboEmpleadoQueReciveLote.setSelectedItem(elementoEscrito);
-            return true;
+            
         }else{
             this._comboEmpleadoQueReciveLote.setErrorQuitar();
             if (!elementoEscrito.equals("")) {
@@ -734,15 +734,15 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                             "Guardar nuevo empleado.", JOptionPane.YES_NO_OPTION);
                     if (respuesta==JOptionPane.YES_OPTION) {
                         this.getCoordinador().empleadoAbrirDialogo(elementoEscrito);
+                        this.cargarComboEmpleados();
+                        this._comboEmpleadoQueReciveLote.setSelectedItem(elementoEscrito);
                     }else{
                         this._comboEmpleadoQueReciveLote.getThisComboBox().setSelectedIndex(0);
                     }
                 }
             }
         }
-        this.cargarComboEmpleados();
-        this._comboEmpleadoQueReciveLote.setSelectedItem(elementoEscrito);
-        return true;
+        
         
     
     
