@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.RefaccionIT;
+import modelo.logica.Validacion;
 import modelo.vo.EmpleadoVo;
+import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import vista.FechaYHora;
@@ -46,6 +48,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     private UtilidadesComboBox_ _comboEmpleadoQueReciveLote;
     private UtilidadesTxtArea_ _txtObservaciones;
     private UtilidadesJXViewImage_ _imagenesRefaccion;
+    private int idRefaccionActual;
     
     
 
@@ -191,6 +194,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
         _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
+      
         _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
         
         //ACCIONES DE BOTONES
@@ -225,21 +229,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     public Coordinador getCoordinador() {
         return coordinador;
     }
-
-//    
-//    public boolean cargarDepartamentoDeEmpleado(){
-//        System.out.println("aqui se ejecuto por que biene de setar item combo empleado----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n----------------------------\n");
-//        Object vo = _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
-//        if (vo instanceof Integer) {
-//            _txtDepartamento.setText("");
-//            return false;
-//        }else if(vo instanceof EmpleadoVo){
-//            EmpleadoVo eVo = (EmpleadoVo) vo;
-//            _txtDepartamento.setText(eVo.getIdDepartamento()+"");
-//            return false;
-//        }
-//        return true;
-//    }
 
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
@@ -666,7 +655,69 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegresarImagenActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       JOptionPane.showMessageDialog(null, "pendiente configuracion");
+        
+        EntradaLoteIT it = new EntradaLoteIT();
+        EntradaLoteVo vo = new EntradaLoteVo();
+        boolean todoValido = true;
+        vo.setCantidad(Integer.parseInt(_txtCantidadQueEntra.getText()));
+        vo.setFechaRecepcionLote(_txtFechaDeLote.getText());
+        EmpleadoVo evo =(EmpleadoVo) _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
+        vo.setIdEmpleado(evo.getId());
+        vo.setIdRefaccion(idRefaccionActual);
+        vo.setObservaciones(_txtObservaciones.getText());
+        
+        List<Validacion> validaciones = this.getCoordinador().entradaLoteValidarCampos(vo);
+        for (Validacion validacione : validaciones) {
+            
+            if (validacione.getNombreDeCampo().equals(it.getCantidadPDC().getNombre())) {
+                if (!validacione.isValido()) {
+                    _txtCantidadQueEntra.setError(validacione.getMensajeDeError());
+                        
+                }else{
+                    _txtCantidadQueEntra.setErrorQuitar();
+                }
+            }
+            
+            if (validacione.getNombreDeCampo().equals(it.getFechaRecepcionLotePDC().getNombre())) {
+                if (!validacione.isValido()) {
+                    _txtFechaDeLote.setError(validacione.getMensajeDeError());
+                }else{
+                    _txtFechaDeLote.setErrorQuitar();
+                }
+            }
+            
+            if (validacione.getNombreDeCampo().equals(it.getIdEmpleadoPDC().getNombre())) {
+                if (!validacione.isValido()) {
+                    _comboEmpleadoQueReciveLote.setError(validacione.getMensajeDeError());
+                } else {
+                    _comboEmpleadoQueReciveLote.setErrorQuitar();
+                }
+            }
+                       
+            
+            if (!validacione.isValido()) {
+                todoValido = false;
+                
+            }
+          
+        }
+        
+        if (todoValido) {
+            //GUARDAMOS EL LOTE NUEVO.
+            if(this.getCoordinador().entradaloteGuardar(vo)){
+                limpiar();
+                JOptionPane.showMessageDialog(this,
+                        "Se guardo el lote correctamente.");
+                
+            }else{
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Algo salio mal y no se guardo la entrada de lote.",
+                        "No se pudo registrar la entrada.",
+                        JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
     }
     private void autocompletadoDeFecha(){
        _txtFechaDeLote.setText(FechaYHora.autoCompletarFecha(_txtFechaDeLote.getText(), FechaYHora.FECHA_DD_MM_AA));
@@ -785,6 +836,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtUnidad.setText(vo.getUnidad()+"");
         _txtStockMax.setText(vo.getStockMaximo()+"");
         _txtStockMin.setText(vo.getStockMinimo()+"");
+        idRefaccionActual = vo.getId();
         
         _txtFechaDeLote.setFocus();
         _txtFechaDeLote.setText(FechaYHora.Actual.getDdmmaa("/"));

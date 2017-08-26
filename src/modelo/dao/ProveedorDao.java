@@ -28,8 +28,9 @@ public class ProveedorDao extends DAOGenerales{
     /**
      * Guarda un nuevo proveedor. 
      * @param vo Información del proveedo. 
+     * @return  True si todo salio bien.
      */
-    public void guardar(ProveedorVo vo) {
+    public boolean guardar(ProveedorVo vo) {
         String sql = "INSERT INTO "+ProveedorIT.NOMBRE_TABLA+" "
                 + "VALUES (null, ?, ?, ?, ?, ?, ?)";
         HashMap<Integer, Object> d = new HashMap<>();
@@ -41,7 +42,7 @@ public class ProveedorDao extends DAOGenerales{
         d.put(5, vo.getPaginaWeb());
         d.put(6, vo.getIdPais()+"");
 
-        conexion.executeUpdate(sql, d);
+        return conexion.executeUpdate(sql, d);
     }
     
     /**

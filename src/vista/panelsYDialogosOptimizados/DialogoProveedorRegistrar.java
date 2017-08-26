@@ -605,45 +605,51 @@ public class DialogoProveedorRegistrar extends JDialog {
             }
             
             if(!validacione.isValido()){
-                String mensaje = validacione.getNombreDeCampo()+":"+validacione.getMensajeDeError();
-                JOptionPane.showMessageDialog(this, mensaje);
                 todoValido = false;
             }
         }
         
         if (todoValido) {
             //GUARDAMOS LA REFACCION
-            this.getCoordinador().proveedorGuardar(vo);
-            //OBTENEMOS EL ID GENERADO.
-            int idProveedor = this.getCoordinador().proveedorConsultarUltimoId();
-            if (idProveedor==-1) {
-                JOptionPane.showMessageDialog(this, "Hubo un error y no se pudieron guardar algúnos datos.\n\n"
-                       + "Puedes revisar si los datos de la refacción se almacenarón\n"
-                       + "y asociar de nuevo la información modificandola directamente."
-                       + "", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                //ASOCIAMOS LS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN ALMACENADA. 
-                for (ImagenProveedorVo pVo : listapVo) {
-                    pVo.setIdProveedor(idProveedor);
-                }
-                
-                String errorImg = this.getCoordinador().imagenProveedorGuardarLista(listapVo);
-                if (errorImg!=null) {
+            if(this.getCoordinador().proveedorGuardar(vo)){
+                //OBTENEMOS EL ID GENERADO.
+                int idProveedor = this.getCoordinador().proveedorConsultarUltimoId();
+                if (idProveedor==-1) {
+                    JOptionPane.showMessageDialog(this, "Hubo un error y no se pudieron guardar algúnos datos.\n\n"
+                           + "Puedes revisar si los datos de la refacción se almacenarón\n"
+                           + "y asociar de nuevo la información modificandola directamente."
+                           + "", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    //ASOCIAMOS LS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN ALMACENADA. 
+                    for (ImagenProveedorVo pVo : listapVo) {
+                        pVo.setIdProveedor(idProveedor);
+                    }
+
+                    String errorImg = this.getCoordinador().imagenProveedorGuardarLista(listapVo);
+                    if (errorImg!=null) {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "No se cargaron las siguientes imagenes: \n\n" + errorImg,
+                                "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    limpiarTodo();
+                    this.dispose();
                     JOptionPane.showMessageDialog(
-                            null,
-                            "No se cargaron las siguientes imagenes: \n\n" + errorImg,
-                            "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
+                            this.getCoordinador().getMarcoParaVentanaPrincipal(), 
+                            "Se guardo correctamente el proveedor.");
+                    //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
+                    this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
+                    this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
+                    this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
                 }
-                
-                limpiarTodo();
-                this.dispose();
+            }else{
                 JOptionPane.showMessageDialog(
-                        this.getCoordinador().getMarcoParaVentanaPrincipal(), 
-                        "Se guardo correctamente el proveedor.");
-                //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
-                this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
-                this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
-                this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
+                        this,
+                        "Algo salio mal y no se guardo el proveedor.",
+                        "No se pudo registrar el proveedor.", 
+                        JOptionPane.ERROR_MESSAGE);
+            
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

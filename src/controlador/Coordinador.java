@@ -26,6 +26,7 @@ import modelo.logica.Logica;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
+import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
@@ -257,9 +258,10 @@ public class Coordinador {
     /**
      * Guarda un proveedor en la base de datos. 
      * @param vo Los datos del proveedor. 
+     * @return  True si todo salio bien. 
      */
-    public void proveedorGuardar(ProveedorVo vo){
-        this.logica.proveedorGuardar(vo);
+    public boolean proveedorGuardar(ProveedorVo vo){
+        return this.logica.proveedorGuardar(vo);
     }
     
     public boolean proveedorModificar(ProveedorVo vo){
@@ -873,6 +875,14 @@ public class Coordinador {
         public void entradaLoteActualizarComboEmpleados(){
             this.getDialogoEntradaLote().cargarComboEmpleados();
         
+        }
+        
+        public List<Validacion> entradaLoteValidarCampo(EntradaLoteVo vo){
+            return this.logica.entradaLoteValidarCampos(vo);
+        }
+        
+        public boolean entradaLoteGuadar(EntradaLoteVo vo){
+            return this.logica.entradaLoteGuardar(vo);
         }
         
     /* 

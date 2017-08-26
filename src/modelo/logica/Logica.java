@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.FicherosOperaciones;
 import modelo.InfoTabla.EmpleadoIT;
+import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.dao.PaisDao;
@@ -23,6 +24,7 @@ import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.dao.DepartamentoDao;
 import modelo.dao.EmpleadoDao;
+import modelo.dao.EntradaLoteDao;
 import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
 import modelo.dao.MaquinaModeloDao;
@@ -34,6 +36,7 @@ import modelo.dao.RelacionRefaccionProveedorDao;
 import modelo.dao.UnidadDao;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
+import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
@@ -69,10 +72,11 @@ public class Logica {
     /**
      * Guarda un proveedor en la base de datos. 
      * @param vo Los datos de proveedor para guardar. 
+     * @return  True si todo salio bien.
      */
-    public void proveedorGuardar(ProveedorVo vo){
+    public boolean proveedorGuardar(ProveedorVo vo){
         ProveedorDao proveedor = new ProveedorDao(coordinador);
-        proveedor.guardar(vo);
+        return proveedor.guardar(vo);
                 
     }
     
@@ -1009,6 +1013,55 @@ public class Logica {
      /* 
     ////////////////////////////////////////////////////////////////////////
         FIN REGISTRO EMPLEADO
+    ========================================================================
+    */
+    
+     /* 
+    ========================================================================
+       INICIO ENTRADA LOTE
+    ////////////////////////////////////////////////////////////////////////
+    */
+    public List<Validacion> entradaLoteValidarCampos(EntradaLoteVo vo){
+        return entradaLoteValidarCampos(vo, false);
+    }
+    
+    
+    public List<Validacion> entradaLoteValidarCampos(EntradaLoteVo vo, boolean validandoUpdate){
+        //LA LISTA QUE SE REORNA DE VALIDACIONES.
+        List<Validacion> listaValidaciones = new ArrayList<>();
+        
+        //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO
+        EntradaLoteIT b = new EntradaLoteIT();
+        List<ParametrosDeCampo> listaPDC = b.getCamposPDC();
+        
+        //RECORREMOS CADA CAMPO.
+        for (ParametrosDeCampo parametrosDeCampo : listaPDC) {
+            try {
+                //---- COMPROBAMOS QUE EL CAMPO NO ESTE NULO CUANDO ASI LO SOLICITA.
+                
+                //EL NOMBRE DEL CAMPO QUE VAMOS A VALIDAR. 
+                
+            } catch (Exception ex) {
+                 Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    public boolean entradaLoteGuardar(EntradaLoteVo vo){
+        EntradaLoteDao d = new EntradaLoteDao(coordinador);
+        return d.guardar(vo);
+                
+    }
+        
+    
+    
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO ENTRADA LOTE
     ========================================================================
     */
     
