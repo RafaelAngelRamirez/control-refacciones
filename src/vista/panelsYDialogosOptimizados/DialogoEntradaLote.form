@@ -135,7 +135,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="2" attributes="0">
-                          <Component id="txtStockMax" linkSize="2" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="txtStockMax" linkSize="2" alignment="2" min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="txtStockMin" linkSize="2" alignment="2" min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="txtUnidad" linkSize="2" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
@@ -187,12 +187,11 @@
           <Font name="Calibri" size="18" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Stock Min"/>
+        <Property name="text" type="java.lang.String" value="Stock Max"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtStockMin">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="0"/>
         </Property>
@@ -207,7 +206,7 @@
           <Font name="Calibri" size="18" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Stock Max"/>
+        <Property name="text" type="java.lang.String" value="Stock Min"/>
       </Properties>
     </Component>
     <Container class="org.jdesktop.swingx.JXImageView" name="imagenesRefacciones">
@@ -285,7 +284,6 @@
     </Container>
     <Component class="javax.swing.JTextField" name="txtStockMax">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="0"/>
         </Property>
@@ -296,7 +294,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtExistencia">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="40" style="0"/>
         </Property>

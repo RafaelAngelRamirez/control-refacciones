@@ -69,7 +69,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         básico para que funcionen en modal.
         
         */ 
-//        setModal(true);
+        setModal(true);
         setResizable(false);
         setTitle("Entrada lote.");
         setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
@@ -305,9 +305,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
 
         etiquetaStockMin.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaStockMin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaStockMin.setText("Stock Min");
+        etiquetaStockMin.setText("Stock Max");
 
-        txtStockMin.setEditable(false);
         txtStockMin.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtStockMin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtStockMin.setText("012345.123");
@@ -315,7 +314,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
 
         etiquetaStockMax.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaStockMax.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaStockMax.setText("Stock Max");
+        etiquetaStockMax.setText("Stock Min");
 
         imagenesRefacciones.setOpaque(false);
 
@@ -368,13 +367,11 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        txtStockMax.setEditable(false);
         txtStockMax.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtStockMax.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtStockMax.setText("012345.123");
         txtStockMax.setFocusable(false);
 
-        txtExistencia.setEditable(false);
         txtExistencia.setFont(new java.awt.Font("Calibri", 0, 40)); // NOI18N
         txtExistencia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtExistencia.setText("12349.1");
@@ -611,7 +608,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                             .addComponent(etiquetaStockMin))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -659,7 +656,13 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         EntradaLoteIT it = new EntradaLoteIT();
         EntradaLoteVo vo = new EntradaLoteVo();
         boolean todoValido = true;
-        vo.setCantidad(Integer.parseInt(_txtCantidadQueEntra.getText()));
+        float cantidad;
+        if (_txtCantidadQueEntra.isEmpty()) {
+            cantidad = -1;
+        }else{
+            cantidad = Float.parseFloat(_txtCantidadQueEntra.getText());
+        }
+        vo.setCantidad(cantidad);
         vo.setFechaRecepcionLote(_txtFechaDeLote.getText());
         EmpleadoVo evo =(EmpleadoVo) _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
         vo.setIdEmpleado(evo.getId());
@@ -693,6 +696,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                     _comboEmpleadoQueReciveLote.setErrorQuitar();
                 }
             }
+           
                        
             
             if (!validacione.isValido()) {
@@ -812,15 +816,20 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             RefaccionVo vo =null;
             HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
             
-                if (!_listaResultados.getThis().isSelectionEmpty()) {
-                    vo = (RefaccionVo) datos.get(_listaResultados.getSelectValueId());
-                }else if (!_listaResultados.isEmpty()) {
-                    vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
-                }
+            if (!_listaResultados.getThis().isSelectionEmpty()) {
+                vo = (RefaccionVo) datos.get(_listaResultados.getSelectValueId());
+            }else if (!_listaResultados.isEmpty()) {
+                vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+            }
+            
+            
                 
             if (vo!=null) {
                 deshabilitarCamposParaRellenar(false);
                 mostrarRefaccionParaEntrada(vo);
+                float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());
+                _txtExistencia.setText(existencia+"");
+                colorearMinYMax(existencia, vo);
             }else{
                 JOptionPane.showMessageDialog(this, "No hubo coicidencias con tu busqueda.");
                 limpiar();
@@ -851,6 +860,32 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
     }
     
+    private void colorearMinYMax(float existencia, RefaccionVo vo){
+        boolean todoBien = true;
+        if (existencia>vo.getStockMaximo()) {
+            _txtStockMax.setError();
+            _txtExistencia.setError();
+            todoBien = false;
+        }else{
+            _txtStockMax.setErrorQuitar();
+        }
+        
+        if (existencia<vo.getStockMinimo()) {
+            _txtStockMin.setError();
+            _txtExistencia.setError();
+            todoBien = false;
+        } else {
+            _txtStockMax.setErrorQuitar();
+            _txtStockMin.setErrorQuitar();
+        }
+        
+        if (todoBien) {
+            _txtExistencia.setErrorQuitar();
+          
+        }
+        
+    
+    }
     public void cargarImagenes(int id){
        
         List<ImagenRefaccionVo> listaImagenesRefaccion = this.getCoordinador().imagenRefaccionConsultar(id);
@@ -900,18 +935,25 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         _txtFechaDeLote.setText("");
         _txtCantidadQueEntra.setText("");
         
+        _txtStockMax.setErrorQuitar();
+        _txtStockMin.setErrorQuitar();
+        _txtExistencia.setErrorQuitar();
+        
+        
         _txtObservaciones.setText("");
         _imagenesRefaccion.limpiarComponenteURL();
+        _txtBusqueda.setFocus();
     }
 
     private void salir(){
-            this.setVisible(false);
             limpiar();
-            this.dispose();
+            dispose();
+            
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
         salir();
+        
     }//GEN-LAST:event_btnSalir1ActionPerformed
 
     private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed

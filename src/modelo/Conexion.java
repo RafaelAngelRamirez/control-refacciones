@@ -322,4 +322,8 @@ public class Conexion {
         ResultSet rs = this.executeQuery(sql, datos);
         return rs;
     }
+
+    public ResultSet executeQuery(String sql, int idRefaccion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

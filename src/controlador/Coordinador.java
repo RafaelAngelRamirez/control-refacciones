@@ -885,6 +885,10 @@ public class Coordinador {
             return this.logica.entradaLoteGuardar(vo);
         }
         
+        public float entradaLoteExistencia(int id){
+            return this.logica.entradaLoteExistencia(id);
+        }
+        
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE ENTRADA LOTE
