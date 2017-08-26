@@ -877,7 +877,7 @@ public class Coordinador {
         
         }
         
-        public List<Validacion> entradaLoteValidarCampo(EntradaLoteVo vo){
+        public List<Validacion> entradaLoteValidarCampos(EntradaLoteVo vo){
             return this.logica.entradaLoteValidarCampos(vo);
         }
         

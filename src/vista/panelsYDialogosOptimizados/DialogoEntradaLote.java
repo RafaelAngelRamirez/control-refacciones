@@ -704,7 +704,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
         if (todoValido) {
             //GUARDAMOS EL LOTE NUEVO.
-            if(this.getCoordinador().entradaloteGuardar(vo)){
+            if(this.getCoordinador().entradaLoteGuadar(vo)){
                 limpiar();
                 JOptionPane.showMessageDialog(this,
                         "Se guardo el lote correctamente.");

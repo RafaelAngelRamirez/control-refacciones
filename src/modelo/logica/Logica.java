@@ -931,13 +931,13 @@ public class Logica {
 
                     //EL NOMBRE DEL CAMPO QUE VAMOS A VALIDAR.
 
-                    String NombreDelCampoActual = parametrosDeCampo.getNombre();
+                    String nombreDelCampoActual = parametrosDeCampo.getNombre();
                     //EL VALOR QUE TIENE ACTUALMENTE EL CAMPO. ESTE MAPA CONTIENE
                     // LA FUNCION CALLABLE QUE RELACIONA EL NOMBRE DEL CAMPO CON EL 
                     // VALOR TOMADO ACTUALMENTE. SE DEFINE EN EL VO Y SE HEREDA DE
                     // VOGeneral.
                     String valorAValidar =vo.getRelacionCampo()
-                            .get(NombreDelCampoActual).call()+ "";
+                            .get(nombreDelCampoActual).call()+ "";
                     if (!parametrosDeCampo.isNulo()) {
                         //EL OBJETO QUE SE VA A RETORNAR PARA SEÑALAR LOS ERRORES SOBRE LA GUI.
                         Validacion val = new Validacion();
@@ -987,7 +987,7 @@ public class Logica {
                     Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            return listaValidaciones;
+        return listaValidaciones;
     }
         
     public boolean empleadoExiste(EmpleadoVo vo ){
@@ -1039,16 +1039,41 @@ public class Logica {
             try {
                 //---- COMPROBAMOS QUE EL CAMPO NO ESTE NULO CUANDO ASI LO SOLICITA.
                 
-                //EL NOMBRE DEL CAMPO QUE VAMOS A VALIDAR. 
+                //EL NOMBRE DEL CAMPO QUE VAMOS A VALIDAR.
+                
+                String nombreDelCampoActual = parametrosDeCampo.getNombre();
+                //EL VALOR QUE TIENE ACTUALMENTE EL CAMPO. ESTE MAPA CONTIENE
+                // LA FUNCION CALLABLE QUE RELACIONA EL NOMBRE DEL CAMPO CON EL 
+                // VALOR TOMADO ACTUALMENTE. SE DEFINE EN EL VO Y SE HEREDA DE
+                // VOGeneral.
+                String valorAValidar =vo.getRelacionCampo()
+                        .get(nombreDelCampoActual).call()+ "";
+                if (!parametrosDeCampo.isNulo()) {
+                    //EL OBJETO QUE SE VA A RETORNAR PARA SEÑALAR LOS ERRORES SOBRE LA GUI.
+                    Validacion val = new Validacion();
+                    //DEFINIMOS EL CAMPO QUE SE ESTA VALIDANDO.
+                    val.setNombreDeCampo(parametrosDeCampo);
+
+                    //COMPROBAMOS QUE A VO SE LE HAYA PASADO UN VALOR.
+                    if (valorAValidar.isEmpty()) {
+                        //DEFINIMOS EL MENSAJE EN ESTE CASO.
+                        val.setMensajeDeError("No puede estar vacio.");
+                        //GUADAMOS EL VALOR FALSE POR QUE NO SE HA DEFINIDO. 
+                        val.setValido(false);
+
+                    }else{
+                        val.setValido(true);
+                    }
+
+                    listaValidaciones.add(val);
+
+                }
                 
             } catch (Exception ex) {
                  Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            
         }
-        
-        
+        return listaValidaciones;
     }
     
     public boolean entradaLoteGuardar(EntradaLoteVo vo){
