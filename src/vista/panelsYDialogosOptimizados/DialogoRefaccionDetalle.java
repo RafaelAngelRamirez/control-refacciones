@@ -46,18 +46,19 @@ public class DialogoRefaccionDetalle extends JDialog {
     private UtilidadesListas_ _ListaProveedor;
     private UtilidadesListas_ _ListaMaquinaModelo;
     
-    private UtilidadesTxt_ _TxtNombreDeLaRefaccion;
-    private UtilidadesTxt_ _TxtCodigo;
-    private UtilidadesTxt_ _TxtStockMin;
-    private UtilidadesTxt_ _TxtStockMax;
-    private UtilidadesTxt_ _TxtCodigoDelProveedor;
-    private UtilidadesTxt_ _TxtDeQueEstaEcho;
+    private UtilidadesTxt_ _txtNombreDeLaRefaccion;
+    private UtilidadesTxt_ _txtCodigo;
+    private UtilidadesTxt_ _txtExistencia;
+    private UtilidadesTxt_ _txtStockMin;
+    private UtilidadesTxt_ _txtStockMax;
+    private UtilidadesTxt_ _txtCodigoDelProveedor;
+    private UtilidadesTxt_ _txtDeQueEstaEcho;
     
     private UtilidadesTxtArea_ _TxtDescripcion;
     private UtilidadesTxtArea_ _TxtQueEs;
     private UtilidadesTxtArea_ _TxtParaQueEs;
     
-    UtilidadesTxt_ _TxtImportancia;
+    UtilidadesTxt_ _txtImportancia;
 
     /** Creates new form DialogoDetalleRefaccion */
     public DialogoRefaccionDetalle() {
@@ -129,19 +130,21 @@ public class DialogoRefaccionDetalle extends JDialog {
         _ListaProveedor = new UtilidadesListas_(coordinador);
         _ListaMaquinaModelo = new UtilidadesListas_(coordinador);
 
-        _TxtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
-        _TxtCodigo = new UtilidadesTxt_(coordinador);
-        _TxtStockMin = new UtilidadesTxt_(coordinador);
-        _TxtStockMax = new UtilidadesTxt_(coordinador);
-        _TxtCodigoDelProveedor = new UtilidadesTxt_(coordinador);
+        _txtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
+        _txtCodigo = new UtilidadesTxt_(coordinador);
+        _txtExistencia = new UtilidadesTxt_(coordinador);
+        _txtStockMin = new UtilidadesTxt_(coordinador);
+        _txtStockMax = new UtilidadesTxt_(coordinador);
+        
+        _txtCodigoDelProveedor = new UtilidadesTxt_(coordinador);
 
         _TxtDescripcion = new UtilidadesTxtArea_(coordinador);
         _TxtQueEs = new UtilidadesTxtArea_(coordinador);
         _TxtParaQueEs = new UtilidadesTxtArea_(coordinador);
 
-        _TxtImportancia = new UtilidadesTxt_(coordinador);
+        _txtImportancia = new UtilidadesTxt_(coordinador);
         
-        _TxtDeQueEstaEcho = new UtilidadesTxt_(coordinador);
+        _txtDeQueEstaEcho = new UtilidadesTxt_(coordinador);
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -154,18 +157,19 @@ public class DialogoRefaccionDetalle extends JDialog {
         _ListaProveedor.setComponente(getListaProveedores());
         _ListaMaquinaModelo.setComponente(getListaMaquinas());
 
-        _TxtNombreDeLaRefaccion.setComponente(getTxtNombreDeLaRefaccion());
-        _TxtCodigo.setComponente(getTxtCodigoInterno());
-        _TxtStockMin.setComponente(getTxtStockMin());
-        _TxtStockMax.setComponente(getTxtStockMax());
-        _TxtCodigoDelProveedor.setComponente(getTxtCodigoProveedor());
-        _TxtDeQueEstaEcho.setComponente(getTxtDeQueEstaEcho());
+        _txtNombreDeLaRefaccion.setComponente(getTxtNombreDeLaRefaccion());
+        _txtCodigo.setComponente(getTxtCodigoInterno());
+        _txtStockMin.setComponente(getTxtStockMin());
+        _txtStockMax.setComponente(getTxtStockMax());
+        _txtExistencia.setComponente(txtExistencia);
+        _txtCodigoDelProveedor.setComponente(getTxtCodigoProveedor());
+        _txtDeQueEstaEcho.setComponente(getTxtDeQueEstaEcho());
 
         _TxtDescripcion.setComponente(getTxtDescripcion());
         _TxtQueEs.setComponente(getTxtQueEs());
         _TxtParaQueEs.setComponente(getTxtParaQueEs());
 
-        _TxtImportancia.setComponente(getTxtImportancia());
+        _txtImportancia.setComponente(getTxtImportancia());
        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
@@ -204,14 +208,41 @@ public class DialogoRefaccionDetalle extends JDialog {
     public void cargarElementos(){
         
         RefaccionVo rvo = this.getCoordinador().refaccionConsultar(idRefaccion);
+        float existencia = this.getCoordinador().entradaLoteExistencia(idRefaccion);
         
-        _TxtNombreDeLaRefaccion.setText(rvo.getNombre());
-        _TxtCodigo.setText(rvo.getCodigoInterno());
-        _TxtCodigoDelProveedor.setText(rvo.getCodigoProveedor());
-        _TxtImportancia.setText((String)rvo.getImportancia());
-        _TxtDeQueEstaEcho.setText((String)rvo.getIdMaterial());
-        _TxtStockMin.setText(rvo.getStockMinimo()+"");
-        _TxtStockMax.setText(rvo.getStockMaximo()+"");
+        _txtNombreDeLaRefaccion.setText(rvo.getNombre());
+        _txtCodigo.setText(rvo.getCodigoInterno());
+        _txtCodigoDelProveedor.setText(rvo.getCodigoProveedor());
+        _txtImportancia.setText((String)rvo.getImportancia());
+        _txtDeQueEstaEcho.setText((String)rvo.getIdMaterial());
+        
+        _txtExistencia.setText(existencia+"");
+        _txtStockMin.setText(rvo.getStockMinimo()+"");
+        _txtStockMax.setText(rvo.getStockMaximo()+"");
+        
+        boolean todoBien = true;
+        if (rvo.getStockMaximo()<existencia) {
+            _txtExistencia.setError();
+            _txtStockMax.setError();
+            todoBien = false;
+        }else{
+            _txtStockMax.setErrorQuitar();
+        }
+        
+        if (rvo.getStockMinimo()>existencia) {
+            _txtExistencia.setError();
+            _txtStockMin.setError();
+            todoBien = false;
+        }else{
+            _txtStockMin.setErrorQuitar();
+        }
+        
+        if (todoBien) {
+            _txtExistencia.setErrorQuitar();
+        }
+        
+        
+        
         _TxtUnidad.setText((String)rvo.getUnidad());
         _TxtDescripcion.setText(rvo.getDescripcion());
         _TxtQueEs.setText(rvo.getQueEs());
@@ -463,6 +494,7 @@ public class DialogoRefaccionDetalle extends JDialog {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         etiquetaParaQueEs1 = new javax.swing.JLabel();
         btnModificar = new javax.swing.JButton();
+        etiquetaPedidoEnEspera = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -480,8 +512,11 @@ public class DialogoRefaccionDetalle extends JDialog {
             }
         });
 
+        etiquetaProveedores.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaProveedores.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaProveedores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaProveedores.setText("Proveedores");
+        etiquetaProveedores.setOpaque(true);
 
         listaProveedores.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         listaProveedores.setFocusable(false);
@@ -493,13 +528,18 @@ public class DialogoRefaccionDetalle extends JDialog {
         });
         jScrollPane5.setViewportView(listaProveedores);
 
+        etiquetaImportancia.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaImportancia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaImportancia.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        etiquetaImportancia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaImportancia.setText("Importantancia");
         etiquetaImportancia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        etiquetaImportancia.setOpaque(true);
 
+        etiquetaMaquinas.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaMaquinas.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaMaquinas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaMaquinas.setText("Maquinas");
+        etiquetaMaquinas.setOpaque(true);
 
         listaMaquinas.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         listaMaquinas.setFocusable(false);
@@ -511,23 +551,25 @@ public class DialogoRefaccionDetalle extends JDialog {
         });
         jScrollPane6.setViewportView(listaMaquinas);
 
-        txtStockMax.setEditable(false);
         txtStockMax.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtStockMax.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtStockMax.setText("012345.123");
+        txtStockMax.setFocusable(false);
 
         txtNombreDeLaRefaccion.setEditable(false);
         txtNombreDeLaRefaccion.setFont(new java.awt.Font("Calibri", 0, 22)); // NOI18N
         txtNombreDeLaRefaccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNombreDeLaRefaccion.setPreferredSize(new java.awt.Dimension(40, 337));
 
+        etiquetaDescripcion.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaDescripcion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaDescripcion.setText("Descripcion");
+        etiquetaDescripcion.setOpaque(true);
 
         jLabel1.setBackground(new java.awt.Color(98, 15, 89));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_titulo_detalle de refaccion.png"))); // NOI18N
-        jLabel1.setOpaque(true);
 
         txtDescripcion.setEditable(false);
         txtDescripcion.setColumns(20);
@@ -536,23 +578,34 @@ public class DialogoRefaccionDetalle extends JDialog {
         txtDescripcion.setRows(1);
         txtDescripcion.setFocusCycleRoot(true);
         txtDescripcion.setFocusTraversalPolicyProvider(true);
+        txtDescripcion.setFocusable(false);
         jScrollPane1.setViewportView(txtDescripcion);
 
+        etiquetaCodigoInterno.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaCodigoInterno.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaCodigoInterno.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        etiquetaCodigoInterno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaCodigoInterno.setText("Código interno");
         etiquetaCodigoInterno.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        etiquetaCodigoInterno.setOpaque(true);
 
+        etiquetaCodigoDelProveedor.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaCodigoDelProveedor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaCodigoDelProveedor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        etiquetaCodigoDelProveedor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaCodigoDelProveedor.setText("Código proveedor");
         etiquetaCodigoDelProveedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        etiquetaCodigoDelProveedor.setOpaque(true);
 
+        etiquetaQueEs.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaQueEs.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaQueEs.setText("¿Que es?");
+        etiquetaQueEs.setOpaque(true);
 
+        etiquetaNombreDeLaRefaccion.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaNombreDeLaRefaccion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaNombreDeLaRefaccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaNombreDeLaRefaccion.setText("Nombre de la refacción");
+        etiquetaNombreDeLaRefaccion.setOpaque(true);
 
         txtQueEs.setEditable(false);
         txtQueEs.setColumns(20);
@@ -561,13 +614,20 @@ public class DialogoRefaccionDetalle extends JDialog {
         txtQueEs.setRows(1);
         txtQueEs.setFocusCycleRoot(true);
         txtQueEs.setFocusTraversalPolicyProvider(true);
+        txtQueEs.setFocusable(false);
         jScrollPane2.setViewportView(txtQueEs);
 
+        etiquetaParaQueEs.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaParaQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaParaQueEs.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaParaQueEs.setText("¿Para que es?");
+        etiquetaParaQueEs.setOpaque(true);
 
+        etiquetaStockMin.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaStockMin.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaStockMin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaStockMin.setText("Stock Min");
+        etiquetaStockMin.setOpaque(true);
 
         txtParaQueEs.setEditable(false);
         txtParaQueEs.setColumns(20);
@@ -576,20 +636,24 @@ public class DialogoRefaccionDetalle extends JDialog {
         txtParaQueEs.setRows(1);
         txtParaQueEs.setFocusCycleRoot(true);
         txtParaQueEs.setFocusTraversalPolicyProvider(true);
+        txtParaQueEs.setFocusable(false);
         jScrollPane7.setViewportView(txtParaQueEs);
 
-        txtStockMin.setEditable(false);
         txtStockMin.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtStockMin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtStockMin.setText("012345.123");
+        txtStockMin.setFocusable(false);
         txtStockMin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtStockMinActionPerformed(evt);
             }
         });
 
+        etiquetaStockMax.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaStockMax.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaStockMax.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaStockMax.setText("Stock Max");
+        etiquetaStockMax.setOpaque(true);
 
         imagenesRefacciones.setOpaque(false);
         imagenesRefacciones.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -616,6 +680,7 @@ public class DialogoRefaccionDetalle extends JDialog {
             }
         });
 
+        etiquetaNombreImagen.setBackground(new java.awt.Color(33, 33, 33));
         etiquetaNombreImagen.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaNombreImagen.setText("Stock Max");
@@ -631,7 +696,7 @@ public class DialogoRefaccionDetalle extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSiguienteImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(etiquetaNombreImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(etiquetaNombreImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addContainerGap())
         );
         imagenesRefaccionesLayout.setVerticalGroup(
@@ -647,16 +712,22 @@ public class DialogoRefaccionDetalle extends JDialog {
                 .addContainerGap())
         );
 
-        txtExistencia.setEditable(false);
         txtExistencia.setFont(new java.awt.Font("Calibri", 0, 40)); // NOI18N
         txtExistencia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtExistencia.setText("123456.321");
+        txtExistencia.setFocusable(false);
 
+        etiquetaExistencia.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaExistencia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaExistencia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaExistencia.setText("Existencia");
+        etiquetaExistencia.setOpaque(true);
 
+        etiquetaDeQueEstaEcho.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaDeQueEstaEcho.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaDeQueEstaEcho.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaDeQueEstaEcho.setText("¿De que esta echo?");
+        etiquetaDeQueEstaEcho.setOpaque(true);
 
         txtDeQueEstaEcho.setEditable(false);
         txtDeQueEstaEcho.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -677,12 +748,15 @@ public class DialogoRefaccionDetalle extends JDialog {
 
         txtUnidad.setEditable(false);
         txtUnidad.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtUnidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtUnidad.setText("012345.123");
+        txtUnidad.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtUnidad.setText("UNIDAD");
+        txtUnidad.setFocusable(false);
 
+        etiquetaParaQueEs1.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaParaQueEs1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         etiquetaParaQueEs1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_mas.png"))); // NOI18N
         etiquetaParaQueEs1.setText("Doble click en la imagen para ver en detalle de imagenes.");
+        etiquetaParaQueEs1.setOpaque(true);
 
         btnModificar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_mas.png"))); // NOI18N
@@ -693,182 +767,188 @@ public class DialogoRefaccionDetalle extends JDialog {
             }
         });
 
+        etiquetaPedidoEnEspera.setBackground(new java.awt.Color(255, 255, 0));
+        etiquetaPedidoEnEspera.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
+        etiquetaPedidoEnEspera.setForeground(new java.awt.Color(0, 0, 0));
+        etiquetaPedidoEnEspera.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaPedidoEnEspera.setText("Pedido en espera");
+        etiquetaPedidoEnEspera.setToolTipText("");
+        etiquetaPedidoEnEspera.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(etiquetaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(139, 139, 139)
-                        .addComponent(etiquetaMaquinas, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(etiquetaExistencia)
-                                .addGap(163, 163, 163)
-                                .addComponent(etiquetaStockMin))
+                                .addGap(650, 650, 650)
+                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(121, 121, 121)
-                                .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(etiquetaStockMax)))))
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(177, 177, 177)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(3, 3, 3))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(imagenesRefacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(imagenesRefacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(etiquetaParaQueEs1)
-                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaCodigoDelProveedor)
-                            .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaDeQueEstaEcho)
-                            .addComponent(txtDeQueEstaEcho, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(etiquetaParaQueEs))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(etiquetaExistencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtExistencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                    .addComponent(etiquetaProveedores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtUnidad, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(etiquetaCodigoInterno)
-                                        .addGap(178, 178, 178)
-                                        .addComponent(etiquetaImportancia))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtCodigoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(etiquetaStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtStockMax, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                            .addComponent(etiquetaStockMax, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(etiquetaMaquinas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(etiquetaQueEs))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(etiquetaCodigoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtCodigoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(etiquetaCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtImportancia)
+                                        .addComponent(etiquetaImportancia, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtDeQueEstaEcho, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                                        .addComponent(etiquetaDeQueEstaEcho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(etiquetaPedidoEnEspera, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(3, 3, 3))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(15, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(97, 97, 97)
-                                .addComponent(etiquetaDescripcion)))))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(etiquetaParaQueEs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(etiquetaQueEs, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                                    .addComponent(etiquetaDescripcion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(etiquetaParaQueEs1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {etiquetaStockMax, etiquetaStockMin, txtStockMax, txtStockMin});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaNombreDeLaRefaccion)
-                    .addComponent(etiquetaDescripcion)
-                    .addComponent(btnModificar))
-                .addGap(1, 1, 1)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaCodigoInterno)
-                            .addComponent(etiquetaImportancia))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(etiquetaDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(etiquetaQueEs)))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(etiquetaQueEs, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(etiquetaParaQueEs))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(etiquetaCodigoDelProveedor)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(etiquetaCodigoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCodigoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(etiquetaDeQueEstaEcho)
+                                .addComponent(etiquetaCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addComponent(txtDeQueEstaEcho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaExistencia)
-                            .addComponent(etiquetaStockMin))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(etiquetaImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(etiquetaDeQueEstaEcho, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(etiquetaStockMax)
-                                    .addComponent(etiquetaParaQueEs1)))))
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
+                                .addComponent(txtDeQueEstaEcho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(etiquetaPedidoEnEspera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(2, 2, 2)))))
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
+                            .addComponent(etiquetaParaQueEs, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(etiquetaExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaProveedores)
-                            .addComponent(etiquetaMaquinas))
-                        .addGap(6, 6, 6)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(etiquetaStockMin, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                            .addComponent(etiquetaStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(etiquetaParaQueEs1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(etiquetaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(etiquetaMaquinas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imagenesRefacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalir))
-                    .addComponent(imagenesRefacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnModificar)
+                            .addComponent(btnSalir))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {etiquetaCodigoDelProveedor, etiquetaCodigoInterno, etiquetaDeQueEstaEcho, etiquetaDescripcion, etiquetaExistencia, etiquetaImportancia, etiquetaMaquinas, etiquetaParaQueEs, etiquetaProveedores, etiquetaQueEs, etiquetaStockMax, etiquetaStockMin});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -978,6 +1058,7 @@ public class DialogoRefaccionDetalle extends JDialog {
     private javax.swing.JLabel etiquetaNombreImagen;
     private javax.swing.JLabel etiquetaParaQueEs;
     private javax.swing.JLabel etiquetaParaQueEs1;
+    private javax.swing.JLabel etiquetaPedidoEnEspera;
     private javax.swing.JLabel etiquetaProveedores;
     private javax.swing.JLabel etiquetaQueEs;
     private javax.swing.JLabel etiquetaStockMax;

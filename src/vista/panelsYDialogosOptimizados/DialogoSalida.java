@@ -30,7 +30,7 @@ import vista.utilidadesOptimizadas.UtilidadesTxt_;
  *
  * @author Particular
  */
-public class DialogoEntradaLote extends javax.swing.JDialog {
+public class DialogoSalida extends javax.swing.JDialog {
 
     private Coordinador coordinador;
     
@@ -55,7 +55,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     /**
      * Creates new form DialogoEntrada
      */
-    public DialogoEntradaLote() {
+    public DialogoSalida() {
         initComponents();
     }
     
