@@ -114,7 +114,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         
         //ACCIONES ESPECELIALES.
         _ComboMarca.setFocusAction(()->this.guardarProoveedor(), false);
-        _ListaMaquinaModelo.setSingleClick(()->this.cargarDatosConsultados());
+        _ListaMaquinaModelo.setValueChange(()->this.cargarDatosConsultados());
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
