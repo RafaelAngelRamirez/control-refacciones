@@ -5,16 +5,28 @@
  */
 package modelo.vo;
 
+import modelo.InfoTabla.MaquinaIT;
+
 /**
  *
  * @author Particular
  */
 public class MaquinaVo extends VoGenerales{
-    int id;
-    int idMaquinasModelo;
-    String descripcion;
-    int idMarca;
-    String numeroDeMaquina;
+    
+    private int id;
+    private Object idMaquinaModelo;
+    private String descripcion;
+    private String numeroDeMáquina;
+
+    public MaquinaVo() {
+        MaquinaIT it = new MaquinaIT();
+        relacionCampo.put(it.getIdPDC().getNombre(), ()->this.getId());
+        relacionCampo.put(it.getIdMaquinaModeloPDC().getNombre(), ()->this.getIdMaquinaModelo());
+        relacionCampo.put(it.getDescripcionPDC().getNombre(), ()->this.getDescripcion());
+        relacionCampo.put(it.getNumeroDeMaquinaPDC().getNombre(), ()->this.getNumeroDeMáquina());
+        
+        
+    }
 
     public int getId() {
         return id;
@@ -24,12 +36,12 @@ public class MaquinaVo extends VoGenerales{
         this.id = id;
     }
 
-    public int getIdMaquinasModelo() {
-        return idMaquinasModelo;
+    public Object getIdMaquinaModelo() {
+        return idMaquinaModelo;
     }
 
-    public void setIdMaquinasModelo(int idMaquinasModelo) {
-        this.idMaquinasModelo = idMaquinasModelo;
+    public void setIdMaquinaModelo(Object idMaquinaModelo) {
+        this.idMaquinaModelo = idMaquinaModelo;
     }
 
     public String getDescripcion() {
@@ -40,25 +52,27 @@ public class MaquinaVo extends VoGenerales{
         this.descripcion = descripcion;
     }
 
-    public int getIdMarca() {
-        return idMarca;
+    public String getNumeroDeMáquina() {
+        return numeroDeMáquina;
     }
 
-    public void setIdMarca(int idMarca) {
-        this.idMarca = idMarca;
-    }
-
-    public String getNumeroDeMaquina() {
-        return numeroDeMaquina;
-    }
-
-    public void setNumeroDeMaquina(String numeroDeMaquina) {
-        this.numeroDeMaquina = numeroDeMaquina;
+    public void setNumeroDeMáquina(String numeroDeMáquina) {
+        this.numeroDeMáquina = numeroDeMáquina;
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String a = "Clase: "+this.getClass().getSimpleName()+"\n";
+        String b= "       | ";
+        
+        String c =  "\n             Id" +b+ id+
+                    "\n    idRefaccion" +b+ idMaquinaModelo+
+                    "\n         nombre" +b+ descripcion+    
+                    "\n     idMaterial" +b+ numeroDeMáquina;
+
+        String d =  "----------------------"; 
+        
+        return a+d+c+d;
     }
     
 }

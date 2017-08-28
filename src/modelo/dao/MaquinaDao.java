@@ -6,19 +6,19 @@
 package modelo.dao;
 
 import controlador.Coordinador;
-import modelo.InfoTabla.SalidaDeControlIT;
+import modelo.InfoTabla.MaquinaIT;
 
 /**
  *
  * @author Particular
  */
-public class SalidaDeControlDao extends DAOGenerales{
+public class MaquinaDao extends DAOGenerales{
     
-    SalidaDeControlIT it;
+    MaquinaIT it;
     
-    public SalidaDeControlDao(Coordinador coordinador) {
+    public MaquinaDao(Coordinador coordinador) {
         super(coordinador);
-        it = new SalidaDeControlIT();
+        it = new MaquinaIT();
         
     }
     
