@@ -1,19 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.InfoTabla;
 
-/**
- *
- * @author Particular
- */
 public class MaquinaIT extends ITGenerales{
     /**
     * El nombre de la tabla en la base de datos. 
     */
-    public static final String NOMBRE_TABLA = "salidadecontrol";
+    public static final String NOMBRE_TABLA = "maquina";
     
     private ParametrosDeCampo idPDC = new ParametrosDeCampo();
     private ParametrosDeCampo idMaquinaModeloPDC = new ParametrosDeCampo();
