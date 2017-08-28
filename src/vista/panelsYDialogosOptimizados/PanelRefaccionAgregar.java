@@ -151,11 +151,11 @@ public class PanelRefaccionAgregar extends JPanel {
 
         _ListaProveedor.setComponente(getListaProveedores());
         _ListaProveedorSeleccionado.setComponente(getListaProveedoresSeleccionados());
-        _ListaProveedor.setListaAAgregar(_ListaProveedorSeleccionado);
+        _ListaProveedor.setComponenteListaAAgregar(_ListaProveedorSeleccionado);
 
         _ListaMaquinaModelo.setComponente(getListaMaquinas());
         _ListasMaquinasSeleccionadas.setComponente(getListaMaquinasSeleccionadas());
-        _ListaMaquinaModelo.setListaAAgregar(_ListasMaquinasSeleccionadas);
+        _ListaMaquinaModelo.setComponenteListaAAgregar(_ListasMaquinasSeleccionadas);
 
         _TxtNombreDeLaRefaccion.setComponente(getTxtNombreDeLaRefaccion());
         _TxtCodigo.setComponente(getTxtCodigo());

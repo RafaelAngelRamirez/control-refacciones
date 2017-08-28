@@ -89,7 +89,7 @@ public class Principal {
         DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar = new DialogoMaquinaModeloModificar();
         DialogoProveedorModificar dialogoProveedorModificar = new DialogoProveedorModificar();
         DialogoEntradaLote dialogoEntradaLote = new DialogoEntradaLote();
-        DialogoAgregarEmpleado dialogoAgregarEmpleado = new DialogoAgregarEmpleado();
+        DialogoEmpleadoAgregar dialogoAgregarEmpleado = new DialogoEmpleadoAgregar();
         
         
         //COORDINADORES

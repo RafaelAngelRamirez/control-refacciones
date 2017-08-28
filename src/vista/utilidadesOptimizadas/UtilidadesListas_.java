@@ -24,7 +24,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
     
     private String nombreColumnaId, nombreDatoAMostrar;
     private JList<String> lista;
-    private UtilidadesListas_ listaAAgregar;
+    private UtilidadesListas_ ComponenteListaAAgregar;
     
     
     private HashMap<Object, Object> relacionDatoId  = new HashMap();
@@ -59,7 +59,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         DefaultListModel l1 =(DefaultListModel) this.getThis().getModel();
         l1.removeElement(dato);
         
-        DefaultListModel l2 = (DefaultListModel)this.listaAAgregar.getThis().getModel();
+        DefaultListModel l2 = (DefaultListModel)this.ComponenteListaAAgregar.getThis().getModel();
         l2.addElement(dato);
     }
     
@@ -95,19 +95,19 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * más facil.
      * @return El componente JList.
      */
-    public UtilidadesListas_ getListaAAgregar() {
-        return listaAAgregar;
+    public UtilidadesListas_ getComponenteListaAAgregar() {
+        return ComponenteListaAAgregar;
     }
 
      /**
     * Lista en la que se cargaran los datos de la lista principal setComponente()
  cuando se invoque cambioEntreListas().
     * 
-     * @param listaAAgregar La lista que se quiere manejar para el intercambio de
+     * @param ComponenteListaAAgregar La lista que se quiere manejar para el intercambio de
      * datos.
     */
-    public void setListaAAgregar(UtilidadesListas_ listaAAgregar) {
-        this.listaAAgregar = listaAAgregar;
+    public void setComponenteListaAAgregar(UtilidadesListas_ ComponenteListaAAgregar) {
+        this.ComponenteListaAAgregar = ComponenteListaAAgregar;
     }
     
     public String getNombreColumnaId() {
@@ -178,9 +178,9 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      */
     public void cambioEntreListas(boolean invertir){
         if (!invertir) {
-            this.cambioEntreListas(this, this.listaAAgregar);
+            this.cambioEntreListas(this, this.ComponenteListaAAgregar);
         } else {
-            this.cambioEntreListas(this.listaAAgregar, this );
+            this.cambioEntreListas(this.ComponenteListaAAgregar, this );
         }
     }
 
@@ -238,8 +238,8 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      */
     public void limpiar(){
         this.lista.setModel(new DefaultListModel<>());
-        if (this.listaAAgregar!=null) {
-            this.listaAAgregar.getLista().setModel(new DefaultListModel<>());
+        if (this.ComponenteListaAAgregar!=null) {
+            this.ComponenteListaAAgregar.getLista().setModel(new DefaultListModel<>());
         }
     }
 

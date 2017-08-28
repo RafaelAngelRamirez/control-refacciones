@@ -13,23 +13,25 @@ import modelo.vo.EmpleadoVo;
 
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
+import vista.utilidadesOptimizadas.UtilidadesListas_;
 import vista.utilidadesOptimizadas.UtilidadesTxt_;
 
 /**
  *
  * @author Particular
  */
-public class DialogoAgregarEmpleado extends javax.swing.JDialog {
+public class DialogoEmpleadoModificar extends javax.swing.JDialog {
     Coordinador coordinador;
     
     UtilidadesTxt_ _txtNombre;
     UtilidadesComboBox_ _comboDepartamentos;
+    UtilidadesListas_ _listaEmpleados;
     boolean empleadoAdelantado= false;
     
     /**
      * Creates new form DialogoAgregarEmpleado
      */
-    public DialogoAgregarEmpleado() {
+    public DialogoEmpleadoModificar() {
         initComponents();
     }
 
@@ -49,6 +51,8 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
         comboDepartamento = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaEmpleados = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -96,13 +100,22 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
             }
         });
 
+        listaEmpleados.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(listaEmpleados);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(etiquetaNombre)
                     .addComponent(etiquetaDepartamento)
@@ -119,18 +132,21 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(etiquetaNombre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(etiquetaDepartamento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCancelar)
-                        .addComponent(btnGuardar))
-                    .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(etiquetaNombre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(etiquetaDepartamento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnCancelar)
+                                .addComponent(btnGuardar))
+                            .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,11 +211,13 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
        
         _txtNombre = new UtilidadesTxt_(coordinador);
         _comboDepartamentos = new UtilidadesComboBox_(coordinador);
+        _listaEmpleados = new UtilidadesListas_(coordinador);
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         _txtNombre.setComponente(txtNombre);
         _comboDepartamentos.setComponente(comboDepartamento);
+        _listaEmpleados.setComponente(listaEmpleados);
        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
@@ -392,6 +410,8 @@ public class DialogoAgregarEmpleado extends javax.swing.JDialog {
     private javax.swing.JLabel etiquetaDepartamento;
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listaEmpleados;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

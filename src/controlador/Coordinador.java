@@ -63,7 +63,7 @@ public class Coordinador {
     private DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar;
     private DialogoProveedorModificar dialogoProveedorModificar;
     private DialogoEntradaLote dialogoEntradaLote;
-    private DialogoAgregarEmpleado dialogoEmpleadoAgregar;
+    private DialogoEmpleadoAgregar dialogoEmpleadoAgregar;
     
     
     public void salirDelSistema(){
@@ -86,10 +86,10 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
     
-    public DialogoAgregarEmpleado getDialogoEmpleadoAgregar() {    
+    public DialogoEmpleadoAgregar getDialogoEmpleadoAgregar() {    
         return dialogoEmpleadoAgregar;
     }
-    public void setDialogoEmpleadoAgregar(DialogoAgregarEmpleado dialogoEmpleadoAgregar) {
+    public void setDialogoEmpleadoAgregar(DialogoEmpleadoAgregar dialogoEmpleadoAgregar) {
         this.dialogoEmpleadoAgregar = dialogoEmpleadoAgregar;
     }
 
