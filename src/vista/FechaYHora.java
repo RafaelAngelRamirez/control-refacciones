@@ -331,7 +331,10 @@ public class FechaYHora {
     
     /**
      * Según el formato del texto que se le pasa ayuda a autocompletar la fecha
-     * retornando la predicción más posible según el formato escogído. 
+     * retornando la predicción más posible según el formato escogído.
+     * 
+     * En algúnos formatos como dd/mm/aa el campo debe restringirse a recivir
+     * caracteres numéricos y '/' ó el caracter que se definaen {@see getDDmmaa()}.
      * @param fecha El string que contiene la fecha que se hira autocompeltando.
      * @param formato El formato que se quiere autocompletar.
      * @return Retorna la fecha autocompletada. 
@@ -341,7 +344,14 @@ public class FechaYHora {
         
         switch(formato){
             case FECHA_DD_MM_AA:
-                return autoCompletar_ddmmaa(fecha);
+                String auto = autoCompletar_ddmmaa(fecha);
+                if (auto.length()==8) {
+                    if(comprobarFormatoDe_ddmmaa(auto, FECHA_DD_MM_AA))
+                        return auto;
+                    else
+                        return "";
+                }
+                return auto;
             default:
         {
             try {
@@ -357,11 +367,97 @@ public class FechaYHora {
     
     
     private static String autoCompletar_ddmmaa(String fecha){
-         if (mantener.length()>fecha.length()) {
+        List<String> n = new ArrayList<>();
+            n.add("1");
+            n.add("2");
+            n.add("3");
+            n.add("4");
+            n.add("5");
+            n.add("6");
+            n.add("7");
+            n.add("8");
+            n.add("9");
+            
+            List<String> n1 = new ArrayList<>();
+            n1.add("3");
+            n1.add("4");
+            n1.add("5");
+            n1.add("6");
+            n1.add("7");
+            n1.add("8");
+            n1.add("9");
+            
+            List<String> m = new ArrayList<>();
+            m.add("0");
+            m.add("1");
+            m.add("2");
+            
+            List<String> m1 = new ArrayList<>();
+            m1.add("0");
+            m1.add("1");
+            m1.add("2");
+            m1.add("3");
+            
+        if (fecha.contains("//")) {
+            mantener="";
+            return mantener;
+        }
+        
+        if (fecha.length()==1 && fecha.contains("/")) {
+            mantener ="";
+            return mantener;
+        }
+        
+        if (fecha.length()>1) {
+            if (fecha.substring(0, 2).equals("00")) {
+                mantener ="";
+                return mantener;
+                
+            }
+            
+            if (!m1.contains(fecha.substring(0, 1))) {
+                
+                mantener ="";
+                return mantener;
+                
+            }
+            
+           if (fecha.substring(0,1).equals("3")&&fecha.length()<3) {
+               List<String> a = new ArrayList<>();
+                a.add("30");
+                a.add("31");
+               if (!a.contains(fecha)) {
+                   mantener = fecha.substring(0,1);
+                   return mantener;
+               }
+                   
+           }
+                
+            
+        }
+        
+        if (fecha.length()>2 && !fecha.contains(caracterDeSeparacion)) {
+            mantener = "";
+            return mantener;
+        }
+        
+        if (mantener.length()>fecha.length()) {
             //NO HACEMOS NADA POR QUE ESTAMOS BORRANDO.
             mantener = fecha;
             return mantener;
         }
+        
+        if (fecha.length()==2) {
+            if ( n.contains(fecha.substring(0,1)) && !n.contains(fecha.substring(1,2))) {
+                mantener = "0"+fecha;
+                return mantener;
+            }
+            if ( !n.contains(fecha.substring(0,1)) && !n.contains(fecha.substring(1,2))) {
+                mantener = "";
+                return mantener;
+            }
+        }
+        
         
         if (fecha.length()==1) {
             if (fecha.equals(Actual.getDiaDelMes()+"")) {
@@ -403,30 +499,7 @@ public class FechaYHora {
             
             String b = fecha.split(caracterDeSeparacion)[1];
             
-            List<String> n = new ArrayList<>();
-            n.add("1");
-            n.add("2");
-            n.add("3");
-            n.add("4");
-            n.add("5");
-            n.add("6");
-            n.add("7");
-            n.add("8");
-            n.add("9");
             
-            List<String> n1 = new ArrayList<>();
-            n1.add("3");
-            n1.add("4");
-            n1.add("5");
-            n1.add("6");
-            n1.add("7");
-            n1.add("8");
-            n1.add("9");
-            
-            List<String> m = new ArrayList<>();
-            m.add("0");
-            m.add("1");
-            m.add("2");
 
             if (b.split("")[0].equals("0")&&n.contains(b.split("")[1])) {
                 mantener = fecha+caracterDeSeparacion+Actual.anioAA;
@@ -448,6 +521,8 @@ public class FechaYHora {
                 return mantener;
             }
         }
+        
+       
         
         
         
@@ -493,30 +568,35 @@ public class FechaYHora {
         return false;
     }
     
-//    public static Date cambiarFormatoDeFecha(int formato, String fecha){
-//        Date fechaFormateada=null;
-//        SimpleDateFormat fe;
-//        try {
-//            switch(formato){
-//                case FECHA_AAAA_MM_DD:
-//                    fe = new SimpleDateFormat("yyyy/MM/dd");
-//                    fechaFormateada = fe.parse(fecha);
-//                    JOptionPane.showMessageDialog(null, fechaFormateada.toString()+"---------");
-//                    break;
-//                case FECHA_DD_MM_AA:
-//                    fe = new SimpleDateFormat("dd/MM/yy");
-//                    fechaFormateada = fe.parse(fecha);
-//                    break;
-//                default:
-//                    throw new ExcepcionPersonalizada("Algo salio muy mal en la conversión de la fecha: "+fecha, "cambiarFormatoDeFechaPara");
-//                    
-//            }
-//        } catch (ExcepcionPersonalizada ex) {
-//            Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return fechaFormateada;
-//    }
+    /**
+     * Cambia le formato de la fecha que se le pase como String y retorna un 
+     * tipo de java.sql.Date para almacenar la fecha. 
+     * @param formato
+     * @param fecha
+     * @return
+     */
+    public static java.sql.Date cambiarFormatoDeFecha(int formato, String fecha){
+        java.util.Date fechaFormateada=null;
+        SimpleDateFormat fe;
+        java.sql.Date fechaRetorno = null;
+        try {
+            switch(formato){
+                case FECHA_AAAA_MM_DD:
+                    fe = new SimpleDateFormat("dd/MM/yy");
+                    fechaFormateada = fe.parse(fecha);
+                    fechaRetorno = new java.sql.Date(fechaFormateada.getTime());
+                    break;
+                    
+                default:
+                    throw new ExcepcionPersonalizada("No se ha definido ese formato o algo salio muy mal en la conversión de la fecha: "+fecha, "cambiarFormatoDeFechaPara");
+                    
+            }
+        } catch (ExcepcionPersonalizada ex) {
+            Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return fechaRetorno;
+    }
     
 }

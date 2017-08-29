@@ -337,11 +337,7 @@ public class DialogoEmpleadoAgregar extends javax.swing.JDialog {
         vo.setIdDepartamento(_comboDepartamentos.getSelectedItem_idRetorno());
         vo.setBajaEmpleado((byte)0);
         
-        java.util.Date fechaDate =FechaYHora.cambiarFormatoDeFecha(FechaYHora.FECHA_DD_MM_AA, FechaYHora.Actual.getFecha_Ddmmaa());
-        
-        java.sql.Date fechaSQL = new Date(fechaDate.getTime());
-        JOptionPane.showMessageDialog(rootPane, fechaSQL.toString());
-        vo.setFechaAlta(fechaSQL.toString());
+        vo.setFechaAlta(FechaYHora.Actual.getFecha_DateSQL());
         
         
         List<Validacion> validaciones = this.getCoordinador().empleadoValidarCampos(vo);

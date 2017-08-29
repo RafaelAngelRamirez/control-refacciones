@@ -685,7 +685,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             cantidad = Float.parseFloat(_txtCantidadQueEntra.getText());
         }
         vo.setCantidad(cantidad);
-        vo.setFechaRecepcionLote(_txtFechaDeLote.getText());
+        vo.setFechaRecepcionLote(FechaYHora.cambiarFormatoDeFecha(FechaYHora.FECHA_AAAA_MM_DD, _txtFechaDeLote.getText()));
         EmpleadoVo evo =(EmpleadoVo) _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
         vo.setIdEmpleado(evo.getId());
         vo.setIdRefaccion(idRefaccionActual);

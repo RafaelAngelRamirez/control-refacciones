@@ -125,7 +125,7 @@ public class EmpleadoDao extends DAOGenerales{
             String sqlBajas = 
                 " WHERE "+
                 EmpleadoIT.NOMBRE_TABLA+"."+it.getBajaEmpleadoPDC().getNombre()+"=false";
-            sql +=sql+sqlBajas;
+            sql =sql+sqlBajas;
         }
         
         ResultSet r = conexion.executeQuery(sql);
@@ -137,8 +137,8 @@ public class EmpleadoDao extends DAOGenerales{
                 vo.setIdDepartamento(r.getObject(dit.getDepartamentoPDC().getNombre()));
                 if (incluirBajas) {
                     vo.setBajaEmpleado(r.getByte(it.getBajaEmpleadoPDC().getNombre()));
-                    vo.setFechaBaja(r.getString(it.getFechaBaja().getNombre()));
-                    vo.setFechaAlta(r.getString(it.getFechaAlta().getNombre()));
+                    vo.setFechaBaja(r.getDate(it.getFechaBaja().getNombre()));
+                    vo.setFechaAlta(r.getDate(it.getFechaAlta().getNombre()));
                 }
                 listVo.add(vo);
             }
@@ -229,8 +229,8 @@ public class EmpleadoDao extends DAOGenerales{
                 v.setNombre(r.getString(it.getNombrePDC().getNombre()));
                 if (incluirBajas) {
                     v.setBajaEmpleado(r.getByte(it.getBajaEmpleadoPDC().getNombre()));
-                    v.setFechaBaja(r.getString(it.getFechaBaja().getNombre()));
-                    v.setFechaAlta(r.getString(it.getFechaAlta().getNombre()));
+                    v.setFechaBaja(r.getDate(it.getFechaBaja().getNombre()));
+                    v.setFechaAlta(r.getDate(it.getFechaAlta().getNombre()));
                 }
                 listVo.add(v);
                 

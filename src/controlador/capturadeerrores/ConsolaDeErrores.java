@@ -37,6 +37,7 @@ public class ConsolaDeErrores extends javax.swing.JFrame {
         txtAreaConsola.setBackground(new java.awt.Color(51, 51, 51));
         txtAreaConsola.setColumns(20);
         txtAreaConsola.setFont(new java.awt.Font("Lucida Console", 0, 12)); // NOI18N
+        txtAreaConsola.setLineWrap(true);
         txtAreaConsola.setRows(5);
         txtAreaConsola.setFocusable(false);
         txtAreaConsola.setRequestFocusEnabled(false);

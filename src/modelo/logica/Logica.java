@@ -1075,16 +1075,16 @@ public class Logica {
 
                 }
                 
-                if (_PDC.getNombre().equals(b.getFechaRecepcionLotePDC().getNombre())) {
-                    boolean c = FechaYHora.comprobarFormatoDe_ddmmaa(
-                            vo.getFechaRecepcionLote(),
-                            FechaYHora.FECHA_DD_MM_AA);
-                    Validacion val = new Validacion();
-                    val.setNombreDeCampo(_PDC);
-                    val.setMensajeDeError("El formato de la fecha debe ser dd/mm/aa.");
-                    val.setValido(c);
-                    listaValidaciones.add(val);
-                }
+//                if (_PDC.getNombre().equals(b.getFechaRecepcionLotePDC().getNombre())) {
+//                    boolean c = FechaYHora.comprobarFormatoDe_ddmmaa(
+//                            vo.getFechaRecepcionLote().toString(),
+//                            FechaYHora.FECHA_DD_MM_AA);
+//                    Validacion val = new Validacion();
+//                    val.setNombreDeCampo(_PDC);
+//                    val.setMensajeDeError("El formato de la fecha debe ser dd/mm/aa.");
+//                    val.setValido(c);
+//                    listaValidaciones.add(val);
+//                }
                 
             } catch (Exception ex) {
                  Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);

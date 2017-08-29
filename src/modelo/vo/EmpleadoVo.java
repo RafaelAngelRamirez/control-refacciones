@@ -12,8 +12,8 @@ public class EmpleadoVo extends VoGenerales{
     private String nombre;
     private Object idDepartamento;
     private byte bajaEmpleado;
-    private String fechaBaja;
-    private String fechaAlta;
+    private java.sql.Date fechaBaja;
+    private java.sql.Date fechaAlta;
     
 
     public EmpleadoVo() {
@@ -59,19 +59,19 @@ public class EmpleadoVo extends VoGenerales{
         this.bajaEmpleado = bajaEmpleado;
     }
 
-    public String getFechaBaja() {
+    public java.sql.Date getFechaBaja() {
         return fechaBaja;
     }
 
-    public void setFechaBaja(String fechaBaja) {
+    public void setFechaBaja(java.sql.Date fechaBaja) {
         this.fechaBaja = fechaBaja;
     }
 
-    public String getFechaAlta() {
+    public java.sql.Date getFechaAlta() {
         return fechaAlta;
     }
 
-    public void setFechaAlta(String fechaAlta) {
+    public void setFechaAlta(java.sql.Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
     

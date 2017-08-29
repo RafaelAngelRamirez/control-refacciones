@@ -10,7 +10,7 @@ public class EntradaLoteVo extends VoGenerales{
 
         
     private int id;
-    private String fechaRecepcionLote;
+    private java.sql.Date fechaRecepcionLote;
     private float cantidad;
     private int idRefaccion;
     private int idEmpleado;
@@ -43,11 +43,11 @@ public class EntradaLoteVo extends VoGenerales{
         this.id = id;
     }
 
-    public String getFechaRecepcionLote() {
+    public java.sql.Date getFechaRecepcionLote() {
         return fechaRecepcionLote;
     }
 
-    public void setFechaRecepcionLote(String fechaRecepcionLote) {
+    public void setFechaRecepcionLote(java.sql.Date fechaRecepcionLote) {
         this.fechaRecepcionLote = fechaRecepcionLote;
     }
 
