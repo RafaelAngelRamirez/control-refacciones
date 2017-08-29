@@ -138,11 +138,11 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -360,18 +360,10 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
     public void cargarListaEmpleados(List<EmpleadoVo> listVo){
         
         HashMap<String, Object> datos = new HashMap<>();
-        EmpleadoIT eit = new EmpleadoIT();
-        DepartamentoIT dit =new DepartamentoIT();
         for (EmpleadoVo vo : listVo) {
             
-            String nombre = Textos.formatearEspacios(
-                    eit.getNombrePDC().getLongitudDeCaracteres()-20, 
-                    vo.getNombre(),
-                    "|");
-            String departamento = Textos.formatearEspacios(
-                    dit.getDepartamentoPDC().getLongitudDeCaracteres()-30, 
-                    (String)vo.getIdDepartamento(),
-                    " ");
+            String nombre = Textos.formatearEspacios(30, vo.getNombre(),"|");
+            String departamento = Textos.formatearEspacios(15,  (String)vo.getIdDepartamento()," ");
             
             
             datos.put(nombre+departamento, vo);
