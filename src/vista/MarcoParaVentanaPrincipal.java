@@ -146,6 +146,11 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      */
     public static String DIALOGO_EMPLEADO_AGREGAR = "Agregar empleado";
     
+    /**
+     * Nombre del dialogo modficar empleado.
+     */
+    public static String DIALOGO_EMPLEADO_MODIFICAR = "Modificar empleado";
+    
     
    
     /**
@@ -486,7 +491,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEmpleadoAgregar.setNombre(DIALOGO_EMPLEADO_AGREGAR);
         dialogoEmpleadoAgregar.setPadre(menuAgregarRegistrar);
         dialogoEmpleadoAgregar.setAccionDelItem(
-                ()->this.getCoordinador().empleadoAbrirDialogo());
+                ()->this.getCoordinador().empleadoAbrirDialogoAgregar());
         dialogoEmpleadoAgregar.setDialog(this.getCoordinador().getDialogoEmpleadoAgregar());
         this.addItemOMenu(dialogoEmpleadoAgregar);
         
@@ -558,23 +563,39 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         modificarMaquinaModeloOPA.addOperacionParaActualizar(
                 ()->this.getCoordinador().maquinaModeloActualizarDialogoModificar());
         this.getCoordinador().addListaOperacionesPorActualizar(modificarMaquinaModeloOPA);
+        //-------------------------------
+        MenuConstructor dialogoEmpleadoModificar = new MenuConstructor();
+        dialogoEmpleadoModificar.setItem();
+        dialogoEmpleadoModificar.setNombre(DIALOGO_EMPLEADO_MODIFICAR);
+        dialogoEmpleadoModificar.setPadre(menuModificar);
+        dialogoEmpleadoModificar.setAccionDelItem(
+                ()->this.getCoordinador().empleadoAbrirDialogoMoficar());
+        dialogoEmpleadoModificar.setDialog(this.getCoordinador().getDialogoEmpleadoModificar());
+        this.addItemOMenu(dialogoEmpleadoModificar);
+        
+        Coordinador.OperacionesPorActualizar empleadoMaquinaModeloModificarOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        empleadoMaquinaModeloModificarOPA.setPanel(dialogoEmpleadoModificar);
+        empleadoMaquinaModeloModificarOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().empleadoDialogoModificarActualizar());
+        this.getCoordinador().addListaOperacionesPorActualizar(empleadoMaquinaModeloModificarOPA);
         
         //-------------------------------
-        MenuConstructor dialogoImagenDetalle = new MenuConstructor();
-        dialogoImagenDetalle.setItem();
-        dialogoImagenDetalle.setNombre(DIALOGO_IMAGEN_DETALLE);
-        dialogoImagenDetalle.setPadre(menuConsultar);
-        dialogoImagenDetalle.setAccionDelItem(
-                ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
-        dialogoImagenDetalle.setDialog(this.getCoordinador().getDialogoImagenDetalle());
-        this.addItemOMenu(dialogoImagenDetalle);
-        
-        Coordinador.OperacionesPorActualizar dialogoImagenDetalleOPA 
-                = getCoordinador().new OperacionesPorActualizar();
-        dialogoImagenDetalleOPA.setPanel(dialogoImagenDetalle);
-        dialogoImagenDetalleOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
-        this.getCoordinador().addListaOperacionesPorActualizar(dialogoImagenDetalleOPA);
+//        MenuConstructor dialogoImagenDetalle = new MenuConstructor();
+//        dialogoImagenDetalle.setItem();
+//        dialogoImagenDetalle.setNombre(DIALOGO_IMAGEN_DETALLE);
+//        dialogoImagenDetalle.setPadre(menuConsultar);
+//        dialogoImagenDetalle.setAccionDelItem(
+//                ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
+//        dialogoImagenDetalle.setDialog(this.getCoordinador().getDialogoImagenDetalle());
+//        this.addItemOMenu(dialogoImagenDetalle);
+//        
+//        Coordinador.OperacionesPorActualizar dialogoImagenDetalleOPA 
+//                = getCoordinador().new OperacionesPorActualizar();
+//        dialogoImagenDetalleOPA.setPanel(dialogoImagenDetalle);
+//        dialogoImagenDetalleOPA.addOperacionParaActualizar(
+//                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
+//        this.getCoordinador().addListaOperacionesPorActualizar(dialogoImagenDetalleOPA);
        
         /**
          * /////////////////////////////////////////////////

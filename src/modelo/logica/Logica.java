@@ -1009,6 +1009,11 @@ public class Logica {
         EmpleadoDao d = new EmpleadoDao(coordinador);
         return d.consultarTodo();
     }
+    
+    public List<EmpleadoVo> empleadoConsultarBusqueda(String busqueda){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.consultarBusqueda(busqueda);
+    }
       
     
      /* 

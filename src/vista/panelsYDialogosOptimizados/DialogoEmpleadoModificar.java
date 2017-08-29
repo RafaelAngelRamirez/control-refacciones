@@ -7,9 +7,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
+import modelo.Textos;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
+import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -24,8 +26,10 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
     Coordinador coordinador;
     
     UtilidadesTxt_ _txtNombre;
+    UtilidadesTxt_ _txtBusqueda;
     UtilidadesComboBox_ _comboDepartamentos;
     UtilidadesListas_ _listaEmpleados;
+    
     boolean empleadoAdelantado= false;
     
     /**
@@ -53,6 +57,9 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaEmpleados = new javax.swing.JList<>();
+        btnCancelar1 = new javax.swing.JButton();
+        txtBusqueda = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -64,8 +71,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         jLabel2.setBackground(new java.awt.Color(98, 15, 89));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_agregar empleado.png"))); // NOI18N
-        jLabel2.setOpaque(true);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_modificar empleado.png"))); // NOI18N
 
         etiquetaNombre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombre.setText("Nombre");
@@ -100,6 +106,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
             }
         });
 
+        listaEmpleados.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         listaEmpleados.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -107,34 +114,74 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(listaEmpleados);
 
+        btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnCancelar1.setText("Eliminar");
+        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar1ActionPerformed(evt);
+            }
+        });
+
+        txtBusqueda.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBusquedaActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_buscar.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(etiquetaNombre)
-                    .addComponent(etiquetaDepartamento)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar)
+                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuardar))
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(etiquetaNombre)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCancelar1))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(etiquetaDepartamento)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGuardar))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(etiquetaNombre)
+                        .addGap(0, 23, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(etiquetaNombre)
+                            .addComponent(btnCancelar1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -144,9 +191,8 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnCancelar)
                                 .addComponent(btnGuardar))
-                            .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -210,34 +256,46 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         //INICIAMOS LAS UTILIDADES.
        
         _txtNombre = new UtilidadesTxt_(coordinador);
+        _txtBusqueda = new UtilidadesTxt_(coordinador);
         _comboDepartamentos = new UtilidadesComboBox_(coordinador);
         _listaEmpleados = new UtilidadesListas_(coordinador);
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         _txtNombre.setComponente(txtNombre);
+        _txtBusqueda.setComponente(txtBusqueda);
         _comboDepartamentos.setComponente(comboDepartamento);
         _listaEmpleados.setComponente(listaEmpleados);
        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
+        _txtBusqueda.setTamanoDeCampo(300);
         _txtNombre.setTamanoDeCampo(eit.getNombrePDC().getLongitudDeCaracteres());
         _comboDepartamentos.setTamanoDeCampo(dit.getDepartamentoPDC().getLongitudDeCaracteres());
 
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         _txtNombre.setPermitirSoloMayusculas();
         _comboDepartamentos.setPermitirSoloMayusculas();
+        _txtBusqueda.setPermitirSoloMayusculas();
         
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
         _txtNombre.setEspaciosEnBlanco();
         _comboDepartamentos.setEspaciosEnBlanco();
+        _txtBusqueda.setEspaciosEnBlanco();
         
         //ACCIONES ESPECELIALES.
         _comboDepartamentos.setFocusAction(()->guardarDepartamento(), false);
         
+        
+        _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
+//        _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
+//        _txtBusqueda.setKeyPressAction(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
+      
+        
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
+        _listaEmpleados.setValueChange(()->this.cargarEmpleado());
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -251,6 +309,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         */
         _txtNombre.setText(empleadoAdelantado);
         this.cargarComboDepartamentos();
+        this.cargarListaEmpleados();
             
         if (!empleadoAdelantado.equals("")) {
             this.empleadoAdelantado = true;
@@ -263,6 +322,65 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         ========================================================================
         */    
     
+    }
+    
+    public void busqueda(){
+        if (!_txtBusqueda.isEmpty()) {
+            cargarListaEmpleadosBusqueda(_txtBusqueda.getText());
+        }else{
+            _listaEmpleados.limpiar();
+            limpiar();
+            cargarListaEmpleados();
+        }
+    
+    }
+    
+    private void cargarListaEmpleadosBusqueda(String busqueda){
+        _listaEmpleados.limpiar();
+        List<EmpleadoVo> listVo = this.coordinador.empleadoConsultarBusqueda(busqueda);
+        cargarListaEmpleados(listVo);
+    }
+    
+    
+    
+    public void cargarEmpleado(){
+        Object a = _listaEmpleados.getSelectValueId();
+        if (!a.equals(-1)) {
+            EmpleadoVo vo = (EmpleadoVo) a;
+            _txtNombre.setText(vo.getNombre());
+            _comboDepartamentos.setSelectedItem(vo.getIdDepartamento());
+        }
+    };
+    
+    public void cargarListaEmpleados(){
+        List<EmpleadoVo> listVo = this.getCoordinador().empleadoConsultarTodo();
+        cargarListaEmpleados(listVo);
+    }
+    
+    public void cargarListaEmpleados(List<EmpleadoVo> listVo){
+        
+        HashMap<String, Object> datos = new HashMap<>();
+        EmpleadoIT eit = new EmpleadoIT();
+        DepartamentoIT dit =new DepartamentoIT();
+        for (EmpleadoVo vo : listVo) {
+            
+            String nombre = Textos.formatearEspacios(
+                    eit.getNombrePDC().getLongitudDeCaracteres()-20, 
+                    vo.getNombre(),
+                    "|");
+            String departamento = Textos.formatearEspacios(
+                    dit.getDepartamentoPDC().getLongitudDeCaracteres()-30, 
+                    (String)vo.getIdDepartamento(),
+                    " ");
+            
+            
+            datos.put(nombre+departamento, vo);
+        }
+               
+        
+        _listaEmpleados.cargarLista(datos);
+        
+        
     }
     
     private boolean guardarDepartamento(){
@@ -402,16 +520,27 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
+        JOptionPane.showMessageDialog(null, "pendiente eliminar empleado.");
+    }//GEN-LAST:event_btnCancelar1ActionPerformed
+
+    private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBusquedaActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCancelar1;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> comboDepartamento;
     private javax.swing.JLabel etiquetaDepartamento;
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaEmpleados;
+    private javax.swing.JTextField txtBusqueda;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

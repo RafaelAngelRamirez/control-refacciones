@@ -2,6 +2,7 @@
 package vista;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +26,7 @@ public class FechaYHora {
    
     
     public static final int FECHA_DD_MM_AA = 0;
+    public static final int FECHA_AAAA_MM_DD = 1;
     private static List<Integer> listaDePatrones;
     private static final Calendar CALENDAR = Calendar.getInstance();
     private static String mantener="";
@@ -32,11 +34,11 @@ public class FechaYHora {
     protected FechaYHora() {
     }
     
-    
-    
+    /**
+     * Retorna los datos de fecha y hora actaules.
+     */
     public static class Actual{
         private static String dd, ddmmaa, mm, hora, minutos, segundos, hhmm, hhmmss;
-       
         
         private static final int diaDelMes = CALENDAR.get(Calendar.DAY_OF_MONTH);
         private static final int diaDelAnio = CALENDAR.get(Calendar.DAY_OF_YEAR);
@@ -211,6 +213,44 @@ public class FechaYHora {
         }
         
         /**
+         * Retorna la fecha actual en un tipo de dato java.sql.Date correspondiente
+         * al formato de campo DATE de la base de datos  (2017-08-21)
+         * @return La fecha actual. 
+         */
+        public static java.sql.Date getFecha_DateSQL(){
+            java.sql.Date fechaRetorno = null;
+            SimpleDateFormat fe = new SimpleDateFormat("dd/MM/yy");
+            try {
+                java.util.Date fechaFormateada = fe.parse(getFecha_Ddmmaa());
+                fechaRetorno = new java.sql.Date(fechaFormateada.getTime());
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return fechaRetorno;
+        }
+        
+        /**
+         * //NO SE A PROBADO SI FUNCIONA.
+         * Retorna la hora actual en un tipo de dato java.sql.Time correspondiente
+         * al formato de campo TIME de la base de datos (12:21:91).
+         * @return La hora actual. 
+         */
+        public static java.sql.Time getHora_TimeSQL(){
+            java.sql.Time horaRetorno = null;
+            SimpleDateFormat hora = new SimpleDateFormat("HH:mm:ss");
+            try {
+                java.util.Date horaFormateada = hora.parse(getHora_Hhmmss());
+                horaRetorno = new java.sql.Time(horaFormateada.getTime());
+            } catch (ParseException ex) {
+                Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return horaRetorno;
+        }
+        
+        
+                       
+        /**
          * Retorna la fecha actual con el formato dd#mm#aa. El caracter de separación
          * se puede definir pero solo aceptara uno. Si se reciven dos maraca error.
          * @param caracterDeSeparacion El caracter que se mostrara como separación. 
@@ -245,8 +285,8 @@ public class FechaYHora {
         }
 
         /**
-         *
-         * @return
+         * Retorna los minutos.
+         * @return Minutos
          */
         public static String getMinutos() {
             Date date = new Date();
@@ -255,6 +295,10 @@ public class FechaYHora {
             return minutos;
         }
         
+        /**
+         * Retorna los segundos. 
+         * @return Segundos
+         */
         public static String getSegundos(){
             Date date = new Date();
             DateFormat horaFormateada = new SimpleDateFormat("ss");
@@ -262,6 +306,10 @@ public class FechaYHora {
             return segundos;
         }
 
+        /**
+         * Retorna la hora y minutos.
+         * @return Hora y minutos. 
+         */
         public static String getHora_Hhmm() {
             Date date = new Date();
             DateFormat horaFormateada = new SimpleDateFormat("HH:mm");
@@ -269,6 +317,10 @@ public class FechaYHora {
             return hhmm;
         }
 
+        /**
+         * Retorna la hora, minutos y milisegundos
+         * @return
+         */
         public static String getHora_Hhmmss() {
             Date date = new Date();
             DateFormat horaFormateada = new SimpleDateFormat("HH:mm:ss");
@@ -409,6 +461,7 @@ public class FechaYHora {
      * 
      * @param fecha El string que se quiere comprobar. 
      * @return True si el patrón definido coincide contra la cadena. 
+     * 
      */
     public static boolean comprobarFormatoDe_ddmmaa(String fecha, int patronDeFecha){
         if (!listaDePatrones.contains(patronDeFecha)) {
@@ -439,5 +492,31 @@ public class FechaYHora {
         
         return false;
     }
+    
+//    public static Date cambiarFormatoDeFecha(int formato, String fecha){
+//        Date fechaFormateada=null;
+//        SimpleDateFormat fe;
+//        try {
+//            switch(formato){
+//                case FECHA_AAAA_MM_DD:
+//                    fe = new SimpleDateFormat("yyyy/MM/dd");
+//                    fechaFormateada = fe.parse(fecha);
+//                    JOptionPane.showMessageDialog(null, fechaFormateada.toString()+"---------");
+//                    break;
+//                case FECHA_DD_MM_AA:
+//                    fe = new SimpleDateFormat("dd/MM/yy");
+//                    fechaFormateada = fe.parse(fecha);
+//                    break;
+//                default:
+//                    throw new ExcepcionPersonalizada("Algo salio muy mal en la conversión de la fecha: "+fecha, "cambiarFormatoDeFechaPara");
+//                    
+//            }
+//        } catch (ExcepcionPersonalizada ex) {
+//            Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return fechaFormateada;
+//    }
     
 }

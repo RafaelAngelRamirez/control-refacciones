@@ -2,6 +2,7 @@
 package vista.panelsYDialogosOptimizados;
 
 import controlador.Coordinador;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -10,6 +11,7 @@ import modelo.InfoTabla.EmpleadoIT;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
+import vista.FechaYHora;
 
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -333,6 +335,14 @@ public class DialogoEmpleadoAgregar extends javax.swing.JDialog {
         EmpleadoVo vo = new EmpleadoVo();
         vo.setNombre(_txtNombre.getText());
         vo.setIdDepartamento(_comboDepartamentos.getSelectedItem_idRetorno());
+        vo.setBajaEmpleado((byte)0);
+        
+        java.util.Date fechaDate =FechaYHora.cambiarFormatoDeFecha(FechaYHora.FECHA_DD_MM_AA, FechaYHora.Actual.getFecha_Ddmmaa());
+        
+        java.sql.Date fechaSQL = new Date(fechaDate.getTime());
+        JOptionPane.showMessageDialog(rootPane, fechaSQL.toString());
+        vo.setFechaAlta(fechaSQL.toString());
+        
         
         List<Validacion> validaciones = this.getCoordinador().empleadoValidarCampos(vo);
         DepartamentoIT it = new DepartamentoIT();

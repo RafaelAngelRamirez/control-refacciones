@@ -800,7 +800,7 @@ public class DialogoSalida extends javax.swing.JDialog {
                            + " al nuevo empleado \" "+this._comboEmpleadoQueReciveLote.getText()+"\"?", 
                             "Guardar nuevo empleado.", JOptionPane.YES_NO_OPTION);
                     if (respuesta==JOptionPane.YES_OPTION) {
-                        this.getCoordinador().empleadoAbrirDialogo(elementoEscrito);
+                        this.getCoordinador().empleadoAbrirDialogoAgregar(elementoEscrito);
                         this.cargarComboEmpleados();
                     }else{
                         this._comboEmpleadoQueReciveLote.getThisComboBox().setSelectedIndex(0);

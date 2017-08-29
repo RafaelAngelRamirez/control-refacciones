@@ -14,6 +14,9 @@ public class EmpleadoIT extends ITGenerales{
     private ParametrosDeCampo idPDC = new ParametrosDeCampo();
     private ParametrosDeCampo nombrePDC = new ParametrosDeCampo();
     private ParametrosDeCampo idDepartamentoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo bajaEmpleadoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo fechaBaja = new ParametrosDeCampo();
+    private ParametrosDeCampo fechaAlta = new ParametrosDeCampo();
 
     public EmpleadoIT() {
         
@@ -39,9 +42,33 @@ public class EmpleadoIT extends ITGenerales{
         idDepartamentoPDC.setAutoIncrement(false);
         idDepartamentoPDC.setPermiteRepetido(true);
         
+        bajaEmpleadoPDC.setNombre("bajaEmpleado");
+        bajaEmpleadoPDC.setLongitudDeCaracteres(11);
+        bajaEmpleadoPDC.setTipoDeDatos("boolean");
+        bajaEmpleadoPDC.setNulo(false);
+        bajaEmpleadoPDC.setAutoIncrement(false);
+        bajaEmpleadoPDC.setPermiteRepetido(true);
+        
+        fechaBaja.setNombre("fechaBaja");
+        fechaBaja.setLongitudDeCaracteres(11);
+        fechaBaja.setTipoDeDatos("date");
+        fechaBaja.setNulo(true);
+        fechaBaja.setAutoIncrement(false);
+        fechaBaja.setPermiteRepetido(true);
+        
+        fechaAlta.setNombre("fechaAlta");
+        fechaAlta.setLongitudDeCaracteres(11);
+        fechaAlta.setTipoDeDatos("date");
+        fechaAlta.setNulo(true);
+        fechaAlta.setAutoIncrement(false);
+        fechaAlta.setPermiteRepetido(true);
+        
         camposPDC.add(idPDC);
         camposPDC.add(nombrePDC);
         camposPDC.add(idDepartamentoPDC);
+        camposPDC.add(bajaEmpleadoPDC);
+        camposPDC.add(fechaBaja);
+        camposPDC.add(fechaAlta);
         
     
     }
@@ -68,6 +95,30 @@ public class EmpleadoIT extends ITGenerales{
 
     public void setIdDepartamentoPDC(ParametrosDeCampo idDepartamentoPDC) {
         this.idDepartamentoPDC = idDepartamentoPDC;
+    }
+
+    public ParametrosDeCampo getBajaEmpleadoPDC() {
+        return bajaEmpleadoPDC;
+    }
+
+    public void setBajaEmpleadoPDC(ParametrosDeCampo bajaEmpleadoPDC) {
+        this.bajaEmpleadoPDC = bajaEmpleadoPDC;
+    }
+
+    public ParametrosDeCampo getFechaBaja() {
+        return fechaBaja;
+    }
+
+    public void setFechaBaja(ParametrosDeCampo fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
+
+    public ParametrosDeCampo getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(ParametrosDeCampo fechaAlta) {
+        this.fechaAlta = fechaAlta;
     }
     
     

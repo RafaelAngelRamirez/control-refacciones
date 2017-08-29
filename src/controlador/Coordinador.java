@@ -64,6 +64,7 @@ public class Coordinador {
     private DialogoProveedorModificar dialogoProveedorModificar;
     private DialogoEntradaLote dialogoEntradaLote;
     private DialogoEmpleadoAgregar dialogoEmpleadoAgregar;
+    private DialogoEmpleadoModificar dialogoEmpleadoModificar;
     
     
     public void salirDelSistema(){
@@ -85,6 +86,14 @@ public class Coordinador {
     GETS AND SETS
     ////////////////////////////////////////////////////////////////////////
      */
+
+    public DialogoEmpleadoModificar getDialogoEmpleadoModificar() {
+        return dialogoEmpleadoModificar;
+    }
+
+    public void setDialogoEmpleadoModificar(DialogoEmpleadoModificar dialogoEmpleadoModificar) {
+        this.dialogoEmpleadoModificar = dialogoEmpleadoModificar;
+    }
     
     public DialogoEmpleadoAgregar getDialogoEmpleadoAgregar() {    
         return dialogoEmpleadoAgregar;
@@ -768,19 +777,32 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    public void empleadoAbrirDialogo(){
+    public void empleadoAbrirDialogoAgregar(){
         this.getDialogoEmpleadoAgregar().setVisible(true);
         this.getDialogoEmpleadoAgregar().configurar();
     }
     
-    public void empleadoAbrirDialogo(String empleadoNuevo){
+    public void empleadoAbrirDialogoAgregar(String empleadoNuevo){
         this.getDialogoEmpleadoAgregar().setVisible(true);
         this.getDialogoEmpleadoAgregar().configurar(empleadoNuevo);
     }
     
+    public void empleadoAbrirDialogoMoficar(){
+        this.getDialogoEmpleadoModificar().setVisible(true);
+        this.getDialogoEmpleadoModificar().configurar();
+    }
+    
+    public void empleadoAbrirDialogoMoficar(String empleado){
+        this.getDialogoEmpleadoModificar().setVisible(true);
+        this.getDialogoEmpleadoModificar().configurar(empleado);
+    } 
+    
+    public void empleadoDialogoModificarActualizar(){
+            JOptionPane.showMessageDialog(null, "pendiente implementacion");
+    }
     
     
-    public void empleadoActualizar(){
+    public void empleadoDialogoAgregarActualizar(){
         JOptionPane.showMessageDialog(null, "pendiente implementacion");
     }
     
@@ -798,6 +820,10 @@ public class Coordinador {
     
     public List<EmpleadoVo> empleadoConsultarTodo(){
         return this.logica.empleadoConsultarTodo();
+    }
+    
+    public List<EmpleadoVo> empleadoConsultarBusqueda(String busqueda){
+        return this.logica.empleadoConsultarBusqueda(busqueda);
     }
     
     
