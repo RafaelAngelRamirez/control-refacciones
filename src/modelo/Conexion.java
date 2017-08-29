@@ -7,7 +7,6 @@ package modelo;
  */
 
 import controlador.*;
-import controlador.capturadeerrores.CapturaDeSucesos;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,8 +46,8 @@ public class Conexion {
     //CREAMOS UNA CONEXION CONSTANTE. 
     private boolean Miconexion(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");  
-            this.conexion= DriverManager.getConnection("jdbc:mysql://"
+            Class.forName("org.mariadb.jdbc.Driver");  
+            this.conexion= DriverManager.getConnection("jdbc:mariadb://"
                     +ConexionDatos.URL_SERVIDOR
                     +ConexionDatos.BD,
                     ConexionDatos.USUARIO_SERVIDOR,

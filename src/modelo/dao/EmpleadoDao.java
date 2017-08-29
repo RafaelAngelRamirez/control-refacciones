@@ -212,7 +212,7 @@ public class EmpleadoDao extends DAOGenerales{
                 String sqlBajas = 
                     " AND "+
                     EmpleadoIT.NOMBRE_TABLA+"."+it.getBajaEmpleadoPDC().getNombre()+"=false";
-                sql +=sql+sqlBajas;
+                sql =sql+sqlBajas;
             }
         }
         
