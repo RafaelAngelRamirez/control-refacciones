@@ -999,7 +999,16 @@ public class Logica {
         EmpleadoDao d = new EmpleadoDao(coordinador);
         return d.guardar(vo);
     }
-
+    
+    public boolean empleadoModificar(EmpleadoVo vo){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.modificar(vo);
+    }
+    
+    public boolean empleadoDarDeBaja(EmpleadoVo vo){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.darDeBaja();
+    }
     public int empleadoConsultarUltimoId(){
         EmpleadoDao d = new EmpleadoDao(coordinador);
         return d.consultarUltimoId();

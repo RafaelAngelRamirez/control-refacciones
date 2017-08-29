@@ -86,7 +86,7 @@ public class TipoDeDato {
         try {
             Integer.parseInt(dato);
             return true;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }
@@ -98,7 +98,7 @@ public class TipoDeDato {
                 return false;
             }
             return true;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }
@@ -110,7 +110,7 @@ public class TipoDeDato {
                 return false;
             }
             return true;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     

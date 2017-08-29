@@ -11,6 +11,7 @@ import modelo.Textos;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
+import vista.FechaYHora;
 import vista.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
@@ -29,6 +30,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
     UtilidadesTxt_ _txtBusqueda;
     UtilidadesComboBox_ _comboDepartamentos;
     UtilidadesListas_ _listaEmpleados;
+    boolean cargarEmpleadosDadosDeBaja;
     
     boolean empleadoAdelantado= false;
     
@@ -57,9 +59,10 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaEmpleados = new javax.swing.JList<>();
-        btnCancelar1 = new javax.swing.JButton();
+        btnDarDeBaja = new javax.swing.JButton();
         txtBusqueda = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        checkMostrarEmpleadosDadosDeBaja = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -114,12 +117,12 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(listaEmpleados);
 
-        btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
-        btnCancelar1.setText("Eliminar");
-        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+        btnDarDeBaja.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnDarDeBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnDarDeBaja.setText("Dar de baja");
+        btnDarDeBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelar1ActionPerformed(evt);
+                btnDarDeBajaActionPerformed(evt);
             }
         });
 
@@ -133,6 +136,13 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_buscar.png"))); // NOI18N
 
+        checkMostrarEmpleadosDadosDeBaja.setText("Mostrar empleados dados de baja");
+        checkMostrarEmpleadosDadosDeBaja.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkMostrarEmpleadosDadosDeBajaItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,26 +155,34 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(etiquetaNombre)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCancelar1))
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(etiquetaDepartamento)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnGuardar))))))
+                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(etiquetaNombre)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnDarDeBaja))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(etiquetaDepartamento)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnCancelar)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnGuardar)))
+                                    .addGap(0, 0, Short.MAX_VALUE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkMostrarEmpleadosDadosDeBaja)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,12 +194,12 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 23, Short.MAX_VALUE)
+                        .addComponent(checkMostrarEmpleadosDadosDeBaja)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(etiquetaNombre)
-                            .addComponent(btnCancelar1))
+                            .addComponent(btnDarDeBaja))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -191,8 +209,9 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnCancelar)
                                 .addComponent(btnGuardar))
-                            .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                            .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -362,7 +381,12 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         HashMap<String, Object> datos = new HashMap<>();
         for (EmpleadoVo vo : listVo) {
             
-            String nombre = Textos.formatearEspacios(30, vo.getNombre(),"|");
+            String leyendaBaja = "";
+            
+            if (vo.getBajaEmpleado()==1) {
+             leyendaBaja = "**BAJA**";
+            }
+            String nombre = Textos.formatearEspacios(30, leyendaBaja+vo.getNombre(),"|");
             String departamento = Textos.formatearEspacios(15,  (String)vo.getIdDepartamento()," ");
             
             
@@ -459,6 +483,8 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         EmpleadoVo vo = new EmpleadoVo();
+        EmpleadoVo v = (EmpleadoVo)_listaEmpleados.getSelectValueId();
+        vo.setId(v.getId());
         vo.setNombre(_txtNombre.getText());
         vo.setIdDepartamento(_comboDepartamentos.getSelectedItem_idRetorno());
         
@@ -485,7 +511,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         
         if (todoValido) {
             //GUARDAMOS EL EMPLEADO.
-            if (this.getCoordinador().empleadoGuardar(vo)) {
+            if (this.getCoordinador().empleadoModificar(vo)) {
                 limpiar();
                 JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
                 if (empleadoAdelantado) {
@@ -512,19 +538,35 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
-        JOptionPane.showMessageDialog(null, "pendiente eliminar empleado.");
-    }//GEN-LAST:event_btnCancelar1ActionPerformed
+    private void btnDarDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaActionPerformed
+        EmpleadoVo vo = (EmpleadoVo)_listaEmpleados.getSelectValueId();
+        vo.setFechaBaja(FechaYHora.Actual.getFecha_DateSQL());
+        vo.setBajaEmpleado((byte) 0);
+        this.coordinador.empleadoDarDeBaja(vo);
+        
+    }//GEN-LAST:event_btnDarDeBajaActionPerformed
 
     private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBusquedaActionPerformed
 
+    private void checkMostrarEmpleadosDadosDeBajaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkMostrarEmpleadosDadosDeBajaItemStateChanged
+        if (checkMostrarEmpleadosDadosDeBaja.isSelected()) {
+            cargarEmpleadosDadosDeBaja = true;
+            cargarListaEmpleados();
+        }else{
+            cargarEmpleadosDadosDeBaja = false;
+            cargarListaEmpleados();
+        }
+        
+    }//GEN-LAST:event_checkMostrarEmpleadosDadosDeBajaItemStateChanged
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnCancelar1;
+    private javax.swing.JButton btnDarDeBaja;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JCheckBox checkMostrarEmpleadosDadosDeBaja;
     private javax.swing.JComboBox<String> comboDepartamento;
     private javax.swing.JLabel etiquetaDepartamento;
     private javax.swing.JLabel etiquetaNombre;

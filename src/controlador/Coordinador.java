@@ -814,6 +814,13 @@ public class Coordinador {
         return this.logica.empleadoGuardar(vo);
     }
     
+    public boolean empleadoModificar(EmpleadoVo vo){
+        return this.logica.empleadoModificar(vo);
+    }
+    
+    public boolean empleadoDarDeBaja(EmpleadoVo vo){
+        return this.logica.empleadoDarDeBaja(vo);
+    }
     public int empleadoConsultarUltimoId(){
         return this.logica.empleadoConsultarUltimoId();
     }

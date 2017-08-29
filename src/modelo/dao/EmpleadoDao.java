@@ -63,7 +63,7 @@ public class EmpleadoDao extends DAOGenerales{
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getNombre());
         mapa.put(2, vo.getIdDepartamento());
-        mapa.put(3, vo.isBajaEmpleado());
+        mapa.put(3, vo.getBajaEmpleado());
         mapa.put(4, vo.getFechaAlta());
         return conexion.executeUpdate(sql, mapa);
     }
@@ -242,7 +242,29 @@ public class EmpleadoDao extends DAOGenerales{
         return listVo;
     }
     
+    public boolean modificar(EmpleadoVo vo){
+        String sql = "UPDATE " + EmpleadoIT.NOMBRE_TABLA 
+                +" SET "+
+                it.getNombrePDC().getNombre()+" = ?,"+ 
+                it.getIdDepartamentoPDC().getNombre()+" = ?,"+ 
+                it.getBajaEmpleadoPDC().getNombre()+" = ?,"+ 
+                it.getFechaBaja().getNombre()+" = ?"
+                +" WHERE "+
+                it.getIdPDC().getNombre()+"=?";
+        HashMap<Integer, Object> mapa = new HashMap<>();
+        mapa.put(1, vo.getNombre());
+        mapa.put(1, vo.getIdDepartamento());
+        mapa.put(1, vo.getBajaEmpleado());
+        mapa.put(1, vo.getFechaBaja());
+        mapa.put(1, vo.getId());
+        conexion.executeUpdate(sql, mapa);
+        
     
+    }
+    
+    public boolean darDeBaja(EmpleadoVo vo){
+    
+    }
     
     
     

@@ -21,7 +21,7 @@ public class EmpleadoVo extends VoGenerales{
         relacionCampo.put(i.getIdPDC().getNombre(), ()->this.getId());
         relacionCampo.put(i.getNombrePDC().getNombre(), ()->this.getNombre());
         relacionCampo.put(i.getIdDepartamentoPDC().getNombre(), ()->this.getIdDepartamento());
-        relacionCampo.put(i.getBajaEmpleadoPDC().getNombre(), ()->this.isBajaEmpleado());
+        relacionCampo.put(i.getBajaEmpleadoPDC().getNombre(), ()->this.getBajaEmpleado());
         relacionCampo.put(i.getFechaAlta().getNombre(), ()->this.getFechaAlta());
         relacionCampo.put(i.getFechaBaja().getNombre(), ()->this.getFechaAlta());
     }
@@ -51,7 +51,7 @@ public class EmpleadoVo extends VoGenerales{
         this.idDepartamento = idDepartamento;
     }
 
-    public byte isBajaEmpleado() {
+    public byte getBajaEmpleado() {
         return bajaEmpleado;
     }
 
