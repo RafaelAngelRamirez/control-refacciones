@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
 import modelo.Textos;
 
@@ -387,6 +386,14 @@ public class FechaYHora {
             n1.add("8");
             n1.add("9");
             
+            List<String> n2 = new ArrayList<>();
+            n2.add("4");
+            n2.add("5");
+            n2.add("6");
+            n2.add("7");
+            n2.add("8");
+            n2.add("9");
+            
             List<String> m = new ArrayList<>();
             m.add("0");
             m.add("1");
@@ -447,19 +454,13 @@ public class FechaYHora {
             return mantener;
         }
         
-        if (fecha.length()==2) {
-            if ( n.contains(fecha.substring(0,1)) && !n.contains(fecha.substring(1,2))) {
-                mantener = "0"+fecha;
-                return mantener;
-            }
-            if ( !n.contains(fecha.substring(0,1)) && !n.contains(fecha.substring(1,2))) {
-                mantener = "";
-                return mantener;
-            }
-        }
-        
         
         if (fecha.length()==1) {
+            if (n2.contains(fecha)) {
+                mantener = "0"+fecha+caracterDeSeparacion;
+                return mantener;
+            }
+            
             if (fecha.equals(Actual.getDiaDelMes()+"")) {
                 mantener = Actual.getDia_dd();
                 return mantener;
@@ -469,6 +470,18 @@ public class FechaYHora {
         }
         
         if (fecha.length()==2) {
+            
+            if (m1.contains(fecha.substring(0,1))
+                    && fecha.substring(1,2).equals(caracterDeSeparacion)) {
+                mantener = "0"+fecha;
+                return mantener;
+            }
+            
+            if ( !n.contains(fecha.substring(0,1)) && !n.contains(fecha.substring(1,2))) {
+                mantener = "";
+                return mantener;
+            }
+            
             mantener = fecha+caracterDeSeparacion;
             return mantener;
         }
@@ -514,7 +527,7 @@ public class FechaYHora {
                 return mantener;
             }
             
-            if (fecha.split("")[3].equals("1") && n1.contains(a)) {
+            if (fecha.split("")[3].equals("1") && n2.contains(a)) {
                 String z = fecha.split(caracterDeSeparacion)[1].split("")[0];
                 mantener = b
                         +caracterDeSeparacion+z;
@@ -591,9 +604,7 @@ public class FechaYHora {
                     throw new ExcepcionPersonalizada("No se ha definido ese formato o algo salio muy mal en la conversión de la fecha: "+fecha, "cambiarFormatoDeFechaPara");
                     
             }
-        } catch (ExcepcionPersonalizada ex) {
-            Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (ExcepcionPersonalizada | ParseException ex) {
             Logger.getLogger(FechaYHora.class.getName()).log(Level.SEVERE, null, ex);
         }
         return fechaRetorno;

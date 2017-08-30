@@ -142,6 +142,10 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      */
     public static String DIALOGO_ENTRADA_LOTE = "Entrada lote";
     /**
+     * Nombre del dialogo entrada lote.
+     */
+    public static String DIALOGO_SALIDA_LOTE = "Salida lote";
+    /**
      * Nombre del dialogo agregar empleado.
      */
     public static String DIALOGO_EMPLEADO_AGREGAR = "Agregar empleado";
@@ -369,6 +373,13 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         menuEntradasSalidas.setImagen(imgMenus);
         this.addItemOMenu(menuEntradasSalidas);
         
+        MenuConstructor menuLotes = new MenuConstructor();
+        menuLotes.setMenu();
+        menuLotes.setNombre("Lotes");
+        menuLotes.setPadre(menuEntradasSalidas);
+        menuLotes.setImagen(imgMenus);
+        this.addItemOMenu(menuLotes);
+        
         MenuConstructor menuEntradas = new MenuConstructor();
         menuEntradas.setMenu();
         menuEntradas.setNombre("Entradas");
@@ -580,22 +591,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 ()->this.getCoordinador().empleadoDialogoModificarActualizar());
         this.getCoordinador().addListaOperacionesPorActualizar(empleadoMaquinaModeloModificarOPA);
         
-        //-------------------------------
-//        MenuConstructor dialogoImagenDetalle = new MenuConstructor();
-//        dialogoImagenDetalle.setItem();
-//        dialogoImagenDetalle.setNombre(DIALOGO_IMAGEN_DETALLE);
-//        dialogoImagenDetalle.setPadre(menuConsultar);
-//        dialogoImagenDetalle.setAccionDelItem(
-//                ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
-//        dialogoImagenDetalle.setDialog(this.getCoordinador().getDialogoImagenDetalle());
-//        this.addItemOMenu(dialogoImagenDetalle);
-//        
-//        Coordinador.OperacionesPorActualizar dialogoImagenDetalleOPA 
-//                = getCoordinador().new OperacionesPorActualizar();
-//        dialogoImagenDetalleOPA.setPanel(dialogoImagenDetalle);
-//        dialogoImagenDetalleOPA.addOperacionParaActualizar(
-//                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
-//        this.getCoordinador().addListaOperacionesPorActualizar(dialogoImagenDetalleOPA);
        
         /**
          * /////////////////////////////////////////////////
@@ -606,20 +601,47 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         MenuConstructor dialogoEntradaLote = new MenuConstructor();
         dialogoEntradaLote.setItem();
         dialogoEntradaLote.setNombre(DIALOGO_ENTRADA_LOTE);
-        dialogoEntradaLote.setPadre(menuEntradas);
+        dialogoEntradaLote.setPadre(menuLotes);
         dialogoEntradaLote.setAccionDelItem(
                 ()->this.getCoordinador().entradaLoteAbrirDialogo());
         dialogoEntradaLote.setDialog(this.getCoordinador().getDialogoEntradaLote());
         KeyStroke atajo_CtrlE = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK);
         dialogoEntradaLote.setAtajoDeTeclado(atajo_CtrlE);
         this.addItemOMenu(dialogoEntradaLote);
-        
+
         Coordinador.OperacionesPorActualizar dialogoEntradaLoteOPA 
                 = getCoordinador().new OperacionesPorActualizar();
         dialogoEntradaLoteOPA.setPanel(dialogoEntradaLote);
         dialogoEntradaLoteOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
+                ()->this.getCoordinador().entradaLoteActualizarComboEmpleados());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoEntradaLoteOPA);
+        //-------------------------------        
+        MenuConstructor dialogoSalidaLote = new MenuConstructor();
+        dialogoSalidaLote.setItem();
+        dialogoSalidaLote.setNombre(DIALOGO_SALIDA_LOTE);
+        dialogoSalidaLote.setPadre(menuLotes);
+        dialogoSalidaLote.setAccionDelItem(
+                ()->this.getCoordinador().salidaLoteAbrirDialogo());
+        dialogoSalidaLote.setDialog(this.getCoordinador().getDialogoSalidaLote());
+        KeyStroke atajo_CtrlS = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK);
+        dialogoSalidaLote.setAtajoDeTeclado(atajo_CtrlS);
+        this.addItemOMenu(dialogoSalidaLote);
+        
+        Coordinador.OperacionesPorActualizar dialogoSalidaLoteOPA 
+                = getCoordinador().new OperacionesPorActualizar();
+        dialogoSalidaLoteOPA.setPanel(dialogoSalidaLote);
+        dialogoSalidaLoteOPA.addOperacionParaActualizar(
+                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
+        this.getCoordinador().addListaOperacionesPorActualizar(dialogoSalidaLoteOPA);
+        
+        
+        /**
+         * /////////////////////////////////////////////////
+         *      MENU ENTRADAS/SALIDAS
+         * /////////////////////////////////////////////////
+         */
+        
+       
         
          /**
          * /////////////////////////////////////////////////

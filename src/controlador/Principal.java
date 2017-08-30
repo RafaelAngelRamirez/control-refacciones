@@ -91,6 +91,7 @@ public class Principal {
         DialogoEntradaLote dialogoEntradaLote = new DialogoEntradaLote();
         DialogoEmpleadoAgregar dialogoEmpleadoAgregar = new DialogoEmpleadoAgregar();
         DialogoEmpleadoModificar dialogoEmpleadoModificar = new DialogoEmpleadoModificar();
+        DialogoSalidaDeLote dialogoSalidaDeLote = new DialogoSalidaDeLote();
         
         
         //COORDINADORES
@@ -121,6 +122,7 @@ public class Principal {
         dialogoEntradaLote.setCoordinador(coordinador);
         dialogoEmpleadoAgregar.setCoordinador(coordinador);
         dialogoEmpleadoModificar.setCoordinador(coordinador);
+        dialogoSalidaDeLote.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         
@@ -131,8 +133,6 @@ public class Principal {
         */
         
         coordinador.setMarcoParaVentanaPrincipal(marcoParaVentanaPrincipal);
-//        coordinador.setConsolaDeErrores(consolaDeErrores);
-//        coordinador.setSystemOut(SystemOut_);
         coordinador.setPanelRefaccionConsulta(panelConsultaRefacciones);
         coordinador.setPanelRefaccionAgregar(panelRefaccionAgregar);
         coordinador.setDialogoProveedorRegistrar(dialogoProveedorRegistrar);
@@ -146,6 +146,7 @@ public class Principal {
         coordinador.setDialogoEntradaLote(dialogoEntradaLote);
         coordinador.setDialogoEmpleadoAgregar(dialogoEmpleadoAgregar);
         coordinador.setDialogoEmpleadoModificar(dialogoEmpleadoModificar);
+        coordinador.setDialogoSalidaDeLote(dialogoSalidaDeLote);
         
 //        /*
 //        ====================================================================

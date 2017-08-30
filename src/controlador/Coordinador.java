@@ -65,6 +65,7 @@ public class Coordinador {
     private DialogoEntradaLote dialogoEntradaLote;
     private DialogoEmpleadoAgregar dialogoEmpleadoAgregar;
     private DialogoEmpleadoModificar dialogoEmpleadoModificar;
+    private DialogoSalidaDeLote dialogoSalidaDeLote;
     
     
     public void salirDelSistema(){
@@ -87,6 +88,14 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
 
+    public DialogoSalidaDeLote getDialogoSalidaLote() {
+        return dialogoSalidaDeLote;
+    }
+
+    public void setDialogoSalidaDeLote(DialogoSalidaDeLote dialogoSalidaDeLote) {
+        this.dialogoSalidaDeLote = dialogoSalidaDeLote;
+    }
+    
     public DialogoEmpleadoModificar getDialogoEmpleadoModificar() {
         return dialogoEmpleadoModificar;
     }
@@ -933,6 +942,25 @@ public class Coordinador {
         FIN DE ENTRADA LOTE
     ========================================================================
     */
+        
+     /* 
+    ========================================================================
+       INICIO DE SALIDA LOTE
+    ////////////////////////////////////////////////////////////////////////
+    */
+    
+        public void salidaLoteAbrirDialogo(){
+            this.getDialogoSalidaLote().setVisible(true);
+            this.getDialogoSalidaLote().configurar();
+        
+        }
+        
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE SALIDA LOTE
+    ========================================================================
+    */
+    
     
     
     
