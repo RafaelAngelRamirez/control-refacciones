@@ -205,31 +205,35 @@ public class Conexion {
                 for (Map.Entry<Integer, Object> entry : datos.entrySet()) {
                     Integer posicion = entry.getKey();
                     String dato = entry.getValue()+"";
-                    System.out.println("depurando conexion preparedstatement");
+                    System.out.println("[INFO PRE-CONEXION]depurando conexion preparedstatement");
                     switch(TipoDeDato.encontrarTipoDeDato(dato)){
                         case TipoDeDato.STRING:
-                            System.out.println("string");
+                            System.out.println("[PREPARED STATEMENT] |string");
                             preparedStatement.setString(posicion, dato);
                             break;
                         case TipoDeDato.INTEGER:
-                            System.out.println("integer");
+                            System.out.println("[PREPARED STATEMENT] |integer");
                             preparedStatement.setInt(posicion, Integer.parseInt(dato));
                             break;
                         case TipoDeDato.FLOAT:
-                            System.out.println("float");
+                            System.out.println("[PREPARED STATEMENT] |float");
                             preparedStatement.setFloat(posicion, Float.parseFloat(dato));
                             break;
                         case TipoDeDato.DOUBLE:
-                            System.out.println("double");
+                            System.out.println("[PREPARED STATEMENT] |double");
                             preparedStatement.setDouble(posicion, Float.parseFloat(dato));
                             break;
                         case TipoDeDato.DATE:
-                            System.out.println("date");
+                            System.out.println("[PREPARED STATEMENT] |date");
                             preparedStatement.setDate(posicion, java.sql.Date.valueOf(dato));
                             break;
                         case TipoDeDato.TIMESTAMP:
-                            System.out.println("TimeStamp");
+                            System.out.println("[PREPARED STATEMENT] |TimeStamp");
                             preparedStatement.setTimestamp(posicion, java.sql.Timestamp.valueOf(dato));
+                            break;
+                        case TipoDeDato.BYTE:
+                            System.out.println("[PREPARED STATEMENT] |Byte");
+                            preparedStatement.setByte(posicion, Byte.parseByte(dato));
                             break;
                         default:
                            throw new ExcepcionPersonalizada(

@@ -4,6 +4,7 @@ package vista.panelsYDialogosOptimizados;
 import controlador.Coordinador;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
@@ -59,7 +60,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaEmpleados = new javax.swing.JList<>();
-        btnDarDeBaja = new javax.swing.JButton();
+        btnDarDeBajaAlta = new javax.swing.JButton();
         txtBusqueda = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         checkMostrarEmpleadosDadosDeBaja = new javax.swing.JCheckBox();
@@ -117,12 +118,12 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(listaEmpleados);
 
-        btnDarDeBaja.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnDarDeBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
-        btnDarDeBaja.setText("Dar de baja");
-        btnDarDeBaja.addActionListener(new java.awt.event.ActionListener() {
+        btnDarDeBajaAlta.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnDarDeBajaAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnDarDeBajaAlta.setText("Dar de baja");
+        btnDarDeBajaAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDarDeBajaActionPerformed(evt);
+                btnDarDeBajaAltaActionPerformed(evt);
             }
         });
 
@@ -168,7 +169,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(etiquetaNombre)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnDarDeBaja))
+                                    .addComponent(btnDarDeBajaAlta))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(etiquetaDepartamento)
@@ -199,7 +200,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(etiquetaNombre)
-                            .addComponent(btnDarDeBaja))
+                            .addComponent(btnDarDeBajaAlta))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -307,8 +308,6 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         
         
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
-//        _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
-//        _txtBusqueda.setKeyPressAction(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
       
         
         //ACCIONES DE BOTONES
@@ -356,7 +355,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
     
     private void cargarListaEmpleadosBusqueda(String busqueda){
         _listaEmpleados.limpiar();
-        List<EmpleadoVo> listVo = this.coordinador.empleadoConsultarBusqueda(busqueda);
+        List<EmpleadoVo> listVo = this.coordinador.empleadoConsultarBusquedaConBajas(busqueda);
         cargarListaEmpleados(listVo);
     }
     
@@ -366,30 +365,44 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         Object a = _listaEmpleados.getSelectValueId();
         if (!a.equals(-1)) {
             EmpleadoVo vo = (EmpleadoVo) a;
+            if (vo.getBajaEmpleado()==1) {
+                btnDarDeBajaAlta.setText("Dar de alta");
+                btnDarDeBajaAlta.setIcon(new ImageIcon(getClass().getResource("/Vista/imagenes/iconos_palomita.png")));
+            }else{
+                btnDarDeBajaAlta.setText("Dar de baja");
+                btnDarDeBajaAlta.setIcon(new ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png")));
+            
+            }
             _txtNombre.setText(vo.getNombre());
             _comboDepartamentos.setSelectedItem(vo.getIdDepartamento());
+            this.repaint();
         }
     };
     
     public void cargarListaEmpleados(){
-        List<EmpleadoVo> listVo = this.getCoordinador().empleadoConsultarTodo();
+        List<EmpleadoVo> listVo = this.getCoordinador().empleadoConsultarTodoConBajas();
         cargarListaEmpleados(listVo);
     }
     
     public void cargarListaEmpleados(List<EmpleadoVo> listVo){
-        
         HashMap<String, Object> datos = new HashMap<>();
         for (EmpleadoVo vo : listVo) {
             
-            String leyendaBaja = "";
+            String leyendaBaja = "||BAJA||";
+            String nombre = "";
+            String departamento = "";
             
-            if (vo.getBajaEmpleado()==1) {
-             leyendaBaja = "**BAJA**";
+            
+            if (vo.getBajaEmpleado()==(byte)1) {
+                if (cargarEmpleadosDadosDeBaja) {
+                    nombre = Textos.formatearEspacios(30, leyendaBaja+vo.getNombre(),"|");
+                    departamento = Textos.formatearEspacios(15,  (String)vo.getIdDepartamento()," ");
+                }
+            }else{
+                nombre = Textos.formatearEspacios(30, vo.getNombre(),"|");
+                departamento = Textos.formatearEspacios(15,  (String)vo.getIdDepartamento()," ");
             }
-            String nombre = Textos.formatearEspacios(30, leyendaBaja+vo.getNombre(),"|");
-            String departamento = Textos.formatearEspacios(15,  (String)vo.getIdDepartamento()," ");
-            
-            
+                
             datos.put(nombre+departamento, vo);
         }
                
@@ -513,18 +526,15 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
             //GUARDAMOS EL EMPLEADO.
             if (this.getCoordinador().empleadoModificar(vo)) {
                 limpiar();
-                JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
+                JOptionPane.showMessageDialog(this, "Se modifico correctamente el empleado.");
                 if (empleadoAdelantado) {
-                    
                     this.getCoordinador().entradaLoteDialogoSetearItemCombo(vo.getNombre());
-                    
                     this.dispose();
-                    
                 }
             }else{
                 JOptionPane.showMessageDialog(this, 
-                        "Algo sucedio y no se guardo el empleado.", 
-                        "No se guardo el empleado.", 
+                        "Algo sucedio y no se modifico el empleado.", 
+                        "No se modifico el empleado.", 
                         JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -537,14 +547,25 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
-
-    private void btnDarDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaActionPerformed
-        EmpleadoVo vo = (EmpleadoVo)_listaEmpleados.getSelectValueId();
-        vo.setFechaBaja(FechaYHora.Actual.getFecha_DateSQL());
-        vo.setBajaEmpleado((byte) 0);
-        this.coordinador.empleadoDarDeBaja(vo);
+    
+    private void btnDarDeBajaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaAltaActionPerformed
+        Object a = _listaEmpleados.getSelectValueId();
+        if (!a.equals(-1)) {
+            EmpleadoVo vo = (EmpleadoVo)a;
+            vo.setFechaBaja(FechaYHora.Actual.getFecha_DateSQL());
+            if (vo.getBajaEmpleado()==(byte)0) 
+                vo.setBajaEmpleado((byte) 1);
+            else
+                vo.setBajaEmpleado((byte) 0);
+            
+            
+            if(this.coordinador.empleadoDarDeBajaAlta(vo))
+                cargarListaEmpleados();
+            else
+                JOptionPane.showMessageDialog(this, "No se pudo dar de baja al empleado.");
+        }
         
-    }//GEN-LAST:event_btnDarDeBajaActionPerformed
+    }//GEN-LAST:event_btnDarDeBajaAltaActionPerformed
 
     private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
         // TODO add your handling code here:
@@ -553,6 +574,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
     private void checkMostrarEmpleadosDadosDeBajaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkMostrarEmpleadosDadosDeBajaItemStateChanged
         if (checkMostrarEmpleadosDadosDeBaja.isSelected()) {
             cargarEmpleadosDadosDeBaja = true;
+//            JOptionPane.showMessageDialog(null, cargarEmpleadosDadosDeBaja+": cargarEmpleadosDadosDeBaja");
             cargarListaEmpleados();
         }else{
             cargarEmpleadosDadosDeBaja = false;
@@ -564,7 +586,7 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnDarDeBaja;
+    private javax.swing.JButton btnDarDeBajaAlta;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JCheckBox checkMostrarEmpleadosDadosDeBaja;
     private javax.swing.JComboBox<String> comboDepartamento;

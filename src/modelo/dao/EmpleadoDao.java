@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.Textos;
@@ -87,7 +88,7 @@ public class EmpleadoDao extends DAOGenerales{
      * @return Los empleados que no han sido dados de baja. 
      */
     public List<EmpleadoVo> consultarTodo(){
-        return consultarTodo(false);
+        return consultarTodoConBajas(false);
     }
     
     /**
@@ -97,7 +98,11 @@ public class EmpleadoDao extends DAOGenerales{
      * @param incluirBajas True si se quieren listar las bajas. 
      * @return Los empleados que no han sido dados de baja. 
      */
-    public List<EmpleadoVo> consultarTodo(boolean incluirBajas){
+    public List<EmpleadoVo> consultarTodoConBajas(){
+        return consultarTodoConBajas(true);
+    }
+    
+    private List<EmpleadoVo> consultarTodoConBajas(boolean incluirBajas){
         DepartamentoIT dit = new DepartamentoIT();
         List<EmpleadoVo> listVo= new ArrayList<>();
         String sql = "SELECT "+
@@ -127,6 +132,7 @@ public class EmpleadoDao extends DAOGenerales{
                 EmpleadoIT.NOMBRE_TABLA+"."+it.getBajaEmpleadoPDC().getNombre()+"=false";
             sql =sql+sqlBajas;
         }
+        sql += " ORDER BY "+EmpleadoIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre() + " DESC";
         
         ResultSet r = conexion.executeQuery(sql);
         try {
@@ -164,7 +170,12 @@ public class EmpleadoDao extends DAOGenerales{
      * @param bajas True si se quiere incluir bajas
      * @return
      */
-    public List<EmpleadoVo> consultarBusqueda(String busqueda, boolean incluirBajas){
+    public List<EmpleadoVo> consultarBusquedaConBajas(String busqueda){
+        return consultarBusqueda(busqueda, true);
+    
+    }
+
+    private List<EmpleadoVo> consultarBusqueda(String busqueda, boolean incluirBajas){
         DepartamentoIT dit = new DepartamentoIT();
         List<EmpleadoVo> listVo= new ArrayList<>();
         busqueda = Textos.especialREGEX(busqueda);
@@ -253,17 +264,31 @@ public class EmpleadoDao extends DAOGenerales{
                 it.getIdPDC().getNombre()+"=?";
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getNombre());
-        mapa.put(1, vo.getIdDepartamento());
-        mapa.put(1, vo.getBajaEmpleado());
-        mapa.put(1, vo.getFechaBaja());
-        mapa.put(1, vo.getId());
-        conexion.executeUpdate(sql, mapa);
-        
-    
+        mapa.put(2, vo.getIdDepartamento());
+        mapa.put(3, vo.getBajaEmpleado());
+        mapa.put(4, vo.getFechaBaja());
+        mapa.put(5, vo.getId());
+        if(conexion.executeUpdate(sql, mapa))
+            return true;
+        else
+            return false;
     }
     
-    public boolean darDeBaja(EmpleadoVo vo){
-    
+    public boolean darDeBajaAlta(EmpleadoVo vo){
+        String sql = " UPDATE " + EmpleadoIT.NOMBRE_TABLA
+                +" SET "+
+                it.getBajaEmpleadoPDC().getNombre()+"=?"
+                +" WHERE "+
+                it.getIdPDC().getNombre()+"=?";
+        
+        HashMap<Integer, Object> mapa = new HashMap<>();
+        mapa.put(1, vo.getBajaEmpleado());
+        mapa.put(2, vo.getId());
+        if (conexion.executeUpdate(sql, mapa))
+            return true;
+        else
+            return false;
+        
     }
     
     

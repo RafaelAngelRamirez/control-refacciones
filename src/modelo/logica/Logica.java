@@ -1005,9 +1005,9 @@ public class Logica {
         return d.modificar(vo);
     }
     
-    public boolean empleadoDarDeBaja(EmpleadoVo vo){
+    public boolean empleadoDarDeBajaAlta(EmpleadoVo vo){
         EmpleadoDao d = new EmpleadoDao(coordinador);
-        return d.darDeBaja();
+        return d.darDeBajaAlta(vo);
     }
     public int empleadoConsultarUltimoId(){
         EmpleadoDao d = new EmpleadoDao(coordinador);
@@ -1018,10 +1018,19 @@ public class Logica {
         EmpleadoDao d = new EmpleadoDao(coordinador);
         return d.consultarTodo();
     }
+    public List<EmpleadoVo> empleadoConsultarTodoConBajas(){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.consultarTodoConBajas();
+    }
     
     public List<EmpleadoVo> empleadoConsultarBusqueda(String busqueda){
         EmpleadoDao d = new EmpleadoDao(coordinador);
         return d.consultarBusqueda(busqueda);
+    }
+    
+    public List<EmpleadoVo> empleadoConsultarBusquedaConBajas(String busqueda){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.consultarBusquedaConBajas(busqueda);
     }
       
     

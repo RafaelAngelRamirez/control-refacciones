@@ -818,8 +818,8 @@ public class Coordinador {
         return this.logica.empleadoModificar(vo);
     }
     
-    public boolean empleadoDarDeBaja(EmpleadoVo vo){
-        return this.logica.empleadoDarDeBaja(vo);
+    public boolean empleadoDarDeBajaAlta(EmpleadoVo vo){
+        return this.logica.empleadoDarDeBajaAlta(vo);
     }
     public int empleadoConsultarUltimoId(){
         return this.logica.empleadoConsultarUltimoId();
@@ -828,9 +828,15 @@ public class Coordinador {
     public List<EmpleadoVo> empleadoConsultarTodo(){
         return this.logica.empleadoConsultarTodo();
     }
+    public List<EmpleadoVo> empleadoConsultarTodoConBajas(){
+        return this.logica.empleadoConsultarTodoConBajas();
+    }
     
     public List<EmpleadoVo> empleadoConsultarBusqueda(String busqueda){
         return this.logica.empleadoConsultarBusqueda(busqueda);
+    }
+    public List<EmpleadoVo> empleadoConsultarBusquedaConBajas(String busqueda){
+        return this.logica.empleadoConsultarBusquedaConBajas(busqueda);
     }
     
     

@@ -2,6 +2,7 @@
 package modelo;
 
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *  Comprueba el tipo de dato que se le pase como String y diferencia entre Integer,
@@ -34,6 +35,10 @@ public class TipoDeDato {
      *El tipo de dato es Timestamp. 
      */
     public static final int TIMESTAMP = 5;
+    /**
+     *El tipo de dato es Byte. 
+     */
+    public static final int BYTE = 6;
     
     
     /**
@@ -45,6 +50,9 @@ public class TipoDeDato {
      * @return El tipo de dato menos general <b>(int) </b> al más general <b>(String)</b>
      */
     public static int encontrarTipoDeDato(String dato){
+        if (isByte(dato)) {
+            return BYTE;
+        }
         if (isInteger(dato)) {
             return INTEGER;
         }
@@ -64,6 +72,15 @@ public class TipoDeDato {
         return STRING;
     }
     
+    
+    private static boolean isByte(Object dato){
+        try {
+            byte a =(byte) dato;
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
     private static boolean isTimestamp(String dato){
         try {
             java.sql.Timestamp.valueOf(dato);
