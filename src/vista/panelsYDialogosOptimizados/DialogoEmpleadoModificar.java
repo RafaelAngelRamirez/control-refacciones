@@ -305,8 +305,6 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         
         //ACCIONES ESPECELIALES.
         _comboDepartamentos.setFocusAction(()->guardarDepartamento(), false);
-        
-        
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
       
         
@@ -526,11 +524,8 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
             //GUARDAMOS EL EMPLEADO.
             if (this.getCoordinador().empleadoModificar(vo)) {
                 limpiar();
+                cargarListaEmpleados();
                 JOptionPane.showMessageDialog(this, "Se modifico correctamente el empleado.");
-                if (empleadoAdelantado) {
-                    this.getCoordinador().entradaLoteDialogoSetearItemCombo(vo.getNombre());
-                    this.dispose();
-                }
             }else{
                 JOptionPane.showMessageDialog(this, 
                         "Algo sucedio y no se modifico el empleado.", 

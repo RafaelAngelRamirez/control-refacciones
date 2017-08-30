@@ -258,16 +258,14 @@ public class EmpleadoDao extends DAOGenerales{
                 +" SET "+
                 it.getNombrePDC().getNombre()+" = ?,"+ 
                 it.getIdDepartamentoPDC().getNombre()+" = ?,"+ 
-                it.getBajaEmpleadoPDC().getNombre()+" = ?,"+ 
-                it.getFechaBaja().getNombre()+" = ?"
+                it.getBajaEmpleadoPDC().getNombre()+" = ?" 
                 +" WHERE "+
                 it.getIdPDC().getNombre()+"=?";
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getNombre());
         mapa.put(2, vo.getIdDepartamento());
         mapa.put(3, vo.getBajaEmpleado());
-        mapa.put(4, vo.getFechaBaja());
-        mapa.put(5, vo.getId());
+        mapa.put(4, vo.getId());
         if(conexion.executeUpdate(sql, mapa))
             return true;
         else
