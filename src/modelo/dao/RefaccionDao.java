@@ -85,7 +85,7 @@ public class RefaccionDao extends DAOGenerales{
      */
     public boolean guardar(RefaccionVo vo){
         String sql = "INSERT INTO "+ RefaccionIT.NOMBRE_TABLA 
-                + " VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                + " VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
         HashMap<Integer, Object> mapa = new HashMap<>();
         
         mapa.put(1, vo.getNombre());
@@ -99,6 +99,7 @@ public class RefaccionDao extends DAOGenerales{
         mapa.put(9, vo.getDescripcion());
         mapa.put(10, vo.getQueEs());
         mapa.put(11, vo.getParaQueEs());
+        mapa.put(12, vo.getRefaccionDeConsumoUnico());
         
         return conexion.executeUpdate(sql, mapa);
         

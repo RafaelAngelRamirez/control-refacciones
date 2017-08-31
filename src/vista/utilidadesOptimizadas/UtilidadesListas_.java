@@ -141,9 +141,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         
         DefaultListModel<String> modelo  =
                 new DefaultListModel<String>();
-        
-        
-        
         List<String> ordenar = new ArrayList<>();
         for (Map.Entry<String, Object> datosMap : datos.entrySet()) {
             Object id = datosMap.getValue();
