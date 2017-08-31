@@ -36,6 +36,7 @@ import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
+import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
 import vista.MarcoParaVentanaPrincipal;
 import vista.panelsYDialogosOptimizados.*;
@@ -937,6 +938,10 @@ public class Coordinador {
             return this.logica.entradaLoteExistencia(id);
         }
         
+        public List<EntradaLoteVo> entradaLoteLotes(int id){
+            return this.logica.entradaLoteLotes(id);
+        }
+        
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE ENTRADA LOTE
@@ -949,10 +954,32 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
-        public void salidaLoteAbrirDialogo(){
+       public void salidaLoteAbrirDialogo(){
             this.getDialogoSalidaLote().setVisible(true);
             this.getDialogoSalidaLote().configurar();
+        }
         
+        
+        public void salidaLoteDialogoSetearItemCombo(Object item){
+            this.salidaLoteActualizarComboEmpleados();
+            this.getDialogoSalidaLote().setearItemComboEmpleado(item);
+        }
+        
+        public void salidaLoteActualizarComboEmpleados(){
+            this.getDialogoSalidaLote().cargarComboEmpleados();
+        
+        }
+        
+        public List<Validacion> salidaLoteValidarCampos(SalidaLoteVo vo){
+            return this.logica.salidaLoteValidarCampos(vo);
+        }
+        
+        public boolean salidaLoteGuadar(SalidaLoteVo vo){
+            return this.logica.salidaLoteGuardar(vo);
+        }
+        
+        public float salidaLoteExistencia(int id){
+            return this.logica.salidaLoteExistencia(id);
         }
         
     /* 

@@ -5,6 +5,7 @@ import controlador.capturadeerrores.Suceso;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,14 +141,22 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         
         DefaultListModel<String> modelo  =
                 new DefaultListModel<String>();
-            
+        
+        
+        
+        List<String> ordenar = new ArrayList<>();
         for (Map.Entry<String, Object> datosMap : datos.entrySet()) {
             Object id = datosMap.getValue();
             String datoColumna = datosMap.getKey();
-            
-            modelo.addElement(datoColumna);
+            ordenar.add(datoColumna);
             this.relacionDatoId.put(datoColumna, id);
         }
+        Collections.sort(ordenar);
+        
+        for (String datoOrdenado : ordenar) {
+            modelo.addElement(datoOrdenado);
+        }
+        
         this.lista.setModel(modelo);
             
     }

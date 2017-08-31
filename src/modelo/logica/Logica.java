@@ -1121,6 +1121,11 @@ public class Logica {
         EntradaLoteDao d = new EntradaLoteDao(coordinador);
         return d.existencia(id);
     }
+    
+    public List<EntradaLoteVo> entradaLoteLotes(int id){
+        EntradaLoteDao d = new EntradaLoteDao(coordinador);
+        return d.lotes(id);
+    }
         
     
     

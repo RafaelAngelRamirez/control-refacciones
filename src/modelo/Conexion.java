@@ -326,7 +326,5 @@ public class Conexion {
         return rs;
     }
 
-    public ResultSet executeQuery(String sql, int idRefaccion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }

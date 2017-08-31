@@ -6,7 +6,10 @@ import controlador.Coordinador;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -91,12 +94,18 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
 //        DefaultComboBoxModel<String> m
 //                    = new DefaultComboBoxModel<String>();
         DefaultComboBoxModel<String> m = (DefaultComboBoxModel < String >)this.comboBox.getModel();
+        List<String> ordenar = new ArrayList<>();
         
         this.relacionDatoId = datos;
         for (Map.Entry<String, Object> entry : datos.entrySet()) {
             String valor = entry.getKey();
-            m.addElement(valor);
-        }    
+//            m.addElement(valor);
+            ordenar.add(valor);
+        }
+        Collections.sort(ordenar);
+        for (String d : ordenar) {
+            m.addElement(d);
+        }
 //        this.comboBox.setModel(m);
         this.autoCompletar();
     }

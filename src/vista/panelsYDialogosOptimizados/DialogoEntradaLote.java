@@ -299,6 +299,11 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         txtBusqueda = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         etiquetaObservaciones.setBackground(new java.awt.Color(30, 30, 30));
         etiquetaObservaciones.setFont(new java.awt.Font("Calibri Light", 1, 24)); // NOI18N
@@ -634,7 +639,6 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(etiquetaPedidoEnEspera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(2, 2, 2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(etiquetaFechaDeLote)
@@ -839,7 +843,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
             HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
             
             if (!_listaResultados.getThis().isSelectionEmpty()) {
-                vo = (RefaccionVo) datos.get(_listaResultados.getSelectValueId());
+                vo = (RefaccionVo) _listaResultados.getSelectValueId();
             }else if (!_listaResultados.isEmpty()) {
                 vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
             }
@@ -975,12 +979,16 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
         salir();
-        
+     
     }//GEN-LAST:event_btnSalir1ActionPerformed
 
     private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBusquedaActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        salir();
+    }//GEN-LAST:event_formWindowClosing
 
     
     
