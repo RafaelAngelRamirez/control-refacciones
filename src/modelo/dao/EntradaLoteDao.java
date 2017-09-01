@@ -60,15 +60,7 @@ public class EntradaLoteDao extends DAOGenerales{
         
     }
     
-    /**
-     * Filtra los lotes que no esten en ceros. 
-     * @param id El id de la rección que se quiere filtrar. 
-     * @return Los lotes filtrados que no esten en ceros. 
-     */
-    public List<EntradaLoteVo> lotes(int id){
-        return lotes(id, false);
-    }
-
+    
     /**
      * Da la opción de filtrar los lotes que esten en ceros.
      * @param id El i de la refaccion que se quiere filtrar. 
@@ -82,7 +74,7 @@ public class EntradaLoteDao extends DAOGenerales{
         String sqlTodo =
                 " AND "+
                 it.getCantidadPDC().getNombre()+" >0";
-        if (todosLosLotes) {
+        if (!todosLosLotes) {
             sql+=sqlTodo;
         }
         

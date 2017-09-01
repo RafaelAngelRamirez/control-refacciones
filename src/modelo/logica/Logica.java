@@ -1114,9 +1114,9 @@ public class Logica {
         return d.existencia(id);
     }
     
-    public List<EntradaLoteVo> entradaLoteLotes(int id){
+    public List<EntradaLoteVo> entradaLoteLotes(int id, boolean cargarLotesVacios){
         EntradaLoteDao d = new EntradaLoteDao(coordinador);
-        return d.lotes(id);
+        return d.lotes(id, cargarLotesVacios);
     }
     
     public boolean entradaLoteActualizarExistencia(EntradaLoteVo vo){

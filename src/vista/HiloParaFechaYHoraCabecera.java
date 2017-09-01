@@ -64,17 +64,17 @@ import javax.swing.JOptionPane;
         * start() dentro de iniciar().
         */
        @Override
-       public void run() {
-            while (true){
-                this.horaMinutoSegundo();
-                this.fechaCompleta();
-                System.out.println(FechaYHora.Actual.getHora_Hhmmss());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    JOptionPane.showMessageDialog(null, "Error iniciando el  reloj!!!");
-                    Logger.getLogger(HiloParaFechaYHoraCabecera.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-       }
+        public void run() {
+             while (true){
+                 this.horaMinutoSegundo();
+                 this.fechaCompleta();
+                 System.out.println(FechaYHora.Actual.getHora_Hhmmss());
+                 try {
+                     Thread.sleep(1000);
+                 } catch (InterruptedException ex) {
+                     JOptionPane.showMessageDialog(null, "Error iniciando el  reloj!!!");
+                     Logger.getLogger(HiloParaFechaYHoraCabecera.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+             }
+        }
     }

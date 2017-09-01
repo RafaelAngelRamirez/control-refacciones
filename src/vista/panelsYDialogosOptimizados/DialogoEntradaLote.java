@@ -49,6 +49,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
     private UtilidadesTxtArea_ _txtObservaciones;
     private UtilidadesJXViewImage_ _imagenesRefaccion;
     private int idRefaccionActual;
+    private Runnable accionPostGuardado;
+   
     
     
 
@@ -752,6 +754,9 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                 limpiar();
                 JOptionPane.showMessageDialog(this,
                         "Se guardo el lote correctamente.");
+                if (this.accionPostGuardado!=null) {
+                    this.AccionAEjecutarPorCargaDeRefaccionDesdeOtroLugar();
+                }
                 
             }else{
                 JOptionPane.showMessageDialog(
@@ -851,7 +856,31 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
         
     }
     
-    public void cargarRefaccionParaEntrada(){
+    public void cargarRefaccionParaEntrada(RefaccionVo vo){
+        if (vo!=null) {
+            deshabilitarCamposParaRellenar(false);
+            mostrarRefaccionParaEntrada(vo);
+            float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());
+            _txtExistencia.setText(existencia+"");
+            colorearMinYMax(existencia, vo);
+        }else{
+            JOptionPane.showMessageDialog(this, "No hubo coicidencias con tu busqueda.");
+            limpiar();
+            deshabilitarCamposParaRellenar(true);
+        }
+    }
+
+    public void setAccionPostGuardado(Runnable accionPostGuardado) {
+        this.accionPostGuardado = accionPostGuardado;
+    }
+
+    private void AccionAEjecutarPorCargaDeRefaccionDesdeOtroLugar() {
+        Runnable r = accionPostGuardado;
+        accionPostGuardado = null;
+        r.run();
+    }
+    
+    private void cargarRefaccionParaEntrada(){
         if (!_txtBusqueda.isEmpty()) {
             RefaccionVo vo =null;
             HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
@@ -862,19 +891,8 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                 vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
             }
             
+            cargarRefaccionParaEntrada(vo);
             
-                
-            if (vo!=null) {
-                deshabilitarCamposParaRellenar(false);
-                mostrarRefaccionParaEntrada(vo);
-                float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());
-                _txtExistencia.setText(existencia+"");
-                colorearMinYMax(existencia, vo);
-            }else{
-                JOptionPane.showMessageDialog(this, "No hubo coicidencias con tu busqueda.");
-                limpiar();
-                deshabilitarCamposParaRellenar(true);
-            }
         }
     }
     

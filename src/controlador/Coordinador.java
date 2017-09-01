@@ -915,6 +915,12 @@ public class Coordinador {
             this.getDialogoEntradaLote().configurar();
         }
         
+        public void entradaLoteAbrirDialogo(RefaccionVo vo, Runnable accionPostGuardado){
+            entradaLoteAbrirDialogo();
+            this.getDialogoEntradaLote().cargarRefaccionParaEntrada(vo);
+            this.getDialogoEntradaLote().setAccionPostGuardado(accionPostGuardado);
+        }
+        
         
         public void entradaLoteDialogoSetearItemCombo(Object item){
             this.entradaLoteActualizarComboEmpleados();
@@ -938,8 +944,8 @@ public class Coordinador {
             return this.logica.entradaLoteExistencia(id);
         }
         
-        public List<EntradaLoteVo> entradaLoteLotes(int id){
-            return this.logica.entradaLoteLotes(id);
+        public List<EntradaLoteVo> entradaLoteLotes(int id, boolean cargarVacios){
+            return this.logica.entradaLoteLotes(id, cargarVacios);
         }
         
         public boolean entradaLoteActualizarExistencia(EntradaLoteVo vo){
@@ -962,6 +968,10 @@ public class Coordinador {
             this.getDialogoSalidaLote().setVisible(true);
             this.getDialogoSalidaLote().configurar();
         }
+       public void salidaLoteAbrirDialogo(RefaccionVo vo){
+           salidaLoteAbrirDialogo();
+           this.getDialogoSalidaLote().cargarRefaccionParaEntrada(vo);
+       }
         
         
         public void salidaLoteDialogoSetearItemCombo(Object item){
