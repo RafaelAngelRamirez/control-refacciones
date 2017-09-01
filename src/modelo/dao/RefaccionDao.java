@@ -209,6 +209,7 @@ public class RefaccionDao extends DAOGenerales{
                     + RefaccionIT.NOMBRE_TABLA +"."+it.getCodigoProveedorPDC().getNombre() + ", "
                     + RefaccionIT.NOMBRE_TABLA +"."+it.getDescripcionPDC().getNombre() + ", "
                     + RefaccionIT.NOMBRE_TABLA +"."+it.getQueEsPDC().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+it.getRefaccionDeConsumoUnicoPDC().getNombre() + ", "
                     + RefaccionIT.NOMBRE_TABLA +"."+it.getParaQueEsPDC().getNombre() 
                     +
                     " FROM " + RefaccionIT.NOMBRE_TABLA 
@@ -247,6 +248,7 @@ public class RefaccionDao extends DAOGenerales{
             v.setUnidad(r.getString(uit.getUnidadPDC().getNombre()));
             v.setParaQueEs(r.getString(it.getParaQueEsPDC().getNombre()));
             v.setQueEs(r.getString(it.getQueEsPDC().getNombre()));
+            v.setRefaccionDeConsumoUnico(r.getByte(it.getRefaccionDeConsumoUnicoPDC().getNombre()));
             v.setIdMaterial(r.getString(mit.getMaterialPDC().getNombre()));
             
                 
@@ -271,7 +273,8 @@ public class RefaccionDao extends DAOGenerales{
                 it.getCodigoProveedorPDC().getNombre()+ "= ? , " +
                 it.getDescripcionPDC().getNombre()+ "= ? , " +
                 it.getQueEsPDC().getNombre()+ "= ? , " +
-                it.getParaQueEsPDC().getNombre()+ "= ?   " 
+                it.getParaQueEsPDC().getNombre()+ "= ? ,   " +
+                it.getRefaccionDeConsumoUnicoPDC().getNombre()+ "= ?  " 
             + " WHERE " + it.getIdPDC().getNombre() + "= ?";
         
         HashMap<Integer, Object> mapa = new HashMap<>();
@@ -286,7 +289,9 @@ public class RefaccionDao extends DAOGenerales{
         mapa.put(9, vo.getDescripcion());
         mapa.put(10, vo.getQueEs());
         mapa.put(11, vo.getParaQueEs());
-        mapa.put(12, vo.getId());
+        mapa.put(12, vo.getRefaccionDeConsumoUnico());
+        
+        mapa.put(13, vo.getId());
         
         return conexion.executeUpdate(sql, mapa);
     

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.InfoTabla.SalidaLoteIT;
-import modelo.vo.EntradaLoteVo;
+import modelo.vo.SalidaLoteVo;
 
 
 public class SalidaLoteDao extends DAOGenerales{
@@ -20,13 +20,13 @@ public class SalidaLoteDao extends DAOGenerales{
         this.it = new SalidaLoteIT();
     }
     
-    public boolean guardar(EntradaLoteVo vo){
+    public boolean guardar(SalidaLoteVo vo){
         String sql = "INSERT INTO "+ SalidaLoteIT.NOMBRE_TABLA 
                 +" VALUES (null, ?, ?, ?, ?, ?)";
         
         
         HashMap<Integer, Object> datos = new HashMap<>();
-        datos.put(1, vo.getFechaRecepcionLote());
+        datos.put(1, vo.getFechaSalidaLote());
         datos.put(2, vo.getCantidad());
         datos.put(3, vo.getIdRefaccion());
         datos.put(4, vo.getIdEmpleado());

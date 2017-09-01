@@ -942,6 +942,10 @@ public class Coordinador {
             return this.logica.entradaLoteLotes(id);
         }
         
+        public boolean entradaLoteActualizarExistencia(EntradaLoteVo vo){
+            return this.logica.entradaLoteActualizarExistencia(vo);
+        }
+        
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE ENTRADA LOTE
@@ -975,7 +979,7 @@ public class Coordinador {
         }
         
         public boolean salidaLoteGuadar(SalidaLoteVo vo){
-            return this.logica.salidaLoteGuardar(vo);
+            return this.logica.salidaLoteGuadar(vo);
         }
         
         public float salidaLoteExistencia(int id){

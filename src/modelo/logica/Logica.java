@@ -22,6 +22,7 @@ import modelo.InfoTabla.ParametrosDeCampo;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
+import modelo.InfoTabla.SalidaLoteIT;
 import modelo.dao.DepartamentoDao;
 import modelo.dao.EmpleadoDao;
 import modelo.dao.EntradaLoteDao;
@@ -33,6 +34,7 @@ import modelo.dao.ProveedorDao;
 import modelo.dao.RefaccionDao;
 import modelo.dao.RelacionRefaccionMaquinaModeloDao;
 import modelo.dao.RelacionRefaccionProveedorDao;
+import modelo.dao.SalidaLoteDao;
 import modelo.dao.UnidadDao;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
@@ -46,6 +48,7 @@ import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
+import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
 import vista.FechaYHora;
 
@@ -1093,17 +1096,6 @@ public class Logica {
 
                 }
                 
-//                if (_PDC.getNombre().equals(b.getFechaRecepcionLotePDC().getNombre())) {
-//                    boolean c = FechaYHora.comprobarFormatoDe_ddmmaa(
-//                            vo.getFechaRecepcionLote().toString(),
-//                            FechaYHora.FECHA_DD_MM_AA);
-//                    Validacion val = new Validacion();
-//                    val.setNombreDeCampo(_PDC);
-//                    val.setMensajeDeError("El formato de la fecha debe ser dd/mm/aa.");
-//                    val.setValido(c);
-//                    listaValidaciones.add(val);
-//                }
-                
             } catch (Exception ex) {
                  Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1126,6 +1118,11 @@ public class Logica {
         EntradaLoteDao d = new EntradaLoteDao(coordinador);
         return d.lotes(id);
     }
+    
+    public boolean entradaLoteActualizarExistencia(EntradaLoteVo vo){
+        EntradaLoteDao d = new EntradaLoteDao(coordinador);
+        return d.actualizarExistencia(vo);
+    }
         
     
     
@@ -1134,7 +1131,83 @@ public class Logica {
         FIN REGISTRO ENTRADA LOTE
     ========================================================================
     */
+     /* 
+    ========================================================================
+       INICIO DE SALIDA LOTE
+    ////////////////////////////////////////////////////////////////////////
+    */
+        public List<Validacion> salidaLoteValidarCampos(SalidaLoteVo vo){
+           return salidaLoteValidarCampos(vo, false);
+        }
+
+
+        public List<Validacion> salidaLoteValidarCampos(SalidaLoteVo vo, boolean validandoUpdate){
+           //LA LISTA QUE SE REORNA DE VALIDACIONES.
+           List<Validacion> listaValidaciones = new ArrayList<>();
+
+           //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO
+           SalidaLoteIT b = new SalidaLoteIT();
+           List<ParametrosDeCampo> listaPDC = b.getCamposPDC();
+
+           //RECORREMOS CADA CAMPO.
+           for (ParametrosDeCampo _PDC : listaPDC) {
+               try {
+                   //---- COMPROBAMOS QUE EL CAMPO NO ESTE NULO CUANDO ASI LO SOLICITA.
+
+                   //EL NOMBRE DEL CAMPO QUE VAMOS A VALIDAR.
+
+                   String nombreDelCampoActual = _PDC.getNombre();
+                   //EL VALOR QUE TIENE ACTUALMENTE EL CAMPO. ESTE MAPA CONTIENE
+                   // LA FUNCION CALLABLE QUE RELACIONA EL NOMBRE DEL CAMPO CON EL 
+                   // VALOR TOMADO ACTUALMENTE. SE DEFINE EN EL VO Y SE HEREDA DE
+                   // VOGeneral.
+                   String valorAValidar =vo.getRelacionCampo()
+                           .get(nombreDelCampoActual).call()+ "";
+                   if (!_PDC.isNulo()) {
+                       //EL OBJETO QUE SE VA A RETORNAR PARA SEÑALAR LOS ERRORES SOBRE LA GUI.
+                       Validacion val = new Validacion();
+                       //DEFINIMOS EL CAMPO QUE SE ESTA VALIDANDO.
+                       val.setNombreDeCampo(_PDC);
+
+                       //COMPROBAMOS QUE A VO SE LE HAYA PASADO UN VALOR.
+                       if (valorAValidar.isEmpty()|| valorAValidar.equals("-1")||valorAValidar.equals("-1.0")) {
+                           //DEFINIMOS EL MENSAJE EN ESTE CASO.
+                           val.setMensajeDeError("No puede estar vacio.");
+                           //GUADAMOS EL VALOR FALSE POR QUE NO SE HA DEFINIDO. 
+                           val.setValido(false);
+
+                       }else{
+                           val.setValido(true);
+                       }
+
+                       listaValidaciones.add(val);
+
+                   }
+
+               } catch (Exception ex) {
+                    Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           }
+           return listaValidaciones;
+        }
     
+                
+        public boolean salidaLoteGuadar(SalidaLoteVo vo){
+            SalidaLoteDao d = new SalidaLoteDao(coordinador);
+            return d.guardar(vo);
+            
+        }
+        
+        public float salidaLoteExistencia(int id){
+            SalidaLoteDao d = new SalidaLoteDao(coordinador);
+            return d.existencia(id);
+        }
+        
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE SALIDA LOTE
+    ========================================================================
+    */
     
     
 }

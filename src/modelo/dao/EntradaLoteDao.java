@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.vo.EntradaLoteVo;
-import modelo.vo.RefaccionVo;
 
 /**
  *
@@ -60,10 +60,32 @@ public class EntradaLoteDao extends DAOGenerales{
         
     }
     
+    /**
+     * Filtra los lotes que no esten en ceros. 
+     * @param id El id de la rección que se quiere filtrar. 
+     * @return Los lotes filtrados que no esten en ceros. 
+     */
     public List<EntradaLoteVo> lotes(int id){
+        return lotes(id, false);
+    }
+
+    /**
+     * Da la opción de filtrar los lotes que esten en ceros.
+     * @param id El i de la refaccion que se quiere filtrar. 
+     * @param todosLosLotes True si se quieren incluir los lotes en 0.
+     * @return La lista de lotes que coinciden con los parametros. 
+     */
+    public List<EntradaLoteVo> lotes(int id, boolean todosLosLotes){
         String sql = "SELECT * FROM " + EntradaLoteIT.NOMBRE_TABLA
                 +" WHERE "+
                 it.getIdRefaccionPDC().getNombre()+" = ?";
+        String sqlTodo =
+                " AND "+
+                it.getCantidadPDC().getNombre()+" >0";
+        if (todosLosLotes) {
+            sql+=sqlTodo;
+        }
+        
         ResultSet r = conexion.executeQuery(sql, id+"");
         List<EntradaLoteVo> listVo = new ArrayList<>();
         try {
@@ -79,5 +101,19 @@ public class EntradaLoteDao extends DAOGenerales{
         }
         return listVo;
     }
+    
+    public boolean actualizarExistencia(EntradaLoteVo vo){
+        String sql = "UPDATE " + EntradaLoteIT.NOMBRE_TABLA 
+                +" SET "+
+                it.getCantidadPDC().getNombre() + " = " +it.getCantidadPDC().getNombre()+"- ?"
+                +" WHERE "+
+                it.getIdPDC().getNombre() +" = ?";
+        HashMap<Integer, Object> datos = new HashMap<>();
+        datos.put(1, vo.getCantidad());
+        datos.put(1, vo.getId());
+        return conexion.executeUpdate(sql, datos);
+    }
+    
+    
     
 }

@@ -800,10 +800,35 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
           
         }
         
+        //COMPROBACIONES SOBRE LOS LOTES
+        
+        HashMap<String, Object> lotesDisponibles = _comboLotesDisponibles.getRelacionDatoObjeto();
+              
+        
+        
+        
+        //LA REFACCIÓN POR LO MENOS TIENE UN LOTE
+        if (lotesDisponibles.size()>0) {
+            //LA REFACCION TIENE MÁS DE UN LOTE CON EXISTENCIA. 
+            
+            Object a = _comboLotesDisponibles.getSelectedItem_idRetorno();
+            EntradaLoteVo elvo = (EntradaLoteVo) a;
+            
+            
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(this, 
+                    "Esta refacción no tiene existencias.", 
+                    "Sin existencia.", JOptionPane.ERROR_MESSAGE);
+            todoValido = false;
+        }
+        
+        
         if (todoValido) {
             //GUARDAMOS EL LOTE NUEVO.
             if(this.getCoordinador().salidaLoteGuadar(vo)){
-                this.getCoordinador().entradaLoteActualizarExistencia();
+//                this.getCoordinador().entradaLoteActualizarExistencia();
                 limpiar();
                 JOptionPane.showMessageDialog(this,
                         "Se registro la salida correctamente.");
@@ -1044,6 +1069,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         _txtUnidad.setText("");
         _txtFechaDeLote.setText("");
         _txtCantidadQueEntra.setText("");
+        _txtExistenciaLote.setText("");
         
         _txtStockMax.setErrorQuitar();
         _txtStockMin.setErrorQuitar();

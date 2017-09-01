@@ -1,13 +1,10 @@
 
 package vista;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
     * Maneja la fecha y la hora. Entrega diferentes versiones del mismo y 
@@ -71,9 +68,11 @@ import javax.swing.JLabel;
             while (true){
                 this.horaMinutoSegundo();
                 this.fechaCompleta();
+                System.out.println(FechaYHora.Actual.getHora_Hhmmss());
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Error iniciando el  reloj!!!");
                     Logger.getLogger(HiloParaFechaYHoraCabecera.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

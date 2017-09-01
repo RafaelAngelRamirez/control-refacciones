@@ -35,6 +35,7 @@ public class ParametrosDeCampo {
     tiposDeDatoEnLaBD.add("date");
     tiposDeDatoEnLaBD.add("boolean");
     tiposDeDatoEnLaBD.add("longint");
+    tiposDeDatoEnLaBD.add("byte");
     }
     
     /**

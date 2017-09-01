@@ -27,7 +27,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
     
     private JComboBox comboBox;
    
-    private HashMap<String, Object> relacionDatoId = new HashMap<>();
+    private HashMap<String, Object> relacionDatoObjeto = new HashMap<>();
     private String nombreColumnaId, nombreColumnaDatoAMostrar;
 //    private Runnable accionCuandoPierdeElFoco;
     
@@ -96,7 +96,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
         DefaultComboBoxModel<String> m = (DefaultComboBoxModel < String >)this.comboBox.getModel();
         List<String> ordenar = new ArrayList<>();
         
-        this.relacionDatoId = datos;
+        this.relacionDatoObjeto = datos;
         for (Map.Entry<String, Object> entry : datos.entrySet()) {
             String valor = entry.getKey();
 //            m.addElement(valor);
@@ -140,13 +140,13 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
             return -1;
         }else{
             System.out.println("estamos en el combo:");
-            for (Map.Entry<String, Object> entry : relacionDatoId.entrySet()) {
+            for (Map.Entry<String, Object> entry : relacionDatoObjeto.entrySet()) {
                 String key = entry.getKey();
                 Object value = entry.getValue();
                 System.out.println("relacionDatoId: " + key + "- "+value);
                 
             }
-            return this.relacionDatoId.get((String)this.comboBox.getSelectedItem());
+            return this.relacionDatoObjeto.get((String)this.comboBox.getSelectedItem());
         }
     }
     /**
@@ -341,4 +341,13 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
             }
         }.operacion(accion));
     }    
+
+    /**
+     * Retorna el HashMap que lleva la relacion entre el dato y el objeto(Antes id)
+     * para los fines que al interesado convengan. xP
+     * @return El mapa con los datos cargados en el combo. 
+     */
+    public HashMap<String, Object> getRelacionDatoObjeto() {
+        return relacionDatoObjeto;
+    }
 }
