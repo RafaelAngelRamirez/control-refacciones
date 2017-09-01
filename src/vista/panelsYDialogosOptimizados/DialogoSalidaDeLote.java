@@ -199,8 +199,8 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         _comboLotesDisponibles.setEditable(false);
         
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
-//        _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
-//        _txtBusqueda.setKeyPressAction(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
+        _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
+        _txtBusqueda.setKeyPressAction(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
         
         _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
         
@@ -929,40 +929,23 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
     
     private boolean noSeCargoDesdeEsteDialogo = true;
     public void cargarRefaccionParaEntrada(){
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() 1");
         RefaccionVo vo =null;
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() 2");
         HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() 3");
         if (!_listaResultados.getThis().isSelectionEmpty()) {
-            JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() 4");
             vo = (RefaccionVo) _listaResultados.getSelectValueId();
-            JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() 5");
         }else if (!_listaResultados.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() 6");
                 vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() 7");
         }
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() 8");
         
-            
-        if (vo==null) {
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() - vacio 9");
-        }
         if(vo!=null){
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() -  10");
             
             noSeCargoDesdeEsteDialogo = false; 
             cargarRefaccionParaEntrada(vo);
             noSeCargoDesdeEsteDialogo = true; 
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() -  11");
         }else{
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() -  12 busqueda");
             JOptionPane.showMessageDialog(this, "No hubo coicidencias con tu busqueda.");
             deshabilitarCamposParaRellenar(true);
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() -  13 busqueda");
             limpiar();
-        JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada() -  14 busqueda");
         }
         
     }
@@ -970,40 +953,27 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
     
     public void cargarRefaccionParaEntrada(RefaccionVo vo){
         if (vo!=null) {
-JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 1");
             float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());
-JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 2");
             //SI NO HAY EXISTENCIA DAMOS LA OPCIÓN DE ABRIR EL DIALOGO REGISTRAR
             // NUEVA REFACCIÓN. 
             if (existencia!=0f) {
-JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 3");
                 deshabilitarCamposParaRellenar(false);
-JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 4");
                 //POR SI HUBO ALGÚN CAMBIO ENTRE TODOS ESTOS MOVIMIENTOS.
                 // COMO MODIFICACIÓN DE LA REFACCIÓN. STOCK MINIMO O MÁXIMO, ETC. 
                 if (noSeCargoDesdeEsteDialogo) {
-JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 5");
                     JOptionPane.showMessageDialog(null, "disquenosecargoo - noSeCargoDesdeEsteDialogo");
                     /**
                      Esto lo tengo que hacer así por que el lambda me da error
                      * si modifico el vo de RefaccionVo. Me dice que tiene que
                      * ser final.
                      */
-JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 6");
                     reconsultarRefaccionCargadaDesdeOtroLugar(vo);
-JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 7");
                 }else{
                 
-JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 8 - COMIENZAN LOS UNOS");
                 mostrarRefaccionParaEntrada(vo);
-JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 9 - COMIENZAN LOS UNOS");
-                    JOptionPane.showMessageDialog(null, "uno");
                 cargarLotesDeRefaccion(vo.getId());
-                    JOptionPane.showMessageDialog(null, "dos");
                 _txtExistencia.setText(existencia+"");
-                    JOptionPane.showMessageDialog(null, "tres");
                 colorearMinYMax(existencia, vo);
-                    JOptionPane.showMessageDialog(null, "cuatro");
                     
                 }
             }else{
@@ -1033,7 +1003,6 @@ JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 
         noSeCargoDesdeEsteDialogo = false;
         vo = this.getCoordinador().refaccionConsultar(vo.getId());
         cargarRefaccionParaEntrada(vo);
-        JOptionPane.showMessageDialog(null, "no se cargo directo");
 
     }
     
@@ -1055,38 +1024,23 @@ JOptionPane.showMessageDialog(null, "cargarRefaccionParaEntrada(RefaccionVo vo) 
     }
     
     public void mostrarRefaccionParaEntrada(RefaccionVo vo){
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 1");
         _txtNombreDeLaRefaccion.setText(vo.getNombre());
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 2");
         _txtCodigoInterno.setText(vo.getCodigoInterno());
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 3");
         _txtCodigoProveedor.setText(vo.getCodigoProveedor());
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 4");
         _txtUnidad.setText(vo.getUnidad()+"");
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 5");
         _txtStockMax.setText(vo.getStockMaximo()+"");
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 6");
         _txtStockMin.setText(vo.getStockMinimo()+"");
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 7");
         idRefaccionActual = vo.getId();
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 8");
         
         _txtFechaDeLote.setFocus();
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 9");
         _txtFechaDeLote.setText(FechaYHora.Actual.getDdmmaa("/"));
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 10");
         _txtFechaDeLote.getThis().setSelectionStart(0);
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 11");
         _txtFechaDeLote.getThis().setSelectionEnd(_txtFechaDeLote.getText().length());
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 12");
         
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 13");
         //CARGAMOS LAS IMAGENES. 
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 14");
         cargarImagenes(vo.getId());
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 15");
         _txtBusqueda.setText("");
-JOptionPane.showMessageDialog(null, "mostrarRefaccionParaEntrada(RefaccionVo vo) 16");
+        _listaResultados.limpiar();
         
         
     }

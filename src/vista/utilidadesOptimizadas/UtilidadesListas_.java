@@ -25,6 +25,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
     private String nombreColumnaId, nombreDatoAMostrar;
     private JList<String> lista;
     private UtilidadesListas_ ComponenteListaAAgregar;
+    protected boolean limpiandoLista = false;
     
     
     private HashMap<Object, Object> relacionDatoId  = new HashMap();
@@ -242,11 +243,15 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * es !=null entonces tambien la limpia. 
      */
     public void limpiar(){
+        limpiandoLista = true;
         this.lista.setModel(new DefaultListModel<>());
         if (this.ComponenteListaAAgregar!=null) {
             this.ComponenteListaAAgregar.getLista().setModel(new DefaultListModel<>());
         }
+        limpiandoLista = false;
     }
+    
+    
 
     /**
      *  Agrega elementos a la lista uno por uno. Copia todo lo que hay. 
@@ -311,16 +316,20 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         this.getThis().addListSelectionListener(new ListSelectionListener() {
             
             Runnable r = null;
-            public ListSelectionListener parametros(Runnable r){
+            UtilidadesListas_ utilildad;
+            public ListSelectionListener parametros(Runnable r, UtilidadesListas_ utilidad){
                 this.r = r;
+                this.utilildad = utilidad;
                 return this;
             }
             
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                r.run();
+                if (!utilildad.limpiandoLista) {
+                    r.run();
+                }
             }
-        }.parametros(r));
+        }.parametros(r, this));
     
     }
 
