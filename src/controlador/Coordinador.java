@@ -949,6 +949,10 @@ public class Coordinador {
             return this.logica.entradaLoteLotes(id, cargarVacios);
         }
         
+        public EntradaLoteVo entradaLoteLoteMasAntiguo(int id){
+            return this.logica.entradaLoteLoteMasAntiguo(id);
+        }
+        
         public boolean entradaLoteActualizarExistencia(EntradaLoteVo vo){
             return this.logica.entradaLoteActualizarExistencia(vo);
         }

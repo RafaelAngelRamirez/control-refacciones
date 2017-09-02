@@ -106,6 +106,69 @@ public class EntradaLoteDao extends DAOGenerales{
         return conexion.executeUpdate(sql, datos);
     }
     
+    /**
+     * Obtenemos el lote más antiguo con existencia de la refacción que se pase
+     * como parametro. Si no hay un lote que cumpla los parametros se devuelve
+     * null.
+     * 
+     * @param id El id de la refacción que se quiere filtrar. 
+     * @return El lote más antiguo que con existencia. 
+     */
+    public EntradaLoteVo loteMasAntiguo(int id){
+        String sql = "SELECT * FROM "+EntradaLoteIT.NOMBRE_TABLA 
+                +" WHERE "+
+                it.getIdRefaccionPDC().getNombre()+"=?"
+                +" AND "+
+                it.getCantidadPDC().getNombre() +">0"
+                +" AND "+
+                it.getFechaRecepcionLotePDC().getNombre()+" = " 
+                +"(SELECT min("+it.getFechaRecepcionLotePDC().getNombre()+") "
+                        + " FROM "+EntradaLoteIT.NOMBRE_TABLA
+                        + " WHERE "+
+                        it.getIdRefaccionPDC() + " =? "
+                        + " AND "+
+                        it.getCantidadPDC().getNombre() +">0 )" 
+                +" AND "+
+                it.getIdPDC().getNombre() +" = "+
+                "(SELECT min("+it.getIdPDC().getNombre()+") "
+                        +" FROM "+
+                        EntradaLoteIT.NOMBRE_TABLA
+                        +" WHERE "+
+                        it.getIdRefaccionPDC().getNombre()+"= ?"
+                        +" AND "+ 
+                        it.getCantidadPDC() + " >0 "
+                        +" AND " + 
+                        it.getFechaRecepcionLotePDC().getNombre() +" = "
+                        +"(SELECT min("+it.getFechaRecepcionLotePDC().getNombre() +") "
+                            + " FROM " + EntradaLoteIT.NOMBRE_TABLA 
+                            + " WHERE "+
+                            it.getIdRefaccionPDC() + " =? "
+                            + " AND "+
+                            it.getCantidadPDC().getNombre() +">0 )"+
+                ")";
+        HashMap<Integer, String> datos = new HashMap<>();
+        datos.put(1, id+"");
+        datos.put(2, id+"");
+        datos.put(3, id+"");
+        datos.put(4, id+"");
+        ResultSet r = conexion.executeQuery(sql, datos);
+        EntradaLoteVo vo = null;
+        try {
+            r.next();
+            vo = new EntradaLoteVo();
+            vo.setId(r.getInt(it.getIdPDC().getNombre()));
+            vo.setFechaRecepcionLote(r.getDate(it.getFechaRecepcionLotePDC().getNombre()));
+            vo.setCantidad(r.getFloat(it.getCantidadPDC().getNombre()));
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(EntradaLoteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        return vo;  
+            
+                    
+    }
+    
     
     
 }

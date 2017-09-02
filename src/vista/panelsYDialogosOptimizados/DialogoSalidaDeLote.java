@@ -92,7 +92,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         */
         
         RefaccionIT rit = new RefaccionIT();
-        EntradaLoteIT elit = new EntradaLoteIT();
+        SalidaLoteIT elit = new SalidaLoteIT();
         EmpleadoIT eit = new EmpleadoIT();
         
         etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
@@ -100,7 +100,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         etiquetaCodigoDelProveedor.setText(rit.getCodigoProveedorPDC().getNombreParaMostrar());
         etiquetaStockMin.setText(rit.getStockMinimoPDC().getNombreParaMostrar());
         etiquetaStockMax.setText(rit.getStockMaximoPDC().getNombreParaMostrar());
-        etiquetaFechaDeLote.setText(elit.getFechaRecepcionLotePDC().getNombreParaMostrar());
+        etiquetaFechaDeLote.setText(elit.getFechaSalidaLotePDC().getNombreParaMostrar());
         etiquetaCantidadQueEntra.setText(elit.getCantidadPDC().getNombreParaMostrar());
         etiquetaEmpleadoQueReciveElLote.setText(eit.getNombrePDC().getNombreParaMostrar());
         etiquetaObservaciones.setText(elit.getObservacionesPDC().getNombreParaMostrar());
@@ -158,7 +158,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
         _txtBusqueda.setTamanoDeCampo(300);
-        _txtFechaDeLote.setTamanoDeCampo(elit.getFechaRecepcionLotePDC().getLongitudDeCaracteres());
+        _txtFechaDeLote.setTamanoDeCampo(elit.getFechaSalidaLotePDC().getLongitudDeCaracteres());
         _txtCantidadQueEntra.setTamanoDeCampo(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
         _txtObservaciones.setTamanoDeCampo(elit.getObservacionesPDC().getLongitudDeCaracteres());
         _comboEmpleadoQueReciveLote.setTamanoDeCampo(eit.getNombrePDC().getLongitudDeCaracteres());
@@ -812,13 +812,30 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         }
         
         float existenciaRefaccion = this.getCoordinador().entradaLoteExistencia(vo.getIdRefaccion());
-        if (existenciaRefaccion>=vo.getCantidad()) {
+        if (existenciaRefaccion>=vo.getCantidad()&& todoValido) {
             todoValido = true;
         }else{
-            JOptionPane.showMessageDialog(this,
-                    "Esta refacción no tiene suficiente existencia.", 
-                    "Sin existencia.", JOptionPane.ERROR_MESSAGE);
+            _txtCantidadQueEntra.setError(
+                    "Esta refacción no tiene suficiente existencia.");
             todoValido = false;
+        }
+        
+        //HAY UN LOTE MENOR QUE EL SELECCIONADO. ESTE NO MUESTRA MENSAJE
+        // PARA DESPUES COMPROBAR SI EL LOTE TIENE SUFICIENTE EXISTENCIA.
+        if (todoValido) {
+            EntradaLoteVo voLoteMasAtiguo = this.getCoordinador().entradaLoteLoteMasAntiguo(vo.getId());
+            EntradaLoteVo voLoteActual = (EntradaLoteVo)this._comboLotesDisponibles.getSelectedItem_idRetorno();
+            
+            JOptionPane.showMessageDialog(null, "comparativa:\n\n"
+                    + "\nvoLoteMásAntiguo: "+voLoteMasAtiguo.getId()
+                    + "\n                  "+voLoteMasAtiguo.getFechaRecepcionLote()
+                    + "\n                  "+voLoteMasAtiguo.getCantidad()
+                    + "\n\nvoLoteActual  : "+voLoteActual.getId()
+                    + "\n                  "+voLoteActual.getFechaRecepcionLote()
+                    + "\n                  "+voLoteActual.getCantidad()
+                    + "");
+            
+           
         }
         
         
