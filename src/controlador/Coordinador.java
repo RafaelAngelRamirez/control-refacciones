@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
 import modelo.InfoTabla.ImagenProveedorIT;
@@ -968,7 +969,10 @@ public class Coordinador {
             this.getDialogoSalidaLote().setVisible(true);
             this.getDialogoSalidaLote().configurar();
         }
-       public void salidaLoteAbrirDialogo(RefaccionVo vo){
+       public void salidaLoteAbrirDialogo(RefaccionVo vo, JDialog dialogoACerrar){
+           if (dialogoACerrar!=null) {
+               dialogoACerrar.dispose();
+           }
            salidaLoteAbrirDialogo();
            this.getDialogoSalidaLote().cargarRefaccionParaEntrada(vo);
        }

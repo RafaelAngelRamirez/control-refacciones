@@ -790,8 +790,6 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
                     _comboEmpleadoQueReciveLote.setErrorQuitar();
                 }
             }
-           
-                       
             
             if (!validacione.isValido()) {
                 todoValido = false;
@@ -802,17 +800,10 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         
         //COMPROBACIONES SOBRE LOS LOTES
         HashMap<String, Object> lotesDisponibles = _comboLotesDisponibles.getRelacionDatoObjeto();
-        
+        EntradaLoteVo elvo = null;
         //LA REFACCIÓN POR LO MENOS TIENE UN LOTE
-        if (lotesDisponibles.size()>0) {
-            //LA REFACCION TIENE MÁS DE UN LOTE CON EXISTENCIA. 
-            
-            Object a = _comboLotesDisponibles.getSelectedItem_idRetorno();
-            EntradaLoteVo elvo = (EntradaLoteVo) a;
-            
-            
-            
-            
+        if (lotesDisponibles.size()>0 && todoValido) {
+            todoValido = true;
         }else{
             JOptionPane.showMessageDialog(this, 
                     "Esta refacción no tiene existencias.", 
@@ -820,11 +811,28 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
             todoValido = false;
         }
         
+        float existenciaRefaccion = this.getCoordinador().entradaLoteExistencia(vo.getIdRefaccion());
+        if (existenciaRefaccion>=vo.getCantidad()) {
+            todoValido = true;
+        }else{
+            JOptionPane.showMessageDialog(this,
+                    "Esta refacción no tiene suficiente existencia.", 
+                    "Sin existencia.", JOptionPane.ERROR_MESSAGE);
+            todoValido = false;
+        }
         
+        
+        
+        
+        
+        
+        //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
+        todoValido = false;
+        //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
         if (todoValido) {
             //GUARDAMOS EL LOTE NUEVO.
             if(this.getCoordinador().salidaLoteGuadar(vo)){
-//                this.getCoordinador().entradaLoteActualizarExistencia();
+                this.getCoordinador().entradaLoteActualizarExistencia();
                 limpiar();
                 JOptionPane.showMessageDialog(this,
                         "Se registro la salida correctamente.");
@@ -839,6 +847,32 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
             }
         }
     }
+    
+    private EntradaLoteVo comprobacionesSobreLote(Object a, float existencia){
+
+        
+        EntradaLoteVo elvo = (EntradaLoteVo) a;
+        if (this.getCoordinador().entradaloteEsElLoteMasConExistencia(elvo)) {
+
+        }else{
+            EntradaLoteVo voLoteMasChicoAntiguo = 
+                    this.getCoordinador().entradaLoteMasAtiguoConExistencia();
+            String mensaje = "Esta refacción tiene un lote más antiguo que el"
+                    + "seleccionado. \n"
+                    + "Este es el lote seleccionado: "+ elvo.getFechaRecepcionLote() + "- Cantidad:" +elvo.getCantidad()+"\n"
+                    + " Este es el lote más antiguo: "+ voLoteMasChicoAntiguo.getFechaRecepcionLote() + "- Cantidad:" +voLoteMasChicoAntiguo.getCantidad()
+                    + "\n\n¿Deseas descontar la salida de lote actual a '"+voLoteMasChicoAntiguo.getFechaRecepcionLote() +"' que es más antiguo?";
+            int r = JOptionPane.showConfirmDialog(
+                    this, 
+                    mensaje, 
+                    "Hay un lote más antiguo.", 
+                    JOptionPane.WARNING_MESSAGE);
+            if (r=JOptionPane.YES_OPTION) {
+
+            }
+        }
+    } 
+    
     private void autocompletadoDeFecha(){
        _txtFechaDeLote.setText(FechaYHora.autoCompletarFecha(_txtFechaDeLote.getText(), FechaYHora.FECHA_DD_MM_AA));
     
@@ -961,7 +995,6 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
                 //POR SI HUBO ALGÚN CAMBIO ENTRE TODOS ESTOS MOVIMIENTOS.
                 // COMO MODIFICACIÓN DE LA REFACCIÓN. STOCK MINIMO O MÁXIMO, ETC. 
                 if (noSeCargoDesdeEsteDialogo) {
-                    JOptionPane.showMessageDialog(null, "disquenosecargoo - noSeCargoDesdeEsteDialogo");
                     /**
                      Esto lo tengo que hacer así por que el lambda me da error
                      * si modifico el vo de RefaccionVo. Me dice que tiene que
@@ -988,7 +1021,9 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
                 if (respuesta==JOptionPane.YES_OPTION) {
                     limpiar();
                     this.dispose();
-                    this.getCoordinador().entradaLoteAbrirDialogo(vo, ()->this.getCoordinador().salidaLoteAbrirDialogo(vo));
+                    this.getCoordinador().entradaLoteAbrirDialogo(vo, 
+                            ()->this.getCoordinador().salidaLoteAbrirDialogo(vo,
+                                    this.getCoordinador().getDialogoEntradaLote()));
                 }else{
                     limpiar();
                     JOptionPane.showMessageDialog(this,
@@ -1019,8 +1054,6 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         if (datos.size()==0) {
             _txtExistenciaLote.setText("");
         }
-    
-        
     }
     
     public void mostrarRefaccionParaEntrada(RefaccionVo vo){
@@ -1040,7 +1073,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         //CARGAMOS LAS IMAGENES. 
         cargarImagenes(vo.getId());
         _txtBusqueda.setText("");
-        _listaResultados.limpiar();
+//        _listaResultados.limpiar();
         
         
     }
@@ -1131,6 +1164,9 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         _txtObservaciones.setText("");
         _imagenesRefaccion.limpiarComponenteURL();
         _txtBusqueda.setFocus();
+        
+        _listaResultados.limpiar();
+        
     }
 
     private void salir(){

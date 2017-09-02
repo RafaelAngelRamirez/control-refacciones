@@ -755,6 +755,7 @@ public class DialogoEntradaLote extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this,
                         "Se guardo el lote correctamente.");
                 if (this.accionPostGuardado!=null) {
+                    
                     this.AccionAEjecutarPorCargaDeRefaccionDesdeOtroLugar();
                 }
                 
