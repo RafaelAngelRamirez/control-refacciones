@@ -746,7 +746,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegresarImagenActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+        JOptionPane.showMessageDialog(null, "aqui nooo");
         SalidaLoteIT it = new SalidaLoteIT();
         SalidaLoteVo vo = new SalidaLoteVo();
         boolean todoValido = true;
@@ -757,12 +757,14 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
             cantidad = Float.parseFloat(_txtCantidadQueEntra.getText());
         }
         vo.setCantidad(cantidad);
+        JOptionPane.showMessageDialog(null, "aqui nooo");
         
         vo.setFechaSalidaLote(FechaYHora.cambiarFormatoDeFecha(FechaYHora.FECHA_AAAA_MM_DD, _txtFechaDeLote.getText()));
         EmpleadoVo evo =(EmpleadoVo) _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
         vo.setIdEmpleado(evo.getId());
         vo.setIdRefaccion(idRefaccionActual);
         vo.setObservaciones(_txtObservaciones.getText());
+        JOptionPane.showMessageDialog(null, "aqui nooo");
         
         List<Validacion> validaciones = this.getCoordinador().salidaLoteValidarCampos(vo);
         for (Validacion validacione : validaciones) {
@@ -798,6 +800,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
             }
           
         }
+        JOptionPane.showMessageDialog(null, "aqui nooo");
         if (todoValido) {
             
             //COMPROBACIONES SOBRE LOS LOTES
@@ -869,30 +872,30 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         }
     }
     
-    private EntradaLoteVo comprobacionesSobreLote(Object a, float existencia){
-
-        
-        EntradaLoteVo elvo = (EntradaLoteVo) a;
-        if (this.getCoordinador().entradaloteEsElLoteMasConExistencia(elvo)) {
-
-        }else{
-            EntradaLoteVo voLoteMasChicoAntiguo = 
-                    this.getCoordinador().entradaLoteMasAtiguoConExistencia();
-            String mensaje = "Esta refacción tiene un lote más antiguo que el"
-                    + "seleccionado. \n"
-                    + "Este es el lote seleccionado: "+ elvo.getFechaRecepcionLote() + "- Cantidad:" +elvo.getCantidad()+"\n"
-                    + " Este es el lote más antiguo: "+ voLoteMasChicoAntiguo.getFechaRecepcionLote() + "- Cantidad:" +voLoteMasChicoAntiguo.getCantidad()
-                    + "\n\n¿Deseas descontar la salida de lote actual a '"+voLoteMasChicoAntiguo.getFechaRecepcionLote() +"' que es más antiguo?";
-            int r = JOptionPane.showConfirmDialog(
-                    this, 
-                    mensaje, 
-                    "Hay un lote más antiguo.", 
-                    JOptionPane.WARNING_MESSAGE);
-            if (r=JOptionPane.YES_OPTION) {
-
-            }
-        }
-    } 
+//    private EntradaLoteVo comprobacionesSobreLote(Object a, float existencia){
+//
+//        
+//        EntradaLoteVo elvo = (EntradaLoteVo) a;
+//        if (this.getCoordinador().entradaloteEsElLoteMasConExistencia(elvo)) {
+//
+//        }else{
+//            EntradaLoteVo voLoteMasChicoAntiguo = 
+//                    this.getCoordinador().entradaLoteMasAtiguoConExistencia();
+//            String mensaje = "Esta refacción tiene un lote más antiguo que el"
+//                    + "seleccionado. \n"
+//                    + "Este es el lote seleccionado: "+ elvo.getFechaRecepcionLote() + "- Cantidad:" +elvo.getCantidad()+"\n"
+//                    + " Este es el lote más antiguo: "+ voLoteMasChicoAntiguo.getFechaRecepcionLote() + "- Cantidad:" +voLoteMasChicoAntiguo.getCantidad()
+//                    + "\n\n¿Deseas descontar la salida de lote actual a '"+voLoteMasChicoAntiguo.getFechaRecepcionLote() +"' que es más antiguo?";
+//            int r = JOptionPane.showConfirmDialog(
+//                    this, 
+//                    mensaje, 
+//                    "Hay un lote más antiguo.", 
+//                    JOptionPane.WARNING_MESSAGE);
+//            if (r=JOptionPane.YES_OPTION) {
+//
+//            }
+//        }
+//    } 
     
     private void autocompletadoDeFecha(){
        _txtFechaDeLote.setText(FechaYHora.autoCompletarFecha(_txtFechaDeLote.getText(), FechaYHora.FECHA_DD_MM_AA));
