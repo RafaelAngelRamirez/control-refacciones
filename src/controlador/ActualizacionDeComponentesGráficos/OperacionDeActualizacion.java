@@ -1,6 +1,8 @@
 
 package controlador.ActualizacionDeComponentesGráficos;
 
+import java.util.HashMap;
+
 /**
  * Esta clase almacena las operaciones de actualización y los datos referentes
  * a ella como lo son estatus de actaulización entre otros que más adelante iremos
@@ -8,5 +10,11 @@ package controlador.ActualizacionDeComponentesGráficos;
  * @author Particular
  */
 public class OperacionDeActualizacion {
+    
+    
+    
+
+   
+    
     
 }
