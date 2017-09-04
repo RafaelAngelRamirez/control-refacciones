@@ -125,7 +125,7 @@ public class EntradaLoteDao extends DAOGenerales{
                 +"(SELECT min("+it.getFechaRecepcionLotePDC().getNombre()+") "
                         + " FROM "+EntradaLoteIT.NOMBRE_TABLA
                         + " WHERE "+
-                        it.getIdRefaccionPDC() + " =? "
+                        it.getIdRefaccionPDC().getNombre()+ " =? "
                         + " AND "+
                         it.getCantidadPDC().getNombre() +">0 )" 
                 +" AND "+
@@ -136,29 +136,30 @@ public class EntradaLoteDao extends DAOGenerales{
                         +" WHERE "+
                         it.getIdRefaccionPDC().getNombre()+"= ?"
                         +" AND "+ 
-                        it.getCantidadPDC() + " >0 "
+                        it.getCantidadPDC().getNombre() + " >0 "
                         +" AND " + 
                         it.getFechaRecepcionLotePDC().getNombre() +" = "
                         +"(SELECT min("+it.getFechaRecepcionLotePDC().getNombre() +") "
                             + " FROM " + EntradaLoteIT.NOMBRE_TABLA 
                             + " WHERE "+
-                            it.getIdRefaccionPDC() + " =? "
+                            it.getIdRefaccionPDC().getNombre() + " =? "
                             + " AND "+
                             it.getCantidadPDC().getNombre() +">0 )"+
                 ")";
-        HashMap<Integer, String> datos = new HashMap<>();
-        datos.put(1, id+"");
-        datos.put(2, id+"");
-        datos.put(3, id+"");
-        datos.put(4, id+"");
+        HashMap<Integer, Object> datos = new HashMap<>();
+        datos.put(1, id);
+        datos.put(2, id);
+        datos.put(3, id);
+        datos.put(4, id);
         ResultSet r = conexion.executeQuery(sql, datos);
         EntradaLoteVo vo = null;
         try {
-            r.next();
-            vo = new EntradaLoteVo();
-            vo.setId(r.getInt(it.getIdPDC().getNombre()));
-            vo.setFechaRecepcionLote(r.getDate(it.getFechaRecepcionLotePDC().getNombre()));
-            vo.setCantidad(r.getFloat(it.getCantidadPDC().getNombre()));
+            if(r.next()){
+                vo = new EntradaLoteVo();
+                vo.setId(r.getInt(it.getIdPDC().getNombre()));
+                vo.setFechaRecepcionLote(r.getDate(it.getFechaRecepcionLotePDC().getNombre()));
+                vo.setCantidad(r.getFloat(it.getCantidadPDC().getNombre()));
+            }
         
         } catch (SQLException ex) {
             Logger.getLogger(EntradaLoteDao.class.getName()).log(Level.SEVERE, null, ex);

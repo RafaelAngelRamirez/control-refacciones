@@ -50,7 +50,13 @@ import javax.swing.JOptionPane;
         * Crea el reloj y lo asigna a la etiqueta dispuesta para eso. 
         */
        public void horaMinutoSegundo(){
-           this.etiquetaHora.setText(FechaYHora.Actual.getHora_Hhmmss());
+           try {
+            this.etiquetaHora.setText(FechaYHora.Actual.getHora_Hhmmss());
+               
+           } catch (Exception e) {
+               JOptionPane.showMessageDialog(null, "algo paso con la hora de la cabecera. ");
+            Logger.getLogger(HiloParaFechaYHoraCabecera.class.getName()).log(Level.SEVERE, null, e);
+           }
        }
        
        /**

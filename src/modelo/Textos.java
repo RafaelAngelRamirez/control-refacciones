@@ -1,5 +1,6 @@
 package modelo;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -143,6 +144,7 @@ public class Textos {
                 cadenaNueva += texto+espacio;
             }else{
                 String subTexto = texto.substring(0, totalEspacio-4);
+                
                 espacio+="..."+caracterDeSeparación;
                 cadenaNueva += subTexto+espacio;
 
@@ -155,4 +157,19 @@ public class Textos {
         }
         return null;
     }
+    
+    /**
+     * Formatea una cadena numerica agregando seún el patron que se le pase.
+     * Esta basado en decimalFormat.
+     * @param numero
+     * @return
+     */
+    public static String formaetarNumeros (int numero, String patron){
+    
+        DecimalFormat df = new DecimalFormat(patron);
+        String resultado  = df.format(numero);
+        return resultado;
+    
+    }
+    
 }

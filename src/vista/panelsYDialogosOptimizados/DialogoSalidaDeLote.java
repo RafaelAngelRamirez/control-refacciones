@@ -14,6 +14,7 @@ import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.SalidaLoteIT;
+import modelo.Textos;
 import modelo.logica.Validacion;
 import modelo.vo.EmpleadoVo;
 import modelo.vo.EntradaLoteVo;
@@ -797,33 +798,36 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
             }
           
         }
-        
-        //COMPROBACIONES SOBRE LOS LOTES
-        HashMap<String, Object> lotesDisponibles = _comboLotesDisponibles.getRelacionDatoObjeto();
-        EntradaLoteVo elvo = null;
-        //LA REFACCIÓN POR LO MENOS TIENE UN LOTE
-        if (lotesDisponibles.size()>0 && todoValido) {
-            todoValido = true;
-        }else{
-            JOptionPane.showMessageDialog(this, 
-                    "Esta refacción no tiene existencias.", 
-                    "Sin existencia.", JOptionPane.ERROR_MESSAGE);
-            todoValido = false;
-        }
-        
-        float existenciaRefaccion = this.getCoordinador().entradaLoteExistencia(vo.getIdRefaccion());
-        if (existenciaRefaccion>=vo.getCantidad()&& todoValido) {
-            todoValido = true;
-        }else{
-            _txtCantidadQueEntra.setError(
-                    "Esta refacción no tiene suficiente existencia.");
-            todoValido = false;
+        if (todoValido) {
+            
+            //COMPROBACIONES SOBRE LOS LOTES
+            HashMap<String, Object> lotesDisponibles = _comboLotesDisponibles.getRelacionDatoObjeto();
+            EntradaLoteVo elvo = null;
+            //LA REFACCIÓN POR LO MENOS TIENE UN LOTE
+            if (lotesDisponibles.size()>0) {
+                todoValido = true;
+            }else{
+                JOptionPane.showMessageDialog(this, 
+                        "Esta refacción no tiene existencias.", 
+                        "Sin existencia.", JOptionPane.ERROR_MESSAGE);
+                todoValido = false;
+            }
+
+            float existenciaRefaccion = this.getCoordinador().entradaLoteExistencia(vo.getIdRefaccion());
+            if (existenciaRefaccion>=vo.getCantidad()&& todoValido) {
+                todoValido = true;
+            }else{
+                _txtCantidadQueEntra.setError(
+                        "Esta refacción no tiene suficiente existencia.");
+                todoValido = false;
+            }
         }
         
         //HAY UN LOTE MENOR QUE EL SELECCIONADO. ESTE NO MUESTRA MENSAJE
         // PARA DESPUES COMPROBAR SI EL LOTE TIENE SUFICIENTE EXISTENCIA.
         if (todoValido) {
-            EntradaLoteVo voLoteMasAtiguo = this.getCoordinador().entradaLoteLoteMasAntiguo(vo.getId());
+            JOptionPane.showMessageDialog(null, idRefaccionActual);
+            EntradaLoteVo voLoteMasAtiguo = this.getCoordinador().entradaLoteLoteMasAntiguo(idRefaccionActual);
             EntradaLoteVo voLoteActual = (EntradaLoteVo)this._comboLotesDisponibles.getSelectedItem_idRetorno();
             
             JOptionPane.showMessageDialog(null, "comparativa:\n\n"
@@ -1064,8 +1068,8 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         HashMap<String, Object> datos = new HashMap<>();
         
         for (EntradaLoteVo vo : listaLotes) {
-            
-            datos.put(vo.getFechaRecepcionLote()+" | "+vo.getId(), vo);
+            String idFormateado = Textos.formaetarNumeros(vo.getId(), "0000000");
+            datos.put(vo.getFechaRecepcionLote()+" | "+idFormateado, vo);
         }
         _comboLotesDisponibles.cargarCombo(datos);
         if (datos.size()==0) {
