@@ -53,6 +53,7 @@ import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
 import vista.UtilidadesIntefaz.DialogoBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
+import vista.UtilidadesIntefaz.VentanaPrincipal.MenuConstructor;
 
 /**
  * Se controlan todas las interacciónes entre las diferentes ventanas. Se mantiene
@@ -1200,7 +1201,7 @@ public class Coordinador {
     }
     
     public class OperacionesPorActualizar{
-        private MarcoParaVentanaPrincipal.MenuConstructor panel;
+        private MenuConstructor panel;
         private List<Runnable> operacionesParaActualizar;
         private boolean actualizado;
 
@@ -1231,7 +1232,7 @@ public class Coordinador {
          * @return El panel guardado.
          * @see Menuconstructor
          */
-        public MarcoParaVentanaPrincipal.MenuConstructor getPanel() {
+        public MenuConstructor getPanel() {
             return panel;
         }
 
@@ -1240,7 +1241,7 @@ public class Coordinador {
          * con el que se esta visualizando. 
          * @param panel El MenuConstructor 
          */
-        public void setPanel(MarcoParaVentanaPrincipal.MenuConstructor panel) {
+        public void setPanel(MenuConstructor panel) {
             this.panel = panel;
         }
 
