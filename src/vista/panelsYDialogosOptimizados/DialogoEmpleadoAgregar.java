@@ -2,16 +2,19 @@
 package vista.panelsYDialogosOptimizados;
 
 import controlador.Coordinador;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
 import vista.FechaYHora;
+import vista.DialogoBase;
+import vista.JPanelBase;
 
 import vista.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -21,13 +24,14 @@ import vista.utilidadesOptimizadas.UtilidadesTxt_;
  *
  * @author Particular
  */
-public class DialogoEmpleadoAgregar extends javax.swing.JDialog {
+public class DialogoEmpleadoAgregar extends vista.JPanelBase{
     Coordinador coordinador;
     
     UtilidadesTxt_ _txtNombre;
     UtilidadesComboBox_ _comboDepartamentos;
     boolean empleadoAdelantado= false;
     
+   
     /**
      * Creates new form DialogoAgregarEmpleado
      */
@@ -51,19 +55,12 @@ public class DialogoEmpleadoAgregar extends javax.swing.JDialog {
         comboDepartamento = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(2, 10), new java.awt.Dimension(2, 10), new java.awt.Dimension(2, 10));
 
         jLabel2.setBackground(new java.awt.Color(98, 15, 89));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_agregar empleado.png"))); // NOI18N
-        jLabel2.setOpaque(true);
 
         etiquetaNombre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombre.setText("Nombre");
@@ -98,46 +95,56 @@ public class DialogoEmpleadoAgregar extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(etiquetaNombre)
-                    .addComponent(etiquetaDepartamento)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(etiquetaDepartamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboDepartamento, javax.swing.GroupLayout.Alignment.LEADING, 0, 195, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuardar))
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(etiquetaNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(etiquetaDepartamento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCancelar)
-                        .addComponent(btnGuardar))
-                    .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(etiquetaDepartamento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnCancelar)
+                                .addComponent(btnGuardar)))
+                        .addContainerGap(41, Short.MAX_VALUE))))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    @Override
     public void configurar(){
         configurar("");
     }
@@ -149,18 +156,19 @@ public class DialogoEmpleadoAgregar extends javax.swing.JDialog {
     public void configurar(String empleadoAdelantado){
      /*
         =======================================================================
-            INICIO CONFIGURACIONES DIALOGO
+            INICIO CONFIGURACIONES DIALOGO 
         ///////////////////////////////////////////////////////////////////////
 
         Los dialogos nos los estoy configurando de manera complicada. Solo lo
         básico para que funcionen en modal.
         
         */ 
-        setModal(false);
-        setResizable(false);
-        setTitle("Agregar nuevo empleado");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        configuracionesDialogo = this.coordinador.getDialogoBase().new Config();
+        configuracionesDialogo.setModal(false);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle("Agregar nuevo empleado");
+        configuracionesDialogo.setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -247,6 +255,10 @@ public class DialogoEmpleadoAgregar extends javax.swing.JDialog {
         ========================================================================
         */    
     
+    }
+    
+    public void dispose(){
+     JOptionPane.showMessageDialog(null, "pendiente!! xP");
     }
     
     private boolean guardarDepartamento(){
@@ -382,6 +394,8 @@ public class DialogoEmpleadoAgregar extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+   
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -397,6 +411,7 @@ public class DialogoEmpleadoAgregar extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> comboDepartamento;
     private javax.swing.JLabel etiquetaDepartamento;
     private javax.swing.JLabel etiquetaNombre;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

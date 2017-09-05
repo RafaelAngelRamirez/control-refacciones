@@ -148,7 +148,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     /**
      * Nombre del dialogo agregar empleado.
      */
-    public static String DIALOGO_EMPLEADO_AGREGAR = "Agregar empleado";
+    public static String PANEL_EMPLEADO_AGREGAR = "Agregar empleado";
     
     /**
      * Nombre del dialogo modficar empleado.
@@ -499,11 +499,13 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         
         MenuConstructor dialogoEmpleadoAgregar = new MenuConstructor();
         dialogoEmpleadoAgregar.setItem();
-        dialogoEmpleadoAgregar.setNombre(DIALOGO_EMPLEADO_AGREGAR);
+        dialogoEmpleadoAgregar.setNombre(PANEL_EMPLEADO_AGREGAR);
         dialogoEmpleadoAgregar.setPadre(menuAgregarRegistrar);
-        dialogoEmpleadoAgregar.setAccionDelItem(
-                ()->this.getCoordinador().empleadoAbrirDialogoAgregar());
-        dialogoEmpleadoAgregar.setDialog(this.getCoordinador().getDialogoEmpleadoAgregar());
+//        dialogoEmpleadoAgregar.setAccionDelItem(
+//                ()->this.getCoordinador().pruebaDeAbrirPanel());
+        dialogoEmpleadoAgregar.setPanel(this.getCoordinador().pruebaDeConfiguracionPanel());
+        dialogoEmpleadoAgregar.setAccionDeInicializacion(
+                    ()->this.getCoordinador().pruebaDeAbrirPanel());
         this.addItemOMenu(dialogoEmpleadoAgregar);
         
         Coordinador.OperacionesPorActualizar dialogoEmpleadoAgregarOPA 
@@ -512,6 +514,16 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEmpleadoAgregarOPA.addOperacionParaActualizar(
                 ()->this.getCoordinador().maquinaModeloActualizarDialogoAgregar());
         this.getCoordinador().addListaOperacionesPorActualizar(dialogoEmpleadoAgregarOPA);
+        
+        //--------------------///////////////////
+        
+        MenuConstructor prueba = new MenuConstructor();
+        prueba.setItem();
+        prueba.setNombre("PRUEBA!!!");
+        prueba.setPadre(menuAgregarRegistrar);
+        prueba.setAccionDelItem(()->this.coordinador.pruebaAccionDelItem());
+        prueba.setDialog(this.coordinador.pruebaSetDialog());
+        this.addItemOMenu(prueba);
         
         
         /**

@@ -82,6 +82,10 @@ public class Principal {
         PanelRefaccionModificar panelRefaccionModificar = new PanelRefaccionModificar();
         
         //DIALOGOS
+        
+        //EL NUEVO UNICO DIALOGO
+        DialogoBase dialogoBase = new DialogoBase();
+        
         DialogoProveedorRegistrar dialogoProveedorRegistrar = new DialogoProveedorRegistrar();
         DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar = new DialogoMaquinaModeloAgregar();
         DialogoRefaccionDetalle dialogoRefaccionDetalle = new DialogoRefaccionDetalle();
@@ -123,6 +127,7 @@ public class Principal {
         dialogoEmpleadoAgregar.setCoordinador(coordinador);
         dialogoEmpleadoModificar.setCoordinador(coordinador);
         dialogoSalidaDeLote.setCoordinador(coordinador);
+        dialogoBase.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         
@@ -147,6 +152,7 @@ public class Principal {
         coordinador.setDialogoEmpleadoAgregar(dialogoEmpleadoAgregar);
         coordinador.setDialogoEmpleadoModificar(dialogoEmpleadoModificar);
         coordinador.setDialogoSalidaDeLote(dialogoSalidaDeLote);
+        coordinador.setDialogoBase(dialogoBase);
         
 //        /*
 //        ====================================================================

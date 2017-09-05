@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import modelo.ExcepcionPersonalizada;
 import modelo.InfoTabla.ImagenProveedorIT;
 import modelo.InfoTabla.ImagenRefaccionIT;
@@ -39,6 +40,7 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
+import vista.DialogoBase;
 import vista.MarcoParaVentanaPrincipal;
 import vista.panelsYDialogosOptimizados.*;
 
@@ -68,6 +70,7 @@ public class Coordinador {
     private DialogoEmpleadoAgregar dialogoEmpleadoAgregar;
     private DialogoEmpleadoModificar dialogoEmpleadoModificar;
     private DialogoSalidaDeLote dialogoSalidaDeLote;
+    private DialogoBase dialogoBase;
     
     
     public void salirDelSistema(){
@@ -89,6 +92,41 @@ public class Coordinador {
     GETS AND SETS
     ////////////////////////////////////////////////////////////////////////
      */
+    
+    public void pruebaDeAbrirPanel(){
+        JOptionPane.showMessageDialog(null, "estamos super aca");
+        this.getDialogoEmpleadoAgregar().configurar();
+        this.getDialogoEmpleadoAgregar().setVisible(true);
+        
+    }
+    
+    public void pruebaAccionDelItem(){
+           this.getDialogoEmpleadoAgregar().configurar();
+           this.getDialogoBase().configurarPanel();
+           this.getDialogoBase().setVisible(true);
+    }
+    
+    public JDialog pruebaSetDialog(){
+
+        DialogoBase d = getDialogoBase();
+        d.remove(this.getDialogoEmpleadoAgregar());
+        d.addPanel(this.getDialogoEmpleadoAgregar());
+        d.pack();
+        return d;
+    }
+    
+    public JPanel pruebaDeConfiguracionPanel(){
+        return (JPanel)this.getDialogoEmpleadoAgregar();
+    }
+    
+    
+    public DialogoBase getDialogoBase() {
+        return dialogoBase;
+    }
+
+    public void setDialogoBase(DialogoBase dialogoBase) {
+        this.dialogoBase = dialogoBase;
+    }
 
     public DialogoSalidaDeLote getDialogoSalidaLote() {
         return dialogoSalidaDeLote;
