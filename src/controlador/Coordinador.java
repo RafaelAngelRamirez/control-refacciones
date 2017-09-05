@@ -1,9 +1,20 @@
 
 package controlador;
 
+import vista.panels.DialogoEmpleadoModificar;
+import vista.panels.DialogoRefaccionDetalle;
+import vista.panels.DialogoMaquinaModeloAgregar;
+import vista.panels.DialogoProveedorModificar;
+import vista.panels.DialogoImagenRefaccionDetalle;
+import vista.panels.DialogoMaquinaModeloModificar;
+import vista.panels.DialogoEntradaLote;
+import vista.panels.DialogoEmpleadoAgregar;
+import vista.panels.DialogoProveedorRegistrar;
+import vista.panels.DialogoSalidaDeLote;
+import vista.panels.PanelRefaccionModificar;
 import java.awt.Component;
-import vista.panelsYDialogosOptimizados.PanelRefaccionAgregar;
-import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
+import vista.panels.PanelRefaccionAgregar;
+import vista.panels.PanelRefaccionesConsulta;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -40,9 +51,8 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
-import vista.DialogoBase;
-import vista.MarcoParaVentanaPrincipal;
-import vista.panelsYDialogosOptimizados.*;
+import vista.UtilidadesIntefaz.DialogoBase;
+import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 
 /**
  * Se controlan todas las interacciónes entre las diferentes ventanas. Se mantiene

@@ -15,8 +15,21 @@
  */
 package controlador;
 
-import vista.panelsYDialogosOptimizados.PanelRefaccionAgregar;
-import vista.panelsYDialogosOptimizados.PanelRefaccionesConsulta;
+import vista.panels.DialogoEmpleadoModificar;
+import vista.panels.DialogoRefaccionDetalle;
+import vista.panels.DialogoMaquinaModeloAgregar;
+import vista.panels.DialogoProveedorModificar;
+import vista.panels.DialogoImagenRefaccionDetalle;
+import vista.panels.DialogoMaquinaModeloModificar;
+import vista.panels.DialogoEntradaLote;
+import vista.panels.DialogoEmpleadoAgregar;
+import vista.panels.DialogoProveedorRegistrar;
+import vista.panels.DialogoSalidaDeLote;
+import vista.panels.PanelRefaccionModificar;
+import vista.UtilidadesIntefaz.DialogoBase;
+import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
+import vista.panels.PanelRefaccionAgregar;
+import vista.panels.PanelRefaccionesConsulta;
 import com.bulenkov.darcula.DarculaLaf;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
@@ -26,8 +39,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import modelo.logica.Logica;
-import vista.*;
-import vista.panelsYDialogosOptimizados.*;
 
 /**
  *
