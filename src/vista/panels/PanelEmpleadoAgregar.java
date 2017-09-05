@@ -6,15 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
 import modelo.FechaYHora;
-import vista.UtilidadesIntefaz.DialogoBase;
-import vista.UtilidadesIntefaz.JPanelBase;
 
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -24,7 +21,7 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  *
  * @author Particular
  */
-public class DialogoEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
+public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
     Coordinador coordinador;
     
     UtilidadesTxt_ _txtNombre;
@@ -35,7 +32,7 @@ public class DialogoEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
     /**
      * Creates new form DialogoAgregarEmpleado
      */
-    public DialogoEmpleadoAgregar() {
+    public PanelEmpleadoAgregar() {
         initComponents();
     }
 
@@ -129,9 +126,7 @@ public class DialogoEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(etiquetaDepartamento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -139,9 +134,8 @@ public class DialogoEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnCancelar)
                                 .addComponent(btnGuardar))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(41, Short.MAX_VALUE))))
+                            .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     
@@ -167,17 +161,15 @@ public class DialogoEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
         configuracionesDialogo = this.coordinador.getDialogoBase().new Config();
         configuracionesDialogo.setModal(false);
         configuracionesDialogo.setResizable(false);
-        configuracionesDialogo.setTitle("Agregar nuevo empleado");
+        configuracionesDialogo.setTitle(Coordinador.PANEL_EMPLEADO_AGREGAR);
         configuracionesDialogo.setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
-            FIN SETEO DE UTILIDADES
+            FIN CONFIGURACIONES DIALOGO 
         ========================================================================
         */
-        
-       
         
         
         /*

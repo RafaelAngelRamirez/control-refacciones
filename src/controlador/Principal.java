@@ -22,7 +22,7 @@ import vista.panels.DialogoProveedorModificar;
 import vista.panels.DialogoImagenRefaccionDetalle;
 import vista.panels.DialogoMaquinaModeloModificar;
 import vista.panels.DialogoEntradaLote;
-import vista.panels.DialogoEmpleadoAgregar;
+import vista.panels.PanelEmpleadoAgregar;
 import vista.panels.DialogoProveedorRegistrar;
 import vista.panels.DialogoSalidaDeLote;
 import vista.panels.PanelRefaccionModificar;
@@ -104,7 +104,7 @@ public class Principal {
         DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar = new DialogoMaquinaModeloModificar();
         DialogoProveedorModificar dialogoProveedorModificar = new DialogoProveedorModificar();
         DialogoEntradaLote dialogoEntradaLote = new DialogoEntradaLote();
-        DialogoEmpleadoAgregar dialogoEmpleadoAgregar = new DialogoEmpleadoAgregar();
+        PanelEmpleadoAgregar panelEmpleadoAgregar = new PanelEmpleadoAgregar();
         DialogoEmpleadoModificar dialogoEmpleadoModificar = new DialogoEmpleadoModificar();
         DialogoSalidaDeLote dialogoSalidaDeLote = new DialogoSalidaDeLote();
         
@@ -135,7 +135,7 @@ public class Principal {
         dialogoMaquinaModeloModificar.setCoordinador(coordinador);
         dialogoProveedorModificar.setCoordinador(coordinador);
         dialogoEntradaLote.setCoordinador(coordinador);
-        dialogoEmpleadoAgregar.setCoordinador(coordinador);
+        panelEmpleadoAgregar.setCoordinador(coordinador);
         dialogoEmpleadoModificar.setCoordinador(coordinador);
         dialogoSalidaDeLote.setCoordinador(coordinador);
         dialogoBase.setCoordinador(coordinador);
@@ -160,7 +160,7 @@ public class Principal {
         coordinador.setDialogoMaquinaModeloModificar(dialogoMaquinaModeloModificar);
         coordinador.setDialogoProveedorModificar(dialogoProveedorModificar);
         coordinador.setDialogoEntradaLote(dialogoEntradaLote);
-        coordinador.setDialogoEmpleadoAgregar(dialogoEmpleadoAgregar);
+        coordinador.setPanelEmpleadoAgregar(panelEmpleadoAgregar);
         coordinador.setDialogoEmpleadoModificar(dialogoEmpleadoModificar);
         coordinador.setDialogoSalidaDeLote(dialogoSalidaDeLote);
         coordinador.setDialogoBase(dialogoBase);

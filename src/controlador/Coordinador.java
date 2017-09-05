@@ -8,11 +8,10 @@ import vista.panels.DialogoProveedorModificar;
 import vista.panels.DialogoImagenRefaccionDetalle;
 import vista.panels.DialogoMaquinaModeloModificar;
 import vista.panels.DialogoEntradaLote;
-import vista.panels.DialogoEmpleadoAgregar;
+import vista.panels.PanelEmpleadoAgregar;
 import vista.panels.DialogoProveedorRegistrar;
 import vista.panels.DialogoSalidaDeLote;
 import vista.panels.PanelRefaccionModificar;
-import java.awt.Component;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionesConsulta;
 import java.util.ArrayDeque;
@@ -78,11 +77,71 @@ public class Coordinador {
     private DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar;
     private DialogoProveedorModificar dialogoProveedorModificar;
     private DialogoEntradaLote dialogoEntradaLote;
-    private DialogoEmpleadoAgregar dialogoEmpleadoAgregar;
+    private PanelEmpleadoAgregar panelEmpleadoAgregar;
     private DialogoEmpleadoModificar dialogoEmpleadoModificar;
     private DialogoSalidaDeLote dialogoSalidaDeLote;
     private DialogoBase dialogoBase;
     
+    
+    /*------------------------------------------------------------
+        NOMBRAMOS LOS PANELES Y DIALOGOS CON VARIABLES ESTATICAS
+        PARA IDENTIFICARLOS Y LLAMARLOS POR FUERA. ESTE MISMO NOMBRE
+        SE MUESTRA EN LOS MENUS.
+    ------------------------------------------------------------*/
+    /**
+     * Nombre del panel principal donde se consultar las refacciones al 
+     * iniciar el sistema.
+     */
+    public static String PANEL_CONSULTAR_REFACCIONES = "Consultar refacciones";
+    /**
+     * Nombre del panel registro de refacciones.
+     */
+    public static String PANEL_REGISTRAR_NUEVA_REFACCION = "Registrar nueva refacción";
+    /**
+     * Nombre del panel para modificar refacciones. 
+     */
+    public static String PANEL_MODIFICAR_REFACCION = "Modificar refacción";
+    /**
+     * Dialogo Imagen detalle.
+     */
+    public static String DIALOGO_IMAGEN_DETALLE = "Detalle de imagen";
+    /**
+     * Nombre del dialogo Maquina modelo agregar
+     */
+    public static String DIALOGO_MAQUINA_MODELO_AGREGAR = "Registrar maquina-modelo";
+    /**
+     * Nombre del dialogo Maquina modelo modificar
+     */
+    public static String DIALOGO_MAQUINA_MODELO_MODIFICAR = "Modificar maquina-modelo";
+    /**
+     * Nombre del dialogo proveedor registrar.
+     */
+    public static String DIALOGO_PROVEEDOR_REGISTRAR = "Registrar proveedor";
+    /**
+     * Nombre del dialogo proveedor modificar.
+     */
+    public static String DIALOGO_PROVEEDOR_MODIFICAR = "Modificar proveedor";
+    /**
+     * Nombre del dialogo refaccion detalle.
+     */
+    public static String DIALOGO_REFACCION_DETALLE = "Detalle refacción";
+    /**
+     * Nombre del dialogo entrada lote.
+     */
+    public static String DIALOGO_ENTRADA_LOTE = "Entrada lote";
+    /**
+     * Nombre del dialogo entrada lote.
+     */
+    public static String DIALOGO_SALIDA_LOTE = "Salida lote";
+    /**
+     * Nombre del dialogo agregar empleado.
+     */
+    public static String PANEL_EMPLEADO_AGREGAR = "Agregar empleado";
+    
+    /**
+     * Nombre del dialogo modficar empleado.
+     */
+    public static String DIALOGO_EMPLEADO_MODIFICAR = "Modificar empleado";
     
     public void salirDelSistema(){
         JOptionPane.showMessageDialog(null, "saliendo!");
@@ -106,13 +165,13 @@ public class Coordinador {
     
     public void pruebaDeAbrirPanel(){
         JOptionPane.showMessageDialog(null, "estamos super aca");
-        this.getDialogoEmpleadoAgregar().configurar();
-        this.getDialogoEmpleadoAgregar().setVisible(true);
+        this.getPanelEmpleadoAgregar().configurar();
+        this.getPanelEmpleadoAgregar().setVisible(true);
         
     }
     
     public void pruebaAccionDelItem(){
-           this.getDialogoEmpleadoAgregar().configurar();
+           this.getPanelEmpleadoAgregar().configurar();
            this.getDialogoBase().configurarPanel();
            this.getDialogoBase().setVisible(true);
     }
@@ -120,14 +179,14 @@ public class Coordinador {
     public JDialog pruebaSetDialog(){
 
         DialogoBase d = getDialogoBase();
-        d.remove(this.getDialogoEmpleadoAgregar());
-        d.addPanel(this.getDialogoEmpleadoAgregar());
+        d.remove(this.getPanelEmpleadoAgregar());
+        d.addPanel(this.getPanelEmpleadoAgregar());
         d.pack();
         return d;
     }
     
     public JPanel pruebaDeConfiguracionPanel(){
-        return (JPanel)this.getDialogoEmpleadoAgregar();
+        return (JPanel)this.getPanelEmpleadoAgregar();
     }
     
     
@@ -155,11 +214,11 @@ public class Coordinador {
         this.dialogoEmpleadoModificar = dialogoEmpleadoModificar;
     }
     
-    public DialogoEmpleadoAgregar getDialogoEmpleadoAgregar() {    
-        return dialogoEmpleadoAgregar;
+    public PanelEmpleadoAgregar getPanelEmpleadoAgregar() {    
+        return panelEmpleadoAgregar;
     }
-    public void setDialogoEmpleadoAgregar(DialogoEmpleadoAgregar dialogoEmpleadoAgregar) {
-        this.dialogoEmpleadoAgregar = dialogoEmpleadoAgregar;
+    public void setPanelEmpleadoAgregar(PanelEmpleadoAgregar panelEmpleadoAgregar) {
+        this.panelEmpleadoAgregar = panelEmpleadoAgregar;
     }
 
     public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
@@ -649,13 +708,13 @@ public class Coordinador {
 
     public void refaccionAbrirPanelModificar(int idRefaccion){
         this.getMarcoParaVentanaPrincipal()
-                .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION);
+                .setJPanel(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION);
         this.getPanelRefaccionModificar().configurar(idRefaccion, 0);
     }
     
     public void refaccionAbrirPanelConsultaRefacciones(){
         this.getMarcoParaVentanaPrincipal()
-                .setJPanelActual(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES);
+                .setJPanel(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES);
         
     }
     
@@ -838,13 +897,13 @@ public class Coordinador {
     */
     
     public void empleadoAbrirDialogoAgregar(){
-        this.getDialogoEmpleadoAgregar().setVisible(true);
-        this.getDialogoEmpleadoAgregar().configurar();
+        this.getPanelEmpleadoAgregar().setVisible(true);
+        this.getPanelEmpleadoAgregar().configurar();
     }
     
     public void empleadoAbrirDialogoAgregar(String empleadoNuevo){
-        this.getDialogoEmpleadoAgregar().setVisible(true);
-        this.getDialogoEmpleadoAgregar().configurar(empleadoNuevo);
+        this.getPanelEmpleadoAgregar().setVisible(true);
+        this.getPanelEmpleadoAgregar().configurar(empleadoNuevo);
     }
     
     public void empleadoAbrirDialogoMoficar(){

@@ -77,7 +77,6 @@ public class MenuConstructor {
      * 
      * @return Retorna la acción que ejecutara un item al ser ejecutado .
      */
-    @Deprecated
     public Runnable getAccionDelItem() {
         return accionDelItem;
     }
@@ -158,54 +157,6 @@ public class MenuConstructor {
         } 
 
     }
-
-//    /**
-//     * Retorna el panel al que señala el item. 
-//     * @return El panel que se tiene almacenado.  
-//     */
-//    @Deprecated
-//    public JPanel getThisPanel() {
-//        try {
-//            if (this.menu==true) {
-//                throw new ExcepcionPersonalizada(
-//                    "Este menyConstructor ya esta definido como un menu y no "
-//                            + " puedes definir un panel dentro de el.",
-//                    this, "setThisPanel");
-//            }else if( this.accionDelItem == null && this.thisPanel==null){
-//                throw new ExcepcionPersonalizada( 
-//                    "No definiste una acción para este Menú costructor y por"
-//                     + "defecto este tomando la acción de cambiar de Jpanel "
-//                            + "pero tampoco esta definido un JPanel", this, "getThisPanel"
-//                );
-//            }
-//            return thisPanel;
-//
-//        } catch (ExcepcionPersonalizada ex) {
-//            Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return null;
-//    }
-
-//    /**
-//     * Setea el panel al que se quiere llamar por medio de un item.
-//     * @param thisPanel El panel que se quiere almacenar. 
-//     */
-//    @Deprecated
-//    public void setPanel(JPanel thisPanel) {
-//        try {
-//            if (this.menu==true) {
-//                throw new ExcepcionPersonalizada(
-//                    "Este menuConstructor ya esta definido como un menu y no "
-//                            + " puedes definir un panel dentro de el.",
-//                    this, "setThisPanel");
-//            }
-//
-//            this.thisPanel = thisPanel;
-//        } catch (ExcepcionPersonalizada ex) {
-//            Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//        } 
-//    }
-
     /*
      * Retorna el padre de el menu o el item. 
      */
@@ -250,82 +201,6 @@ public class MenuConstructor {
         this.imagen = imagen;
     }
 
-    /**
-     * Define la acción que se ejecutara para inicializar el panel que es 
-     * llamado a la ventana principal. Estas configuraciones solo se pueden
-     * correr hasta despues de que la clase Coordinador haya cargado y 
-     * seteado todos los paneles, de manera que no se puede hacer en el 
-     * constructor del panel. Hay que hacerlo desde aquí y solo una vez. Para
-     * eso esta la (@see setAccionInicializacionEjecutada)
-     * @param accionInicialización La acción que se quiere ejecutar al inicializar
-     * el panel. 
-     */
-//    @Deprecated
-//    public void setAccionDeInicializacion(Runnable accionInicialización){
-//        this.accionInicializacion = accionInicialización;
-//    }
-
-    /**
-     * La acción para inicializar el panel. 
-     * @return La acción que se ejecutara al inicializar el panel.
-     */
-//    @Deprecated
-//    public Runnable getAccionInicializacion() {
-//        if (accionInicializacion==null) {
-//            try {
-//                throw new ExcepcionPersonalizada(
-//                        "No definiste el inicializador para el panel : "+ getNombre() ,
-//                        this,
-//                        "getAccionInicializacion");
-//            } catch (ExcepcionPersonalizada ex) {
-//                Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        return accionInicializacion;
-//    }
-
-    /**
-     * Comprueba que si se ejecuto una sola vez la acción de inicialización
-     * del panel. Si no se define siempreAccionInicializadaComo true entonces
-     * solo se ejecutara la inicizalización una vez.
-     * @return  True si se inicializo el panel y isSiempreAccionInicializada() es
-     * false.
-     */
-//    @Deprecated
-//    public boolean isAccionInicializacionEjecutada() {
-//        if (isSiempreAccionInicializada()) {
-//            return false;
-//        }
-//        return accionInicializacionEjecutada;
-//    }
-
-    /**
-     * Define si se ha inicializado el panel. 
-     * @param accionInicializacionEjecutada True cuando se ejecuto. 
-     */
-//    @Deprecated
-//    public void setAccionInicializacionEjecutada(boolean accionInicializacionEjecutada) {
-//        this.accionInicializacionEjecutada = accionInicializacionEjecutada;
-//    }
-//
-//    @Deprecated
-//    public boolean isSiempreAccionInicializada() {
-//        return siempreAccionInicializada;
-//    }
-
-    /**
-     * Provoca que la acción de inicialización siempre se ejecute al llamar
-     * el panel. Para esto dentro de isAccionInicializacionEjecutada comprobamos
-     * que este parametro este en true. Si es así entonces retorna siempre 
-     * false de manera que ejecute las acciones de inicialización.
-     * @param siempreAccionInicializada True para que sieempre se ejecute la
-     * acción de inicialización o false para que solo ejecute una vez. 
-     * @see #getAccionInicializacion() 
-     */
-//    @Deprecated
-//    public void setSiempreAccionInicializada(boolean siempreAccionInicializada) {
-//        this.siempreAccionInicializada = siempreAccionInicializada;
-//    }
 
     /**
      * Define el atajo de teclado que se quiere mostrar. Esto solo se toma
