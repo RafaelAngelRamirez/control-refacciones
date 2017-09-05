@@ -13,15 +13,16 @@ import javax.swing.KeyStroke;
 import modelo.ExcepcionPersonalizada;
 
 /**
- *
+ * Guarda la información del item o menú que se quiere crear para mostrarlo 
+ * en la barra de menu de la ventan principal. 
  * @author Particular
  */
 public class MenuConstructor {
         
     private boolean menu;
     private boolean item;
-    private JPanel thisPanel;
-    private JDialog thisDialog;
+//    private JPanel thisPanel;
+//    private JDialog thisDialog;
 
 
     private String nombre;
@@ -29,9 +30,9 @@ public class MenuConstructor {
     private String imagen;
 
     private Runnable accionDelItem;
-    private Runnable accionInicializacion;
-    private boolean accionInicializacionEjecutada = false;
-    private boolean siempreAccionInicializada = false;
+//    private Runnable accionInicializacion;
+//    private boolean accionInicializacionEjecutada = false;
+//    private boolean siempreAccionInicializada = false;
 
     private KeyStroke atajoDeTeclado;
 
@@ -43,28 +44,28 @@ public class MenuConstructor {
     public MenuConstructor() {
     }
 
-    @Deprecated
-    public JDialog getThisDialog() {
-        if (thisDialog == null) {
-            try {
-                throw new ExcepcionPersonalizada("No has definido un dialgo.", this, "getThisDialog");
-            } catch (ExcepcionPersonalizada ex) {
-                Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else if( thisPanel!=null){
-            try {
-                throw new ExcepcionPersonalizada(" No puedes tener un dialgo y un panel en el mismo objeto.", this, "getThisDialog");
-            } catch (ExcepcionPersonalizada ex) {
-                Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return thisDialog;
-    }
-    @Deprecated
-    public void setDialog(JDialog thisDialog) {
-
-        this.thisDialog = thisDialog;
-    }
+//    @Deprecated
+//    public JDialog getThisDialog() {
+//        if (thisDialog == null) {
+//            try {
+//                throw new ExcepcionPersonalizada("No has definido un dialgo.", this, "getThisDialog");
+//            } catch (ExcepcionPersonalizada ex) {
+//                Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }else if( thisPanel!=null){
+//            try {
+//                throw new ExcepcionPersonalizada(" No puedes tener un dialgo y un panel en el mismo objeto.", this, "getThisDialog");
+//            } catch (ExcepcionPersonalizada ex) {
+//                Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        return thisDialog;
+//    }
+//    @Deprecated
+//    public void setDialog(JDialog thisDialog) {
+//
+//        this.thisDialog = thisDialog;
+//    }
 
 
 
@@ -158,52 +159,52 @@ public class MenuConstructor {
 
     }
 
-    /**
-     * Retorna el panel al que señala el item. 
-     * @return El panel que se tiene almacenado.  
-     */
-    @Deprecated
-    public JPanel getThisPanel() {
-        try {
-            if (this.menu==true) {
-                throw new ExcepcionPersonalizada(
-                    "Este menyConstructor ya esta definido como un menu y no "
-                            + " puedes definir un panel dentro de el.",
-                    this, "setThisPanel");
-            }else if( this.accionDelItem == null && this.thisPanel==null){
-                throw new ExcepcionPersonalizada( 
-                    "No definiste una acción para este Menú costructor y por"
-                     + "defecto este tomando la acción de cambiar de Jpanel "
-                            + "pero tampoco esta definido un JPanel", this, "getThisPanel"
-                );
-            }
-            return thisPanel;
+//    /**
+//     * Retorna el panel al que señala el item. 
+//     * @return El panel que se tiene almacenado.  
+//     */
+//    @Deprecated
+//    public JPanel getThisPanel() {
+//        try {
+//            if (this.menu==true) {
+//                throw new ExcepcionPersonalizada(
+//                    "Este menyConstructor ya esta definido como un menu y no "
+//                            + " puedes definir un panel dentro de el.",
+//                    this, "setThisPanel");
+//            }else if( this.accionDelItem == null && this.thisPanel==null){
+//                throw new ExcepcionPersonalizada( 
+//                    "No definiste una acción para este Menú costructor y por"
+//                     + "defecto este tomando la acción de cambiar de Jpanel "
+//                            + "pero tampoco esta definido un JPanel", this, "getThisPanel"
+//                );
+//            }
+//            return thisPanel;
+//
+//        } catch (ExcepcionPersonalizada ex) {
+//            Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return null;
+//    }
 
-        } catch (ExcepcionPersonalizada ex) {
-            Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    /**
-     * Setea el panel al que se quiere llamar por medio de un item.
-     * @param thisPanel El panel que se quiere almacenar. 
-     */
-    @Deprecated
-    public void setPanel(JPanel thisPanel) {
-        try {
-            if (this.menu==true) {
-                throw new ExcepcionPersonalizada(
-                    "Este menuConstructor ya esta definido como un menu y no "
-                            + " puedes definir un panel dentro de el.",
-                    this, "setThisPanel");
-            }
-
-            this.thisPanel = thisPanel;
-        } catch (ExcepcionPersonalizada ex) {
-            Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-    }
+//    /**
+//     * Setea el panel al que se quiere llamar por medio de un item.
+//     * @param thisPanel El panel que se quiere almacenar. 
+//     */
+//    @Deprecated
+//    public void setPanel(JPanel thisPanel) {
+//        try {
+//            if (this.menu==true) {
+//                throw new ExcepcionPersonalizada(
+//                    "Este menuConstructor ya esta definido como un menu y no "
+//                            + " puedes definir un panel dentro de el.",
+//                    this, "setThisPanel");
+//            }
+//
+//            this.thisPanel = thisPanel;
+//        } catch (ExcepcionPersonalizada ex) {
+//            Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
+//    }
 
     /*
      * Retorna el padre de el menu o el item. 
@@ -259,29 +260,29 @@ public class MenuConstructor {
      * @param accionInicialización La acción que se quiere ejecutar al inicializar
      * el panel. 
      */
-    @Deprecated
-    public void setAccionDeInicializacion(Runnable accionInicialización){
-        this.accionInicializacion = accionInicialización;
-    }
+//    @Deprecated
+//    public void setAccionDeInicializacion(Runnable accionInicialización){
+//        this.accionInicializacion = accionInicialización;
+//    }
 
     /**
      * La acción para inicializar el panel. 
      * @return La acción que se ejecutara al inicializar el panel.
      */
-    @Deprecated
-    public Runnable getAccionInicializacion() {
-        if (accionInicializacion==null) {
-            try {
-                throw new ExcepcionPersonalizada(
-                        "No definiste el inicializador para el panel : "+ getNombre() ,
-                        this,
-                        "getAccionInicializacion");
-            } catch (ExcepcionPersonalizada ex) {
-                Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return accionInicializacion;
-    }
+//    @Deprecated
+//    public Runnable getAccionInicializacion() {
+//        if (accionInicializacion==null) {
+//            try {
+//                throw new ExcepcionPersonalizada(
+//                        "No definiste el inicializador para el panel : "+ getNombre() ,
+//                        this,
+//                        "getAccionInicializacion");
+//            } catch (ExcepcionPersonalizada ex) {
+//                Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        return accionInicializacion;
+//    }
 
     /**
      * Comprueba que si se ejecuto una sola vez la acción de inicialización
@@ -290,27 +291,27 @@ public class MenuConstructor {
      * @return  True si se inicializo el panel y isSiempreAccionInicializada() es
      * false.
      */
-    @Deprecated
-    public boolean isAccionInicializacionEjecutada() {
-        if (isSiempreAccionInicializada()) {
-            return false;
-        }
-        return accionInicializacionEjecutada;
-    }
+//    @Deprecated
+//    public boolean isAccionInicializacionEjecutada() {
+//        if (isSiempreAccionInicializada()) {
+//            return false;
+//        }
+//        return accionInicializacionEjecutada;
+//    }
 
     /**
      * Define si se ha inicializado el panel. 
      * @param accionInicializacionEjecutada True cuando se ejecuto. 
      */
-    @Deprecated
-    public void setAccionInicializacionEjecutada(boolean accionInicializacionEjecutada) {
-        this.accionInicializacionEjecutada = accionInicializacionEjecutada;
-    }
-
-    @Deprecated
-    public boolean isSiempreAccionInicializada() {
-        return siempreAccionInicializada;
-    }
+//    @Deprecated
+//    public void setAccionInicializacionEjecutada(boolean accionInicializacionEjecutada) {
+//        this.accionInicializacionEjecutada = accionInicializacionEjecutada;
+//    }
+//
+//    @Deprecated
+//    public boolean isSiempreAccionInicializada() {
+//        return siempreAccionInicializada;
+//    }
 
     /**
      * Provoca que la acción de inicialización siempre se ejecute al llamar
@@ -321,10 +322,10 @@ public class MenuConstructor {
      * acción de inicialización o false para que solo ejecute una vez. 
      * @see #getAccionInicializacion() 
      */
-    @Deprecated
-    public void setSiempreAccionInicializada(boolean siempreAccionInicializada) {
-        this.siempreAccionInicializada = siempreAccionInicializada;
-    }
+//    @Deprecated
+//    public void setSiempreAccionInicializada(boolean siempreAccionInicializada) {
+//        this.siempreAccionInicializada = siempreAccionInicializada;
+//    }
 
     /**
      * Define el atajo de teclado que se quiere mostrar. Esto solo se toma
