@@ -1107,7 +1107,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         private JButton cerrarBtn;
         private JButton minimizarBtn;
         private JButton maximizarBtn;
-//        private JButton encimaBtn;
         private Coordinador coordinador;
 
         private JFrame ventanaPrincipal;
@@ -1166,7 +1165,10 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             
             //MEDIDAS DE LOS PANELES. 
             reloj.setPreferredSize(new Dimension(380, 35));
-            botones.setPreferredSize(new Dimension(215, 35));
+            Dimension btnDimencion = new Dimension(120, 35);
+            botones.setPreferredSize(btnDimencion);
+            botones.setMinimumSize(btnDimencion);
+            botones.setMaximumSize(btnDimencion);
 
             //AGREGAMOS LOS PANELES AL PANEL QUE LOS VA A CONTENER.
             this.add(reloj);
@@ -1270,33 +1272,17 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          * de control de la ventana.
          */
         private void asignarAccionABoton(Component componente, Runnable accion){
-            componente.addMouseListener(new MouseListener() {
+            componente.addMouseListener(new MouseAdapter() {
                 
                 Runnable accion;
                 MouseListener parametros(Runnable accion){
                     this.accion = accion;
                     return this;
                 }
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                  
-                }
-
+                
                 @Override
                 public void mousePressed(MouseEvent e) {
                     this.accion.run();
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
                 }
             }.parametros(accion));
         }
