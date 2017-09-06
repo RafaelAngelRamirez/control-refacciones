@@ -5,6 +5,10 @@
  */
 package vista.UtilidadesIntefaz;
 
+import controlador.Coordinador;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -13,16 +17,63 @@ import javax.swing.JPanel;
  */
 public abstract class JPanelBase extends JPanel{
     
-    protected DialogoBase.Config configuracionesDialogo;
+    protected ConfiguracionDePanel configuracionesDialogo;
+    
+    Coordinador coordinador;
+
+    public JPanelBase() {
+        
+        this.addMouseListener(new MouseAdapter() {
+            JPanelBase panel;
+            public MouseAdapter parametros (JPanelBase panel){
+                this.panel = panel;
+                return this;
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount()==3) {
+                    JOptionPane.showMessageDialog(null, "acoplar!!!!");
+                    //SI DEVUELVE TRUE QUIERE DECIR QUE EL PANEL ESTABA MONTADO
+                    //SOBRE UN DIALOGO. 
+                    if (panel.dispose()) {
+                    JOptionPane.showMessageDialog(null, "PENDIENTE ACOPLADA!!!!");
+                        
+                    }
+                    
+                }
+                
+            }
+          
+        }.parametros(this));
+    }
+
+     
+    
+    
+    
+    public Coordinador getCoordinador() {
+        return coordinador;
+    }
+
+    public void setCoordinador(Coordinador coordinador) {
+        this.coordinador = coordinador;
+    }
+    
     
     /**
      * La configuración inicial del panel.
      */
     public abstract void configurar();
 
-    public DialogoBase.Config getConfiguracionesDialogo() {
+    public ConfiguracionDePanel getConfiguracionesDialogo() {
         return configuracionesDialogo;
     }
+    
+    
+    public boolean dispose(){
+        return this.getCoordinador().cerrarDialogoAbierto(this);
+    }
+    
 
         
 }

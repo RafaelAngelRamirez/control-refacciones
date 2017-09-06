@@ -26,7 +26,7 @@ import vista.panels.PanelEmpleadoAgregar;
 import vista.panels.DialogoProveedorRegistrar;
 import vista.panels.DialogoSalidaDeLote;
 import vista.panels.PanelRefaccionModificar;
-import vista.UtilidadesIntefaz.DialogoBase;
+import vista.UtilidadesIntefaz.JDialogBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionesConsulta;
@@ -95,8 +95,6 @@ public class Principal {
         //DIALOGOS
         
         //EL NUEVO UNICO DIALOGO
-        DialogoBase dialogoBase = new DialogoBase();
-        
         DialogoProveedorRegistrar dialogoProveedorRegistrar = new DialogoProveedorRegistrar();
         DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar = new DialogoMaquinaModeloAgregar();
         DialogoRefaccionDetalle dialogoRefaccionDetalle = new DialogoRefaccionDetalle();
@@ -138,7 +136,6 @@ public class Principal {
         panelEmpleadoAgregar.setCoordinador(coordinador);
         dialogoEmpleadoModificar.setCoordinador(coordinador);
         dialogoSalidaDeLote.setCoordinador(coordinador);
-        dialogoBase.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         
@@ -163,7 +160,6 @@ public class Principal {
         coordinador.setPanelEmpleadoAgregar(panelEmpleadoAgregar);
         coordinador.setDialogoEmpleadoModificar(dialogoEmpleadoModificar);
         coordinador.setDialogoSalidaDeLote(dialogoSalidaDeLote);
-        coordinador.setDialogoBase(dialogoBase);
         
 //        /*
 //        ====================================================================

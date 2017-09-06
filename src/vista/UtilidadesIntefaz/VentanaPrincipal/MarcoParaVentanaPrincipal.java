@@ -93,69 +93,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     private Runnable accionMenuInicio;
     
     
-    
-    
-////        /*------------------------------------------------------------
-////            NOMBRAMOS LOS PANELES Y DIALOGOS CON VARIABLES ESTATICAS
-////            PARA IDENTIFICARLOS Y LLAMARLOS POR FUERA. ESTE MISMO NOMBRE
-////            SE MUESTRA EN LOS MENUS.
-////        ------------------------------------------------------------*/
-//    /**
-//     * Nombre del panel principal donde se consultar las refacciones al 
-//     * iniciar el sistema.
-//     */
-//    public static String PANEL_CONSULTAR_REFACCIONES = "Consultar refacciones";
-//    /**
-//     * Nombre del panel registro de refacciones.
-//     */
-//    public static String PANEL_REGISTRAR_NUEVA_REFACCION = "Registrar nueva refacción";
-//    /**
-//     * Nombre del panel para modificar refacciones. 
-//     */
-//    public static String PANEL_MODIFICAR_REFACCION = "Modificar refacción";
-//    /**
-//     * Dialogo Imagen detalle.
-//     */
-//    public static String DIALOGO_IMAGEN_DETALLE = "Detalle de imagen";
-//    /**
-//     * Nombre del dialogo Maquina modelo agregar
-//     */
-//    public static String DIALOGO_MAQUINA_MODELO_AGREGAR = "Registrar maquina-modelo";
-//    /**
-//     * Nombre del dialogo Maquina modelo modificar
-//     */
-//    public static String DIALOGO_MAQUINA_MODELO_MODIFICAR = "Modificar maquina-modelo";
-//    /**
-//     * Nombre del dialogo proveedor registrar.
-//     */
-//    public static String DIALOGO_PROVEEDOR_REGISTRAR = "Registrar proveedor";
-//    /**
-//     * Nombre del dialogo proveedor modificar.
-//     */
-//    public static String DIALOGO_PROVEEDOR_MODIFICAR = "Modificar proveedor";
-//    /**
-//     * Nombre del dialogo refaccion detalle.
-//     */
-//    public static String DIALOGO_REFACCION_DETALLE = "Detalle refacción";
-//    /**
-//     * Nombre del dialogo entrada lote.
-//     */
-//    public static String DIALOGO_ENTRADA_LOTE = "Entrada lote";
-//    /**
-//     * Nombre del dialogo entrada lote.
-//     */
-//    public static String DIALOGO_SALIDA_LOTE = "Salida lote";
-//    /**
-//     * Nombre del dialogo agregar empleado.
-//     */
-//    public static String PANEL_EMPLEADO_AGREGAR = "Agregar empleado";
-//    
-//    /**
-//     * Nombre del dialogo modficar empleado.
-//     */
-//    public static String DIALOGO_EMPLEADO_MODIFICAR = "Modificar empleado";
-//    
-    
    
     /**
      * Incializa todos los parametros que requerimos para la crear la ventana que
@@ -331,7 +268,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 //        ------------------------------------------------------------*/
         
         //LA OPERACION GENERAL DE ACTUALIZACION
-        operacionActualizacion = ()->this.getCoordinador().ejecutarOperacionesParaActualizar();
+//        operacionActualizacion = ()->this.getCoordinador().ejecutarOperacionesParaActualizar();
         
         /**
          * /////////////////////////////////////////////////
@@ -493,7 +430,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEmpleadoAgregar.setNombre(Coordinador.PANEL_EMPLEADO_AGREGAR);
         dialogoEmpleadoAgregar.setPadre(menuAgregarRegistrar);
         dialogoEmpleadoAgregar.setAccionDelItem(
-                ()->this.getCoordinador().pruebaDeAbrirPanel());
+                ()->this.getCoordinador().pruebaAbrirComoPanel());
         this.addItemOMenu(dialogoEmpleadoAgregar);
         
 //        Coordinador.OperacionesPorActualizar dialogoEmpleadoAgregarOPA 
@@ -507,10 +444,17 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         
         MenuConstructor prueba = new MenuConstructor();
         prueba.setItem();
-        prueba.setNombre("PRUEBA!!!");
+        prueba.setNombre("ABRIR COMO DIALOGO");
         prueba.setPadre(menuAgregarRegistrar);
-        prueba.setAccionDelItem(()->this.coordinador.pruebaAccionDelItem());
+        prueba.setAccionDelItem(()->this.coordinador.pruebaAbrirComoDialogo());
         this.addItemOMenu(prueba);
+        
+        MenuConstructor prueba2 = new MenuConstructor();
+        prueba2.setItem();
+        prueba2.setNombre("ABRIR COMO PANEL");
+        prueba2.setPadre(menuAgregarRegistrar);
+        prueba2.setAccionDelItem(()->this.coordinador.pruebaAbrirComoPanel());
+        this.addItemOMenu(prueba2);
         
         
         /**
@@ -546,17 +490,17 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 //        dialogoProveedorModificar.setDialog(this.getCoordinador().getDialogoProveedorModificar());
         this.addItemOMenu(dialogoProveedorModificar);
         
-        Coordinador.OperacionesPorActualizar dialogoProveedorModificarOPA 
-                = getCoordinador().new OperacionesPorActualizar();
-        dialogoProveedorModificarOPA.setPanel(dialogoProveedorModificar);
-        dialogoProveedorModificarOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().proveedorDialogoModificarActualizarListaProveedores());
-        dialogoProveedorModificarOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().proveedorDialogoModificarActualizarPais());
-        dialogoProveedorModificarOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().proveedorDialogoModificarActualizarImagenes());
-        this.getCoordinador().addListaOperacionesPorActualizar(dialogoProveedorModificarOPA);
-        
+//        Coordinador.OperacionesPorActualizar dialogoProveedorModificarOPA 
+//                = getCoordinador().new OperacionesPorActualizar();
+//        dialogoProveedorModificarOPA.setPanel(dialogoProveedorModificar);
+//        dialogoProveedorModificarOPA.addOperacionParaActualizar(
+//                ()->this.getCoordinador().proveedorDialogoModificarActualizarListaProveedores());
+//        dialogoProveedorModificarOPA.addOperacionParaActualizar(
+//                ()->this.getCoordinador().proveedorDialogoModificarActualizarPais());
+//        dialogoProveedorModificarOPA.addOperacionParaActualizar(
+//                ()->this.getCoordinador().proveedorDialogoModificarActualizarImagenes());
+//        this.getCoordinador().addListaOperacionesPorActualizar(dialogoProveedorModificarOPA);
+//        
         //-------------------------------
         MenuConstructor dialogoModificarMaquinaModelo = new MenuConstructor();
         dialogoModificarMaquinaModelo.setItem();
@@ -567,12 +511,12 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 //        dialogoModificarMaquinaModelo.setDialog(this.getCoordinador().getDialogoMaquinaModeloModificar());
         this.addItemOMenu(dialogoModificarMaquinaModelo);
         
-        Coordinador.OperacionesPorActualizar modificarMaquinaModeloOPA 
-                = getCoordinador().new OperacionesPorActualizar();
-        modificarMaquinaModeloOPA.setPanel(dialogoModificarMaquinaModelo);
-        modificarMaquinaModeloOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().maquinaModeloActualizarDialogoModificar());
-        this.getCoordinador().addListaOperacionesPorActualizar(modificarMaquinaModeloOPA);
+//        Coordinador.OperacionesPorActualizar modificarMaquinaModeloOPA 
+//                = getCoordinador().new OperacionesPorActualizar();
+//        modificarMaquinaModeloOPA.setPanel(dialogoModificarMaquinaModelo);
+//        modificarMaquinaModeloOPA.addOperacionParaActualizar(
+//                ()->this.getCoordinador().maquinaModeloActualizarDialogoModificar());
+//        this.getCoordinador().addListaOperacionesPorActualizar(modificarMaquinaModeloOPA);
         //-------------------------------
         MenuConstructor dialogoEmpleadoModificar = new MenuConstructor();
         dialogoEmpleadoModificar.setItem();
@@ -583,12 +527,12 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 //        dialogoEmpleadoModificar.setDialog(this.getCoordinador().getDialogoEmpleadoModificar());
         this.addItemOMenu(dialogoEmpleadoModificar);
         
-        Coordinador.OperacionesPorActualizar empleadoMaquinaModeloModificarOPA 
-                = getCoordinador().new OperacionesPorActualizar();
-        empleadoMaquinaModeloModificarOPA.setPanel(dialogoEmpleadoModificar);
-        empleadoMaquinaModeloModificarOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().empleadoDialogoModificarActualizar());
-        this.getCoordinador().addListaOperacionesPorActualizar(empleadoMaquinaModeloModificarOPA);
+//        Coordinador.OperacionesPorActualizar empleadoMaquinaModeloModificarOPA 
+//                = getCoordinador().new OperacionesPorActualizar();
+//        empleadoMaquinaModeloModificarOPA.setPanel(dialogoEmpleadoModificar);
+//        empleadoMaquinaModeloModificarOPA.addOperacionParaActualizar(
+//                ()->this.getCoordinador().empleadoDialogoModificarActualizar());
+//        this.getCoordinador().addListaOperacionesPorActualizar(empleadoMaquinaModeloModificarOPA);
         
        
         /**
@@ -608,12 +552,12 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEntradaLote.setAtajoDeTeclado(atajo_CtrlE);
         this.addItemOMenu(dialogoEntradaLote);
 
-        Coordinador.OperacionesPorActualizar dialogoEntradaLoteOPA 
-                = getCoordinador().new OperacionesPorActualizar();
-        dialogoEntradaLoteOPA.setPanel(dialogoEntradaLote);
-        dialogoEntradaLoteOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().entradaLoteActualizarComboEmpleados());
-        this.getCoordinador().addListaOperacionesPorActualizar(dialogoEntradaLoteOPA);
+//        Coordinador.OperacionesPorActualizar dialogoEntradaLoteOPA 
+//                = getCoordinador().new OperacionesPorActualizar();
+//        dialogoEntradaLoteOPA.setPanel(dialogoEntradaLote);
+//        dialogoEntradaLoteOPA.addOperacionParaActualizar(
+//                ()->this.getCoordinador().entradaLoteActualizarComboEmpleados());
+//        this.getCoordinador().addListaOperacionesPorActualizar(dialogoEntradaLoteOPA);
         //-------------------------------        
         MenuConstructor dialogoSalidaLote = new MenuConstructor();
         dialogoSalidaLote.setItem();
@@ -626,13 +570,13 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoSalidaLote.setAtajoDeTeclado(atajo_CtrlS);
         this.addItemOMenu(dialogoSalidaLote);
         
-        Coordinador.OperacionesPorActualizar dialogoSalidaLoteOPA 
-                = getCoordinador().new OperacionesPorActualizar();
-        dialogoSalidaLoteOPA.setPanel(dialogoSalidaLote);
-        dialogoSalidaLoteOPA.addOperacionParaActualizar(
-                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
-        this.getCoordinador().addListaOperacionesPorActualizar(dialogoSalidaLoteOPA);
-        
+//        Coordinador.OperacionesPorActualizar dialogoSalidaLoteOPA 
+//                = getCoordinador().new OperacionesPorActualizar();
+//        dialogoSalidaLoteOPA.setPanel(dialogoSalidaLote);
+//        dialogoSalidaLoteOPA.addOperacionParaActualizar(
+//                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
+//        this.getCoordinador().addListaOperacionesPorActualizar(dialogoSalidaLoteOPA);
+//        
         
         /**
          * /////////////////////////////////////////////////

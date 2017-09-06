@@ -1,6 +1,7 @@
 
 package controlador;
 
+import java.awt.Dimension;
 import vista.panels.DialogoEmpleadoModificar;
 import vista.panels.DialogoRefaccionDetalle;
 import vista.panels.DialogoMaquinaModeloAgregar;
@@ -19,21 +20,9 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import modelo.ExcepcionPersonalizada;
-import modelo.InfoTabla.ImagenProveedorIT;
-import modelo.InfoTabla.ImagenRefaccionIT;
-import modelo.InfoTabla.MaquinaModeloIT;
-import modelo.InfoTabla.MaterialIT;
-import modelo.InfoTabla.PaisIT;
-import modelo.InfoTabla.ProveedorIT;
-import modelo.InfoTabla.RefaccionIT;
-import modelo.InfoTabla.UnidadIT;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
@@ -50,9 +39,9 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
-import vista.UtilidadesIntefaz.DialogoBase;
+import vista.UtilidadesIntefaz.JDialogBase;
+import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
-import vista.UtilidadesIntefaz.VentanaPrincipal.MenuConstructor;
 
 /**
  * Se controlan todas las interacciónes entre las diferentes ventanas. Se mantiene
@@ -62,8 +51,6 @@ import vista.UtilidadesIntefaz.VentanaPrincipal.MenuConstructor;
 public class Coordinador {
     
     private MarcoParaVentanaPrincipal marcoParaVentanaPrincipal;
-//    private ConsolaDeErrores consolaDeErrores;
-//    private CapturaDeSucesos SystemOut;
     private Logica logica;
     
     private PanelRefaccionesConsulta panelRefaccionConsulta;
@@ -80,7 +67,6 @@ public class Coordinador {
     private PanelEmpleadoAgregar panelEmpleadoAgregar;
     private DialogoEmpleadoModificar dialogoEmpleadoModificar;
     private DialogoSalidaDeLote dialogoSalidaDeLote;
-    private DialogoBase dialogoBase;
     
     
     /*------------------------------------------------------------
@@ -163,41 +149,59 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
     
-    public void pruebaDeAbrirPanel(){
-        JOptionPane.showMessageDialog(null, "estamos super aca");
-        this.getPanelEmpleadoAgregar().configurar();
-        this.getPanelEmpleadoAgregar().setVisible(true);
+    private HashMap<JPanelBase, JDialogBase> dialogosAbiertos = new HashMap<>();
+    
+    /**
+     * Esta operación solo se utiliza desde la clase JDialogBase para controlad
+     * los dialogos que se abren. 
+     * @param dialogo
+     */
+    public void addDialogAbierto(JDialogBase dialogo){
+        JOptionPane.showMessageDialog(null, "se agrego un dialogo!");
+        marcoParaVentanaPrincipal.remove(dialogo.getPanel());
+        marcoParaVentanaPrincipal.repaint();
+            
+        
+        dialogosAbiertos.put(dialogo.getPanel(), dialogo);
+    }
+    
+    /**
+     * Esta función ayuda a sustituir el dispose de las ventanas. En caso 
+     * de que no se a un dialogo regresa a la ventana principal. 
+     * 
+     * @param jpb
+     */
+    public boolean cerrarDialogoAbierto(JPanelBase jpb){
+        if (dialogosAbiertos.containsKey(jpb)) {
+            dialogosAbiertos.get(jpb).dispose();
+            dialogosAbiertos.remove(jpb);
+            return true;
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "falta configurar regreso a "
+                    + "ventana principal");
+            return false;
+        }
+    }
+    
+    public void pruebaAbrirComoPanel(){
+        this.marcoParaVentanaPrincipal.setJPanel(this.panelEmpleadoAgregar);
+        this.panelEmpleadoAgregar.configurar();
         
     }
     
-    public void pruebaAccionDelItem(){
-           this.getPanelEmpleadoAgregar().configurar();
-           this.getDialogoBase().configurarPanel();
-           this.getDialogoBase().setVisible(true);
-    }
-    
-    public JDialog pruebaSetDialog(){
-
-        DialogoBase d = getDialogoBase();
-        d.remove(this.getPanelEmpleadoAgregar());
-        d.addPanel(this.getPanelEmpleadoAgregar());
+    public void pruebaAbrirComoDialogo(){
+        JOptionPane.showMessageDialog(null, "estamos por acaa en prueba de accion del item");
+        JDialogBase d = new JDialogBase(this);
+        d.addPanel(this.panelEmpleadoAgregar);
+        d.configurarPanel();
         d.pack();
-        return d;
+        d.setVisible(true);
+        
+        
     }
     
-    public JPanel pruebaDeConfiguracionPanel(){
-        return (JPanel)this.getPanelEmpleadoAgregar();
-    }
-    
-    
-    public DialogoBase getDialogoBase() {
-        return dialogoBase;
-    }
-
-    public void setDialogoBase(DialogoBase dialogoBase) {
-        this.dialogoBase = dialogoBase;
-    }
-
+   
     public DialogoSalidaDeLote getDialogoSalidaLote() {
         return dialogoSalidaDeLote;
     }
@@ -1127,224 +1131,224 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    private List<OperacionesPorActualizar> listaOperacionesPorActualizar = new ArrayList<>();
-    
-    
-    
-    /**
-     * Agrega un elemento que contiene operaciones para actualizar elementos que
-     * dependen de una tabla y que se puede modificar desde cualquier parte del sistema.
-     * @param op El objeto que contiene las especificaciones
-     * para ejecutar la actualización de operaciones. 
-     * @see OperacionesPorActualizar
-     * 
-     */
-    public void addListaOperacionesPorActualizar(OperacionesPorActualizar op) {
-        this.listaOperacionesPorActualizar.add(op);
-    }
-
-    /**
-     * Ejecuta las operaciones para actualizar contenidas en los objetos 
-     * OperacionesPorActualizar que esten actualmente mostrandose y los señala
-     * como actualizados. Si hay algún cambio entontonces se debe modificar
-     * el objeto directamente en la operacion setActualizado a false.
-     */
-    public void ejecutarOperacionesParaActualizar(){
-//        JOptionPane.showMessageDialog(null, "ejecutar operaciones de actualizacion!!!!!");
-        for (OperacionesPorActualizar listaOp : listaOperacionesPorActualizar) {
-            if (!listaOp.isActualizado()) {
-                if (listaOp.getPanel().getThisPanel()!=null) {
-                    if (listaOp.getPanel().getThisPanel().isShowing()) {
-//                        JOptionPane.showMessageDialog(null, "actualizando panel por que esta visible->"+listaOp.getPanel().getNombre());
-                        listaOp.actualizar();
-                    }
-                }else{
-                    if (listaOp.getPanel().getThisDialog().isShowing()) {
-//                        JOptionPane.showMessageDialog(null, "actualizando dialogo por que esta visible->"+listaOp.getPanel().getNombre());
-                        listaOp.actualizar();
-                    }                     
-                }
-            }
-        }
-    }
-
-    
-    /**
-     * Ejecuta las operaciones para actualizar contenidas en los objetos 
-     * OperacionesPorActualizar que esten actualmente mostrandose y los señala
-     * como actualizados. Si hay algún cambio entontonces se debe modificar
-     * el objeto directamente en la operacion setActualizado a false.
-     * @param nombreDeLaTabla Esta función recive el nombre de la tabla que se modifico 
-     * para setearla en la lista de actualizaciones. Con esta función no es necesario 
-     * llamar a {@link huboUnCambioEnTabla(String nombreDeLaTabla)} 
-     */
-    public void ejecutarOperacionesParaActualizar(String nombreDeLaTabla){
-        huboUnCambioEnTabla(nombreDeLaTabla);
-        ejecutarOperacionesParaActualizar();
-    }
-    
-    /**
-     * Esta función recive el nombre de la tabla que se modifico para setearla
-     * en la lista de actualizaciones despues {@see ejecutarOperacionesParaActualizar()}
-     * se tiene que llamar para que se actualize lo que este visible. 
-     * @param nombreDeLaTabla
-     */
-    public void huboUnCambioEnTabla(String nombreDeLaTabla){
-        //ESTE MAPA LO UTILIZAMOS PARA GUARDAR LOS PANELES QUE FUERON MODIFICADOS
-        // Y QUE SE TIENEN QUE GUARDAR. 
-        HashMap<String, Boolean> mapa = new HashMap<>();
-        
-        //EN CON ESTE SWITCH RECIVMOS LAS TABLAS MODIFICADAS Y SETEAMOS 
-        // EN EL MAPA LOS COMPONENTES QUE DEBEN DE ACTUALIZARSE PARA QUE 
-        // QUEDEN ACTUALIZADOS.
-        switch(nombreDeLaTabla){
-            case RefaccionIT.NOMBRE_TABLA:
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
-                break;
-            case ProveedorIT.NOMBRE_TABLA:    
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
-                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
-                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_MODIFICAR, false);
-                break;
-            case MaquinaModeloIT.NOMBRE_TABLA:
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
-                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
-                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_MODIFICAR, false);
-                break;
-            case MaterialIT.NOMBRE_TABLA:
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
-                break;
-            case UnidadIT.NOMBRE_TABLA:
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
-                break;
-            case ImagenRefaccionIT.NOMBRE_TABLA:
-                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
-                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_IMAGEN_DETALLE, false);
-                break;
-            case PaisIT.NOMBRE_TABLA:
-                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
-                break;
-            case ImagenProveedorIT.NOMBRE_TABLA:
-                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
-                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_MODIFICAR, false);
-                break;
-            default:
-                        try {
-                            throw new ExcepcionPersonalizada("Parece que la tabla que quieres actualizar no ha "
-                                    + "\nsido definida dentro de la funcion 'huboUnCambioEnTabla()'. FALTA AGREGAR ESTA TABLA:->   "+nombreDeLaTabla, this, "huboUnCambioEnTabla()");
-                        } catch (ExcepcionPersonalizada ex) {
-                            Logger.getLogger(Coordinador.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                break;
-        }
-        for (Map.Entry<String, Boolean> d : mapa.entrySet()) {
-            //RECORREMOS TODOS LOS PANELES QUE SETEAMOS EN EL MAPA Y EXTRAEMOS
-            // LOS DATOS.
-            String nombre = d.getKey();
-            Boolean actualizado = d.getValue();
-            for (OperacionesPorActualizar lop : listaOperacionesPorActualizar) {
-                //RECORREMOS TODOS LOS PANELES Y DIALOGOS QUE HAY Y LOS COMPARAMOS
-                //CONTRA EL MAPA. LAS COINCIDENCIAS LAS MODIFICAMOS PARA QUE EN 
-                // ejecutarOperacionesParaActualizar SE EJECUTEN LAS DEBIDAS OPERACIONES
-                // DE ACTUALIZACIÓN.
-                if (lop.getPanel().getNombre().equals(nombre)) {
-                    lop.setActualizado(actualizado);
-                }
-            }
-        }
-    }
-    
-    public class OperacionesPorActualizar{
-        private MenuConstructor panel;
-        private List<Runnable> operacionesParaActualizar;
-        private boolean actualizado;
-
-        public OperacionesPorActualizar() {
-            this.actualizado = true;
-            this.operacionesParaActualizar = new ArrayList<>();
-        }
-        /**
-         * Almacena las operaciones de actualización que se ejecutaran cada vez
-         * que el panel actual coincida con el definido dentro de este elemento.
-         * 
-         * @param operacion La operaciones que se quieren ir agregando para ejecutarse. 
-         */
-        public void addOperacionParaActualizar(Runnable operacion){
-            operacionesParaActualizar.add(operacion);
-        }
-
-        /**
-         * Lista de operaciones definidas para actualizar en el panel. 
-         * @return Las operaciones definidas para ejecutar. 
-         */
-        public List<Runnable> getOperacionesParaActualizar() {
-            return operacionesParaActualizar;
-        }
-        
-        /**
-         * El panel en objeto tipo MenuConstructor que se quiere comparar. 
-         * @return El panel guardado.
-         * @see Menuconstructor
-         */
-        public MenuConstructor getPanel() {
-            return panel;
-        }
-
-        /**
-         * Añade el menuConstructor que contiene el Jpanel para compararlo
-         * con el que se esta visualizando. 
-         * @param panel El MenuConstructor 
-         */
-        public void setPanel(MenuConstructor panel) {
-            this.panel = panel;
-        }
-
-        /**
-         * Independientemente de las cantidad de operaciones definidas para 
-         * actualizar esta función retorna true si ejecutaron todas las operaciones
-         * de actualización y retorna false cuando es necesario ejecutar las 
-         * operaciones. 
-         * @return Devuelve true si se ejecutaron todas las operaciones de actualización.
-         * 
-         */
-        public boolean isActualizado() {
-            return actualizado;
-        }
-        
-        /**
-         * Ejecuta las operaciones de actualzacion definidas en {@see addOperacionParaActualizar() } 
-         * y cambia el estado de {@see isActualizado()} a false;
-         */
-        public void actualizar(){
-            for (Runnable runnable : operacionesParaActualizar) {
-                //JOptionPane.showMessageDialog(null, "ejecutando accion de actualizacion en clase: " + this.panel.getNombre());
-                runnable.run();
-            }
-            setActualizado(false);
-        }
-
-        /**
-         * Despues de que se ejecutan las operaciones en {@see: getOperacionesParaActualizar()}
-         * 
-         * @param actualizado
-         */
-        public void setActualizado(boolean actualizado) {
-            this.actualizado = actualizado;
-        }
-    }
-    
-    
-    /* 
-    ////////////////////////////////////////////////////////////////////////
-        FIN DE ACTUALIZACIONES DE TABLA
-    ========================================================================
-    */
-    
+//    private List<OperacionesPorActualizar> listaOperacionesPorActualizar = new ArrayList<>();
+//    
+//    
+//    
+//    /**
+//     * Agrega un elemento que contiene operaciones para actualizar elementos que
+//     * dependen de una tabla y que se puede modificar desde cualquier parte del sistema.
+//     * @param op El objeto que contiene las especificaciones
+//     * para ejecutar la actualización de operaciones. 
+//     * @see OperacionesPorActualizar
+//     * 
+//     */
+//    public void addListaOperacionesPorActualizar(OperacionesPorActualizar op) {
+//        this.listaOperacionesPorActualizar.add(op);
+//    }
+//
+//    /**
+//     * Ejecuta las operaciones para actualizar contenidas en los objetos 
+//     * OperacionesPorActualizar que esten actualmente mostrandose y los señala
+//     * como actualizados. Si hay algún cambio entontonces se debe modificar
+//     * el objeto directamente en la operacion setActualizado a false.
+//     */
+//    public void ejecutarOperacionesParaActualizar(){
+////        JOptionPane.showMessageDialog(null, "ejecutar operaciones de actualizacion!!!!!");
+//        for (OperacionesPorActualizar listaOp : listaOperacionesPorActualizar) {
+//            if (!listaOp.isActualizado()) {
+//                if (listaOp.getPanel().getThisPanel()!=null) {
+//                    if (listaOp.getPanel().getThisPanel().isShowing()) {
+////                        JOptionPane.showMessageDialog(null, "actualizando panel por que esta visible->"+listaOp.getPanel().getNombre());
+//                        listaOp.actualizar();
+//                    }
+//                }else{
+//                    if (listaOp.getPanel().getThisDialog().isShowing()) {
+////                        JOptionPane.showMessageDialog(null, "actualizando dialogo por que esta visible->"+listaOp.getPanel().getNombre());
+//                        listaOp.actualizar();
+//                    }                     
+//                }
+//            }
+//        }
+//    }
+//
+//    
+//    /**
+//     * Ejecuta las operaciones para actualizar contenidas en los objetos 
+//     * OperacionesPorActualizar que esten actualmente mostrandose y los señala
+//     * como actualizados. Si hay algún cambio entontonces se debe modificar
+//     * el objeto directamente en la operacion setActualizado a false.
+//     * @param nombreDeLaTabla Esta función recive el nombre de la tabla que se modifico 
+//     * para setearla en la lista de actualizaciones. Con esta función no es necesario 
+//     * llamar a {@link huboUnCambioEnTabla(String nombreDeLaTabla)} 
+//     */
+//    public void ejecutarOperacionesParaActualizar(String nombreDeLaTabla){
+//        huboUnCambioEnTabla(nombreDeLaTabla);
+//        ejecutarOperacionesParaActualizar();
+//    }
+//    
+//    /**
+//     * Esta función recive el nombre de la tabla que se modifico para setearla
+//     * en la lista de actualizaciones despues {@see ejecutarOperacionesParaActualizar()}
+//     * se tiene que llamar para que se actualize lo que este visible. 
+//     * @param nombreDeLaTabla
+//     */
+//    public void huboUnCambioEnTabla(String nombreDeLaTabla){
+//        //ESTE MAPA LO UTILIZAMOS PARA GUARDAR LOS PANELES QUE FUERON MODIFICADOS
+//        // Y QUE SE TIENEN QUE GUARDAR. 
+//        HashMap<String, Boolean> mapa = new HashMap<>();
+//        
+//        //EN CON ESTE SWITCH RECIVMOS LAS TABLAS MODIFICADAS Y SETEAMOS 
+//        // EN EL MAPA LOS COMPONENTES QUE DEBEN DE ACTUALIZARSE PARA QUE 
+//        // QUEDEN ACTUALIZADOS.
+//        switch(nombreDeLaTabla){
+//            case RefaccionIT.NOMBRE_TABLA:
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
+//                break;
+//            case ProveedorIT.NOMBRE_TABLA:    
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+//                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
+//                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_MODIFICAR, false);
+//                break;
+//            case MaquinaModeloIT.NOMBRE_TABLA:
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+//                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);
+//                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_MODIFICAR, false);
+//                break;
+//            case MaterialIT.NOMBRE_TABLA:
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+//                break;
+//            case UnidadIT.NOMBRE_TABLA:
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
+//                break;
+//            case ImagenRefaccionIT.NOMBRE_TABLA:
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
+//                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_IMAGEN_DETALLE, false);
+//                break;
+//            case PaisIT.NOMBRE_TABLA:
+//                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
+//                break;
+//            case ImagenProveedorIT.NOMBRE_TABLA:
+//                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_REGISTRAR, false);
+//                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_PROVEEDOR_MODIFICAR, false);
+//                break;
+//            default:
+//                        try {
+//                            throw new ExcepcionPersonalizada("Parece que la tabla que quieres actualizar no ha "
+//                                    + "\nsido definida dentro de la funcion 'huboUnCambioEnTabla()'. FALTA AGREGAR ESTA TABLA:->   "+nombreDeLaTabla, this, "huboUnCambioEnTabla()");
+//                        } catch (ExcepcionPersonalizada ex) {
+//                            Logger.getLogger(Coordinador.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                break;
+//        }
+//        for (Map.Entry<String, Boolean> d : mapa.entrySet()) {
+//            //RECORREMOS TODOS LOS PANELES QUE SETEAMOS EN EL MAPA Y EXTRAEMOS
+//            // LOS DATOS.
+//            String nombre = d.getKey();
+//            Boolean actualizado = d.getValue();
+//            for (OperacionesPorActualizar lop : listaOperacionesPorActualizar) {
+//                //RECORREMOS TODOS LOS PANELES Y DIALOGOS QUE HAY Y LOS COMPARAMOS
+//                //CONTRA EL MAPA. LAS COINCIDENCIAS LAS MODIFICAMOS PARA QUE EN 
+//                // ejecutarOperacionesParaActualizar SE EJECUTEN LAS DEBIDAS OPERACIONES
+//                // DE ACTUALIZACIÓN.
+//                if (lop.getPanel().getNombre().equals(nombre)) {
+//                    lop.setActualizado(actualizado);
+//                }
+//            }
+//        }
+//    }
+//    
+//    public class OperacionesPorActualizar{
+//        private MenuConstructor panel;
+//        private List<Runnable> operacionesParaActualizar;
+//        private boolean actualizado;
+//
+//        public OperacionesPorActualizar() {
+//            this.actualizado = true;
+//            this.operacionesParaActualizar = new ArrayList<>();
+//        }
+//        /**
+//         * Almacena las operaciones de actualización que se ejecutaran cada vez
+//         * que el panel actual coincida con el definido dentro de este elemento.
+//         * 
+//         * @param operacion La operaciones que se quieren ir agregando para ejecutarse. 
+//         */
+//        public void addOperacionParaActualizar(Runnable operacion){
+//            operacionesParaActualizar.add(operacion);
+//        }
+//
+//        /**
+//         * Lista de operaciones definidas para actualizar en el panel. 
+//         * @return Las operaciones definidas para ejecutar. 
+//         */
+//        public List<Runnable> getOperacionesParaActualizar() {
+//            return operacionesParaActualizar;
+//        }
+//        
+//        /**
+//         * El panel en objeto tipo MenuConstructor que se quiere comparar. 
+//         * @return El panel guardado.
+//         * @see Menuconstructor
+//         */
+//        public MenuConstructor getPanel() {
+//            return panel;
+//        }
+//
+//        /**
+//         * Añade el menuConstructor que contiene el Jpanel para compararlo
+//         * con el que se esta visualizando. 
+//         * @param panel El MenuConstructor 
+//         */
+//        public void setPanel(MenuConstructor panel) {
+//            this.panel = panel;
+//        }
+//
+//        /**
+//         * Independientemente de las cantidad de operaciones definidas para 
+//         * actualizar esta función retorna true si ejecutaron todas las operaciones
+//         * de actualización y retorna false cuando es necesario ejecutar las 
+//         * operaciones. 
+//         * @return Devuelve true si se ejecutaron todas las operaciones de actualización.
+//         * 
+//         */
+//        public boolean isActualizado() {
+//            return actualizado;
+//        }
+//        
+//        /**
+//         * Ejecuta las operaciones de actualzacion definidas en {@see addOperacionParaActualizar() } 
+//         * y cambia el estado de {@see isActualizado()} a false;
+//         */
+//        public void actualizar(){
+//            for (Runnable runnable : operacionesParaActualizar) {
+//                //JOptionPane.showMessageDialog(null, "ejecutando accion de actualizacion en clase: " + this.panel.getNombre());
+//                runnable.run();
+//            }
+//            setActualizado(false);
+//        }
+//
+//        /**
+//         * Despues de que se ejecutan las operaciones en {@see: getOperacionesParaActualizar()}
+//         * 
+//         * @param actualizado
+//         */
+//        public void setActualizado(boolean actualizado) {
+//            this.actualizado = actualizado;
+//        }
+//    }
+//    
+//    
+//    /* 
+//    ////////////////////////////////////////////////////////////////////////
+//        FIN DE ACTUALIZACIONES DE TABLA
+//    ========================================================================
+//    */
+//    
     
    
     

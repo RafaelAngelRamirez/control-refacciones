@@ -12,6 +12,7 @@ import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
 import modelo.FechaYHora;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -158,8 +159,8 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
         básico para que funcionen en modal.
         
         */ 
-        configuracionesDialogo = this.coordinador.getDialogoBase().new Config();
-        configuracionesDialogo.setModal(false);
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
         configuracionesDialogo.setResizable(false);
         configuracionesDialogo.setTitle(Coordinador.PANEL_EMPLEADO_AGREGAR);
         configuracionesDialogo.setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
@@ -250,10 +251,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
     
     }
     
-    public void dispose(){
-     JOptionPane.showMessageDialog(null, "pendiente!! xP");
-    }
-    
+        
     private boolean guardarDepartamento(){
         String elementoEscrito = this._comboDepartamentos.getText();
         if (this._comboDepartamentos.contieneElItemEscrito()) {
