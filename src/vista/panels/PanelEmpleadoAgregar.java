@@ -163,8 +163,10 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
         configuracionesDialogo.setModal(true);
         configuracionesDialogo.setResizable(false);
         configuracionesDialogo.setTitle(Coordinador.PANEL_EMPLEADO_AGREGAR);
-        configuracionesDialogo.setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
+        configuracionesDialogo.setLocationRelativeTo(null);
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        configuracionesDialogo.setOperacionDeAcople(()->coordinador.pruebaAbrirComoPanel());
+        configuracionesDialogo.setOperacionDesacople(()->coordinador.pruebaAbrirComoDialogo());
         
         /* 
         ////////////////////////////////////////////////////////////////////////

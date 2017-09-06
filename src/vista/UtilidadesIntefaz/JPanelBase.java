@@ -32,18 +32,19 @@ public abstract class JPanelBase extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount()==3) {
-                    JOptionPane.showMessageDialog(null, "acoplar!!!!");
                     //SI DEVUELVE TRUE QUIERE DECIR QUE EL PANEL ESTABA MONTADO
-                    //SOBRE UN DIALOGO. 
+                    //SOBRE UN DIALOGO, ENTONCES DESPUES DE CERRAR SE EJECUTA
+                    // LA OPERACIÓN QUE DEFINIMOS DENTORDE configuracionesDialogo
+                    // operacionDeAcople().
                     if (panel.dispose()) {
-                    JOptionPane.showMessageDialog(null, "PENDIENTE ACOPLADA!!!!");
-                        
+                    JOptionPane.showMessageDialog(null, "acopla!!!!");
+                        panel.getConfiguracionesDialogo().getOperacionDeAcople().run();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "desacopla!!!!");
+                        panel.getConfiguracionesDialogo().getOperacionDesacople().run();
                     }
-                    
                 }
-                
             }
-          
         }.parametros(this));
     }
 

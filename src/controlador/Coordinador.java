@@ -160,7 +160,6 @@ public class Coordinador {
         JOptionPane.showMessageDialog(null, "se agrego un dialogo!");
         marcoParaVentanaPrincipal.remove(dialogo.getPanel());
         marcoParaVentanaPrincipal.repaint();
-            
         
         dialogosAbiertos.put(dialogo.getPanel(), dialogo);
     }
@@ -172,9 +171,13 @@ public class Coordinador {
      * @param jpb
      */
     public boolean cerrarDialogoAbierto(JPanelBase jpb){
+        //SI EXISTE EL DIALOGO EL MAPA ENTONCES LO CERRAMOS Y DEVOLVEMOS TRUE
+        // PARA QUE LA OPERACIÓN DE DESACOPLE SE LLEVE A CABO. SI SE INVOCA
+        // DESDE DENTRO DEL PANEL CUANDO HAY UN DIALOGO SOLO LO CIERRA. EN CASO
+        // DE QUE SEA PANEL RETORNA A LA VENTANA PRICIPAL. 
         if (dialogosAbiertos.containsKey(jpb)) {
-            dialogosAbiertos.get(jpb).dispose();
             dialogosAbiertos.remove(jpb);
+            dialogosAbiertos.get(jpb).dispose();
             return true;
             
         }else{
@@ -195,7 +198,7 @@ public class Coordinador {
         JDialogBase d = new JDialogBase(this);
         d.addPanel(this.panelEmpleadoAgregar);
         d.configurarPanel();
-        d.pack();
+//        d.pack();
         d.setVisible(true);
         
         

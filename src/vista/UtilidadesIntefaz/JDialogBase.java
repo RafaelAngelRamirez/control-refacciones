@@ -1,16 +1,10 @@
 
 package vista.UtilidadesIntefaz;
 
-import vista.UtilidadesIntefaz.JPanelBase;
 import controlador.Coordinador;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
 
 /**
@@ -53,7 +47,6 @@ public class JDialogBase extends JDialog{
     
     public void configurarPanel(){
         ConfiguracionDePanel c = this.panelActual.getConfiguracionesDialogo();
-//        this.panelActual.configurar();
         try {
             if (c==null) {
                     throw new ExcepcionPersonalizada("No has definido la configuración del panel", this, "configurarPanel()");
