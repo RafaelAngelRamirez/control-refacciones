@@ -35,6 +35,14 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
      */
     public PanelEmpleadoAgregar() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(Coordinador.PANEL_EMPLEADO_AGREGAR);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        configuracionesDialogo.setOperacionDeAcople(()->coordinador.pruebaAbrirComoPanel(false));
+        configuracionesDialogo.setOperacionDesacople(()->coordinador.pruebaAbrirComoDialogo(false));
     }
 
     /**
@@ -159,14 +167,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
         básico para que funcionen en modal.
         
         */ 
-        configuracionesDialogo = new ConfiguracionDePanel();
-        configuracionesDialogo.setModal(true);
-        configuracionesDialogo.setResizable(false);
-        configuracionesDialogo.setTitle(Coordinador.PANEL_EMPLEADO_AGREGAR);
-        configuracionesDialogo.setLocationRelativeTo(null);
-        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        configuracionesDialogo.setOperacionDeAcople(()->coordinador.pruebaAbrirComoPanel());
-        configuracionesDialogo.setOperacionDesacople(()->coordinador.pruebaAbrirComoDialogo());
+        
         
         /* 
         ////////////////////////////////////////////////////////////////////////

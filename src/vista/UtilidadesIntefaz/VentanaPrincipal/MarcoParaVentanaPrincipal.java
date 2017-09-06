@@ -430,7 +430,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEmpleadoAgregar.setNombre(Coordinador.PANEL_EMPLEADO_AGREGAR);
         dialogoEmpleadoAgregar.setPadre(menuAgregarRegistrar);
         dialogoEmpleadoAgregar.setAccionDelItem(
-                ()->this.getCoordinador().pruebaAbrirComoPanel());
+                ()->this.getCoordinador().pruebaAbrirComoPanel(true));
         this.addItemOMenu(dialogoEmpleadoAgregar);
         
 //        Coordinador.OperacionesPorActualizar dialogoEmpleadoAgregarOPA 
@@ -446,14 +446,14 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         prueba.setItem();
         prueba.setNombre("ABRIR COMO DIALOGO");
         prueba.setPadre(menuAgregarRegistrar);
-        prueba.setAccionDelItem(()->this.coordinador.pruebaAbrirComoDialogo());
+        prueba.setAccionDelItem(()->this.coordinador.pruebaAbrirComoDialogo(true));
         this.addItemOMenu(prueba);
         
         MenuConstructor prueba2 = new MenuConstructor();
         prueba2.setItem();
         prueba2.setNombre("ABRIR COMO PANEL");
         prueba2.setPadre(menuAgregarRegistrar);
-        prueba2.setAccionDelItem(()->this.coordinador.pruebaAbrirComoPanel());
+        prueba2.setAccionDelItem(()->this.coordinador.pruebaAbrirComoPanel(true));
         this.addItemOMenu(prueba2);
         
         

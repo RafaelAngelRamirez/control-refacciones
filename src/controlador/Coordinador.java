@@ -157,7 +157,8 @@ public class Coordinador {
      * @param dialogo
      */
     public void addDialogAbierto(JDialogBase dialogo){
-        JOptionPane.showMessageDialog(null, "se agrego un dialogo!");
+        String elNombreDelPanel = dialogo.getPanel().getConfiguracionesDialogo().getTitle();
+        JOptionPane.showMessageDialog(null, "se agrego un dialogo!:"+elNombreDelPanel);
         marcoParaVentanaPrincipal.remove(dialogo.getPanel());
         marcoParaVentanaPrincipal.repaint();
         
@@ -176,29 +177,46 @@ public class Coordinador {
         // DESDE DENTRO DEL PANEL CUANDO HAY UN DIALOGO SOLO LO CIERRA. EN CASO
         // DE QUE SEA PANEL RETORNA A LA VENTANA PRICIPAL. 
         if (dialogosAbiertos.containsKey(jpb)) {
+            JOptionPane.showMessageDialog(null, "contiene la llave:"+jpb.getConfiguracionesDialogo().getTitle());
+            JDialogBase dialogo = dialogosAbiertos.get(jpb);
+            //OBTENEMOS LA ÚLTIMA POSICIÓN
+            jpb.getConfiguracionesDialogo().setUltimaPosicionDeDialogo(dialogo.getLocationOnScreen());
+            //CERRAMOS EL DIALOGO. NO CONFUNDIR CON EL DISPOSE DE JPANEL BASE
+            // QUE DETONA ESTA FUNCIÓN PARA CERRAR EL DIALOGO DESDE DENTRO DL
+            // PANEL. 
+            dialogo.dispose();
+            // QUITAMOS EL PANEL DE LA LISTA POR QUE YA NO LO TENEMOS ABIERTO.
             dialogosAbiertos.remove(jpb);
-            dialogosAbiertos.get(jpb).dispose();
+            //RETORNAMOS TRUE PARA QUE SI SE LLAMO ESTA FUNCIÓN DESDE LAS OPERACIONES
+            // DE DESACOPLE Y ACOPLE SE EJECUTA LA FUNCIÓN CONTRARIA. (ACOPLAR Y 
+            // DESACOPLAR).
             return true;
             
         }else{
             JOptionPane.showMessageDialog(null, "falta configurar regreso a "
-                    + "ventana principal");
+                    + "ventana principal - no contiene la llave:"+jpb.getConfiguracionesDialogo().getTitle());
             return false;
         }
     }
     
-    public void pruebaAbrirComoPanel(){
+    public void pruebaAbrirComoPanel(boolean configurar){
         this.marcoParaVentanaPrincipal.setJPanel(this.panelEmpleadoAgregar);
+        if (configurar) {
         this.panelEmpleadoAgregar.configurar();
+        }
         
     }
     
-    public void pruebaAbrirComoDialogo(){
+    public void pruebaAbrirComoDialogo(boolean configurar){
         JOptionPane.showMessageDialog(null, "estamos por acaa en prueba de accion del item");
         JDialogBase d = new JDialogBase(this);
         d.addPanel(this.panelEmpleadoAgregar);
-        d.configurarPanel();
-//        d.pack();
+        if (configurar) {
+            JOptionPane.showMessageDialog(null, "se configuro!!");
+            
+            d.configurarPanel();
+        }
+        d.pack();
         d.setVisible(true);
         
         

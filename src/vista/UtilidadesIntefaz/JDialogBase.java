@@ -5,6 +5,7 @@ import controlador.Coordinador;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import modelo.ExcepcionPersonalizada;
 
 /**
@@ -24,8 +25,7 @@ public class JDialogBase extends JDialog{
     public void addPanel(JPanelBase panel){
         this.panelActual = panel;
         this.setContentPane(panelActual);
-        this.panelActual.configurar();
-        
+//        this.panelActual.configurar();
     }
     
     public JPanelBase getPanel(){
@@ -34,10 +34,18 @@ public class JDialogBase extends JDialog{
     
     @Override
     public void setVisible(boolean b){
+        ConfiguracionDePanel  config = 
+                this.panelActual.getConfiguracionesDialogo();
+        JOptionPane.showMessageDialog(null, config.toString());
         if (b) {
             //SOLO SE MARCA EL SET VISIBLE AQUI
             //POR QUE CERRAMOS DESDE EL CORRDINADOR LA VENTANA. 
             this.coordinador.addDialogAbierto(this);
+            if (config.getUltimaPosicionDeDialogo() == null) {
+                this.setLocationRelativeTo(config.getLocationRelativeTo());
+            }else{
+                this.setLocation(config.getUltimaPosicionDeDialogo());
+            }
             super.setVisible(b);
         }else{
             this.coordinador.cerrarDialogoAbierto(panelActual);
@@ -46,7 +54,9 @@ public class JDialogBase extends JDialog{
     
     
     public void configurarPanel(){
+        this.panelActual.configurar();
         ConfiguracionDePanel c = this.panelActual.getConfiguracionesDialogo();
+        
         try {
             if (c==null) {
                     throw new ExcepcionPersonalizada("No has definido la configuración del panel", this, "configurarPanel()");

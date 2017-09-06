@@ -2,8 +2,10 @@
 package vista.UtilidadesIntefaz;
 
 import java.awt.Component;
+import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.Position;
 import modelo.ExcepcionPersonalizada;
 
 /**
@@ -19,6 +21,7 @@ public class ConfiguracionDePanel{
     private int defaultCloseOperation;
     private Runnable operacionDeAcople;
     private Runnable operacionDesacople;
+    private Point ultimaPosicionDeDialogo;
 
     public Runnable getOperacionDeAcople() {
         try {
@@ -92,6 +95,33 @@ public class ConfiguracionDePanel{
 
     public void setDefaultCloseOperation(int defaultCloseOperation) {
         this.defaultCloseOperation = defaultCloseOperation;
+    }
+
+    public Point getUltimaPosicionDeDialogo() {
+        return ultimaPosicionDeDialogo;
+    }
+
+    public void setUltimaPosicionDeDialogo(Point ultimaPosicionDeDialogo) {
+        this.ultimaPosicionDeDialogo = ultimaPosicionDeDialogo;
+    }
+    
+    
+    
+    public String toString(){
+        
+        String m = 
+                "|\tCONFIGURACIONES DE PANEL: " + title+"\t\n";
+        String n = "\n";
+        m+=
+        "   locationRelativeTo->"+locationRelativeTo+n+
+        "                modal->"+modal+n+
+        "    operacionDeAcople->"+operacionDeAcople+n+
+        "   operacionDesacople->"+operacionDesacople+n+
+        "            resizable->"+resizable+n+
+        "ultimaPosicionDelDialogo->"+ultimaPosicionDeDialogo+n+
+        "                title->"+title+n;
+        return m;
+
     }
         
         
