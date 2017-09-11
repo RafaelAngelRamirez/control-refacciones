@@ -36,11 +36,10 @@ public class JDialogBase extends JDialog{
     public void setVisible(boolean b){
         ConfiguracionDePanel  config = 
                 this.panelActual.getConfiguracionesDialogo();
-        JOptionPane.showMessageDialog(null, config.toString());
         if (b) {
             //SOLO SE MARCA EL SET VISIBLE AQUI
             //POR QUE CERRAMOS DESDE EL CORRDINADOR LA VENTANA. 
-            this.coordinador.addDialogAbierto(this);
+            this.coordinador.getCoordinadorPaneles().addDialogAbierto(this);
             if (config.getUltimaPosicionDeDialogo() == null) {
                 this.setLocationRelativeTo(config.getLocationRelativeTo());
             }else{
@@ -48,7 +47,7 @@ public class JDialogBase extends JDialog{
             }
             super.setVisible(b);
         }else{
-            this.coordinador.cerrarDialogoAbierto(panelActual);
+            this.coordinador.getCoordinadorPaneles().cerrarDialogoAbierto(panelActual);
         }
     }
     

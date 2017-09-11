@@ -1,6 +1,7 @@
 
 package controlador;
 
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.awt.Dimension;
 import vista.panels.DialogoEmpleadoModificar;
 import vista.panels.DialogoRefaccionDetalle;
@@ -50,6 +51,9 @@ import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
  */
 public class Coordinador {
     
+    private CoordinadorPaneles coordinadorPaneles;
+    
+    
     private MarcoParaVentanaPrincipal marcoParaVentanaPrincipal;
     private Logica logica;
     
@@ -69,65 +73,7 @@ public class Coordinador {
     private DialogoSalidaDeLote dialogoSalidaDeLote;
     
     
-    /*------------------------------------------------------------
-        NOMBRAMOS LOS PANELES Y DIALOGOS CON VARIABLES ESTATICAS
-        PARA IDENTIFICARLOS Y LLAMARLOS POR FUERA. ESTE MISMO NOMBRE
-        SE MUESTRA EN LOS MENUS.
-    ------------------------------------------------------------*/
-    /**
-     * Nombre del panel principal donde se consultar las refacciones al 
-     * iniciar el sistema.
-     */
-    public static String PANEL_CONSULTAR_REFACCIONES = "Consultar refacciones";
-    /**
-     * Nombre del panel registro de refacciones.
-     */
-    public static String PANEL_REGISTRAR_NUEVA_REFACCION = "Registrar nueva refacción";
-    /**
-     * Nombre del panel para modificar refacciones. 
-     */
-    public static String PANEL_MODIFICAR_REFACCION = "Modificar refacción";
-    /**
-     * Dialogo Imagen detalle.
-     */
-    public static String DIALOGO_IMAGEN_DETALLE = "Detalle de imagen";
-    /**
-     * Nombre del dialogo Maquina modelo agregar
-     */
-    public static String DIALOGO_MAQUINA_MODELO_AGREGAR = "Registrar maquina-modelo";
-    /**
-     * Nombre del dialogo Maquina modelo modificar
-     */
-    public static String DIALOGO_MAQUINA_MODELO_MODIFICAR = "Modificar maquina-modelo";
-    /**
-     * Nombre del dialogo proveedor registrar.
-     */
-    public static String DIALOGO_PROVEEDOR_REGISTRAR = "Registrar proveedor";
-    /**
-     * Nombre del dialogo proveedor modificar.
-     */
-    public static String DIALOGO_PROVEEDOR_MODIFICAR = "Modificar proveedor";
-    /**
-     * Nombre del dialogo refaccion detalle.
-     */
-    public static String DIALOGO_REFACCION_DETALLE = "Detalle refacción";
-    /**
-     * Nombre del dialogo entrada lote.
-     */
-    public static String DIALOGO_ENTRADA_LOTE = "Entrada lote";
-    /**
-     * Nombre del dialogo entrada lote.
-     */
-    public static String DIALOGO_SALIDA_LOTE = "Salida lote";
-    /**
-     * Nombre del dialogo agregar empleado.
-     */
-    public static String PANEL_EMPLEADO_AGREGAR = "Agregar empleado";
     
-    /**
-     * Nombre del dialogo modficar empleado.
-     */
-    public static String DIALOGO_EMPLEADO_MODIFICAR = "Modificar empleado";
     
     public void salirDelSistema(){
         JOptionPane.showMessageDialog(null, "saliendo!");
@@ -135,13 +81,13 @@ public class Coordinador {
     
     }
     
-    /**
-     * Comprueba que el forma de fecha que se le pase sea correcto.
-     * @param fecha
-     */
-    public void comprobarFecha(String fecha, int formatoDeFecha){
-    
-    }
+//    /**
+//     * Comprueba que el forma de fecha que se le pase sea correcto.
+//     * @param fecha
+//     */
+//    public void comprobarFecha(String fecha, int formatoDeFecha){
+//    
+//    }
 
     /*
     ========================================================================
@@ -149,55 +95,7 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
     
-    private HashMap<JPanelBase, JDialogBase> dialogosAbiertos = new HashMap<>();
-    
-    /**
-     * Esta operación solo se utiliza desde la clase JDialogBase para controlad
-     * los dialogos que se abren. 
-     * @param dialogo
-     */
-    public void addDialogAbierto(JDialogBase dialogo){
-        String elNombreDelPanel = dialogo.getPanel().getConfiguracionesDialogo().getTitle();
-        JOptionPane.showMessageDialog(null, "se agrego un dialogo!:"+elNombreDelPanel);
-        marcoParaVentanaPrincipal.remove(dialogo.getPanel());
-        marcoParaVentanaPrincipal.repaint();
-        
-        dialogosAbiertos.put(dialogo.getPanel(), dialogo);
-    }
-    
-    /**
-     * Esta función ayuda a sustituir el dispose de las ventanas. En caso 
-     * de que no se a un dialogo regresa a la ventana principal. 
-     * 
-     * @param jpb
-     */
-    public boolean cerrarDialogoAbierto(JPanelBase jpb){
-        //SI EXISTE EL DIALOGO EL MAPA ENTONCES LO CERRAMOS Y DEVOLVEMOS TRUE
-        // PARA QUE LA OPERACIÓN DE DESACOPLE SE LLEVE A CABO. SI SE INVOCA
-        // DESDE DENTRO DEL PANEL CUANDO HAY UN DIALOGO SOLO LO CIERRA. EN CASO
-        // DE QUE SEA PANEL RETORNA A LA VENTANA PRICIPAL. 
-        if (dialogosAbiertos.containsKey(jpb)) {
-            JOptionPane.showMessageDialog(null, "contiene la llave:"+jpb.getConfiguracionesDialogo().getTitle());
-            JDialogBase dialogo = dialogosAbiertos.get(jpb);
-            //OBTENEMOS LA ÚLTIMA POSICIÓN
-            jpb.getConfiguracionesDialogo().setUltimaPosicionDeDialogo(dialogo.getLocationOnScreen());
-            //CERRAMOS EL DIALOGO. NO CONFUNDIR CON EL DISPOSE DE JPANEL BASE
-            // QUE DETONA ESTA FUNCIÓN PARA CERRAR EL DIALOGO DESDE DENTRO DL
-            // PANEL. 
-            dialogo.dispose();
-            // QUITAMOS EL PANEL DE LA LISTA POR QUE YA NO LO TENEMOS ABIERTO.
-            dialogosAbiertos.remove(jpb);
-            //RETORNAMOS TRUE PARA QUE SI SE LLAMO ESTA FUNCIÓN DESDE LAS OPERACIONES
-            // DE DESACOPLE Y ACOPLE SE EJECUTA LA FUNCIÓN CONTRARIA. (ACOPLAR Y 
-            // DESACOPLAR).
-            return true;
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "falta configurar regreso a "
-                    + "ventana principal - no contiene la llave:"+jpb.getConfiguracionesDialogo().getTitle());
-            return false;
-        }
-    }
+  
     
     public void pruebaAbrirComoPanel(boolean configurar){
         this.marcoParaVentanaPrincipal.setJPanel(this.panelEmpleadoAgregar);
@@ -207,22 +105,25 @@ public class Coordinador {
         
     }
     
-    public void pruebaAbrirComoDialogo(boolean configurar){
-        JOptionPane.showMessageDialog(null, "estamos por acaa en prueba de accion del item");
+    public JDialogBase pruebaAbrirComoDialogo(boolean configurar){
         JDialogBase d = new JDialogBase(this);
         d.addPanel(this.panelEmpleadoAgregar);
         if (configurar) {
-            JOptionPane.showMessageDialog(null, "se configuro!!");
-            
             d.configurarPanel();
         }
         d.pack();
         d.setVisible(true);
-        
-        
+        return d;
+    }
+
+    public CoordinadorPaneles getCoordinadorPaneles() {
+        return coordinadorPaneles;
+    }
+
+    public void setCoordinadorPaneles(CoordinadorPaneles coordinadorPaneles) {
+        this.coordinadorPaneles = coordinadorPaneles;
     }
     
-   
     public DialogoSalidaDeLote getDialogoSalidaLote() {
         return dialogoSalidaDeLote;
     }
@@ -327,7 +228,7 @@ public class Coordinador {
         this.panelRefaccionAgregar = panelRefaccionAgregar;
     }
     
-    public PanelRefaccionesConsulta getPanelConsultaRefacciones() {
+    public PanelRefaccionesConsulta getPanelRefaccionConsulta() {
         return panelRefaccionConsulta;
     }
 
@@ -680,7 +581,7 @@ public class Coordinador {
                 //SI NO TENEMOS NINGUNA REFACCION POR MODIFICAR CARGAMOS LAS QUE
                 // ESTEN SELECCIONADAS EN LA TABLA.
                 if (refaccionesPorModificarId.isEmpty()) {
-                    refaccionesPorModificarId = this.getPanelConsultaRefacciones().getIdSeleccionados();
+                    refaccionesPorModificarId = this.getPanelRefaccionConsulta().getIdSeleccionados();
                 }
                 // SI refaccionesPorModificarId NO ESTA VACIO ENTONCES QUIERE
                 //DECIR QUE SE SELECCIONARON ELEMENTOS DE LA TABLA.
@@ -737,11 +638,32 @@ public class Coordinador {
         this.getPanelRefaccionModificar().configurar(idRefaccion, 0);
     }
     
+    
+    
     public void refaccionAbrirPanelConsultaRefacciones(){
-        this.getMarcoParaVentanaPrincipal()
-                .setJPanel(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES);
-        
+        refaccionAbrirPanelConsultaRefacciones_Panel(false);
     }
+
+    public void refaccionAbrirPanelConsultaRefacciones_Panel(boolean configurar){
+        this.marcoParaVentanaPrincipal.setJPanel(this.panelRefaccionConsulta);
+        if (configurar) {
+        this.panelRefaccionConsulta.configurar();
+        }
+    }
+    
+    public JDialogBase refaccionAbrirPanelConsultaRefacciones_Dialogo(boolean configurar){
+        JDialogBase d = new JDialogBase(this);
+        d.addPanel(this.panelRefaccionConsulta);
+        if (configurar) {
+            JOptionPane.showMessageDialog(null, "se configuro!!");
+            
+            d.configurarPanel();
+        }
+        d.pack();
+        d.setVisible(true);
+        return d;
+    }
+    
     
     //DETALLE DE REFACCIONES
     public void refaccionAbrirDetalleRefaccion(String id){
@@ -750,7 +672,7 @@ public class Coordinador {
     }
     
     public void refaccionAbrirDetalleRefaccion(){
-        int a = this.getPanelConsultaRefacciones().getIdSeleccionado();
+        int a = this.getPanelRefaccionConsulta().getIdSeleccionado();
         if (a==-1) {
             JOptionPane.showMessageDialog(null, "Selecciona un elemento de la \n"
                     + "tabla para mostrarlo.");
@@ -805,7 +727,7 @@ public class Coordinador {
     //ACTUALIZAR 
     
     public void refaccionActualizarPanelConsultaRefacciones(){
-        this.getPanelConsultaRefacciones().cargarRefaccionesInicio();
+        this.getPanelRefaccionConsulta().cargarRefaccionesInicio();
     }
     
     public void refaccionActualizarPanelAgregarRefaccion(){
@@ -920,6 +842,10 @@ public class Coordinador {
        INICIO DE EMPLEADO
     ////////////////////////////////////////////////////////////////////////
     */
+    
+    public void empleadoAbrirdialogoAgregar(){
+    
+    }
     
     public void empleadoAbrirDialogoAgregar(){
         this.getPanelEmpleadoAgregar().setVisible(true);
@@ -1224,7 +1150,7 @@ public class Coordinador {
 //        // QUEDEN ACTUALIZADOS.
 //        switch(nombreDeLaTabla){
 //            case RefaccionIT.NOMBRE_TABLA:
-//                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_REFACCIONES_CONSULTAR, false);
 //                break;
 //            case ProveedorIT.NOMBRE_TABLA:    
 //                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
@@ -1233,7 +1159,7 @@ public class Coordinador {
 //                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_MODIFICAR, false);
 //                break;
 //            case MaquinaModeloIT.NOMBRE_TABLA:
-//                mapa.put(MarcoParaVentanaPrincipal.PANEL_CONSULTAR_REFACCIONES, false);
+//                mapa.put(MarcoParaVentanaPrincipal.PANEL_REFACCIONES_CONSULTAR, false);
 //                mapa.put(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION, false);
 //                mapa.put(MarcoParaVentanaPrincipal.PANEL_REGISTRAR_NUEVA_REFACCION, false);
 //                mapa.put(MarcoParaVentanaPrincipal.DIALOGO_MAQUINA_MODELO_AGREGAR, false);

@@ -6,10 +6,12 @@
 package vista.panels;
 
 import controlador.Coordinador;
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -17,6 +19,9 @@ import modelo.InfoTabla.ImportanciaIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.UnidadIT;
 import modelo.vo.RefaccionVo;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
+import vista.UtilidadesIntefaz.JDialogBase;
+import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesModeloDeTabla_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTabla_;
@@ -26,7 +31,7 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  *
  * @author Particular
  */
-public class PanelRefaccionesConsulta extends JPanel {
+public class PanelRefaccionesConsulta extends JPanelBase {
     Coordinador coordinador = new Coordinador();
     
     UtilidadesTxt_ _TxtFiltrarRefaccion;
@@ -38,9 +43,20 @@ public class PanelRefaccionesConsulta extends JPanel {
      */
     public PanelRefaccionesConsulta() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_REFACCIONES_CONSULTAR);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        configuracionesDialogo.setOperacionDeAcople_Panel(()->{
+            coordinador.refaccionAbrirPanelConsultaRefacciones_Panel(false);
+        });
+        configuracionesDialogo.setOperacionDesacople_Dialogo(
+                ()->coordinador.refaccionAbrirPanelConsultaRefacciones_Dialogo(false));
     }
-    
-    
+
+    @Override
     public void configurar(){
         /*
         =======================================================================

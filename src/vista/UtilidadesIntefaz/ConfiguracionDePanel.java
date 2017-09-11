@@ -3,9 +3,9 @@ package vista.UtilidadesIntefaz;
 
 import java.awt.Component;
 import java.awt.Point;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.text.Position;
 import modelo.ExcepcionPersonalizada;
 
 /**
@@ -20,8 +20,19 @@ public class ConfiguracionDePanel{
     private Component locationRelativeTo;
     private int defaultCloseOperation;
     private Runnable operacionDeAcople;
-    private Runnable operacionDesacople;
+    private Callable<JDialogBase> operacionDesacople;
     private Point ultimaPosicionDeDialogo;
+    private JDialogBase dialogoTemporal;
+
+    public JDialogBase getDialogoTemporal() {
+        return dialogoTemporal;
+    }
+
+    public void setDialogoTemporal(JDialogBase dialogoTemporal) {
+        this.dialogoTemporal = dialogoTemporal;
+    }
+    
+    
 
     public Runnable getOperacionDeAcople() {
         try {
@@ -36,11 +47,18 @@ public class ConfiguracionDePanel{
         return null;
     }
 
-    public void setOperacionDeAcople(Runnable operacionDeAcople) {
+    public void setOperacionDeAcople_Panel(Runnable operacionDeAcople) {
         this.operacionDeAcople = operacionDeAcople;
     }
     
-    public Runnable getOperacionDesacople() {
+    
+    
+    
+    
+    
+    
+    
+    public Callable<JDialogBase> getOperacionDesacople() {
         try {
             if (operacionDesacople==null) {
                     throw new ExcepcionPersonalizada("No has definido la operación de desacople de"
@@ -53,7 +71,12 @@ public class ConfiguracionDePanel{
         return null;
     }
 
-    public void setOperacionDesacople(Runnable operacionDesacople) {
+    
+    
+    
+    
+    
+    public void setOperacionDesacople_Dialogo(Callable<JDialogBase> operacionDesacople) {
         this.operacionDesacople = operacionDesacople;
     }
 

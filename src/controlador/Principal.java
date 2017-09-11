@@ -33,6 +33,7 @@ import vista.panels.PanelRefaccionesConsulta;
 import com.bulenkov.darcula.DarculaLaf;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -109,6 +110,7 @@ public class Principal {
         
         //COORDINADORES
         Coordinador coordinador = new Coordinador();
+        CoordinadorPaneles coordinadorPaneles = new CoordinadorPaneles();
         
         //LOGICA
         Logica logica = new Logica();
@@ -136,6 +138,7 @@ public class Principal {
         panelEmpleadoAgregar.setCoordinador(coordinador);
         dialogoEmpleadoModificar.setCoordinador(coordinador);
         dialogoSalidaDeLote.setCoordinador(coordinador);
+        coordinadorPaneles.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         
@@ -160,6 +163,7 @@ public class Principal {
         coordinador.setPanelEmpleadoAgregar(panelEmpleadoAgregar);
         coordinador.setDialogoEmpleadoModificar(dialogoEmpleadoModificar);
         coordinador.setDialogoSalidaDeLote(dialogoSalidaDeLote);
+        coordinador.setCoordinadorPaneles(coordinadorPaneles);
         
 //        /*
 //        ====================================================================

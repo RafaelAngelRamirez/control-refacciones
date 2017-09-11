@@ -2,6 +2,7 @@
 package vista.panels;
 
 import controlador.Coordinador;
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
@@ -38,11 +39,11 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
         configuracionesDialogo = new ConfiguracionDePanel();
         configuracionesDialogo.setModal(true);
         configuracionesDialogo.setResizable(false);
-        configuracionesDialogo.setTitle(Coordinador.PANEL_EMPLEADO_AGREGAR);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_EMPLEADO_AGREGAR);
         configuracionesDialogo.setLocationRelativeTo(null);
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        configuracionesDialogo.setOperacionDeAcople(()->coordinador.pruebaAbrirComoPanel(false));
-        configuracionesDialogo.setOperacionDesacople(()->coordinador.pruebaAbrirComoDialogo(false));
+        configuracionesDialogo.setOperacionDeAcople_Panel(()->coordinador.pruebaAbrirComoPanel(false));
+        configuracionesDialogo.setOperacionDesacople_Dialogo(()->coordinador.pruebaAbrirComoDialogo(false));
     }
 
     /**
