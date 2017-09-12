@@ -5,6 +5,7 @@
  */
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;

@@ -19,7 +19,7 @@ import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.FechaYHora;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;

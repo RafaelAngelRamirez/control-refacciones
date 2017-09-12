@@ -7,8 +7,10 @@
 package vista.panels;
 
 import controlador.Coordinador;
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -27,6 +29,7 @@ import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
 
 
@@ -63,6 +66,19 @@ public class PanelRefaccionDetalle extends JPanelBase {
     /** Creates new form DialogoDetalleRefaccion */
     public PanelRefaccionDetalle() {
         initComponents();
+         configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(false);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_REFACCION_DETALLE);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        
+        
+    }
+    
+    @Override
+    public void configurar() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public void configurar(String id){
@@ -961,8 +977,8 @@ public class PanelRefaccionDetalle extends JPanelBase {
     }    
     
     private void salir(){
-        this.setVisible(false);
         this.dispose();
+        
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void listaProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaProveedoresMouseClicked
@@ -1091,9 +1107,6 @@ public class PanelRefaccionDetalle extends JPanelBase {
     private javax.swing.JTextField txtUnidad;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void configurar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
 }

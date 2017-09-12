@@ -2,6 +2,11 @@
 package vista.UtilidadesIntefaz;
 
 import controlador.Coordinador;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -16,16 +21,43 @@ public class JDialogBase extends JDialog{
     
     Coordinador coordinador;
     private JPanelBase panelActual;
+    
+    protected Point ubicacionEnPantalla;
+    protected Dimension tamanoDeDialogo;
 
     public JDialogBase(Coordinador coordinador) {
         this.coordinador = coordinador;
         
+        this.addComponentListener(new ComponentAdapter() {
+            JDialogBase dialogo;
+            public ComponentAdapter parametros(JDialogBase dialogo){
+                this.dialogo = dialogo;
+                return this;
+            }
+            @Override
+            public void componentResized(ComponentEvent e) {
+                System.out.println("aquiii");
+                dialogo.tamanoDeDialogo = dialogo.getSize();
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+                dialogo.ubicacionEnPantalla = dialogo.getLocationOnScreen();
+            }
+
+         
+        }.parametros(this));
     }
     
-    public void addPanel(JPanelBase panel){
+    
+    public void retormarFormaYPosicion(){
+        this.setSize(tamanoDeDialogo);
+        this.setLocation(ubicacionEnPantalla);
+    }
+    
+    public void add(JPanelBase panel){
         this.panelActual = panel;
         this.setContentPane(panelActual);
-//        this.panelActual.configurar();
     }
     
     public JPanelBase getPanel(){
@@ -36,6 +68,16 @@ public class JDialogBase extends JDialog{
     public void setVisible(boolean b){
         ConfiguracionDePanel  config = 
                 this.panelActual.getConfiguracionesDialogo();
+        if (config==null) {
+            try {
+                throw new ExcepcionPersonalizada(
+                        "No definiste la configuracion "
+                                + "del panel: "+this.panelActual.getClass().getName()
+                        , this, "setVisible()");
+            } catch (ExcepcionPersonalizada ex) {
+                Logger.getLogger(JDialogBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         if (b) {
             //SOLO SE MARCA EL SET VISIBLE AQUI
             //POR QUE CERRAMOS DESDE EL CORRDINADOR LA VENTANA. 
@@ -46,6 +88,7 @@ public class JDialogBase extends JDialog{
                 this.setLocation(config.getUltimaPosicionDeDialogo());
             }
             super.setVisible(b);
+            configurarPanel();
         }else{
             this.coordinador.getCoordinadorPaneles().cerrarDialogoAbierto(panelActual);
         }
@@ -53,7 +96,7 @@ public class JDialogBase extends JDialog{
     
     
     public void configurarPanel(){
-        this.panelActual.configurar();
+//        this.panelActual.configurar();
         ConfiguracionDePanel c = this.panelActual.getConfiguracionesDialogo();
         
         try {

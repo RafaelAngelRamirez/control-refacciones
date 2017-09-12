@@ -16,7 +16,7 @@ import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
 import modelo.FechaYHora;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;

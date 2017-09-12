@@ -19,8 +19,6 @@ public class ConfiguracionDePanel{
     private String title;
     private Component locationRelativeTo;
     private int defaultCloseOperation;
-    private Runnable operacionDeAcople;
-    private Callable<JDialogBase> operacionDesacople;
     private Point ultimaPosicionDeDialogo;
     private JDialogBase dialogoTemporal;
 
@@ -33,52 +31,6 @@ public class ConfiguracionDePanel{
     }
     
     
-
-    public Runnable getOperacionDeAcople() {
-        try {
-            if (operacionDeAcople==null) {
-                    throw new ExcepcionPersonalizada("No has definido la operación de acople de"
-                            + "\n\t el panel '"+getTitle()+"'", this);
-            }
-            return operacionDeAcople;
-        } catch (ExcepcionPersonalizada ex) {
-            Logger.getLogger(ConfiguracionDePanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    public void setOperacionDeAcople_Panel(Runnable operacionDeAcople) {
-        this.operacionDeAcople = operacionDeAcople;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    public Callable<JDialogBase> getOperacionDesacople() {
-        try {
-            if (operacionDesacople==null) {
-                    throw new ExcepcionPersonalizada("No has definido la operación de desacople de"
-                            + "\n\t el panel '"+getTitle()+"'", this);
-            }
-            return operacionDesacople;
-        } catch (ExcepcionPersonalizada ex) {
-            Logger.getLogger(ConfiguracionDePanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    
-    
-    
-    
-    
-    public void setOperacionDesacople_Dialogo(Callable<JDialogBase> operacionDesacople) {
-        this.operacionDesacople = operacionDesacople;
-    }
 
     public boolean isModal() {
         return modal;
@@ -138,8 +90,6 @@ public class ConfiguracionDePanel{
         m+=
         "   locationRelativeTo->"+locationRelativeTo+n+
         "                modal->"+modal+n+
-        "    operacionDeAcople->"+operacionDeAcople+n+
-        "   operacionDesacople->"+operacionDesacople+n+
         "            resizable->"+resizable+n+
         "ultimaPosicionDelDialogo->"+ultimaPosicionDeDialogo+n+
         "                title->"+title+n;

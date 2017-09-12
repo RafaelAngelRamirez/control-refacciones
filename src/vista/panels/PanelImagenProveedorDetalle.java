@@ -151,7 +151,7 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
      */
     public void cargarImagenes(){
         List<ImagenRefaccionVo> livo = this.getCoordinador().refaccionListaDeImagenesDetalles();
-        int i = this.getCoordinador().getDialogoRefaccionDetalle().getIdRefaccion();
+        int i = this.getCoordinador().getPanelRefaccionDetalle().getIdRefaccion();
         setIdRefaccion(i);
         if (livo.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Esta refacción no tiene imágenes.");

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista.UtilidadesIntefaz.utilidadesOptimizadas;
+package vista.UtilidadesIntefaz;
 
 import controlador.capturadeerrores.Suceso;
 import vista.UtilidadesIntefaz.SenalarErroresSobreGUI_;

@@ -5,6 +5,7 @@
  */
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import controlador.capturadeerrores.Suceso;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;

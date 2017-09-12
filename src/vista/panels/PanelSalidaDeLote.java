@@ -21,7 +21,7 @@ import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.FechaYHora;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
@@ -1033,7 +1033,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                     this.dispose();
                     this.getCoordinador().entradaLoteAbrirDialogo(vo, 
                             ()->this.getCoordinador().salidaLoteAbrirDialogo(vo,
-                                    this.getCoordinador().getDialogoEntradaLote()));
+                                    this.getCoordinador().getPanelEntradaLote()));
                 }else{
                     limpiar();
                     JOptionPane.showMessageDialog(this,

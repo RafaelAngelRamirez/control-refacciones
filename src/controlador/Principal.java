@@ -151,18 +151,18 @@ public class Principal {
         coordinador.setMarcoParaVentanaPrincipal(marcoParaVentanaPrincipal);
         coordinador.setPanelRefaccionConsulta(panelConsultaRefacciones);
         coordinador.setPanelRefaccionAgregar(panelRefaccionAgregar);
-        coordinador.setDialogoProveedorRegistrar(dialogoProveedorRegistrar);
+        coordinador.setPanelProveedorRegistrar(dialogoProveedorRegistrar);
         coordinador.setLogica(logica);
-        coordinador.setDialogoMaquinaModeloAgregar(dialogoMaquinaModeloAgregar);
-        coordinador.setDialogoRefaccionDetalle(dialogoRefaccionDetalle);
-        coordinador.setDialogoImagenDetalle(dialogoImagenDetalle);
+        coordinador.setPanelMaquinaModeloAgregar(dialogoMaquinaModeloAgregar);
+        coordinador.setPanelRefaccionDetalle(dialogoRefaccionDetalle);
+        coordinador.setPanelImagenDetalle(dialogoImagenDetalle);
         coordinador.setPanelRefaccionModificar(panelRefaccionModificar);
-        coordinador.setDialogoMaquinaModeloModificar(dialogoMaquinaModeloModificar);
-        coordinador.setDialogoProveedorModificar(dialogoProveedorModificar);
-        coordinador.setDialogoEntradaLote(dialogoEntradaLote);
+        coordinador.setPanelMaquinaModeloModificar(dialogoMaquinaModeloModificar);
+        coordinador.setPanelProveedorModificar(dialogoProveedorModificar);
+        coordinador.setPanelEntradaLote(dialogoEntradaLote);
         coordinador.setPanelEmpleadoAgregar(panelEmpleadoAgregar);
-        coordinador.setDialogoEmpleadoModificar(dialogoEmpleadoModificar);
-        coordinador.setDialogoSalidaDeLote(dialogoSalidaDeLote);
+        coordinador.setPanelEmpleadoModificar(dialogoEmpleadoModificar);
+        coordinador.setPanelSalidaDeLote(dialogoSalidaDeLote);
         coordinador.setCoordinadorPaneles(coordinadorPaneles);
         
 //        /*

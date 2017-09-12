@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
 /**
  *

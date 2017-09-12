@@ -40,35 +40,35 @@ public class CoordinadorPaneles {
     /**
      * Dialogo Imagen detalle.
      */
-    public static String DIALOGO_IMAGEN_DETALLE = "Detalle de imagen";
+    public static String PANEL_IMAGEN_DETALLE = "Detalle de imagen";
     /**
      * Nombre del dialogo Maquina modelo agregar
      */
-    public static String DIALOGO_MAQUINA_MODELO_AGREGAR = "Registrar maquina-modelo";
+    public static String PANEL_MAQUINA_MODELO_AGREGAR = "Registrar maquina-modelo";
     /**
      * Nombre del dialogo Maquina modelo modificar
      */
-    public static String DIALOGO_MAQUINA_MODELO_MODIFICAR = "Modificar maquina-modelo";
+    public static String PANEL_MAQUINA_MODELO_MODIFICAR = "Modificar maquina-modelo";
     /**
      * Nombre del dialogo proveedor registrar.
      */
-    public static String DIALOGO_PROVEEDOR_REGISTRAR = "Registrar proveedor";
+    public static String PANEL_PROVEEDOR_REGISTRAR = "Registrar proveedor";
     /**
      * Nombre del dialogo proveedor modificar.
      */
-    public static String DIALOGO_PROVEEDOR_MODIFICAR = "Modificar proveedor";
+    public static String PANEL_PROVEEDOR_MODIFICAR = "Modificar proveedor";
     /**
      * Nombre del dialogo refaccion detalle.
      */
-    public static String DIALOGO_REFACCION_DETALLE = "Detalle refacción";
+    public static String PANEL_REFACCION_DETALLE = "Detalle refacción";
     /**
      * Nombre del dialogo entrada lote.
      */
-    public static String DIALOGO_ENTRADA_LOTE = "Entrada lote";
+    public static String PANEL_ENTRADA_LOTE = "Entrada lote";
     /**
      * Nombre del dialogo entrada lote.
      */
-    public static String DIALOGO_SALIDA_LOTE = "Salida lote";
+    public static String PANEL_SALIDA_LOTE = "Salida lote";
     /**
      * Nombre del dialogo agregar empleado.
      */
@@ -90,12 +90,12 @@ public class CoordinadorPaneles {
     }
       
     /**
-     * Esta operación solo se utiliza desde la clase JDialogBase para controlad
+     * Esta operación solo se utiliza desde la clase JDialogBase para controlar
      * los dialogos que se abren. 
      * @param dialogo
      */
     public void addDialogAbierto(JDialogBase dialogo){
-        String elNombreDelPanel = dialogo.getPanel().getConfiguracionesDialogo().getTitle();
+//        String elNombreDelPanel = dialogo.getPanel().getConfiguracionesDialogo().getTitle();
         coordinador.getMarcoParaVentanaPrincipal().remove(dialogo.getPanel());
         coordinador.getMarcoParaVentanaPrincipal().repaint();
         
@@ -133,5 +133,21 @@ public class CoordinadorPaneles {
             coordinador.getPanelRefaccionConsulta().configurar();
             return false;
         }
+    }
+    
+    public JDialogBase ifContainsReturnElseCreate(JPanelBase panel){
+        if (dialogosAbiertos.containsKey(panel)) {
+            JDialogBase d = dialogosAbiertos.get(panel);
+            d.retormarFormaYPosicion();
+            return d;
+        }else{
+            JDialogBase d = new JDialogBase(coordinador);
+            d.add(panel);
+            d.configurarPanel();
+            d.pack();
+            return d;
+            
+        }
+    
     }
 }

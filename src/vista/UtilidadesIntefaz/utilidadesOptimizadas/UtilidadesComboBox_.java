@@ -1,6 +1,7 @@
 
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import controlador.capturadeerrores.Suceso;
 import controlador.Coordinador;
 import java.awt.Component;

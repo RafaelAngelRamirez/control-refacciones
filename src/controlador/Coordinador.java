@@ -56,16 +56,16 @@ public class Coordinador {
     private PanelRefaccionAgregar panelRefaccionAgregar;
     private PanelRefaccionModificar panelRefaccionModificar;
     
-    private PanelMaquinaModeloAgregar dialogoMaquinaModeloAgregar;
-    private PanelRefaccionDetalle dialogoRefaccionDetalle;
-    private PanelImagenRefaccionDetalle dialogoImagenDetalle;
-    private PanelProveedorRegistrar dialogoProveedorRegistrar;
-    private PanelMaquinaModeloModificar dialogoMaquinaModeloModificar;
-    private PanelProveedorModificar dialogoProveedorModificar;
-    private PanelEntradaLote dialogoEntradaLote;
+    private PanelMaquinaModeloAgregar panelMaquinaModeloAgregar;
+    private PanelRefaccionDetalle panelRefaccionDetalle;
+    private PanelImagenRefaccionDetalle panelImagenDetalle;
+    private PanelProveedorRegistrar panelProveedorRegistrar;
+    private PanelMaquinaModeloModificar panelMaquinaModeloModificar;
+    private PanelProveedorModificar panelProveedorModificar;
+    private PanelEntradaLote panelEntradaLote;
     private PanelEmpleadoAgregar panelEmpleadoAgregar;
-    private PanelEmpleadoModificar dialogoEmpleadoModificar;
-    private PanelSalidaDeLote dialogoSalidaDeLote;
+    private PanelEmpleadoModificar panelEmpleadoModificar;
+    private PanelSalidaDeLote panelSalidaDeLote;
     
     
     
@@ -102,7 +102,7 @@ public class Coordinador {
     
     public JDialogBase pruebaAbrirComoDialogo(boolean configurar){
         JDialogBase d = new JDialogBase(this);
-        d.addPanel(this.panelEmpleadoAgregar);
+        d.add(this.panelEmpleadoAgregar);
         if (configurar) {
             d.configurarPanel();
         }
@@ -120,19 +120,19 @@ public class Coordinador {
     }
     
     public PanelSalidaDeLote getDialogoSalidaLote() {
-        return dialogoSalidaDeLote;
+        return panelSalidaDeLote;
     }
 
-    public void setDialogoSalidaDeLote(PanelSalidaDeLote dialogoSalidaDeLote) {
-        this.dialogoSalidaDeLote = dialogoSalidaDeLote;
+    public void setPanelSalidaDeLote(PanelSalidaDeLote panelSalidaDeLote) {
+        this.panelSalidaDeLote = panelSalidaDeLote;
     }
     
-    public PanelEmpleadoModificar getDialogoEmpleadoModificar() {
-        return dialogoEmpleadoModificar;
+    public PanelEmpleadoModificar getPanelEmpleadoModificar() {
+        return panelEmpleadoModificar;
     }
 
-    public void setDialogoEmpleadoModificar(PanelEmpleadoModificar dialogoEmpleadoModificar) {
-        this.dialogoEmpleadoModificar = dialogoEmpleadoModificar;
+    public void setPanelEmpleadoModificar(PanelEmpleadoModificar panelEmpleadoModificar) {
+        this.panelEmpleadoModificar = panelEmpleadoModificar;
     }
     
     public PanelEmpleadoAgregar getPanelEmpleadoAgregar() {    
@@ -142,32 +142,32 @@ public class Coordinador {
         this.panelEmpleadoAgregar = panelEmpleadoAgregar;
     }
 
-    public PanelRefaccionDetalle getDialogoRefaccionDetalle() {    
-        return dialogoRefaccionDetalle;
+    public PanelRefaccionDetalle getPanelRefaccionDetalle() {    
+        return panelRefaccionDetalle;
     }
     
-    public PanelEntradaLote getDialogoEntradaLote() {
-        return dialogoEntradaLote;
+    public PanelEntradaLote getPanelEntradaLote() {
+        return panelEntradaLote;
     }
 
-    public void setDialogoEntradaLote(PanelEntradaLote dialogoEntradaLote) {
-        this.dialogoEntradaLote = dialogoEntradaLote;
+    public void setPanelEntradaLote(PanelEntradaLote panelEntradaLote) {
+        this.panelEntradaLote = panelEntradaLote;
     }
     
-    public PanelProveedorModificar getDialogoProveedorModificar() {
-        return dialogoProveedorModificar;
+    public PanelProveedorModificar getPanelProveedorModificar() {
+        return panelProveedorModificar;
     }
 
-    public void setDialogoProveedorModificar(PanelProveedorModificar dialogoProveedorModificar) {
-        this.dialogoProveedorModificar = dialogoProveedorModificar;
+    public void setPanelProveedorModificar(PanelProveedorModificar panelProveedorModificar) {
+        this.panelProveedorModificar = panelProveedorModificar;
     }
 
-    public PanelMaquinaModeloModificar getDialogoMaquinaModeloModificar() {
-        return dialogoMaquinaModeloModificar;
+    public PanelMaquinaModeloModificar getPanelMaquinaModeloModificar() {
+        return panelMaquinaModeloModificar;
     }
 
-    public void setDialogoMaquinaModeloModificar(PanelMaquinaModeloModificar dialogoMaquinaModeloModificar) {
-        this.dialogoMaquinaModeloModificar = dialogoMaquinaModeloModificar;
+    public void setPanelMaquinaModeloModificar(PanelMaquinaModeloModificar panelMaquinaModeloModificar) {
+        this.panelMaquinaModeloModificar = panelMaquinaModeloModificar;
     }
     
     public PanelRefaccionModificar getPanelRefaccionModificar() {
@@ -178,24 +178,24 @@ public class Coordinador {
         this.panelRefaccionModificar = panelRefaccionModificar;
     }
     
-    public PanelImagenRefaccionDetalle getDialogoImagenDetalle() {
-        return dialogoImagenDetalle;
+    public PanelImagenRefaccionDetalle getPanelImagenDetalle() {
+        return panelImagenDetalle;
     }
 
-    public void setDialogoImagenDetalle(PanelImagenRefaccionDetalle dialogoImagenDetalle) {
-        this.dialogoImagenDetalle = dialogoImagenDetalle;
+    public void setPanelImagenDetalle(PanelImagenRefaccionDetalle panelImagenDetalle) {
+        this.panelImagenDetalle = panelImagenDetalle;
     }
     
-    public void setDialogoRefaccionDetalle(PanelRefaccionDetalle dialogoRefaccionDetalle) {
-        this.dialogoRefaccionDetalle = dialogoRefaccionDetalle;
+    public void setPanelRefaccionDetalle(PanelRefaccionDetalle panelRefaccionDetalle) {
+        this.panelRefaccionDetalle = panelRefaccionDetalle;
     }
 
-    public PanelMaquinaModeloAgregar getDialogoMaquinaModeloAgregar() {
-        return dialogoMaquinaModeloAgregar;
+    public PanelMaquinaModeloAgregar getPanelMaquinaModeloAgregar() {
+        return panelMaquinaModeloAgregar;
     }
 
-    public void setDialogoMaquinaModeloAgregar(PanelMaquinaModeloAgregar dialogoMaquinaModeloAgregar) {
-        this.dialogoMaquinaModeloAgregar = dialogoMaquinaModeloAgregar;
+    public void setPanelMaquinaModeloAgregar(PanelMaquinaModeloAgregar panelMaquinaModeloAgregar) {
+        this.panelMaquinaModeloAgregar = panelMaquinaModeloAgregar;
     }
     
     public Logica getLogica() {
@@ -206,12 +206,12 @@ public class Coordinador {
         this.logica = logica;
     }
 
-    public PanelProveedorRegistrar getDialogoProveedorRegistrar() {
-        return dialogoProveedorRegistrar;
+    public PanelProveedorRegistrar getPanelProveedorRegistrar() {
+        return panelProveedorRegistrar;
     }
 
-    public void setDialogoProveedorRegistrar(PanelProveedorRegistrar dialogoProveedorRegistrar) {
-        this.dialogoProveedorRegistrar = dialogoProveedorRegistrar;
+    public void setPanelProveedorRegistrar(PanelProveedorRegistrar panelProveedorRegistrar) {
+        this.panelProveedorRegistrar = panelProveedorRegistrar;
     }
     
     public PanelRefaccionAgregar getPanelRefaccionAgregar() {
@@ -259,8 +259,8 @@ public class Coordinador {
     public void proveedorAbrirDialogoGuardarNuevo(){
         //ES NECESARIO LANZAR EL PROCEDIMIENTO DE CONFIGURACIÓN AQUI
         // PARA QUE LAS INSTANCIAS QUE REQUIEREN SE SETEAN POR COMPLETO.
-        this.getDialogoProveedorRegistrar().configurar();
-        this.getDialogoProveedorRegistrar().setVisible(true);
+        this.getPanelProveedorRegistrar().configurar();
+        this.getPanelProveedorRegistrar().setVisible(true);
     }
     
     /**
@@ -269,25 +269,25 @@ public class Coordinador {
      * @param nuevoElemento El elemento que se quire escribir en el dialogo. 
      */
     public void proveedoresAbrirDialogo(String nuevoElemento){
-        this.getDialogoProveedorRegistrar().configurar();
-        this.getDialogoProveedorRegistrar().setProveedorPrecargado(nuevoElemento);
-        this.getDialogoProveedorRegistrar().setVisible(true);
+        this.getPanelProveedorRegistrar().configurar();
+        this.getPanelProveedorRegistrar().setProveedorPrecargado(nuevoElemento);
+        this.getPanelProveedorRegistrar().setVisible(true);
     }
     
     public void proveedoresAbrirDialogoModificar(){
-        this.getDialogoProveedorModificar().configurar();
-        this.getDialogoProveedorModificar().setVisible(true);
+        this.getPanelProveedorModificar().configurar();
+        this.getPanelProveedorModificar().setVisible(true);
     }
     
     public void proveedorDialogoModificarActualizarPais(){
-        this.getDialogoProveedorModificar().cargarComboPaises();
+        this.getPanelProveedorModificar().cargarComboPaises();
     }
     public void proveedorDialogoModificarActualizarListaProveedores(){
-        this.getDialogoProveedorModificar().cargarListaProveedores();
+        this.getPanelProveedorModificar().cargarListaProveedores();
     }
     
     public void proveedorDialogoModificarActualizarImagenes(){
-        this.getDialogoProveedorModificar().cargarImagenes();
+        this.getPanelProveedorModificar().cargarImagenes();
     }
     
     
@@ -410,14 +410,14 @@ public class Coordinador {
     */
     
     public void maquinaModeloAbrirDialogoAgregar(){
-        getDialogoMaquinaModeloAgregar().configurar();
-        getDialogoMaquinaModeloAgregar().setVisible(true);
+        getPanelMaquinaModeloAgregar().configurar();
+        getPanelMaquinaModeloAgregar().setVisible(true);
     
     }
     
     public void maquinaModeloAbrirDialogoModificar(){
-        getDialogoMaquinaModeloModificar().configurar();
-        getDialogoMaquinaModeloModificar().setVisible(true);
+        getPanelMaquinaModeloModificar().configurar();
+        getPanelMaquinaModeloModificar().setVisible(true);
     }
     
     public List<Validacion> maquinaModeloValidarCampos(MaquinaModeloVo vo){
@@ -439,11 +439,11 @@ public class Coordinador {
     
     //ACTUALIZAR
     public void maquinaModeloActualizarDialogoModificar(){
-        this.getDialogoMaquinaModeloModificar().cargarCombosYListas();
+        this.getPanelMaquinaModeloModificar().cargarCombosYListas();
     }
     
     public void maquinaModeloActualizarDialogoAgregar(){
-        this.getDialogoMaquinaModeloAgregar().consultarProveedores();
+        this.getPanelMaquinaModeloAgregar().consultarProveedores();
     }
     
     public List<MaquinaModeloVo> maquinaModeloConsultar(){
@@ -648,10 +648,9 @@ public class Coordinador {
     
     public JDialogBase refaccionAbrirPanelConsultaRefacciones_Dialogo(boolean configurar){
         JDialogBase d = new JDialogBase(this);
-        d.addPanel(this.panelRefaccionConsulta);
+        d.add(this.getPanelRefaccionConsulta());
         if (configurar) {
             JOptionPane.showMessageDialog(null, "se configuro!!");
-            
             d.configurarPanel();
         }
         d.pack();
@@ -662,8 +661,11 @@ public class Coordinador {
     
     //DETALLE DE REFACCIONES
     public void refaccionAbrirDetalleRefaccion(String id){
-        this.getDialogoRefaccionDetalle().configurar(id);
-        this.getDialogoRefaccionDetalle().setVisible(true);
+        this.getPanelRefaccionDetalle().configurar(id);
+        JDialogBase d = getCoordinadorPaneles()
+                .ifContainsReturnElseCreate(getPanelRefaccionDetalle());
+        d.setVisible(true);
+        
     }
     
     public void refaccionAbrirDetalleRefaccion(){
@@ -680,14 +682,14 @@ public class Coordinador {
     //DETALLE DE IMAGENES
     
     public void refaccionAbrirDetalleImagen(){
-        this.getDialogoImagenDetalle().setVisible(true);
-        this.getDialogoImagenDetalle().configurar();
+        this.getPanelImagenDetalle().setVisible(true);
+        this.getPanelImagenDetalle().configurar();
     
     }
     
     public void refaccionMostrarDetalleActualizarImagenes(){
-        this.getDialogoRefaccionDetalle().cargarImagenes();
-        this.getDialogoImagenDetalle().cargarImagenes();
+        this.getPanelRefaccionDetalle().cargarImagenes();
+        this.getPanelImagenDetalle().cargarImagenes();
     }
     
     //GUARDAR DATOS
@@ -738,7 +740,7 @@ public class Coordinador {
      * @return  Las imágenes ya cargadas en otro dialogo.
      */ 
     public List<ImagenRefaccionVo> refaccionListaDeImagenesDetalles(){
-        return this.getDialogoRefaccionDetalle().getListaImagenesRefaccion();
+        return this.getPanelRefaccionDetalle().getListaImagenesRefaccion();
     }
     
     //MODIFICAR DATOS.
@@ -853,13 +855,13 @@ public class Coordinador {
     }
     
     public void empleadoAbrirDialogoMoficar(){
-        this.getDialogoEmpleadoModificar().setVisible(true);
-        this.getDialogoEmpleadoModificar().configurar();
+        this.getPanelEmpleadoModificar().setVisible(true);
+        this.getPanelEmpleadoModificar().configurar();
     }
     
     public void empleadoAbrirDialogoMoficar(String empleado){
-        this.getDialogoEmpleadoModificar().setVisible(true);
-        this.getDialogoEmpleadoModificar().configurar(empleado);
+        this.getPanelEmpleadoModificar().setVisible(true);
+        this.getPanelEmpleadoModificar().configurar(empleado);
     } 
     
     public void empleadoDialogoModificarActualizar(){
@@ -966,24 +968,24 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
         public void entradaLoteAbrirDialogo(){
-            this.getDialogoEntradaLote().setVisible(true);
-            this.getDialogoEntradaLote().configurar();
+            this.getPanelEntradaLote().setVisible(true);
+            this.getPanelEntradaLote().configurar();
         }
         
         public void entradaLoteAbrirDialogo(RefaccionVo vo, Runnable accionPostGuardado){
             entradaLoteAbrirDialogo();
-            this.getDialogoEntradaLote().cargarRefaccionParaEntrada(vo);
-            this.getDialogoEntradaLote().setAccionPostGuardado(accionPostGuardado);
+            this.getPanelEntradaLote().cargarRefaccionParaEntrada(vo);
+            this.getPanelEntradaLote().setAccionPostGuardado(accionPostGuardado);
         }
         
         
         public void entradaLoteDialogoSetearItemCombo(Object item){
             this.entradaLoteActualizarComboEmpleados();
-            this.getDialogoEntradaLote().setearItemComboEmpleado(item);
+            this.getPanelEntradaLote().setearItemComboEmpleado(item);
         }
         
         public void entradaLoteActualizarComboEmpleados(){
-            this.getDialogoEntradaLote().cargarComboEmpleados();
+            this.getPanelEntradaLote().cargarComboEmpleados();
         
         }
         
