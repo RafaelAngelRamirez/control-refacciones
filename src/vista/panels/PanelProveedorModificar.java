@@ -11,23 +11,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import modelo.InfoTabla.ImagenProveedorIT;
 import modelo.InfoTabla.PaisIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
+import vista.UtilidadesIntefaz.JPanelBase;
 
 /**
  *
  * @author Particular
  */
-public class DialogoProveedorModificar extends JDialog {
+public class PanelProveedorModificar extends JPanelBase {
     private Coordinador coordinador;
     private int id;
     
@@ -39,14 +38,12 @@ public class DialogoProveedorModificar extends JDialog {
     private UtilidadesComboBox_ _ComboPais;
     private UtilidadesJXViewImage_ _ImagenesProveedor;
     private UtilidadesListas_ _ListaProveedores;
-    
-    /**
-     * Creates new form RegistrarProveedort
-     */
-    public DialogoProveedorModificar() {
-        initComponents();
+
+    public PanelProveedorModificar() {
         this.id = -1;
     }
+    
+    
     
     /**
      * Configuraciones para el dialogo.  
@@ -61,11 +58,6 @@ public class DialogoProveedorModificar extends JDialog {
         básico para que funcionen en modal.
         
         */ 
-        setModal(true);
-        setResizable(false);
-        setTitle("Registrar nuevo proveedor");
-        setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -246,15 +238,6 @@ public class DialogoProveedorModificar extends JDialog {
         listaProveedores = new javax.swing.JList<>();
         btnEliminarProveedor = new javax.swing.JButton();
 
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
         etiquetaTelefono.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaTelefono.setText("Telefono");
 
@@ -414,8 +397,8 @@ public class DialogoProveedorModificar extends JDialog {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -499,8 +482,6 @@ public class DialogoProveedorModificar extends JDialog {
                         .addContainerGap())))
             .addComponent(imagenView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
     
     public void cargarProveedorSeleccionado(){
@@ -680,9 +661,9 @@ public class DialogoProveedorModificar extends JDialog {
                             this.getCoordinador().getMarcoParaVentanaPrincipal(), 
                             "Se modifico correctamente el proveedor.");
                     //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
-                    this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
-                    this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
-                    this.getCoordinador().ejecutarOperacionesParaActualizar();
+//                    this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
+//                    this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
+//                    this.getCoordinador().ejecutarOperacionesParaActualizar();
                     
                 }else{
                     JOptionPane.showMessageDialog(
@@ -729,7 +710,6 @@ public class DialogoProveedorModificar extends JDialog {
                 "No se cargaron las siguientes imagenes: \n\n" + errorImg,
                 "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);    
         }
-        this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenProveedorIT.NOMBRE_TABLA);
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 
     private void btnEliminarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarImagenActionPerformed
@@ -747,7 +727,6 @@ public class DialogoProveedorModificar extends JDialog {
                 vo.setIdProveedor(imgEliminar.getIdImagen());
                 vo.setNombreServidor(imgEliminar.getNombreImagenServidor());
                 this.getCoordinador().imagenProveedorEliminar(vo);
-                this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenProveedorIT.NOMBRE_TABLA);
             }
         }
 
@@ -777,9 +756,6 @@ public class DialogoProveedorModificar extends JDialog {
                     iPvo.setNombreServidor(imgEliminar.getNombreImagenServidor());
                     this.getCoordinador().imagenProveedorEliminar(iPvo);
                 }
-                this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
-                this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
-                this.getCoordinador().ejecutarOperacionesParaActualizar();
                 this.limpiarTodo();
             }        
         }else{
@@ -801,55 +777,6 @@ public class DialogoProveedorModificar extends JDialog {
         }
         this._ComboPais.cargarCombo(datosPaises);
         
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogoProveedorModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogoProveedorModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogoProveedorModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogoProveedorModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DialogoProveedorModificar().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

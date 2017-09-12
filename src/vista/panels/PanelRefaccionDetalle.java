@@ -22,19 +22,19 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxtArea_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
+import vista.UtilidadesIntefaz.JPanelBase;
 
 
 /**
  *
  * @author Particular
  */
-public class DialogoRefaccionDetalle extends JDialog {
+public class PanelRefaccionDetalle extends JPanelBase {
     private Coordinador coordinador;
     private int idRefaccion;
     private List<ImagenRefaccionVo> listaImagenesRefaccion;
@@ -61,7 +61,7 @@ public class DialogoRefaccionDetalle extends JDialog {
     UtilidadesTxt_ _txtImportancia;
 
     /** Creates new form DialogoDetalleRefaccion */
-    public DialogoRefaccionDetalle() {
+    public PanelRefaccionDetalle() {
         initComponents();
     }
     
@@ -76,11 +76,6 @@ public class DialogoRefaccionDetalle extends JDialog {
         
         */ 
 //        setModal(true);
-        setResizable(false);
-        setTitle("Detalle de refacción");
-        setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -503,13 +498,6 @@ public class DialogoRefaccionDetalle extends JDialog {
         etiquetaPedidoEnEspera = new javax.swing.JLabel();
         checkEsDeConsumoUnico = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
         btnSalir.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
         btnSalir.setText("Salir");
@@ -788,8 +776,8 @@ public class DialogoRefaccionDetalle extends JDialog {
         checkEsDeConsumoUnico.setFocusPainted(false);
         checkEsDeConsumoUnico.setFocusable(false);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -966,7 +954,6 @@ public class DialogoRefaccionDetalle extends JDialog {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {etiquetaCodigoDelProveedor, etiquetaCodigoInterno, etiquetaDeQueEstaEcho, etiquetaDescripcion, etiquetaExistencia, etiquetaImportancia, etiquetaMaquinas, etiquetaParaQueEs, etiquetaProveedores, etiquetaQueEs, etiquetaStockMax, etiquetaStockMin});
 
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -1013,50 +1000,50 @@ public class DialogoRefaccionDetalle extends JDialog {
         this.getCoordinador().refaccionAbrirPanelModificar(idRefaccion);
     }//GEN-LAST:event_btnModificarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogoRefaccionDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogoRefaccionDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogoRefaccionDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogoRefaccionDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+   
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogoRefaccionDetalle dialog = new DialogoRefaccionDetalle();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificar;
@@ -1103,5 +1090,10 @@ public class DialogoRefaccionDetalle extends JDialog {
     private javax.swing.JTextField txtStockMin;
     private javax.swing.JTextField txtUnidad;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void configurar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

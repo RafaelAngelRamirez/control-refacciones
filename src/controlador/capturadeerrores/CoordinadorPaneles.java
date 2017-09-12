@@ -77,7 +77,7 @@ public class CoordinadorPaneles {
     /**
      * Nombre del dialogo modficar empleado.
      */
-    public static String DIALOGO_EMPLEADO_MODIFICAR = "Modificar empleado";
+    public static String PANEL_EMPLEADO_MODIFICAR = "Modificar empleado";
     
     private HashMap<JPanelBase, JDialogBase> dialogosAbiertos = new HashMap<>();
 

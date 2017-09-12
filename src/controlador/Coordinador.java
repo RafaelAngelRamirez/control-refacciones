@@ -2,28 +2,24 @@
 package controlador;
 
 import controlador.capturadeerrores.CoordinadorPaneles;
-import java.awt.Dimension;
-import vista.panels.DialogoEmpleadoModificar;
-import vista.panels.DialogoRefaccionDetalle;
-import vista.panels.DialogoMaquinaModeloAgregar;
-import vista.panels.DialogoProveedorModificar;
-import vista.panels.DialogoImagenRefaccionDetalle;
-import vista.panels.DialogoMaquinaModeloModificar;
-import vista.panels.DialogoEntradaLote;
+import vista.panels.PanelEmpleadoModificar;
+import vista.panels.PanelRefaccionDetalle;
+import vista.panels.PanelMaquinaModeloAgregar;
+import vista.panels.PanelProveedorModificar;
+import vista.panels.PanelImagenRefaccionDetalle;
+import vista.panels.PanelMaquinaModeloModificar;
+import vista.panels.PanelEntradaLote;
 import vista.panels.PanelEmpleadoAgregar;
-import vista.panels.DialogoProveedorRegistrar;
-import vista.panels.DialogoSalidaDeLote;
+import vista.panels.PanelProveedorRegistrar;
+import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelRefaccionModificar;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionesConsulta;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
@@ -41,7 +37,6 @@ import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
 import vista.UtilidadesIntefaz.JDialogBase;
-import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 
 /**
@@ -61,16 +56,16 @@ public class Coordinador {
     private PanelRefaccionAgregar panelRefaccionAgregar;
     private PanelRefaccionModificar panelRefaccionModificar;
     
-    private DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar;
-    private DialogoRefaccionDetalle dialogoRefaccionDetalle;
-    private DialogoImagenRefaccionDetalle dialogoImagenDetalle;
-    private DialogoProveedorRegistrar dialogoProveedorRegistrar;
-    private DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar;
-    private DialogoProveedorModificar dialogoProveedorModificar;
-    private DialogoEntradaLote dialogoEntradaLote;
+    private PanelMaquinaModeloAgregar dialogoMaquinaModeloAgregar;
+    private PanelRefaccionDetalle dialogoRefaccionDetalle;
+    private PanelImagenRefaccionDetalle dialogoImagenDetalle;
+    private PanelProveedorRegistrar dialogoProveedorRegistrar;
+    private PanelMaquinaModeloModificar dialogoMaquinaModeloModificar;
+    private PanelProveedorModificar dialogoProveedorModificar;
+    private PanelEntradaLote dialogoEntradaLote;
     private PanelEmpleadoAgregar panelEmpleadoAgregar;
-    private DialogoEmpleadoModificar dialogoEmpleadoModificar;
-    private DialogoSalidaDeLote dialogoSalidaDeLote;
+    private PanelEmpleadoModificar dialogoEmpleadoModificar;
+    private PanelSalidaDeLote dialogoSalidaDeLote;
     
     
     
@@ -124,19 +119,19 @@ public class Coordinador {
         this.coordinadorPaneles = coordinadorPaneles;
     }
     
-    public DialogoSalidaDeLote getDialogoSalidaLote() {
+    public PanelSalidaDeLote getDialogoSalidaLote() {
         return dialogoSalidaDeLote;
     }
 
-    public void setDialogoSalidaDeLote(DialogoSalidaDeLote dialogoSalidaDeLote) {
+    public void setDialogoSalidaDeLote(PanelSalidaDeLote dialogoSalidaDeLote) {
         this.dialogoSalidaDeLote = dialogoSalidaDeLote;
     }
     
-    public DialogoEmpleadoModificar getDialogoEmpleadoModificar() {
+    public PanelEmpleadoModificar getDialogoEmpleadoModificar() {
         return dialogoEmpleadoModificar;
     }
 
-    public void setDialogoEmpleadoModificar(DialogoEmpleadoModificar dialogoEmpleadoModificar) {
+    public void setDialogoEmpleadoModificar(PanelEmpleadoModificar dialogoEmpleadoModificar) {
         this.dialogoEmpleadoModificar = dialogoEmpleadoModificar;
     }
     
@@ -147,31 +142,31 @@ public class Coordinador {
         this.panelEmpleadoAgregar = panelEmpleadoAgregar;
     }
 
-    public DialogoRefaccionDetalle getDialogoRefaccionDetalle() {    
+    public PanelRefaccionDetalle getDialogoRefaccionDetalle() {    
         return dialogoRefaccionDetalle;
     }
     
-    public DialogoEntradaLote getDialogoEntradaLote() {
+    public PanelEntradaLote getDialogoEntradaLote() {
         return dialogoEntradaLote;
     }
 
-    public void setDialogoEntradaLote(DialogoEntradaLote dialogoEntradaLote) {
+    public void setDialogoEntradaLote(PanelEntradaLote dialogoEntradaLote) {
         this.dialogoEntradaLote = dialogoEntradaLote;
     }
     
-    public DialogoProveedorModificar getDialogoProveedorModificar() {
+    public PanelProveedorModificar getDialogoProveedorModificar() {
         return dialogoProveedorModificar;
     }
 
-    public void setDialogoProveedorModificar(DialogoProveedorModificar dialogoProveedorModificar) {
+    public void setDialogoProveedorModificar(PanelProveedorModificar dialogoProveedorModificar) {
         this.dialogoProveedorModificar = dialogoProveedorModificar;
     }
 
-    public DialogoMaquinaModeloModificar getDialogoMaquinaModeloModificar() {
+    public PanelMaquinaModeloModificar getDialogoMaquinaModeloModificar() {
         return dialogoMaquinaModeloModificar;
     }
 
-    public void setDialogoMaquinaModeloModificar(DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar) {
+    public void setDialogoMaquinaModeloModificar(PanelMaquinaModeloModificar dialogoMaquinaModeloModificar) {
         this.dialogoMaquinaModeloModificar = dialogoMaquinaModeloModificar;
     }
     
@@ -183,23 +178,23 @@ public class Coordinador {
         this.panelRefaccionModificar = panelRefaccionModificar;
     }
     
-    public DialogoImagenRefaccionDetalle getDialogoImagenDetalle() {
+    public PanelImagenRefaccionDetalle getDialogoImagenDetalle() {
         return dialogoImagenDetalle;
     }
 
-    public void setDialogoImagenDetalle(DialogoImagenRefaccionDetalle dialogoImagenDetalle) {
+    public void setDialogoImagenDetalle(PanelImagenRefaccionDetalle dialogoImagenDetalle) {
         this.dialogoImagenDetalle = dialogoImagenDetalle;
     }
     
-    public void setDialogoRefaccionDetalle(DialogoRefaccionDetalle dialogoRefaccionDetalle) {
+    public void setDialogoRefaccionDetalle(PanelRefaccionDetalle dialogoRefaccionDetalle) {
         this.dialogoRefaccionDetalle = dialogoRefaccionDetalle;
     }
 
-    public DialogoMaquinaModeloAgregar getDialogoMaquinaModeloAgregar() {
+    public PanelMaquinaModeloAgregar getDialogoMaquinaModeloAgregar() {
         return dialogoMaquinaModeloAgregar;
     }
 
-    public void setDialogoMaquinaModeloAgregar(DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar) {
+    public void setDialogoMaquinaModeloAgregar(PanelMaquinaModeloAgregar dialogoMaquinaModeloAgregar) {
         this.dialogoMaquinaModeloAgregar = dialogoMaquinaModeloAgregar;
     }
     
@@ -211,11 +206,11 @@ public class Coordinador {
         this.logica = logica;
     }
 
-    public DialogoProveedorRegistrar getDialogoProveedorRegistrar() {
+    public PanelProveedorRegistrar getDialogoProveedorRegistrar() {
         return dialogoProveedorRegistrar;
     }
 
-    public void setDialogoProveedorRegistrar(DialogoProveedorRegistrar dialogoProveedorRegistrar) {
+    public void setDialogoProveedorRegistrar(PanelProveedorRegistrar dialogoProveedorRegistrar) {
         this.dialogoProveedorRegistrar = dialogoProveedorRegistrar;
     }
     
@@ -634,7 +629,7 @@ public class Coordinador {
 
     public void refaccionAbrirPanelModificar(int idRefaccion){
         this.getMarcoParaVentanaPrincipal()
-                .setJPanel(MarcoParaVentanaPrincipal.PANEL_MODIFICAR_REFACCION);
+                .setJPanel(this.PANEL_MODIFICAR_REFACCION);
         this.getPanelRefaccionModificar().configurar(idRefaccion, 0);
     }
     

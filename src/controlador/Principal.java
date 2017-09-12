@@ -15,16 +15,16 @@
  */
 package controlador;
 
-import vista.panels.DialogoEmpleadoModificar;
-import vista.panels.DialogoRefaccionDetalle;
-import vista.panels.DialogoMaquinaModeloAgregar;
-import vista.panels.DialogoProveedorModificar;
-import vista.panels.DialogoImagenRefaccionDetalle;
-import vista.panels.DialogoMaquinaModeloModificar;
-import vista.panels.DialogoEntradaLote;
+import vista.panels.PanelEmpleadoModificar;
+import vista.panels.PanelRefaccionDetalle;
+import vista.panels.PanelMaquinaModeloAgregar;
+import vista.panels.PanelProveedorModificar;
+import vista.panels.PanelImagenRefaccionDetalle;
+import vista.panels.PanelMaquinaModeloModificar;
+import vista.panels.PanelEntradaLote;
 import vista.panels.PanelEmpleadoAgregar;
-import vista.panels.DialogoProveedorRegistrar;
-import vista.panels.DialogoSalidaDeLote;
+import vista.panels.PanelProveedorRegistrar;
+import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelRefaccionModificar;
 import vista.UtilidadesIntefaz.JDialogBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
@@ -96,16 +96,16 @@ public class Principal {
         //DIALOGOS
         
         //EL NUEVO UNICO DIALOGO
-        DialogoProveedorRegistrar dialogoProveedorRegistrar = new DialogoProveedorRegistrar();
-        DialogoMaquinaModeloAgregar dialogoMaquinaModeloAgregar = new DialogoMaquinaModeloAgregar();
-        DialogoRefaccionDetalle dialogoRefaccionDetalle = new DialogoRefaccionDetalle();
-        DialogoImagenRefaccionDetalle dialogoImagenDetalle = new DialogoImagenRefaccionDetalle();
-        DialogoMaquinaModeloModificar dialogoMaquinaModeloModificar = new DialogoMaquinaModeloModificar();
-        DialogoProveedorModificar dialogoProveedorModificar = new DialogoProveedorModificar();
-        DialogoEntradaLote dialogoEntradaLote = new DialogoEntradaLote();
+        PanelProveedorRegistrar dialogoProveedorRegistrar = new PanelProveedorRegistrar();
+        PanelMaquinaModeloAgregar dialogoMaquinaModeloAgregar = new PanelMaquinaModeloAgregar();
+        PanelRefaccionDetalle dialogoRefaccionDetalle = new PanelRefaccionDetalle();
+        PanelImagenRefaccionDetalle dialogoImagenDetalle = new PanelImagenRefaccionDetalle();
+        PanelMaquinaModeloModificar dialogoMaquinaModeloModificar = new PanelMaquinaModeloModificar();
+        PanelProveedorModificar dialogoProveedorModificar = new PanelProveedorModificar();
+        PanelEntradaLote dialogoEntradaLote = new PanelEntradaLote();
         PanelEmpleadoAgregar panelEmpleadoAgregar = new PanelEmpleadoAgregar();
-        DialogoEmpleadoModificar dialogoEmpleadoModificar = new DialogoEmpleadoModificar();
-        DialogoSalidaDeLote dialogoSalidaDeLote = new DialogoSalidaDeLote();
+        PanelEmpleadoModificar dialogoEmpleadoModificar = new PanelEmpleadoModificar();
+        PanelSalidaDeLote dialogoSalidaDeLote = new PanelSalidaDeLote();
         
         
         //COORDINADORES

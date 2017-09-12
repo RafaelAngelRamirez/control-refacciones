@@ -13,14 +13,11 @@ import javax.swing.JOptionPane;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.RefaccionIT;
-import modelo.InfoTabla.SalidaLoteIT;
-import modelo.Textos;
 import modelo.logica.Validacion;
 import modelo.vo.EmpleadoVo;
 import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
-import modelo.vo.SalidaLoteVo;
 import modelo.FechaYHora;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
@@ -33,7 +30,7 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  *
  * @author Particular
  */
-public class DialogoSalidaDeLote extends javax.swing.JDialog {
+public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
 
     private Coordinador coordinador;
     
@@ -49,21 +46,17 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
     private UtilidadesTxt_ _txtFechaDeLote;
     private UtilidadesTxt_ _txtCantidadQueEntra;
     private UtilidadesComboBox_ _comboEmpleadoQueReciveLote;
-    private UtilidadesComboBox_ _comboLotesDisponibles;
     private UtilidadesTxtArea_ _txtObservaciones;
     private UtilidadesJXViewImage_ _imagenesRefaccion;
-    private UtilidadesTxt_ _txtExistenciaLote;
     private int idRefaccionActual;
-    
-    
+    private Runnable accionPostGuardado;
 
-    /**
-     * Creates new form DialogoEntrada
-     */
-    public DialogoSalidaDeLote() {
+    public PanelEntradaLote() {
         initComponents();
     }
+   
     
+   
     public void configurar(){
      /*
         =======================================================================
@@ -74,12 +67,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         básico para que funcionen en modal.
         
         */ 
-        setModal(false);
-        setResizable(false);
-        setTitle("Entrada lote.");
-        setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        
+      
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -93,7 +81,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         */
         
         RefaccionIT rit = new RefaccionIT();
-        SalidaLoteIT elit = new SalidaLoteIT();
+        EntradaLoteIT elit = new EntradaLoteIT();
         EmpleadoIT eit = new EmpleadoIT();
         
         etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
@@ -101,7 +89,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         etiquetaCodigoDelProveedor.setText(rit.getCodigoProveedorPDC().getNombreParaMostrar());
         etiquetaStockMin.setText(rit.getStockMinimoPDC().getNombreParaMostrar());
         etiquetaStockMax.setText(rit.getStockMaximoPDC().getNombreParaMostrar());
-        etiquetaFechaDeLote.setText(elit.getFechaSalidaLotePDC().getNombreParaMostrar());
+        etiquetaFechaDeLote.setText(elit.getFechaRecepcionLotePDC().getNombreParaMostrar());
         etiquetaCantidadQueEntra.setText(elit.getCantidadPDC().getNombreParaMostrar());
         etiquetaEmpleadoQueReciveElLote.setText(eit.getNombrePDC().getNombreParaMostrar());
         etiquetaObservaciones.setText(elit.getObservacionesPDC().getNombreParaMostrar());
@@ -133,8 +121,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         _comboEmpleadoQueReciveLote = new UtilidadesComboBox_(coordinador);
         _txtObservaciones = new UtilidadesTxtArea_(coordinador);
         _imagenesRefaccion = new UtilidadesJXViewImage_(coordinador);
-        _comboLotesDisponibles = new UtilidadesComboBox_(coordinador);
-        _txtExistenciaLote = new UtilidadesTxt_(coordinador);
+        
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         
         _txtBusqueda.setComponente(this.txtBusqueda);
@@ -150,8 +137,6 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         _txtCantidadQueEntra.setComponente(this.txtCantidadQueEntra);
         _comboEmpleadoQueReciveLote.setComponente(this.comboEmpleadoQueReciveLote);
         _txtObservaciones.setComponente(this.txtObservaciones);
-        _comboLotesDisponibles.setComponente(comboLotesDisponibles);
-        _txtExistenciaLote.setComponente(txtExistenciaLote);
         
         _imagenesRefaccion.setComponente(imagenesRefacciones);
         _imagenesRefaccion.setjLabelContador(etiquetaNombreImagen);
@@ -159,7 +144,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
         _txtBusqueda.setTamanoDeCampo(300);
-        _txtFechaDeLote.setTamanoDeCampo(elit.getFechaSalidaLotePDC().getLongitudDeCaracteres());
+        _txtFechaDeLote.setTamanoDeCampo(elit.getFechaRecepcionLotePDC().getLongitudDeCaracteres());
         _txtCantidadQueEntra.setTamanoDeCampo(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
         _txtObservaciones.setTamanoDeCampo(elit.getObservacionesPDC().getLongitudDeCaracteres());
         _comboEmpleadoQueReciveLote.setTamanoDeCampo(eit.getNombrePDC().getLongitudDeCaracteres());
@@ -171,7 +156,6 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         _txtBusqueda.setPermitirSoloMayusculas();
         _comboEmpleadoQueReciveLote.setPermitirSoloMayusculas();
         _txtObservaciones.setPermitirSoloMayusculas();
-        _comboLotesDisponibles.setPermitirSoloMayusculas();
         
         //CAMPOS QUE REQUIEREN FECHA. 
         _txtFechaDeLote.setPermitirSoloFecha_ddmmaa();
@@ -197,14 +181,11 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         btnSalir1.setNextFocusableComponent(_txtBusqueda.getThis());
         
         //ACCIONES ESPECIALES.
-        _comboLotesDisponibles.setEditable(false);
-        
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
         _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
         _txtBusqueda.setKeyPressAction(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
         
         _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
-        
         _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
       
         _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
@@ -263,7 +244,6 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         _txtCantidadQueEntra.getThis().setEnabled(deshabilitar);
         _txtObservaciones.getThis().setEnabled(deshabilitar);
         btnGuardar.setEnabled(deshabilitar);
-        _comboLotesDisponibles.setEditable(false);
     }
     
 
@@ -310,17 +290,14 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         listaResultados = new javax.swing.JList<>();
         txtBusqueda = new javax.swing.JTextField();
-        comboLotesDisponibles = new javax.swing.JComboBox<>();
-        etiquetaNombreDeLaRefaccion1 = new javax.swing.JLabel();
-        etiquetaStockMin1 = new javax.swing.JLabel();
-        txtExistenciaLote = new javax.swing.JTextField();
+        txtUnidad1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+       
+
+
+
+
+
 
         etiquetaObservaciones.setBackground(new java.awt.Color(30, 30, 30));
         etiquetaObservaciones.setFont(new java.awt.Font("Calibri Light", 1, 24)); // NOI18N
@@ -380,7 +357,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSiguienteImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(etiquetaNombreImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                .addComponent(etiquetaNombreImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                 .addContainerGap())
         );
         imagenesRefaccionesLayout.setVerticalGroup(
@@ -415,7 +392,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         etiquetaExistencia.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaExistencia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaExistencia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaExistencia.setText("Existencia Total");
+        etiquetaExistencia.setText("Existencia");
         etiquetaExistencia.setOpaque(true);
 
         txtCodigoInterno.setEditable(false);
@@ -451,7 +428,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
 
         jLabel1.setBackground(new java.awt.Color(98, 15, 89));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_salida de lote.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_entrada de lote.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_buscar.png"))); // NOI18N
@@ -498,7 +475,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         etiquetaCantidadQueEntra.setBackground(new java.awt.Color(30, 30, 30));
         etiquetaCantidadQueEntra.setFont(new java.awt.Font("Calibri Light", 1, 24)); // NOI18N
         etiquetaCantidadQueEntra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaCantidadQueEntra.setText("Cantidad que sale");
+        etiquetaCantidadQueEntra.setText("Cantidad que entra");
         etiquetaCantidadQueEntra.setToolTipText("");
         etiquetaCantidadQueEntra.setOpaque(true);
 
@@ -550,191 +527,153 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
             }
         });
 
-        comboLotesDisponibles.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        comboLotesDisponibles.setMaximumSize(new java.awt.Dimension(436, 32767));
-        comboLotesDisponibles.setPreferredSize(new java.awt.Dimension(436, 24));
-        comboLotesDisponibles.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboLotesDisponiblesItemStateChanged(evt);
-            }
-        });
-        comboLotesDisponibles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboLotesDisponiblesActionPerformed(evt);
-            }
-        });
+        txtUnidad1.setEditable(false);
+        txtUnidad1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtUnidad1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtUnidad1.setText("USO ÚNICO");
+        txtUnidad1.setFocusable(false);
 
-        etiquetaNombreDeLaRefaccion1.setBackground(new java.awt.Color(31, 31, 31));
-        etiquetaNombreDeLaRefaccion1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaNombreDeLaRefaccion1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaNombreDeLaRefaccion1.setText("Lotes disponibles");
-        etiquetaNombreDeLaRefaccion1.setOpaque(true);
-
-        etiquetaStockMin1.setBackground(new java.awt.Color(31, 31, 31));
-        etiquetaStockMin1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaStockMin1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaStockMin1.setText("Existencia lote");
-        etiquetaStockMin1.setOpaque(true);
-
-        txtExistenciaLote.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtExistenciaLote.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtExistenciaLote.setText("012345.123");
-        txtExistenciaLote.setFocusable(false);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(307, 307, 307)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(335, 335, 335)
-                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(etiquetaCodigoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(etiquetaCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(imagenesRefacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCodigoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(etiquetaExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(etiquetaStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(etiquetaStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(etiquetaPedidoEnEspera, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(etiquetaEmpleadoQueReciveElLote, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboEmpleadoQueReciveLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etiquetaObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(179, 179, 179)
-                                .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(etiquetaStockMin1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(comboLotesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtExistenciaLote, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(etiquetaFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(etiquetaCantidadQueEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(txtCantidadQueEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(imagenesRefacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(etiquetaEmpleadoQueReciveElLote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(etiquetaObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboEmpleadoQueReciveLote, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(etiquetaFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(etiquetaExistencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                                    .addComponent(txtCodigoInterno)
+                                    .addComponent(etiquetaCodigoInterno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(txtUnidad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtUnidad)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(etiquetaCodigoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(etiquetaCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(txtStockMin, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(etiquetaStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(etiquetaStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCodigoProveedor)
+                                    .addComponent(etiquetaPedidoEnEspera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtCantidadQueEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(etiquetaCantidadQueEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(etiquetaCodigoDelProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(1, 1, 1))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)))
+                        .addGap(100, 100, 100))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(imagenesRefacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etiquetaStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etiquetaStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etiquetaPedidoEnEspera, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etiquetaCantidadQueEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCantidadQueEntra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etiquetaStockMin1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboLotesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtExistenciaLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(etiquetaEmpleadoQueReciveElLote, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(comboEmpleadoQueReciveLote, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(etiquetaObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSalir1)
-                            .addComponent(btnGuardar)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
 
-        pack();
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtStockMax, txtStockMin});
+
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(imagenesRefacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtBusqueda))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etiquetaCodigoInterno)
+                    .addComponent(etiquetaCodigoDelProveedor))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCodigoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(etiquetaExistencia, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(etiquetaStockMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(etiquetaStockMax, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtExistencia)
+                    .addComponent(txtStockMin)
+                    .addComponent(txtStockMax))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(etiquetaPedidoEnEspera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(2, 2, 2)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtUnidad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(etiquetaFechaDeLote)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(etiquetaCantidadQueEntra)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCantidadQueEntra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(etiquetaEmpleadoQueReciveElLote)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboEmpleadoQueReciveLote, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(etiquetaObservaciones)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnSalir1)))
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtCantidadQueEntra, txtFechaDeLote});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {etiquetaCantidadQueEntra, etiquetaCodigoDelProveedor, etiquetaCodigoInterno, etiquetaEmpleadoQueReciveElLote, etiquetaExistencia, etiquetaFechaDeLote, etiquetaObservaciones, etiquetaStockMax, etiquetaStockMin});
+
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSiguienteImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteImagenActionPerformed
@@ -746,9 +685,9 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegresarImagenActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        JOptionPane.showMessageDialog(null, "aqui nooo");
-        SalidaLoteIT it = new SalidaLoteIT();
-        SalidaLoteVo vo = new SalidaLoteVo();
+        
+        EntradaLoteIT it = new EntradaLoteIT();
+        EntradaLoteVo vo = new EntradaLoteVo();
         boolean todoValido = true;
         float cantidad;
         if (_txtCantidadQueEntra.isEmpty()) {
@@ -757,16 +696,13 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
             cantidad = Float.parseFloat(_txtCantidadQueEntra.getText());
         }
         vo.setCantidad(cantidad);
-        JOptionPane.showMessageDialog(null, "aqui nooo");
-        
-        vo.setFechaSalidaLote(FechaYHora.cambiarFormatoDeFecha(FechaYHora.FECHA_AAAA_MM_DD, _txtFechaDeLote.getText()));
+        vo.setFechaRecepcionLote(FechaYHora.cambiarFormatoDeFecha(FechaYHora.FECHA_AAAA_MM_DD, _txtFechaDeLote.getText()));
         EmpleadoVo evo =(EmpleadoVo) _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
         vo.setIdEmpleado(evo.getId());
         vo.setIdRefaccion(idRefaccionActual);
         vo.setObservaciones(_txtObservaciones.getText());
-        JOptionPane.showMessageDialog(null, "aqui nooo");
         
-        List<Validacion> validaciones = this.getCoordinador().salidaLoteValidarCampos(vo);
+        List<Validacion> validaciones = this.getCoordinador().entradaLoteValidarCampos(vo);
         for (Validacion validacione : validaciones) {
             
             if (validacione.getNombreDeCampo().equals(it.getCantidadPDC().getNombre())) {
@@ -778,7 +714,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
                 }
             }
             
-            if (validacione.getNombreDeCampo().equals(it.getFechaSalidaLotePDC().getNombre())) {
+            if (validacione.getNombreDeCampo().equals(it.getFechaRecepcionLotePDC().getNombre())) {
                 if (!validacione.isValido()) {
                     _txtFechaDeLote.setError(validacione.getMensajeDeError());
                 }else{
@@ -793,6 +729,8 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
                     _comboEmpleadoQueReciveLote.setErrorQuitar();
                 }
             }
+           
+                       
             
             if (!validacione.isValido()) {
                 todoValido = false;
@@ -800,103 +738,28 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
             }
           
         }
-        JOptionPane.showMessageDialog(null, "aqui nooo");
-        if (todoValido) {
-            
-            //COMPROBACIONES SOBRE LOS LOTES
-            HashMap<String, Object> lotesDisponibles = _comboLotesDisponibles.getRelacionDatoObjeto();
-            EntradaLoteVo elvo = null;
-            //LA REFACCIÓN POR LO MENOS TIENE UN LOTE
-            if (lotesDisponibles.size()>0) {
-                todoValido = true;
-            }else{
-                JOptionPane.showMessageDialog(this, 
-                        "Esta refacción no tiene existencias.", 
-                        "Sin existencia.", JOptionPane.ERROR_MESSAGE);
-                todoValido = false;
-            }
-
-            float existenciaRefaccion = this.getCoordinador().entradaLoteExistencia(vo.getIdRefaccion());
-            if (existenciaRefaccion>=vo.getCantidad()&& todoValido) {
-                todoValido = true;
-            }else{
-                _txtCantidadQueEntra.setError(
-                        "Esta refacción no tiene suficiente existencia.");
-                todoValido = false;
-            }
-        }
         
-        //HAY UN LOTE MENOR QUE EL SELECCIONADO. ESTE NO MUESTRA MENSAJE
-        // PARA DESPUES COMPROBAR SI EL LOTE TIENE SUFICIENTE EXISTENCIA.
-        if (todoValido) {
-            JOptionPane.showMessageDialog(null, idRefaccionActual);
-            EntradaLoteVo voLoteMasAtiguo = this.getCoordinador().entradaLoteLoteMasAntiguo(idRefaccionActual);
-            EntradaLoteVo voLoteActual = (EntradaLoteVo)this._comboLotesDisponibles.getSelectedItem_idRetorno();
-            
-            JOptionPane.showMessageDialog(null, "comparativa:\n\n"
-                    + "\nvoLoteMásAntiguo: "+voLoteMasAtiguo.getId()
-                    + "\n                  "+voLoteMasAtiguo.getFechaRecepcionLote()
-                    + "\n                  "+voLoteMasAtiguo.getCantidad()
-                    + "\n\nvoLoteActual  : "+voLoteActual.getId()
-                    + "\n                  "+voLoteActual.getFechaRecepcionLote()
-                    + "\n                  "+voLoteActual.getCantidad()
-                    + "");
-            
-           
-        }
-        
-        
-        
-        
-        
-        
-        //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
-        todoValido = false;
-        //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
         if (todoValido) {
             //GUARDAMOS EL LOTE NUEVO.
-            if(this.getCoordinador().salidaLoteGuadar(vo)){
-                this.getCoordinador().entradaLoteActualizarExistencia();
+            if(this.getCoordinador().entradaLoteGuadar(vo)){
                 limpiar();
                 JOptionPane.showMessageDialog(this,
-                        "Se registro la salida correctamente.");
+                        "Se guardo el lote correctamente.");
+                if (this.accionPostGuardado!=null) {
+                    
+                    this.AccionAEjecutarPorCargaDeRefaccionDesdeOtroLugar();
+                }
                 
             }else{
                 JOptionPane.showMessageDialog(
                         this,
-                        "Algo salio mal y no se registro la salida de lote.",
-                        "No se pudo registrar la salida.",
+                        "Algo salio mal y no se guardo la entrada de lote.",
+                        "No se pudo registrar la entrada.",
                         JOptionPane.ERROR_MESSAGE);
 
             }
         }
     }
-    
-//    private EntradaLoteVo comprobacionesSobreLote(Object a, float existencia){
-//
-//        
-//        EntradaLoteVo elvo = (EntradaLoteVo) a;
-//        if (this.getCoordinador().entradaloteEsElLoteMasConExistencia(elvo)) {
-//
-//        }else{
-//            EntradaLoteVo voLoteMasChicoAntiguo = 
-//                    this.getCoordinador().entradaLoteMasAtiguoConExistencia();
-//            String mensaje = "Esta refacción tiene un lote más antiguo que el"
-//                    + "seleccionado. \n"
-//                    + "Este es el lote seleccionado: "+ elvo.getFechaRecepcionLote() + "- Cantidad:" +elvo.getCantidad()+"\n"
-//                    + " Este es el lote más antiguo: "+ voLoteMasChicoAntiguo.getFechaRecepcionLote() + "- Cantidad:" +voLoteMasChicoAntiguo.getCantidad()
-//                    + "\n\n¿Deseas descontar la salida de lote actual a '"+voLoteMasChicoAntiguo.getFechaRecepcionLote() +"' que es más antiguo?";
-//            int r = JOptionPane.showConfirmDialog(
-//                    this, 
-//                    mensaje, 
-//                    "Hay un lote más antiguo.", 
-//                    JOptionPane.WARNING_MESSAGE);
-//            if (r=JOptionPane.YES_OPTION) {
-//
-//            }
-//        }
-//    } 
-    
     private void autocompletadoDeFecha(){
        _txtFechaDeLote.setText(FechaYHora.autoCompletarFecha(_txtFechaDeLote.getText(), FechaYHora.FECHA_DD_MM_AA));
     
@@ -985,98 +848,43 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         
     }
     
-    private boolean noSeCargoDesdeEsteDialogo = true;
-    public void cargarRefaccionParaEntrada(){
-        RefaccionVo vo =null;
-        HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
-        if (!_listaResultados.getThis().isSelectionEmpty()) {
-            vo = (RefaccionVo) _listaResultados.getSelectValueId();
-        }else if (!_listaResultados.isEmpty()) {
-                vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
-        }
-        
-        if(vo!=null){
-            
-            noSeCargoDesdeEsteDialogo = false; 
-            cargarRefaccionParaEntrada(vo);
-            noSeCargoDesdeEsteDialogo = true; 
-        }else{
-            JOptionPane.showMessageDialog(this, "No hubo coicidencias con tu busqueda.");
-            deshabilitarCamposParaRellenar(true);
-            limpiar();
-        }
-        
-    }
-    
-    
     public void cargarRefaccionParaEntrada(RefaccionVo vo){
         if (vo!=null) {
+            deshabilitarCamposParaRellenar(false);
+            mostrarRefaccionParaEntrada(vo);
             float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());
-            //SI NO HAY EXISTENCIA DAMOS LA OPCIÓN DE ABRIR EL DIALOGO REGISTRAR
-            // NUEVA REFACCIÓN. 
-            if (existencia!=0f) {
-                deshabilitarCamposParaRellenar(false);
-                //POR SI HUBO ALGÚN CAMBIO ENTRE TODOS ESTOS MOVIMIENTOS.
-                // COMO MODIFICACIÓN DE LA REFACCIÓN. STOCK MINIMO O MÁXIMO, ETC. 
-                if (noSeCargoDesdeEsteDialogo) {
-                    /**
-                     Esto lo tengo que hacer así por que el lambda me da error
-                     * si modifico el vo de RefaccionVo. Me dice que tiene que
-                     * ser final.
-                     */
-                    reconsultarRefaccionCargadaDesdeOtroLugar(vo);
-                }else{
-                
-                mostrarRefaccionParaEntrada(vo);
-                cargarLotesDeRefaccion(vo.getId());
-                _txtExistencia.setText(existencia+"");
-                colorearMinYMax(existencia, vo);
-                    
-                }
-            }else{
-                String mensaje = "La refacción '"+vo.getNombre()+"' tiene 0 existencia."
-                        + "\n¿Quieres registrar una nueva entrada de lote?";
-                int respuesta = JOptionPane.showConfirmDialog(
-                        this, 
-                        mensaje, 
-                        "Esta refacción no tiene existencia.", 
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
-                if (respuesta==JOptionPane.YES_OPTION) {
-                    limpiar();
-                    this.dispose();
-                    this.getCoordinador().entradaLoteAbrirDialogo(vo, 
-                            ()->this.getCoordinador().salidaLoteAbrirDialogo(vo,
-                                    this.getCoordinador().getDialogoEntradaLote()));
-                }else{
-                    limpiar();
-                    JOptionPane.showMessageDialog(this,
-                            "No se puede registrar una salida si la refacción no tiene existencia."
-                            ,"No se puede registra salida." ,JOptionPane.ERROR_MESSAGE);
-                }
-            }    
+            _txtExistencia.setText(existencia+"");
+            colorearMinYMax(existencia, vo);
+        }else{
+            JOptionPane.showMessageDialog(this, "No hubo coicidencias con tu busqueda.");
+            limpiar();
+            deshabilitarCamposParaRellenar(true);
         }
     }
-    
-    private void reconsultarRefaccionCargadaDesdeOtroLugar(RefaccionVo vo){
-        noSeCargoDesdeEsteDialogo = false;
-        vo = this.getCoordinador().refaccionConsultar(vo.getId());
-        cargarRefaccionParaEntrada(vo);
 
+    public void setAccionPostGuardado(Runnable accionPostGuardado) {
+        this.accionPostGuardado = accionPostGuardado;
+    }
+
+    private void AccionAEjecutarPorCargaDeRefaccionDesdeOtroLugar() {
+        Runnable r = accionPostGuardado;
+        accionPostGuardado = null;
+        r.run();
     }
     
-    private void cargarLotesDeRefaccion(int id){
-    
-        List<EntradaLoteVo> listaLotes = this.getCoordinador().entradaLoteLotes(id, false);
-        HashMap<String, Object> datos = new HashMap<>();
-        
-        for (EntradaLoteVo vo : listaLotes) {
-            String idFormateado = Textos.formaetarNumeros(vo.getId(), "0000000");
-            datos.put(vo.getFechaRecepcionLote()+" | "+idFormateado, vo);
-        }
-        _comboLotesDisponibles.cargarCombo(datos);
-        if (datos.size()==0) {
-            _txtExistenciaLote.setText("");
+    private void cargarRefaccionParaEntrada(){
+        if (!_txtBusqueda.isEmpty()) {
+            RefaccionVo vo =null;
+            HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
+            
+            if (!_listaResultados.getThis().isSelectionEmpty()) {
+                vo = (RefaccionVo) _listaResultados.getSelectValueId();
+            }else if (!_listaResultados.isEmpty()) {
+                vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+            }
+            
+            cargarRefaccionParaEntrada(vo);
+            
         }
     }
     
@@ -1097,7 +905,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         //CARGAMOS LAS IMAGENES. 
         cargarImagenes(vo.getId());
         _txtBusqueda.setText("");
-//        _listaResultados.limpiar();
+        _listaResultados.limpiar();
         
         
     }
@@ -1176,9 +984,6 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         _txtUnidad.setText("");
         _txtFechaDeLote.setText("");
         _txtCantidadQueEntra.setText("");
-        _txtExistenciaLote.setText("");
-        
-        _comboLotesDisponibles.limpiar();
         
         _txtStockMax.setErrorQuitar();
         _txtStockMin.setErrorQuitar();
@@ -1188,9 +993,6 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         _txtObservaciones.setText("");
         _imagenesRefaccion.limpiarComponenteURL();
         _txtBusqueda.setFocus();
-        
-        _listaResultados.limpiar();
-        
     }
 
     private void salir(){
@@ -1201,7 +1003,7 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
         salir();
-        
+     
     }//GEN-LAST:event_btnSalir1ActionPerformed
 
     private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
@@ -1212,19 +1014,6 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
         salir();
     }//GEN-LAST:event_formWindowClosing
 
-    private void comboLotesDisponiblesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboLotesDisponiblesItemStateChanged
-    }//GEN-LAST:event_comboLotesDisponiblesItemStateChanged
-
-    private void comboLotesDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLotesDisponiblesActionPerformed
-        Object a = _comboLotesDisponibles.getSelectedItem_idRetorno();
-        if (!a.equals(-1)) {
-            EntradaLoteVo vo = (EntradaLoteVo) a;
-            _txtExistenciaLote.setText(vo.getCantidad()+"");
-            
-        }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboLotesDisponiblesActionPerformed
-
     
     
 
@@ -1234,7 +1023,6 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
     private javax.swing.JButton btnSalir1;
     private javax.swing.JButton btnSiguienteImagen;
     private javax.swing.JComboBox<String> comboEmpleadoQueReciveLote;
-    private javax.swing.JComboBox<String> comboLotesDisponibles;
     private javax.swing.JLabel etiquetaCantidadQueEntra;
     private javax.swing.JLabel etiquetaCodigoDelProveedor;
     private javax.swing.JLabel etiquetaCodigoInterno;
@@ -1242,13 +1030,11 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
     private javax.swing.JLabel etiquetaExistencia;
     private javax.swing.JLabel etiquetaFechaDeLote;
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion;
-    private javax.swing.JLabel etiquetaNombreDeLaRefaccion1;
     private javax.swing.JLabel etiquetaNombreImagen;
     private javax.swing.JLabel etiquetaObservaciones;
     private javax.swing.JLabel etiquetaPedidoEnEspera;
     private javax.swing.JLabel etiquetaStockMax;
     private javax.swing.JLabel etiquetaStockMin;
-    private javax.swing.JLabel etiquetaStockMin1;
     private org.jdesktop.swingx.JXImageView imagenesRefacciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -1260,12 +1046,12 @@ public class DialogoSalidaDeLote extends javax.swing.JDialog {
     private javax.swing.JTextField txtCodigoInterno;
     private javax.swing.JTextField txtCodigoProveedor;
     private javax.swing.JTextField txtExistencia;
-    private javax.swing.JTextField txtExistenciaLote;
     private javax.swing.JTextField txtFechaDeLote;
     private javax.swing.JTextField txtNombreDeLaRefaccion;
     private javax.swing.JTextArea txtObservaciones;
     private javax.swing.JTextField txtStockMax;
     private javax.swing.JTextField txtStockMin;
     private javax.swing.JTextField txtUnidad;
+    private javax.swing.JTextField txtUnidad1;
     // End of variables declaration//GEN-END:variables
 }

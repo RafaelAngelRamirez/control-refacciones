@@ -347,7 +347,6 @@ public class PanelRefaccionAgregar extends JPanel {
                     UnidadVo vo = new UnidadVo();
                     vo.setUnidad(unidad);
                     this.getCoordinador().unidadGuardar(vo);
-                    this.getCoordinador().ejecutarOperacionesParaActualizar(UnidadIT.NOMBRE_TABLA);
                     this.cargarComboUnidad();
                     _ComboUnidad.setSelectedItem(unidad);
                 }
@@ -373,7 +372,6 @@ public class PanelRefaccionAgregar extends JPanel {
                     MaterialVo vo = new MaterialVo();
                     vo.setMaterial(material);
                     this.getCoordinador().materialGuardar(vo);
-                    this.getCoordinador().ejecutarOperacionesParaActualizar(MaterialIT.NOMBRE_TABLA);
                     this.cargarComboMaterial();
                     _ComboMaterial.setSelectedItem(material);
                 }
@@ -1611,11 +1609,6 @@ public class PanelRefaccionAgregar extends JPanel {
                 }
                 
                 limpiarTodo();
-                this.getCoordinador().huboUnCambioEnTabla(RefaccionIT.NOMBRE_TABLA);
-                this.getCoordinador().huboUnCambioEnTabla(UnidadIT.NOMBRE_TABLA);
-                this.getCoordinador().huboUnCambioEnTabla(MaterialIT.NOMBRE_TABLA);
-                this.getCoordinador().huboUnCambioEnTabla(ImagenRefaccionIT.NOMBRE_TABLA);
-                this.getCoordinador().ejecutarOperacionesParaActualizar();
                 JOptionPane.showMessageDialog(
                         coordinador.getMarcoParaVentanaPrincipal(),
                         "Se guardo la refaccción correctamente.");

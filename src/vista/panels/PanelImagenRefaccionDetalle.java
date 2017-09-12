@@ -12,11 +12,10 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.vo.ImagenRefaccionVo;
 import org.jdesktop.swingx.JXImageView;
+import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
 
@@ -24,7 +23,7 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
  *
  * @author Particular
  */
-public class DialogoImagenProveedorDetalle extends javax.swing.JDialog {
+public class PanelImagenRefaccionDetalle extends JPanelBase {
     private Coordinador coordinador;
     private int idRefaccion;
     
@@ -36,7 +35,7 @@ public class DialogoImagenProveedorDetalle extends javax.swing.JDialog {
     /**
      * Creates new form DialogoDetalleRefaccion
      */
-    public DialogoImagenProveedorDetalle() {
+    public PanelImagenRefaccionDetalle() {
         initComponents();
     }
 
@@ -70,10 +69,10 @@ public class DialogoImagenProveedorDetalle extends javax.swing.JDialog {
         
         */ 
 //        setModal(true);
-        setResizable(true);
-        setTitle("Detalle de imágenes.");
-        setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+       
+        
+        
+        
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -191,13 +190,6 @@ public class DialogoImagenProveedorDetalle extends javax.swing.JDialog {
         btnAgregarImagen = new javax.swing.JButton();
         btnEliminarImagen = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
         imagenView.setOpaque(false);
 
         etiquetaContadorImagenes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -276,8 +268,8 @@ public class DialogoImagenProveedorDetalle extends javax.swing.JDialog {
 
         imagenViewLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAgregarImagen, btnEliminarImagen, btnRegresarImagen, btnSiguienteImagen, etiquetaContadorImagenes});
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 656, Short.MAX_VALUE)
@@ -290,8 +282,6 @@ public class DialogoImagenProveedorDetalle extends javax.swing.JDialog {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
     
     public JButton getBtnAgregarImagen() {
@@ -366,7 +356,6 @@ public class DialogoImagenProveedorDetalle extends javax.swing.JDialog {
                 vo.setNombreServidor(imagenEliminar.getNombreImagenServidor());
                 this.getCoordinador().imagenRefaccionEliminar(vo);
 //                this.getCoordinador().refaccionMostrarDetalleActualizarImagenes(vo.getIdRefaccion());
-                this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenRefaccionIT.NOMBRE_TABLA);
             }
         }
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
@@ -392,7 +381,6 @@ public class DialogoImagenProveedorDetalle extends javax.swing.JDialog {
                             "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
         }
         
-        this.getCoordinador().ejecutarOperacionesParaActualizar(ImagenRefaccionIT.NOMBRE_TABLA);
         
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 
@@ -404,62 +392,6 @@ public class DialogoImagenProveedorDetalle extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogoImagenProveedorDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogoImagenProveedorDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogoImagenProveedorDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogoImagenProveedorDetalle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogoImagenProveedorDetalle dialog = new DialogoImagenProveedorDetalle();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarImagen;

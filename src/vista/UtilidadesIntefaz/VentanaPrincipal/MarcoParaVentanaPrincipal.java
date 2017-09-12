@@ -37,7 +37,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
-import javax.swing.event.MouseInputListener;
 import modelo.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.JPanelBase;
 
@@ -357,14 +356,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 ()->this.getCoordinador().refaccionAbrirPanelConsultaRefacciones_Panel(true));
         this.addItemOMenu(panelConsultaRefacciones);
         
-        
-//        Coordinador.OperacionesPorActualizar consultaRefaccionesOPA 
-//                = getCoordinador().new OperacionesPorActualizar();
-//        consultaRefaccionesOPA.setPanel(panelConsultaRefacciones);
-//        consultaRefaccionesOPA.addOperacionParaActualizar(
-//                ()->this.getCoordinador().refaccionActualizarPanelConsultaRefacciones());
-//        this.getCoordinador().addListaOperacionesPorActualizar(consultaRefaccionesOPA);
-        
         //-------------------------------
         MenuConstructor dialogoRefaccionDetalle = new MenuConstructor();
         dialogoRefaccionDetalle.setItem();
@@ -373,13 +364,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoRefaccionDetalle.setAccionDelItem(
                 ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
         this.addItemOMenu(dialogoRefaccionDetalle);
-        
-//        Coordinador.OperacionesPorActualizar dialogoRefaccionDetalleOPA 
-//                = getCoordinador().new OperacionesPorActualizar();
-//        dialogoRefaccionDetalleOPA.setPanel(dialogoRefaccionDetalle);
-//        dialogoRefaccionDetalleOPA.addOperacionParaActualizar(
-//                ()->this.getCoordinador().refaccionMostrarDetalleActualizarImagenes());
-//        this.getCoordinador().addListaOperacionesPorActualizar(dialogoRefaccionDetalleOPA);
         
         /**
          * /////////////////////////////////////////////////
@@ -392,13 +376,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         registroRefacciones.setNombre(CoordinadorPaneles.PANEL_REGISTRAR_NUEVA_REFACCION);
         registroRefacciones.setPadre(menuAgregarRegistrar);
         this.addItemOMenu(registroRefacciones);
-        
-//        Coordinador.OperacionesPorActualizar registroRefaccionesOPA 
-//                = getCoordinador().new OperacionesPorActualizar();
-//        registroRefaccionesOPA.setPanel(registroRefacciones);
-//        registroRefaccionesOPA.addOperacionParaActualizar(
-//                ()->this.getCoordinador().refaccionActualizarPanelAgregarRefaccion());
-//        this.getCoordinador().addListaOperacionesPorActualizar(registroRefaccionesOPA);
 //        
         //-------------------------------
         MenuConstructor dialogoProveedorRegistrar = new MenuConstructor();
@@ -409,12 +386,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 ()->this.getCoordinador().proveedorAbrirDialogoGuardarNuevo());
         this.addItemOMenu(dialogoProveedorRegistrar);
         
-//        Coordinador.OperacionesPorActualizar dialogoProveedorRegistrarOPA 
-//                = getCoordinador().new OperacionesPorActualizar();
-//        dialogoProveedorRegistrarOPA.setPanel(dialogoProveedorRegistrar);
-//        dialogoProveedorRegistrarOPA.addOperacionParaActualizar(
-//                ()->this.getCoordinador().refaccionActualizarPanelAgregarRefaccion());
-//        this.getCoordinador().addListaOperacionesPorActualizar(dialogoProveedorRegistrarOPA);
         
          //-------------------------------
         MenuConstructor dialogoMaquinaModeloAgregar = new MenuConstructor();
@@ -425,12 +396,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 ()->this.getCoordinador().maquinaModeloAbrirDialogoAgregar());
         this.addItemOMenu(dialogoMaquinaModeloAgregar);
         
-//        Coordinador.OperacionesPorActualizar dialogoMaquinaModeloAgregarOPA 
-//                = getCoordinador().new OperacionesPorActualizar();
-//        dialogoMaquinaModeloAgregarOPA.setPanel(dialogoMaquinaModeloAgregar);
-//        dialogoMaquinaModeloAgregarOPA.addOperacionParaActualizar(
-//                ()->this.getCoordinador().maquinaModeloActualizarDialogoAgregar());
-//        this.getCoordinador().addListaOperacionesPorActualizar(dialogoMaquinaModeloAgregarOPA);
          //-------------------------------
         
         MenuConstructor dialogoEmpleadoAgregar = new MenuConstructor();
@@ -441,12 +406,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 ()->this.getCoordinador().pruebaAbrirComoPanel(true));
         this.addItemOMenu(dialogoEmpleadoAgregar);
         
-//        Coordinador.OperacionesPorActualizar dialogoEmpleadoAgregarOPA 
-//                = getCoordinador().new OperacionesPorActualizar();
-//        dialogoEmpleadoAgregarOPA.setPanel(dialogoEmpleadoAgregar);
-//        dialogoEmpleadoAgregarOPA.addOperacionParaActualizar(
-//                ()->this.getCoordinador().maquinaModeloActualizarDialogoAgregar());
-//        this.getCoordinador().addListaOperacionesPorActualizar(dialogoEmpleadoAgregarOPA);
 //        
         //--------------------///////////////////
         
@@ -528,7 +487,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         //-------------------------------
         MenuConstructor dialogoEmpleadoModificar = new MenuConstructor();
         dialogoEmpleadoModificar.setItem();
-        dialogoEmpleadoModificar.setNombre(CoordinadorPaneles.DIALOGO_EMPLEADO_MODIFICAR);
+        dialogoEmpleadoModificar.setNombre(CoordinadorPaneles.PANEL_EMPLEADO_MODIFICAR);
         dialogoEmpleadoModificar.setPadre(menuModificar);
         dialogoEmpleadoModificar.setAccionDelItem(
                 ()->this.getCoordinador().empleadoAbrirDialogoMoficar());
@@ -676,9 +635,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      * estática para mantener el órden.
      */
     public void setJPanel(JPanelBase panel){
-//        this.contenedorParaPaneles.setViewportView(panel);
-
-        JOptionPane.showMessageDialog(null, this.contenedorParaPanelesSustituto.getComponents().length);
 
         this.contenedorParaPanelesSustituto.add(panel);
     }

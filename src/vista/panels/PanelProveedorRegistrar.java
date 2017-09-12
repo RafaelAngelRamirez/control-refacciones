@@ -15,23 +15,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import modelo.InfoTabla.ImagenProveedorIT;
 import modelo.InfoTabla.PaisIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
+import vista.UtilidadesIntefaz.JPanelBase;
 
 /**
  *
  * @author Particular
  */
-public class DialogoProveedorRegistrar extends JDialog {
+public class PanelProveedorRegistrar extends JPanelBase {
     private Coordinador coordinador;
     
     String proveedorPrecargado;
@@ -42,13 +41,15 @@ public class DialogoProveedorRegistrar extends JDialog {
     UtilidadesTxt_ _TxtEmail;
     UtilidadesComboBox_ _ComboPais;
     UtilidadesJXViewImage_ _ImagenesProveedor;
+
+    public PanelProveedorRegistrar() {
+        initComponents();
+    }
     
     /**
      * Creates new form RegistrarProveedort
      */
-    public DialogoProveedorRegistrar() {
-        initComponents();
-    }
+    
     
     /**
      * Configuraciones para el dialogo.  
@@ -63,11 +64,6 @@ public class DialogoProveedorRegistrar extends JDialog {
         básico para que funcionen en modal.
         
         */ 
-        setModal(true);
-        setResizable(false);
-        setTitle("Registrar nuevo proveedor");
-        setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -254,15 +250,6 @@ public class DialogoProveedorRegistrar extends JDialog {
         btnAgregarImagen = new javax.swing.JButton();
         btnEliminarImagen = new javax.swing.JButton();
 
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
         etiquetaTelefono.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaTelefono.setText("Telefono");
 
@@ -409,8 +396,8 @@ public class DialogoProveedorRegistrar extends JDialog {
                 .addGap(10, 10, 10))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -480,8 +467,6 @@ public class DialogoProveedorRegistrar extends JDialog {
                             .addComponent(btnCancelar)))
                     .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
    
@@ -642,9 +627,9 @@ public class DialogoProveedorRegistrar extends JDialog {
                             this.getCoordinador().getMarcoParaVentanaPrincipal(), 
                             "Se guardo correctamente el proveedor.");
                     //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
-                    this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
-                    this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
-                    this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
+//                    this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
+//                    this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
+//                    this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
                 }
             }else{
                 JOptionPane.showMessageDialog(
@@ -691,47 +676,6 @@ public class DialogoProveedorRegistrar extends JDialog {
         }
         this._ComboPais.cargarCombo(datosPaises);
         
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogoProveedorRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogoProveedorRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogoProveedorRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogoProveedorRegistrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DialogoProveedorRegistrar().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

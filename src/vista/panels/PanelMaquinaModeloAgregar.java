@@ -14,6 +14,8 @@ import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.ProveedorVo;
+import vista.UtilidadesIntefaz.JDialogBase;
+import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
@@ -22,19 +24,21 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  *
  * @author Particular
  */
-public class DialogoMaquinaModeloAgregar extends JDialog {
+public class PanelMaquinaModeloAgregar extends JPanelBase {
     private Coordinador coordinador;
     private UtilidadesTxt_ _TxtAnio;
     private UtilidadesTxt_ _TxtModeloMaquina;
     private UtilidadesComboBox_ _ComboMarca;
+
+    public PanelMaquinaModeloAgregar() {
+        initComponents();
+    }
    
     
     /**
      * Creates new form PanelAgregarMaquina
      */
-    public DialogoMaquinaModeloAgregar() {
-        initComponents();
-    }
+   
     
     
     
@@ -48,11 +52,6 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
         básico para que funcionen en modal.
         
         */ 
-        setModal(true);
-        setResizable(false);
-        setTitle("Registrar nueva máquina");
-        setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -247,12 +246,12 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
         comboMarca = new javax.swing.JComboBox<>();
         etiquetaMarca = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+       
+
+
+
+
+
 
         txtModeloMaquina.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtModeloMaquina.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -313,8 +312,8 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
         etiquetaMarca.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaMarca.setText("Marca");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -366,7 +365,6 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
                 .addContainerGap())
         );
 
-        pack();
     }// </editor-fold>//GEN-END:initComponents
     
     private void txtModeloMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModeloMaquinaActionPerformed
@@ -448,67 +446,9 @@ public class DialogoMaquinaModeloAgregar extends JDialog {
             coordinador.maquinaModeloGuardar(vo);
             JOptionPane.showMessageDialog(null,"Se guardo correctamente el modelo.");
             limpiarTodo();
-            this.getCoordinador().ejecutarOperacionesParaActualizar(MaquinaModeloIT.NOMBRE_TABLA);
             dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogoMaquinaModeloAgregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogoMaquinaModeloAgregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogoMaquinaModeloAgregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogoMaquinaModeloAgregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogoMaquinaModeloAgregar dialog = new DialogoMaquinaModeloAgregar();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-               dialog.setVisible(true);
-            } 
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

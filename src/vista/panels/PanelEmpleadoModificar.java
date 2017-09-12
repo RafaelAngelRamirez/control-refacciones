@@ -2,9 +2,11 @@
 package vista.panels;
 
 import controlador.Coordinador;
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
@@ -13,6 +15,7 @@ import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
 import modelo.FechaYHora;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -23,7 +26,7 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  *
  * @author Particular
  */
-public class DialogoEmpleadoModificar extends javax.swing.JDialog {
+public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
     Coordinador coordinador;
     
     UtilidadesTxt_ _txtNombre;
@@ -37,8 +40,16 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
     /**
      * Creates new form DialogoAgregarEmpleado
      */
-    public DialogoEmpleadoModificar() {
+    public PanelEmpleadoModificar() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_EMPLEADO_MODIFICAR);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//        configuracionesDialogo.setOperacionDeAcople_Panel();
+//        configuracionesDialogo.setOperacionDesacople_Dialogo(()->);
     }
 
     /**
@@ -64,12 +75,12 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         checkMostrarEmpleadosDadosDeBaja = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+       
+
+
+
+
+
 
         jLabel2.setBackground(new java.awt.Color(98, 15, 89));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -143,8 +154,8 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -213,7 +224,6 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pack();
     }// </editor-fold>//GEN-END:initComponents
     
     public void configurar(){
@@ -234,12 +244,9 @@ public class DialogoEmpleadoModificar extends javax.swing.JDialog {
         básico para que funcionen en modal.
         
         */ 
-        setModal(false);
-        setResizable(false);
-        setTitle("Agregar nuevo empleado");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        
+
+     
+     
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES

@@ -20,7 +20,7 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * Este dialogo permite modificar una MaquinaModelo. 
  * @author Particular
  */
-public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
+public class PanelMaquinaModeloModificar extends javax.swing.JDialog {
     private Coordinador coordinador;
     private UtilidadesTxt_ _TxtAnio;
     private UtilidadesTxt_ _TxtModeloMaquina;
@@ -30,7 +30,7 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
     private int idConsultandoseActualmente;
             
     /** Inicializa opciones del dialogo. */
-    public DialogoMaquinaModeloModificar() {
+    public PanelMaquinaModeloModificar() {
         initComponents();
     }
     
@@ -472,8 +472,6 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
         if (todoValido) {
             if (this.getCoordinador().maquinaModeloModificar(vo)) {
                 
-                this.getCoordinador().huboUnCambioEnTabla(MaquinaModeloIT.NOMBRE_TABLA);
-                this.getCoordinador().ejecutarOperacionesParaActualizar();
                 limpiarTodo();
                 JOptionPane.showMessageDialog(
                     this,
@@ -514,8 +512,6 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
                     JOptionPane.WARNING_MESSAGE);
             if (r==JOptionPane.YES_OPTION) {
                 if(this.getCoordinador().maquinaModeloEliminar(vo)){
-                    this.getCoordinador().huboUnCambioEnTabla(MaquinaModeloIT.NOMBRE_TABLA);
-                    this.getCoordinador().ejecutarOperacionesParaActualizar();
                     this.limpiarTodo();
                     JOptionPane.showMessageDialog(
                             this, 
@@ -546,20 +542,21 @@ public class DialogoMaquinaModeloModificar extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogoMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PanelMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogoMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PanelMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogoMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PanelMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogoMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PanelMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogoMaquinaModeloModificar dialog = new DialogoMaquinaModeloModificar();
+                PanelMaquinaModeloModificar dialog = new PanelMaquinaModeloModificar();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
