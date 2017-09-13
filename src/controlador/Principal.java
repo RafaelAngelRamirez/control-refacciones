@@ -82,6 +82,9 @@ public class Principal {
         System.setOut(SystemOut_);
         
         
+        //COORDINADORES
+        Coordinador coordinador = new Coordinador();
+        CoordinadorPaneles coordinadorPaneles = new CoordinadorPaneles();
         
         
         
@@ -108,9 +111,6 @@ public class Principal {
         PanelSalidaDeLote dialogoSalidaDeLote = new PanelSalidaDeLote();
         
         
-        //COORDINADORES
-        Coordinador coordinador = new Coordinador();
-        CoordinadorPaneles coordinadorPaneles = new CoordinadorPaneles();
         
         //LOGICA
         Logica logica = new Logica();
@@ -180,8 +180,8 @@ public class Principal {
         */
         //LAS PONEMOS AQUI POR QUE OCUPAMOS LAS VARIABLES ESTATICAS, DE OTRA
         // MANERA NO SE CARGAR Y DA ERROR!
-        new modelo.dao.ProveedorDao(coordinador);
-        new modelo.dao.PaisDao(coordinador);
+//        new modelo.dao.ProveedorDao(coordinador);
+//        new modelo.dao.PaisDao(coordinador);
         
         /**/
         

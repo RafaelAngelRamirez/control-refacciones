@@ -70,7 +70,12 @@ public class ImagenRefaccionVo extends VoGenerales{
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "IMAGEN REFACCION VO:"+
+            "\n       idRefaccion"+ idRefaccion+
+            "\n nombreParaMostrar"+ nombreParaMostrar+
+            "\n    nombreServidor"+ nombreServidor+
+            "\n     ficheroImagen"+ ficheroImagen+
+            "\n         urlImagen"+ urlImagen;
     }
     
     

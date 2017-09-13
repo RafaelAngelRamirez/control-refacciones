@@ -27,6 +27,7 @@ public class FicherosOperacionesServidor {
     String urlDeSubida;
     String urlEliminar;
     File ficheroASubir;
+    String imagenAEliminar;
     String respuesta;
     
     String nombreDeCampoPostSubir = "subirArchivo";
@@ -36,6 +37,14 @@ public class FicherosOperacionesServidor {
         this.controlador = controlador;
     }
 
+    public String getImagenAEliminar() {
+        return imagenAEliminar;
+    }
+
+    public void setImagenAEliminar(String imagenAEliminar) {
+        this.imagenAEliminar = imagenAEliminar;
+    }
+   
     public String getUrlEliminar() {
         return urlEliminar;
     }
@@ -49,17 +58,19 @@ public class FicherosOperacionesServidor {
         this.urlDeSubida = urlDeSubida;
     }
 
-    public void setFicheroASubir(File ficheroASubir) {
+    public void setFichero(File ficheroASubir) {
         this.ficheroASubir = ficheroASubir;
     }
     
     public boolean subirFichero(){
         try {
-            SubidaPOST subida = new SubidaPOST(this.urlDeSubida, this.charset);
+            ComunicacionPOST subida = new ComunicacionPOST(this.urlDeSubida, this.charset);
             subida.addFilePart(nombreDeCampoPostSubir, ficheroASubir);
+            subida.addFormField("prueba", "$$$texto de prueba$$$");
             String r = subida.finish();
             if(r.contains("-$1")){
                 this.respuesta = r.replace("-$1", "");
+                JOptionPane.showMessageDialog(null, respuesta);
                 return true;
             }else{
                 this.respuesta = r;
@@ -71,12 +82,33 @@ public class FicherosOperacionesServidor {
         return false;
     }
     
-    public void eliminarImagen(){
+    public boolean eliminarImagen(){
+        try {
+            ComunicacionPOST eliminar = new ComunicacionPOST(this.urlEliminar, this.charset);
+            JOptionPane.showMessageDialog(null, imagenAEliminar+"------");
+            eliminar.addFormField("imagenAEliminar", imagenAEliminar);
+            String r = eliminar.finish();
+            if(r.contains("-$1")){
+                this.respuesta = r.replace("-$1", "");
+                JOptionPane.showMessageDialog(null, respuesta+" si se elimino");
+                return true;
+            }else{
+                this.respuesta = r;
+                JOptionPane.showMessageDialog(null, respuesta+" no se elimino");
+                return false;
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(FicherosOperacionesServidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
         
-        JOptionPane.showMessageDialog(null, "pendiente implementar");
-//        SubidaPOST multipart;
+        
+        
+        
+//        ComunicacionPOST multipart;
 //            try {
-//                multipart = new SubidaPOST(
+//                multipart = new ComunicacionPOST(
 //                        this.urlDeServidor+this.eliminarArchivo, this.charset);
 //                multipart.addFormField("uploadedfile", 
 //                        this.rutaDeArchivoAEliminar);
@@ -94,7 +126,7 @@ public class FicherosOperacionesServidor {
         return respuesta;
     }
    
-     public class SubidaPOST {
+     public class ComunicacionPOST {
 
     private final String boundary;
     private static final String LINE_FEED = "\r\n";
@@ -111,7 +143,7 @@ public class FicherosOperacionesServidor {
      * @param charset Charset
      * @throws IOException Exception
      */
-    public SubidaPOST(String requestURL, String charset) throws IOException {
+    public ComunicacionPOST(String requestURL, String charset) throws IOException {
         this.charset = charset;
 
         // creates a unique boundary based on time stamp
@@ -148,7 +180,8 @@ public class FicherosOperacionesServidor {
             writer.append(LINE_FEED);
 
             //P$%/"# LINEA!! NO SE POR QUE LA PUSO.
-            //writer.append(value).append(LINE_FEED);
+            writer.append(value + " ")/*.append(LINE_FEED)*/;
+            
             writer.flush();
         }
 

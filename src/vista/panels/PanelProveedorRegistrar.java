@@ -10,11 +10,13 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 import controlador.Coordinador;
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -24,6 +26,7 @@ import modelo.logica.Validacion;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
 
 /**
@@ -44,6 +47,14 @@ public class PanelProveedorRegistrar extends JPanelBase {
 
     public PanelProveedorRegistrar() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_PROVEEDOR_REGISTRAR);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+       
+        
     }
     
     /**
@@ -64,6 +75,14 @@ public class PanelProveedorRegistrar extends JPanelBase {
         básico para que funcionen en modal.
         
         */ 
+        
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_PROVEEDOR_REGISTRAR);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -160,6 +179,7 @@ public class PanelProveedorRegistrar extends JPanelBase {
         ///////////////////////////////////////////////////////////////////////
         */
             this.cargarComboPaises();
+            _TxtEmpresa.setFocus();
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -518,9 +538,8 @@ public class PanelProveedorRegistrar extends JPanelBase {
                             + "Se perderan los dato.", "Confirmar cancelación.",
                             JOptionPane.YES_NO_OPTION);
             if (respuesta==JOptionPane.YES_OPTION) {
-                this.setVisible(false);
-                this.limpiarTodo();
                 this.dispose();
+                this.limpiarTodo();
             }
         }
     }

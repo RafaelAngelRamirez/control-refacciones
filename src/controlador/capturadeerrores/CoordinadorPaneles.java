@@ -28,7 +28,15 @@ public class CoordinadorPaneles {
      * Nombre del panel principal donde se consultar las refacciones al 
      * iniciar el sistema.
      */
-    public static String PANEL_REFACCIONES_CONSULTAR = "Consultar refacciones";
+    public static String PANEL_REFACCION_CONSULTAR = "Consultar refacciones";
+    /**
+     * Nombre del dialogo refaccion detalle.
+     */
+    public static String PANEL_REFACCION_DETALLE = "Detalle refacción";
+    /**
+     * Nombre del dialogo refaccion agregar.
+     */
+    public static String PANEL_REFACCION_AGREGAR = "Agregar refacción";
     /**
      * Nombre del panel registro de refacciones.
      */
@@ -57,10 +65,6 @@ public class CoordinadorPaneles {
      * Nombre del dialogo proveedor modificar.
      */
     public static String PANEL_PROVEEDOR_MODIFICAR = "Modificar proveedor";
-    /**
-     * Nombre del dialogo refaccion detalle.
-     */
-    public static String PANEL_REFACCION_DETALLE = "Detalle refacción";
     /**
      * Nombre del dialogo entrada lote.
      */
@@ -129,7 +133,7 @@ public class CoordinadorPaneles {
             return true;
             
         }else{
-            coordinador.getMarcoParaVentanaPrincipal().setJPanel(coordinador.getPanelRefaccionConsulta());
+            this.setJPanel(coordinador.getPanelRefaccionConsulta());
             coordinador.getPanelRefaccionConsulta().configurar();
             return false;
         }
@@ -149,5 +153,9 @@ public class CoordinadorPaneles {
             
         }
     
+    }
+    
+    public void setJPanel(JPanelBase panel){
+        this.getCoordinador().getMarcoParaVentanaPrincipal().setJPanel(panel);
     }
 }

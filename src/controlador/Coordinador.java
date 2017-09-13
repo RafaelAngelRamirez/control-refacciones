@@ -37,6 +37,7 @@ import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
 import vista.UtilidadesIntefaz.JDialogBase;
+import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 
 /**
@@ -92,24 +93,24 @@ public class Coordinador {
     
   
     
-    public void pruebaAbrirComoPanel(boolean configurar){
-        this.marcoParaVentanaPrincipal.setJPanel(this.panelEmpleadoAgregar);
-        if (configurar) {
-        this.panelEmpleadoAgregar.configurar();
-        }
-        
-    }
-    
-    public JDialogBase pruebaAbrirComoDialogo(boolean configurar){
-        JDialogBase d = new JDialogBase(this);
-        d.add(this.panelEmpleadoAgregar);
-        if (configurar) {
-            d.configurarPanel();
-        }
-        d.pack();
-        d.setVisible(true);
-        return d;
-    }
+//    public void pruebaAbrirComoPanel(boolean configurar){
+//        this.marcoParaVentanaPrincipal.setJPanel(this.panelEmpleadoAgregar);
+//        if (configurar) {
+//        this.panelEmpleadoAgregar.configurar();
+//        }
+//        
+//    }
+//    
+//    public JDialogBase pruebaAbrirComoDialogo(boolean configurar){
+//        JDialogBase d = new JDialogBase(this);
+//        d.add(this.panelEmpleadoAgregar);
+//        if (configurar) {
+//            d.configurarPanel();
+//        }
+//        d.pack();
+//        d.setVisible(true);
+//        return d;
+//    }
 
     public CoordinadorPaneles getCoordinadorPaneles() {
         return coordinadorPaneles;
@@ -259,8 +260,10 @@ public class Coordinador {
     public void proveedorAbrirDialogoGuardarNuevo(){
         //ES NECESARIO LANZAR EL PROCEDIMIENTO DE CONFIGURACIÓN AQUI
         // PARA QUE LAS INSTANCIAS QUE REQUIEREN SE SETEAN POR COMPLETO.
-        this.getPanelProveedorRegistrar().configurar();
-        this.getPanelProveedorRegistrar().setVisible(true);
+        JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelProveedorRegistrar);
+        panelProveedorRegistrar.configurar();
+        d.setVisible(true);
+        
     }
     
     /**
@@ -269,9 +272,10 @@ public class Coordinador {
      * @param nuevoElemento El elemento que se quire escribir en el dialogo. 
      */
     public void proveedoresAbrirDialogo(String nuevoElemento){
-        this.getPanelProveedorRegistrar().configurar();
-        this.getPanelProveedorRegistrar().setProveedorPrecargado(nuevoElemento);
-        this.getPanelProveedorRegistrar().setVisible(true);
+        JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelProveedorRegistrar);
+        panelProveedorRegistrar.configurar();
+        panelProveedorRegistrar.setProveedorPrecargado(nuevoElemento);
+        d.setVisible(true);
     }
     
     public void proveedoresAbrirDialogoModificar(){
@@ -410,8 +414,11 @@ public class Coordinador {
     */
     
     public void maquinaModeloAbrirDialogoAgregar(){
-        getPanelMaquinaModeloAgregar().configurar();
-        getPanelMaquinaModeloAgregar().setVisible(true);
+        
+        panelMaquinaModeloAgregar.configurar();
+        JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloAgregar);
+        d.setVisible(true);
+        
     
     }
     
@@ -628,8 +635,7 @@ public class Coordinador {
      */
 
     public void refaccionAbrirPanelModificar(int idRefaccion){
-        this.getMarcoParaVentanaPrincipal()
-                .setJPanel(this.PANEL_MODIFICAR_REFACCION);
+        coordinadorPaneles.setJPanel(getPanelRefaccionModificar());
         this.getPanelRefaccionModificar().configurar(idRefaccion, 0);
     }
     
@@ -640,7 +646,7 @@ public class Coordinador {
     }
 
     public void refaccionAbrirPanelConsultaRefacciones_Panel(boolean configurar){
-        this.marcoParaVentanaPrincipal.setJPanel(this.panelRefaccionConsulta);
+        this.coordinadorPaneles.setJPanel(this.panelRefaccionConsulta);
         if (configurar) {
         this.panelRefaccionConsulta.configurar();
         }
@@ -650,7 +656,6 @@ public class Coordinador {
         JDialogBase d = new JDialogBase(this);
         d.add(this.getPanelRefaccionConsulta());
         if (configurar) {
-            JOptionPane.showMessageDialog(null, "se configuro!!");
             d.configurarPanel();
         }
         d.pack();
@@ -696,6 +701,12 @@ public class Coordinador {
     public void refaccionGuardar(RefaccionVo vo){
         this.logica.refaccionGuardar(vo);
     }
+    
+    public void refaccionAbrirPanelAgregar(){
+        this.coordinadorPaneles.setJPanel(panelRefaccionAgregar);
+        panelRefaccionAgregar.configurar();
+    }
+    
     
     //CONSULTAR DATOS
     

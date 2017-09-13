@@ -5,6 +5,7 @@
  */
 package vista.panels;
 import controlador.Coordinador;
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
@@ -14,7 +15,7 @@ import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.ProveedorVo;
-import vista.UtilidadesIntefaz.JDialogBase;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -32,6 +33,13 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
 
     public PanelMaquinaModeloAgregar() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_MAQUINA_MODELO_AGREGAR);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        
     }
    
     
@@ -41,7 +49,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
    
     
     
-    
+    @Override
     public void configurar(){
         /*
         =======================================================================
@@ -52,7 +60,6 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         básico para que funcionen en modal.
         
         */ 
-        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES

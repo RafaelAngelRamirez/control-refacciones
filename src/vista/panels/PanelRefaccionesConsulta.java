@@ -44,7 +44,7 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         configuracionesDialogo = new ConfiguracionDePanel();
         configuracionesDialogo.setModal(true);
         configuracionesDialogo.setResizable(false);
-        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_REFACCIONES_CONSULTAR);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_REFACCION_CONSULTAR);
         configuracionesDialogo.setLocationRelativeTo(null);
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }

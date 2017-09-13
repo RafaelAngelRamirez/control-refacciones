@@ -84,7 +84,7 @@ public class ImagenProveedorDao extends DAOGenerales{
      public boolean subirImagenesAServidor(File img){
         FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
         ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN);
-        ficheros.setFicheroASubir(img);
+        ficheros.setFichero(img);
         if (ficheros.subirFichero()) {
             return true;
         }

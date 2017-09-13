@@ -34,6 +34,7 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.UnidadVo;
 import org.jdesktop.swingx.JXImageView;
+import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
@@ -46,7 +47,7 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  *
  * @author Particular
  */
-public class PanelRefaccionModificar extends JPanel {
+public class PanelRefaccionModificar extends JPanelBase {
     Coordinador coordinador;
     private int idModificandoseActualmente;
     
@@ -1847,4 +1848,9 @@ public class PanelRefaccionModificar extends JPanel {
     private javax.swing.JTextField txtStockMax;
     private javax.swing.JTextField txtStockMin;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void configurar() {
+        
+    }
 }

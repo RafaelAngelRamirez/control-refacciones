@@ -350,7 +350,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          */
         MenuConstructor panelConsultaRefacciones = new MenuConstructor();
         panelConsultaRefacciones.setItem();
-        panelConsultaRefacciones.setNombre(CoordinadorPaneles.PANEL_REFACCIONES_CONSULTAR);
+        panelConsultaRefacciones.setNombre(CoordinadorPaneles.PANEL_REFACCION_CONSULTAR);
         panelConsultaRefacciones.setPadre(menuConsultar);
         panelConsultaRefacciones.setAccionDelItem(
                 ()->this.getCoordinador().refaccionAbrirPanelConsultaRefacciones_Panel(true));
@@ -375,7 +375,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         registroRefacciones.setItem();
         registroRefacciones.setNombre(CoordinadorPaneles.PANEL_REGISTRAR_NUEVA_REFACCION);
         registroRefacciones.setPadre(menuAgregarRegistrar);
-        registroRefacciones.setAccionDelItem(()->JOptionPane.showMessageDialog(null, "accion pendiente"));
+        registroRefacciones.setAccionDelItem(()->coordinador.refaccionAbrirPanelAgregar());
         
         this.addItemOMenu(registroRefacciones);
 //        
@@ -405,26 +405,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEmpleadoAgregar.setNombre(CoordinadorPaneles.PANEL_EMPLEADO_AGREGAR);
         dialogoEmpleadoAgregar.setPadre(menuAgregarRegistrar);
         dialogoEmpleadoAgregar.setAccionDelItem(
-                ()->this.getCoordinador().pruebaAbrirComoPanel(true));
+                ()->JOptionPane.showMessageDialog(null,"pendiente accion!!"));
         this.addItemOMenu(dialogoEmpleadoAgregar);
-        
-//        
-        //--------------------///////////////////
-        
-        MenuConstructor prueba = new MenuConstructor();
-        prueba.setItem();
-        prueba.setNombre("ABRIR COMO DIALOGO");
-        prueba.setPadre(menuAgregarRegistrar);
-        prueba.setAccionDelItem(()->this.coordinador.pruebaAbrirComoDialogo(true));
-        this.addItemOMenu(prueba);
-        
-        MenuConstructor prueba2 = new MenuConstructor();
-        prueba2.setItem();
-        prueba2.setNombre("ABRIR COMO PANEL");
-        prueba2.setPadre(menuAgregarRegistrar);
-        prueba2.setAccionDelItem(()->this.coordinador.pruebaAbrirComoPanel(true));
-        this.addItemOMenu(prueba2);
-        
         
         /**
          * /////////////////////////////////////////////////
@@ -436,7 +418,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         modificarRefaccion.setItem();
         modificarRefaccion.setNombre(CoordinadorPaneles.PANEL_MODIFICAR_REFACCION);
         modificarRefaccion.setPadre(menuModificar);
-        modificarRefaccion.setAccionDelItem(()->JOptionPane.showMessageDialog(null, "accion pendiente"));
+        modificarRefaccion.setAccionDelItem(()->coordinador.refaccionAbrirPanelModificar());
         this.addItemOMenu(modificarRefaccion);
 
         //-------------------------------
@@ -446,7 +428,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoProveedorModificar.setPadre(menuModificar);
         dialogoProveedorModificar.setAccionDelItem(
                 ()->this.getCoordinador().proveedoresAbrirDialogoModificar());
-//        dialogoProveedorModificar.setDialog(this.getCoordinador().getDialogoProveedorModificar());
         this.addItemOMenu(dialogoProveedorModificar);
         
 //        
@@ -466,7 +447,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEmpleadoModificar.setPadre(menuModificar);
         dialogoEmpleadoModificar.setAccionDelItem(
                 ()->this.getCoordinador().empleadoAbrirDialogoMoficar());
-//        dialogoEmpleadoModificar.setDialog(this.getCoordinador().getDialogoEmpleadoModificar());
         this.addItemOMenu(dialogoEmpleadoModificar);
         
        

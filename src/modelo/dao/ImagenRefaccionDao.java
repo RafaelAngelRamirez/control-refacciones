@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.ConexionDatos;
 import modelo.FicherosOperacionesServidor;
@@ -84,7 +85,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
     public boolean subirImagenesAServidor(File img){
         FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
         ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN);
-        ficheros.setFicheroASubir(img);
+        ficheros.setFichero(img);
         if (ficheros.subirFichero()) {
             return true;
         }
@@ -118,7 +119,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
         return livo;
     }
     
-    public void eliminar (ImagenRefaccionVo vo){
+    public boolean eliminar (ImagenRefaccionVo vo){
         String sql = "DELETE FROM " + ImagenRefaccionIT.NOMBRE_TABLA
                 + " WHERE "
                 + it.getIdRefaccionPDC().getNombre()
@@ -129,8 +130,24 @@ public class ImagenRefaccionDao extends DAOGenerales{
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getIdRefaccion()+"");
         mapa.put(2, vo.getNombreServidor());
-        conexion.executeUpdate(sql, mapa);
-        
+        boolean bd = conexion.executeUpdate(sql, mapa);
+        boolean servidor = eliminarDeServidor(vo.getNombreServidor());
+        if (bd && servidor) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean eliminarDeServidor(String img){
+        FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
+        ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN);
+        ficheros.setImagenAEliminar(img);
+        if (ficheros.eliminarImagen()) {
+            System.out.println(ficheros.getRespuesta());
+            return true;
+        }
+        System.out.println(ficheros.getRespuesta());
+        return false;
     }
     
 }
