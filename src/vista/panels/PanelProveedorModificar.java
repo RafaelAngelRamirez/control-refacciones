@@ -668,14 +668,14 @@ public class PanelProveedorModificar extends JPanelBase {
             if (todoValido) {
                 //ACTUALIZAMOS LA REFACCIÓN.
                 if (this.getCoordinador().proveedorModificar(vo)) {
-                    limpiarTodo();
                     JOptionPane.showMessageDialog(
                             this.getCoordinador().getMarcoParaVentanaPrincipal(), 
                             "Se modifico correctamente el proveedor.");
-                    //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
-//                    this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
-//                    this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
-//                    this.getCoordinador().ejecutarOperacionesParaActualizar();
+                    
+                    limpiarTodo();
+                    cargarProveedorSeleccionado();
+                    cargarListaProveedores();
+                    _ListaProveedores.getThis().setSelectedValue(vo.getEmpresa(), true);
                     
                 }else{
                     JOptionPane.showMessageDialog(
@@ -716,6 +716,7 @@ public class PanelProveedorModificar extends JPanelBase {
         }
         
         String errorImg = this.getCoordinador().imagenProveedorGuardarLista(listaiVo);
+        cargarImagenes();
         if (errorImg!=null) {
             JOptionPane.showMessageDialog(
                 null,
@@ -739,6 +740,7 @@ public class PanelProveedorModificar extends JPanelBase {
                 vo.setIdProveedor(imgEliminar.getIdImagen());
                 vo.setNombreServidor(imgEliminar.getNombreImagenServidor());
                 this.getCoordinador().imagenProveedorEliminar(vo);
+                cargarImagenes();
             }
         }
 
