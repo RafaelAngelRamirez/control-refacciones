@@ -226,7 +226,6 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
                             + "Se perderan los dato.", "Confirmar cancelación.",
                             JOptionPane.YES_NO_OPTION);
             if (respuesta==JOptionPane.YES_OPTION) {
-                this.setVisible(false);
                 limpiarTodo();
                 this.dispose();
             }
