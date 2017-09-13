@@ -595,6 +595,7 @@ public class Coordinador {
                             refaccionesPorModificarId.pop(),
                             refaccionesPorModificarId.size()
                     );
+                    coordinadorPaneles.setJPanel(getPanelRefaccionModificar());
                     //SI SE QUEDO VACIO refaccionesPorModificarId MANDAMOS UN TRUE
                     // A salirDeCicloRefaccionesPorModificar PARA QUE SE DETENGA
                     // EN EL PRÓXIMO CICLO.

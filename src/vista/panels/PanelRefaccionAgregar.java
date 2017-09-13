@@ -894,12 +894,12 @@ public class PanelRefaccionAgregar extends JPanelBase {
                         .addComponent(btnEliminarImagen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregarImagen)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         imagenViewLayout.setVerticalGroup(
             imagenViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(imagenViewLayout.createSequentialGroup()
-                .addContainerGap(788, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(imagenViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSiguienteImagen)
                     .addComponent(btnRegresarImagen)
@@ -1183,7 +1183,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
                             .addComponent(radioMedia)
                             .addComponent(radioBaja)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(etiquetaCodigoInterno)
                             .addComponent(etiquetaUnidad))
