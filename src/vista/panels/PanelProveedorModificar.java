@@ -590,7 +590,6 @@ public class PanelProveedorModificar extends JPanelBase {
                             + "Se perderan los datos.", "Confirmar cancelación.",
                             JOptionPane.YES_NO_OPTION);
             if (respuesta==JOptionPane.YES_OPTION) {
-                this.setVisible(false);
                 this.limpiarTodo();
                 this.dispose();
             }
@@ -771,6 +770,8 @@ public class PanelProveedorModificar extends JPanelBase {
                     this.getCoordinador().imagenProveedorEliminar(iPvo);
                 }
                 this.limpiarTodo();
+                cargarListaProveedores();
+                
             }        
         }else{
             JOptionPane.showMessageDialog(
