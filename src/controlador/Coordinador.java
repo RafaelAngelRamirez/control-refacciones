@@ -852,13 +852,12 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    public void empleadoAbrirdialogoAgregar(){
-    
-    }
-    
+       
     public void empleadoAbrirDialogoAgregar(){
-        this.getPanelEmpleadoAgregar().setVisible(true);
-        this.getPanelEmpleadoAgregar().configurar();
+        
+        JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoAgregar);
+        panelEmpleadoAgregar.configurar();
+        d.setVisible(true);
     }
     
     public void empleadoAbrirDialogoAgregar(String empleadoNuevo){

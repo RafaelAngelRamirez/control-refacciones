@@ -405,7 +405,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEmpleadoAgregar.setNombre(CoordinadorPaneles.PANEL_EMPLEADO_AGREGAR);
         dialogoEmpleadoAgregar.setPadre(menuAgregarRegistrar);
         dialogoEmpleadoAgregar.setAccionDelItem(
-                ()->JOptionPane.showMessageDialog(null,"pendiente accion!!"));
+                ()->coordinador.empleadoAbrirDialogoAgregar());
         this.addItemOMenu(dialogoEmpleadoAgregar);
         
         /**
