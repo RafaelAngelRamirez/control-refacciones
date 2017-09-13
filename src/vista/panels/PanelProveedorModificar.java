@@ -6,11 +6,13 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 import controlador.Coordinador;
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -20,6 +22,7 @@ import modelo.logica.Validacion;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
 
 /**
@@ -40,6 +43,13 @@ public class PanelProveedorModificar extends JPanelBase {
     private UtilidadesListas_ _ListaProveedores;
 
     public PanelProveedorModificar() {
+        initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_PROVEEDOR_MODIFICAR);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.id = -1;
     }
     
@@ -64,6 +74,8 @@ public class PanelProveedorModificar extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+        
+        
         
        
         

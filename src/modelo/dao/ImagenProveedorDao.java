@@ -117,7 +117,7 @@ public class ImagenProveedorDao extends DAOGenerales{
         return livo;
     }
     
-    public void eliminar (ImagenProveedorVo vo){
+    public boolean eliminar (ImagenProveedorVo vo){
         String sql = "DELETE FROM " + ImagenProveedorIT.NOMBRE_TABLA
                 + " WHERE "
                 + it.getIdProveedorPDC().getNombre()
@@ -128,6 +128,19 @@ public class ImagenProveedorDao extends DAOGenerales{
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getIdProveedor()+"");
         mapa.put(2, vo.getNombreServidor());
-        conexion.executeUpdate(sql, mapa);
+        
+        boolean a = conexion.executeUpdate(sql, mapa);
+        boolean b = eliminarImagenesEnElServidor(vo.getNombreServidor());
+        
+        return a&&b;
+        
+    }
+    
+    public boolean eliminarImagenesEnElServidor(String img){
+        FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
+        ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN);
+        ficheros.setImagenAEliminar(img);
+        return ficheros.eliminarImagen();
+    
     }
 }

@@ -279,8 +279,9 @@ public class Coordinador {
     }
     
     public void proveedoresAbrirDialogoModificar(){
-        this.getPanelProveedorModificar().configurar();
-        this.getPanelProveedorModificar().setVisible(true);
+        JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelProveedorModificar);
+        panelProveedorModificar.configurar();
+        d.setVisible(true);
     }
     
     public void proveedorDialogoModificarActualizarPais(){
