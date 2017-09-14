@@ -1,7 +1,6 @@
 
 package controlador;
 
-import controlador.capturadeerrores.CoordinadorPaneles;
 import vista.panels.PanelEmpleadoModificar;
 import vista.panels.PanelRefaccionDetalle;
 import vista.panels.PanelMaquinaModeloAgregar;
@@ -1045,15 +1044,16 @@ public class Coordinador {
     */
     
        public void salidaLoteAbrirDialogo(){
-            this.getDialogoSalidaLote().setVisible(true);
-            this.getDialogoSalidaLote().configurar();
+           JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelSalidaDeLote);
+           panelSalidaDeLote.configurar();
+           d.setVisible(true);
         }
        public void salidaLoteAbrirDialogo(RefaccionVo vo, JDialog dialogoACerrar){
            if (dialogoACerrar!=null) {
                dialogoACerrar.dispose();
            }
            salidaLoteAbrirDialogo();
-           this.getDialogoSalidaLote().cargarRefaccionParaEntrada(vo);
+           panelSalidaDeLote.cargarRefaccionParaEntrada(vo);
        }
         
         

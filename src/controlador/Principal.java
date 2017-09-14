@@ -33,7 +33,6 @@ import vista.panels.PanelRefaccionesConsulta;
 import com.bulenkov.darcula.DarculaLaf;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
-import controlador.capturadeerrores.CoordinadorPaneles;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;

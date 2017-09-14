@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controlador.capturadeerrores;
+package controlador;
 
-import controlador.Coordinador;
 import java.util.HashMap;
-import javax.swing.JOptionPane;
 import vista.UtilidadesIntefaz.JDialogBase;
 import vista.UtilidadesIntefaz.JPanelBase;
 
@@ -83,7 +81,11 @@ public class CoordinadorPaneles {
      */
     public static String PANEL_EMPLEADO_MODIFICAR = "Modificar empleado";
     
-    private HashMap<JPanelBase, JDialogBase> dialogosAbiertos = new HashMap<>();
+    private final HashMap<JPanelBase, JDialogBase> dialogosAbiertos;
+
+    public CoordinadorPaneles() {
+        this.dialogosAbiertos = new HashMap<>();
+    }
 
     public Coordinador getCoordinador() {
         return coordinador;
@@ -99,7 +101,6 @@ public class CoordinadorPaneles {
      * @param dialogo
      */
     public void addDialogAbierto(JDialogBase dialogo){
-//        String elNombreDelPanel = dialogo.getPanel().getConfiguracionesDialogo().getTitle();
         coordinador.getMarcoParaVentanaPrincipal().remove(dialogo.getPanel());
         coordinador.getMarcoParaVentanaPrincipal().repaint();
         

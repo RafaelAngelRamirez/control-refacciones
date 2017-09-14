@@ -6,7 +6,7 @@
 package vista.panels;
 
 import controlador.Coordinador;
-import controlador.capturadeerrores.CoordinadorPaneles;
+import controlador.CoordinadorPaneles;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;

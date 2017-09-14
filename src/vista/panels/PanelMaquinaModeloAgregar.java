@@ -5,7 +5,7 @@
  */
 package vista.panels;
 import controlador.Coordinador;
-import controlador.capturadeerrores.CoordinadorPaneles;
+import controlador.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;

@@ -121,7 +121,6 @@ public class JDialogBase extends JDialog{
     public void configurarPanel(){
 //        this.panelActual.configurar();
         ConfiguracionDePanel c = this.panelActual.getConfiguracionesDialogo();
-        JOptionPane.showMessageDialog(null, panelActual.getClass().getName());
         try {
             if (c==null) {
                     throw new ExcepcionPersonalizada("No has definido la configuración del panel", this, "configurarPanel()");

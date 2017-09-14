@@ -10,7 +10,7 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 import controlador.Coordinador;
-import controlador.capturadeerrores.CoordinadorPaneles;
+import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;

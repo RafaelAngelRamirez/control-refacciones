@@ -1,7 +1,7 @@
 package vista.UtilidadesIntefaz.VentanaPrincipal;
 
 import controlador.Coordinador;
-import controlador.capturadeerrores.CoordinadorPaneles;
+import controlador.CoordinadorPaneles;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
