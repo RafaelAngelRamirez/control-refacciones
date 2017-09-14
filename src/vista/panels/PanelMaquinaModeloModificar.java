@@ -224,13 +224,16 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
     public void cargarDatosConsultados(){
         limpiarTodo();
         idConsultandoseActualmente = (int)_ListaMaquinaModelo.getSelectValueId();
-        MaquinaModeloVo vo = 
-                this.getCoordinador()
-                        .maquinaModeloConsultarUno(idConsultandoseActualmente);
-        
-        _TxtModeloMaquina.setText(vo.getModelo());
-        _TxtAnio.setText(vo.getAnio()+"");
-        _ComboMarca.setSelectedItem(vo.getIdProveedor()+"");
+        if (idConsultandoseActualmente!=-1) {
+            MaquinaModeloVo vo = 
+                    this.getCoordinador()
+                            .maquinaModeloConsultarUno(idConsultandoseActualmente);
+
+            _TxtModeloMaquina.setText(vo.getModelo());
+            _TxtAnio.setText(vo.getAnio()+"");
+            _ComboMarca.setSelectedItem(vo.getIdProveedor()+"");
+            
+        }
     
     }
     
@@ -416,82 +419,89 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
     }//GEN-LAST:event_txtModeloMaquinaActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        MaquinaModeloVo vo = new MaquinaModeloVo();
-        String a = _TxtAnio.getText();
-        //NO PUEDES PASAR UN INT NULO.
-        if (a.equals("")) {
-            vo.setAnio(-1);
+        
+        
+        if (_ListaMaquinaModelo.getThis().isSelectionEmpty() ) {
+            JOptionPane.showMessageDialog(this, "No has seleccionado ningún elemento de la lista.");
         }else{
-            vo.setAnio(Integer.parseInt(a));
-        }
-        vo.setId(this.idConsultandoseActualmente);
-        vo.setIdProveedor(_ComboMarca.getSelectedItem_idRetorno());
-        vo.setModelo(_TxtModeloMaquina.getText());
-
-        List<Validacion> validaciones =
-        this.coordinador.maquinaModeloValidarCampos(vo, true);
-
-        boolean todoValido = true;
-        boolean modeloYAnioMal = false;
-        MaquinaModeloIT iT = new MaquinaModeloIT();
-        for (Validacion validacione : validaciones) {
-            //VALIDAMOS QUE EL MODELO Y EL AÑO NO ESTEN REGISTRADOS JUNTOS.
-            if (validacione.getNombreDeCampo().equals(iT.getModeloPDC().getNombre())) {
-                if (!validacione.isValido()) {
-                    _TxtAnio.setError();
-                    _TxtModeloMaquina.setError(validacione.getMensajeDeError());
-                    modeloYAnioMal = true;
-                }else{
-                    _TxtModeloMaquina.setErrorQuitar();
-                    _TxtAnio.setErrorQuitar();
-                }
+        
+            MaquinaModeloVo vo = new MaquinaModeloVo();
+            String a = _TxtAnio.getText();
+            //NO PUEDES PASAR UN INT NULO.
+            if (a.equals("")) {
+                vo.setAnio(-1);
+            }else{
+                vo.setAnio(Integer.parseInt(a));
             }
+            vo.setId(this.idConsultandoseActualmente);
+            vo.setIdProveedor(_ComboMarca.getSelectedItem_idRetorno());
+            vo.setModelo(_TxtModeloMaquina.getText());
 
-            //QUE EL FORMATO DE LA FECHA SEA CORRECTO.
-            if (validacione.getNombreDeCampo().equals(iT.getAnioPDC().getNombre())) {
-                if (!validacione.isValido()) {
-                    _TxtAnio.setError(validacione.getMensajeDeError());
-                }else{
-                    if (!modeloYAnioMal) {
+            List<Validacion> validaciones =
+            this.coordinador.maquinaModeloValidarCampos(vo, true);
+
+            boolean todoValido = true;
+            boolean modeloYAnioMal = false;
+            MaquinaModeloIT iT = new MaquinaModeloIT();
+            for (Validacion validacione : validaciones) {
+                //VALIDAMOS QUE EL MODELO Y EL AÑO NO ESTEN REGISTRADOS JUNTOS.
+                if (validacione.getNombreDeCampo().equals(iT.getModeloPDC().getNombre())) {
+                    if (!validacione.isValido()) {
+                        _TxtAnio.setError();
+                        _TxtModeloMaquina.setError(validacione.getMensajeDeError());
+                        modeloYAnioMal = true;
+                    }else{
+                        _TxtModeloMaquina.setErrorQuitar();
                         _TxtAnio.setErrorQuitar();
                     }
                 }
-            }
 
-            //QUE EL ITEM NO ESTE REPETIDO. ESTE CREO QUE CASI NO SE OCUPARA.
+                //QUE EL FORMATO DE LA FECHA SEA CORRECTO.
+                if (validacione.getNombreDeCampo().equals(iT.getAnioPDC().getNombre())) {
+                    if (!validacione.isValido()) {
+                        _TxtAnio.setError(validacione.getMensajeDeError());
+                    }else{
+                        if (!modeloYAnioMal) {
+                            _TxtAnio.setErrorQuitar();
+                        }
+                    }
+                }
 
-            if (validacione.getNombreDeCampo().equals(iT.getIdProoveedorPDC().getNombre())) {
-                if (!validacione.isValido()) {
-                    _ComboMarca.setError(validacione.getMensajeDeError());
-                }else{
-                    _ComboMarca.setErrorQuitar();
+                //QUE EL ITEM NO ESTE REPETIDO. ESTE CREO QUE CASI NO SE OCUPARA.
+
+                if (validacione.getNombreDeCampo().equals(iT.getIdProoveedorPDC().getNombre())) {
+                    if (!validacione.isValido()) {
+                        _ComboMarca.setError(validacione.getMensajeDeError());
+                    }else{
+                        _ComboMarca.setErrorQuitar();
+                    }
+                }
+
+                if(!validacione.isValido()){
+                    todoValido = false;
                 }
             }
 
-            if(!validacione.isValido()){
-                todoValido = false;
-            }
-        }
+            if (todoValido) {
+                if (this.getCoordinador().maquinaModeloModificar(vo)) {
 
-        if (todoValido) {
-            if (this.getCoordinador().maquinaModeloModificar(vo)) {
-                                
-                limpiarTodo();
-                cargarListaMaquinaModelo();
-                _ListaMaquinaModelo.getThis().setSelectedValue(vo.getModelo()+" "+vo.getAnio(), true);
-                
-                
-                JOptionPane.showMessageDialog(
-                    this,
-                    "Se modifico correctamente la refacción.");
-            }else{
-                JOptionPane.showMessageDialog(
-                        this, 
-                        "No se pudo modificar el modelo.", 
-                        "Error modificando el modelo", 
-                        JOptionPane.ERROR_MESSAGE);
+                    limpiarTodo();
+                    cargarListaMaquinaModelo();
+                    _ListaMaquinaModelo.getThis().setSelectedValue(vo.getModelo()+" "+vo.getAnio(), true);
+
+
+                    JOptionPane.showMessageDialog(
+                        this,
+                        "Se modifico correctamente la refacción.");
+                }else{
+                    JOptionPane.showMessageDialog(
+                            this, 
+                            "No se pudo modificar el modelo.", 
+                            "Error modificando el modelo", 
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
             }
-            
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -499,6 +509,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         this.cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
     private void cancelar(){
+        limpiarTodo();
         this.dispose();
     }
     private void listaMaquinanasModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaMaquinanasModeloMouseClicked
@@ -521,6 +532,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
             if (r==JOptionPane.YES_OPTION) {
                 if(this.getCoordinador().maquinaModeloEliminar(vo)){
                     this.limpiarTodo();
+                    cargarCombosYListas();
                     JOptionPane.showMessageDialog(
                             this, 
                             "Se eliminó '"+vo.getModelo()+" "+vo.getAnio()+"' correctamente.");
