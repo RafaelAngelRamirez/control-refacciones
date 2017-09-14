@@ -992,6 +992,7 @@ public class Coordinador {
             entradaLoteAbrirDialogo();
 
             panelEntradaLote.cargarRefaccionParaEntrada(vo);
+            
             panelEntradaLote.setAccionPostGuardado(accionPostGuardado);
         }
         
@@ -1048,7 +1049,7 @@ public class Coordinador {
            panelSalidaDeLote.configurar();
            d.setVisible(true);
         }
-       public void salidaLoteAbrirDialogo(RefaccionVo vo, JDialog dialogoACerrar){
+       public void salidaLoteAbrirDialogo(RefaccionVo vo, JPanelBase dialogoACerrar){
            if (dialogoACerrar!=null) {
                dialogoACerrar.dispose();
            }

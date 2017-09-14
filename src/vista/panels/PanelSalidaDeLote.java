@@ -6,9 +6,11 @@
 package vista.panels;
 
 import controlador.Coordinador;
+import controlador.CoordinadorPaneles;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.RefaccionIT;
@@ -21,6 +23,7 @@ import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.FechaYHora;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -61,6 +64,12 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
      */
     public PanelSalidaDeLote() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(false);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_SALIDA_LOTE);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
     
     public void configurar(){
