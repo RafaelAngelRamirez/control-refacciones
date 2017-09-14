@@ -863,8 +863,9 @@ public class Coordinador {
     }
     
     public void empleadoAbrirDialogoAgregar(String empleadoNuevo){
-        this.getPanelEmpleadoAgregar().setVisible(true);
-        this.getPanelEmpleadoAgregar().configurar(empleadoNuevo);
+        JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoAgregar);
+        panelEmpleadoAgregar.configurar(empleadoNuevo);
+        d.setVisible(true);
     }
     
     public void empleadoAbrirDialogoMoficar(){
@@ -983,20 +984,22 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
         public void entradaLoteAbrirDialogo(){
-            this.getPanelEntradaLote().setVisible(true);
-            this.getPanelEntradaLote().configurar();
+            JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelEntradaLote);
+            panelEntradaLote.configurar();
+            d.setVisible(true);
         }
         
         public void entradaLoteAbrirDialogo(RefaccionVo vo, Runnable accionPostGuardado){
             entradaLoteAbrirDialogo();
-            this.getPanelEntradaLote().cargarRefaccionParaEntrada(vo);
-            this.getPanelEntradaLote().setAccionPostGuardado(accionPostGuardado);
+
+            panelEntradaLote.cargarRefaccionParaEntrada(vo);
+            panelEntradaLote.setAccionPostGuardado(accionPostGuardado);
         }
         
         
         public void entradaLoteDialogoSetearItemCombo(Object item){
             this.entradaLoteActualizarComboEmpleados();
-            this.getPanelEntradaLote().setearItemComboEmpleado(item);
+            panelEntradaLote.setearItemComboEmpleado(item);
         }
         
         public void entradaLoteActualizarComboEmpleados(){

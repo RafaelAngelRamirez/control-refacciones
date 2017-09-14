@@ -6,9 +6,11 @@
 package vista.panels;
 
 import controlador.Coordinador;
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
@@ -19,6 +21,7 @@ import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.FechaYHora;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -53,6 +56,13 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
 
     public PanelEntradaLote() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(false);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_ENTRADA_LOTE);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        
     }
    
     
