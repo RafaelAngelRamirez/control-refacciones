@@ -1031,9 +1031,9 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                 if (respuesta==JOptionPane.YES_OPTION) {
                     limpiar();
                     this.dispose();
-                    this.getCoordinador().entradaLoteAbrirDialogo(vo, 
-                            ()->this.getCoordinador().salidaLoteAbrirDialogo(vo,
-                                    this.getCoordinador().getPanelEntradaLote()));
+//                    this.getCoordinador().entradaLoteAbrirDialogo(vo, 
+//                            ()->this.getCoordinador().salidaLoteAbrirDialogo(vo,
+//                                    this.getCoordinador().getPanelEntradaLote()));
                 }else{
                     limpiar();
                     JOptionPane.showMessageDialog(this,

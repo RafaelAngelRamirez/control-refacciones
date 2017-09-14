@@ -2,8 +2,10 @@
 package vista.panels;
 
 import controlador.Coordinador;
+import controlador.capturadeerrores.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import modelo.InfoTabla.MaquinaModeloIT;
@@ -11,6 +13,8 @@ import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.ProveedorVo;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
+import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
@@ -20,7 +24,7 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * Este dialogo permite modificar una MaquinaModelo. 
  * @author Particular
  */
-public class PanelMaquinaModeloModificar extends javax.swing.JDialog {
+public class PanelMaquinaModeloModificar extends JPanelBase {
     private Coordinador coordinador;
     private UtilidadesTxt_ _TxtAnio;
     private UtilidadesTxt_ _TxtModeloMaquina;
@@ -32,6 +36,12 @@ public class PanelMaquinaModeloModificar extends javax.swing.JDialog {
     /** Inicializa opciones del dialogo. */
     public PanelMaquinaModeloModificar() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_MAQUINA_MODELO_MODIFICAR);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
     
     public void configurar(){
@@ -44,12 +54,6 @@ public class PanelMaquinaModeloModificar extends javax.swing.JDialog {
         básico para que funcionen en modal.
         
         */ 
-     
-        setModal(true);
-        setResizable(false);
-        setTitle("Modificar maquina-modelo");
-        setLocationRelativeTo(this.getCoordinador().getMarcoParaVentanaPrincipal());
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -253,12 +257,12 @@ public class PanelMaquinaModeloModificar extends javax.swing.JDialog {
         listaMaquinanasModelo = new javax.swing.JList<>();
         btnCancelar1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+     
+
+
+
+
+
 
         jLabel1.setBackground(new java.awt.Color(104, 127, 13));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -338,8 +342,8 @@ public class PanelMaquinaModeloModificar extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -400,7 +404,7 @@ public class PanelMaquinaModeloModificar extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        pack();
+        
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnioActionPerformed
@@ -425,7 +429,7 @@ public class PanelMaquinaModeloModificar extends javax.swing.JDialog {
         vo.setModelo(_TxtModeloMaquina.getText());
 
         List<Validacion> validaciones =
-        this.coordinador.maquinaModeloValidarCampos(vo);
+        this.coordinador.maquinaModeloValidarCampos(vo, true);
 
         boolean todoValido = true;
         boolean modeloYAnioMal = false;
@@ -471,8 +475,12 @@ public class PanelMaquinaModeloModificar extends javax.swing.JDialog {
 
         if (todoValido) {
             if (this.getCoordinador().maquinaModeloModificar(vo)) {
-                
+                                
                 limpiarTodo();
+                cargarListaMaquinaModelo();
+                _ListaMaquinaModelo.getThis().setSelectedValue(vo.getModelo()+" "+vo.getAnio(), true);
+                
+                
                 JOptionPane.showMessageDialog(
                     this,
                     "Se modifico correctamente la refacción.");
@@ -524,49 +532,6 @@ public class PanelMaquinaModeloModificar extends javax.swing.JDialog {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.cancelar();
     }//GEN-LAST:event_formWindowClosing
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PanelMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PanelMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PanelMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PanelMaquinaModeloModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                PanelMaquinaModeloModificar dialog = new PanelMaquinaModeloModificar();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

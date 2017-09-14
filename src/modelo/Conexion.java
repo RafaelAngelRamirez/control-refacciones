@@ -252,12 +252,7 @@ public class Conexion {
                 preparedStatement.executeUpdate();
             }
             String sqlMostrar = preparedStatement.toString().split(":")[1];
-            
-            Suceso s = new Suceso();
-            s.setClase(this);
-            s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-            s.setTextoAMostrar("[SQL]" + sqlMostrar);
-            System.out.println(s);
+            System.out.println("[SQL -> PreparedStatement]"+sqlMostrar);
             
             this.queryExitoso = true;
         } catch (SQLException ex) {
@@ -265,6 +260,12 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ExcepcionPersonalizada e){
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            conexion.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo cerrar la conexión con el servidor.");
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
     }

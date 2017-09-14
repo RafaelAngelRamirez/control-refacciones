@@ -424,12 +424,13 @@ public class Coordinador {
     }
     
     public void maquinaModeloAbrirDialogoModificar(){
-        getPanelMaquinaModeloModificar().configurar();
-        getPanelMaquinaModeloModificar().setVisible(true);
+        JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloModificar);
+        panelMaquinaModeloModificar.configurar();
+        d.setVisible(true);
     }
     
-    public List<Validacion> maquinaModeloValidarCampos(MaquinaModeloVo vo){
-        return this.logica.maquinaModeloValidarCampos(vo);
+    public List<Validacion> maquinaModeloValidarCampos(MaquinaModeloVo vo, boolean validandoUpdate){
+        return this.logica.maquinaModeloValidarCampos(vo, validandoUpdate);
     
     }
     

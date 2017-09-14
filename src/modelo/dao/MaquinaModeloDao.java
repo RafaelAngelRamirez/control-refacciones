@@ -51,6 +51,38 @@ public class MaquinaModeloDao extends DAOGenerales{
         }
         return false;
     }
+    /**
+     * Revisa si el modelo-año de la máquina existe en la base de datos descartando el
+     * id que se le pase. 
+     * @param vo Modelo, año y id que se quieren filtrar.
+     * @return True si hay coincidencias. 
+     */
+    public boolean existe(MaquinaModeloVo vo){
+        try {
+            String sql = "SELECT COUNT(*) FROM " +MaquinaModeloIT.NOMBRE_TABLA
+                    +" WHERE "+
+                    it.getModeloPDC().getNombre()+"=? "
+                    + " AND "+
+                    it.getAnioPDC().getNombre() +"=?"
+                    + " AND "+
+                    it.getIdPDC().getNombre()+"<>?";
+            
+            HashMap<Integer, Object > datos= new HashMap<>();
+            datos.put(1, vo.getModelo());
+            datos.put(2, vo.getAnio());
+            datos.put(3, vo.getId());
+            
+            ResultSet r = conexion.executeQuery(sql, datos);
+            r.next();
+            int a = r.getInt(1);
+            if (a>0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MaquinaModeloDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
     
     public boolean guardar(MaquinaModeloVo vo){
         String sql = "INSERT INTO " + MaquinaModeloIT.NOMBRE_TABLA 

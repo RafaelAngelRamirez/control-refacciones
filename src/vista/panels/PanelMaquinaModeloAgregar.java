@@ -402,7 +402,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         vo.setModelo(_TxtModeloMaquina.getText());
         vo.setId(-1);
         List<Validacion> validaciones = 
-                this.coordinador.maquinaModeloValidarCampos(vo);
+                this.coordinador.maquinaModeloValidarCampos(vo, false);
         
         boolean todoValido = true;
         boolean modeloYAnioMal = false;

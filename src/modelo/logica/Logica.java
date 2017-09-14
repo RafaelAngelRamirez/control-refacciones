@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.FicherosOperaciones;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
@@ -292,7 +293,7 @@ public class Logica {
     }
     
     /**
-     * Revisa si la maquinaModelo en la base de datos. Se busca por conincidencia
+     * Revisa si la maquinaModelo existe en la base de datos. Se busca por conincidencia
      * par de Maquina-Año de manera que si hay un modelo MASS y varios años (1999, 2011)
      * se busca el par que se quiere como repetido. 
      * @param modelo El modelo de la máquina que se quiere buscar. 
@@ -302,6 +303,20 @@ public class Logica {
     public boolean maquinaModeloExiste(String modelo, int anio ){
         MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
         return dao.existe(modelo, anio);
+    }
+    
+    /**
+     * Revisa si la maquinaModelo existe en la base de datos. Se busca por conincidencia
+     * par de Maquina-Año de manera que si hay un modelo MASS y varios años (1999, 2011)
+     * se busca el par que se quiere como repetido descartando el id que se
+     * pase como parametro.
+     * @param modelo El modelo de la máquina que se quiere buscar. 
+     * @param anio El año de la máquina Modelo que se quiere buscar. 
+     * @return  True si encuentra coincidencia. 
+     */
+    public boolean maquinaModeloExiste(MaquinaModeloVo vo ){
+        MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
+        return dao.existe(vo);
     }
     
     /**
@@ -328,9 +343,10 @@ public class Logica {
      * Valida los campos según la definición que se le da en la clase Dao en la
      * lista de tipo ParametrosDeCampo.
      * @param vo - La información que vamos a validad. 
+     * @param validarUpdate 
      * @return La lista de campos validados con error.
      */
-    public List<Validacion> maquinaModeloValidarCampos (MaquinaModeloVo vo){
+    public List<Validacion> maquinaModeloValidarCampos (MaquinaModeloVo vo, boolean validarUpdate){
         //LA LISTA QUE SE RETORNA DE VALIDACIONES.
         List<Validacion> listaValidaciones = new ArrayList<>();
         
@@ -375,13 +391,28 @@ public class Logica {
                     Validacion val = new Validacion();
                     val.setNombreDeCampo(parametrosDeCampo);
                     int anio = Integer.parseInt(""+vo.getRelacionCampo().get(b.getAnioPDC().getNombre()).call()) ;
-                    if (this.maquinaModeloExiste(valorAValidar, anio)) {
-                        val.setMensajeDeError("El valor '"+valorAValidar+"' "
-                                + "y '"+ anio+"' ya están registrados." );
-                        val.setValido(false);
+                    if (validarUpdate) {
+                        if (parametrosDeCampo.getNombre().equals(b.getModeloPDC().getNombre())) {
+                            if (this.maquinaModeloExiste(vo)) {
+                                val.setMensajeDeError("El valor '"+valorAValidar+"' "
+                                        + "y '"+ anio+"' ya están registrados para otro modelo." );
+                                val.setValido(false);
+                            }else{
+                                val.setValido(true);
+                            }
+                        }else{
+                            val.setValido(true);
+                            val.setMensajeDeError("todo bien");
+                        }
                     }else{
-                        val.setValido(true);
-                        val.setMensajeDeError("todo bien");
+                        if (this.maquinaModeloExiste(valorAValidar, anio)) {
+                            val.setMensajeDeError("El valor '"+valorAValidar+"' "
+                                    + "y '"+ anio+"' ya están registrados." );
+                            val.setValido(false);
+                        }else{
+                            val.setValido(true);
+                            val.setMensajeDeError("todo bien");
+                        }
                     }
                     listaValidaciones.add(val);
                 }
