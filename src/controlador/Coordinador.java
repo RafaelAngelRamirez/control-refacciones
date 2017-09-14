@@ -879,7 +879,7 @@ public class Coordinador {
         panelEmpleadoModificar.configurar(empleado);
         d.setVisible(true);
     } 
-    
+        
     public void empleadoDialogoModificarActualizar(){
             JOptionPane.showMessageDialog(null, "pendiente implementacion");
     }
@@ -997,11 +997,12 @@ public class Coordinador {
         }
         
         
-        public void entradaLoteDialogoSetearItemCombo(Object item){
+        public void entradaLoteDialogoSetearItemComboRecienAgregado(Object item){
             this.entradaLoteActualizarComboEmpleados();
             panelEntradaLote.setearItemComboEmpleado(item);
+            
         }
-        
+                        
         public void entradaLoteActualizarComboEmpleados(){
             this.getPanelEntradaLote().cargarComboEmpleados();
         

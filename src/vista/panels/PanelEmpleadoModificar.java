@@ -477,7 +477,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
             
         } else {
             if (empleadoAdelantado && !_txtNombre.isEmpty()) {
-                this.getCoordinador().entradaLoteDialogoSetearItemCombo(_txtNombre.getText());
+                this.getCoordinador().entradaLoteDialogoSetearItemComboRecienAgregado(_txtNombre.getText());
             }
             this.limpiar();
             this.dispose();

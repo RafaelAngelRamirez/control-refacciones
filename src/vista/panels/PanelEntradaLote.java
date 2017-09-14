@@ -826,7 +826,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
                             "Guardar nuevo empleado.", JOptionPane.YES_NO_OPTION);
                     if (respuesta==JOptionPane.YES_OPTION) {
                         this.getCoordinador().empleadoAbrirDialogoAgregar(elementoEscrito);
-                        this.cargarComboEmpleados();
+                        _comboEmpleadoQueReciveLote.setSelectedItem(elementoEscrito);
                     }else{
                         this._comboEmpleadoQueReciveLote.getThisComboBox().setSelectedIndex(0);
                     }
@@ -837,6 +837,14 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         
     
     
+    }
+
+    public UtilidadesComboBox_ getComboEmpleadoQueReciveLote() {
+        return _comboEmpleadoQueReciveLote;
+    }
+
+    public void setComboEmpleadoQueReciveLote(UtilidadesComboBox_ _comboEmpleadoQueReciveLote) {
+        this._comboEmpleadoQueReciveLote = _comboEmpleadoQueReciveLote;
     }
     
     private void cargarRefaccionesEnLista(String busqueda){

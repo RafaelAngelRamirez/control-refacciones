@@ -317,7 +317,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
             
         } else {
             if (empleadoAdelantado && !_txtNombre.isEmpty()) {
-                this.getCoordinador().entradaLoteDialogoSetearItemCombo(_txtNombre.getText());
+                this.getCoordinador().entradaLoteDialogoSetearItemComboRecienAgregado(_txtNombre.getText());
             }
             this.limpiar();
             this.dispose();
@@ -373,7 +373,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
                 JOptionPane.showMessageDialog(this, "Se guardo correctamente el empleado.");
                 if (empleadoAdelantado) {
                     
-                    this.getCoordinador().entradaLoteDialogoSetearItemCombo(vo.getNombre());
+                    this.getCoordinador().entradaLoteDialogoSetearItemComboRecienAgregado(vo.getNombre());
                     
                     this.dispose();
                     
