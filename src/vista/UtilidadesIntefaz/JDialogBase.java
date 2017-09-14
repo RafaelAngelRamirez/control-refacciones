@@ -4,13 +4,19 @@ package vista.UtilidadesIntefaz;
 import controlador.Coordinador;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import modelo.ExcepcionPersonalizada;
 
 /**
@@ -49,8 +55,23 @@ public class JDialogBase extends JDialog{
 
          
         }.parametros(this));
+        
+        ActionListener escapeAction = new ActionListener() {
+            JDialogBase d;
+            ActionListener parametros(JDialogBase d){
+                this.d=d;
+                return this;
+            }
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               this.d.dispose();
+            }
+        }.parametros(this);
+        
+        this.getRootPane().registerKeyboardAction(escapeAction,
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_IN_FOCUSED_WINDOW);
     }
-    
     
     public void retormarFormaYPosicion(){
         this.setSize(tamanoDeDialogo);
