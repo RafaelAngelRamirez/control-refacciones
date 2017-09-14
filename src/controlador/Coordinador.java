@@ -868,13 +868,15 @@ public class Coordinador {
     }
     
     public void empleadoAbrirDialogoMoficar(){
-        this.getPanelEmpleadoModificar().setVisible(true);
-        this.getPanelEmpleadoModificar().configurar();
+        JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoModificar);
+        panelEmpleadoModificar.configurar();
+        d.setVisible(true);
     }
     
     public void empleadoAbrirDialogoMoficar(String empleado){
-        this.getPanelEmpleadoModificar().setVisible(true);
-        this.getPanelEmpleadoModificar().configurar(empleado);
+        JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoModificar);
+        panelEmpleadoModificar.configurar(empleado);
+        d.setVisible(true);
     } 
     
     public void empleadoDialogoModificarActualizar(){

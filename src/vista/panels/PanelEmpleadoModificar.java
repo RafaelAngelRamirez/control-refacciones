@@ -48,8 +48,6 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_EMPLEADO_MODIFICAR);
         configuracionesDialogo.setLocationRelativeTo(null);
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//        configuracionesDialogo.setOperacionDeAcople_Panel();
-//        configuracionesDialogo.setOperacionDesacople_Dialogo(()->);
     }
 
     /**
@@ -350,7 +348,8 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
             cargarListaEmpleadosBusqueda(_txtBusqueda.getText());
         }else{
             _listaEmpleados.limpiar();
-            limpiar();
+//            limpiar();
+            _txtNombre.setText("");
             cargarListaEmpleados();
         }
     
