@@ -22,9 +22,12 @@
 hs_err_pid*
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 dist/
 =======
+=======
+>>>>>>> parent of 935d704... cambios antes de gitignore
 *.class
 *.class
 *.class
