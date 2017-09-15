@@ -11,7 +11,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+
 *.war
 *.ear
 *.zip
@@ -22,5 +22,6 @@
 hs_err_pid*
 
 
-/dist/
+dist/
 build/built-jar.properties
+nbproject/
