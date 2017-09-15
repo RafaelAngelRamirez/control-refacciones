@@ -31,6 +31,9 @@ import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionesConsulta;
 import com.bulenkov.darcula.DarculaLaf;
+import com.jtattoo.plaf.JTattooUtilities;
+import com.sun.java.swing.plaf.motif.MotifLookAndFeel;
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
 import java.util.logging.Level;
@@ -38,6 +41,7 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicLookAndFeel;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import modelo.logica.Logica;
 
 /**
@@ -53,16 +57,15 @@ public class Principal {
     }
     
     private static void iniciarPrograma(){
-        //Agregamos el LookAndFeel de Darcula :3
-        BasicLookAndFeel darcula = new DarculaLaf();
-        try {
-                UIManager.setLookAndFeel(darcula);
-                
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-       
+//        //Agregamos el LookAndFeel de Darcula :3
+//        BasicLookAndFeel darcula =new DarculaLaf();
+//
+//        try {
+//                UIManager.setLookAndFeel(darcula);
+//                
+//        } catch (UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
         /*
         ====================================================================
