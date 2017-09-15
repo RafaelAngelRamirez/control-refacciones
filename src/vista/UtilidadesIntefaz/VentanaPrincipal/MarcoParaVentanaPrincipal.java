@@ -60,7 +60,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 
     Font fuenteMenu = new Font("Calibri light", Font.BOLD, 15);
     Font fuenteItem = new Font("Calibri light", Font.PLAIN, 18);
-    Font fuenteFechaYHora = new Font("Calibri light", Font.PLAIN, 18);
+    Font fuenteFechaYHora = new Font("Calibri light", Font.PLAIN, 20);
 
 
      ///////////////////////
@@ -85,7 +85,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     //El ménu para agregar las acciones. 
     private Menu menu;
     // LA BARRA DE TITULO DE LA VENTANA CON EL FONDO DE COLOR (DEPENDE DE CUAL)
-//    private BarraTitulo barraTitulo;
+    private BarraTitulo barraTitulo;
     
     
     //ACCION DE BOTON DE INICIO.
@@ -172,7 +172,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         EL TITULO QUE SE LE ASIGNA AQUI ES QUE PREVALECERA DURANTE TODA LA APLICACIÓN.
         LOS PANELES QUE AGREGUEMOS SE AGRAGARAN AL LADO DE ESTE TITULO.
          */
-//        this.barraTitulo = new BarraTitulo("GESTION DE REFACCIONES");
+        this.barraTitulo = new BarraTitulo("GESTION DE REFACCIONES");
         
         /*
         CREAMOS UN ICONO PARA LA BARRA.
@@ -204,19 +204,67 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          */
         RelojYBotonesDeCierre rybdc = new RelojYBotonesDeCierre(coordinador);
         
-        
         /*
         ORDENAMOS LOS PANELES AGREGANDOLOS A SU RESPECTIVO PADRE. TENER CUIDADDO
         DE RESPETAR EL ÓRDEN QUE TIENEN PUESTO QUE AFECTA A LA ESTRUCUTRA. 
         */
         
         this.menu.add(iconoEtiquetaPrincipal);
-        panelEncabezado.add(rybdc, BorderLayout.PAGE_START);
+        panelEncabezado.add(this.barraTitulo, BorderLayout.PAGE_START);
         panelEncabezado.add(this.menu, BorderLayout.SOUTH);
         panelSuperContenedor.add(panelEncabezado, BorderLayout.PAGE_START);
         panelSuperContenedor.add(this.contenedorParaPaneles);
         this.add(panelSuperContenedor);
         
+//        /*------------------------------------------------------------
+//            CREAMOS LOS MENUS DE LA BARRA DE MENUS
+//            ===================
+//            EJEMPLO DE CREACION
+//            ===================
+//            
+//            COMENTAR ESTAS LINEAS CUANDO SE IMPLEMENTE EL SISTEMA.
+//        ------------------------------------------------------------*/
+//
+//        MenuConstructor mArchivo = new MenuConstructor();
+//        mArchivo.setMenu();
+//        mArchivo.setNombre("Cambiar Modulos");
+//        mArchivo.setImagen("imagenes/iconos_siguiente.png");
+//        
+//        MenuConstructor mArchivo1 = new MenuConstructor();
+//        mArchivo1.setMenu();
+//        mArchivo1.setNombre("otro menu");
+//        mArchivo1.setImagen("imagenes/iconos_siguiente.png");
+//        mArchivo1.setPadre(mArchivo);
+//        
+//        MenuConstructor p1 = new MenuConstructor();
+//        p1.setItem();
+//        p1.setNombre("Agregar Empresa");
+//        p1.setPanel(this.coordinador.getFormulario());
+//        p1.setImagen("imagenes/iconos_mas.png");
+//        p1.setPadre(mArchivo);
+//        
+//        MenuConstructor p2 = new MenuConstructor();
+//        p2.setItem();
+//        p2.setNombre("Ventana Roja");
+//        p2.setPanel(this.coordinador.getPanelPrimeraVentana());
+//        p2.setImagen("imagenes/iconos_palomita.png");
+//        p2.setPadre(mArchivo);
+//        
+//      
+//        MenuConstructor p3 = new MenuConstructor();
+//        p3.setItem();
+//        p3.setNombre("Accion directa");
+//        p3.setImagen("imagenes/iconos_icono_principal.png");
+//        p3.setAccionDelItem(()->this.accion("accion directa"));
+//        p3.setPadre(mArchivo1);
+//        
+//        //AÑADIMOS TODOS LOS MENUS.
+//        this.addItemOMenu(mArchivo);
+//        this.addItemOMenu(mArchivo1);
+//        this.addItemOMenu(p1);
+//        this.addItemOMenu(p2);
+//        this.addItemOMenu(p3);
+
 
 
 //        /*------------------------------------------------------------
@@ -456,21 +504,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         salirSystema.setAtajoDeTeclado(atajo_Salir);
         this.addItemOMenu(salirSystema);
         
-        MenuConstructor temaClaro = new MenuConstructor();
-        temaClaro.setItem();
-        temaClaro.setNombre("Tema Claro");
-        temaClaro.setPadre(menuSystema);
-        temaClaro.setAccionDelItem(
-                ()->coordinador.lookAndFeel(Coordinador.TEMA_CLARO));
-        this.addItemOMenu(temaClaro);
-        MenuConstructor temaOscuro = new MenuConstructor();
-        temaOscuro.setItem();
-        temaOscuro.setNombre("Tema Oscuro");
-        temaOscuro.setPadre(menuSystema);
-        temaOscuro.setAccionDelItem(
-                ()->coordinador.lookAndFeel(Coordinador.TEMA_OSCURO));
-        this.addItemOMenu(temaOscuro);
-        
         
         //AÑADIMOS LOS DIALOGOS.
        
@@ -499,7 +532,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         //ASIGMAMOS LOS BOTONES. IMPORTANTE POR QUE SI NO NO FUNCIONAN. 
         rybdc.asignarAcciones();
         //AÑADIMOS EL PANEL AL MENU.
-//        this.menu.add(rybdc);s
+        this.menu.add(rybdc);
 
         /*------------------------------------------------------------
             CONFIGURACIONES BÁSICAS PARA EL JFRAME. 
@@ -569,53 +602,45 @@ public class MarcoParaVentanaPrincipal extends JFrame{
    
     
             
-//    /**
-//     * Crea la barra de titulo con color que se muestra a en la parte superior
-//     * de la ventana.
-//     */
-//    class BarraTitulo extends JPanel{
-//        
-//        private String titulo;
-//        private String tituloPrincipal;
-//        JLabel etiqueta;
-//       
-//        public BarraTitulo(String titulo) {
-//            //CREAMOS LA ETIQUETA PARA EL TITULO.
-//            etiqueta = new JLabel(this.getTitulo());
-//            //COLOR DE LA LETRA.
-////            etiqueta.setForeground(Color.WHITE);
-//            //AL CONSTRUIR SETEAMOS EL TITULO.
-//            tituloPrincipal = titulo;
-//            setTitulo("");
-//            //AÑADIMOS LA ETIQUETA AL PANEL.
-//            setLayout(new FlowLayout(FlowLayout.LEFT));
-//            
-////            add(etiqueta, FlowLayout.LEFT);
-//            
-//            Dimension d = new Dimension(200, 25);
-////            etiqueta.setPreferredSize(d);
-////            etiqueta.setSize(d);
-////            etiqueta.setMinimumSize(d);
-////            etiqueta.setMaximumSize(d);
-////            setSize(d);
-////            setMinimumSize(d);
-////            setMaximumSize(d);
-//            setPreferredSize(d);
-//            //LE DAMOS EL COLORCITO AZUL
-////            setBackground(new Color(0,158,227));
-//        }
-//        /*
-//        * El título que llevara la ventana. 
-//        */
-//        public String getTitulo() {
-//            return "  "+titulo;
-//        }
-//
-//        public void setTitulo(String titulo) {
-//            this.etiqueta.setText("    "+this.tituloPrincipal+" / "+titulo);
-//            this.titulo = titulo;
-//        }
-//    }
+    /**
+     * Crea la barra de titulo con color que se muestra a en la parte superior
+     * de la ventana.
+     */
+    class BarraTitulo extends JPanel{
+        
+        private String titulo;
+        private String tituloPrincipal;
+        JLabel etiqueta;
+       
+        public BarraTitulo(String titulo) {
+            //CREAMOS LA ETIQUETA PARA EL TITULO.
+            etiqueta = new JLabel(this.getTitulo());
+            //COLOR DE LA LETRA.
+            etiqueta.setForeground(Color.WHITE);
+            //AL CONSTRUIR SETEAMOS EL TITULO.
+            tituloPrincipal = titulo;
+            setTitulo("");
+            //AÑADIMOS LA ETIQUETA AL PANEL.
+            setLayout(new GridLayout());
+            
+            add(etiqueta);
+            
+            setPreferredSize(new Dimension(this.getWidth(), 16));
+            //LE DAMOS EL COLORCITO AZUL
+            setBackground(new Color(0,158,227));
+        }
+        /*
+        * El título que llevara la ventana. 
+        */
+        public String getTitulo() {
+            return "  "+titulo;
+        }
+
+        public void setTitulo(String titulo) {
+            this.etiqueta.setText("    "+this.tituloPrincipal+" / "+titulo);
+            this.titulo = titulo;
+        }
+    }
     
     class Menu extends JMenuBar{
         List<ElementoItemOMenu> elementoItemOMenuLista = new ArrayList<ElementoItemOMenu>();
@@ -719,11 +744,13 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                     // DESEADO.
                     public ActionListener parametros(Runnable accion, Runnable a){
                         this.accion = accion;
+//                        this.aPerpetua = a;
                         return this;
                     }
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         this.accion.run();
+//                        this.aPerpetua.run();
                         
                     }
 
@@ -864,16 +891,10 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      */
     class RelojYBotonesDeCierre extends JPanel{
 
-        private final JButton cerrarBtn;
-        private final JButton minimizarBtn;
-        private final JButton maximizarBtn;
-        private final Coordinador coordinador;
-        private JLabel hora;
-        private JLabel fecha;
-        private JLabel relleno;
-        private JPanel thisPanel;
-        
-        private Dimension tamanoOriginalPanel;
+        private JButton cerrarBtn;
+        private JButton minimizarBtn;
+        private JButton maximizarBtn;
+        private Coordinador coordinador;
 
         private JFrame ventanaPrincipal;
 
@@ -882,17 +903,15 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             this.coordinador = coordinador;
             //EL PANEL QUE CONTENDRA EL RELOJ.
             JPanel reloj = new JPanel();
-            thisPanel = this;
-//            tamanoOriginalPanel = new Dimension(1000, 30);
-            this.setPreferredSize(tamanoOriginalPanel);
+
             //EL PANEL QUE CONTENDRA LOS BOTONES DE CIERRE Y APERTURA.
             JPanel botones = new JPanel();
 
             //LLAMAMOS A LA CLASE FECHA Y HORA Y LAS AGREGAMOS A SUS PANELES.
             HiloParaFechaYHoraCabecera fechaHora = new HiloParaFechaYHoraCabecera();
-            hora = new JLabel();
-            fecha = new JLabel();
-            relleno= new JLabel("→");
+            JLabel hora = new JLabel();
+            JLabel fecha = new JLabel();
+            JLabel relleno= new JLabel("→");
 
             fechaHora.setEtiquetaHora(hora);
             fechaHora.setEtiquetaFecha(fecha);
@@ -916,7 +935,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             
             
             //FUENTE
-            Font fuenteBotones = new Font("Arial", 0, 5 );
+            Font fuenteBotones = new Font("Arial", 0, 7);
             this.cerrarBtn.setFont(fuenteBotones);
             this.minimizarBtn.setFont(fuenteBotones);
             this.maximizarBtn.setFont(fuenteBotones);
@@ -932,13 +951,13 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
             
             //MEDIDAS DE LOS PANELES. 
-            Dimension relojDim = new Dimension(450, 25);
+            Dimension relojDim = new Dimension(450, 35);
             reloj.setPreferredSize(relojDim);
             reloj.setMinimumSize(relojDim);
             reloj.setMaximumSize(relojDim);
             reloj.setAutoscrolls(true);
 
-            Dimension btnDimencion = new Dimension(200, 25);
+            Dimension btnDimencion = new Dimension(120, 35);
             botones.setPreferredSize(btnDimencion);
             botones.setMinimumSize(btnDimencion);
             botones.setMaximumSize(btnDimencion);
@@ -946,7 +965,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             //AGREGAMOS LOS PANELES AL PANEL QUE LOS VA A CONTENER.
             this.add(reloj);
             this.add(botones);
-            
+
         }
         
         public JFrame getVentanaPrincipal() {

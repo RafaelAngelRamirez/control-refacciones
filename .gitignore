@@ -21,7 +21,14 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+<<<<<<< HEAD
 
 dist/
+=======
+*.class
+*.class
+*.class
+/dist/
+>>>>>>> parent of 935d704... cambios antes de gitignore
 build/built-jar.properties
 nbproject/

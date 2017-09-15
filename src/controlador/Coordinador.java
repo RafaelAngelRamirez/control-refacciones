@@ -1,7 +1,6 @@
 
 package controlador;
 
-import com.bulenkov.darcula.DarculaLaf;
 import vista.panels.PanelEmpleadoModificar;
 import vista.panels.PanelRefaccionDetalle;
 import vista.panels.PanelMaquinaModeloAgregar;
@@ -18,15 +17,8 @@ import vista.panels.PanelRefaccionesConsulta;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.basic.BasicLookAndFeel;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
@@ -74,7 +66,6 @@ public class Coordinador {
     private PanelEmpleadoAgregar panelEmpleadoAgregar;
     private PanelEmpleadoModificar panelEmpleadoModificar;
     private PanelSalidaDeLote panelSalidaDeLote;
-    private LookAndFeel lookAndFeelClaro;
     
     
     
@@ -84,6 +75,14 @@ public class Coordinador {
         System.exit(0);
     
     }
+    
+//    /**
+//     * Comprueba que el forma de fecha que se le pase sea correcto.
+//     * @param fecha
+//     */
+//    public void comprobarFecha(String fecha, int formatoDeFecha){
+//    
+//    }
 
     /*
     ========================================================================
@@ -91,6 +90,26 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
     
+  
+    
+//    public void pruebaAbrirComoPanel(boolean configurar){
+//        this.marcoParaVentanaPrincipal.setJPanel(this.panelEmpleadoAgregar);
+//        if (configurar) {
+//        this.panelEmpleadoAgregar.configurar();
+//        }
+//        
+//    }
+//    
+//    public JDialogBase pruebaAbrirComoDialogo(boolean configurar){
+//        JDialogBase d = new JDialogBase(this);
+//        d.add(this.panelEmpleadoAgregar);
+//        if (configurar) {
+//            d.configurarPanel();
+//        }
+//        d.pack();
+//        d.setVisible(true);
+//        return d;
+//    }
 
     public CoordinadorPaneles getCoordinadorPaneles() {
         return coordinadorPaneles;
@@ -1024,8 +1043,7 @@ public class Coordinador {
        INICIO DE SALIDA LOTE
     ////////////////////////////////////////////////////////////////////////
     */
-     
-        
+    
        public void salidaLoteAbrirDialogo(){
            JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelSalidaDeLote);
            panelSalidaDeLote.configurar();

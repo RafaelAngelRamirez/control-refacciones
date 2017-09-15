@@ -192,7 +192,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         
         //TRAVEL POLICY
         
-        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
+//        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
         _txtFechaDeLote.setNextFocusableComponent(_txtCantidadQueEntra.getThis());
         _txtCantidadQueEntra.setNextFocusableComponent(_comboEmpleadoQueReciveLote.getThis());
         _comboEmpleadoQueReciveLote.setNextFocusableComponent(_txtObservaciones.getThis());
@@ -267,7 +267,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _txtCantidadQueEntra.getThis().setEnabled(deshabilitar);
         _txtObservaciones.getThis().setEnabled(deshabilitar);
         btnGuardar.setEnabled(deshabilitar);
-//        _comboLotesDisponibles.setEditable(false);
+        _comboLotesDisponibles.setEditable(false);
     }
     
 
@@ -323,11 +323,13 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         etiquetaObservaciones.setFont(new java.awt.Font("Calibri Light", 1, 24)); // NOI18N
         etiquetaObservaciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaObservaciones.setText("Observaciones");
+        etiquetaObservaciones.setOpaque(true);
 
         etiquetaStockMax.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaStockMax.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaStockMax.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaStockMax.setText("Stock Max");
+        etiquetaStockMax.setOpaque(true);
 
         txtStockMin.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtStockMin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -338,6 +340,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         etiquetaStockMin.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaStockMin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaStockMin.setText("Stock Min");
+        etiquetaStockMin.setOpaque(true);
 
         imagenesRefacciones.setOpaque(false);
 
@@ -410,6 +413,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         etiquetaExistencia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaExistencia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaExistencia.setText("Existencia Total");
+        etiquetaExistencia.setOpaque(true);
 
         txtCodigoInterno.setEditable(false);
         txtCodigoInterno.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -421,6 +425,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         etiquetaCodigoInterno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaCodigoInterno.setText("Código interno");
         etiquetaCodigoInterno.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        etiquetaCodigoInterno.setOpaque(true);
 
         txtCodigoProveedor.setEditable(false);
         txtCodigoProveedor.setBackground(new java.awt.Color(102, 102, 102));
@@ -433,6 +438,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         etiquetaCodigoDelProveedor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaCodigoDelProveedor.setText("Código proveedor");
         etiquetaCodigoDelProveedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        etiquetaCodigoDelProveedor.setOpaque(true);
 
         txtUnidad.setEditable(false);
         txtUnidad.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -468,6 +474,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         etiquetaFechaDeLote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaFechaDeLote.setText("Fecha de lote");
         etiquetaFechaDeLote.setToolTipText("");
+        etiquetaFechaDeLote.setOpaque(true);
 
         txtFechaDeLote.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         txtFechaDeLote.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -490,6 +497,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         etiquetaCantidadQueEntra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaCantidadQueEntra.setText("Cantidad que sale");
         etiquetaCantidadQueEntra.setToolTipText("");
+        etiquetaCantidadQueEntra.setOpaque(true);
 
         txtCantidadQueEntra.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         txtCantidadQueEntra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -507,11 +515,13 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         etiquetaNombreDeLaRefaccion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaNombreDeLaRefaccion.setText("Nombre de la refacción");
+        etiquetaNombreDeLaRefaccion.setOpaque(true);
 
         etiquetaEmpleadoQueReciveElLote.setBackground(new java.awt.Color(30, 30, 30));
         etiquetaEmpleadoQueReciveElLote.setFont(new java.awt.Font("Calibri Light", 1, 24)); // NOI18N
         etiquetaEmpleadoQueReciveElLote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaEmpleadoQueReciveElLote.setText("Empleado que recive el lote.");
+        etiquetaEmpleadoQueReciveElLote.setOpaque(true);
 
         btnSalir1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
@@ -555,11 +565,13 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         etiquetaNombreDeLaRefaccion1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaNombreDeLaRefaccion1.setText("Lotes disponibles");
+        etiquetaNombreDeLaRefaccion1.setOpaque(true);
 
         etiquetaStockMin1.setBackground(new java.awt.Color(31, 31, 31));
         etiquetaStockMin1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaStockMin1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaStockMin1.setText("Existencia lote");
+        etiquetaStockMin1.setOpaque(true);
 
         txtExistenciaLote.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtExistenciaLote.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -825,11 +837,11 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                     + "\n                  "+voLoteActual.getCantidad()
                     + "");
             
-            
-            
-            
+           
         }
-                     
+        
+        
+        
         
         
         
@@ -855,6 +867,30 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         }
     }
     
+//    private EntradaLoteVo comprobacionesSobreLote(Object a, float existencia){
+//
+//        
+//        EntradaLoteVo elvo = (EntradaLoteVo) a;
+//        if (this.getCoordinador().entradaloteEsElLoteMasConExistencia(elvo)) {
+//
+//        }else{
+//            EntradaLoteVo voLoteMasChicoAntiguo = 
+//                    this.getCoordinador().entradaLoteMasAtiguoConExistencia();
+//            String mensaje = "Esta refacción tiene un lote más antiguo que el"
+//                    + "seleccionado. \n"
+//                    + "Este es el lote seleccionado: "+ elvo.getFechaRecepcionLote() + "- Cantidad:" +elvo.getCantidad()+"\n"
+//                    + " Este es el lote más antiguo: "+ voLoteMasChicoAntiguo.getFechaRecepcionLote() + "- Cantidad:" +voLoteMasChicoAntiguo.getCantidad()
+//                    + "\n\n¿Deseas descontar la salida de lote actual a '"+voLoteMasChicoAntiguo.getFechaRecepcionLote() +"' que es más antiguo?";
+//            int r = JOptionPane.showConfirmDialog(
+//                    this, 
+//                    mensaje, 
+//                    "Hay un lote más antiguo.", 
+//                    JOptionPane.WARNING_MESSAGE);
+//            if (r=JOptionPane.YES_OPTION) {
+//
+//            }
+//        }
+//    } 
     
     private void autocompletadoDeFecha(){
        _txtFechaDeLote.setText(FechaYHora.autoCompletarFecha(_txtFechaDeLote.getText(), FechaYHora.FECHA_DD_MM_AA));
@@ -1007,7 +1043,6 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                     this.getCoordinador().entradaLoteAbrirDialogo(vo, 
                             ()->this.getCoordinador().salidaLoteAbrirDialogo(vo,
                                     this.getCoordinador().getPanelEntradaLote()));
-                    _txtCantidadQueEntra.setFocus();
                 }else{
                     limpiar();
                     JOptionPane.showMessageDialog(this,

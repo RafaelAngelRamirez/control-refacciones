@@ -54,6 +54,7 @@ import javax.swing.JOptionPane;
            try {
             this.etiquetaHora.setText(FechaYHora.Actual.getHora_Hhmmss());
            } catch (Exception e) {
+               JOptionPane.showMessageDialog(null, "algo paso con la hora de la cabecera. ");
             Logger.getLogger(HiloParaFechaYHoraCabecera.class.getName()).log(Level.SEVERE, null, e);
            }
        }
