@@ -73,7 +73,6 @@ import javax.swing.JOptionPane;
              while (true){
                  this.horaMinutoSegundo();
                  this.fechaCompleta();
-                 System.out.println(FechaYHora.Actual.getHora_Hhmmss());
                  try {
                      Thread.sleep(1000);
                  } catch (InterruptedException ex) {

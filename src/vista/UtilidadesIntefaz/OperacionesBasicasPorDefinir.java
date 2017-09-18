@@ -103,16 +103,23 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
     public abstract Component getThis();
     
     /**
-     * Permite editar o no el campo. 
+     * Permite editar o no el campo. En el caso del combobox hay que revisar
+     * especificamente como funciona!
      * @param editable True si lo permite. 
      */
     public abstract void setEditable(boolean editable);
    
     
     //FIN DE ABSTRACS--------------------------------------------------------
+
+    /**
+     * Define el nombre del componente. 
+     * @param nombre
+     */
     
     public void setNombre(String nombre) {
-        this.nombre = nombre;}
+        this.nombre = nombre;
+    }
     
     /**
      * Define el siguiente componente para el foco.

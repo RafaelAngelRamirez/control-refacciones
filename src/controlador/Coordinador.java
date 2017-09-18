@@ -988,12 +988,9 @@ public class Coordinador {
             d.setVisible(true);
         }
         
-        public void entradaLoteAbrirDialogo(RefaccionVo vo, Runnable accionPostGuardado){
+        public void entradaLoteAbrirDialogo(RefaccionVo vo){
             entradaLoteAbrirDialogo();
-
             panelEntradaLote.cargarRefaccionParaEntrada(vo);
-            
-            panelEntradaLote.setAccionPostGuardado(accionPostGuardado);
         }
         
         
@@ -1054,6 +1051,9 @@ public class Coordinador {
                dialogoACerrar.dispose();
            }
            salidaLoteAbrirDialogo();
+           //CARGAMOS LA REFACCIÓN EN LA QUE SE AGREGO ENTRADA. 
+           //EN CASO DE QUE NO SE ALLA
+           //MODIFICADO PREGUNTARA DE NUEVO SI SE QUIERE MODIFICAR.
            panelSalidaDeLote.cargarRefaccionParaEntrada(vo);
        }
         

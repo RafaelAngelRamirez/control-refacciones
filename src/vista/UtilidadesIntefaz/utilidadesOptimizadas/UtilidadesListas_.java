@@ -27,12 +27,21 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
     private JList<String> lista;
     private UtilidadesListas_ ComponenteListaAAgregar;
     protected boolean limpiandoLista = false;
-    
+    private DefaultListModel defaultListModel;
+
+    public DefaultListModel getDefaultListModel() {
+        return defaultListModel;
+    }
+
+    public void setDefaultListModel(DefaultListModel defaultListModel) {
+        this.defaultListModel = defaultListModel;
+    }
     
     private HashMap<Object, Object> relacionDatoId  = new HashMap();
 
     public UtilidadesListas_(Coordinador controlador) {
         super(controlador);
+        this.defaultListModel = new DefaultListModel();
     }
 
     public HashMap<Object, Object> getRelacionDatoId() {
@@ -48,7 +57,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * @param dato El elemento que se quiere remover.
      */
     public void removeElement(Object dato){
-        DefaultListModel defaultListModel =(DefaultListModel) this.lista.getModel();
+//        defaultListModel =(DefaultListModel) this.lista.getModel();
         defaultListModel.removeElement(dato);
         this.relacionDatoId.remove((String)dato);
     }
@@ -58,30 +67,13 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * @param dato El dato que se quiere interacambiar.
      */
     public void cambioEntreListas(Object dato){
-        DefaultListModel l1 =(DefaultListModel) this.getThis().getModel();
-        l1.removeElement(dato);
+//        DefaultListModel l1 =(DefaultListModel) this.getThis().getModel();
+        defaultListModel.removeElement(dato);
         
-        DefaultListModel l2 = (DefaultListModel)this.ComponenteListaAAgregar.getThis().getModel();
-        l2.addElement(dato);
+//        DefaultListModel l2 = (DefaultListModel)this.ComponenteListaAAgregar.getThis().getModel();
+        this.ComponenteListaAAgregar.getDefaultListModel().addElement(dato);
     }
     
-//    /**
-//     * Nombre que la sentencia sql necesita para recuperar el dato de la 
-//     * columna id.
-//     * @param nombreColumnaId
-//     */
-//    public void setNombreColumnaId(String nombreColumnaId) {
-//        this.nombreColumnaId = nombreColumnaId;
-//    }
-    
-//    /**
-//     * Nombre de la columna que se mostrara dentro de la lista.
-//     * @param nombreColumnaAMostrar La columna conforme a la BD para obtener
-//     * los datos y cargarlos en esta lista. 
-//     */
-//    public void setNombreDatoAMostrar(String nombreColumnaAMostrar) {
-//        this.nombreDatoAMostrar = nombreColumnaAMostrar;
-//    }
     
     /**
     * Lista en la que se cargaran los datos. Para listas dobles con interación
@@ -89,6 +81,11 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * @param lista La lista que se quiere manejar con esta utilidad.
     */
     public void setComponente(JList<String> lista) {
+        defaultListModel  =
+                new DefaultListModel<String>();
+        lista.setModel(defaultListModel);
+//        DefaultListModel defaultListModel = new DefaultListModel<Object>();
+//        lista.setModel(defaultListModel);
         this.lista = lista;
     }
    
@@ -140,8 +137,8 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         s.setTextoAMostrar("[i]Cargando datos en lista.");
         System.out.println(s);
         
-        DefaultListModel<String> modelo  =
-                new DefaultListModel<String>();
+        
+        
         List<String> ordenar = new ArrayList<>();
         for (Map.Entry<String, Object> datosMap : datos.entrySet()) {
             Object id = datosMap.getValue();
@@ -152,10 +149,10 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         Collections.sort(ordenar);
         
         for (String datoOrdenado : ordenar) {
-            modelo.addElement(datoOrdenado);
+            defaultListModel.addElement(datoOrdenado);
         }
         
-        this.lista.setModel(modelo);
+//        this.lista.setModel(modelo);
             
     }
     
@@ -164,9 +161,11 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
                                    UtilidadesListas_ _listaALaQueSeAgregaLaSeleccion
                                    ){
                                    
-        DefaultListModel quitarDeAqui =(DefaultListModel) _listaQueSeSelecciona.getThis().getModel();
-        DefaultListModel agregarAqui =(DefaultListModel) _listaALaQueSeAgregaLaSeleccion.getThis().getModel();
+        DefaultListModel quitarDeAqui = _listaQueSeSelecciona.getDefaultListModel();
+        DefaultListModel agregarAqui = _listaALaQueSeAgregaLaSeleccion.getDefaultListModel();
+        System.out.println(quitarDeAqui.size()+"-"+agregarAqui.size());
         List<Object> itemSeleccionados = _listaQueSeSelecciona.getThis().getSelectedValuesList();
+        
         for (Object valor : itemSeleccionados) {
             
             agregarAqui.addElement(valor);
@@ -245,9 +244,13 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      */
     public void limpiar(){
         limpiandoLista = true;
-        this.lista.setModel(new DefaultListModel<>());
+//        DefaultListModel modelo = (DefaultListModel)this.lista.getModel();
+        defaultListModel.clear();
+//        this.lista.setModel(new DefaultListModel<>());
         if (this.ComponenteListaAAgregar!=null) {
-            this.ComponenteListaAAgregar.getLista().setModel(new DefaultListModel<>());
+            
+//            DefaultListModel modelo2 = (DefaultListModel)this.ComponenteListaAAgregar.getLista().getModel();
+            this.ComponenteListaAAgregar.getDefaultListModel().clear();
         }
         limpiandoLista = false;
     }

@@ -49,7 +49,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     private UtilidadesTxt_ _txtStockMin;
     private UtilidadesTxt_ _txtUnidad;
     private UtilidadesTxt_ _txtFechaDeLote;
-    private UtilidadesTxt_ _txtCantidadQueEntra;
+    private UtilidadesTxt_ _txtCantidadQueSale;
     private UtilidadesComboBox_ _comboEmpleadoQueReciveLote;
     private UtilidadesComboBox_ _comboLotesDisponibles;
     private UtilidadesTxtArea_ _txtObservaciones;
@@ -133,12 +133,30 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _txtStockMin = new UtilidadesTxt_(coordinador);
         _txtUnidad = new UtilidadesTxt_(coordinador);
         _txtFechaDeLote = new UtilidadesTxt_(coordinador);
-        _txtCantidadQueEntra = new UtilidadesTxt_(coordinador);
+        _txtCantidadQueSale = new UtilidadesTxt_(coordinador);
         _comboEmpleadoQueReciveLote = new UtilidadesComboBox_(coordinador);
         _txtObservaciones = new UtilidadesTxtArea_(coordinador);
         _imagenesRefaccion = new UtilidadesJXViewImage_(coordinador);
         _comboLotesDisponibles = new UtilidadesComboBox_(coordinador);
         _txtExistenciaLote = new UtilidadesTxt_(coordinador);
+      
+        _txtBusqueda.setNombre("_txtBusqueda");
+        _listaResultados.setNombre("_listaResultados");
+        _txtNombreDeLaRefaccion.setNombre("_txtNombreDeLaRefaccion");
+        _txtCodigoInterno.setNombre("_txtCodigoInterno");
+        _txtCodigoProveedor.setNombre("_txtCodigoProveedor");
+        _txtExistencia.setNombre("_txtExistencia");
+        _txtStockMax.setNombre("_txtStockMax");
+        _txtStockMin.setNombre("_txtStockMin");
+        _txtUnidad.setNombre("_txtUnidad");
+        _txtFechaDeLote.setNombre("_txtFechaDeLote");
+        _txtCantidadQueSale.setNombre("_txtCantidadQueEntra");
+        _comboEmpleadoQueReciveLote.setNombre("_comboEmpleadoQueReciveLote");
+        _txtObservaciones.setNombre("_txtObservaciones");
+        _imagenesRefaccion.setNombre("_imagenesRefaccion");
+        _comboLotesDisponibles.setNombre("_comboLotesDisponibles");
+        _txtExistenciaLote.setNombre("_txtExistenciaLote");
+      
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         
         _txtBusqueda.setComponente(this.txtBusqueda);
@@ -151,7 +169,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _txtStockMin.setComponente(this.txtStockMin);
         _txtUnidad.setComponente(this.txtUnidad);
         _txtFechaDeLote.setComponente(this.txtFechaDeLote);
-        _txtCantidadQueEntra.setComponente(this.txtCantidadQueEntra);
+        _txtCantidadQueSale.setComponente(this.txtCantidadQueEntra);
         _comboEmpleadoQueReciveLote.setComponente(this.comboEmpleadoQueReciveLote);
         _txtObservaciones.setComponente(this.txtObservaciones);
         _comboLotesDisponibles.setComponente(comboLotesDisponibles);
@@ -164,7 +182,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         
         _txtBusqueda.setTamanoDeCampo(300);
         _txtFechaDeLote.setTamanoDeCampo(elit.getFechaSalidaLotePDC().getLongitudDeCaracteres());
-        _txtCantidadQueEntra.setTamanoDeCampo(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
+        _txtCantidadQueSale.setTamanoDeCampo(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
         _txtObservaciones.setTamanoDeCampo(elit.getObservacionesPDC().getLongitudDeCaracteres());
         _comboEmpleadoQueReciveLote.setTamanoDeCampo(eit.getNombrePDC().getLongitudDeCaracteres());
         _txtObservaciones.setTamanoDeCampo(elit.getObservacionesPDC().getLongitudDeCaracteres());
@@ -175,26 +193,26 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _txtBusqueda.setPermitirSoloMayusculas();
         _comboEmpleadoQueReciveLote.setPermitirSoloMayusculas();
         _txtObservaciones.setPermitirSoloMayusculas();
-        _comboLotesDisponibles.setPermitirSoloMayusculas();
+//        _comboLotesDisponibles.setPermitirSoloMayusculas();
         
         //CAMPOS QUE REQUIEREN FECHA. 
         _txtFechaDeLote.setPermitirSoloFecha_ddmmaa();
                 
         //CAMPOS NUMÉRICOS
         
-        _txtCantidadQueEntra.setPermitirSoloNumeros(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
+        _txtCantidadQueSale.setPermitirSoloNumeros(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
         
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
         _txtBusqueda.setEspaciosEnBlanco();
-        _txtCantidadQueEntra.setEspaciosEnBlanco();
+        _txtCantidadQueSale.setEspaciosEnBlanco();
         _txtObservaciones.setEspaciosEnBlanco();
         _comboEmpleadoQueReciveLote.setEspaciosEnBlanco();
         
         //TRAVEL POLICY
         
-//        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
-        _txtFechaDeLote.setNextFocusableComponent(_txtCantidadQueEntra.getThis());
-        _txtCantidadQueEntra.setNextFocusableComponent(_comboEmpleadoQueReciveLote.getThis());
+        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
+        _txtFechaDeLote.setNextFocusableComponent(_txtCantidadQueSale.getThis());
+        _txtCantidadQueSale.setNextFocusableComponent(_comboEmpleadoQueReciveLote.getThis());
         _comboEmpleadoQueReciveLote.setNextFocusableComponent(_txtObservaciones.getThis());
         _txtObservaciones.setNextFocusableComponent(btnGuardar);
         btnGuardar.setNextFocusableComponent(btnSalir1);
@@ -202,16 +220,16 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         
         //ACCIONES ESPECIALES.
         _comboLotesDisponibles.setEditable(false);
-        
+
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
         _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
+        _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
         _txtBusqueda.setKeyPressAction(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
         
         _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
         
-        _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
-      
         _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
+      
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnSalir1);
@@ -242,10 +260,12 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         */    
     
     }
+    @Override
     public Coordinador getCoordinador() {
         return coordinador;
     }
 
+    @Override
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
     }
@@ -264,10 +284,10 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         deshabilitar = !deshabilitar;
         
         _txtFechaDeLote.getThis().setEnabled(deshabilitar);
-        _txtCantidadQueEntra.getThis().setEnabled(deshabilitar);
+        _txtCantidadQueSale.getThis().setEnabled(deshabilitar);
         _txtObservaciones.getThis().setEnabled(deshabilitar);
         btnGuardar.setEnabled(deshabilitar);
-        _comboLotesDisponibles.setEditable(false);
+//        _comboLotesDisponibles.setEditable(false);
     }
     
 
@@ -746,10 +766,10 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         SalidaLoteVo vo = new SalidaLoteVo();
         boolean todoValido = true;
         float cantidad;
-        if (_txtCantidadQueEntra.isEmpty()) {
+        if (_txtCantidadQueSale.isEmpty()) {
             cantidad = -1;
         }else{
-            cantidad = Float.parseFloat(_txtCantidadQueEntra.getText());
+            cantidad = Float.parseFloat(_txtCantidadQueSale.getText());
         }
         vo.setCantidad(cantidad);
         JOptionPane.showMessageDialog(null, "aqui nooo");
@@ -766,10 +786,10 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             
             if (validacione.getNombreDeCampo().equals(it.getCantidadPDC().getNombre())) {
                 if (!validacione.isValido()) {
-                    _txtCantidadQueEntra.setError(validacione.getMensajeDeError());
+                    _txtCantidadQueSale.setError(validacione.getMensajeDeError());
                         
                 }else{
-                    _txtCantidadQueEntra.setErrorQuitar();
+                    _txtCantidadQueSale.setErrorQuitar();
                 }
             }
             
@@ -815,7 +835,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             if (existenciaRefaccion>=vo.getCantidad()&& todoValido) {
                 todoValido = true;
             }else{
-                _txtCantidadQueEntra.setError(
+                _txtCantidadQueSale.setError(
                         "Esta refacción no tiene suficiente existencia.");
                 todoValido = false;
             }
@@ -837,6 +857,8 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                     + "\n                  "+voLoteActual.getCantidad()
                     + "");
             
+            
+                        
            
         }
         
@@ -867,30 +889,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         }
     }
     
-//    private EntradaLoteVo comprobacionesSobreLote(Object a, float existencia){
-//
-//        
-//        EntradaLoteVo elvo = (EntradaLoteVo) a;
-//        if (this.getCoordinador().entradaloteEsElLoteMasConExistencia(elvo)) {
-//
-//        }else{
-//            EntradaLoteVo voLoteMasChicoAntiguo = 
-//                    this.getCoordinador().entradaLoteMasAtiguoConExistencia();
-//            String mensaje = "Esta refacción tiene un lote más antiguo que el"
-//                    + "seleccionado. \n"
-//                    + "Este es el lote seleccionado: "+ elvo.getFechaRecepcionLote() + "- Cantidad:" +elvo.getCantidad()+"\n"
-//                    + " Este es el lote más antiguo: "+ voLoteMasChicoAntiguo.getFechaRecepcionLote() + "- Cantidad:" +voLoteMasChicoAntiguo.getCantidad()
-//                    + "\n\n¿Deseas descontar la salida de lote actual a '"+voLoteMasChicoAntiguo.getFechaRecepcionLote() +"' que es más antiguo?";
-//            int r = JOptionPane.showConfirmDialog(
-//                    this, 
-//                    mensaje, 
-//                    "Hay un lote más antiguo.", 
-//                    JOptionPane.WARNING_MESSAGE);
-//            if (r=JOptionPane.YES_OPTION) {
-//
-//            }
-//        }
-//    } 
+
     
     private void autocompletadoDeFecha(){
        _txtFechaDeLote.setText(FechaYHora.autoCompletarFecha(_txtFechaDeLote.getText(), FechaYHora.FECHA_DD_MM_AA));
@@ -955,10 +954,6 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                 }
             }
         }
-        
-        
-    
-    
     }
     
     private void cargarRefaccionesEnLista(String busqueda){
@@ -974,6 +969,8 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                     formatearEspacios(15, vo.getCodigoProveedor())+
                     formatearEspacios(20, vo.getDescripcion()),vo);
         }
+        
+        
                
         _listaResultados.cargarLista(datos);
         
@@ -981,9 +978,11 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     }
     
     private boolean noSeCargoDesdeEsteDialogo = true;
+    
     public void cargarRefaccionParaEntrada(){
         RefaccionVo vo =null;
         HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
+        
         if (!_listaResultados.getThis().isSelectionEmpty()) {
             vo = (RefaccionVo) _listaResultados.getSelectValueId();
         }else if (!_listaResultados.isEmpty()) {
@@ -995,14 +994,16 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             noSeCargoDesdeEsteDialogo = false; 
             cargarRefaccionParaEntrada(vo);
             noSeCargoDesdeEsteDialogo = true; 
+//            limpiar();
         }else{
-            JOptionPane.showMessageDialog(this, "No hubo coicidencias con tu busqueda.");
+            
+            JOptionPane.showMessageDialog(this, "No hubo coincidencias con tu busqueda:"+_listaResultados.getThis().getModel().getSize());
+                        
             deshabilitarCamposParaRellenar(true);
             limpiar();
         }
         
     }
-    
     
     public void cargarRefaccionParaEntrada(RefaccionVo vo){
         if (vo!=null) {
@@ -1026,7 +1027,6 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                 cargarLotesDeRefaccion(vo.getId());
                 _txtExistencia.setText(existencia+"");
                 colorearMinYMax(existencia, vo);
-                    
                 }
             }else{
                 String mensaje = "La refacción '"+vo.getNombre()+"' tiene 0 existencia."
@@ -1040,9 +1040,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                 if (respuesta==JOptionPane.YES_OPTION) {
                     limpiar();
                     this.dispose();
-                    this.getCoordinador().entradaLoteAbrirDialogo(vo, 
-                            ()->this.getCoordinador().salidaLoteAbrirDialogo(vo,
-                                    this.getCoordinador().getPanelEntradaLote()));
+                    this.getCoordinador().entradaLoteAbrirDialogo(vo);
                 }else{
                     limpiar();
                     JOptionPane.showMessageDialog(this,
@@ -1092,7 +1090,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         //CARGAMOS LAS IMAGENES. 
         cargarImagenes(vo.getId());
         _txtBusqueda.setText("");
-//        _listaResultados.limpiar();
+        _listaResultados.limpiar();
         
         
     }
@@ -1170,7 +1168,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _txtStockMin.setText("");
         _txtUnidad.setText("");
         _txtFechaDeLote.setText("");
-        _txtCantidadQueEntra.setText("");
+        _txtCantidadQueSale.setText("");
         _txtExistenciaLote.setText("");
         
         _comboLotesDisponibles.limpiar();
@@ -1184,7 +1182,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _imagenesRefaccion.limpiarComponenteURL();
         _txtBusqueda.setFocus();
         
-        _listaResultados.limpiar();
+//        _listaResultados.limpiar();
         
     }
 
@@ -1195,6 +1193,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
+        limpiar();
         salir();
         
     }//GEN-LAST:event_btnSalir1ActionPerformed
@@ -1217,7 +1216,6 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             _txtExistenciaLote.setText(vo.getCantidad()+"");
             
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_comboLotesDisponiblesActionPerformed
 
     

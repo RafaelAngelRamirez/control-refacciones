@@ -52,7 +52,6 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
     private UtilidadesTxtArea_ _txtObservaciones;
     private UtilidadesJXViewImage_ _imagenesRefaccion;
     private int idRefaccionActual;
-    private Runnable accionPostGuardado;
 
     public PanelEntradaLote() {
         initComponents();
@@ -755,10 +754,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
                 limpiar();
                 JOptionPane.showMessageDialog(this,
                         "Se guardo el lote correctamente.");
-                if (this.accionPostGuardado!=null) {
-                    
-                    this.AccionAEjecutarPorCargaDeRefaccionDesdeOtroLugar();
-                }
+                dispose();
                 
             }else{
                 JOptionPane.showMessageDialog(
@@ -878,16 +874,6 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
             limpiar();
             deshabilitarCamposParaRellenar(true);
         }
-    }
-
-    public void setAccionPostGuardado(Runnable accionPostGuardado) {
-        this.accionPostGuardado = accionPostGuardado;
-    }
-
-    private void AccionAEjecutarPorCargaDeRefaccionDesdeOtroLugar() {
-        Runnable r = accionPostGuardado;
-        accionPostGuardado = null;
-        r.run();
     }
     
     private void cargarRefaccionParaEntrada(){
@@ -1014,8 +1000,8 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
     }
 
     private void salir(){
-            limpiar();
-            dispose();
+        limpiar();
+        dispose();
             
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -1029,7 +1015,6 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
     }//GEN-LAST:event_txtBusquedaActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        salir();
     }//GEN-LAST:event_formWindowClosing
 
     

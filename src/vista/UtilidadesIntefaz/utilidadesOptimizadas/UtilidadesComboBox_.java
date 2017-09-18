@@ -13,10 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
 
 import org.jdesktop.swingx.autocomplete.*;
 
@@ -319,8 +316,10 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
         return this.comboBox;
     }
     
+    @Override
     public void setEditable(boolean editable) {
         this.getThisComboBox().setEditable(editable);
+        this.getThisComboBox().getEditor().getEditorComponent().setVisible(editable);
     }
     
     /**
