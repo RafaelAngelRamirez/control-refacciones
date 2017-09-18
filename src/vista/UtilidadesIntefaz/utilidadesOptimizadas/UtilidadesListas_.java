@@ -57,7 +57,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * @param dato El elemento que se quiere remover.
      */
     public void removeElement(Object dato){
-//        defaultListModel =(DefaultListModel) this.lista.getModel();
         defaultListModel.removeElement(dato);
         this.relacionDatoId.remove((String)dato);
     }
@@ -67,10 +66,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * @param dato El dato que se quiere interacambiar.
      */
     public void cambioEntreListas(Object dato){
-//        DefaultListModel l1 =(DefaultListModel) this.getThis().getModel();
         defaultListModel.removeElement(dato);
-        
-//        DefaultListModel l2 = (DefaultListModel)this.ComponenteListaAAgregar.getThis().getModel();
         this.ComponenteListaAAgregar.getDefaultListModel().addElement(dato);
     }
     
@@ -84,8 +80,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         defaultListModel  =
                 new DefaultListModel<String>();
         lista.setModel(defaultListModel);
-//        DefaultListModel defaultListModel = new DefaultListModel<Object>();
-//        lista.setModel(defaultListModel);
         this.lista = lista;
     }
    
@@ -137,8 +131,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         s.setTextoAMostrar("[i]Cargando datos en lista.");
         System.out.println(s);
         
-        
-        
         List<String> ordenar = new ArrayList<>();
         for (Map.Entry<String, Object> datosMap : datos.entrySet()) {
             Object id = datosMap.getValue();
@@ -152,8 +144,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
             defaultListModel.addElement(datoOrdenado);
         }
         
-//        this.lista.setModel(modelo);
-            
     }
     
    
@@ -189,8 +179,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
             this.cambioEntreListas(this.ComponenteListaAAgregar, this );
         }
     }
-
-   
 
     @Override
     public void setError() {
@@ -244,12 +232,8 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      */
     public void limpiar(){
         limpiandoLista = true;
-//        DefaultListModel modelo = (DefaultListModel)this.lista.getModel();
         defaultListModel.clear();
-//        this.lista.setModel(new DefaultListModel<>());
         if (this.ComponenteListaAAgregar!=null) {
-            
-//            DefaultListModel modelo2 = (DefaultListModel)this.ComponenteListaAAgregar.getLista().getModel();
             this.ComponenteListaAAgregar.getDefaultListModel().clear();
         }
         limpiandoLista = false;
@@ -334,10 +318,5 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
                 }
             }
         }.parametros(r, this));
-    
     }
-
-    
-    
-    
 }
