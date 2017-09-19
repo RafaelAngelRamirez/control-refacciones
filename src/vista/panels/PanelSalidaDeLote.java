@@ -996,29 +996,35 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     private boolean noSeCargoDesdeEsteDialogo = true;
     
     
+    /**
+     * Carga la los datos de la refacción consultada para mostrarlos en la interfaz.  
+     */
+    RefaccionVo voMostrandose =null;
+    int contador =0;
     public void cargarRefaccionParaEntrada(){
-        RefaccionVo vo =null;
+        contador++;
+        JOptionPane.showMessageDialog(null, contador);
         HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
-        JOptionPane.showMessageDialog(null, "no debe limpiar");
         if (!_listaResultados.getThis().isSelectionEmpty()) {
-            vo = (RefaccionVo) _listaResultados.getSelectValueId();
+            voMostrandose = (RefaccionVo) _listaResultados.getSelectValueId();
         }else if (!_listaResultados.isEmpty()) {
-                vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+                voMostrandose = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
         }
         
-        if(vo!=null){
-            
-            noSeCargoDesdeEsteDialogo = false; 
-            cargarRefaccionParaEntrada(vo);
-            noSeCargoDesdeEsteDialogo = true; 
+//        JOptionPane.showMessageDialog(null, "refaccion actualmente cargada\n: "+voMostrandose.toString());
+//        if(voMostrandose!=null){
+//            
+//            noSeCargoDesdeEsteDialogo = false; 
+//            cargarRefaccionParaEntrada(voMostrandose);
+//            noSeCargoDesdeEsteDialogo = true; 
+////            limpiar();
+//        }else{
+//            
+//            JOptionPane.showMessageDialog(this, "No hubo coincidencias con tu busqueda:"+_listaResultados.getThis().getModel().getSize());
+//                        
+//            deshabilitarCamposParaRellenar(true);
 //            limpiar();
-        }else{
-            
-            JOptionPane.showMessageDialog(this, "No hubo coincidencias con tu busqueda:"+_listaResultados.getThis().getModel().getSize());
-                        
-            deshabilitarCamposParaRellenar(true);
-            limpiar();
-        }
+//        }
         
     }
     

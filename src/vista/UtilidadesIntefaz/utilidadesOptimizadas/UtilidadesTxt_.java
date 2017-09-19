@@ -6,11 +6,7 @@
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
-import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
-import java.awt.Component;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextField;
 
 /**
@@ -31,6 +27,7 @@ public class UtilidadesTxt_ extends OperacionesBasicasPorDefinir{
      * @param txt Componente que se manejara. 
      */
     public void setComponente(JTextField txt) {
+        removeAllListeners(txt);
         this.txt = txt;
         this.txt.setText("");
     }

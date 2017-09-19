@@ -10,6 +10,7 @@ import vista.UtilidadesIntefaz.SenalarErroresSobreGUI_;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;
+import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -18,10 +19,16 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -69,7 +76,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
     
     public OperacionesBasicasPorDefinir(Coordinador controlador) {
         super(controlador);
-        
+               
     }
 
     
@@ -127,11 +134,13 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
      */
     public void setNextFocusableComponent(Component componente) {
         this.componenteSiguienteAEnfocar = componente;
-        this.setKeyAction(
-                this.getThis(), 
-                ()->this.componenteAEnfocar(), 
-                this.TECLA_TABULADOR_ESPECIAL,
-                this.KEY_PRESSED_POR_DEFECTO);
+        
+        keyActionAlmacen action = new keyActionAlmacen();
+        action.setAccion(()->this.componenteAEnfocar());
+        action.setCodigoDeCaracter(OperacionesBasicasPorDefinir.TECLA_TABULADOR_ESPECIAL);
+        action.setEvento(OperacionesBasicasPorDefinir.KEY_PRESSED_POR_DEFECTO);
+        
+        this.setKeyAction(this.getThis(), action);
     }
     
     /**/
@@ -215,67 +224,134 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
      * @param codigoDecaracter - El código de la tecla que disparara la acción.
      */
     public void setKeyPressAction(Runnable accion, int codigoDecaracter){
-        this.setKeyAction(
-                this.getThis(), 
-                accion, 
-                codigoDecaracter, 
-                this.KEY_PRESSED_POR_DEFECTO);
+        keyActionAlmacen act = new keyActionAlmacen();
+        act.setAccion(accion);
+        act.setCodigoDeCaracter(codigoDecaracter);
+        act.setEvento(KEY_PRESSED_POR_DEFECTO);
+        
+        
+        this.setKeyAction(this.getThis(), act);
     }
     
     public void setKeyRelease(Runnable accion, int codigoDecaracter){
-        this.setKeyAction(
-                this.getThis(), 
-                accion, 
-                codigoDecaracter, 
-                this.KEY_RELEASE);
+        keyActionAlmacen act = new keyActionAlmacen();
+        act.setAccion(accion);
+        act.setCodigoDeCaracter(codigoDecaracter);
+        act.setEvento(KEY_RELEASE);
+        
+        this.setKeyAction( this.getThis(), act);
     }
     
     public void setKeyTyped(Runnable accion, int codigoDecaracter){
-        this.setKeyAction(
-                this.getThis(), 
-                accion, 
-                codigoDecaracter, 
-                this.KEY_TYPED);
+        keyActionAlmacen act = new keyActionAlmacen();
+        act.setAccion(accion);
+        act.setCodigoDeCaracter(codigoDecaracter);
+        act.setEvento(KEY_TYPED);
+        
+        this.setKeyAction(this.getThis(), act);
         
         
     }
+    
+    /**
+     * Necesario para mantener sano la sobreposicion de keylisteners.  
+     */
+    protected void removeAllListeners(Component c){
+        
+        for (KeyListener l : c.getKeyListeners()) {
+            c.removeKeyListener(l);
+        }
+        
+        for (MouseListener l : c.getMouseListeners()) {
+            c.removeMouseListener(l);
+        }
+        
+        for (MouseWheelListener l : c.getMouseWheelListeners()) {
+            c.removeMouseWheelListener(l);
+        }
+        
+        for (MouseMotionListener l : c.getMouseMotionListeners()) {
+            c.removeMouseMotionListener(l);
+        }
+    }
+    
+    /**
+     * Define las acciones que se quieren ejecutar por medio de acciones del 
+     * teclado. 
+     */
+    
+    private class keyActionAlmacen {
+        Runnable accion;
+        int codigoDeCaracter;
+        int evento;
+
+        public Runnable getAccion() {
+            return accion;
+        }
+
+        public void setAccion(Runnable accion) {
+            this.accion = accion;
+        }
+
+        public int getCodigoDeCaracter() {
+            return codigoDeCaracter;
+        }
+
+        public void setCodigoDeCaracter(int codigoDeCaracter) {
+            this.codigoDeCaracter = codigoDeCaracter;
+        }
+
+        public int getEvento() {
+            return evento;
+        }
+
+        public void setEvento(int evento) {
+            this.evento = evento;
+        }
+        
+        @Override
+        public String toString() {
+           return "El componente:"+nombre+"\n"+
+                   "codigoDeCaracter:" +codigoDeCaracter +"\n"+
+                   "evento:"+evento;   
+
+        }
+    }
+    
     private void setKeyAction(
             Component esteComponente,
-            Runnable accion, 
-            int codigoDeCaracter, 
-            int evento){
-
+            keyActionAlmacen act){
+            
         Suceso s = new Suceso();
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
         s.setTextoAMostrar(
             "[!] Asignando accion a: '"+this.nombre+"'"
                     + "\n"
-                    + "\tTecla:" + codigoDeCaracter
-                    + "\tEvento:" + evento
-                    + "\tTecla:" + codigoDeCaracter);
+                    + "\tTecla:" + act.getCodigoDeCaracter()
+                    + "\tEvento:" + act.getEvento()
+                    + "\tAccion:" + act.getAccion());
         System.out.println(s);
-        
-        
+
+
         esteComponente.setFocusTraversalKeysEnabled(false);
-        esteComponente.addKeyListener(new KeyListener() {
-            
+
+        KeyListener keyListener = new KeyListener() {
+
             Runnable accion;
             int codigoDeCaracter;
             int evento;
             OperacionesBasicasPorDefinir obpd;
-            
-            public KeyListener parametros(Runnable accion, 
-                    int codigoDeCaracter, 
-                    int evento,
+
+            public KeyListener parametros(keyActionAlmacen act,
                     OperacionesBasicasPorDefinir obpd){
-                this.accion = accion;
-                this.codigoDeCaracter = codigoDeCaracter;
-                this.evento = evento;
+                this.accion = act.getAccion();
+                this.codigoDeCaracter = act.getCodigoDeCaracter();
+                this.evento = act.getEvento();
                 this.obpd = obpd ;
                 return this;
             }
-            
+
             @Override
             public void keyTyped(KeyEvent e) {
                 this.ejecutarAccion(e, 1);
@@ -284,31 +360,27 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
             @Override
             public void keyPressed(KeyEvent e) {
                 this.ejecutarAccion(e, 2);
-//                if (this.codigoDeCaracter==e.getKeyChar()) {
-//                    this.accion.run();
-//                }
-                
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                 this.ejecutarAccion(e, 3);
             }
-            
-            
+
+
             public void ejecutarAccion(KeyEvent e, int ev){
                 // EL VALOR QUE ASIGNAMOS PARA COMPROBAR QUE EVENTO SE SOLICITO
                 // DESDE SUS RESPECTIVOS EVENTOS.
                 // 1 Typed
                 // 2 Pressed
                 // 3 Released
-                
+
                 boolean enterEjecutado = false;
                 if(evento==ev){
                     switch (e.getKeyCode()){
                         case 1:
-                            
-                      
+
+
                         case 9:
                             //EL TABULADOR ES UN CASO MUY ESPECIAL POR QUE 
                             // REQUERIMOS EN OCASIONES EJECUTAR DOS ACCIONES.
@@ -328,7 +400,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                                 obpd.evitarEjecucionDoble =0;
                             }
                             break;
-                        
+
                         //DESACTIVAMOS ESTAS TECLAS POR EL MOMENTO.
                         case 39://FLECHA derecha
                         case 37://FLECHA izquierda
@@ -337,13 +409,13 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                         case 17://TECLA CONTROL
                             break;
                         case 10:
-                            
+
                             if(codigoDeCaracter==TECLA_ENTER){
                                 this.accion.run();
                                 enterEjecutado = true;
                                 break;
                             }
-                            
+
                         default:
                                 //SI SE PRESIONA CUALQUIER TECLA EXEPTO ENTER
                                 // ENTRA AQUI.
@@ -360,8 +432,8 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                     }
                 }
             }
-        }.parametros(accion, codigoDeCaracter, evento, this));
-    
+        }.parametros(act, this);
+        esteComponente.addKeyListener(keyListener);
     }
     
     /**
