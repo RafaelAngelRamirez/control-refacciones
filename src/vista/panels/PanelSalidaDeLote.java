@@ -223,10 +223,11 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
 
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
         _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
+//        _txtBusqueda.setKeyPressAction(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
+//        _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
+
         _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
-        _txtBusqueda.setKeyPressAction(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
-        
-        _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
+       
         
         _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
       
@@ -895,8 +896,15 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
        _txtFechaDeLote.setText(FechaYHora.autoCompletarFecha(_txtFechaDeLote.getText(), FechaYHora.FECHA_DD_MM_AA));
     
     }
+    
+    
+    /**
+     * Ejecuta la busqueda que se vaya digintando en el recuadro de busqueda. 
+     * Si el cuadro de texto esta vacio limpia los resultados y todos los elementos.
+     */
     private void busqueda(){
         if (!_txtBusqueda.isEmpty()) {
+            //SI EL CUADRO NO ESTA VACIO CARGAMOS LAS REFACCIONES.
             cargarRefaccionesEnLista(_txtBusqueda.getText());
         }else{
             _listaResultados.limpiar();
@@ -956,22 +964,30 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         }
     }
     
+    
+    /**
+     * Carga la lista de refacciones que coinciden con el texto introducido 
+     * el cuadro de texto de busqueda. 
+     */
     private void cargarRefaccionesEnLista(String busqueda){
+        //PRIMERO LIMPIAMOS LA LISTA.
         _listaResultados.limpiar();
+        //EL MAPA QUE CONTENDRA LOS DATOS PARA CARGARLOS EN EL JLIST.
         HashMap<String, Object> datos = new HashMap<>();
-        
+        //CONSULTAMOS LAS REFACCIONES QUE COINCIDAN CON EL TEXTO INGRESADO. 
         List<RefaccionVo> listaVo = this.coordinador.refaccionConsultarTodoBusqueda(busqueda);
         for (RefaccionVo vo : listaVo) {
-            
+            ///CARGAMOS EL MAPA
             datos.put(
+                    //LA LISTA FORMATEADA DE DATOS (LLAVE-KEY)
                     formatearEspacios(25, vo.getNombre())+
                     formatearEspacios(15, vo.getCodigoInterno())+
                     formatearEspacios(15, vo.getCodigoProveedor())+
-                    formatearEspacios(20, vo.getDescripcion()),vo);
+                    formatearEspacios(20, vo.getDescripcion())
+                    //EL OBJETO QUE OBTENDREMOS.
+                    ,vo);
         }
-        
-        
-               
+        //CARGAMOS LA LISTA. 
         _listaResultados.cargarLista(datos);
         
         
@@ -979,10 +995,11 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     
     private boolean noSeCargoDesdeEsteDialogo = true;
     
+    
     public void cargarRefaccionParaEntrada(){
         RefaccionVo vo =null;
         HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
-        
+        JOptionPane.showMessageDialog(null, "no debe limpiar");
         if (!_listaResultados.getThis().isSelectionEmpty()) {
             vo = (RefaccionVo) _listaResultados.getSelectValueId();
         }else if (!_listaResultados.isEmpty()) {
