@@ -1084,6 +1084,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                     this.getCoordinador().entradaLoteAbrirDialogo(vo);
                 }else{
                     limpiar();
+                    _listaResultados.limpiar();
                     JOptionPane.showMessageDialog(this,
                             "No se puede registrar una salida si la refacción no tiene existencia."
                             ,"No se puede registra salida." ,JOptionPane.ERROR_MESSAGE);
