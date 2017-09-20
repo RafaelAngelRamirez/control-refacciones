@@ -217,7 +217,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         
         //TRAVEL POLICY
         
-        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
+//        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
         _txtFechaDeLote.setNextFocusableComponent(_txtCantidadQueSale.getThis());
         _txtCantidadQueSale.setNextFocusableComponent(_comboEmpleadoQueReciveLote.getThis());
         _comboEmpleadoQueReciveLote.setNextFocusableComponent(_txtObservaciones.getThis());
@@ -230,7 +230,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
 
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
         _txtBusqueda.setKeyRelease(()->seleccionarRefaccionEnter(), OperacionesBasicasPorDefinir.TECLA_ENTER);
-//        _txtBusqueda.setKeyPressAction(()->JOptionPane.showMessageDialog(null,"este mensaje" ), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
+        _txtBusqueda.setKeyPressAction(()->seleccionarRefaccionEnter(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
         _listaResultados.setValueChange(()->seleccionarRefaccionClick());
 
         _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
@@ -1005,13 +1005,22 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     
     private void seleccionarRefaccionEnter(){
         HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
-        voMostrandose = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+        JOptionPane.showMessageDialog(null, datos.size());
+        if (datos.size()>0) {
+            voMostrandose = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+        }else{
+            voMostrandose = null;
+        }
         comprobarLarefaccion(voMostrandose);
     }
    
     private void seleccionarRefaccionClick(){
-        HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
-        voMostrandose = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+        Object a = _listaResultados.getSelectValueId();
+        if (!a.equals(-1)) {
+            voMostrandose = (RefaccionVo) a;
+        }else{
+            voMostrandose = null;
+        }
         comprobarLarefaccion(voMostrandose);
     }
     
@@ -1019,19 +1028,22 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
      * Carga la los datos de la refacción consultada para mostrarlos en la interfaz.  
      */
     public void comprobarLarefaccion(RefaccionVo vo){
-        JOptionPane.showMessageDialog(null, "----refaccion actualmente cargada\n: "+voMostrandose.toString());
-        if(voMostrandose!=null){
-            noSeCargoDesdeEsteDialogo = false; 
-            cargarRefaccionParaSalida(voMostrandose);
-            noSeCargoDesdeEsteDialogo = true; 
-            limpiar();
-        }else{
-            
-            JOptionPane.showMessageDialog(this, "No hubo coincidencias con tu busqueda:"+_listaResultados.getThis().getModel().getSize());
-            deshabilitarCamposParaRellenar(true);
-            limpiar();
+        if (_txtBusqueda.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No has escrito nada en el cuadro de busqueda.");
+        } else {
+            if(voMostrandose!=null){
+                JOptionPane.showMessageDialog(null, "----refaccion actualmente cargada\n: "+voMostrandose.toString());
+                noSeCargoDesdeEsteDialogo = false; 
+                cargarRefaccionParaSalida(voMostrandose);
+                noSeCargoDesdeEsteDialogo = true; 
+                limpiar();
+            }else{
+
+                JOptionPane.showMessageDialog(this, "No hubo coincidencias con tu busqueda:"+_listaResultados.getThis().getModel().getSize());
+                deshabilitarCamposParaRellenar(true);
+                limpiar();
+            }
         }
-        
     }
     
     public void cargarRefaccionParaSalida(RefaccionVo vo){

@@ -237,6 +237,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         if (this.ComponenteListaAAgregar!=null) {
             this.ComponenteListaAAgregar.getDefaultListModel().clear();
         }
+        relacionDatoId.clear();
         limpiandoLista = false;
     }
     
