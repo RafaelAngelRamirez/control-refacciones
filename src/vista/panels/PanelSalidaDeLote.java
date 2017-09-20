@@ -7,6 +7,7 @@ package vista.panels;
 
 import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -161,7 +162,9 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
       
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
-        _txtBusqueda.removeListneners(txtBusqueda);
+        for (KeyListener l : txtBusqueda.getKeyListeners()) {
+            txtBusqueda.removeKeyListener(l);
+        }
         _txtBusqueda.setComponente(this.txtBusqueda);
         
         _listaResultados.setComponente(listaResultados);
@@ -226,9 +229,9 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _comboLotesDisponibles.setEditable(false);
 
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
-        _txtBusqueda.setKeyRelease(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_ENTER);
-//        _txtBusqueda.setKeyPressAction(()->cargarRefaccionParaEntrada(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
-//        _listaResultados.setValueChange(()->cargarRefaccionParaEntrada());
+        _txtBusqueda.setKeyRelease(()->seleccionarRefaccionEnter(), OperacionesBasicasPorDefinir.TECLA_ENTER);
+//        _txtBusqueda.setKeyPressAction(()->JOptionPane.showMessageDialog(null,"este mensaje" ), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
+        _listaResultados.setValueChange(()->seleccionarRefaccionClick());
 
         _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
        
@@ -287,12 +290,12 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     
     public void deshabilitarCamposParaRellenar(boolean deshabilitar){
         deshabilitar = !deshabilitar;
-        
+        _comboEmpleadoQueReciveLote.setEditable(deshabilitar);
         _txtFechaDeLote.getThis().setEnabled(deshabilitar);
         _txtCantidadQueSale.getThis().setEnabled(deshabilitar);
         _txtObservaciones.getThis().setEnabled(deshabilitar);
         btnGuardar.setEnabled(deshabilitar);
-//        _comboLotesDisponibles.setEditable(false);
+        _comboLotesDisponibles.setEditable(false);
     }
     
 
@@ -993,46 +996,45 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         }
         //CARGAMOS LA LISTA. 
         _listaResultados.cargarLista(datos);
-        
-        
     }
     
     private boolean noSeCargoDesdeEsteDialogo = true;
     
     
+    RefaccionVo voMostrandose =null;
+    
+    private void seleccionarRefaccionEnter(){
+        HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
+        voMostrandose = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+        comprobarLarefaccion(voMostrandose);
+    }
+   
+    private void seleccionarRefaccionClick(){
+        HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
+        voMostrandose = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+        comprobarLarefaccion(voMostrandose);
+    }
+    
     /**
      * Carga la los datos de la refacción consultada para mostrarlos en la interfaz.  
      */
-    RefaccionVo voMostrandose =null;
-    int contador =0;
-    public void cargarRefaccionParaEntrada(){
-        contador++;
-        JOptionPane.showMessageDialog(null, contador);
-        HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
-        if (!_listaResultados.getThis().isSelectionEmpty()) {
-            voMostrandose = (RefaccionVo) _listaResultados.getSelectValueId();
-        }else if (!_listaResultados.isEmpty()) {
-                voMostrandose = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+    public void comprobarLarefaccion(RefaccionVo vo){
+        JOptionPane.showMessageDialog(null, "----refaccion actualmente cargada\n: "+voMostrandose.toString());
+        if(voMostrandose!=null){
+            noSeCargoDesdeEsteDialogo = false; 
+            cargarRefaccionParaSalida(voMostrandose);
+            noSeCargoDesdeEsteDialogo = true; 
+            limpiar();
+        }else{
+            
+            JOptionPane.showMessageDialog(this, "No hubo coincidencias con tu busqueda:"+_listaResultados.getThis().getModel().getSize());
+            deshabilitarCamposParaRellenar(true);
+            limpiar();
         }
-        
-//        JOptionPane.showMessageDialog(null, "refaccion actualmente cargada\n: "+voMostrandose.toString());
-//        if(voMostrandose!=null){
-//            
-//            noSeCargoDesdeEsteDialogo = false; 
-//            cargarRefaccionParaEntrada(voMostrandose);
-//            noSeCargoDesdeEsteDialogo = true; 
-////            limpiar();
-//        }else{
-//            
-//            JOptionPane.showMessageDialog(this, "No hubo coincidencias con tu busqueda:"+_listaResultados.getThis().getModel().getSize());
-//                        
-//            deshabilitarCamposParaRellenar(true);
-//            limpiar();
-//        }
         
     }
     
-    public void cargarRefaccionParaEntrada(RefaccionVo vo){
+    public void cargarRefaccionParaSalida(RefaccionVo vo){
         if (vo!=null) {
             float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());
             //SI NO HAY EXISTENCIA DAMOS LA OPCIÓN DE ABRIR EL DIALOGO REGISTRAR
@@ -1081,7 +1083,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     private void reconsultarRefaccionCargadaDesdeOtroLugar(RefaccionVo vo){
         noSeCargoDesdeEsteDialogo = false;
         vo = this.getCoordinador().refaccionConsultar(vo.getId());
-        cargarRefaccionParaEntrada(vo);
+        cargarRefaccionParaSalida(vo);
 
     }
     

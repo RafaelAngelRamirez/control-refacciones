@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -246,33 +247,6 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
         this.setKeyAction(this.getThis(), act);
         
         
-    }
-    
-    public void removeListneners(Component c){
-        removeAllListeners(c);
-    }
-    
-    /**
-     * Necesario para mantener sano la sobreposicion de keylisteners.  
-     * @param c Componente de donde se removeran las cosas. 
-     */
-    private void removeAllListeners(Component c){
-        
-        for (KeyListener l : c.getKeyListeners()) {
-            c.removeKeyListener(l);
-        }
-        
-        for (MouseListener l : c.getMouseListeners()) {
-            c.removeMouseListener(l);
-        }
-        
-        for (MouseWheelListener l : c.getMouseWheelListeners()) {
-            c.removeMouseWheelListener(l);
-        }
-        
-        for (MouseMotionListener l : c.getMouseMotionListeners()) {
-            c.removeMouseMotionListener(l);
-        }
     }
     
     /**

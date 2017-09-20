@@ -1054,7 +1054,7 @@ public class Coordinador {
            //CARGAMOS LA REFACCIÓN EN LA QUE SE AGREGO ENTRADA. 
            //EN CASO DE QUE NO SE ALLA
            //MODIFICADO PREGUNTARA DE NUEVO SI SE QUIERE MODIFICAR.
-           panelSalidaDeLote.cargarRefaccionParaEntrada(vo);
+           panelSalidaDeLote.cargarRefaccionParaSalida(vo);
        }
         
         

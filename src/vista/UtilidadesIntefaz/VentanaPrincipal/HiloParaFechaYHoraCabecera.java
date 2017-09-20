@@ -71,14 +71,14 @@ import javax.swing.JOptionPane;
        @Override
         public void run() {
              while (true){
-                 this.horaMinutoSegundo();
-                 this.fechaCompleta();
                  try {
                      Thread.sleep(1000);
                  } catch (InterruptedException ex) {
                      JOptionPane.showMessageDialog(null, "Error iniciando el  reloj!!!");
                      Logger.getLogger(HiloParaFechaYHoraCabecera.class.getName()).log(Level.SEVERE, null, ex);
                  }
+                 this.horaMinutoSegundo();
+                 this.fechaCompleta();
              }
         }
     }
