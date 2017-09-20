@@ -27,7 +27,6 @@ public class UtilidadesTxt_ extends OperacionesBasicasPorDefinir{
      * @param txt Componente que se manejara. 
      */
     public void setComponente(JTextField txt) {
-        removeAllListeners(txt);
         this.txt = txt;
         this.txt.setText("");
     }

@@ -81,10 +81,6 @@ public class Principal {
         System.setOut(SystemOut_);
         
         
-        //COORDINADORES
-        Coordinador coordinador = new Coordinador();
-        CoordinadorPaneles coordinadorPaneles = new CoordinadorPaneles();
-        
         
         
         //VENTANA PRINCIPAL
@@ -113,6 +109,10 @@ public class Principal {
         
         //LOGICA
         Logica logica = new Logica();
+        
+        //COORDINADORES
+        Coordinador coordinador = new Coordinador();
+        CoordinadorPaneles coordinadorPaneles = new CoordinadorPaneles();
         
         
         /*

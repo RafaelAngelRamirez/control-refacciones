@@ -20,8 +20,6 @@ import javax.swing.JTextArea;
 public class UtilidadesTxtArea_ extends OperacionesBasicasPorDefinir{
 
     private JTextArea txt;
-    private Coordinador coordinador;
-    private Component componenteSiguienteAEnfocar;
 
     public UtilidadesTxtArea_(Coordinador coordinador) {
         super(coordinador);

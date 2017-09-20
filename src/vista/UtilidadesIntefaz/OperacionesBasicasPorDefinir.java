@@ -6,11 +6,9 @@
 package vista.UtilidadesIntefaz;
 
 import controlador.capturadeerrores.Suceso;
-import vista.UtilidadesIntefaz.SenalarErroresSobreGUI_;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;
-import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -21,14 +19,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -115,7 +109,8 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
      * @param editable True si lo permite. 
      */
     public abstract void setEditable(boolean editable);
-   
+    
+       
     
     //FIN DE ABSTRACS--------------------------------------------------------
 
@@ -137,8 +132,8 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
         
         keyActionAlmacen action = new keyActionAlmacen();
         action.setAccion(()->this.componenteAEnfocar());
-        action.setCodigoDeCaracter(OperacionesBasicasPorDefinir.TECLA_TABULADOR_ESPECIAL);
-        action.setEvento(OperacionesBasicasPorDefinir.KEY_PRESSED_POR_DEFECTO);
+        action.setCodigoDeCaracter(this.TECLA_TABULADOR_ESPECIAL);
+        action.setEvento(this.KEY_PRESSED_POR_DEFECTO);
         
         this.setKeyAction(this.getThis(), action);
     }
@@ -253,10 +248,15 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
         
     }
     
+    public void removeListneners(Component c){
+        removeAllListeners(c);
+    }
+    
     /**
      * Necesario para mantener sano la sobreposicion de keylisteners.  
+     * @param c Componente de donde se removeran las cosas. 
      */
-    protected void removeAllListeners(Component c){
+    private void removeAllListeners(Component c){
         
         for (KeyListener l : c.getKeyListeners()) {
             c.removeKeyListener(l);

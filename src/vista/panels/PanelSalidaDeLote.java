@@ -123,6 +123,8 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         */
         //INICIAMOS LAS UTILIDADES.
         
+        
+        
         _txtBusqueda = new UtilidadesTxt_(coordinador);
         _listaResultados = new UtilidadesListas_(coordinador);
         _txtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
@@ -157,9 +159,11 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _comboLotesDisponibles.setNombre("_comboLotesDisponibles");
         _txtExistenciaLote.setNombre("_txtExistenciaLote");
       
-        //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         
+        //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
+        _txtBusqueda.removeListneners(txtBusqueda);
         _txtBusqueda.setComponente(this.txtBusqueda);
+        
         _listaResultados.setComponente(listaResultados);
         _txtNombreDeLaRefaccion.setComponente(this.txtNombreDeLaRefaccion);
         _txtCodigoInterno.setComponente(this.txtCodigoInterno);
