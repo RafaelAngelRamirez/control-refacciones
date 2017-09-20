@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Conexion;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.vo.DepartamentoVo;
 
@@ -27,11 +28,14 @@ public class DepartamentoDao extends DAOGenerales{
     
     
     public boolean guardar(DepartamentoVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "INSERT INTO " + DepartamentoIT.NOMBRE_TABLA + " VALUES (null, ?)";
-        return conexion.executeUpdate(sql, vo.getDepartamento());
+        boolean r = conexion.executeUpdate(sql, vo.getDepartamento());
+        return r;
     }
     
     public List<DepartamentoVo> consultarTodo(){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT * FROM " + DepartamentoIT.NOMBRE_TABLA;
         List<DepartamentoVo> listaVo = new ArrayList<>();
         
@@ -47,7 +51,6 @@ public class DepartamentoDao extends DAOGenerales{
         } catch (SQLException ex) {
             Logger.getLogger(DepartamentoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return listaVo;
     }
     

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Conexion;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.vo.*;
@@ -25,6 +26,7 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
     }
     
     public boolean guardarLista(List<RelacionRefaccionProveedorVo> listaVo){
+        conexion = new Conexion(coordinador);
         //LOS VALUES PARA EL INSERT.
         String values ="";
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
@@ -59,6 +61,7 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
     }
     
     public List<RelacionRefaccionProveedorVo> consultarProveedores(int id){
+        conexion = new Conexion(coordinador);
         List<RelacionRefaccionProveedorVo> lrrpvo = new ArrayList<>();
         ProveedorIT pit = new ProveedorIT();
         String sql = 
@@ -97,6 +100,7 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
     
     
     public boolean modificar(List<RelacionRefaccionProveedorVo> vo){
+        conexion = new Conexion(coordinador);
         String sql = "DELETE FROM "+RelacionRefaccionProveedorIT.NOMBRE_TABLA +
                 " WHERE " +it.getIdRefaccionPDC().getNombre() + "=?" ;
         conexion.executeUpdate(sql, vo.get(0).getIdRefaccion()+"");

@@ -52,6 +52,9 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
     private UtilidadesTxtArea_ _txtObservaciones;
     private UtilidadesJXViewImage_ _imagenesRefaccion;
     private int idRefaccionActual;
+    
+    private boolean cargaExterna = false;
+
 
     public PanelEntradaLote() {
         initComponents();
@@ -738,12 +741,9 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
                     _comboEmpleadoQueReciveLote.setErrorQuitar();
                 }
             }
-           
-                       
             
             if (!validacione.isValido()) {
                 todoValido = false;
-                
             }
           
         }
@@ -754,8 +754,11 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
                 limpiar();
                 JOptionPane.showMessageDialog(this,
                         "Se guardo el lote correctamente.");
-                dispose();
-                
+                if (cargaExterna) {
+                    dispose();
+                    RefaccionVo refaVo = coordinador.refaccionConsultar(vo.getIdRefaccion());
+                    this.getCoordinador().salidaLoteAbrirDialogo(refaVo);
+                }
             }else{
                 JOptionPane.showMessageDialog(
                         this,
@@ -861,8 +864,15 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         
         
     }
-    
+    /**
+     * Carga la refacción desde dentro de este panel.  
+     */
     public void cargarRefaccionParaEntrada(RefaccionVo vo){
+        cargarRefaccionParaEntrada(vo, false);
+    }
+    
+    public void cargarRefaccionParaEntrada(RefaccionVo vo, boolean cargaExterna){
+        this.cargaExterna = cargaExterna;
         if (vo!=null) {
             deshabilitarCamposParaRellenar(false);
             mostrarRefaccionParaEntrada(vo);
@@ -877,6 +887,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
     }
     
     private void cargarRefaccionParaEntrada(){
+        JOptionPane.showMessageDialog(null, "que paso!!!!!");
         if (!_txtBusqueda.isEmpty()) {
             RefaccionVo vo =null;
             HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.Conexion;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.Textos;
@@ -29,6 +30,7 @@ public class EmpleadoDao extends DAOGenerales{
     }
     
     public boolean existe(EmpleadoVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT COUNT(*) FROM " + EmpleadoIT.NOMBRE_TABLA 
                 +" WHERE "+
                 it.getNombrePDC().getNombre()+" =? "
@@ -46,9 +48,7 @@ public class EmpleadoDao extends DAOGenerales{
         try {
             r.next();
             int i = r.getInt(1);
-            if (i>0) 
-                return true;
-            return false;
+            return (i>0);
             
         } catch (SQLException ex) {
             Logger.getLogger(EmpleadoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,6 +58,7 @@ public class EmpleadoDao extends DAOGenerales{
     
     
     public boolean guardar(EmpleadoVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "INSERT INTO " + EmpleadoIT.NOMBRE_TABLA 
                 +" VALUES (null, ?, ?, ?, null, ?)";
         
@@ -103,6 +104,7 @@ public class EmpleadoDao extends DAOGenerales{
     }
     
     private List<EmpleadoVo> consultarTodoConBajas(boolean incluirBajas){
+        conexion = new Conexion(coordinador);
         DepartamentoIT dit = new DepartamentoIT();
         List<EmpleadoVo> listVo= new ArrayList<>();
         String sql = "SELECT "+
@@ -176,6 +178,7 @@ public class EmpleadoDao extends DAOGenerales{
     }
 
     private List<EmpleadoVo> consultarBusqueda(String busqueda, boolean incluirBajas){
+        conexion = new Conexion(coordinador);
         DepartamentoIT dit = new DepartamentoIT();
         List<EmpleadoVo> listVo= new ArrayList<>();
         busqueda = Textos.especialREGEX(busqueda);
@@ -254,6 +257,7 @@ public class EmpleadoDao extends DAOGenerales{
     }
     
     public boolean modificar(EmpleadoVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "UPDATE " + EmpleadoIT.NOMBRE_TABLA 
                 +" SET "+
                 it.getNombrePDC().getNombre()+" = ?,"+ 
@@ -273,6 +277,7 @@ public class EmpleadoDao extends DAOGenerales{
     }
     
     public boolean darDeBajaAlta(EmpleadoVo vo){
+        conexion = new Conexion(coordinador);
         String sql = " UPDATE " + EmpleadoIT.NOMBRE_TABLA
                 +" SET "+
                 it.getBajaEmpleadoPDC().getNombre()+"=?"

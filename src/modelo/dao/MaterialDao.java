@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Conexion;
 import modelo.InfoTabla.MaterialIT;
 import modelo.vo.MaterialVo;
 
@@ -24,12 +25,14 @@ public class MaterialDao extends DAOGenerales{
     }
     
     public void guardar(MaterialVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "INSERT INTO " + MaterialIT.NOMBRE_TABLA +
                 " VALUES (null, ?)";
         conexion.executeUpdate(sql, vo.getMaterial());
     }
     
     public List<MaterialVo> consultar(){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT * FROM " + MaterialIT.NOMBRE_TABLA;
         List<MaterialVo> l = new ArrayList<>();
         ResultSet r = conexion.executeQuery(sql);
@@ -48,6 +51,7 @@ public class MaterialDao extends DAOGenerales{
     }
     
     public boolean existe(String material){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT COUNT(*) FROM " + MaterialIT.NOMBRE_TABLA 
                 +" WHERE " + it.getMaterialPDC().getNombre() + "=? ";
         ResultSet r = conexion.executeQuery(sql, material);

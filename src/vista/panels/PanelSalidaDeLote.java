@@ -8,11 +8,13 @@ package vista.panels;
 import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionListener;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.SalidaLoteIT;
@@ -160,13 +162,13 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _comboLotesDisponibles.setNombre("_comboLotesDisponibles");
         _txtExistenciaLote.setNombre("_txtExistenciaLote");
       
-        
-        //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
+        //REMOVEMOS LOS LISTENERS
         for (KeyListener l : txtBusqueda.getKeyListeners()) {
             txtBusqueda.removeKeyListener(l);
         }
-        _txtBusqueda.setComponente(this.txtBusqueda);
         
+        //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
+        _txtBusqueda.setComponente(txtBusqueda);
         _listaResultados.setComponente(listaResultados);
         _txtNombreDeLaRefaccion.setComponente(this.txtNombreDeLaRefaccion);
         _txtCodigoInterno.setComponente(this.txtCodigoInterno);
@@ -226,18 +228,22 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         btnSalir1.setNextFocusableComponent(_txtBusqueda.getThis());
         
         //ACCIONES ESPECIALES.
+        
+       
+        
         _comboLotesDisponibles.setEditable(false);
 
         _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
         _txtBusqueda.setKeyRelease(()->seleccionarRefaccionEnter(), OperacionesBasicasPorDefinir.TECLA_ENTER);
-        _txtBusqueda.setKeyPressAction(()->seleccionarRefaccionEnter(), OperacionesBasicasPorDefinir.TECLA_TABULADOR);
-        _listaResultados.setValueChange(()->seleccionarRefaccionClick());
 
         _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
        
         
         _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
       
+        
+       
+        
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnSalir1);
@@ -998,45 +1004,57 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _listaResultados.cargarLista(datos);
     }
     
-    private boolean noSeCargoDesdeEsteDialogo = true;
+//    private boolean noSeCargoDesdeEsteDialogo = true;
     
     
     RefaccionVo voMostrandose =null;
-    
     private void seleccionarRefaccionEnter(){
-        HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
-        JOptionPane.showMessageDialog(null, datos.size());
-        if (datos.size()>0) {
-            voMostrandose = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
-        }else{
-            voMostrandose = null;
-        }
-        comprobarLarefaccion(voMostrandose);
-    }
-   
-    private void seleccionarRefaccionClick(){
-        Object a = _listaResultados.getSelectValueId();
-        if (!a.equals(-1)) {
-            voMostrandose = (RefaccionVo) a;
-        }else{
-            voMostrandose = null;
-        }
-        comprobarLarefaccion(voMostrandose);
+            HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
+            if (datos.size()>0) {
+                voMostrandose = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
+            }else{
+                voMostrandose = null;
+            }
+            comprobarLarefaccion(voMostrandose);
     }
     
     /**
      * Carga la los datos de la refacción consultada para mostrarlos en la interfaz.  
      */
     public void comprobarLarefaccion(RefaccionVo vo){
+        //SI EL CUADRO DE BUSQUEDA NO ESTA VACIO CONTINUAMOS. 
         if (_txtBusqueda.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No has escrito nada en el cuadro de busqueda.");
         } else {
+            //HAY UNA REFACCION CARGADA
             if(voMostrandose!=null){
-                JOptionPane.showMessageDialog(null, "----refaccion actualmente cargada\n: "+voMostrandose.toString());
-                noSeCargoDesdeEsteDialogo = false; 
-                cargarRefaccionParaSalida(voMostrandose);
-                noSeCargoDesdeEsteDialogo = true; 
-                limpiar();
+                float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());
+                //CUANDO HAY EXISTENCIA MOSTRAMOS LA REFACCIÓN. 
+                if (existencia!=0f) {
+                    mostrarRefaccion(vo, existencia);
+                }else{
+                //SI NO HAY EXISTENCIA DAMOS LA OPCIÓN DE ABRIR EL DIALOGO REGISTRAR
+                // NUEVA REFACCIÓN.
+                    String mensaje = "La refacción '"+vo.getNombre()+"' tiene 0 existencia."
+                                           + "\n¿Quieres registrar una nueva entrada de lote?";
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            this, 
+                            mensaje, 
+                            "Esta refacción no tiene existencia.", 
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+                    if (respuesta==JOptionPane.YES_OPTION) {
+                        limpiar();
+                        this.dispose();
+                        this.getCoordinador().entradaLoteAbrirDialogoConRetornoAPanelSalidaLote(vo);
+                    }else{
+                        limpiar();
+                        _listaResultados.limpiar();
+                        JOptionPane.showMessageDialog(this,
+                                "No se puede registrar una salida si la refacción no tiene existencia."
+                                ,"No se puede registra salida." ,JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }else{
 
                 JOptionPane.showMessageDialog(this, "No hubo coincidencias con tu busqueda:"+_listaResultados.getThis().getModel().getSize());
@@ -1046,59 +1064,113 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         }
     }
     
-    public void cargarRefaccionParaSalida(RefaccionVo vo){
-        if (vo!=null) {
-            float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());
-            //SI NO HAY EXISTENCIA DAMOS LA OPCIÓN DE ABRIR EL DIALOGO REGISTRAR
-            // NUEVA REFACCIÓN. 
-            if (existencia!=0f) {
-                deshabilitarCamposParaRellenar(false);
-                //POR SI HUBO ALGÚN CAMBIO ENTRE TODOS ESTOS MOVIMIENTOS.
-                // COMO MODIFICACIÓN DE LA REFACCIÓN. STOCK MINIMO O MÁXIMO, ETC. 
-                if (noSeCargoDesdeEsteDialogo) {
-                    /**
-                     Esto lo tengo que hacer así por que el lambda me da error
-                     * si modifico el vo de RefaccionVo. Me dice que tiene que
-                     * ser final.
-                     */
-                    reconsultarRefaccionCargadaDesdeOtroLugar(vo);
-                }else{
-                
-                mostrarRefaccionParaEntrada(vo);
-                cargarLotesDeRefaccion(vo.getId());
-                _txtExistencia.setText(existencia+"");
-                colorearMinYMax(existencia, vo);
-                }
-            }else{
-                String mensaje = "La refacción '"+vo.getNombre()+"' tiene 0 existencia."
-                        + "\n¿Quieres registrar una nueva entrada de lote?";
-                int respuesta = JOptionPane.showConfirmDialog(
-                        this, 
-                        mensaje, 
-                        "Esta refacción no tiene existencia.", 
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
-                if (respuesta==JOptionPane.YES_OPTION) {
-                    limpiar();
-                    this.dispose();
-                    this.getCoordinador().entradaLoteAbrirDialogo(vo);
-                }else{
-                    limpiar();
-                    _listaResultados.limpiar();
-                    JOptionPane.showMessageDialog(this,
-                            "No se puede registrar una salida si la refacción no tiene existencia."
-                            ,"No se puede registra salida." ,JOptionPane.ERROR_MESSAGE);
-                }
-            }    
-        }
+    public void mostrarRefaccion(RefaccionVo vo, float existencia){
+        deshabilitarCamposParaRellenar(false);
+        
+        
+        _txtNombreDeLaRefaccion.setText(vo.getNombre());
+        _txtCodigoInterno.setText(vo.getCodigoInterno());
+        _txtCodigoProveedor.setText(vo.getCodigoProveedor());
+        _txtUnidad.setText(vo.getUnidad()+"");
+        _txtStockMax.setText(vo.getStockMaximo()+"");
+        _txtStockMin.setText(vo.getStockMinimo()+"");
+        idRefaccionActual = vo.getId();
+        
+        _txtFechaDeLote.setFocus();
+        _txtFechaDeLote.setText(FechaYHora.Actual.getDdmmaa("/"));
+        _txtFechaDeLote.getThis().setSelectionStart(0);
+        _txtFechaDeLote.getThis().setSelectionEnd(_txtFechaDeLote.getText().length());
+        
+        //CARGAMOS LAS IMAGENES. 
+        cargarImagenes(vo.getId());
+        
+        cargarLotesDeRefaccion(vo.getId());
+        _txtExistencia.setText(existencia+"");
+        colorearMinYMax(existencia, vo);
+
+        
+        _txtBusqueda.setText("");
+        _listaResultados.limpiar();
     }
     
-    private void reconsultarRefaccionCargadaDesdeOtroLugar(RefaccionVo vo){
-        noSeCargoDesdeEsteDialogo = false;
-        vo = this.getCoordinador().refaccionConsultar(vo.getId());
-        cargarRefaccionParaSalida(vo);
-
-    }
+//    public void mostrarRefaccionParaEntrada(RefaccionVo vo){
+//        _txtNombreDeLaRefaccion.setText(vo.getNombre());
+//        _txtCodigoInterno.setText(vo.getCodigoInterno());
+//        _txtCodigoProveedor.setText(vo.getCodigoProveedor());
+//        _txtUnidad.setText(vo.getUnidad()+"");
+//        _txtStockMax.setText(vo.getStockMaximo()+"");
+//        _txtStockMin.setText(vo.getStockMinimo()+"");
+//        idRefaccionActual = vo.getId();
+//        
+//        _txtFechaDeLote.setFocus();
+//        _txtFechaDeLote.setText(FechaYHora.Actual.getDdmmaa("/"));
+//        _txtFechaDeLote.getThis().setSelectionStart(0);
+//        _txtFechaDeLote.getThis().setSelectionEnd(_txtFechaDeLote.getText().length());
+//        
+//        //CARGAMOS LAS IMAGENES. 
+//        cargarImagenes(vo.getId());
+//        _txtBusqueda.setText("");
+//        _listaResultados.limpiar();
+//        
+//        
+//    }
+    
+    
+//    /**
+//     *   Muestra la refacción que tenga existencia. 
+//     */
+//    public void cargarRefaccionParaSalidaConExistencia(RefaccionVo vo){
+//        if (vo!=null) {
+////            float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());
+//             
+//            if (existencia!=0f) {
+////                deshabilitarCamposParaRellenar(false);
+//                //POR SI HUBO ALGÚN CAMBIO ENTRE TODOS ESTOS MOVIMIENTOS.
+//                // COMO MODIFICACIÓN DE LA REFACCIÓN. STOCK MINIMO O MÁXIMO, ETC. 
+//                if (noSeCargoDesdeEsteDialogo) {
+//                    /**
+//                     Esto lo tengo que hacer así por que el lambda me da error
+//                     * si modifico el vo de RefaccionVo. Me dice que tiene que
+//                     * ser final.
+//                     */
+//                    reconsultarRefaccionCargadaDesdeOtroLugar(vo);
+//                }else{
+//                
+////                mostrarRefaccionParaEntrada(vo);
+////                cargarLotesDeRefaccion(vo.getId());
+////                _txtExistencia.setText(existencia+"");
+////                colorearMinYMax(existencia, vo);
+//                }
+//            }else{
+//                String mensaje = "La refacción '"+vo.getNombre()+"' tiene 0 existencia."
+//                        + "\n¿Quieres registrar una nueva entrada de lote?";
+//                int respuesta = JOptionPane.showConfirmDialog(
+//                        this, 
+//                        mensaje, 
+//                        "Esta refacción no tiene existencia.", 
+//                        JOptionPane.YES_NO_OPTION,
+//                        JOptionPane.QUESTION_MESSAGE);
+//                if (respuesta==JOptionPane.YES_OPTION) {
+//                    limpiar();
+//                    this.dispose();
+//                    this.getCoordinador().entradaLoteAbrirDialogoConRetornoAPanelSalidaLote(vo);
+//                }else{
+//                    limpiar();
+//                    _listaResultados.limpiar();
+//                    JOptionPane.showMessageDialog(this,
+//                            "No se puede registrar una salida si la refacción no tiene existencia."
+//                            ,"No se puede registra salida." ,JOptionPane.ERROR_MESSAGE);
+//                }
+//            }    
+//        }
+//    }
+//    
+//    private void reconsultarRefaccionCargadaDesdeOtroLugar(RefaccionVo vo){
+//        noSeCargoDesdeEsteDialogo = false;
+//        vo = this.getCoordinador().refaccionConsultar(vo.getId());
+//        cargarRefaccionParaSalidaConExistencia(vo);
+//
+//    }
     
     private void cargarLotesDeRefaccion(int id){
     
@@ -1115,27 +1187,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         }
     }
     
-    public void mostrarRefaccionParaEntrada(RefaccionVo vo){
-        _txtNombreDeLaRefaccion.setText(vo.getNombre());
-        _txtCodigoInterno.setText(vo.getCodigoInterno());
-        _txtCodigoProveedor.setText(vo.getCodigoProveedor());
-        _txtUnidad.setText(vo.getUnidad()+"");
-        _txtStockMax.setText(vo.getStockMaximo()+"");
-        _txtStockMin.setText(vo.getStockMinimo()+"");
-        idRefaccionActual = vo.getId();
-        
-        _txtFechaDeLote.setFocus();
-        _txtFechaDeLote.setText(FechaYHora.Actual.getDdmmaa("/"));
-        _txtFechaDeLote.getThis().setSelectionStart(0);
-        _txtFechaDeLote.getThis().setSelectionEnd(_txtFechaDeLote.getText().length());
-        
-        //CARGAMOS LAS IMAGENES. 
-        cargarImagenes(vo.getId());
-        _txtBusqueda.setText("");
-        _listaResultados.limpiar();
-        
-        
-    }
+    
     
     private void colorearMinYMax(float existencia, RefaccionVo vo){
         boolean todoBien = true;

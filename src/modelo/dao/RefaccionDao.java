@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Conexion;
 import modelo.InfoTabla.ImportanciaIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.RefaccionIT;
@@ -28,6 +29,7 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public boolean existeCodigoInterno(String codigo){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + RefaccionIT.NOMBRE_TABLA
                     + " WHERE " +  it.getCodigoInternoPDC().getNombre() + "= ?";
@@ -44,6 +46,7 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public boolean existeCodigoInterno(RefaccionVo vo){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + RefaccionIT.NOMBRE_TABLA
                     + " WHERE " +  it.getCodigoInternoPDC().getNombre() + "= ?"
@@ -67,6 +70,7 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public int consultarUltimoId(){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT MAX("+it.getIdPDC().getNombre()+") FROM "+RefaccionIT.NOMBRE_TABLA;
         ResultSet r = conexion.executeQuery(sql);
         try {
@@ -84,6 +88,7 @@ public class RefaccionDao extends DAOGenerales{
      * @return Si todo se guardo correcto retorna true.
      */
     public boolean guardar(RefaccionVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "INSERT INTO "+ RefaccionIT.NOMBRE_TABLA 
                 + " VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
         HashMap<Integer, Object> mapa = new HashMap<>();
@@ -106,7 +111,7 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public List<RefaccionVo> consultarYBuscar(String busqueda){
-        
+        conexion = new Conexion(coordinador);
         
         List<RefaccionVo> listaVo = new ArrayList<>();
         busqueda = Textos.especialREGEX(busqueda);
@@ -191,6 +196,7 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public RefaccionVo consultarPorId(int id){
+        conexion = new Conexion(coordinador);
         RefaccionVo v = new RefaccionVo();
         try {
             ImportanciaIT iit = new ImportanciaIT();
@@ -260,6 +266,7 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public boolean modificar(RefaccionVo vo){
+        conexion = new Conexion(coordinador);
         String sql = 
             "UPDATE " + RefaccionIT.NOMBRE_TABLA 
             + " SET " +

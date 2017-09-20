@@ -5,6 +5,9 @@ import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import controlador.capturadeerrores.Suceso;
 import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -289,11 +292,10 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * @return El id relacionado con el valor que se selecciono o en caso contrario -1.
      */
     public Object getSelectValueId(){
-        HashMap<String, Object> mapa = this.getItems();
         if (this.getThis().getSelectedValue()==null) {
-            
             return -1;
         }
+        HashMap<String, Object> mapa = this.getItems();
         return mapa.get(this.getThis().getSelectedValue());
     }
     

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.Conexion;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.vo.EntradaLoteVo;
 
@@ -27,6 +28,7 @@ public class EntradaLoteDao extends DAOGenerales{
     }
     
     public boolean guardar(EntradaLoteVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "INSERT INTO "+ EntradaLoteIT.NOMBRE_TABLA 
                 +" VALUES (null, ?, ?, ?, ?, ?)";
         
@@ -44,6 +46,7 @@ public class EntradaLoteDao extends DAOGenerales{
     }
     
     public float existencia(int id){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT SUM("+it.getCantidadPDC().getNombre()+")"
                     +" FROM " +
@@ -68,6 +71,7 @@ public class EntradaLoteDao extends DAOGenerales{
      * @return La lista de lotes que coinciden con los parametros. 
      */
     public List<EntradaLoteVo> lotes(int id, boolean todosLosLotes){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT * FROM " + EntradaLoteIT.NOMBRE_TABLA
                 +" WHERE "+
                 it.getIdRefaccionPDC().getNombre()+" = ?";
@@ -95,6 +99,7 @@ public class EntradaLoteDao extends DAOGenerales{
     }
     
     public boolean actualizarExistencia(EntradaLoteVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "UPDATE " + EntradaLoteIT.NOMBRE_TABLA 
                 +" SET "+
                 it.getCantidadPDC().getNombre() + " = " +it.getCantidadPDC().getNombre()+"- ?"
@@ -115,6 +120,7 @@ public class EntradaLoteDao extends DAOGenerales{
      * @return El lote más antiguo que con existencia. 
      */
     public EntradaLoteVo loteMasAntiguo(int id){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT * FROM "+EntradaLoteIT.NOMBRE_TABLA 
                 +" WHERE "+
                 it.getIdRefaccionPDC().getNombre()+"=?"

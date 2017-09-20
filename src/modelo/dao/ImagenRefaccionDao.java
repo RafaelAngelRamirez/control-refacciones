@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.Conexion;
 import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.ConexionDatos;
 import modelo.FicherosOperacionesServidor;
@@ -34,6 +35,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
     }
     
     public String guardarLista(List<ImagenRefaccionVo> listaVo){
+        conexion = new Conexion(coordinador);
         //CONTENDRA EL NOMBRE DE LAS IMAGENES QUE NO SE PUDIERON SUBIR.
         String retornoErrores=null;
         //LOS VALUES PARA EL INSERT.
@@ -83,6 +85,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
     }
     
     public boolean subirImagenesAServidor(File img){
+        conexion = new Conexion(coordinador);
         FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
         ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN);
         ficheros.setFichero(img);
@@ -94,6 +97,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
     }
     
     public List<ImagenRefaccionVo> consultar(int id){
+        conexion = new Conexion(coordinador);
         List<ImagenRefaccionVo> livo = new ArrayList<>();
         String sql = "SELECT * FROM " + ImagenRefaccionIT.NOMBRE_TABLA 
                 + " WHERE " + it.getIdRefaccionPDC().getNombre() +"= ?";
@@ -120,6 +124,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
     }
     
     public boolean eliminar (ImagenRefaccionVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "DELETE FROM " + ImagenRefaccionIT.NOMBRE_TABLA
                 + " WHERE "
                 + it.getIdRefaccionPDC().getNombre()
@@ -139,6 +144,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
     }
     
     public boolean eliminarDeServidor(String img){
+        conexion = new Conexion(coordinador);
         FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
         ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN);
         ficheros.setImagenAEliminar(img);

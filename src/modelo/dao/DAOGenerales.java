@@ -14,7 +14,6 @@ public abstract class DAOGenerales  {
     protected Conexion conexion;
 
     public DAOGenerales(Coordinador coordinador) {
-        this.conexion = new Conexion(coordinador);
         this.coordinador = coordinador;
         this.nombreClase = this.getClass().getName();
     }
