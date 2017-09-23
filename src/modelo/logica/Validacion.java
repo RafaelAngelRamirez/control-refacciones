@@ -24,6 +24,8 @@ public class Validacion {
     //ESTE ES PARA COMPROBAR SI SE SETEO isValido. 
     private boolean setValidado;
     private String nombreDeCampoParaMostrar;
+    
+    private Object ObjetoEspecialDeTraslado;
 
     
     /**
@@ -63,7 +65,7 @@ public class Validacion {
             } catch (ExcepcionPersonalizada ex) {
                 Logger.getLogger(Validacion.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        } 
         
         return nombreDeCampo;
     }
@@ -78,7 +80,15 @@ public class Validacion {
         this.nombreDeCampo = campoPDC.getNombre();
         this.nombreDeCampoParaMostrar = campoPDC.getNombreParaMostrar();
     }
-
+    
+    /**
+     * El nombre del campo que se utilizara para obtener el resultado de la validación
+     * y que se mostrara en el mensaje de error. 
+     * @param nombreParaMostrar El nombre que se mostrara en el mensaje. 
+     */
+    public void setNombreDeCampo( String nombreParaMostrar) {
+        this.nombreDeCampoParaMostrar = nombreParaMostrar;
+    }
     /**
      * El mensaje de error a mostrar en la validación. 
      * @return Cadena de texto que almacena el mensaje de error de la validación.
@@ -91,6 +101,9 @@ public class Validacion {
             } catch (ExcepcionPersonalizada ex) {
                 Logger.getLogger(Validacion.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        if (nombreDeCampoParaMostrar==null ) {
+            return mensajeDeError;
         }
         return nombreDeCampoParaMostrar + ": " + mensajeDeError;
     }

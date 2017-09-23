@@ -36,8 +36,8 @@ import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
 import vista.UtilidadesIntefaz.JDialogBase;
-import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
+import vista.panels.PanelSalidaDeLoteSeleccionLotes;
 
 /**
  * Se controlan todas las interacciónes entre las diferentes ventanas. Se mantiene
@@ -66,6 +66,7 @@ public class Coordinador {
     private PanelEmpleadoAgregar panelEmpleadoAgregar;
     private PanelEmpleadoModificar panelEmpleadoModificar;
     private PanelSalidaDeLote panelSalidaDeLote;
+    private PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes;
     
     
     
@@ -89,28 +90,15 @@ public class Coordinador {
     GETS AND SETS
     ////////////////////////////////////////////////////////////////////////
      */
-    
-  
-    
-//    public void pruebaAbrirComoPanel(boolean configurar){
-//        this.marcoParaVentanaPrincipal.setJPanel(this.panelEmpleadoAgregar);
-//        if (configurar) {
-//        this.panelEmpleadoAgregar.configurar();
-//        }
-//        
-//    }
-//    
-//    public JDialogBase pruebaAbrirComoDialogo(boolean configurar){
-//        JDialogBase d = new JDialogBase(this);
-//        d.add(this.panelEmpleadoAgregar);
-//        if (configurar) {
-//            d.configurarPanel();
-//        }
-//        d.pack();
-//        d.setVisible(true);
-//        return d;
-//    }
 
+    public PanelSalidaDeLoteSeleccionLotes getPanelSalidaDeLoteSeleccionLotes() {
+        return panelSalidaDeLoteSeleccionLotes;
+    }
+
+    public void setPanelSalidaDeLoteSeleccionLotes(PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes) {
+        this.panelSalidaDeLoteSeleccionLotes = panelSalidaDeLoteSeleccionLotes;
+    }
+    
     public CoordinadorPaneles getCoordinadorPaneles() {
         return coordinadorPaneles;
     }
@@ -1008,7 +996,6 @@ public class Coordinador {
         entradaLoteAbrirDialogo();
         panelEntradaLote.cargarRefaccionParaEntrada(vo, true);
     }
-        
 
     public void entradaLoteDialogoSetearItemComboRecienAgregado(Object item){
         this.entradaLoteActualizarComboEmpleados();
@@ -1082,6 +1069,12 @@ public class Coordinador {
     public List<Validacion> salidaLoteValidarCampos(SalidaLoteVo vo){
         return this.logica.salidaLoteValidarCampos(vo);
     }
+    
+    public Validacion salidaLoteValidarLotes(
+            List<EntradaLoteVo> lotesDisponibles,
+            EntradaLoteVo voSeleccionado){
+        return this.logica.salidaLoteValidarLotes(lotesDisponibles, voSeleccionado);
+    }
 
     public boolean salidaLoteGuadar(SalidaLoteVo vo){
         return this.logica.salidaLoteGuadar(vo);
@@ -1089,6 +1082,14 @@ public class Coordinador {
 
     public float salidaLoteExistencia(int id){
         return this.logica.salidaLoteExistencia(id);
+    }
+    
+    public void salidaLoteAbrirDialogoSeleccionarRefaccion(List<EntradaLoteVo> lista){
+        JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelSalidaDeLoteSeleccionLotes);
+        panelSalidaDeLoteSeleccionLotes.configurar();
+        panelSalidaDeLoteSeleccionLotes.cargarLotes(lista);
+        d.setVisible(true);
+        
     }
         
     /* 

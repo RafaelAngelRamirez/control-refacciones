@@ -97,7 +97,7 @@ public class EntradaLoteDao extends DAOGenerales{
         }
         return listVo;
     }
-    
+        
     public boolean actualizarExistencia(EntradaLoteVo vo){
         conexion = new Conexion(coordinador);
         String sql = "UPDATE " + EntradaLoteIT.NOMBRE_TABLA 

@@ -7,13 +7,27 @@ package vista.panels;
 
 import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javafx.scene.image.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneLayout;
 import javax.swing.event.ListSelectionListener;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.RefaccionIT;
@@ -775,9 +789,12 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     }//GEN-LAST:event_btnRegresarImagenActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        JOptionPane.showMessageDialog(null, "aqui nooo");
+        
         SalidaLoteIT it = new SalidaLoteIT();
         SalidaLoteVo vo = new SalidaLoteVo();
+        //SE USA MAS ADELANTE. 
+        EntradaLoteVo[] voActualMultiple;
+        
         boolean todoValido = true;
         float cantidad;
         if (_txtCantidadQueSale.isEmpty()) {
@@ -786,14 +803,12 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             cantidad = Float.parseFloat(_txtCantidadQueSale.getText());
         }
         vo.setCantidad(cantidad);
-        JOptionPane.showMessageDialog(null, "aqui nooo");
         
         vo.setFechaSalidaLote(FechaYHora.cambiarFormatoDeFecha(FechaYHora.FECHA_AAAA_MM_DD, _txtFechaDeLote.getText()));
         EmpleadoVo evo =(EmpleadoVo) _comboEmpleadoQueReciveLote.getSelectedItem_idRetorno();
         vo.setIdEmpleado(evo.getId());
         vo.setIdRefaccion(idRefaccionActual);
         vo.setObservaciones(_txtObservaciones.getText());
-        JOptionPane.showMessageDialog(null, "aqui nooo");
         
         List<Validacion> validaciones = this.getCoordinador().salidaLoteValidarCampos(vo);
         for (Validacion validacione : validaciones) {
@@ -829,25 +844,12 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             }
           
         }
-        JOptionPane.showMessageDialog(null, "aqui nooo");
+        
         if (todoValido) {
-            
-            //COMPROBACIONES SOBRE LOS LOTES
-            HashMap<String, Object> lotesDisponibles = _comboLotesDisponibles.getRelacionDatoObjeto();
-            EntradaLoteVo elvo = null;
-            //LA REFACCIÓN POR LO MENOS TIENE UN LOTE
-            if (lotesDisponibles.size()>0) {
-                todoValido = true;
-            }else{
-                JOptionPane.showMessageDialog(this, 
-                        "Esta refacción no tiene existencias.", 
-                        "Sin existencia.", JOptionPane.ERROR_MESSAGE);
-                todoValido = false;
-            }
-
             float existenciaRefaccion = this.getCoordinador().entradaLoteExistencia(vo.getIdRefaccion());
-            if (existenciaRefaccion>=vo.getCantidad()&& todoValido) {
+            if (existenciaRefaccion>=vo.getCantidad()) {
                 todoValido = true;
+                _txtCantidadQueSale.setErrorQuitar();
             }else{
                 _txtCantidadQueSale.setError(
                         "Esta refacción no tiene suficiente existencia.");
@@ -855,32 +857,124 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             }
         }
         
-        //HAY UN LOTE MENOR QUE EL SELECCIONADO. ESTE NO MUESTRA MENSAJE
-        // PARA DESPUES COMPROBAR SI EL LOTE TIENE SUFICIENTE EXISTENCIA.
         if (todoValido) {
-            JOptionPane.showMessageDialog(null, idRefaccionActual);
-            EntradaLoteVo voLoteMasAtiguo = this.getCoordinador().entradaLoteLoteMasAntiguo(idRefaccionActual);
-            EntradaLoteVo voLoteActual = (EntradaLoteVo)this._comboLotesDisponibles.getSelectedItem_idRetorno();
+            //EN ESTA PARTE VALIDAMOS LOS LOTES. 
+            // QUE SEA EL MÁS ANTIGUO
+            // QUE TENGA SUFICIENTE EL PRIMERO
+            // CUANTOS SE VAN A OCUPAR
+            // SIEMPRE SE DEBE DESCONTAR DESDE EL MÁS ANTIGUO AL PRIMERO. PERO
+            // TAMBIEN HAY QUE DAR LA OPCIÓN A ESCOGER LOS LOTES. 
             
-            JOptionPane.showMessageDialog(null, "comparativa:\n\n"
-                    + "\nvoLoteMásAntiguo: "+voLoteMasAtiguo.getId()
-                    + "\n                  "+voLoteMasAtiguo.getFechaRecepcionLote()
-                    + "\n                  "+voLoteMasAtiguo.getCantidad()
-                    + "\n\nvoLoteActual  : "+voLoteActual.getId()
-                    + "\n                  "+voLoteActual.getFechaRecepcionLote()
-                    + "\n                  "+voLoteActual.getCantidad()
-                    + "");
+            //OBTENEMOS LOS LOTES DE LA REFACCIÓN
+            List<Object> list = new ArrayList<>(_comboLotesDisponibles.getRelacionDatoObjeto().values());
             
+            //HACEMOS UN CAST OBLIGADO A LA LISTA PARA CAMBIAR SU TIPO A ENTRADA LOTE. 
+            @SuppressWarnings("unchecked")
+            List<EntradaLoteVo> lista = (List<EntradaLoteVo>)(List<?>)list;
+          
+            //ORDENAMOS LA LISTA POR FECHA DE RECEPCIÓN, DE LA MÁS ANTIGUA A 
+            // LA MÁS RECIENTE. 
+            lista.sort(Comparator.comparing(EntradaLoteVo::getFechaRecepcionLote));
+            EntradaLoteVo voSeleccionado =(EntradaLoteVo) _comboLotesDisponibles.getSelectedItem_idRetorno();
             
+            //INVOCAMOS LAS OPERACIONES DE VALIDACIÓN SOBRE LOTE. 
+            Validacion valLoteMasAntiguo = this.getCoordinador()
+                    .salidaLoteValidarLotes(lista, voSeleccionado);
+            
+            //COMPROMOS EL LOTE MÁS ANTIGUO. 
+            if (!valLoteMasAntiguo.isValido()) {
+                int r = JOptionPane.showConfirmDialog(
+                        this,
+                        valLoteMasAntiguo.getMensajeDeError()+"\n\n"
+                        +"Lote seleccionado: "+voSeleccionado.getFechaRecepcionLote() +" Existencia:"+voSeleccionado.getCantidad()+"\n"
+                        +"Lote mas antiguo : "+lista.get(0).getFechaRecepcionLote()   +" Existencia:"+lista.get(0).getCantidad()+"\n\n"
+                        + "¿Quieres seleccionar el lote más antiguo?",
+                        "Hay disponible un lote más antiguo.",
+                        JOptionPane.YES_NO_OPTION);
+                if (r==JOptionPane.YES_OPTION) {
+                    voSeleccionado = lista.get(0);
+                    JOptionPane.showMessageDialog(null, "Has seleccionado el más antiguo");
+                    todoValido = true;
+                }else{
+                    //SI PONE QUE NO ENTONCES HAY QUE OFRECER OPCIONES. 
+
+                    Object[] opciones = new Object[3];
+                    opciones[0]="Dejar el lote que tengo seleccionado";
+                    opciones[1]="Muestrame los lotes para seleccionar";
+                    opciones[2]="No hacer nada";
+
+                    int r2 = JOptionPane.showOptionDialog(
+                            this, 
+                            "¿Que deseas hacer?", 
+                            "Opciones posibles",
+                            JOptionPane.YES_NO_CANCEL_OPTION , 
+                            JOptionPane.INFORMATION_MESSAGE,
+                            null, opciones, 0);
+
+                    switch(r2){
+                        case 0:
+                            // EL USUARIO QUIERE DEJAR EL LOTE SELECCIONADO. 
+                            todoValido = true;
+                            break;
+                        case 1:
+                            //EL USUARIO QUIERE QUE SE LE MUESTREN LOS LOTES.
+                            JOptionPane.showMessageDialog(null, "mostrar lotes para seleccionar.");
+                            voActualMultiple = mostrarLotesParaSeleccionarse(lista);
+                            break;
+                        case 2:
+                        default:
+                            //NO HACER NADA. SE CANCELA TODO.
+                            todoValido = false;
+                            JOptionPane.showMessageDialog(null, "no hacer nada"+r2);
+                            break;
+
+                    }
+
                         
-           
+                        
+                        
+                        
+                    }
+
+                }
+            
+            
+            
+
         }
+            
+            
+            
+            
         
         
         
-        
-        
-        
+//        //HAY UN LOTE MENOR QUE EL SELECCIONADO. ESTE NO MUESTRA MENSAJE
+//        // PARA DESPUES COMPROBAR SI EL LOTE TIENE SUFICIENTE EXISTENCIA.
+//        if (todoValido) {
+//            JOptionPane.showMessageDialog(null, idRefaccionActual);
+//            EntradaLoteVo voLoteMasAtiguo = this.getCoordinador().entradaLoteLoteMasAntiguo(idRefaccionActual);
+//            EntradaLoteVo voLoteActual = (EntradaLoteVo)this._comboLotesDisponibles.getSelectedItem_idRetorno();
+//            
+//            JOptionPane.showMessageDialog(null, "comparativa:\n\n"
+//                    + "\nvoLoteMásAntiguo: "+voLoteMasAtiguo.getId()
+//                    + "\n                  "+voLoteMasAtiguo.getFechaRecepcionLote()
+//                    + "\n                  "+voLoteMasAtiguo.getCantidad()
+//                    + "\n\nvoLoteActual  : "+voLoteActual.getId()
+//                    + "\n                  "+voLoteActual.getFechaRecepcionLote()
+//                    + "\n                  "+voLoteActual.getCantidad()
+//                    + "");
+//            
+//            
+//                        
+//           
+//        }
+//        
+//        
+//        
+//        
+//        
+//        
         //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
         todoValido = false;
         //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
@@ -901,6 +995,13 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
 
             }
         }
+    }
+    
+    private EntradaLoteVo[] mostrarLotesParaSeleccionarse(List<EntradaLoteVo> lista){
+        coordinador.salidaLoteAbrirDialogoSeleccionarRefaccion(lista);
+        
+        EntradaLoteVo[] resultado = new EntradaLoteVo[0];
+        return resultado;
     }
     
 
@@ -1178,8 +1279,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         HashMap<String, Object> datos = new HashMap<>();
         
         for (EntradaLoteVo vo : listaLotes) {
-            String idFormateado = Textos.formaetarNumeros(vo.getId(), "0000000");
-            datos.put(vo.getFechaRecepcionLote()+" | "+idFormateado, vo);
+            datos.put(vo.getNombreParaMostrarLote(), vo);
         }
         _comboLotesDisponibles.cargarCombo(datos);
         if (datos.size()==0) {

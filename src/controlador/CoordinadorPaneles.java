@@ -15,7 +15,7 @@ import vista.UtilidadesIntefaz.JPanelBase;
  */
 public class CoordinadorPaneles {
     
-    Coordinador coordinador;
+    private Coordinador coordinador;
     
     /*------------------------------------------------------------
         NOMBRAMOS LOS PANELES Y DIALOGOS CON VARIABLES ESTATICAS
@@ -26,60 +26,64 @@ public class CoordinadorPaneles {
      * Nombre del panel principal donde se consultar las refacciones al 
      * iniciar el sistema.
      */
-    public static String PANEL_REFACCION_CONSULTAR = "Consultar refacciones";
+    public static final String PANEL_REFACCION_CONSULTAR = "Consultar refacciones";
     /**
      * Nombre del dialogo refaccion detalle.
      */
-    public static String PANEL_REFACCION_DETALLE = "Detalle refacción";
+    public static final String PANEL_REFACCION_DETALLE = "Detalle refacción";
     /**
      * Nombre del dialogo refaccion agregar.
      */
-    public static String PANEL_REFACCION_AGREGAR = "Agregar refacción";
+    public static final String PANEL_REFACCION_AGREGAR = "Agregar refacción";
     /**
-     * Nombre del panel registro de refacciones.
+     * Nombre del final panel registro de refacciones.
      */
-    public static String PANEL_REGISTRAR_NUEVA_REFACCION = "Registrar nueva refacción";
+    public static final String PANEL_REGISTRAR_NUEVA_REFACCION = "Registrar nueva refacción";
     /**
      * Nombre del panel para modificar refacciones. 
      */
-    public static String PANEL_MODIFICAR_REFACCION = "Modificar refacción";
+    public static final String PANEL_MODIFICAR_REFACCION = "Modificar refacción";
     /**
      * Dialogo Imagen detalle.
      */
-    public static String PANEL_IMAGEN_DETALLE = "Detalle de imagen";
+    public static final String PANEL_IMAGEN_DETALLE = "Detalle de imagen";
     /**
      * Nombre del dialogo Maquina modelo agregar
      */
-    public static String PANEL_MAQUINA_MODELO_AGREGAR = "Registrar maquina-modelo";
+    public static final String PANEL_MAQUINA_MODELO_AGREGAR = "Registrar maquina-modelo";
     /**
      * Nombre del dialogo Maquina modelo modificar
      */
-    public static String PANEL_MAQUINA_MODELO_MODIFICAR = "Modificar maquina-modelo";
+    public static final String PANEL_MAQUINA_MODELO_MODIFICAR = "Modificar maquina-modelo";
     /**
      * Nombre del dialogo proveedor registrar.
      */
-    public static String PANEL_PROVEEDOR_REGISTRAR = "Registrar proveedor";
+    public static final String PANEL_PROVEEDOR_REGISTRAR = "Registrar proveedor";
     /**
      * Nombre del dialogo proveedor modificar.
      */
-    public static String PANEL_PROVEEDOR_MODIFICAR = "Modificar proveedor";
+    public static final String PANEL_PROVEEDOR_MODIFICAR = "Modificar proveedor";
     /**
      * Nombre del dialogo entrada lote.
      */
-    public static String PANEL_ENTRADA_LOTE = "Entrada lote";
+    public static final String PANEL_ENTRADA_LOTE = "Entrada lote";
     /**
-     * Nombre del dialogo entrada lote.
+     * Nombre del dialogo salida lote.
      */
-    public static String PANEL_SALIDA_LOTE = "Salida lote";
+    public static final String PANEL_SALIDA_LOTE = "Salida lote";
+    /**
+     * Nombre del dialogo de seleccion de lotes de salida lotes.
+     */
+    public static final String PANEL_SALIDA_LOTE_SELECCION_DE_LOTES = "Seleccion de lotes";
     /**
      * Nombre del dialogo agregar empleado.
      */
-    public static String PANEL_EMPLEADO_AGREGAR = "Agregar empleado";
+    public static final String PANEL_EMPLEADO_AGREGAR = "Agregar empleado";
     
     /**
      * Nombre del dialogo modficar empleado.
      */
-    public static String PANEL_EMPLEADO_MODIFICAR = "Modificar empleado";
+    public static final String PANEL_EMPLEADO_MODIFICAR = "Modificar empleado";
     
     private final HashMap<JPanelBase, JDialogBase> dialogosAbiertos;
 
@@ -87,10 +91,18 @@ public class CoordinadorPaneles {
         this.dialogosAbiertos = new HashMap<>();
     }
 
+    /**
+     * El coordinador
+     * @return
+     */
     public Coordinador getCoordinador() {
         return coordinador;
     }
 
+    /**
+     * El coordinador. 
+     * @param coordinador
+     */
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
     }

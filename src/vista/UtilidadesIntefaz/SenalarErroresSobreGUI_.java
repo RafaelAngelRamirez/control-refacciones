@@ -12,7 +12,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import org.jdesktop.swingx.JXImageView;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.Colores_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.ColoresYFuentes;
 
 /**
  * Los errores que aqui se muestran son los generados sobre la GUI. Comúnmente
@@ -27,7 +27,7 @@ public class SenalarErroresSobreGUI_ {
 
     private JFrame padre;
     
-    private Colores_ colores = new Colores_();
+    private ColoresYFuentes colores = new ColoresYFuentes();
 
     private boolean error = false;
     Coordinador coordinador;

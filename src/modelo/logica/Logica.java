@@ -9,6 +9,7 @@ import controlador.Coordinador;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1171,13 +1172,13 @@ public class Logica {
     ========================================================================
        INICIO DE SALIDA LOTE
     ////////////////////////////////////////////////////////////////////////
-    */
-        public List<Validacion> salidaLoteValidarCampos(SalidaLoteVo vo){
-           return salidaLoteValidarCampos(vo, false);
-        }
+*/
+    public List<Validacion> salidaLoteValidarCampos(SalidaLoteVo vo){
+       return salidaLoteValidarCampos(vo, false);
+    }
 
 
-        public List<Validacion> salidaLoteValidarCampos(SalidaLoteVo vo, boolean validandoUpdate){
+    public List<Validacion> salidaLoteValidarCampos(SalidaLoteVo vo, boolean validandoUpdate){
            //LA LISTA QUE SE REORNA DE VALIDACIONES.
            List<Validacion> listaValidaciones = new ArrayList<>();
 
@@ -1227,17 +1228,40 @@ public class Logica {
            return listaValidaciones;
         }
     
-                
-        public boolean salidaLoteGuadar(SalidaLoteVo vo){
-            SalidaLoteDao d = new SalidaLoteDao(coordinador);
-            return d.guardar(vo);
-            
-        }
+    /**
+     * Validamos que sea el lote más antiguo. 
+     * @param lotes
+     * @param voActual Que esta seleccionado actualmente. 
+     * @return La lista de validaciones. 
+     */
+    public Validacion salidaLoteValidarLotes(
+            List<EntradaLoteVo> lotes,
+            EntradaLoteVo voActual){
         
-        public float salidaLoteExistencia(int id){
-            SalidaLoteDao d = new SalidaLoteDao(coordinador);
-            return d.existencia(id);
+        EntradaLoteVo voMasAntiguo = lotes.get(0);
+        
+        Validacion valMasAntiguo = new Validacion();
+        if (voActual.equals(voMasAntiguo)) {
+            valMasAntiguo.setValido(true);
+        }else{
+            valMasAntiguo.setValido(false);
+            valMasAntiguo.setMensajeDeError("Hay disponible un lote más antiguo que el tienes seleccionado.");
         }
+        return valMasAntiguo;
+    }     
+        
+        
+
+    public boolean salidaLoteGuadar(SalidaLoteVo vo){
+        SalidaLoteDao d = new SalidaLoteDao(coordinador);
+        return d.guardar(vo);
+
+    }
+
+    public float salidaLoteExistencia(int id){
+        SalidaLoteDao d = new SalidaLoteDao(coordinador);
+        return d.existencia(id);
+    }
         
     /* 
     ////////////////////////////////////////////////////////////////////////

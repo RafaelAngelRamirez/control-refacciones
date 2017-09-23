@@ -39,6 +39,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
 import modelo.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.JPanelBase;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.ColoresYFuentes;
 
 /**
  * Esta clase crea un JFrame como base para las aplicaciones e incluye dentro de 
@@ -50,6 +51,8 @@ import vista.UtilidadesIntefaz.JPanelBase;
 
 
 public class MarcoParaVentanaPrincipal extends JFrame{
+
+    private static final long serialVersionUID = 1L;
     
     
     private Coordinador coordinador;
@@ -58,9 +61,9 @@ public class MarcoParaVentanaPrincipal extends JFrame{
       * Fuentes 
       */
 
-    Font fuenteMenu = new Font("Calibri light", Font.BOLD, 15);
-    Font fuenteItem = new Font("Calibri light", Font.PLAIN, 18);
-    Font fuenteFechaYHora = new Font("Calibri light", Font.PLAIN, 20);
+    Font fuenteMenu = ColoresYFuentes.FUENTE_MENU;
+    Font fuenteItem = ColoresYFuentes.FUENTE_MENU_ITEM;
+    Font fuenteFechaYHora = ColoresYFuentes.FUENTE_FECHA_Y_HORA;
 
 
      ///////////////////////

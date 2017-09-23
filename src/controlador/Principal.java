@@ -26,7 +26,6 @@ import vista.panels.PanelEmpleadoAgregar;
 import vista.panels.PanelProveedorRegistrar;
 import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelRefaccionModificar;
-import vista.UtilidadesIntefaz.JDialogBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionesConsulta;
@@ -39,6 +38,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import modelo.logica.Logica;
+import vista.panels.PanelSalidaDeLoteSeleccionLotes;
 
 /**
  *
@@ -90,20 +90,18 @@ public class Principal {
         PanelRefaccionesConsulta panelConsultaRefacciones = new PanelRefaccionesConsulta();
         PanelRefaccionAgregar panelRefaccionAgregar = new PanelRefaccionAgregar();
         PanelRefaccionModificar panelRefaccionModificar = new PanelRefaccionModificar();
-        
-        //DIALOGOS
-        
-        //EL NUEVO UNICO DIALOGO
-        PanelProveedorRegistrar dialogoProveedorRegistrar = new PanelProveedorRegistrar();
-        PanelMaquinaModeloAgregar dialogoMaquinaModeloAgregar = new PanelMaquinaModeloAgregar();
-        PanelRefaccionDetalle dialogoRefaccionDetalle = new PanelRefaccionDetalle();
-        PanelImagenRefaccionDetalle dialogoImagenDetalle = new PanelImagenRefaccionDetalle();
-        PanelMaquinaModeloModificar dialogoMaquinaModeloModificar = new PanelMaquinaModeloModificar();
-        PanelProveedorModificar dialogoProveedorModificar = new PanelProveedorModificar();
-        PanelEntradaLote dialogoEntradaLote = new PanelEntradaLote();
+        PanelProveedorRegistrar panelProveedorRegistrar = new PanelProveedorRegistrar();
+        PanelMaquinaModeloAgregar panelMaquinaModeloAgregar = new PanelMaquinaModeloAgregar();
+        PanelRefaccionDetalle panelRefaccionDetalle = new PanelRefaccionDetalle();
+        PanelImagenRefaccionDetalle panelImagenDetalle = new PanelImagenRefaccionDetalle();
+        PanelMaquinaModeloModificar panelMaquinaModeloModificar = new PanelMaquinaModeloModificar();
+        PanelProveedorModificar panelProveedorModificar = new PanelProveedorModificar();
+        PanelEntradaLote panelEntradaLote = new PanelEntradaLote();
         PanelEmpleadoAgregar panelEmpleadoAgregar = new PanelEmpleadoAgregar();
-        PanelEmpleadoModificar dialogoEmpleadoModificar = new PanelEmpleadoModificar();
-        PanelSalidaDeLote dialogoSalidaDeLote = new PanelSalidaDeLote();
+        PanelEmpleadoModificar panelEmpleadoModificar = new PanelEmpleadoModificar();
+        PanelSalidaDeLote panelSalidaDeLote = new PanelSalidaDeLote();
+        PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes = new PanelSalidaDeLoteSeleccionLotes();
+        
         
         
         
@@ -127,17 +125,18 @@ public class Principal {
         panelRefaccionAgregar.setCoordinador(coordinador);
         panelRefaccionModificar.setCoordinador(coordinador);
         
-        dialogoProveedorRegistrar.setCoordinador(coordinador);
-        dialogoMaquinaModeloAgregar.setCoordinador(coordinador);
-        dialogoRefaccionDetalle.setCoordinador(coordinador);
-        dialogoImagenDetalle.setCoordinador(coordinador);
-        dialogoMaquinaModeloModificar.setCoordinador(coordinador);
-        dialogoProveedorModificar.setCoordinador(coordinador);
-        dialogoEntradaLote.setCoordinador(coordinador);
+        panelProveedorRegistrar.setCoordinador(coordinador);
+        panelMaquinaModeloAgregar.setCoordinador(coordinador);
+        panelRefaccionDetalle.setCoordinador(coordinador);
+        panelImagenDetalle.setCoordinador(coordinador);
+        panelMaquinaModeloModificar.setCoordinador(coordinador);
+        panelProveedorModificar.setCoordinador(coordinador);
+        panelEntradaLote.setCoordinador(coordinador);
         panelEmpleadoAgregar.setCoordinador(coordinador);
-        dialogoEmpleadoModificar.setCoordinador(coordinador);
-        dialogoSalidaDeLote.setCoordinador(coordinador);
+        panelEmpleadoModificar.setCoordinador(coordinador);
+        panelSalidaDeLote.setCoordinador(coordinador);
         coordinadorPaneles.setCoordinador(coordinador);
+        panelSalidaDeLoteSeleccionLotes.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         
@@ -150,42 +149,27 @@ public class Principal {
         coordinador.setMarcoParaVentanaPrincipal(marcoParaVentanaPrincipal);
         coordinador.setPanelRefaccionConsulta(panelConsultaRefacciones);
         coordinador.setPanelRefaccionAgregar(panelRefaccionAgregar);
-        coordinador.setPanelProveedorRegistrar(dialogoProveedorRegistrar);
+        coordinador.setPanelProveedorRegistrar(panelProveedorRegistrar);
         coordinador.setLogica(logica);
-        coordinador.setPanelMaquinaModeloAgregar(dialogoMaquinaModeloAgregar);
-        coordinador.setPanelRefaccionDetalle(dialogoRefaccionDetalle);
-        coordinador.setPanelImagenDetalle(dialogoImagenDetalle);
+        coordinador.setPanelMaquinaModeloAgregar(panelMaquinaModeloAgregar);
+        coordinador.setPanelRefaccionDetalle(panelRefaccionDetalle);
+        coordinador.setPanelImagenDetalle(panelImagenDetalle);
         coordinador.setPanelRefaccionModificar(panelRefaccionModificar);
-        coordinador.setPanelMaquinaModeloModificar(dialogoMaquinaModeloModificar);
-        coordinador.setPanelProveedorModificar(dialogoProveedorModificar);
-        coordinador.setPanelEntradaLote(dialogoEntradaLote);
+        coordinador.setPanelMaquinaModeloModificar(panelMaquinaModeloModificar);
+        coordinador.setPanelProveedorModificar(panelProveedorModificar);
+        coordinador.setPanelEntradaLote(panelEntradaLote);
         coordinador.setPanelEmpleadoAgregar(panelEmpleadoAgregar);
-        coordinador.setPanelEmpleadoModificar(dialogoEmpleadoModificar);
-        coordinador.setPanelSalidaDeLote(dialogoSalidaDeLote);
+        coordinador.setPanelEmpleadoModificar(panelEmpleadoModificar);
+        coordinador.setPanelSalidaDeLote(panelSalidaDeLote);
         coordinador.setCoordinadorPaneles(coordinadorPaneles);
-        
-//        /*
-//        ====================================================================
-//            PARAMETROS DE INICIALIZACIÓN
-//        ====================================================================
-//        */
-//        
-//        coordinador.inicializarConsola(true);
-//        
-        /*
-        ====================================================================
-            PARA CLASES ESTATICAS QUE SE UTILIZAN AL PRINCIPIO.
-        ====================================================================
-        */
-        //LAS PONEMOS AQUI POR QUE OCUPAMOS LAS VARIABLES ESTATICAS, DE OTRA
-        // MANERA NO SE CARGAR Y DA ERROR!
-//        new modelo.dao.ProveedorDao(coordinador);
-//        new modelo.dao.PaisDao(coordinador);
-        
-        /**/
-        
+        coordinador.setPanelSalidaDeLoteSeleccionLotes(panelSalidaDeLoteSeleccionLotes);
         
         /*
+        ====================================================================
+            PARAMETROS DE INICIALIZACIÓN
+        ====================================================================
+        /*
+  
         ====================================================================
             INICIO DE SISTEMA
         ====================================================================

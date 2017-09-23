@@ -1,6 +1,7 @@
 package modelo.vo;
 
 import modelo.InfoTabla.EntradaLoteIT;
+import modelo.Textos;
 
 /**
  *
@@ -25,6 +26,12 @@ public class EntradaLoteVo extends VoGenerales{
         relacionCampo.put(i.getIdEmpleadoPDC().getNombre(), ()->this.getIdEmpleado());
         relacionCampo.put(i.getObservacionesPDC().getNombre(), ()->this.getObservaciones());
     
+    }
+
+    public String getNombreParaMostrarLote() {
+        String idFormateado = Textos.formaetarNumeros(this.getId(), "0000000");
+        String completo = this.getFechaRecepcionLote()+" | "+idFormateado;
+        return completo;
     }
 
     public String getObservaciones() {

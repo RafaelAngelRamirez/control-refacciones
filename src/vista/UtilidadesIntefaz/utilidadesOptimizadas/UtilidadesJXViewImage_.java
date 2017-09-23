@@ -43,7 +43,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
     private JXImageView jxImagenView ;
     private JLabel jLabelContador;
     private File imagenActiva;
-    private Colores_ colores = new Colores_();
+    private ColoresYFuentes colores = new ColoresYFuentes();
     
     private boolean seEliminoUltimaImagen = false;
     
