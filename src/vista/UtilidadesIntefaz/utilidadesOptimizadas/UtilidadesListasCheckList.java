@@ -9,12 +9,16 @@ import controlador.Coordinador;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 import modelo.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
@@ -28,6 +32,7 @@ public class UtilidadesListasCheckList extends OperacionesBasicasPorDefinir{
     private JList<Object> componente;
     private CheckListItem items;
     private DefaultListModel modelo;
+    private HashMap<String, Object> datosRelacion;
     
     public UtilidadesListasCheckList(Coordinador controlador) {
         super(controlador);
@@ -63,6 +68,16 @@ public class UtilidadesListasCheckList extends OperacionesBasicasPorDefinir{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public HashMap<String, Object> getDatosRelacion() {
+        return datosRelacion;
+    }
+
+    public void setDatosRelacion(HashMap<String, Object> datosRelacion) {
+        this.datosRelacion = datosRelacion;
+    }
+    
+    
+
     /**
      * Define el componente que se utilizara con esta lista. Aqui se iniciliaza
      * todo lo necesario para que la lista renderize checkbox. 
@@ -74,20 +89,41 @@ public class UtilidadesListasCheckList extends OperacionesBasicasPorDefinir{
         componente.addMouseListener(new Interaccion());
         modelo = new DefaultListModel<>();
         componente.setModel(modelo);
+        datosRelacion = new HashMap<>();
         this.componente = componente;
     }
     
+    /**
+     * Añade un item a la lista. 
+     * @param item
+     */
     @SuppressWarnings("unchecked")
     public void addItem(String item){
         modelo.addElement(new CheckListItem(item));
     }
     
+    /**
+     * Añade un item a la lista y lo asocia con un objeto que se le pase como
+     * parametro. 
+     * @param item La descripción del item que se quiere agregar. 
+     * @param objeto El objeto que se quiere pasar. 
+     */
+    public void addItem(String item, Object objeto){
+        addItem(item);
+        datosRelacion.put(item, objeto);
+    }
+    
+    /**
+     * Remueve un elemento de la lista. 
+     * @param item
+     */
     public void removeElement(String item){
         boolean contains = false;
         for (int i = 0; i < modelo.size(); i++) {
             CheckListItem c = (CheckListItem)modelo.get(i);
             if (c.equals(item)) {
                 modelo.removeElement(c);
+                datosRelacion.remove(item);
                 contains = true;
             }
         }
@@ -100,6 +136,67 @@ public class UtilidadesListasCheckList extends OperacionesBasicasPorDefinir{
             }
         }
     }
+    
+    /**
+     * Remueve todos los elementos de esta lista. 
+     */
+    public void removeAllElements(){
+        modelo.clear();
+        datosRelacion.clear();
+    }
+    
+    /**
+     * Retorna una lista de todos los elementos que esten seleccionados. 
+     * @return
+     */
+    public List<String> getSelectedItems(){
+        List<String> lista = new ArrayList<>();
+        for (int i = 0; i < modelo.getSize(); i++) {
+            CheckListItem item = (CheckListItem) modelo.get(i);
+            if (item.isSelected()) {
+                lista.add(item.toString());
+            }
+        }
+        return lista;
+    }
+    /**
+     * Retorna los objetos relacionados con los elementos que estan selccionados.
+     * @return
+     */
+    public List<Object> getSelectedItemsObjects(){
+        List<Object> lista = new ArrayList<>();
+        for (int i = 0; i < modelo.getSize(); i++) {
+            CheckListItem item = (CheckListItem) modelo.get(i);
+            if (item.isSelected()) {
+                lista.add(datosRelacion.get(item.toString()));
+            }
+        }
+        return lista;
+    }
+    
+    
+    /**
+     * Deselecciona todos los elementos de la lista. 
+     */
+    public void deselectAll(){
+        for (int i = 0; i < modelo.getSize(); i++) {
+            CheckListItem item = (CheckListItem) modelo.get(i);
+            if (item.isSelected()) {
+                item.setSelected(false);
+            }
+        }
+    }
+    
+    public void selectItem(String item){
+        for (int i = 0; i < modelo.getSize(); i++) {
+            CheckListItem it = (CheckListItem) modelo.get(i);
+            if (it.equals(item)) {
+                it.setSelected(true);
+            }
+        }
+    }
+    
+    
     
     private class Interaccion extends MouseAdapter{
 

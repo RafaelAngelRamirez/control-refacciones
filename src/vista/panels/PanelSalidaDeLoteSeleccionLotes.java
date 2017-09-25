@@ -13,6 +13,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -36,15 +37,16 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListasCheckList;
  * @author Particular
  */
 public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
-
+    
+    UtilidadesListasCheckList _list;
     /**
      * Creates new form PanelSalidaDeLoteSeleccionLotes
      */
     public PanelSalidaDeLoteSeleccionLotes() {
         initComponents();
         configuracionesDialogo = new ConfiguracionDePanel();
-        configuracionesDialogo.setModal(false);
-        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(true);
         configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_SALIDA_LOTE_SELECCION_DE_LOTES);
         configuracionesDialogo.setLocationRelativeTo(null);
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -76,10 +78,25 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
         );
 
         jButton1.setText("Limpiar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Aceptar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Cancelar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -110,46 +127,56 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    public void configurar() {
-        
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        _list.deselectAll();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    }
-    
-    @SuppressWarnings("unchecked")
-    public void cargarLotes(List<EntradaLoteVo> lista){
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-//        JPanel panelQueCrece = new JPanel();
-//        panelQueCrece.setLayout(new GridLayout(lista.size(), 1));
-//        panelQueCrece.validate();
-//        panelQueCrece.setVisible(true);
-
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         @SuppressWarnings("unchecked")
+        List<EntradaLoteVo> listaCon = (List<EntradaLoteVo>)(List<?>)_list.getSelectedItemsObjects();
+        listaCon.sort(Comparator
+                .comparing(EntradaLoteVo::getFechaRecepcionLote)
+                .thenComparing(EntradaLoteVo::getId));
+        this.getCoordinador().salidaLoteCargarLotesSeleccionados(listaCon);
+        _list.removeAllElements();
+        dispose();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void configurar() {
+        panelContenedor.removeAll();
         JList list = new JList();
-        UtilidadesListasCheckList _list = new UtilidadesListasCheckList(getCoordinador());
+        _list = new UtilidadesListasCheckList(getCoordinador());
         _list.setComponente(list);
-
-        for (EntradaLoteVo vo : lista) {
-            _list.addItem(vo.getNombreParaMostrarLote() + " EXISTENCIA-> "+vo.getCantidad());
-        }
-        
-        
-
         list.setFont(ColoresYFuentes.FUENTE_ALINEADA);
-        
-        
-        JScrollPane scrollPane = new JScrollPane(list);
+        JScrollPane scrollPane = new JScrollPane(_list.getThis());
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(panelContenedor.getSize()));
         panelContenedor.setLayout(new FlowLayout(FlowLayout.LEFT));
         panelContenedor.add(scrollPane);
         panelContenedor.validate();
-        
-        this.validate();
+
+    }
     
+    @SuppressWarnings("unchecked")
+    public void cargarLotes(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeleccionActual){
+        for (EntradaLoteVo vo : lista) {
+            _list.addItem(vo.getNombreParaMostrarLote() + " EXISTENCIA-> "+vo.getCantidad(), vo);
+        }
+        for (EntradaLoteVo voActual : listaSeleccionActual) {
+            _list.selectItem(voActual.getNombreParaMostrarLote());
+        }
+        this.validate();
     }
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -157,4 +184,6 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel panelContenedor;
     // End of variables declaration//GEN-END:variables
+
+   
 }

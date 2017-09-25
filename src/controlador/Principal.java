@@ -112,34 +112,6 @@ public class Principal {
         Coordinador coordinador = new Coordinador();
         CoordinadorPaneles coordinadorPaneles = new CoordinadorPaneles();
         
-        
-        /*
-        ====================================================================
-            SETEOS COORDINADOR EN CLASES
-        ====================================================================
-        */
-        marcoParaVentanaPrincipal.setCoordinador(coordinador);
-        SystemOut_.setCoordinador(coordinador);
-        
-        panelConsultaRefacciones.setCoordinador(coordinador);
-        panelRefaccionAgregar.setCoordinador(coordinador);
-        panelRefaccionModificar.setCoordinador(coordinador);
-        
-        panelProveedorRegistrar.setCoordinador(coordinador);
-        panelMaquinaModeloAgregar.setCoordinador(coordinador);
-        panelRefaccionDetalle.setCoordinador(coordinador);
-        panelImagenDetalle.setCoordinador(coordinador);
-        panelMaquinaModeloModificar.setCoordinador(coordinador);
-        panelProveedorModificar.setCoordinador(coordinador);
-        panelEntradaLote.setCoordinador(coordinador);
-        panelEmpleadoAgregar.setCoordinador(coordinador);
-        panelEmpleadoModificar.setCoordinador(coordinador);
-        panelSalidaDeLote.setCoordinador(coordinador);
-        coordinadorPaneles.setCoordinador(coordinador);
-        panelSalidaDeLoteSeleccionLotes.setCoordinador(coordinador);
-        
-        logica.setCoordinador(coordinador);
-        
         /*
         ====================================================================
             SETEOS CLASES DENTRO DE COORDINADOR
@@ -160,9 +132,36 @@ public class Principal {
         coordinador.setPanelEntradaLote(panelEntradaLote);
         coordinador.setPanelEmpleadoAgregar(panelEmpleadoAgregar);
         coordinador.setPanelEmpleadoModificar(panelEmpleadoModificar);
+        coordinador.setPanelSalidaDeLoteSeleccionLotes(panelSalidaDeLoteSeleccionLotes);
         coordinador.setPanelSalidaDeLote(panelSalidaDeLote);
         coordinador.setCoordinadorPaneles(coordinadorPaneles);
-        coordinador.setPanelSalidaDeLoteSeleccionLotes(panelSalidaDeLoteSeleccionLotes);
+        
+        /*
+        ====================================================================
+            SETEOS COORDINADOR EN CLASES
+        ====================================================================
+        */
+        marcoParaVentanaPrincipal.setCoordinador(coordinador);
+        SystemOut_.setCoordinador(coordinador);
+        
+        panelConsultaRefacciones.setCoordinador(coordinador);
+        panelRefaccionAgregar.setCoordinador(coordinador);
+        panelRefaccionModificar.setCoordinador(coordinador);
+        panelProveedorRegistrar.setCoordinador(coordinador);
+        panelMaquinaModeloAgregar.setCoordinador(coordinador);
+        panelRefaccionDetalle.setCoordinador(coordinador);
+        panelImagenDetalle.setCoordinador(coordinador);
+        panelMaquinaModeloModificar.setCoordinador(coordinador);
+        panelProveedorModificar.setCoordinador(coordinador);
+        panelEntradaLote.setCoordinador(coordinador);
+        panelEmpleadoAgregar.setCoordinador(coordinador);
+        panelEmpleadoModificar.setCoordinador(coordinador);
+        panelSalidaDeLote.setCoordinador(coordinador);
+        coordinadorPaneles.setCoordinador(coordinador);
+        panelSalidaDeLoteSeleccionLotes.setCoordinador(coordinador);
+        
+        logica.setCoordinador(coordinador);
+        
         
         /*
         ====================================================================

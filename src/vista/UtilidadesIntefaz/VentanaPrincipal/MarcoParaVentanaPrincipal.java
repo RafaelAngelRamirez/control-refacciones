@@ -61,9 +61,9 @@ public class MarcoParaVentanaPrincipal extends JFrame{
       * Fuentes 
       */
 
-    Font fuenteMenu = ColoresYFuentes.FUENTE_MENU;
-    Font fuenteItem = ColoresYFuentes.FUENTE_MENU_ITEM;
-    Font fuenteFechaYHora = ColoresYFuentes.FUENTE_FECHA_Y_HORA;
+    private final Font fuenteMenu = ColoresYFuentes.FUENTE_MENU;
+    private final Font fuenteItem = ColoresYFuentes.FUENTE_MENU_ITEM;
+    private final Font fuenteFechaYHora = ColoresYFuentes.FUENTE_FECHA_Y_HORA;
 
 
      ///////////////////////
@@ -476,7 +476,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoSalidaLote.setPadre(menuLotes);
         dialogoSalidaLote.setAccionDelItem(
                 ()->this.getCoordinador().salidaLoteAbrirDialogo());
-//        dialogoSalidaLote.setDialog(this.getCoordinador().getDialogoSalidaLote());
+//        dialogoSalidaLote.setDialog(this.getCoordinador().getpanelSalidaLote());
         KeyStroke atajo_CtrlS = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK);
         dialogoSalidaLote.setAtajoDeTeclado(atajo_CtrlS);
         this.addItemOMenu(dialogoSalidaLote);

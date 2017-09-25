@@ -107,7 +107,7 @@ public class Coordinador {
         this.coordinadorPaneles = coordinadorPaneles;
     }
     
-    public PanelSalidaDeLote getDialogoSalidaLote() {
+    public PanelSalidaDeLote getpanelSalidaLote() {
         return panelSalidaDeLote;
     }
 
@@ -1058,11 +1058,11 @@ public class Coordinador {
 
     public void salidaLoteDialogoSetearItemCombo(Object item){
         this.salidaLoteActualizarComboEmpleados();
-        this.getDialogoSalidaLote().setearItemComboEmpleado(item);
+        this.getpanelSalidaLote().setearItemComboEmpleado(item);
     }
 
     public void salidaLoteActualizarComboEmpleados(){
-        this.getDialogoSalidaLote().cargarComboEmpleados();
+        this.getpanelSalidaLote().cargarComboEmpleados();
 
     }
 
@@ -1084,12 +1084,21 @@ public class Coordinador {
         return this.logica.salidaLoteExistencia(id);
     }
     
-    public void salidaLoteAbrirDialogoSeleccionarRefaccion(List<EntradaLoteVo> lista){
+    public void salidaLoteAbrirDialogoSeleccionarRefaccion(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeoleccionActual){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelSalidaDeLoteSeleccionLotes);
         panelSalidaDeLoteSeleccionLotes.configurar();
-        panelSalidaDeLoteSeleccionLotes.cargarLotes(lista);
+        panelSalidaDeLoteSeleccionLotes.cargarLotes(lista, listaSeoleccionActual);
         d.setVisible(true);
         
+    }
+    
+    /**
+     * Carga los lotes seleccionados despues de que el usuario los escoja al 
+     * no haber querido por defecto el lote más antiguo. 
+     * @param lista
+     */
+    public void salidaLoteCargarLotesSeleccionados(List<EntradaLoteVo> lista){
+        panelSalidaDeLote.cargarLotesSeleccionados(lista);
     }
         
     /* 
