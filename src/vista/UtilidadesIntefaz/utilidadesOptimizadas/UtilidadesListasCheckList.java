@@ -185,7 +185,25 @@ public class UtilidadesListasCheckList extends OperacionesBasicasPorDefinir{
                 item.setSelected(false);
             }
         }
+        this.getThis().repaint();
     }
+    /**
+     * Selecciona todos los elementos de la lista. 
+     */
+    public void selectAll(){
+        for (int i = 0; i < modelo.getSize(); i++) {
+            CheckListItem item = (CheckListItem) modelo.get(i);
+            if (!item.isSelected()) {
+                item.setSelected(true);
+            }
+        }
+        this.getThis().repaint();
+    }
+    
+    /**
+     * Selecciona el elemento que se le pase como parametro. 
+     * @param item
+     */
     public void selectItem(String item){
         for (int i = 0; i < modelo.getSize(); i++) {
             CheckListItem it = (CheckListItem) modelo.get(i);
@@ -193,6 +211,7 @@ public class UtilidadesListasCheckList extends OperacionesBasicasPorDefinir{
                 it.setSelected(true);
             }
         }
+        this.getThis().repaint();
     }
     
     

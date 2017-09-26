@@ -6,10 +6,14 @@
 package vista.panels;
 
 import controlador.CoordinadorPaneles;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -20,21 +24,25 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.HyperlinkEvent;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.Textos;
 import modelo.logica.ComparacionLotes;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.ColoresYFuentes;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 
 /**
  *
  * @author Particular
  */
+@SuppressWarnings("serial")
 public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
-
+    
+    BigDecimal cantidadTotalSalida;
+    List<ContenedorDeFila> listContenedorFila = new ArrayList<>();
+    
     /**
      * Creates new form PanelSalidaDeLoteCantidadADescontarDeLote
      */
@@ -42,7 +50,7 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
         initComponents();
         configuracionesDialogo = new ConfiguracionDePanel();
         configuracionesDialogo.setModal(true);
-        configuracionesDialogo.setResizable(true);
+        configuracionesDialogo.setResizable(false);
         configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_SALIDA_LOTE_SELECCION_DE_LOTES);
         configuracionesDialogo.setLocationRelativeTo(null);
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -64,6 +72,9 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
         etiquetaExistencia = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        etiquetaSalidaRestante = new javax.swing.JLabel();
 
         jButton1.setText("Limpiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +125,21 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Salida");
 
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Modifcar salida por lote.");
+
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Salida restante:");
+
+        etiquetaSalidaRestante.setBackground(new java.awt.Color(51, 51, 51));
+        etiquetaSalidaRestante.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaSalidaRestante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaSalidaRestante.setText("  200.00");
+        etiquetaSalidaRestante.setOpaque(true);
+        etiquetaSalidaRestante.setPreferredSize(new java.awt.Dimension(100, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,39 +147,49 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(etiquetaExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(etiquetaExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(etiquetaSalidaRestante, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(etiquetaExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(etiquetaExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(etiquetaSalidaRestante, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -174,13 +210,15 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
         panelContenedor.removeAll();
     }
     
-    public void cargarLotes(List<ComparacionLotes>comparacionLotes){
+    public void cargarLotes(List<ComparacionLotes>comparacionLotes,float cantidadSalida){
+        cantidadTotalSalida = new BigDecimal(cantidadSalida);
         panelContenedor.setLayout(new FlowLayout(FlowLayout.LEADING));
         JPanel subPanel = new JPanel();
         subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.Y_AXIS));
         for (ComparacionLotes cl : comparacionLotes) {
             ContenedorDeFila f = new ContenedorDeFila(cl);
-            
+            f.setR(()->sumarTodo());
+            listContenedorFila.add(f);
             subPanel.add(f);
             subPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         }
@@ -190,6 +228,8 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
                 
         panelContenedor.validate();
         this.validate();
+        etiquetaSalidaRestante.setText(cantidadTotalSalida+"");
+        sumarTodo();
         
     
     }
@@ -200,7 +240,8 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
         JLabel etiquetaLote;
         JLabel etiquetaExistencia;
         JTextField recuadroEntrada;
-        
+        Runnable r;
+        BigDecimal cantidadAgreadaPorUsuario;
         
         UtilidadesTxt_ _txtRecuadroEntrada;
 
@@ -215,7 +256,7 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
             etiquetaExistencia = new JLabel();
             recuadroEntrada = new JTextField();
             
-            Dimension dimRec = new Dimension(80, 30);
+            Dimension dimRec = new Dimension(110, 30);
             Dimension dimEti = new Dimension(100, 30);
             
             recuadroEntrada.setPreferredSize(dimRec);
@@ -251,12 +292,15 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
                     eit.getCantidadPDC().getLongitudDeCaracteres(), 
                     eit.getCantidadPDC().getLongitudDeDecimales());
             _txtRecuadroEntrada.setPermitirSoloNumeros();
+            _txtRecuadroEntrada.getThis().setHorizontalAlignment(JTextField.CENTER);
             
             // ASIGNAMOS LOS VALORES PARA LAS ETIQUETAS.
             etiquetaLote.setText(cl.getLote().getNombreParaMostrarLote());
             
-            String tExistencia = Textos.formaetarNumeros(cl.getLote().getCantidad(), "0000.00");
+            String tExistencia = (cl.getLote().getCantidad()-cl.getExistenciaPreFinal())+"";
+            
             etiquetaExistencia.setText(tExistencia);
+            recuadroEntrada.setText(cl.getExistenciaPreFinal()+"");
             
             
             add(etiquetaLote);
@@ -264,37 +308,101 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
             add(etiquetaExistencia);
             add(Box.createRigidArea(new Dimension(10, 0)));
             add(recuadroEntrada);
-            
+                
             validate();
             
-                        
+            KeyAdapter k = new KeyAdapter() {
+                @Override
+                // DEFINIMOS LAS ACCIONES PARA CUANDO SE INGRESEN DATOS EN LAS
+                // CASILLAS DE CANTIDAD.
+                public void keyReleased(KeyEvent e) {
+                    //RETORNAMOS EL CAMPO AL QUE ESTAMOS DANDO LA ACCIÓN.
+                    JTextField t = (JTextField)e.getComponent();
+                    //OBTENEMOS EL TEXTO ESCRITO. 
+                    String texto = t.getText();
+                    //SI HAY TEXTO HACEMOS LAS SIGUIENTES ACCIONES. 
+                    if (!texto.isEmpty()) {
+                        //CREAMOS EL NUEVO BIGDECIMAL QUE CONTEDRA LA CANTIDAD
+                        // ESCRITA POR EL USUARIO. 
+                        cantidadAgreadaPorUsuario = new BigDecimal(texto);
+                        //CREAMOS UN NUEVO BIGDECIMAL CON LA EXISTENCIA ACTUAL
+                        BigDecimal big = new BigDecimal(cl.getLote().getCantidad());
+                        //RESTAMOS LA CANTIDAD INGRESADA POR EL USUARIO 
+                        //A LA EXISTECIA ACTUAL.
+                        big = big.subtract(cantidadAgreadaPorUsuario);
+                        //COLOREAMOS SEGÚN EL CASO. 
+                        if (big.signum()==-1) {
+                            etiquetaExistencia.setBackground(ColoresYFuentes.ERROR_TXT_RESALTAR_BG);
+                            etiquetaExistencia.setForeground(ColoresYFuentes.ERROR_TXT_RESALTAR_FG);
+                        }else{
+                            etiquetaExistencia.setBackground(ColoresYFuentes.TEMA_FONDO_ETIQUETAS_OSCURO);
+                            etiquetaExistencia.setForeground(ColoresYFuentes.TEMA_TXT_FG);
+                        }
+                        //SETEAMOS LA ETIQUETA. 
+                        etiquetaExistencia.setText(big.toString());
+                    }else{
+                        //SI EL CAMPO ESTA VACIO ENTONCES PONEMOS LA CANTIDAD
+                        //AGREGADA POR EL USUARIO EN 0 Y LA ETIQUETA DE EXISTENCIA
+                        //LA DEVOLVEMOS A SU
+                        cantidadAgreadaPorUsuario = new BigDecimal(0);
+                        etiquetaExistencia.setText(0+"");
+                    }
+                    r.run();
+                }
+            };
+            //AÑADIMOS EL CUADRO AL LISTENER. 
+            recuadroEntrada.addKeyListener(k);
+        }
+
+        public void setR(Runnable r) {
+            this.r = r;
+        }
+
+        public BigDecimal getCantidadAgreadaPorUsuario() {
+            if (cantidadAgreadaPorUsuario==null) {
+                cantidadAgreadaPorUsuario = new BigDecimal(0);
+            }
+            return cantidadAgreadaPorUsuario;
+        }
+
+        public void setCantidadAgreadaPorUsuario(BigDecimal cantidadAgreadaPorUsuario) {
+            this.cantidadAgreadaPorUsuario = cantidadAgreadaPorUsuario;
+        }
+               
+        
+    }
+    
+    public void sumarTodo(){
+        BigDecimal totalCuadros = new BigDecimal(0);
+        for (ContenedorDeFila cF : listContenedorFila) {
+//            totalCuadros = totalCuadros.add(cF.);
         }
         
-        
-       
+        totalCuadros = cantidadTotalSalida.subtract(totalCuadros);
+        if (totalCuadros.signum()==-1) {
+            etiquetaSalidaRestante.setBackground(ColoresYFuentes.ERROR_TXT_RESALTAR_BG);
+            etiquetaSalidaRestante.setForeground(ColoresYFuentes.ERROR_TXT_RESALTAR_FG);
+        }else{
+            etiquetaSalidaRestante.setBackground(ColoresYFuentes.TEMA_FONDO_ETIQUETAS_OSCURO);
+            etiquetaSalidaRestante.setForeground(ColoresYFuentes.TEMA_TXT_FG);
+        }
+        etiquetaSalidaRestante.setText( totalCuadros.toString());
         
     }
     
-    
-    
-    public void construirRenglon(ComparacionLotes comparacionLotes){
-    
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel etiquetaExistencia;
+    private javax.swing.JLabel etiquetaSalidaRestante;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel panelContenedor;
     // End of variables declaration//GEN-END:variables
-
-    public void cargarLotes(ComparacionLotes comparacionLotes) {
-        
-        JOptionPane.showMessageDialog(null, "pendiente cargar salida de lote");
-        
-    }
+   
 }

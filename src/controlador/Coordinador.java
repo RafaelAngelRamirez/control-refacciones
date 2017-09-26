@@ -1112,11 +1112,11 @@ public class Coordinador {
         panelSalidaDeLote.cargarLotesSeleccionados(lista);
     }
     
-    public void salidaLoteAbrirDialogoCantidadADescontarDeLote(List<ComparacionLotes> comparacionLotes){
+    public void salidaLoteAbrirDialogoCantidadADescontarDeLote(List<ComparacionLotes> comparacionLotes, float cantidadSalida){
         JDialogBase d = coordinadorPaneles
                 .ifContainsReturnElseCreate(panelSalidaDeLoteCantidadADescontarDeLote);
         panelSalidaDeLoteCantidadADescontarDeLote.configurar();
-        panelSalidaDeLoteCantidadADescontarDeLote.cargarLotes(comparacionLotes);
+        panelSalidaDeLoteCantidadADescontarDeLote.cargarLotes(comparacionLotes, cantidadSalida);
         d.setVisible(true);
     
     }

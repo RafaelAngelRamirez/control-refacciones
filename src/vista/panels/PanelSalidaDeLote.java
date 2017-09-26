@@ -978,7 +978,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                         // POR TANTO TERMINAMOS EL BUCLE.
                         salirDeCiclo = true;
                         todoValido = true;
-                        JOptionPane.showMessageDialog(null, "la suma esta bien!");
+//                        JOptionPane.showMessageDialog(null, "la suma esta bien!");
                     }
                 }
             }
@@ -1038,7 +1038,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                             JOptionPane.showMessageDialog(null, "consolida!!\n"+voActualMultiple.toString());
                             break;
                         case 1:
-                            coordinador.salidaLoteAbrirDialogoCantidadADescontarDeLote(listComparacionLotes);
+                            coordinador.salidaLoteAbrirDialogoCantidadADescontarDeLote(listComparacionLotes, vo.getCantidad());
                             todoValido = true;
                             
                             break;

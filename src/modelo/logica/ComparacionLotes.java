@@ -19,6 +19,7 @@ public class ComparacionLotes {
     private float nuevaExistenciaTemporal;
     private boolean modificado = false;
     private float existenciaModificadaPorUsuario;
+    private float existenciaPreFinal;
 
     public ComparacionLotes(EntradaLoteVo lote) {
         this.lote = lote;
@@ -47,10 +48,24 @@ public class ComparacionLotes {
     public void setExistenciaModificadaPorUsuario(float existenciaModificadaPorUsuario) {
         this.existenciaModificadaPorUsuario = existenciaModificadaPorUsuario;
     }
-
+    
+    /**
+     * Retorna la exitencia temporal que se hace de la resta automática ordenada
+     * del lote mas viejo al mas nuevo descontando los lotes
+     */
     public float getNuevaExistenciaTemporal() {
         return nuevaExistenciaTemporal;
     }
+
+    public float getExistenciaPreFinal() {
+        return existenciaPreFinal;
+    }
+
+    public void setExistenciaPreFinal(float existenciaPreFinal) {
+        this.existenciaPreFinal = existenciaPreFinal;
+    }
+    
+    
 
     public void consolidar() {
         lote.setCantidad(nuevaExistenciaTemporal);
@@ -65,15 +80,19 @@ public class ComparacionLotes {
             if (totalSalida > lote.getCantidad()) {
                 float paraResta = lote.getCantidad();
                 nuevaExistenciaTemporal = 0;
+                existenciaPreFinal = paraResta;
                 return totalSalida - paraResta;
             } else {
                 //EL TOTAL TIENE MENOS QUE EL LOTE.
                 float cantidadDeLote = lote.getCantidad() - totalSalida;
                 nuevaExistenciaTemporal = cantidadDeLote;
+                existenciaPreFinal = lote.getCantidad()-cantidadDeLote;
                 return 0;
             }
+        }else{
+            existenciaPreFinal = 0;
+            return 0;
         }
-        return -1;
     }
 
     @Override

@@ -63,11 +63,11 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
     private void initComponents() {
 
         panelContenedor = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         etiquetaExistencia = new javax.swing.JLabel();
+        checkSeleccionarTodo = new javax.swing.JCheckBox();
 
         panelContenedor.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)));
 
@@ -75,19 +75,12 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
         panelContenedor.setLayout(panelContenedorLayout);
         panelContenedorLayout.setHorizontalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelContenedorLayout.setVerticalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 315, Short.MAX_VALUE)
         );
-
-        jButton1.setText("Limpiar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("Aceptar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -109,31 +102,38 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
         etiquetaExistencia.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaExistencia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaExistencia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaExistencia.setText(">Existencia");
+        etiquetaExistencia.setText("Existencia");
         etiquetaExistencia.setOpaque(true);
+
+        checkSeleccionarTodo.setText("Seleccionar todo");
+        checkSeleccionarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkSeleccionarTodoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addGap(12, 12, 12))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27)
+                        .addComponent(etiquetaExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(27, 27, 27)
-                                .addComponent(etiquetaExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(panelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(23, Short.MAX_VALUE))))
+                                .addComponent(checkSeleccionarTodo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)))))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,16 +146,12 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
                 .addComponent(panelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(checkSeleccionarTodo)
                     .addComponent(jButton3)
-                    .addComponent(jButton1))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(jButton2))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        _list.deselectAll();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         dispose();
@@ -178,6 +174,14 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void checkSeleccionarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkSeleccionarTodoActionPerformed
+        if (checkSeleccionarTodo.isSelected()) {
+            _list.selectAll();
+        }else{
+            _list.deselectAll();
+        }
+    }//GEN-LAST:event_checkSeleccionarTodoActionPerformed
+
     @Override
     @SuppressWarnings("unchecked")
     public void configurar() {
@@ -199,7 +203,7 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
     @SuppressWarnings("unchecked")
     public void cargarLotes(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeleccionActual){
         for (EntradaLoteVo vo : lista) {
-            _list.addItem(vo.getNombreParaMostrarLote() + " > "+Textos.formaetarNumeros(vo.getCantidad(), "000.00"), vo);
+            _list.addItem(vo.getNombreParaMostrarLote() + "    "+Textos.formaetarNumeros(vo.getCantidad(), "000.00"), vo);
         }
         for (EntradaLoteVo voActual : listaSeleccionActual) {
             _list.selectItem(voActual.getNombreParaMostrarLote());
@@ -210,8 +214,8 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkSeleccionarTodo;
     private javax.swing.JLabel etiquetaExistencia;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
