@@ -71,6 +71,7 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
     
     public OperacionesBasicasPorDefinir(Coordinador controlador) {
         super(controlador);
+        
                
     }
 

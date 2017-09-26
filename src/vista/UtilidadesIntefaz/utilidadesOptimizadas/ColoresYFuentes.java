@@ -28,7 +28,17 @@ public class ColoresYFuentes {
      */
     public static final Font FUENTE_FECHA_Y_HORA = new Font("Calibri light", Font.PLAIN, 20);
     
+    /**
+     * Fuente que permite ver alineado el texto tipo consola.  
+     */
     public static final Font FUENTE_ALINEADA = new Font("Lucida Console", Font.PLAIN, 15);
+    
+    /**
+     * Fuente cuadro de texto normal.  
+     */
+    public static final Font FUENTE_CUADRO_TEXTO_NORMAL= new Font("Calibri light", Font.PLAIN, 18);
+    
+    
     
     //COLORES PARA ERRORES.
 
@@ -59,6 +69,11 @@ public class ColoresYFuentes {
      * Color de fondo del tema. No se donde lo estoy usando. 
      */
     public static final Color TEMA_FONDO_BG = new Color(60,63,65);
+    
+    /**
+     * Color de fondo etiquetas oscuras 1
+     */
+    public static final Color TEMA_FONDO_ETIQUETAS_OSCURO = new Color(51,51,51);
     
     //VISOR DE IMAGENES.
 

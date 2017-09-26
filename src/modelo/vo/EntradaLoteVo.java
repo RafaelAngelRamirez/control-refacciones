@@ -29,8 +29,8 @@ public class EntradaLoteVo extends VoGenerales{
     }
 
     public String getNombreParaMostrarLote() {
-        String idFormateado = Textos.formaetarNumeros(this.getId(), "0000000");
-        String completo = this.getFechaRecepcionLote()+" | "+idFormateado;
+        String idFormateado = Textos.formaetarNumeros(this.getId(), "0000");
+        String completo = this.getFechaRecepcionLote()+"-"+idFormateado;
         return completo;
     }
 

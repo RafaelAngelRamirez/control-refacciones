@@ -19,6 +19,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import modelo.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
@@ -30,7 +31,6 @@ import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 public class UtilidadesListasCheckList extends OperacionesBasicasPorDefinir{
 
     private JList<Object> componente;
-    private CheckListItem items;
     private DefaultListModel modelo;
     private HashMap<String, Object> datosRelacion;
     
@@ -186,7 +186,6 @@ public class UtilidadesListasCheckList extends OperacionesBasicasPorDefinir{
             }
         }
     }
-    
     public void selectItem(String item){
         for (int i = 0; i < modelo.getSize(); i++) {
             CheckListItem it = (CheckListItem) modelo.get(i);
@@ -256,19 +255,20 @@ public class UtilidadesListasCheckList extends OperacionesBasicasPorDefinir{
     @SuppressWarnings("serial")
     class CheckListRenderer  extends JCheckBox implements ListCellRenderer{
 
-    @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-    
-        setEnabled(list.isEnabled());
-        setSelected(((CheckListItem) value).isSelected());
-        setFont(list.getFont());
-        setBackground(list.getBackground());
-        setForeground(list.getForeground());
-        setText(value.toString());
-        return this;
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+
+            setEnabled(list.isEnabled());
+            setSelected(((CheckListItem) value).isSelected());
+            setFont(list.getFont());
+            setBackground(list.getBackground());
+            setForeground(list.getForeground());
+            setText(value.toString());
+            return this;
+        }
+
     }
     
-}
 
     
 }

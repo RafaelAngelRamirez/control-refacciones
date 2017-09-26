@@ -171,5 +171,18 @@ public class Textos {
         return resultado;
     
     }
+    /**
+     * Formatea una cadena numerica agregando seún el patron que se le pase.
+     * Esta basado en decimalFormat.
+     * @param numero
+     * @return
+     */
+    public static String formaetarNumeros (float numero, String patron){
+    
+        DecimalFormat df = new DecimalFormat(patron);
+        String resultado  = df.format(numero);
+        return resultado;
+    
+    }
     
 }

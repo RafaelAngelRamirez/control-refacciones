@@ -38,6 +38,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import modelo.logica.Logica;
+import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
 import vista.panels.PanelSalidaDeLoteSeleccionLotes;
 
 /**
@@ -101,6 +102,9 @@ public class Principal {
         PanelEmpleadoModificar panelEmpleadoModificar = new PanelEmpleadoModificar();
         PanelSalidaDeLote panelSalidaDeLote = new PanelSalidaDeLote();
         PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes = new PanelSalidaDeLoteSeleccionLotes();
+        PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarPorLote = new PanelSalidaDeLoteCantidadADescontarDeLote();
+        
+                
         
         
         
@@ -135,6 +139,7 @@ public class Principal {
         coordinador.setPanelSalidaDeLoteSeleccionLotes(panelSalidaDeLoteSeleccionLotes);
         coordinador.setPanelSalidaDeLote(panelSalidaDeLote);
         coordinador.setCoordinadorPaneles(coordinadorPaneles);
+        coordinador.setPanelSalidaDeLoteCantidadADescontarDeLote(panelSalidaDeLoteCantidadADescontarPorLote);
         
         /*
         ====================================================================
@@ -159,6 +164,7 @@ public class Principal {
         panelSalidaDeLote.setCoordinador(coordinador);
         coordinadorPaneles.setCoordinador(coordinador);
         panelSalidaDeLoteSeleccionLotes.setCoordinador(coordinador);
+        panelSalidaDeLoteCantidadADescontarPorLote.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         

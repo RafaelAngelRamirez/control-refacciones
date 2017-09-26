@@ -19,6 +19,7 @@ import java.util.Deque;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import modelo.logica.ComparacionLotes;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
@@ -37,6 +38,7 @@ import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
 import vista.UtilidadesIntefaz.JDialogBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
+import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
 import vista.panels.PanelSalidaDeLoteSeleccionLotes;
 
 /**
@@ -67,6 +69,7 @@ public class Coordinador {
     private PanelEmpleadoModificar panelEmpleadoModificar;
     private PanelSalidaDeLote panelSalidaDeLote;
     private PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes;
+    private PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarDeLote;
     
     
     
@@ -91,6 +94,14 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
 
+    public PanelSalidaDeLoteCantidadADescontarDeLote getPanelSalidaDeLoteCantidadADescontarDeLote() {
+        return panelSalidaDeLoteCantidadADescontarDeLote;
+    }
+
+    public void setPanelSalidaDeLoteCantidadADescontarDeLote(PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarDeLote) {
+        this.panelSalidaDeLoteCantidadADescontarDeLote = panelSalidaDeLoteCantidadADescontarDeLote;
+    }
+    
     public PanelSalidaDeLoteSeleccionLotes getPanelSalidaDeLoteSeleccionLotes() {
         return panelSalidaDeLoteSeleccionLotes;
     }
@@ -1099,6 +1110,15 @@ public class Coordinador {
      */
     public void salidaLoteCargarLotesSeleccionados(List<EntradaLoteVo> lista){
         panelSalidaDeLote.cargarLotesSeleccionados(lista);
+    }
+    
+    public void salidaLoteAbrirDialogoCantidadADescontarDeLote(List<ComparacionLotes> comparacionLotes){
+        JDialogBase d = coordinadorPaneles
+                .ifContainsReturnElseCreate(panelSalidaDeLoteCantidadADescontarDeLote);
+        panelSalidaDeLoteCantidadADescontarDeLote.configurar();
+        panelSalidaDeLoteCantidadADescontarDeLote.cargarLotes(comparacionLotes);
+        d.setVisible(true);
+    
     }
         
     /* 

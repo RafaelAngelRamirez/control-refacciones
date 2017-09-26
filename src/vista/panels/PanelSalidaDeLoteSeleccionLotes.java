@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
+import modelo.Textos;
 import modelo.vo.EntradaLoteVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
@@ -46,7 +47,7 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
         initComponents();
         configuracionesDialogo = new ConfiguracionDePanel();
         configuracionesDialogo.setModal(true);
-        configuracionesDialogo.setResizable(true);
+        configuracionesDialogo.setResizable(false);
         configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_SALIDA_LOTE_SELECCION_DE_LOTES);
         configuracionesDialogo.setLocationRelativeTo(null);
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -65,16 +66,20 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        etiquetaExistencia = new javax.swing.JLabel();
+
+        panelContenedor.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)));
 
         javax.swing.GroupLayout panelContenedorLayout = new javax.swing.GroupLayout(panelContenedor);
         panelContenedor.setLayout(panelContenedorLayout);
         panelContenedorLayout.setHorizontalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 265, Short.MAX_VALUE)
         );
         panelContenedorLayout.setVerticalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 322, Short.MAX_VALUE)
+            .addGap(0, 315, Short.MAX_VALUE)
         );
 
         jButton1.setText("Limpiar");
@@ -98,32 +103,53 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel1.setText("Seleccionar lotes. ");
+
+        etiquetaExistencia.setBackground(new java.awt.Color(51, 51, 51));
+        etiquetaExistencia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaExistencia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaExistencia.setText(">Existencia");
+        etiquetaExistencia.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jButton2)
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(27, 27, 27)
+                                .addComponent(etiquetaExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(panelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(23, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(etiquetaExistencia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3)
+                    .addComponent(jButton1))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -138,12 +164,17 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         @SuppressWarnings("unchecked")
         List<EntradaLoteVo> listaCon = (List<EntradaLoteVo>)(List<?>)_list.getSelectedItemsObjects();
-        listaCon.sort(Comparator
-                .comparing(EntradaLoteVo::getFechaRecepcionLote)
-                .thenComparing(EntradaLoteVo::getId));
-        this.getCoordinador().salidaLoteCargarLotesSeleccionados(listaCon);
-        _list.removeAllElements();
-        dispose();
+        if (listaCon.isEmpty()) {
+            JOptionPane.showMessageDialog(this,"No has seleccionado ningún lote");
+        }else{
+            listaCon.sort(Comparator
+                    .comparing(EntradaLoteVo::getFechaRecepcionLote)
+                    .thenComparing(EntradaLoteVo::getId));
+            this.getCoordinador().salidaLoteCargarLotesSeleccionados(listaCon);
+            dispose();
+            _list.removeAllElements();
+            
+        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -159,7 +190,7 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(panelContenedor.getSize()));
-        panelContenedor.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelContenedor.setLayout(new FlowLayout(FlowLayout.TRAILING));
         panelContenedor.add(scrollPane);
         panelContenedor.validate();
 
@@ -168,7 +199,7 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
     @SuppressWarnings("unchecked")
     public void cargarLotes(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeleccionActual){
         for (EntradaLoteVo vo : lista) {
-            _list.addItem(vo.getNombreParaMostrarLote() + " EXISTENCIA-> "+vo.getCantidad(), vo);
+            _list.addItem(vo.getNombreParaMostrarLote() + " > "+Textos.formaetarNumeros(vo.getCantidad(), "000.00"), vo);
         }
         for (EntradaLoteVo voActual : listaSeleccionActual) {
             _list.selectItem(voActual.getNombreParaMostrarLote());
@@ -179,9 +210,11 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel etiquetaExistencia;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel panelContenedor;
     // End of variables declaration//GEN-END:variables
 

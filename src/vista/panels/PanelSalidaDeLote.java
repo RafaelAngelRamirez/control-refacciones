@@ -5,6 +5,7 @@
  */
 package vista.panels;
 
+import modelo.logica.ComparacionLotes;
 import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.awt.event.KeyListener;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.EmpleadoIT;
@@ -180,7 +180,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _txtStockMin.setComponente(this.txtStockMin);
         _txtUnidad.setComponente(this.txtUnidad);
         _txtFechaDeLote.setComponente(this.txtFechaDeLote);
-        _txtCantidadQueSale.setComponente(this.txtCantidadQueEntra);
+        _txtCantidadQueSale.setComponente(this.txtCantidadQueSale);
         _comboEmpleadoQueReciveLote.setComponente(this.comboEmpleadoQueReciveLote);
         _txtObservaciones.setComponente(this.txtObservaciones);
         _comboLotesDisponibles.setComponente(comboLotesDisponibles);
@@ -342,7 +342,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         txtFechaDeLote = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         etiquetaCantidadQueEntra = new javax.swing.JLabel();
-        txtCantidadQueEntra = new javax.swing.JTextField();
+        txtCantidadQueSale = new javax.swing.JTextField();
         comboEmpleadoQueReciveLote = new javax.swing.JComboBox<>();
         etiquetaNombreDeLaRefaccion = new javax.swing.JLabel();
         etiquetaEmpleadoQueReciveElLote = new javax.swing.JLabel();
@@ -535,12 +535,12 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         etiquetaCantidadQueEntra.setToolTipText("");
         etiquetaCantidadQueEntra.setOpaque(true);
 
-        txtCantidadQueEntra.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
-        txtCantidadQueEntra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCantidadQueEntra.setText("21365.156");
-        txtCantidadQueEntra.setAutoscrolls(false);
-        txtCantidadQueEntra.setMaximumSize(new java.awt.Dimension(140, 30));
-        txtCantidadQueEntra.setMinimumSize(new java.awt.Dimension(140, 30));
+        txtCantidadQueSale.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
+        txtCantidadQueSale.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCantidadQueSale.setText("21365.156");
+        txtCantidadQueSale.setAutoscrolls(false);
+        txtCantidadQueSale.setMaximumSize(new java.awt.Dimension(140, 30));
+        txtCantidadQueSale.setMinimumSize(new java.awt.Dimension(140, 30));
 
         comboEmpleadoQueReciveLote.setEditable(true);
         comboEmpleadoQueReciveLote.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -689,7 +689,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
-                                .addComponent(txtCantidadQueEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtCantidadQueSale, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -744,7 +744,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtFechaDeLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCantidadQueEntra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCantidadQueSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -845,9 +845,9 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         
         //OPCIONES PARA LA SIGUIENTES COMPROBACIONES. 
         Object[] opciones = new Object[3];
-                    opciones[0]="Dejar el lote que tengo seleccionado";
+                    opciones[0]="No hacer nada";
                     opciones[1]="Muestrame los lotes para seleccionar";
-                    opciones[2]="No hacer nada";
+                    opciones[2]="Dejar el lote que tengo seleccionado";
         if (todoValido) {
             //EN ESTA PARTE VALIDAMOS LOS LOTES. 
             // QUE SEA EL MÁS ANTIGUO
@@ -895,10 +895,10 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                             "Opciones posibles",
                             JOptionPane.YES_NO_CANCEL_OPTION , 
                             JOptionPane.QUESTION_MESSAGE,
-                            null, opciones, 0);
+                            null, opciones, opciones[2]);
 
                     switch(r2){
-                        case 0:
+                        case 2:
                             // EL USUARIO QUIERE DEJAR EL LOTE SELECCIONADO. 
                             todoValido = true;
                             voActualMultiple.add(voSeleccionado);
@@ -908,7 +908,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                             voActualMultiple = mostrarLotesParaSeleccionarse(lista, voActualMultiple);
                             todoValido = true;
                             break;
-                        case 2:
+                        case 0:
                         default:
                             //NO HACER NADA. SE CANCELA TODO.
                             todoValido = false;
@@ -948,8 +948,8 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                         String pTienen = voActualMultiple.size()>1? "tienen": "tiene";
 
                         Object op[] = new Object[2];
-                        op[0] = opciones[1];
-                        op[1] = opciones[2];
+                        op[0] = "No hacer nada";
+                        op[1] = "Muestrame los lotes";
 
                         int r3 = JOptionPane
                                 .showOptionDialog(
@@ -960,13 +960,13 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                                         "Opciones posibles",
                                         JOptionPane.YES_NO_CANCEL_OPTION , 
                                         JOptionPane.QUESTION_MESSAGE,
-                                        null, op, 0);
+                                        null, op, op[1]);
                         switch(r3){
-                            case 0:
+                            case 1:
                             //EL USUARIO QUIERE QUE SE LE MUESTREN LOS LOTES.
                             voActualMultiple = mostrarLotesParaSeleccionarse(lista, voActualMultiple);
-                            break;
-                        case 1:
+                                                        break;
+                        case 0:
                         default:
                             //NO HACER NADA. SE CANCELA TODO.
                             todoValido = false;
@@ -978,6 +978,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                         // POR TANTO TERMINAMOS EL BUCLE.
                         salirDeCiclo = true;
                         todoValido = true;
+                        JOptionPane.showMessageDialog(null, "la suma esta bien!");
                     }
                 }
             }
@@ -988,88 +989,28 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                 // DAMOS LA OPCION DE ESCOGER DE QUE LOTES DESCONTAR PRIMERO. 
                 // SI NO, HAY QUE DECIR QUE POR DEFECTO SE DESCONTARA PRIMERO DEL MAS
                 // ANTIGUO Y LUEGO DAR LA OPCIÓN DE ESCOGER SI SON MAS DE DOS LOTES.
-
-
-                //1-SOBRA UNO O MÁS LOTES INTACTOS AL RESTAR. MOSTRAR OPCIONES. 
-                //1.1- NO SE QUIERE MODIFCAR EL ORDEN (DEL MAS VIEJO AL MAS NUEVO)
-                //1.2- SE QUIERE PERSONALIZAR LAS CANTIDADES A DESCONTAR(MOSTRAR LOTES PARA DESCONTAR).
-                //1.3- NO HACER NADA.(TODO VALIDO FALSE).
-
-                class ComparacionLotes {
-
-                    EntradaLoteVo lote;
-                    //GUARDAMOS TEMPORALMENTE LA EXISTENCIA POR SI SE NECESITA 
-                    //MODIFICAR DE NUEVO LA REFACCIÓN. 
-                    float nuevaExistenciaTemporal;
-                    float restante;
-                    boolean estaModificado = false;
-                    float existenciaModificadaPorUsuario;
-                    
-
-                    public ComparacionLotes(EntradaLoteVo lote) {
-                        this.lote = lote;
-                    }
-
-                    public float getExistenciaModificadaPorUsuario() {
-                        return existenciaModificadaPorUsuario;
-                    }
-
-                    public void setExistenciaModificadaPorUsuario(float existenciaModificadaPorUsuario) {
-                        this.existenciaModificadaPorUsuario = existenciaModificadaPorUsuario;
-                    }
-                   
-                    public float getNuevaExistenciaTemporal() {
-                        return nuevaExistenciaTemporal;
-                    }
-
-                    public void consolidar (){
-                        lote.setCantidad(nuevaExistenciaTemporal);
-                    }
-
-                    public float restarDelTotal(float totalSalida){
-                        //TOTAL SALIDA DEBE SER MAYOR QUE 0 DE LO CONTRARIO 
-                        //LOS OTRO LOTES YA CONSUMIERON LA SALIDA.
-                        if (totalSalida>0) {
-                            estaModificado = true;
-                            //EL TOTAL TIENE MAS QUE EL LOTE. 
-                            if (totalSalida>lote.getCantidad()) {
-                                float paraResta = lote.getCantidad();
-                                nuevaExistenciaTemporal = 0;
-                                return totalSalida-paraResta;
-                            }else{
-                                //EL TOTAL TIENE MENOS QUE EL LOTE. 
-                                float cantidadDeLote = lote.getCantidad()-totalSalida;
-                                nuevaExistenciaTemporal = cantidadDeLote;
-                                return 0;
-                            }
-                        }
-                        return -1;
-                    }
-
-
-                }
                 float cantidadSalidaTemp = vo.getCantidad();
                 boolean hayLotesIntactos = false;
                 List<ComparacionLotes> listComparacionLotes = new ArrayList<>();
+                //
                 for (EntradaLoteVo voActMult : voActualMultiple) {
                     ComparacionLotes cl = new ComparacionLotes(voActMult);
                     cantidadSalidaTemp = cl.restarDelTotal(cantidadSalidaTemp);
-                    if (!cl.estaModificado) {
+                    JOptionPane.showMessageDialog(null, cantidadSalidaTemp);
+                    if (!cl.isModificado()) {
                         hayLotesIntactos = true;
                     }
                     listComparacionLotes.add(cl);
                 }
+                JOptionPane.showMessageDialog(null, listComparacionLotes.toString());
                 
                 //1
                 if (hayLotesIntactos) {
-                    JOptionPane.showMessageDialog(null, "hay lotes intactos!");
                     
-                    Object op[] = new Object[4];
-                    JCheckBox j = new JCheckBox("pruebaaa de mensada!");
-                    op[0] = "Desconcontar de los lotes del más viejo al más nuevo. ";
-                    op[1] = "Personalizar la cantidad a descontar de cada lote.";
-                    op[2] = "No hacer nada.";
-                    op[3] = j;
+                    Object op[] = new Object[3];
+                    op[0] = "No hacer nada.";
+                    op[1] = "Definir la cantidad a descontar de cada lote.";
+                    op[2] = "Continuar. ";
 
                     int r3 = JOptionPane
                             .showOptionDialog(
@@ -1078,9 +1019,42 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                             "Opciones posibles",
                             JOptionPane.YES_NO_CANCEL_OPTION , 
                             JOptionPane.QUESTION_MESSAGE,
-                            null, op, 0);
+                            null, op, op[2]);
+                    
+                    switch(r3){
+                        case 2:
+                            //CONTINUAR. CONSOLIDAMOS LAS OPERACIONES QUE HABIAMOS
+                            //REALIZADO DENTRO DE LA CLASE COMPARACION LOTES
+                            // Y LA DEVOLVEMOS AL FLUJO DE voActualMultiple
+                            voActualMultiple.clear();
+                            for (ComparacionLotes cl : listComparacionLotes) {
+                                cl.consolidar();
+                                voActualMultiple.add(voSeleccionado);
+                            }
+                            voActualMultiple.sort(
+                                Comparator.comparing(EntradaLoteVo::getFechaRecepcionLote)
+                                        .thenComparing(EntradaLoteVo::getId));
+                            todoValido = true;
+                            JOptionPane.showMessageDialog(null, "consolida!!\n"+voActualMultiple.toString());
+                            break;
+                        case 1:
+                            coordinador.salidaLoteAbrirDialogoCantidadADescontarDeLote(listComparacionLotes);
+                            todoValido = true;
+                            
+                            break;
+                        case 0:
+                        default:
+                            todoValido = false;
+                            break;
+                        
+                    
+                    }
+                    
+                  
                     
                     
+                }else{
+                    JOptionPane.showMessageDialog(null, "no hay lotes intactos");
                 }
                 
                 
@@ -1604,7 +1578,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> listaResultados;
     private javax.swing.JTextField txtBusqueda;
-    private javax.swing.JTextField txtCantidadQueEntra;
+    private javax.swing.JTextField txtCantidadQueSale;
     private javax.swing.JTextField txtCodigoInterno;
     private javax.swing.JTextField txtCodigoProveedor;
     private javax.swing.JTextField txtExistencia;
