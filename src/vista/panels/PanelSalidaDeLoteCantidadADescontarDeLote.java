@@ -10,9 +10,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Box;
@@ -28,6 +32,7 @@ import javax.swing.event.HyperlinkEvent;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.Textos;
 import modelo.logica.ComparacionLotes;
+import sun.nio.cs.ext.Big5;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.ColoresYFuentes;
@@ -194,7 +199,7 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showMessageDialog(null, "no se ha definido la accion.");
+            limpiar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -228,10 +233,14 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
                 
         panelContenedor.validate();
         this.validate();
-        etiquetaSalidaRestante.setText(cantidadTotalSalida+"");
-        sumarTodo();
         
-    
+        BigDecimal totalCuadros = new BigDecimal(0);
+        for (ContenedorDeFila cF : listContenedorFila) {
+            BigDecimal t = new BigDecimal(cF.cl.getExistenciaPreFinal());
+            totalCuadros = totalCuadros.add(t);
+        }
+        totalCuadros = totalCuadros.subtract(cantidadTotalSalida);
+        etiquetaSalidaRestante.setText(totalCuadros.toString());
     }
     
     class ContenedorDeFila extends JPanel{
@@ -300,7 +309,8 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
             String tExistencia = (cl.getLote().getCantidad()-cl.getExistenciaPreFinal())+"";
             
             etiquetaExistencia.setText(tExistencia);
-            recuadroEntrada.setText(cl.getExistenciaPreFinal()+"");
+            cantidadAgreadaPorUsuario = new BigDecimal(cl.getExistenciaPreFinal());
+            recuadroEntrada.setText(cantidadAgreadaPorUsuario.toString());
             
             
             add(etiquetaLote);
@@ -343,15 +353,29 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
                     }else{
                         //SI EL CAMPO ESTA VACIO ENTONCES PONEMOS LA CANTIDAD
                         //AGREGADA POR EL USUARIO EN 0 Y LA ETIQUETA DE EXISTENCIA
-                        //LA DEVOLVEMOS A SU
+                        //LA DEVOLVEMOS Al VALOR DE EXISTENCIA DEL LOTE. 
                         cantidadAgreadaPorUsuario = new BigDecimal(0);
-                        etiquetaExistencia.setText(0+"");
+                        etiquetaExistencia.setText(cl.getLote().getCantidad()+"");
                     }
                     r.run();
                 }
             };
             //AÑADIMOS EL CUADRO AL LISTENER. 
             recuadroEntrada.addKeyListener(k);
+            
+            FocusListener f = new FocusAdapter() {
+                @Override
+                public void focusGained(FocusEvent e) {
+                    JTextField t = (JTextField)e.getComponent();
+                    t.setSelectionStart(0);
+                    t.setSelectionEnd(t.getText().length());
+                    
+                }
+            };
+            
+            recuadroEntrada.addFocusListener(f);
+            
+            
         }
 
         public void setR(Runnable r) {
@@ -375,7 +399,7 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
     public void sumarTodo(){
         BigDecimal totalCuadros = new BigDecimal(0);
         for (ContenedorDeFila cF : listContenedorFila) {
-//            totalCuadros = totalCuadros.add(cF.);
+            totalCuadros = totalCuadros.add(cF.getCantidadAgreadaPorUsuario());
         }
         
         totalCuadros = cantidadTotalSalida.subtract(totalCuadros);
@@ -388,6 +412,15 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
         }
         etiquetaSalidaRestante.setText( totalCuadros.toString());
         
+    }
+    
+    public void limpiar (){
+        for (ContenedorDeFila cF : listContenedorFila) {
+            cF.cantidadAgreadaPorUsuario = new BigDecimal (0);
+            cF.etiquetaExistencia.setText(cF.cl.getLote().getCantidad()+"");
+            cF.recuadroEntrada.setText(0.0+"");
+        }
+        etiquetaSalidaRestante.setText(cantidadTotalSalida.toString());
     }
     
 
