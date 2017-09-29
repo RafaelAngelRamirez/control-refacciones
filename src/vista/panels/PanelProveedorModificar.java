@@ -52,34 +52,10 @@ public class PanelProveedorModificar extends JPanelBase {
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.id = -1;
     }
-    
-    
-    
-    /**
-     * Configuraciones para el dialogo.  
-     */
-    public void configurar(){
-        /*
-        =======================================================================
-            INICIO CONFIGURACIONES DIALOGO
-        ///////////////////////////////////////////////////////////////////////
 
-        Los dialogos nos los estoy configurando de manera complicada. Solo lo
-        básico para que funcionen en modal.
-        
-        */ 
-        
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN SETEO DE UTILIDADES
-        ========================================================================
-        */
-        
-        
-        
-       
-        
-        
+    @Override
+    public void initConfig() {
+         
         /*
         =======================================================================
             INICIO SETEO NOMBRES DE ETIQUETA
@@ -162,6 +138,16 @@ public class PanelProveedorModificar extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+    }
+    
+    
+    
+    /**
+     * Configuraciones para el dialogo.  
+     */
+    public void configurar(){
+        
+       
         /*
         =======================================================================
             INICIO CARGA DE ELEMENTOS 

@@ -172,6 +172,12 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
     }//GEN-LAST:event_checkSeleccionarTodoActionPerformed
 
     @Override
+    public void initConfig() {
+    }
+    
+    
+    
+    @Override
     @SuppressWarnings("unchecked")
     public void configurar() {
         panelContenedor.removeAll();

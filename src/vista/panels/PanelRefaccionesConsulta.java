@@ -50,7 +50,7 @@ public class PanelRefaccionesConsulta extends JPanelBase {
     }
 
     @Override
-    public void configurar(){
+    public void initConfig() {
         /*
         =======================================================================
             INICIO SETEO NOMBRES DE ETIQUETA
@@ -96,8 +96,8 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         
 
         //ACCIONES ESPECIALES.
-        _TxtFiltrarRefaccion.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
-        _TablaRefacciones.setDobleClick(()->this.mostrarDetalleRefaccion());
+            _TxtFiltrarRefaccion.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
+            _TablaRefacciones.setDobleClick(()->this.mostrarDetalleRefaccion());
         
         
         //ACCIONES DE BOTONES
@@ -108,6 +108,13 @@ public class PanelRefaccionesConsulta extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+        
+    }
+    
+    
+
+    @Override
+    public void configurar(){
         
         /*
         =======================================================================

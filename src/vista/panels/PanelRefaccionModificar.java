@@ -6,6 +6,7 @@
 package vista.panels;
 
 import controlador.Coordinador;
+import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +14,10 @@ import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -34,6 +35,7 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.UnidadVo;
 import org.jdesktop.swingx.JXImageView;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -76,18 +78,10 @@ public class PanelRefaccionModificar extends JPanelBase {
      */
     public PanelRefaccionModificar() {
         initComponents();
-       
-
-
     }
 
-    public void configurar(int id, int idRestantesCantidad){
-        
-        /*
-        =======================================================================
-            INICIO SETEO NOMBRES DE ETIQUETA
-        ///////////////////////////////////////////////////////////////////////
-        */
+    @Override
+    public void initConfig() {
         
         RefaccionIT rit = new RefaccionIT();
         ProveedorIT pit = new ProveedorIT();
@@ -95,6 +89,13 @@ public class PanelRefaccionModificar extends JPanelBase {
         MaterialIT mit = new MaterialIT();
         ImportanciaIT iit= new ImportanciaIT();
         UnidadIT uit = new UnidadIT();
+        
+        /*
+        =======================================================================
+            INICIO SETEO NOMBRES DE ETIQUETA
+        ///////////////////////////////////////////////////////////////////////
+        */
+        
         
         etiquetaCodigoDelProveedor.setText(rit.getCodigoProveedorPDC().getNombreParaMostrar());
         etiquetaCodigoInterno.setText(rit.getCodigoInternoPDC().getNombreParaMostrar());
@@ -262,6 +263,13 @@ public class PanelRefaccionModificar extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+    }
+    
+    
+
+    public void configurar(int id, int idRestantesCantidad){
+        
+        
         /*
         =======================================================================
             INICIO CARGA DE ELEMENTOS 

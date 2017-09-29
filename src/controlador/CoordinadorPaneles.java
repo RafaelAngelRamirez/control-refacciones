@@ -169,6 +169,10 @@ public class CoordinadorPaneles {
     }
     
     public void setJPanel(JPanelBase panel){
+        if (!panel.isListenersEjecutados()) {
+            panel.setListenersEjecutados(true);
+            panel.initConfig();
+        }
         this.getCoordinador().getMarcoParaVentanaPrincipal().setJPanel(panel);
     }
 }

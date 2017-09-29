@@ -56,42 +56,9 @@ public class PanelProveedorRegistrar extends JPanelBase {
        
         
     }
-    
-    /**
-     * Creates new form RegistrarProveedort
-     */
-    
-    
-    /**
-     * Configuraciones para el dialogo.  
-     */
-    public void configurar(){
-        /*
-        =======================================================================
-            INICIO CONFIGURACIONES DIALOGO
-        ///////////////////////////////////////////////////////////////////////
 
-        Los dialogos nos los estoy configurando de manera complicada. Solo lo
-        básico para que funcionen en modal.
-        
-        */ 
-        
-        configuracionesDialogo = new ConfiguracionDePanel();
-        configuracionesDialogo.setModal(true);
-        configuracionesDialogo.setResizable(false);
-        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_PROVEEDOR_REGISTRAR);
-        configuracionesDialogo.setLocationRelativeTo(null);
-        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        
-        
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN SETEO DE UTILIDADES
-        ========================================================================
-        */
-        
-       
-        
+    @Override
+    public void initConfig() {
         
         /*
         =======================================================================
@@ -173,6 +140,15 @@ public class PanelProveedorRegistrar extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+        
+    }
+    
+    
+    
+    /**
+     * Configuraciones para el dialogo.  
+     */
+    public void configurar(){
         /*
         =======================================================================
             INICIO CARGA DE ELEMENTOS 
@@ -186,8 +162,6 @@ public class PanelProveedorRegistrar extends JPanelBase {
             FIN CARGA DE ELEMENTOS 
         ========================================================================
         */
-        
-        
         
     }
 

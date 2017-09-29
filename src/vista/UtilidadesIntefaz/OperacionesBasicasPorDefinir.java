@@ -17,13 +17,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -71,7 +68,6 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
     
     public OperacionesBasicasPorDefinir(Coordinador controlador) {
         super(controlador);
-        
                
     }
 

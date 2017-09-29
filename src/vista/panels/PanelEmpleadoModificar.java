@@ -223,38 +223,10 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         );
 
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void configurar(){
-        configurar("");
-    }
-    
-    /**
-     * Cofiguraciones para el dialogo.  
-     * @param empleadoAdelantado El nombre del empleado para rellenar. 
-     */
-    public void configurar(String empleadoAdelantado){
-     /*
-        =======================================================================
-            INICIO CONFIGURACIONES DIALOGO
-        ///////////////////////////////////////////////////////////////////////
 
-        Los dialogos nos los estoy configurando de manera complicada. Solo lo
-        básico para que funcionen en modal.
-        
-        */ 
-
-     
-     
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN SETEO DE UTILIDADES
-        ========================================================================
-        */
-        
-       
-        
-        
-        /*
+    @Override
+    public void initConfig() {
+          /*
         =======================================================================
             INICIO SETEO NOMBRES DE ETIQUETA
         ///////////////////////////////////////////////////////////////////////
@@ -321,6 +293,20 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+    }
+    
+    
+    public void configurar(){
+        configurar("");
+    }
+    
+    /**
+     * Cofiguraciones para el dialogo.  
+     * @param empleadoAdelantado El nombre del empleado para rellenar. 
+     */
+    public void configurar(String empleadoAdelantado){
+        
+      
         /*
         =======================================================================
             INICIO CARGA DE ELEMENTOS 

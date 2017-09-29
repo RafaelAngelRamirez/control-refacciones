@@ -87,8 +87,8 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
     }
 
-    public void configurar(){
-        
+    @Override
+    public void initConfig() {
         /*
         =======================================================================
             INICIO SETEO NOMBRES DE ETIQUETA
@@ -270,6 +270,12 @@ public class PanelRefaccionAgregar extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+    }
+
+    
+    public void configurar(){
+        
+        
         /*
         =======================================================================
             INICIO CARGA DE ELEMENTOS 

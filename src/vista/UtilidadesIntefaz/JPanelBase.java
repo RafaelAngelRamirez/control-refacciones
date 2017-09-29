@@ -30,11 +30,28 @@ public abstract class JPanelBase extends JPanel{
         this.coordinador = coordinador;
     }
     
+    private boolean listenersEjecutados=false;
+
+    public boolean isListenersEjecutados() {
+        return listenersEjecutados;
+    }
+
+    public void setListenersEjecutados(boolean listenersEjecutados) {
+        this.listenersEjecutados = listenersEjecutados;
+    }
+    
+    
     
     /**
-     * La configuración inicial del panel.
+     * La configuración del panel.
      */
     public abstract void configurar();
+    
+    /**
+     * Configuracion de inicialización. Solo se ejecuta cuando el panel se 
+     * muestra por primera vez. 
+     */
+    public abstract void initConfig();
 
     public ConfiguracionDePanel getConfiguracionesDialogo() {
         return configuracionesDialogo;

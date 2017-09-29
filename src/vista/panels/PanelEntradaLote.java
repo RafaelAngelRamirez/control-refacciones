@@ -66,27 +66,10 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         
     }
-   
-    
-   
-    public void configurar(){
-     /*
-        =======================================================================
-            INICIO CONFIGURACIONES DIALOGO
-        ///////////////////////////////////////////////////////////////////////
 
-        Los dialogos nos los estoy configurando de manera complicada. Solo lo
-        básico para que funcionen en modal.
-        
-        */ 
-      
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN SETEO DE UTILIDADES
-        ========================================================================
-        */
-        
-        /*
+    @Override
+    public void initConfig() {
+         /*
         =======================================================================
             INICIO SETEO NOMBRES DE ETIQUETA
         ///////////////////////////////////////////////////////////////////////
@@ -211,7 +194,11 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
-        
+    }
+   
+    
+   
+    public void configurar(){
         /*
         =======================================================================
             INICIO CARGA DE ELEMENTOS Y CONFIGURACIONES

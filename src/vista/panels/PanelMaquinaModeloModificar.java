@@ -43,23 +43,9 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         configuracionesDialogo.setLocationRelativeTo(null);
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
-    
-    public void configurar(){
-     /*
-        =======================================================================
-            INICIO CONFIGURACIONES DIALOGO
-        ///////////////////////////////////////////////////////////////////////
 
-        Los dialogos nos los estoy configurando de manera complicada. Solo lo
-        básico para que funcionen en modal.
-        
-        */ 
-        
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN SETEO DE UTILIDADES
-        ========================================================================
-        */
+    @Override
+    public void initConfig() {
         
          /*
         =======================================================================
@@ -130,6 +116,14 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+        
+        
+    }
+    
+    
+    
+    public void configurar(){
+        
         /*
         =======================================================================
             INICIO CARGA DE ELEMENTOS 

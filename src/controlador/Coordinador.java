@@ -261,8 +261,8 @@ public class Coordinador {
         //ES NECESARIO LANZAR EL PROCEDIMIENTO DE CONFIGURACIÓN AQUI
         // PARA QUE LAS INSTANCIAS QUE REQUIEREN SE SETEAN POR COMPLETO.
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelProveedorRegistrar);
-        panelProveedorRegistrar.configurar();
         d.setVisible(true);
+        panelProveedorRegistrar.configurar();
         
     }
     
@@ -273,15 +273,15 @@ public class Coordinador {
      */
     public void proveedoresAbrirDialogo(String nuevoElemento){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelProveedorRegistrar);
+        d.setVisible(true);
         panelProveedorRegistrar.configurar();
         panelProveedorRegistrar.setProveedorPrecargado(nuevoElemento);
-        d.setVisible(true);
     }
     
     public void proveedoresAbrirDialogoModificar(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelProveedorModificar);
-        panelProveedorModificar.configurar();
         d.setVisible(true);
+        panelProveedorModificar.configurar();
     }
     
     public void proveedorDialogoModificarActualizarPais(){
@@ -416,17 +416,17 @@ public class Coordinador {
     
     public void maquinaModeloAbrirDialogoAgregar(){
         
-        panelMaquinaModeloAgregar.configurar();
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloAgregar);
         d.setVisible(true);
+        panelMaquinaModeloAgregar.configurar();
         
     
     }
     
     public void maquinaModeloAbrirDialogoModificar(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloModificar);
-        panelMaquinaModeloModificar.configurar();
         d.setVisible(true);
+        panelMaquinaModeloModificar.configurar();
     }
     
     public List<Validacion> maquinaModeloValidarCampos(MaquinaModeloVo vo, boolean validandoUpdate){
@@ -669,10 +669,10 @@ public class Coordinador {
     
     //DETALLE DE REFACCIONES
     public void refaccionAbrirDetalleRefaccion(String id){
-        this.getPanelRefaccionDetalle().configurar(id);
         JDialogBase d = getCoordinadorPaneles()
                 .ifContainsReturnElseCreate(getPanelRefaccionDetalle());
         d.setVisible(true);
+        this.getPanelRefaccionDetalle().configurar(id);
         
     }
     
@@ -858,26 +858,26 @@ public class Coordinador {
     public void empleadoAbrirDialogoAgregar(){
         
         JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoAgregar);
-        panelEmpleadoAgregar.configurar();
         d.setVisible(true);
+        panelEmpleadoAgregar.configurar();
     }
     
     public void empleadoAbrirDialogoAgregar(String empleadoNuevo){
         JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoAgregar);
-        panelEmpleadoAgregar.configurar(empleadoNuevo);
         d.setVisible(true);
+        panelEmpleadoAgregar.configurar(empleadoNuevo);
     }
     
     public void empleadoAbrirDialogoMoficar(){
         JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoModificar);
-        panelEmpleadoModificar.configurar();
         d.setVisible(true);
+        panelEmpleadoModificar.configurar();
     }
     
     public void empleadoAbrirDialogoMoficar(String empleado){
         JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoModificar);
-        panelEmpleadoModificar.configurar(empleado);
         d.setVisible(true);
+        panelEmpleadoModificar.configurar(empleado);
     } 
         
     public void empleadoDialogoModificarActualizar(){
@@ -985,8 +985,8 @@ public class Coordinador {
     */
     public void entradaLoteAbrirDialogo(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelEntradaLote);
-        panelEntradaLote.configurar();
         d.setVisible(true);
+        panelEntradaLote.configurar();
     }
 
     /**
@@ -1059,8 +1059,8 @@ public class Coordinador {
 
     public void salidaLoteAbrirDialogo(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelSalidaDeLote);
-        panelSalidaDeLote.configurar();
         d.setVisible(true);
+        panelSalidaDeLote.configurar();
      }
     public void salidaLoteAbrirDialogo(RefaccionVo vo){
         salidaLoteAbrirDialogo();
@@ -1099,9 +1099,9 @@ public class Coordinador {
     
     public void salidaLoteAbrirDialogoSeleccionarRefaccion(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeoleccionActual){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelSalidaDeLoteSeleccionLotes);
+        d.setVisible(true);
         panelSalidaDeLoteSeleccionLotes.configurar();
         panelSalidaDeLoteSeleccionLotes.cargarLotes(lista, listaSeoleccionActual);
-        d.setVisible(true);
         
     }
     
@@ -1117,9 +1117,9 @@ public class Coordinador {
     public void salidaLoteAbrirDialogoCantidadADescontarDeLote(List<ComparacionLotes> comparacionLotes, float cantidadSalida){
         JDialogBase d = coordinadorPaneles
                 .ifContainsReturnElseCreate(panelSalidaDeLoteCantidadADescontarDeLote);
+        d.setVisible(true);
         panelSalidaDeLoteCantidadADescontarDeLote.configurar();
         panelSalidaDeLoteCantidadADescontarDeLote.cargarLotes(comparacionLotes, cantidadSalida);
-        d.setVisible(true);
     
     }
     

@@ -10,8 +10,6 @@ import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -86,8 +84,8 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     }
     
     @Override
-    public void configurar(){
-     /*
+    public void initConfig() {
+         /*
         =======================================================================
             INICIO CONFIGURACIONES DIALOGO
         ///////////////////////////////////////////////////////////////////////
@@ -228,43 +226,50 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _txtObservaciones.setEspaciosEnBlanco();
         _comboEmpleadoQueReciveLote.setEspaciosEnBlanco();
         
-        //TRAVEL POLICY
-        
-//        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
-        _txtFechaDeLote.setNextFocusableComponent(_txtCantidadQueSale.getThis());
-        _txtCantidadQueSale.setNextFocusableComponent(_comboEmpleadoQueReciveLote.getThis());
-        _comboEmpleadoQueReciveLote.setNextFocusableComponent(_txtObservaciones.getThis());
-        _txtObservaciones.setNextFocusableComponent(btnGuardar);
-        btnGuardar.setNextFocusableComponent(btnSalir1);
-        btnSalir1.setNextFocusableComponent(_txtBusqueda.getThis());
-        
-        //ACCIONES ESPECIALES.
-        
-       
-        
-        _comboLotesDisponibles.setEditable(false);
+            
+            //TRAVEL POLICY
 
-        _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
-        _txtBusqueda.setKeyRelease(()->seleccionarRefaccionEnter(), OperacionesBasicasPorDefinir.TECLA_ENTER);
+    //        _txtBusqueda.setNextFocusableComponent(_txtFechaDeLote.getThis());
+            _txtFechaDeLote.setNextFocusableComponent(_txtCantidadQueSale.getThis());
+            _txtCantidadQueSale.setNextFocusableComponent(_comboEmpleadoQueReciveLote.getThis());
+            _comboEmpleadoQueReciveLote.setNextFocusableComponent(_txtObservaciones.getThis());
+            _txtObservaciones.setNextFocusableComponent(btnGuardar);
+            btnGuardar.setNextFocusableComponent(btnSalir1);
+            btnSalir1.setNextFocusableComponent(_txtBusqueda.getThis());
 
-        _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
-       
-        
-        _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
-      
-        
-       
-        
-        
-        //ACCIONES DE BOTONES
-        UtilidadesBotones_.setEnterYEspacio(btnSalir1);
-        UtilidadesBotones_.setEnterYEspacio(btnGuardar);
+            //ACCIONES ESPECIALES.
+
+
+
+            _comboLotesDisponibles.setEditable(false);
+
+            _txtBusqueda.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA_EXCEPTO_ENTER);
+            _txtBusqueda.setKeyRelease(()->seleccionarRefaccionEnter(), OperacionesBasicasPorDefinir.TECLA_ENTER);
+
+            _txtFechaDeLote.setKeyRelease(()->autocompletadoDeFecha(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
+
+
+            _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
+
+
+
+
+
+            //ACCIONES DE BOTONES
+            UtilidadesBotones_.setEnterYEspacio(btnSalir1);
+            UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+        
+    }
+    
+    @Override
+    public void configurar(){
+    
         
         /*
         =======================================================================
@@ -795,15 +800,70 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         _imagenesRefaccion.imagenAnterior();
     }//GEN-LAST:event_btnRegresarImagenActionPerformed
 
+    
+    
+    /**
+     * Esta clase almacena el resultado de las acciones de comprobacion en dos
+     * valores: todoValido y saltarseLoRestante. Despues comprueba
+     * ambos valores con la operacion comprobar() con la forma:
+     * 
+     * return todoValido && !SaltarseLoRestante;
+     * 
+     */
+    private class TodoValidoSaltarseRestante{
+        boolean todoValido = true;
+        boolean saltarseLoRestante = false;
+        boolean comprobacionSanjante = false;
+
+        public boolean isTodoValido() {
+            return todoValido;
+        }
+
+        public void setTodoValido(boolean todoValido) {
+            this.todoValido = todoValido;
+        }
+
+        public boolean isSaltarseLoRestante() {
+            return saltarseLoRestante;
+        }
+
+        public void setSaltarseLoRestante(boolean saltarseLoRestante) {
+            this.saltarseLoRestante = saltarseLoRestante;
+        }
+        
+        public boolean comprobar(){
+            return todoValido && !saltarseLoRestante;
+        }
+        
+        /**
+         * Si esta en true quiere decir que se realizo una acción que ya no 
+         * ocupa mas comprobaciones por tanto se puede guardar. 
+         */
+        public boolean isComprobacionSanjante() {
+            return comprobacionSanjante;
+        }
+
+        public void setComprobacionSanjante(boolean comprobacionSanjante) {
+            this.comprobacionSanjante = comprobacionSanjante;
+        }
+        
+        
+        
+        
+    }
+    
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
         SalidaLoteIT it = new SalidaLoteIT();
         SalidaLoteVo vo = new SalidaLoteVo();
         //SE USA MAS ADELANTE. 
         List<EntradaLoteVo>voActualMultiple = new ArrayList<>();
-        boolean saltarseLoRestante = false;
+        TodoValidoSaltarseRestante todoValSalRestan 
+                = new  TodoValidoSaltarseRestante();
         
-        boolean todoValido = true;
+//        boolean saltarseLoRestante = todoValidoSaltarseLoRestante.isSaltarseLoRestante();
+//        
+//        boolean todoValido = todoValidoSaltarseLoRestante.isTodoValido();
         float cantidad;
         if (_txtCantidadQueSale.isEmpty()) {
             cantidad = -1;
@@ -847,25 +907,25 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             }
             
             if (!validacione.isValido()) {
-                todoValido = false;
+                todoValSalRestan.setTodoValido(false); 
             }
         }
         
-        if (todoValido) {
+        if (todoValSalRestan.comprobar()) {
             float existenciaRefaccion = this.getCoordinador().entradaLoteExistencia(vo.getIdRefaccion());
             if (existenciaRefaccion>=vo.getCantidad()) {
-                todoValido = true;
+                 todoValSalRestan.setTodoValido(true);
                 _txtCantidadQueSale.setErrorQuitar();
             }else{
                 _txtCantidadQueSale.setError(
                         "Esta refacción no tiene suficiente existencia.");
-                todoValido = false;
+                todoValSalRestan.setTodoValido(false);
             }
         }
         
         //OPCIONES PARA LA SIGUIENTES COMPROBACIONES. 
         
-        if (todoValido) {
+        if (todoValSalRestan.comprobar()) {
             //EN ESTA PARTE VALIDAMOS LOS LOTES. 
             // QUE SEA EL MÁS ANTIGUO
             // QUE TENGA SUFICIENTE EL PRIMERO
@@ -891,22 +951,23 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             
             //COMPROMBAMOS EL LOTE MÁS ANTIGUO. 
             if (!valLoteMasAntiguo.isValido()) {
-                
                 int r = JOptionPane.showConfirmDialog(
-                        this,
-                        valLoteMasAntiguo.getMensajeDeError()+"\n\n"
-                        +"Lote seleccionado: "+voSeleccionado.getFechaRecepcionLote() +" Existencia:"+voSeleccionado.getCantidad()+"\n"
-                        +"Lote mas antiguo : "+lista.get(0).getFechaRecepcionLote()   +" Existencia:"+lista.get(0).getCantidad()+"\n\n"
-                        + "¿Quieres seleccionar el lote más antiguo?",
-                        "Hay disponible un lote más antiguo.",
-                        JOptionPane.YES_NO_OPTION);
+                this,
+                valLoteMasAntiguo.getMensajeDeError()+"\n\n"
+                +"Lote seleccionado: "+voSeleccionado.getFechaRecepcionLote() +" Existencia:"+voSeleccionado.getCantidad()+"\n"
+                +"Lote mas antiguo : "+lista.get(0).getFechaRecepcionLote()   +" Existencia:"+lista.get(0).getCantidad()+"\n\n"
+                + "¿Quieres seleccionar el lote más antiguo?",
+                "Hay disponible un lote más antiguo.",
+                JOptionPane.YES_NO_OPTION);
                 if (r==JOptionPane.YES_OPTION) {
                     EntradaLoteVo masAntiguo = lista.get(0);
-                    masAntiguo.setCantidad(masAntiguo.getCantidad()-vo.getCantidad());
-                    voActualMultiple.add(masAntiguo);
-                    JOptionPane.showMessageDialog(null, "Has seleccionado el más antiguo");
-                    saltarseLoRestante = true;
-                    todoValido = true;
+                    if (masAntiguo.getCantidad()>vo.getCantidad()) {
+                        masAntiguo.setCantidad(masAntiguo.getCantidad()-vo.getCantidad());
+                        voActualMultiple.add(masAntiguo);
+                        todoValSalRestan.setSaltarseLoRestante(true);
+                        todoValSalRestan.setTodoValido(true);
+                        todoValSalRestan.setComprobacionSanjante(true);
+                    }
                 }else{
                     //SI PONE QUE NO ENTONCES HAY QUE OFRECER OPCIONES. 
                     Object[] opciones = new Object[3];
@@ -924,24 +985,26 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                     switch(r2){
                         case 2:
                             // EL USUARIO QUIERE DEJAR EL LOTE SELECCIONADO. 
-                            todoValido = true;
                             //MODIFICAMOS EL VALOR DEL LOTE PARA DESPUES USARLO.
-                            voSeleccionado.setCantidad(voSeleccionado.getCantidad()-vo.getCantidad());
-                            voActualMultiple.add(voSeleccionado);
-                            todoValido = true;
-                            saltarseLoRestante = true;
+                            if (voSeleccionado.getCantidad()>vo.getCantidad()) {
+                                voSeleccionado.setCantidad(voSeleccionado.getCantidad()-vo.getCantidad());
+                                voActualMultiple.add(voSeleccionado);
+                                todoValSalRestan.setTodoValido(true);
+                                todoValSalRestan.setTodoValido(true);
+                                todoValSalRestan.setComprobacionSanjante(true);
+                                todoValSalRestan.setTodoValido(true);
+                            }
                             break;
                         case 1:
                             //EL USUARIO QUIERE QUE SE LE MUESTREN LOS LOTES.
                             voActualMultiple = mostrarLotesParaSeleccionarse(lista, voActualMultiple);
-                            todoValido = true;
+                            todoValSalRestan.setTodoValido(true);
                             break;
                         case 0:
                         default:
                             //NO HACER NADA. SE CANCELA TODO.
-                            todoValido = false;
+                            todoValSalRestan.setTodoValido(false);
                             break;
-
                     }
                 }
             }else{
@@ -952,26 +1015,34 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                 // A voActualMultiple PARA SEGUIR CON LAS COMPROBACIONES. 
                     voSeleccionado.setCantidad(voSeleccionado.getCantidad()-vo.getCantidad());
                     voActualMultiple.add(voSeleccionado);
-                    todoValido = true;
-                    saltarseLoRestante = true;
+                    
+                    todoValSalRestan.setTodoValido(true);
+                    todoValSalRestan.setSaltarseLoRestante(true);
+                    todoValSalRestan.setComprobacionSanjante(true);
                     
                 }else{
                     voActualMultiple.add(voSeleccionado);
-                    todoValido = true;
+                    todoValSalRestan.setTodoValido(true);
                 }
                 
             }
             
             //REVISAMOS QUE LA EXISTENCIA TOTAL DE LOS LOTES SELECCIONADOS 
             // SEA MAYOR O IGUAL A LA CANTIDAD QUE SE QUEIRE SALIR. 
-            if(todoValido && !saltarseLoRestante){
+            if(todoValSalRestan.comprobar()){
                 boolean salirDeCiclo = false;
                 
                 //REPETIMOS ESTA SECCION HASTA QUE SE CANCELE O SE ESCOJAN SUFICIENTES
                 // LOTES PARA QUE LA CANTIDAD SEA SURTIDA. 
                 while(!salirDeCiclo){
                     float totalSumaDeLotes = 0f;
-
+                    
+                    if (voActualMultiple==null) {
+                        todoValSalRestan.setSaltarseLoRestante(true);
+                        todoValSalRestan.setTodoValido(false);
+                        break;
+                    }
+                    
                     //REALIZAMOS LA SUMA. 
                     for (EntradaLoteVo voSum : voActualMultiple) {
                          totalSumaDeLotes+=voSum.getCantidad();
@@ -1008,21 +1079,21 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                         case 0:
                         default:
                             //NO HACER NADA. SE CANCELA TODO.
-                            todoValido = false;
+                            todoValSalRestan.setTodoValido(false);
+                            todoValSalRestan.setSaltarseLoRestante(true);
                             salirDeCiclo = true;
-                            saltarseLoRestante = true;
                             break;    
                         }
                     }else{
                         //EL totalSumaDeLotes ES MAYOR QUE LA CANTIDAD DE SALIDA
                         // POR TANTO TERMINAMOS EL BUCLE.
+                        todoValSalRestan.setTodoValido(true);
                         salirDeCiclo = true;
-                        todoValido = true;
                     }
                 }
             }
             
-            if (todoValido && !saltarseLoRestante) {
+            if (todoValSalRestan.comprobar()) {
                 //SI TODO FUE VALIDO AHORA REVISAMOS CUANTO SOBRA DE LA SUMA TOTAL
                 // DE LOS LOTES, DE MANERA QUE SI SOBRA UN LOTE INTACTO ENTONCES
                 // DAMOS LA OPCION DE ESCOGER DE QUE LOTES DESCONTAR PRIMERO. 
@@ -1032,6 +1103,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                 float cantidadSalidaTemp = vo.getCantidad();
                 
                 boolean hayLotesIntactos = false;
+                int contadorLotesIntactos = 0;
                 
                 List<ComparacionLotes> listComparacionLotes = new ArrayList<>();
                 for (EntradaLoteVo voActMult : voActualMultiple) {
@@ -1039,6 +1111,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                     cantidadSalidaTemp = cl.restarDelTotal(cantidadSalidaTemp);
                     if (!cl.isModificado()) {
                         hayLotesIntactos = true;
+                        contadorLotesIntactos++;
                     }
                     listComparacionLotes.add(cl);
                 }
@@ -1065,41 +1138,55 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                     
                     switch(r3){
                         case 2:
-                            //CONTINUAR. CONSOLIDAMOS LAS OPERACIONES QUE HABIAMOS
-                            //REALIZADO DENTRO DE LA CLASE COMPARACION LOTES
-                            // Y LA DEVOLVEMOS AL FLUJO DE voActualMultiple
-                            voActualMultiple.clear();
-                            for (ComparacionLotes cl : listComparacionLotes) {
-                                cl.consolidar();
-                                voActualMultiple.add(voSeleccionado);
-                            }
-                            voActualMultiple.sort(
-                                Comparator.comparing(EntradaLoteVo::getFechaRecepcionLote)
-                                        .thenComparing(EntradaLoteVo::getId));
-                            todoValido = true;
+//                            JOptionPane.showMessageDialog(null, listComparacionLotes.size());
+//                            if (listComparacionLotes.size()>0) {
+//                                
+//                                //CONTINUAR. CONSOLIDAMOS LAS OPERACIONES QUE HABIAMOS
+//                                //REALIZADO DENTRO DE LA CLASE COMPARACION LOTES
+//                                // Y LA DEVOLVEMOS AL FLUJO DE voActualMultiple
+//                                voActualMultiple.clear();
+//                                for (ComparacionLotes cl : listComparacionLotes) {
+//                                    cl.consolidar();
+//                                    voActualMultiple.add(voSeleccionado);
+//                                }
+//                                voActualMultiple.sort(
+//                                    Comparator.comparing(EntradaLoteVo::getFechaRecepcionLote)
+//                                            .thenComparing(EntradaLoteVo::getId));
+//                                todoValSalRestan.setTodoValido(true);
+//                            }else{
+                                //NO SE HA MODIFICADO NADA POR TANTO HAY QUE 
+                                //DESCONTAR DEL LOTE MÁS VIEJO AL MÁS NUEVO
+                                // LA CANTIDAD DE SALIDA. 
+                                descontarCantidadDelLoteMasViejoAlMasNuevo(voActualMultiple, vo.getCantidad());
+//                            }
                             break;
                         case 1:
                             
                             coordinador.salidaLoteAbrirDialogoCantidadADescontarDeLote(
                                     listComparacionLotes, vo.getCantidad());
-                            todoValido = true;
+                            todoValSalRestan.setTodoValido(true);
                             break;
                         case 0:
                         default:
-                            todoValido = false;
+                            todoValSalRestan.setTodoValido(false);
                             break;
                     }
                 }else{
-                    Object op[] = new Object[2];
-                    op[0]= "No. Deja que yo escoja como descontar las cantidades.";
-                    op[1]= "Si. Continua.";
-                    String a ="Quieres descontar la salida del lote más antiguo "+
-                            "al más nuevo?";
-                    int r4 = JOptionPane.showOptionDialog(
-                            this, a,"Opciones posibles.",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE,
-                            null, op, op[1]);
+                    int r4=0;
+                    if (contadorLotesIntactos==0 || voActualMultiple.size()>1) {
+                        r4 = 1;
+                    }else{
+                        Object op[] = new Object[2];
+                        op[0]= "No. Deja que yo escoja como descontar las cantidades.";
+                        op[1]= "Si. Continua.";
+                        String a ="Quieres descontar la salida del lote más antiguo "+
+                                "al más nuevo?";
+                        r4 = JOptionPane.showOptionDialog(
+                                this, a,"Opciones posibles.",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null, op, op[1]);
+                    }
                     
                     switch (r4) {
                         case 0:
@@ -1107,20 +1194,21 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                             //LAS CANTIDADES DEL LOTE. 
                             coordinador.salidaLoteAbrirDialogoCantidadADescontarDeLote(
                                     listComparacionLotes, vo.getCantidad());
-                            todoValido = true;
+                            todoValSalRestan.setTodoValido(true);
                             break;
                         case 1:
                             //DESCONTAMOS AUTOMATICAMENTE DE 
-                            float cantidadTem = vo.getCantidad();
-                            for (EntradaLoteVo eVo : voActualMultiple) {
-                                float temporal = eVo.getCantidad() - cantidadTem;
-                                if (temporal<0) {
-                                    cantidadTem -= eVo.getCantidad();
-                                    eVo.setCantidad(0);
-                                }else{
-                                    eVo.setCantidad(eVo.getCantidad()-cantidadTem);
-                                }
-                            }
+                            descontarCantidadDelLoteMasViejoAlMasNuevo(voActualMultiple, vo.getCantidad());
+//                            float cantidadTem = vo.getCantidad();
+//                            for (EntradaLoteVo eVo : voActualMultiple) {
+//                                float temporal = eVo.getCantidad() - cantidadTem;
+//                                if (temporal<0) {
+//                                    cantidadTem -= eVo.getCantidad();
+//                                    eVo.setCantidad(0);
+//                                }else{
+//                                    eVo.setCantidad(eVo.getCantidad()-cantidadTem);
+//                                }
+//                            }
                             
                             break;
                         default:
@@ -1133,17 +1221,23 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             }
         }
         
-        if (todoValido) {
+        if (todoValSalRestan.comprobar()) {
             JOptionPane.showMessageDialog(null, "datos actuales:"+voActualMultiple.toString());
             
         }
         
         
+        if (todoValSalRestan.isComprobacionSanjante()) {
+            JOptionPane.showMessageDialog(null, "Fue una comprobacion sanjante.");
+            JOptionPane.showMessageDialog(null, "datos actuales:"+voActualMultiple.toString());
+        }
         
         //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
-        todoValido = false;
+        todoValSalRestan.setTodoValido(false);
         //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
-        if (todoValido) {
+        
+        
+        if (todoValSalRestan.comprobar()) {
             //GUARDAMOS EL LOTE NUEVO.
             if(this.getCoordinador().salidaLoteGuadar(vo)){
 //                this.getCoordinador().entradaLoteActualizarExistencia();
@@ -1162,11 +1256,18 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         }
     }
     
-    //FUNCIONES SUSTITITUTAS PARA REUTILIZAR COMPROBACIONES?
-    private boolean loteMasAntiguoComprobacion(){
-        return !valLoteMasAntiguo.isValido();
+    public void descontarCantidadDelLoteMasViejoAlMasNuevo(
+            List<EntradaLoteVo> voActualMultiple, float cantidadTem){
+        for (EntradaLoteVo eVo : voActualMultiple) {
+                float temporal = eVo.getCantidad() - cantidadTem;
+                if (temporal<0) {
+                    cantidadTem -= eVo.getCantidad();
+                    eVo.setCantidad(0);
+                }else{
+                    eVo.setCantidad(eVo.getCantidad()-cantidadTem);
+                }
+            }
     }
-    private void loteMasAntiguoAcciones(){}
     
     
     private List<EntradaLoteVo> mostrarLotesParaSeleccionarse(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeleccionActual){

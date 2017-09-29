@@ -55,43 +55,10 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
     }
-    
-    
-    
-    public void configurar(){
-     /*
-        =======================================================================
-            INICIO CONFIGURACIONES DIALOGO
-        ///////////////////////////////////////////////////////////////////////
 
-        Los dialogos nos los estoy configurando de manera complicada. Solo lo
-        básico para que funcionen en modal.
-        
-        */ 
-//        setModal(true);
-        
-        
-        
-        
-
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN SETEO DE UTILIDADES
-        ========================================================================
-        */
-        
-        /*
-        =======================================================================
-            INICIO SETEO NOMBRES DE ETIQUETA
-        ///////////////////////////////////////////////////////////////////////
-        */
-               
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN SETEO NOMBRES DE ETIQUETA
-        ========================================================================
-        */
-        /*
+    @Override
+    public void initConfig() {
+         /*
         =======================================================================
             INICIO SETEO UTILIDADES
         ///////////////////////////////////////////////////////////////////////
@@ -131,6 +98,12 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+    }
+    
+    
+    
+    public void configurar(){
+       
         
         /*
         =======================================================================

@@ -75,24 +75,10 @@ public class PanelRefaccionDetalle extends JPanelBase {
         
         
     }
-    
-    @Override
-    public void configurar() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public void configurar(String id){
-        /*
-        =======================================================================
-            INICIO CONFIGURACIONES DIALOGO
-        ///////////////////////////////////////////////////////////////////////
 
-        Los dialogos nos los estoy configurando de manera complicada. Solo lo
-        básico para que funcionen en modal.
-        
-        */ 
-//        setModal(true);
-        /* 
+    @Override
+    public void initConfig() {
+        /*
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
         ========================================================================
@@ -201,7 +187,14 @@ public class PanelRefaccionDetalle extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+    }
+    
+    @Override
+    public void configurar() {
         
+    }
+    
+    public void configurar(String id){
         /*
         =======================================================================
             INICIO CARGA DE ELEMENTOS 

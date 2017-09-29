@@ -46,11 +46,13 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
     /**
      * Creates new form PanelAgregarMaquina
      */
-   
+    
+    
     
     
     @Override
-    public void configurar(){
+    public void initConfig(){
+       
         /*
         =======================================================================
             INICIO CONFIGURACIONES DIALOGO
@@ -131,22 +133,23 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+        
+    }
+
+    @Override
+    public void configurar() {
         /*
         =======================================================================
-            INICIO CARGA DE ELEMENTOS 
+        INICIO CARGA DE ELEMENTOS 
         ///////////////////////////////////////////////////////////////////////
         */
-            this.consultarProveedores();
+        this.consultarProveedores();
         
-        /* 
+        /*
         ////////////////////////////////////////////////////////////////////////
-            FIN CARGA DE ELEMENTOS 
+        FIN CARGA DE ELEMENTOS 
         ========================================================================
         */
-        
-        
-        
-        
     }
 
     public Coordinador getCoordinador() {
