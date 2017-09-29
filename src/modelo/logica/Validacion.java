@@ -87,6 +87,7 @@ public class Validacion {
      * @param nombreParaMostrar El nombre que se mostrara en el mensaje. 
      */
     public void setNombreDeCampo( String nombreParaMostrar) {
+        this.nombreDeCampo = nombreParaMostrar;
         this.nombreDeCampoParaMostrar = nombreParaMostrar;
     }
     /**
@@ -97,7 +98,7 @@ public class Validacion {
         if (mensajeDeError==null) {
             try {
                 throw new ExcepcionPersonalizada(
-                        "No definiste el mensaje de error.", this, "getMensajeDeError");
+                        "No definiste el mensaje de error." + nombreDeCampo, this, "getMensajeDeError");
             } catch (ExcepcionPersonalizada ex) {
                 Logger.getLogger(Validacion.class.getName()).log(Level.SEVERE, null, ex);
             }

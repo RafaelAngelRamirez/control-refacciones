@@ -18,8 +18,6 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import modelo.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
@@ -280,11 +278,23 @@ public class UtilidadesListasCheckList extends OperacionesBasicasPorDefinir{
             setEnabled(list.isEnabled());
             setSelected(((CheckListItem) value).isSelected());
             setFont(list.getFont());
-            setBackground(list.getBackground());
-            setForeground(list.getForeground());
             setText(value.toString());
             return this;
         }
+
+        @Override
+        public void setSelected(boolean b) {
+        
+            if (b) {
+                setOpaque(true);
+                setBackground(ColoresYFuentes.TEMA_FONDO_ETIQUETAS_OSCURO);
+            }else{
+                setOpaque(false);
+            }
+            super.setSelected(b); //To change body of generated methods, choose Tools | Templates.
+        }
+        
+        
 
     }
     

@@ -6,25 +6,14 @@
 package vista.panels;
 
 import controlador.CoordinadorPaneles;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Comparator;
 import java.util.List;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
+import javax.swing.BoxLayout;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
 import modelo.Textos;
 import modelo.vo.EntradaLoteVo;
@@ -187,6 +176,7 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
     public void configurar() {
         panelContenedor.removeAll();
         JList list = new JList();
+        list.setLayout(new BoxLayout(list, BoxLayout.X_AXIS));
         _list = new UtilidadesListasCheckList(getCoordinador());
         _list.setComponente(list);
         list.setFont(ColoresYFuentes.FUENTE_ALINEADA);
@@ -194,7 +184,8 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(panelContenedor.getSize()));
-        panelContenedor.setLayout(new FlowLayout(FlowLayout.TRAILING));
+        
+        panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.Y_AXIS));
         panelContenedor.add(scrollPane);
         panelContenedor.validate();
 
@@ -202,11 +193,13 @@ public class PanelSalidaDeLoteSeleccionLotes extends JPanelBase {
     
     @SuppressWarnings("unchecked")
     public void cargarLotes(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeleccionActual){
+       
         for (EntradaLoteVo vo : lista) {
             _list.addItem(vo.getNombreParaMostrarLote() + "    "+Textos.formaetarNumeros(vo.getCantidad(), "000.00"), vo);
         }
         for (EntradaLoteVo voActual : listaSeleccionActual) {
-            _list.selectItem(voActual.getNombreParaMostrarLote());
+            String a = voActual.getNombreParaMostrarLote()+ "    "+Textos.formaetarNumeros(voActual.getCantidad(), "000.00");
+            _list.selectItem(a);
         }
         this.validate();
     }

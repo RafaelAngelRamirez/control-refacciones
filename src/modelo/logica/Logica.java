@@ -7,11 +7,13 @@ package modelo.logica;
 
 import controlador.Coordinador;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.FicherosOperaciones;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
@@ -51,6 +53,7 @@ import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
 import modelo.FechaYHora;
+import vista.panels.PanelSalidaLoteContenedorDeFila;
 
 /**
  *
@@ -1260,12 +1263,59 @@ public class Logica {
         SalidaLoteDao d = new SalidaLoteDao(coordinador);
         return d.existencia(id);
     }
+    
+    public List<Validacion> salidaLoteCantidadADescontarDeLoteValidaciones(
+            List<PanelSalidaLoteContenedorDeFila> list, BigDecimal totalSalida) {
+        
+        List<Validacion> listVal = new ArrayList<>();
+        boolean loteConValorNegativo = false;
+        Validacion v1 = new Validacion();
+        v1.setNombreDeCampo("Existencia");
+        String lotes = "";
+
+        BigDecimal salidaDeTotalDeLotesParaComparacion = new BigDecimal(0);
+        for (PanelSalidaLoteContenedorDeFila cF : list) {
+            BigDecimal valExistenciaEti = new BigDecimal(cF.getEtiquetaExistencia().getText());
+            if (valExistenciaEti.signum()==-1) {
+                loteConValorNegativo = true;
+                lotes+="\n"+cF.getCl().lote.getNombreParaMostrarLote();
+            }
+            
+            salidaDeTotalDeLotesParaComparacion = 
+                    salidaDeTotalDeLotesParaComparacion.add(
+                            new BigDecimal(cF.getRecuadroEntrada().getText()));
+        }
+        
+        if (loteConValorNegativo) {
+            v1.setMensajeDeError(" Los siguientes lotes tienen valores negativos:"+lotes);
+            v1.setValido(false);
+        }else{
+            v1.setValido(true);
+        }
+        listVal.add(v1);
+        
+        
+        Validacion v2 = new Validacion();
+        v2.setNombreDeCampo("Total negativo");
+        JOptionPane.showMessageDialog(null, totalSalida.toString()+"----totalSalida");
+        if (totalSalida.signum()==-1) {
+            v2.setValido(false);
+            v2.setMensajeDeError("La suma de salida de los lotes es '"+salidaDeTotalDeLotesParaComparacion+"' y es mayor que\n"
+                    + "la salida que ya habias definido '"+(salidaDeTotalDeLotesParaComparacion.add(totalSalida)).toString()+"'.");
+        }else{
+            v2.setValido(true);
+        }
+        listVal.add(v2);
+        
+        return listVal;
+    }
         
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE SALIDA LOTE
     ========================================================================
     */
+
     
     
 }

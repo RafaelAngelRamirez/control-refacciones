@@ -1,6 +1,7 @@
 
 package controlador;
 
+import java.math.BigDecimal;
 import vista.panels.PanelEmpleadoModificar;
 import vista.panels.PanelRefaccionDetalle;
 import vista.panels.PanelMaquinaModeloAgregar;
@@ -40,6 +41,7 @@ import vista.UtilidadesIntefaz.JDialogBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
 import vista.panels.PanelSalidaDeLoteSeleccionLotes;
+import vista.panels.PanelSalidaLoteContenedorDeFila;
 
 /**
  * Se controlan todas las interacciónes entre las diferentes ventanas. Se mantiene
@@ -1120,7 +1122,15 @@ public class Coordinador {
         d.setVisible(true);
     
     }
-        
+    
+    public List<Validacion> salidaLoteCantidadADescontarDeLoteValidaciones(
+            List<PanelSalidaLoteContenedorDeFila> list, BigDecimal totalSalida){
+        return this.logica.salidaLoteCantidadADescontarDeLoteValidaciones(
+            list, totalSalida);
+    
+    }
+    
+           
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE SALIDA LOTE
