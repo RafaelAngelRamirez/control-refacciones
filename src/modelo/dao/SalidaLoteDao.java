@@ -2,12 +2,8 @@
 package modelo.dao;
 
 import controlador.Coordinador;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.Conexion;
 import modelo.InfoTabla.SalidaLoteIT;
 import modelo.vo.SalidaLoteVo;

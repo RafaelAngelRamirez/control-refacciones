@@ -1254,10 +1254,10 @@ public class Logica {
 
     }
 
-    public float salidaLoteExistencia(int id){
-        SalidaLoteDao d = new SalidaLoteDao(coordinador);
-        return d.existencia(id);
-    }
+//    public float salidaLoteExistencia(int id){
+//        SalidaLoteDao d = new SalidaLoteDao(coordinador);
+//        return d.existencia(id);
+//    }
     
     public List<Validacion> salidaLoteCantidadADescontarDeLoteValidaciones(
             List<PanelSalidaLoteContenedorDeFila> list, BigDecimal totalSalida) {

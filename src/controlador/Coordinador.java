@@ -1117,10 +1117,10 @@ public class Coordinador {
         return this.logica.salidaLoteGuadar(vo);
     }
 
-    public float salidaLoteExistencia(int id){
-        return this.logica.salidaLoteExistencia(id);
-    }
-    
+//    public float salidaLoteExistencia(int id){
+//        return this.logica.salidaLoteExistencia(id);
+//    }
+//    
     public void salidaLoteAbrirDialogoSeleccionarLotes(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeoleccionActual){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelSalidaDeLoteSeleccionLotes);
         panelSalidaDeLoteSeleccionLotes.configurar();
