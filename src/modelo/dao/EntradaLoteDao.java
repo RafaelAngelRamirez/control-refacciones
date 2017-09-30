@@ -97,19 +97,7 @@ public class EntradaLoteDao extends DAOGenerales{
         }
         return listVo;
     }
-        
-    public boolean actualizarExistencia(EntradaLoteVo vo){
-        conexion = new Conexion(coordinador);
-        String sql = "UPDATE " + EntradaLoteIT.NOMBRE_TABLA 
-                +" SET "+
-                it.getCantidadPDC().getNombre() + " = " +it.getCantidadPDC().getNombre()+"- ?"
-                +" WHERE "+
-                it.getIdPDC().getNombre() +" = ?";
-        HashMap<Integer, Object> datos = new HashMap<>();
-        datos.put(1, vo.getCantidad());
-        datos.put(1, vo.getId());
-        return conexion.executeUpdate(sql, datos);
-    }
+    
     
     /**
      * Obtenemos el lote más antiguo con existencia de la refacción que se pase
@@ -174,6 +162,48 @@ public class EntradaLoteDao extends DAOGenerales{
         return vo;  
             
                     
+    }
+
+    /**
+     * Actualiza los lotes con la cantidad que se le pase como parametro. 
+     * @param listaELVParaActualizar
+     * @return
+     */
+    public boolean actualizarLotes(List<EntradaLoteVo> listaELVParaActualizar) {
+        conexion = new Conexion(coordinador);
+        String signos="";
+        String sql = "UPDATE "+ EntradaLoteIT.NOMBRE_TABLA;
+              sql += " SET " + it.getCantidadPDC().getNombre()+"= CASE " + it.getIdPDC().getNombre();
+        
+        int contador = 1;
+        for (EntradaLoteVo a : listaELVParaActualizar) {
+            
+            sql += " WHEN ? THEN ? ";
+           
+            signos = contador<listaELVParaActualizar.size() ? signos +" ?, ":signos+" ? ";
+            contador++;
+            
+        }
+        sql+=" END ";
+        
+        sql+=" WHERE "+it.getIdPDC().getNombre()+" IN ("+signos+")" ;
+        
+        HashMap<Integer, Object> mapa = new HashMap<>();
+        
+        int c = 1;
+        for (EntradaLoteVo v : listaELVParaActualizar) {
+            mapa.put(c, v.getId());
+            mapa.put(c+1, v.getCantidad());
+            c+=2;
+        }
+        
+        for (EntradaLoteVo v : listaELVParaActualizar) {
+            mapa.put(c, v.getId());
+            c++;
+        }
+        
+        return conexion.executeUpdate(sql, mapa);
+        
     }
     
     

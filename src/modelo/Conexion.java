@@ -261,6 +261,7 @@ public class Conexion {
         } catch (ExcepcionPersonalizada e){
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, e);
         }
+        
         try {
             conexion.close();
         } catch (SQLException ex) {

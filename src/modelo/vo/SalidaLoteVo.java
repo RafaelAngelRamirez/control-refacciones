@@ -15,6 +15,7 @@ public class SalidaLoteVo extends VoGenerales{
     private float cantidad;
     private int idRefaccion;
     private int idEmpleado;
+    private int idLote;
     private String observaciones;
 
     public SalidaLoteVo() {
@@ -24,10 +25,19 @@ public class SalidaLoteVo extends VoGenerales{
         relacionCampo.put(i.getCantidadPDC().getNombre(), ()->this.getCantidad());
         relacionCampo.put(i.getIdRefaccionPDC().getNombre(), ()->this.getIdRefaccion());
         relacionCampo.put(i.getIdEmpleadoPDC().getNombre(), ()->this.getIdEmpleado());
+        relacionCampo.put(i.getIdLotePDC().getNombre(), ()->this.getIdLote());
         relacionCampo.put(i.getObservacionesPDC().getNombre(), ()->this.getObservaciones());
     
     }
 
+    public int getIdLote() {
+        return idLote;
+    }
+
+    public void setIdLote(int idLote) {
+        this.idLote = idLote;
+    }
+    
     public String getObservaciones() {
         return observaciones;
     }

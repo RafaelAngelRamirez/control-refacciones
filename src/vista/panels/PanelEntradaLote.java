@@ -874,7 +874,6 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
     }
     
     private void cargarRefaccionParaEntrada(){
-        JOptionPane.showMessageDialog(null, "que paso!!!!!");
         if (!_txtBusqueda.isEmpty()) {
             RefaccionVo vo =null;
             HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();

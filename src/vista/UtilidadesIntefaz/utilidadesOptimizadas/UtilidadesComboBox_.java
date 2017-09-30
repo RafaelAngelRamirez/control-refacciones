@@ -24,6 +24,7 @@ import org.jdesktop.swingx.autocomplete.*;
 public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
     
     private JComboBox comboBox;
+    private DefaultComboBoxModel<String> defaultComboBoxModel;
    
     private HashMap<String, Object> relacionDatoObjeto = new HashMap<>();
     private String nombreColumnaId, nombreColumnaDatoAMostrar;
@@ -39,7 +40,9 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
      *El jComboBox que se cargara con los datos de la consulta. 
      * @param comboBox JCombobox
      */
-    public void setComponente(JComboBox comboBox) {
+    @SuppressWarnings("unchecked")
+    public void setComponente(JComboBox<?> comboBox) {
+        defaultComboBoxModel = (DefaultComboBoxModel<String>)comboBox.getModel();
         this.comboBox = comboBox;
     }
 
@@ -87,11 +90,12 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
      * @param datos El primer string es el valor y el segúndo es el id que se
      * quiere almacenear para relacionarlo al seleccionar un elemento del combo.
      */
+    @SuppressWarnings("unchecked")
     public void cargarCombo(HashMap <String, Object> datos){
         this.limpiar();
 //        DefaultComboBoxModel<String> m
 //                    = new DefaultComboBoxModel<String>();
-        DefaultComboBoxModel<String> m = (DefaultComboBoxModel < String >)this.comboBox.getModel();
+        defaultComboBoxModel.removeAllElements();
         List<String> ordenar = new ArrayList<>();
         
         this.relacionDatoObjeto = datos;
@@ -102,7 +106,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
         }
         Collections.sort(ordenar);
         for (String d : ordenar) {
-            m.addElement(d);
+            defaultComboBoxModel.addElement(d);
         }
 //        this.comboBox.setModel(m);
         this.autoCompletar();
@@ -116,6 +120,8 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
     public void limpiar(){
         System.out.println("[!]Limpiando combo!");
         this.comboBox.removeAllItems();
+        defaultComboBoxModel.removeAllElements();
+        
     }
     
     /**
@@ -199,9 +205,8 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
         System.out.println(s);
         
         String elementoEscrito = itemEscrito+"";
-        DefaultComboBoxModel modelo = (DefaultComboBoxModel) this.comboBox.getModel();
-        for (int i = 0; i < modelo.getSize(); i++) {
-            String elemento =(String) modelo.getElementAt(i);
+        for (int i = 0; i < defaultComboBoxModel.getSize(); i++) {
+            String elemento =defaultComboBoxModel.getElementAt(i);
             if (elemento.equals(elementoEscrito)) {
                 Suceso s1 = new Suceso();
                 s1.setClase(this);
@@ -283,7 +288,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
     }
     
     public boolean isEmpty(){
-        if (this.comboBox.getModel().getSize()==0) {
+        if (defaultComboBoxModel.getSize()==0) {
             return true;
         }
         

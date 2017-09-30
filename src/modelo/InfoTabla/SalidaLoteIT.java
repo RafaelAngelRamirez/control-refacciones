@@ -17,6 +17,8 @@ public class SalidaLoteIT extends ITGenerales{
     private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
     private ParametrosDeCampo idEmpleadoPDC = new ParametrosDeCampo();
     private ParametrosDeCampo observacionesPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idLotePDC = new ParametrosDeCampo();
+    
 
     public SalidaLoteIT() {
         idPDC.setNombre("id");
@@ -50,6 +52,14 @@ public class SalidaLoteIT extends ITGenerales{
         idRefaccionPDC.setNulo(false);
         idRefaccionPDC.setAutoIncrement(false);
         idRefaccionPDC.setPermiteRepetido(true);
+        
+        idLotePDC.setNombre("idLote");
+        idLotePDC.setNombreParaMostrar("Lote");
+        idLotePDC.setLongitudDeCaracteres(11);
+        idLotePDC.setTipoDeDatos("int");
+        idLotePDC.setNulo(false);
+        idLotePDC.setAutoIncrement(false);
+        idLotePDC.setPermiteRepetido(true);
 
         idEmpleadoPDC.setNombre("idEmpleado");
         idEmpleadoPDC.setNombreParaMostrar("Nombre del empleado");
@@ -77,6 +87,14 @@ public class SalidaLoteIT extends ITGenerales{
     
     }
 
+    public ParametrosDeCampo getIdLotePDC() {
+        return idLotePDC;
+    }
+
+    public void setIdLotePDC(ParametrosDeCampo idLotePDC) {
+        this.idLotePDC = idLotePDC;
+    }
+    
     public ParametrosDeCampo getIdPDC() {
         return idPDC;
     }

@@ -1032,19 +1032,38 @@ public class Coordinador {
     public float entradaLoteExistencia(int id){
         return this.logica.entradaLoteExistencia(id);
     }
-
+    
+    /**
+     * Carga los lotes que esten relacionados con el id de la refacción que se le
+     * pase.
+     * @param id El id de la refacción que se quiere filtrar. 
+     * @param cargarVacios True si se quiere cargar tambien los lotes vacios. 
+     * @return La lista de lotes que coinciden con los parametros que se definieron.
+     */
     public List<EntradaLoteVo> entradaLoteLotes(int id, boolean cargarVacios){
         return this.logica.entradaLoteLotes(id, cargarVacios);
     }
 
+    /**
+     * Carga el lote más antiguo que tenga relación con el id que se le
+     * pase como parametro. 
+     * @param id El id de la refacció que se quiere filtrar. 
+     * @return El lote más antiguo que se encontro.
+     */
     public EntradaLoteVo entradaLoteLoteMasAntiguo(int id){
         return this.logica.entradaLoteLoteMasAntiguo(id);
     }
-
-    public boolean entradaLoteActualizarExistencia(EntradaLoteVo vo){
-        return this.logica.entradaLoteActualizarExistencia(vo);
+    
+    /**
+     * Actualiza la lista de lotes que se le pasen como parametros. 
+     * @param listaELVParaActualizar
+     * @return True si la actaulización fue correcta. 
+     */
+    public boolean entradaLoteActualizarLotes(List<EntradaLoteVo> listaELVParaActualizar) {
+         return this.logica.entradaloteActualizarLotes(listaELVParaActualizar);
+    
     }
-
+    
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE ENTRADA LOTE
@@ -1089,7 +1108,12 @@ public class Coordinador {
         return this.logica.salidaLoteValidarLotes(lotesDisponibles, voSeleccionado);
     }
 
-    public boolean salidaLoteGuadar(SalidaLoteVo vo){
+    /**
+     * Guarda el registr de los lotes que salieron y que se le pase como parametro.
+     * @param vo
+     * @return
+     */
+    public boolean salidaLoteGuadar(List<SalidaLoteVo> vo){
         return this.logica.salidaLoteGuadar(vo);
     }
 
@@ -1097,12 +1121,11 @@ public class Coordinador {
         return this.logica.salidaLoteExistencia(id);
     }
     
-    public void salidaLoteAbrirDialogoSeleccionarRefaccion(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeoleccionActual){
+    public void salidaLoteAbrirDialogoSeleccionarLotes(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeoleccionActual){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelSalidaDeLoteSeleccionLotes);
-        d.setVisible(true);
         panelSalidaDeLoteSeleccionLotes.configurar();
         panelSalidaDeLoteSeleccionLotes.cargarLotes(lista, listaSeoleccionActual);
-        
+        d.setVisible(true);
     }
     
     /**
@@ -1117,9 +1140,9 @@ public class Coordinador {
     public void salidaLoteAbrirDialogoCantidadADescontarDeLote(List<ComparacionLotes> comparacionLotes, float cantidadSalida){
         JDialogBase d = coordinadorPaneles
                 .ifContainsReturnElseCreate(panelSalidaDeLoteCantidadADescontarDeLote);
-        d.setVisible(true);
         panelSalidaDeLoteCantidadADescontarDeLote.configurar();
         panelSalidaDeLoteCantidadADescontarDeLote.cargarLotes(comparacionLotes, cantidadSalida);
+        d.setVisible(true);
     
     }
     
@@ -1163,8 +1186,8 @@ public class Coordinador {
         FIN DE ALGO
     ========================================================================
     */
-    
-    
+
+   
     
     
 }

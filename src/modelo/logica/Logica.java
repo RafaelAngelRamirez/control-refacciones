@@ -1157,11 +1157,6 @@ public class Logica {
         return d.loteMasAntiguo(id);
     }
     
-    public boolean entradaLoteActualizarExistencia(EntradaLoteVo vo){
-        EntradaLoteDao d = new EntradaLoteDao(coordinador);
-        return d.actualizarExistencia(vo);
-    }
-        
     
     
      /* 
@@ -1253,7 +1248,7 @@ public class Logica {
         
         
 
-    public boolean salidaLoteGuadar(SalidaLoteVo vo){
+    public boolean salidaLoteGuadar(List<SalidaLoteVo> vo){
         SalidaLoteDao d = new SalidaLoteDao(coordinador);
         return d.guardar(vo);
 
@@ -1297,7 +1292,6 @@ public class Logica {
         
         Validacion v2 = new Validacion();
         v2.setNombreDeCampo("Total negativo");
-        JOptionPane.showMessageDialog(null, totalSalida.toString()+"----totalSalida");
         if (totalSalida.signum()==-1) {
             v2.setValido(false);
             v2.setMensajeDeError("La suma de salida de los lotes es '"+salidaDeTotalDeLotesParaComparacion+"' y es mayor que\n"
@@ -1309,12 +1303,20 @@ public class Logica {
         
         return listVal;
     }
+    
+    public boolean entradaloteActualizarLotes(List<EntradaLoteVo> listaELVParaActualizar) {
+        EntradaLoteDao d = new EntradaLoteDao(coordinador);
+        return d.actualizarLotes(listaELVParaActualizar);
+        
+    }
         
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE SALIDA LOTE
     ========================================================================
     */
+
+    
 
     
     

@@ -5,8 +5,10 @@ import controlador.Coordinador;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Conexion;
 import modelo.InfoTabla.SalidaLoteIT;
 import modelo.vo.SalidaLoteVo;
 
@@ -20,40 +22,38 @@ public class SalidaLoteDao extends DAOGenerales{
         this.it = new SalidaLoteIT();
     }
     
-    public boolean guardar(SalidaLoteVo vo){
-        String sql = "INSERT INTO "+ SalidaLoteIT.NOMBRE_TABLA 
-                +" VALUES (null, ?, ?, ?, ?, ?)";
+    public boolean guardar(List<SalidaLoteVo> vo){
+        conexion = new Conexion(coordinador);
+        String sql = "INSERT INTO " + SalidaLoteIT.NOMBRE_TABLA + " VALUES ";
         
-        
-        HashMap<Integer, Object> datos = new HashMap<>();
-        datos.put(1, vo.getFechaSalidaLote());
-        datos.put(2, vo.getCantidad());
-        datos.put(3, vo.getIdRefaccion());
-        datos.put(4, vo.getIdEmpleado());
-        datos.put(5, vo.getObservaciones());
-        
-        return conexion.executeUpdate(sql, datos);
-        
-    
-    }
-    
-    public float existencia(int id){
-        try {
-            String sql = "SELECT SUM("+it.getCantidadPDC().getNombre()+")"
-                    +" FROM " +
-                    SalidaLoteIT.NOMBRE_TABLA
-                    +" WHERE "+
-                    it.getIdRefaccionPDC().getNombre()+"=?";
-            ResultSet r = conexion.executeQuery(sql, id+"");
-            r.next();
-            return r.getFloat(1);
-        } catch (SQLException ex) {
-            Logger.getLogger(SalidaLoteDao.class.getName()).log(Level.SEVERE, null, ex);
+        int cont1 = 1;
+        for (SalidaLoteVo v : vo) {
+            
+            String a = "(null, ?, ?,?,?,?,? ) ";
+            sql = cont1<vo.size() ? sql+a+",":sql+a;
+            cont1++;
         }
-        return -1;
         
+        HashMap<Integer, Object> mapa = new HashMap<>();
+        int cont =1;
+        for (SalidaLoteVo v : vo) {
+            mapa.put(cont, v.getFechaSalidaLote());
+            cont++;
+            mapa.put(cont, v.getIdLote());
+            cont++;
+            mapa.put(cont, v.getCantidad());
+            cont++;
+            mapa.put(cont, v.getIdRefaccion());
+            cont++;
+            mapa.put(cont, v.getIdEmpleado());
+            cont++;
+            mapa.put(cont, v.getObservaciones());
+            cont++;
+            
+        }
+        
+        return conexion.executeUpdate(sql, mapa);
     }
-    
     
     
     

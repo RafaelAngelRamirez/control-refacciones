@@ -252,11 +252,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         _TxtQueEs.setText(rvo.getQueEs());
         _TxtParaQueEs.setText(rvo.getParaQueEs());
         
-        if(rvo.getRefaccionDeConsumoUnico()==(byte)1)
-            checkEsDeConsumoUnico.setSelected(true);
-        else
-            checkEsDeConsumoUnico.setSelected(false);
-            
+        checkEsDeConsumoUnico.setSelected((rvo.getRefaccionDeConsumoUnico()==(byte)1));
         
         List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
         HashMap<String, Object> pvoMapa = new HashMap<>();
