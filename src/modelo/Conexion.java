@@ -7,7 +7,6 @@ package modelo;
  */
 
 import controlador.*;
-import controlador.capturadeerrores.CapturaDeSucesos;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,8 +46,8 @@ public class Conexion {
     //CREAMOS UNA CONEXION CONSTANTE. 
     private boolean Miconexion(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");  
-            this.conexion= DriverManager.getConnection("jdbc:mysql://"
+            Class.forName("org.mariadb.jdbc.Driver");  
+            this.conexion= DriverManager.getConnection("jdbc:mariadb://"
                     +ConexionDatos.URL_SERVIDOR
                     +ConexionDatos.BD,
                     ConexionDatos.USUARIO_SERVIDOR,
@@ -103,7 +102,7 @@ public class Conexion {
      * 
      * 
      */
-    public ResultSet executeQuery (String sql, HashMap<Integer, String> datos){
+    public ResultSet executeQuery (String sql, HashMap<Integer, Object> datos){
         Suceso s = new Suceso();
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
@@ -139,7 +138,7 @@ public class Conexion {
      * 
      * 
      */
-    public boolean executeUpdate(String sql, HashMap<Integer, String> datos){
+    public boolean executeUpdate(String sql, HashMap<Integer, Object> datos){
         Suceso s = new Suceso();
         s.setClase(this);
         s.setTextoAMostrar("[SQL] EJECUTANDO UPDATE");
@@ -175,7 +174,7 @@ public class Conexion {
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
         s.setTextoAMostrar("[SQL] EJECUTANDO UPDATE");
         System.out.println(s);
-        HashMap<Integer, String> map = new HashMap<>();
+        HashMap<Integer, Object> map = new HashMap<>();
         map.put(1, datos);
         this.executeUpdate(sql, map);
         return this.queryExitoso;
@@ -186,7 +185,7 @@ public class Conexion {
     // Definition Languaje). Para esto necesitamos executeUpdate que si lo permite.
     // executeUpdate retorna un entero que por el momento no estamos capturando.
     // 
-    private ResultSet ejecutarSentencia (String sql, HashMap<Integer, String> datos, boolean executeOrUpdate){
+    private ResultSet ejecutarSentencia (String sql, HashMap<Integer, Object> datos, boolean executeOrUpdate){
         
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
@@ -203,34 +202,38 @@ public class Conexion {
             
             preparedStatement = this.conexion.prepareStatement(sql);
             if (datos!=null) {
-                for (Map.Entry<Integer, String> entry : datos.entrySet()) {
+                for (Map.Entry<Integer, Object> entry : datos.entrySet()) {
                     Integer posicion = entry.getKey();
-                    String dato = entry.getValue();
-                    System.out.println("depurando conexion preparedstatement");
+                    String dato = entry.getValue()+"";
+                    System.out.println("[INFO PRE-CONEXION]depurando conexion preparedstatement");
                     switch(TipoDeDato.encontrarTipoDeDato(dato)){
                         case TipoDeDato.STRING:
-                            System.out.println("string");
+                            System.out.println("[PREPARED STATEMENT] |string");
                             preparedStatement.setString(posicion, dato);
                             break;
                         case TipoDeDato.INTEGER:
-                            System.out.println("integer");
+                            System.out.println("[PREPARED STATEMENT] |integer");
                             preparedStatement.setInt(posicion, Integer.parseInt(dato));
                             break;
                         case TipoDeDato.FLOAT:
-                            System.out.println("float");
+                            System.out.println("[PREPARED STATEMENT] |float");
                             preparedStatement.setFloat(posicion, Float.parseFloat(dato));
                             break;
                         case TipoDeDato.DOUBLE:
-                            System.out.println("double");
+                            System.out.println("[PREPARED STATEMENT] |double");
                             preparedStatement.setDouble(posicion, Float.parseFloat(dato));
                             break;
                         case TipoDeDato.DATE:
-                            System.out.println("date");
+                            System.out.println("[PREPARED STATEMENT] |date");
                             preparedStatement.setDate(posicion, java.sql.Date.valueOf(dato));
                             break;
                         case TipoDeDato.TIMESTAMP:
-                            System.out.println("TimeStamp");
+                            System.out.println("[PREPARED STATEMENT] |TimeStamp");
                             preparedStatement.setTimestamp(posicion, java.sql.Timestamp.valueOf(dato));
+                            break;
+                        case TipoDeDato.BYTE:
+                            System.out.println("[PREPARED STATEMENT] |Byte");
+                            preparedStatement.setByte(posicion, Byte.parseByte(dato));
                             break;
                         default:
                            throw new ExcepcionPersonalizada(
@@ -249,12 +252,7 @@ public class Conexion {
                 preparedStatement.executeUpdate();
             }
             String sqlMostrar = preparedStatement.toString().split(":")[1];
-            
-            Suceso s = new Suceso();
-            s.setClase(this);
-            s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-            s.setTextoAMostrar("[SQL]" + sqlMostrar);
-            System.out.println(s);
+            System.out.println("[SQL -> PreparedStatement]"+sqlMostrar);
             
             this.queryExitoso = true;
         } catch (SQLException ex) {
@@ -262,6 +260,13 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ExcepcionPersonalizada e){
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        try {
+            conexion.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo cerrar la conexión con el servidor.");
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
     }
@@ -292,7 +297,7 @@ public class Conexion {
      */
     public ResultSet executeQuery (String sql, String dato){
         //PARA FACILITAR LAS CONSULTAS CUANDO SOLO SEA UN DATO.
-        HashMap<Integer, String> datos = new HashMap<>();
+        HashMap<Integer, Object> datos = new HashMap<>();
         datos.put(1, dato);
         ResultSet rs = this.executeQuery(sql, datos);
         return rs;
@@ -318,8 +323,12 @@ public class Conexion {
      */
     public ResultSet executeQuery (String sql){
         //PARA FACILITAR LAS CONSULTAS CUANDO SOLO SEA UN DATO.
-        HashMap<Integer, String> datos = null;
+        HashMap<Integer, Object> datos = null;
         ResultSet rs = this.executeQuery(sql, datos);
         return rs;
     }
+
+   
+
+    
 }

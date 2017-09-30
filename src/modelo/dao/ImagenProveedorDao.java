@@ -40,7 +40,7 @@ public class ImagenProveedorDao extends DAOGenerales{
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
         int contador=1;
         // EL MAPA QUE RELACIONA ? CON EL DATO.
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         //CONTADOR PARA EVITAR LA ÚLTIMA COMA DEL SQL.
         int conComa=1;
         //RECORREMOS TODAS LAS IMAGENES QUE PASAMOS. 
@@ -84,7 +84,7 @@ public class ImagenProveedorDao extends DAOGenerales{
      public boolean subirImagenesAServidor(File img){
         FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
         ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN);
-        ficheros.setFicheroASubir(img);
+        ficheros.setFichero(img);
         if (ficheros.subirFichero()) {
             return true;
         }
@@ -117,7 +117,7 @@ public class ImagenProveedorDao extends DAOGenerales{
         return livo;
     }
     
-    public void eliminar (ImagenProveedorVo vo){
+    public boolean eliminar (ImagenProveedorVo vo){
         String sql = "DELETE FROM " + ImagenProveedorIT.NOMBRE_TABLA
                 + " WHERE "
                 + it.getIdProveedorPDC().getNombre()
@@ -125,9 +125,22 @@ public class ImagenProveedorDao extends DAOGenerales{
                 + it.getNombreServidorPDC().getNombre()
                 + "=?";
         
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getIdProveedor()+"");
         mapa.put(2, vo.getNombreServidor());
-        conexion.executeUpdate(sql, mapa);
+        
+        boolean a = conexion.executeUpdate(sql, mapa);
+        boolean b = eliminarImagenesEnElServidor(vo.getNombreServidor());
+        
+        return a&&b;
+        
+    }
+    
+    public boolean eliminarImagenesEnElServidor(String img){
+        FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
+        ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN);
+        ficheros.setImagenAEliminar(img);
+        return ficheros.eliminarImagen();
+    
     }
 }

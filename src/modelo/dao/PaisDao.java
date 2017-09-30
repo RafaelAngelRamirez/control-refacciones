@@ -3,7 +3,6 @@ package modelo.dao;
 import controlador.Coordinador;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import modelo.ExcepcionPersonalizada;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,15 +29,15 @@ public class PaisDao extends DAOGenerales{
     }    
 
 
-    public void guardar(PaisVo vo) {
-        HashMap<Integer, String> datos = new HashMap<>();
+    public boolean guardar(PaisVo vo) {
+        HashMap<Integer, Object> datos = new HashMap<>();
         
         datos.put(1, vo.getId()+"");
         datos.put(2, vo.getPais());
         
         String sql = "INSERT INTO " + PaisIT.NOMBRE_TABLA +" VALUES(?, ?)";
         Conexion con = new Conexion(coordinador);
-        con.executeUpdate(sql, datos);
+        return con.executeUpdate(sql, datos);
         
     }
     

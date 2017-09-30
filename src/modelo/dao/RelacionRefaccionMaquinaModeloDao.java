@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Conexion;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.vo.MaquinaModeloVo;
@@ -34,12 +35,13 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
      * @return  True si todo fue correcto. 
      */
     public boolean guardarLista(List <RelacionRefaccionMaquinaModeloVo> listaVo){
+        conexion = new Conexion(coordinador);        
         //LOS VALUES PARA EL INSERT.
         String values ="";
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
         int contador=1;
         // EL MAPA QUE RELACIONA ? CON EL DATO.
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         //CONTADOR PARA EVITAR LA ÚLTIMA COMA DEL SQL.
         int conComa=1;
         //RECORREMOS TODAS LOS MODELOS QUE PASAMOS. 
@@ -76,6 +78,7 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
      * @return La lista de maquinas-modelo relacionadas con la refacción.
      */
     public List<RelacionRefaccionMaquinaModeloVo> consultarModeloAnio(int id){
+        conexion = new Conexion(coordinador);
         List<RelacionRefaccionMaquinaModeloVo> lrrmm = new ArrayList<>();
         MaquinaModeloIT mmit = new MaquinaModeloIT();
         String sql = "SELECT "
@@ -120,6 +123,7 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
      * 
      */
     public boolean modificar( List<RelacionRefaccionMaquinaModeloVo> listaVo){
+        conexion = new Conexion(coordinador);
         String sql = "DELETE FROM "+ RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
                 + " WHERE " + it.getIdRefaccionPDC().getNombre() + " =? ";
         conexion.executeUpdate(sql, listaVo.get(0).getIdRefaccion()+"");

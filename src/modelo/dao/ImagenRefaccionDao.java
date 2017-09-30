@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelo.Conexion;
 import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.ConexionDatos;
 import modelo.FicherosOperacionesServidor;
@@ -33,6 +35,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
     }
     
     public String guardarLista(List<ImagenRefaccionVo> listaVo){
+        conexion = new Conexion(coordinador);
         //CONTENDRA EL NOMBRE DE LAS IMAGENES QUE NO SE PUDIERON SUBIR.
         String retornoErrores=null;
         //LOS VALUES PARA EL INSERT.
@@ -40,7 +43,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
         //PARA IR CONTANDO LA POSICION DEL MAPA ?
         int contador=1;
         // EL MAPA QUE RELACIONA ? CON EL DATO.
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         //CONTADOR PARA EVITAR LA ÚLTIMA COMA DEL SQL.
         int conComa=1;
         //RECORREMOS TODAS LAS IMAGENES QUE PASAMOS. 
@@ -82,9 +85,10 @@ public class ImagenRefaccionDao extends DAOGenerales{
     }
     
     public boolean subirImagenesAServidor(File img){
+        conexion = new Conexion(coordinador);
         FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
         ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN);
-        ficheros.setFicheroASubir(img);
+        ficheros.setFichero(img);
         if (ficheros.subirFichero()) {
             return true;
         }
@@ -93,6 +97,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
     }
     
     public List<ImagenRefaccionVo> consultar(int id){
+        conexion = new Conexion(coordinador);
         List<ImagenRefaccionVo> livo = new ArrayList<>();
         String sql = "SELECT * FROM " + ImagenRefaccionIT.NOMBRE_TABLA 
                 + " WHERE " + it.getIdRefaccionPDC().getNombre() +"= ?";
@@ -118,7 +123,8 @@ public class ImagenRefaccionDao extends DAOGenerales{
         return livo;
     }
     
-    public void eliminar (ImagenRefaccionVo vo){
+    public boolean eliminar (ImagenRefaccionVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "DELETE FROM " + ImagenRefaccionIT.NOMBRE_TABLA
                 + " WHERE "
                 + it.getIdRefaccionPDC().getNombre()
@@ -126,11 +132,28 @@ public class ImagenRefaccionDao extends DAOGenerales{
                 + it.getNombreServidorPDC().getNombre()
                 + "=?";
         
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getIdRefaccion()+"");
         mapa.put(2, vo.getNombreServidor());
-        conexion.executeUpdate(sql, mapa);
-        
+        boolean bd = conexion.executeUpdate(sql, mapa);
+        boolean servidor = eliminarDeServidor(vo.getNombreServidor());
+        if (bd && servidor) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean eliminarDeServidor(String img){
+        conexion = new Conexion(coordinador);
+        FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
+        ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN);
+        ficheros.setImagenAEliminar(img);
+        if (ficheros.eliminarImagen()) {
+            System.out.println(ficheros.getRespuesta());
+            return true;
+        }
+        System.out.println(ficheros.getRespuesta());
+        return false;
     }
     
 }

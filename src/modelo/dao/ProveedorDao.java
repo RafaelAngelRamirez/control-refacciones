@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.Conexion;
 import modelo.InfoTabla.PaisIT;
@@ -29,11 +28,12 @@ public class ProveedorDao extends DAOGenerales{
     /**
      * Guarda un nuevo proveedor. 
      * @param vo Información del proveedo. 
+     * @return  True si todo salio bien.
      */
-    public void guardar(ProveedorVo vo) {
+    public boolean guardar(ProveedorVo vo) {
         String sql = "INSERT INTO "+ProveedorIT.NOMBRE_TABLA+" "
                 + "VALUES (null, ?, ?, ?, ?, ?, ?)";
-        HashMap<Integer, String> d = new HashMap<>();
+        HashMap<Integer, Object> d = new HashMap<>();
         
         d.put(1, vo.getNombreContacto());
         d.put(2, vo.getTelefono());
@@ -42,7 +42,7 @@ public class ProveedorDao extends DAOGenerales{
         d.put(5, vo.getPaginaWeb());
         d.put(6, vo.getIdPais()+"");
 
-        conexion.executeUpdate(sql, d);
+        return conexion.executeUpdate(sql, d);
     }
     
     /**
@@ -82,7 +82,7 @@ public class ProveedorDao extends DAOGenerales{
             String sql = "SELECT COUNT(*) FROM " + ProveedorIT.NOMBRE_TABLA
                     + " WHERE "+ it.getEmpresaProveedorPDC().getNombre() + "= ?";
             
-            HashMap<Integer, String > datos= new HashMap<>();
+            HashMap<Integer, Object > datos= new HashMap<>();
             datos.put(1, proveedor);
             ResultSet r = conexion.executeQuery(sql, datos);
             r.next();
@@ -110,7 +110,7 @@ public class ProveedorDao extends DAOGenerales{
                     + " WHERE "+ it.getEmpresaProveedorPDC().getNombre() + "= ?"
                     + " AND " + it.getIdPDC().getNombre() + "<> ?";
             
-            HashMap<Integer, String > datos= new HashMap<>();
+            HashMap<Integer, Object > datos= new HashMap<>();
             datos.put(1, vo.getEmpresa());
             datos.put(2, vo.getId()+"");
             
@@ -203,7 +203,7 @@ public class ProveedorDao extends DAOGenerales{
                 +" WHERE "+
                 it.getIdPDC().getNombre() +" = ?";
         
-        HashMap<Integer, String> map = new HashMap<>();
+        HashMap<Integer, Object> map = new HashMap<>();
         map.put(1, vo.getEmpresa());
         map.put(2, vo.getNombreContacto());
         map.put(3, vo.getTelefono());

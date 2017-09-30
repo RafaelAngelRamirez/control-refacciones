@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelo.InfoTabla;
 
 /**
@@ -13,7 +9,7 @@ public class ImagenProveedorIT extends ITGenerales{
     /*
     * El nombre de la tabla en la base de datos. 
     */
-    public static final String NOMBRE_TABLA = "imagenProveedor";
+    public static final String NOMBRE_TABLA = "imagenproveedor";
     
     private ParametrosDeCampo idProveedorPDC = new ParametrosDeCampo();
     private ParametrosDeCampo nombreParaMostarPDC = new ParametrosDeCampo();

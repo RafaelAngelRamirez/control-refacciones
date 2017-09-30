@@ -71,7 +71,18 @@ public class ImagenProveedorVo extends VoGenerales{
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+        
+        String a = "Clase: "+this.getClass().getSimpleName()+"\n";
+        String b= "       | ";
+        String c =  "\n      idProveedor" +b+ idProveedor+
+                    "\nnombreParaMostrar" +b+ nombreParaMostrar+
+                    "\n   nombreServidor" +b+ nombreServidor+
+                    "\n    ficheroImagen" +b+ ficheroImagen.getAbsolutePath()+
+                    "\n        urlImagen" +b+ urlImagen.toString();
+        String d =  "----------------------";
+        return a+d+c+d;
+
     }
     
     

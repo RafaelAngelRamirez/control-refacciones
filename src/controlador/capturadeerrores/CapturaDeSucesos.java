@@ -5,6 +5,7 @@ import controlador.Coordinador;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import javax.swing.JOptionPane;
+import modelo.FechaYHora;
 
 /**
  * Esta clase se encarga de administrar los sucesos que ocurren en el programa.
@@ -80,6 +81,7 @@ public class CapturaDeSucesos  extends PrintStream{
      */
     @Override
     public void println(String textoAMostrar){
+        
        this.infoClase(textoAMostrar, null, false);
     }
 //     /**
@@ -105,6 +107,7 @@ public class CapturaDeSucesos  extends PrintStream{
      */
     public void infoClase(String textoAMostrar, Object clase, boolean mostarVentanaEmergente){
         String usuario="";
+        String hora = FechaYHora.Actual.getHora_Hhmmss();
 //        if (this.coordinador.getUsuarioActivo() == null) {
             usuario = "SYS";
 //        }else{
@@ -112,8 +115,9 @@ public class CapturaDeSucesos  extends PrintStream{
 //        }
         
         if(this.debug){
+            
             String textoAntiguo = this.getConsolaDeErrores().getTxtAreaConsola().getText();
-            textoAntiguo = textoAntiguo +"\n" +usuario+"$"+ textoAMostrar; 
+            textoAntiguo = textoAntiguo +"\n" +"|"+hora+"|->"+usuario+"$"+ textoAMostrar; 
             if (clase!=null) {
                 textoAntiguo = textoAntiguo 
                         + "\n         Desde |"  + clase.getClass().getName();

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import modelo.Conexion;
 import modelo.InfoTabla.UnidadIT;
 import modelo.vo.*;
 
@@ -26,6 +26,8 @@ public class UnidadDao extends DAOGenerales{
     
 
     public void guardar(UnidadVo vo){
+        conexion = new Conexion(coordinador);
+
         String sql = "INSERT INTO " + UnidadIT.NOMBRE_TABLA 
                 + " VALUES (null,  ?)";
        
@@ -33,6 +35,7 @@ public class UnidadDao extends DAOGenerales{
     }
     
     public List<UnidadVo> consultar(){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT * FROM " + UnidadIT.NOMBRE_TABLA;
         List<UnidadVo> l = new ArrayList<>();
         
@@ -52,6 +55,7 @@ public class UnidadDao extends DAOGenerales{
     }
     
     public boolean existe(String unidad){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " +UnidadIT.NOMBRE_TABLA 
                     + " WHERE "+it.getUnidadPDC().getNombre()+"=?";

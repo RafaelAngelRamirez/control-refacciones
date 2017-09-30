@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import modelo.Conexion;
 import modelo.InfoTabla.ImportanciaIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.RefaccionIT;
@@ -29,6 +29,7 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public boolean existeCodigoInterno(String codigo){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + RefaccionIT.NOMBRE_TABLA
                     + " WHERE " +  it.getCodigoInternoPDC().getNombre() + "= ?";
@@ -45,11 +46,12 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public boolean existeCodigoInterno(RefaccionVo vo){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + RefaccionIT.NOMBRE_TABLA
                     + " WHERE " +  it.getCodigoInternoPDC().getNombre() + "= ?"
                     + " AND " + it.getIdPDC().getNombre() + "!= ?";
-            HashMap<Integer, String> mapa = new HashMap<>();
+            HashMap<Integer, Object> mapa = new HashMap<>();
             mapa.put(1, vo.getCodigoInterno());
             mapa.put(2, vo.getId()+"");
             
@@ -68,6 +70,7 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public int consultarUltimoId(){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT MAX("+it.getIdPDC().getNombre()+") FROM "+RefaccionIT.NOMBRE_TABLA;
         ResultSet r = conexion.executeQuery(sql);
         try {
@@ -85,28 +88,30 @@ public class RefaccionDao extends DAOGenerales{
      * @return Si todo se guardo correcto retorna true.
      */
     public boolean guardar(RefaccionVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "INSERT INTO "+ RefaccionIT.NOMBRE_TABLA 
-                + " VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
-        HashMap<Integer, String> mapa = new HashMap<>();
+                + " VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+        HashMap<Integer, Object> mapa = new HashMap<>();
         
         mapa.put(1, vo.getNombre());
-        mapa.put(2, vo.getIdMaterial()+"");
-        mapa.put(3, vo.getImportancia()+"");
-        mapa.put(4, vo.getStockMinimo()+"");
-        mapa.put(5, vo.getStockMaximo()+"");
-        mapa.put(6, vo.getUnidad()+"");
+        mapa.put(2, vo.getIdMaterial());
+        mapa.put(3, vo.getImportancia());
+        mapa.put(4, vo.getStockMinimo());
+        mapa.put(5, vo.getStockMaximo());
+        mapa.put(6, vo.getUnidad());
         mapa.put(7, vo.getCodigoInterno());
         mapa.put(8, vo.getCodigoProveedor());
         mapa.put(9, vo.getDescripcion());
         mapa.put(10, vo.getQueEs());
         mapa.put(11, vo.getParaQueEs());
+        mapa.put(12, vo.getRefaccionDeConsumoUnico());
         
         return conexion.executeUpdate(sql, mapa);
         
     }
     
     public List<RefaccionVo> consultarYBuscar(String busqueda){
-        
+        conexion = new Conexion(coordinador);
         
         List<RefaccionVo> listaVo = new ArrayList<>();
         busqueda = Textos.especialREGEX(busqueda);
@@ -191,6 +196,7 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public RefaccionVo consultarPorId(int id){
+        conexion = new Conexion(coordinador);
         RefaccionVo v = new RefaccionVo();
         try {
             ImportanciaIT iit = new ImportanciaIT();
@@ -209,6 +215,7 @@ public class RefaccionDao extends DAOGenerales{
                     + RefaccionIT.NOMBRE_TABLA +"."+it.getCodigoProveedorPDC().getNombre() + ", "
                     + RefaccionIT.NOMBRE_TABLA +"."+it.getDescripcionPDC().getNombre() + ", "
                     + RefaccionIT.NOMBRE_TABLA +"."+it.getQueEsPDC().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+it.getRefaccionDeConsumoUnicoPDC().getNombre() + ", "
                     + RefaccionIT.NOMBRE_TABLA +"."+it.getParaQueEsPDC().getNombre() 
                     +
                     " FROM " + RefaccionIT.NOMBRE_TABLA 
@@ -247,6 +254,7 @@ public class RefaccionDao extends DAOGenerales{
             v.setUnidad(r.getString(uit.getUnidadPDC().getNombre()));
             v.setParaQueEs(r.getString(it.getParaQueEsPDC().getNombre()));
             v.setQueEs(r.getString(it.getQueEsPDC().getNombre()));
+            v.setRefaccionDeConsumoUnico(r.getByte(it.getRefaccionDeConsumoUnicoPDC().getNombre()));
             v.setIdMaterial(r.getString(mit.getMaterialPDC().getNombre()));
             
                 
@@ -258,6 +266,7 @@ public class RefaccionDao extends DAOGenerales{
     }
     
     public boolean modificar(RefaccionVo vo){
+        conexion = new Conexion(coordinador);
         String sql = 
             "UPDATE " + RefaccionIT.NOMBRE_TABLA 
             + " SET " +
@@ -271,22 +280,25 @@ public class RefaccionDao extends DAOGenerales{
                 it.getCodigoProveedorPDC().getNombre()+ "= ? , " +
                 it.getDescripcionPDC().getNombre()+ "= ? , " +
                 it.getQueEsPDC().getNombre()+ "= ? , " +
-                it.getParaQueEsPDC().getNombre()+ "= ?   " 
+                it.getParaQueEsPDC().getNombre()+ "= ? ,   " +
+                it.getRefaccionDeConsumoUnicoPDC().getNombre()+ "= ?  " 
             + " WHERE " + it.getIdPDC().getNombre() + "= ?";
         
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getNombre());
-        mapa.put(2, (int)vo.getIdMaterial()+"");
-        mapa.put(3, (int)vo.getImportancia()+"");
-        mapa.put(4, vo.getStockMinimo()+"");
-        mapa.put(5, vo.getStockMaximo()+"");
-        mapa.put(6, (int)vo.getUnidad()+"");
+        mapa.put(2, (int)vo.getIdMaterial());
+        mapa.put(3, (int)vo.getImportancia());
+        mapa.put(4, vo.getStockMinimo());
+        mapa.put(5, vo.getStockMaximo());
+        mapa.put(6, (int)vo.getUnidad());
         mapa.put(7, vo.getCodigoInterno());
         mapa.put(8, vo.getCodigoProveedor());
         mapa.put(9, vo.getDescripcion());
         mapa.put(10, vo.getQueEs());
         mapa.put(11, vo.getParaQueEs());
-        mapa.put(12, vo.getId()+"");
+        mapa.put(12, vo.getRefaccionDeConsumoUnico());
+        
+        mapa.put(13, vo.getId());
         
         return conexion.executeUpdate(sql, mapa);
     

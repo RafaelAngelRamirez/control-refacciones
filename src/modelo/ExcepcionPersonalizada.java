@@ -26,6 +26,23 @@ public class ExcepcionPersonalizada extends Exception {
         );
         
     }
+    
+    /**
+     * Exception estandar para los errores de programación con variacion en el nombre de la case..
+     * 
+     * @param mensaje - El mensaje que mostrara la consola de errores.
+     * @param nombreClase - La clase qe lo manda.
+     */
+    public ExcepcionPersonalizada(String mensaje, String nombreClase ) {
+        super(
+        "\n[-][-][-][-][-][-][-][-][-][-][-][-][-]\n\n"+        
+        "[ERROR] Hay muchachito!! \n"+       
+        "        "+mensaje +"\n\n"+
+        "       Clase -> "+nombreClase+
+        "\n\n[-][-][-][-][-][-][-][-][-][-][-][-][-]\n\n"
+        );
+        
+    }
      
     /**
      * Excepcion con descripcion de función. 

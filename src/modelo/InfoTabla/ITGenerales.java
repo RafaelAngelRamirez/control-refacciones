@@ -5,9 +5,7 @@
  */
 package modelo.InfoTabla;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**

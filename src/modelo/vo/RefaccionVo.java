@@ -24,6 +24,7 @@ public class RefaccionVo extends VoGenerales{
     String descripcion;
     String queEs;
     String paraQueEs;
+    byte refaccionDeConsumoUnico;
 
     public RefaccionVo() {
         RefaccionIT it = new RefaccionIT();
@@ -39,6 +40,7 @@ public class RefaccionVo extends VoGenerales{
         relacionCampo.put(it.getQueEsPDC().getNombre(), ()->this.getQueEs());
         relacionCampo.put(it.getStockMaximoPDC().getNombre(), ()->this.getStockMaximo());
         relacionCampo.put(it.getStockMinimoPDC().getNombre(), ()->this.getStockMinimo());
+        relacionCampo.put(it.getRefaccionDeConsumoUnicoPDC().getNombre(), ()->this.getRefaccionDeConsumoUnico());
         relacionCampo.put(it.getUnidadPDC().getNombre(), ()->this.getUnidad());
     
     }
@@ -139,9 +141,40 @@ public class RefaccionVo extends VoGenerales{
         this.paraQueEs = paraQueEs;
     }
 
+    public byte getRefaccionDeConsumoUnico() {
+        return refaccionDeConsumoUnico;
+    }
+
+    public void setRefaccionDeConsumoUnico(byte refaccionDeConsumoUnico) {
+        this.refaccionDeConsumoUnico = refaccionDeConsumoUnico;
+    }
+    
+    
+
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String a = "Clase: "+this.getClass().getSimpleName()+"\n";
+        String b= "       | ";
+        
+        String c =  "\n                     Id" +b+ id+
+                    "\n            idRefaccion" +b+ nombre+
+                    "\n                 nombre" +b+ nombre+    
+                    "\n             idMaterial" +b+ idMaterial+    
+                    "\n            importancia" +b+ importancia+   
+                    "\n            stockMaximo" +b+ stockMaximo+   
+                    "\n            stockMinimo" +b+ stockMinimo+   
+                    "\n                 unidad" +b+ unidad+    
+                    "\n          codigoInterno" +b+ codigoInterno+ 
+                    "\n        codigoProveedor" +b+ codigoProveedor+   
+                    "\n            descripcion" +b+ descripcion+   
+                    "\n                  queEs" +b+ queEs+ 
+                    "\nrefaccionDeConsumoUnico" +b+ refaccionDeConsumoUnico+
+                    "\n              paraQueEs" +b+ paraQueEs;
+
+        String d =  "----------------------";
+        
+        
+        return a+d+c+d;
     }
     
             

@@ -5,6 +5,7 @@
  */
 package controlador.capturadeerrores;
 
+import java.awt.Color;
 import javax.swing.JTextArea;
 
 /**
@@ -18,6 +19,12 @@ public class ConsolaDeErrores extends javax.swing.JFrame {
      */
     public ConsolaDeErrores() {
         initComponents();
+        this.txtAreaConsola.setEnabled(true);
+        this.txtAreaConsola.setEditable(false);
+        this.txtAreaConsola.setSelectedTextColor(Color.black);
+        this.txtAreaConsola.setSelectionColor(Color.ORANGE);
+        
+        
     }
 
     /**
@@ -37,8 +44,8 @@ public class ConsolaDeErrores extends javax.swing.JFrame {
         txtAreaConsola.setBackground(new java.awt.Color(51, 51, 51));
         txtAreaConsola.setColumns(20);
         txtAreaConsola.setFont(new java.awt.Font("Lucida Console", 0, 12)); // NOI18N
+        txtAreaConsola.setLineWrap(true);
         txtAreaConsola.setRows(5);
-        txtAreaConsola.setFocusable(false);
         txtAreaConsola.setRequestFocusEnabled(false);
         txtAreaConsola.setVerifyInputWhenFocusTarget(false);
         jScrollPane1.setViewportView(txtAreaConsola);
@@ -47,17 +54,23 @@ public class ConsolaDeErrores extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public JTextArea getTxtAreaConsola() {
+        
+        
         return txtAreaConsola;
     }
 

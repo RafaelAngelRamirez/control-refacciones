@@ -30,6 +30,7 @@ public class RefaccionIT extends ITGenerales{
     private ParametrosDeCampo descripcionPDC = new ParametrosDeCampo();
     private ParametrosDeCampo queEsPDC = new ParametrosDeCampo();
     private ParametrosDeCampo paraQueEsPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo refaccionDeConsumoUnicoPDC = new ParametrosDeCampo();
 
     public RefaccionIT() {
     
@@ -131,6 +132,14 @@ public class RefaccionIT extends ITGenerales{
         paraQueEsPDC.setPermiteRepetido(true);
         paraQueEsPDC.setNombreParaMostrar("¿Para que es?");
         
+        refaccionDeConsumoUnicoPDC.setNombre("refaccionDeConsumoUnico");
+        refaccionDeConsumoUnicoPDC.setLongitudDeCaracteres(1);
+        refaccionDeConsumoUnicoPDC.setTipoDeDatos("byte");
+        refaccionDeConsumoUnicoPDC.setNulo(false);
+        refaccionDeConsumoUnicoPDC.setAutoIncrement(false);
+        refaccionDeConsumoUnicoPDC.setPermiteRepetido(true);
+        refaccionDeConsumoUnicoPDC.setNombreParaMostrar("¿Es refacción de consumo único?");
+        
         camposPDC.add(idPDC);
         camposPDC.add(nombrePDC);
         camposPDC.add(idMaterialPDC);
@@ -143,6 +152,9 @@ public class RefaccionIT extends ITGenerales{
         camposPDC.add(descripcionPDC);
         camposPDC.add(queEsPDC);
         camposPDC.add(paraQueEsPDC);
+        camposPDC.add(refaccionDeConsumoUnicoPDC);
+        
+        
 
     }
 
@@ -242,7 +254,13 @@ public class RefaccionIT extends ITGenerales{
     public void setParaQueEsPDC(ParametrosDeCampo paraQueEsPDC) {
         this.paraQueEsPDC = paraQueEsPDC;
     }
-    
-    
+
+    public ParametrosDeCampo getRefaccionDeConsumoUnicoPDC() {
+        return refaccionDeConsumoUnicoPDC;
+    }
+
+    public void setRefaccionDeConsumoUnicoPDC(ParametrosDeCampo refaccionDeConsumoUnicoPDC) {
+        this.refaccionDeConsumoUnicoPDC = refaccionDeConsumoUnicoPDC;
+    }
     
 }

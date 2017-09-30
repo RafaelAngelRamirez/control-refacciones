@@ -7,12 +7,16 @@ package modelo.logica;
 
 import controlador.Coordinador;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.FicherosOperaciones;
+import modelo.InfoTabla.EmpleadoIT;
+import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.dao.PaisDao;
@@ -20,6 +24,10 @@ import modelo.InfoTabla.ParametrosDeCampo;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
+import modelo.InfoTabla.SalidaLoteIT;
+import modelo.dao.DepartamentoDao;
+import modelo.dao.EmpleadoDao;
+import modelo.dao.EntradaLoteDao;
 import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
 import modelo.dao.MaquinaModeloDao;
@@ -28,7 +36,11 @@ import modelo.dao.ProveedorDao;
 import modelo.dao.RefaccionDao;
 import modelo.dao.RelacionRefaccionMaquinaModeloDao;
 import modelo.dao.RelacionRefaccionProveedorDao;
+import modelo.dao.SalidaLoteDao;
 import modelo.dao.UnidadDao;
+import modelo.vo.DepartamentoVo;
+import modelo.vo.EmpleadoVo;
+import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.MaquinaModeloVo;
@@ -38,7 +50,10 @@ import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
+import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
+import modelo.FechaYHora;
+import vista.panels.PanelSalidaLoteContenedorDeFila;
 
 /**
  *
@@ -64,10 +79,11 @@ public class Logica {
     /**
      * Guarda un proveedor en la base de datos. 
      * @param vo Los datos de proveedor para guardar. 
+     * @return  True si todo salio bien.
      */
-    public void proveedorGuardar(ProveedorVo vo){
+    public boolean proveedorGuardar(ProveedorVo vo){
         ProveedorDao proveedor = new ProveedorDao(coordinador);
-        proveedor.guardar(vo);
+        return proveedor.guardar(vo);
                 
     }
     
@@ -279,7 +295,7 @@ public class Logica {
     }
     
     /**
-     * Revisa si la maquinaModelo en la base de datos. Se busca por conincidencia
+     * Revisa si la maquinaModelo existe en la base de datos. Se busca por conincidencia
      * par de Maquina-Año de manera que si hay un modelo MASS y varios años (1999, 2011)
      * se busca el par que se quiere como repetido. 
      * @param modelo El modelo de la máquina que se quiere buscar. 
@@ -289,6 +305,20 @@ public class Logica {
     public boolean maquinaModeloExiste(String modelo, int anio ){
         MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
         return dao.existe(modelo, anio);
+    }
+    
+    /**
+     * Revisa si la maquinaModelo existe en la base de datos. Se busca por conincidencia
+     * par de Maquina-Año de manera que si hay un modelo MASS y varios años (1999, 2011)
+     * se busca el par que se quiere como repetido descartando el id que se
+     * pase como parametro.
+     * @param modelo El modelo de la máquina que se quiere buscar. 
+     * @param anio El año de la máquina Modelo que se quiere buscar. 
+     * @return  True si encuentra coincidencia. 
+     */
+    public boolean maquinaModeloExiste(MaquinaModeloVo vo ){
+        MaquinaModeloDao dao = new MaquinaModeloDao(coordinador);
+        return dao.existe(vo);
     }
     
     /**
@@ -315,9 +345,10 @@ public class Logica {
      * Valida los campos según la definición que se le da en la clase Dao en la
      * lista de tipo ParametrosDeCampo.
      * @param vo - La información que vamos a validad. 
+     * @param validarUpdate 
      * @return La lista de campos validados con error.
      */
-    public List<Validacion> maquinaModeloValidarCampos (MaquinaModeloVo vo){
+    public List<Validacion> maquinaModeloValidarCampos (MaquinaModeloVo vo, boolean validarUpdate){
         //LA LISTA QUE SE RETORNA DE VALIDACIONES.
         List<Validacion> listaValidaciones = new ArrayList<>();
         
@@ -362,13 +393,28 @@ public class Logica {
                     Validacion val = new Validacion();
                     val.setNombreDeCampo(parametrosDeCampo);
                     int anio = Integer.parseInt(""+vo.getRelacionCampo().get(b.getAnioPDC().getNombre()).call()) ;
-                    if (this.maquinaModeloExiste(valorAValidar, anio)) {
-                        val.setMensajeDeError("El valor '"+valorAValidar+"' "
-                                + "y '"+ anio+"' ya están registrados." );
-                        val.setValido(false);
+                    if (validarUpdate) {
+                        if (parametrosDeCampo.getNombre().equals(b.getModeloPDC().getNombre())) {
+                            if (this.maquinaModeloExiste(vo)) {
+                                val.setMensajeDeError("El valor '"+valorAValidar+"' "
+                                        + "y '"+ anio+"' ya están registrados para otro modelo." );
+                                val.setValido(false);
+                            }else{
+                                val.setValido(true);
+                            }
+                        }else{
+                            val.setValido(true);
+                            val.setMensajeDeError("todo bien");
+                        }
                     }else{
-                        val.setValido(true);
-                        val.setMensajeDeError("todo bien");
+                        if (this.maquinaModeloExiste(valorAValidar, anio)) {
+                            val.setMensajeDeError("El valor '"+valorAValidar+"' "
+                                    + "y '"+ anio+"' ya están registrados." );
+                            val.setValido(false);
+                        }else{
+                            val.setValido(true);
+                            val.setMensajeDeError("todo bien");
+                        }
                     }
                     listaValidaciones.add(val);
                 }
@@ -873,6 +919,405 @@ public class Logica {
     ========================================================================
     */
     
+  
+     /* 
+    ========================================================================
+       INICIO DEPARTAMENTO
+    ////////////////////////////////////////////////////////////////////////
+    */
+        public boolean departamentoGuardar(DepartamentoVo vo){
+            DepartamentoDao d = new DepartamentoDao(coordinador);
+            return d.guardar(vo);
+            
+        }
+        
+        public List<DepartamentoVo> departamentoConsultarTodo(){
+            DepartamentoDao d = new DepartamentoDao(coordinador);
+            return d.consultarTodo();
+        
+        }
+    
+    
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO DEPARTAMENTO
+    ========================================================================
+    */
+     /* 
+    ========================================================================
+       INICIO EMPLEADO
+    ////////////////////////////////////////////////////////////////////////
+    */
+        
+        
+        public List<Validacion> empleadoValidarCampos(EmpleadoVo vo){
+            return empleadoValidarCampos(vo, false);
+        }
+
+        public List<Validacion> empleadoValidarCampos(EmpleadoVo vo, boolean validandoUpdate){
+            //LA LISTA QUE SE RETORNA DE VALIDACIONES.
+            List<Validacion> listaValidaciones = new ArrayList<>();
+
+            //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO.
+            EmpleadoIT b = new EmpleadoIT();
+            List<ParametrosDeCampo> listaPDC =b.getCamposPDC();
+            //RECORREMOS CADA CAMPO.
+            for (ParametrosDeCampo parametrosDeCampo : listaPDC) {
+                try {
+                    //----COMPROBAMOS QUE EL CAMPO NO ESTE NULO CUANDO ASÍ LO SOLICITA.
+
+                    //EL NOMBRE DEL CAMPO QUE VAMOS A VALIDAR.
+
+                    String nombreDelCampoActual = parametrosDeCampo.getNombre();
+                    //EL VALOR QUE TIENE ACTUALMENTE EL CAMPO. ESTE MAPA CONTIENE
+                    // LA FUNCION CALLABLE QUE RELACIONA EL NOMBRE DEL CAMPO CON EL 
+                    // VALOR TOMADO ACTUALMENTE. SE DEFINE EN EL VO Y SE HEREDA DE
+                    // VOGeneral.
+                    String valorAValidar =vo.getRelacionCampo()
+                            .get(nombreDelCampoActual).call()+ "";
+                    if (!parametrosDeCampo.isNulo()) {
+                        //EL OBJETO QUE SE VA A RETORNAR PARA SEÑALAR LOS ERRORES SOBRE LA GUI.
+                        Validacion val = new Validacion();
+                        //DEFINIMOS EL CAMPO QUE SE ESTA VALIDANDO.
+                        val.setNombreDeCampo(parametrosDeCampo);
+
+                        //COMPROBAMOS QUE A VO SE LE HAYA PASADO UN VALOR.
+                        if (valorAValidar.isEmpty()) {
+                            //DEFINIMOS EL MENSAJE EN ESTE CASO.
+                            val.setMensajeDeError("No puede estar vacio.");
+                            //GUADAMOS EL VALOR FALSE POR QUE NO SE HA DEFINIDO. 
+                            val.setValido(false);
+
+                        }else{
+                            val.setValido(true);
+                        }
+
+                        listaValidaciones.add(val);
+
+                    } 
+
+                    if (!parametrosDeCampo.isPermiteRepetido() 
+                            && !valorAValidar.isEmpty()) {
+                        //VALIDAMOS LOS CAMPOS QUE NO PUEDEN REPETIRSE.
+                        Validacion val = new Validacion();
+                        val.setNombreDeCampo(parametrosDeCampo);
+                        if (validandoUpdate) {
+                            if (this.empleadoExiste(vo)) {
+                                val.setMensajeDeError("El valor '"+vo.getNombre()
+                                        +"' ya fue asignado a otro empleado.");
+                                val.setValido(false);
+                            }else{
+                                val.setValido(true);
+                            }
+                        }else{
+                            if (this.empleadoExiste(vo)) {
+                                val.setMensajeDeError("El valor '"+valorAValidar
+                                        +"' ya existe en la base." );
+                                val.setValido(false);
+                            }else{
+                                val.setValido(true);
+                            }
+                        }
+                        listaValidaciones.add(val);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        return listaValidaciones;
+    }
+        
+    public boolean empleadoExiste(EmpleadoVo vo ){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.existe(vo);
+    }
+    public boolean empleadoGuardar(EmpleadoVo vo ){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.guardar(vo);
+    }
+    
+    public boolean empleadoModificar(EmpleadoVo vo){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.modificar(vo);
+    }
+    
+    public boolean empleadoDarDeBajaAlta(EmpleadoVo vo){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.darDeBajaAlta(vo);
+    }
+    public int empleadoConsultarUltimoId(){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.consultarUltimoId();
+    }
+    
+    public List<EmpleadoVo> empleadoConsultarTodo(){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.consultarTodo();
+    }
+    public List<EmpleadoVo> empleadoConsultarTodoConBajas(){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.consultarTodoConBajas();
+    }
+    
+    public List<EmpleadoVo> empleadoConsultarBusqueda(String busqueda){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.consultarBusqueda(busqueda);
+    }
+    
+    public List<EmpleadoVo> empleadoConsultarBusquedaConBajas(String busqueda){
+        EmpleadoDao d = new EmpleadoDao(coordinador);
+        return d.consultarBusquedaConBajas(busqueda);
+    }
+      
+    
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO EMPLEADO
+    ========================================================================
+    */
+    
+     /* 
+    ========================================================================
+       INICIO ENTRADA LOTE
+    ////////////////////////////////////////////////////////////////////////
+    */
+    public List<Validacion> entradaLoteValidarCampos(EntradaLoteVo vo){
+        return entradaLoteValidarCampos(vo, false);
+    }
+    
+    
+    public List<Validacion> entradaLoteValidarCampos(EntradaLoteVo vo, boolean validandoUpdate){
+        //LA LISTA QUE SE REORNA DE VALIDACIONES.
+        List<Validacion> listaValidaciones = new ArrayList<>();
+        
+        //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO
+        EntradaLoteIT b = new EntradaLoteIT();
+        List<ParametrosDeCampo> listaPDC = b.getCamposPDC();
+        
+        //RECORREMOS CADA CAMPO.
+        for (ParametrosDeCampo _PDC : listaPDC) {
+            try {
+                //---- COMPROBAMOS QUE EL CAMPO NO ESTE NULO CUANDO ASI LO SOLICITA.
+                
+                //EL NOMBRE DEL CAMPO QUE VAMOS A VALIDAR.
+                
+                String nombreDelCampoActual = _PDC.getNombre();
+                //EL VALOR QUE TIENE ACTUALMENTE EL CAMPO. ESTE MAPA CONTIENE
+                // LA FUNCION CALLABLE QUE RELACIONA EL NOMBRE DEL CAMPO CON EL 
+                // VALOR TOMADO ACTUALMENTE. SE DEFINE EN EL VO Y SE HEREDA DE
+                // VOGeneral.
+                String valorAValidar =vo.getRelacionCampo()
+                        .get(nombreDelCampoActual).call()+ "";
+                if (!_PDC.isNulo()) {
+                    //EL OBJETO QUE SE VA A RETORNAR PARA SEÑALAR LOS ERRORES SOBRE LA GUI.
+                    Validacion val = new Validacion();
+                    //DEFINIMOS EL CAMPO QUE SE ESTA VALIDANDO.
+                    val.setNombreDeCampo(_PDC);
+
+                    //COMPROBAMOS QUE A VO SE LE HAYA PASADO UN VALOR.
+                    if (valorAValidar.isEmpty()|| valorAValidar.equals("-1")||valorAValidar.equals("-1.0")) {
+                        //DEFINIMOS EL MENSAJE EN ESTE CASO.
+                        val.setMensajeDeError("No puede estar vacio.");
+                        //GUADAMOS EL VALOR FALSE POR QUE NO SE HA DEFINIDO. 
+                        val.setValido(false);
+
+                    }else{
+                        val.setValido(true);
+                    }
+
+                    listaValidaciones.add(val);
+
+                }
+                
+            } catch (Exception ex) {
+                 Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return listaValidaciones;
+    }
+    
+    public boolean entradaLoteGuardar(EntradaLoteVo vo){
+        EntradaLoteDao d = new EntradaLoteDao(coordinador);
+        return d.guardar(vo);
+                
+    }
+    
+    public float entradaLoteExistencia(int id){
+        EntradaLoteDao d = new EntradaLoteDao(coordinador);
+        return d.existencia(id);
+    }
+    
+    public List<EntradaLoteVo> entradaLoteLotes(int id, boolean cargarLotesVacios){
+        EntradaLoteDao d = new EntradaLoteDao(coordinador);
+        return d.lotes(id, cargarLotesVacios);
+    }
+    
+    public EntradaLoteVo entradaLoteLoteMasAntiguo(int id){
+        EntradaLoteDao d = new EntradaLoteDao(coordinador);
+        return d.loteMasAntiguo(id);
+    }
+    
+    
+    
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN REGISTRO ENTRADA LOTE
+    ========================================================================
+    */
+     /* 
+    ========================================================================
+       INICIO DE SALIDA LOTE
+    ////////////////////////////////////////////////////////////////////////
+*/
+    public List<Validacion> salidaLoteValidarCampos(SalidaLoteVo vo){
+       return salidaLoteValidarCampos(vo, false);
+    }
+
+
+    public List<Validacion> salidaLoteValidarCampos(SalidaLoteVo vo, boolean validandoUpdate){
+           //LA LISTA QUE SE REORNA DE VALIDACIONES.
+           List<Validacion> listaValidaciones = new ArrayList<>();
+
+           //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO
+           SalidaLoteIT b = new SalidaLoteIT();
+           List<ParametrosDeCampo> listaPDC = b.getCamposPDC();
+
+           //RECORREMOS CADA CAMPO.
+           for (ParametrosDeCampo _PDC : listaPDC) {
+               try {
+                   //---- COMPROBAMOS QUE EL CAMPO NO ESTE NULO CUANDO ASI LO SOLICITA.
+
+                   //EL NOMBRE DEL CAMPO QUE VAMOS A VALIDAR.
+
+                   String nombreDelCampoActual = _PDC.getNombre();
+                   //EL VALOR QUE TIENE ACTUALMENTE EL CAMPO. ESTE MAPA CONTIENE
+                   // LA FUNCION CALLABLE QUE RELACIONA EL NOMBRE DEL CAMPO CON EL 
+                   // VALOR TOMADO ACTUALMENTE. SE DEFINE EN EL VO Y SE HEREDA DE
+                   // VOGeneral.
+                   String valorAValidar =vo.getRelacionCampo()
+                           .get(nombreDelCampoActual).call()+ "";
+                   if (!_PDC.isNulo()) {
+                       //EL OBJETO QUE SE VA A RETORNAR PARA SEÑALAR LOS ERRORES SOBRE LA GUI.
+                       Validacion val = new Validacion();
+                       //DEFINIMOS EL CAMPO QUE SE ESTA VALIDANDO.
+                       val.setNombreDeCampo(_PDC);
+
+                       //COMPROBAMOS QUE A VO SE LE HAYA PASADO UN VALOR.
+                       if (valorAValidar.isEmpty()|| valorAValidar.equals("-1")||valorAValidar.equals("-1.0")) {
+                           //DEFINIMOS EL MENSAJE EN ESTE CASO.
+                           val.setMensajeDeError("No puede estar vacio.");
+                           //GUADAMOS EL VALOR FALSE POR QUE NO SE HA DEFINIDO. 
+                           val.setValido(false);
+
+                       }else{
+                           val.setValido(true);
+                       }
+
+                       listaValidaciones.add(val);
+
+                   }
+
+               } catch (Exception ex) {
+                    Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           }
+           return listaValidaciones;
+        }
+    
+    /**
+     * Validamos que sea el lote más antiguo. 
+     * @param lotes
+     * @param voActual Que esta seleccionado actualmente. 
+     * @return La lista de validaciones. 
+     */
+    public Validacion salidaLoteValidarLotes(
+            List<EntradaLoteVo> lotes,
+            EntradaLoteVo voActual){
+        
+        EntradaLoteVo voMasAntiguo = lotes.get(0);
+        
+        Validacion valMasAntiguo = new Validacion();
+        if (voActual.equals(voMasAntiguo)) {
+            valMasAntiguo.setValido(true);
+        }else{
+            valMasAntiguo.setValido(false);
+            valMasAntiguo.setMensajeDeError("Hay disponible un lote más antiguo que el tienes seleccionado.");
+        }
+        return valMasAntiguo;
+    }     
+        
+        
+
+    public boolean salidaLoteGuadar(List<SalidaLoteVo> vo){
+        SalidaLoteDao d = new SalidaLoteDao(coordinador);
+        return d.guardar(vo);
+
+    }
+
+//    public float salidaLoteExistencia(int id){
+//        SalidaLoteDao d = new SalidaLoteDao(coordinador);
+//        return d.existencia(id);
+//    }
+    
+    public List<Validacion> salidaLoteCantidadADescontarDeLoteValidaciones(
+            List<PanelSalidaLoteContenedorDeFila> list, BigDecimal totalSalida) {
+        
+        List<Validacion> listVal = new ArrayList<>();
+        boolean loteConValorNegativo = false;
+        Validacion v1 = new Validacion();
+        v1.setNombreDeCampo("Existencia");
+        String lotes = "";
+
+        BigDecimal salidaDeTotalDeLotesParaComparacion = new BigDecimal(0);
+        for (PanelSalidaLoteContenedorDeFila cF : list) {
+            BigDecimal valExistenciaEti = new BigDecimal(cF.getEtiquetaExistencia().getText());
+            if (valExistenciaEti.signum()==-1) {
+                loteConValorNegativo = true;
+                lotes+="\n"+cF.getCl().lote.getNombreParaMostrarLote();
+            }
+            
+            salidaDeTotalDeLotesParaComparacion = 
+                    salidaDeTotalDeLotesParaComparacion.add(
+                            new BigDecimal(cF.getRecuadroEntrada().getText()));
+        }
+        
+        if (loteConValorNegativo) {
+            v1.setMensajeDeError(" Los siguientes lotes tienen valores negativos:"+lotes);
+            v1.setValido(false);
+        }else{
+            v1.setValido(true);
+        }
+        listVal.add(v1);
+        
+        
+        Validacion v2 = new Validacion();
+        v2.setNombreDeCampo("Total negativo");
+        if (totalSalida.signum()==-1) {
+            v2.setValido(false);
+            v2.setMensajeDeError("La suma de salida de los lotes es '"+salidaDeTotalDeLotesParaComparacion+"' y es mayor que\n"
+                    + "la salida que ya habias definido '"+(salidaDeTotalDeLotesParaComparacion.add(totalSalida)).toString()+"'.");
+        }else{
+            v2.setValido(true);
+        }
+        listVal.add(v2);
+        
+        return listVal;
+    }
+    
+    public boolean entradaloteActualizarLotes(List<EntradaLoteVo> listaELVParaActualizar) {
+        EntradaLoteDao d = new EntradaLoteDao(coordinador);
+        return d.actualizarLotes(listaELVParaActualizar);
+        
+    }
+        
+    /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE SALIDA LOTE
+    ========================================================================
+    */
+
+    
+
     
     
 }

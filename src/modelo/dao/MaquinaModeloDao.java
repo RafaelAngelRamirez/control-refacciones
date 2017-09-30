@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.Conexion;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.vo.MaquinaModeloVo;
@@ -33,11 +34,12 @@ public class MaquinaModeloDao extends DAOGenerales{
      * @return Si existe la combinacion retorn true. 
      */
     public boolean existe(String modelo, int anio){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " +MaquinaModeloIT.NOMBRE_TABLA
                     +" WHERE "+it.getModeloPDC().getNombre()+"=? AND "
                     + it.getAnioPDC().getNombre() +"=?";
-            HashMap<Integer, String > datos= new HashMap<>();
+            HashMap<Integer, Object > datos= new HashMap<>();
             datos.put(1, modelo);
             datos.put(2, ""+anio);
             ResultSet r = conexion.executeQuery(sql, datos);
@@ -51,12 +53,46 @@ public class MaquinaModeloDao extends DAOGenerales{
         }
         return false;
     }
+    /**
+     * Revisa si el modelo-año de la máquina existe en la base de datos descartando el
+     * id que se le pase. 
+     * @param vo Modelo, año y id que se quieren filtrar.
+     * @return True si hay coincidencias. 
+     */
+    public boolean existe(MaquinaModeloVo vo){
+        conexion = new Conexion(coordinador);
+        try {
+            String sql = "SELECT COUNT(*) FROM " +MaquinaModeloIT.NOMBRE_TABLA
+                    +" WHERE "+
+                    it.getModeloPDC().getNombre()+"=? "
+                    + " AND "+
+                    it.getAnioPDC().getNombre() +"=?"
+                    + " AND "+
+                    it.getIdPDC().getNombre()+"<>?";
+            
+            HashMap<Integer, Object > datos= new HashMap<>();
+            datos.put(1, vo.getModelo());
+            datos.put(2, vo.getAnio());
+            datos.put(3, vo.getId());
+            
+            ResultSet r = conexion.executeQuery(sql, datos);
+            r.next();
+            int a = r.getInt(1);
+            if (a>0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MaquinaModeloDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
     
     public boolean guardar(MaquinaModeloVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "INSERT INTO " + MaquinaModeloIT.NOMBRE_TABLA 
                 +" VALUES (null, ?, ? , ?)";
         
-        HashMap<Integer, String> d = new HashMap<>();
+        HashMap<Integer, Object> d = new HashMap<>();
         d.put(1, vo.getModelo());
         d.put(2, vo.getAnio()+"");
         d.put(3, vo.getIdProveedor()+"");
@@ -70,6 +106,7 @@ public class MaquinaModeloDao extends DAOGenerales{
      * @return Retorna todas las máquinas-modelo.
      */
     public List<MaquinaModeloVo> consultar(){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT * FROM " +MaquinaModeloIT.NOMBRE_TABLA 
                 + " ORDER BY " + it.getModeloPDC().getNombre() + " ASC" ;
         List<MaquinaModeloVo> lista = new ArrayList<>();
@@ -98,6 +135,7 @@ public class MaquinaModeloDao extends DAOGenerales{
      * @return El objeto MaquinaModelo coincidente. 
      */
     public MaquinaModeloVo consultar (int id){
+        conexion = new Conexion(coordinador);
         MaquinaModeloVo vo = new MaquinaModeloVo();
         ProveedorIT pit = new ProveedorIT();
         try {
@@ -130,6 +168,7 @@ public class MaquinaModeloDao extends DAOGenerales{
     }
     
     public boolean eliminar(MaquinaModeloVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "DELETE FROM " + MaquinaModeloIT.NOMBRE_TABLA 
                 + " WHERE " +
                 it.getIdPDC().getNombre() +" = ?";
@@ -137,6 +176,8 @@ public class MaquinaModeloDao extends DAOGenerales{
     }
     
     public boolean modificar(MaquinaModeloVo vo){
+        conexion = new Conexion(coordinador);
+
         String sql = "UPDATE " + MaquinaModeloIT.NOMBRE_TABLA 
                 +" SET " +
                 it.getModeloPDC().getNombre() + " = ?,"+
@@ -144,7 +185,7 @@ public class MaquinaModeloDao extends DAOGenerales{
                 it.getIdProoveedorPDC().getNombre() + " = ?"
                 +" WHERE " + it.getIdPDC().getNombre() +"=?";
                 
-        HashMap<Integer, String> mapa = new HashMap<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getModelo());
         mapa.put(2, vo.getAnio()+"");
         mapa.put(3, vo.getIdProveedor()+"");
