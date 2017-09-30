@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="7">
+        <file>
+            <url>src/vista/panels/PanelSalidaDeLote.java</url>
+            <bookmark id="6">
+                <name/>
+                <line>950</line>
+                <key/>
+            </bookmark>
+            <bookmark id="7">
+                <name/>
+                <line>1139</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelEntradaLote.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelSalidaDeLoteCantidadADescontarDeLote.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelSalidaDeLote.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/UtilidadesIntefaz/utilidadesOptimizadas/UtilidadesComboBox_.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelSalidaDeLoteSeleccionLotes.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/modelo/dao/EntradaLoteDao.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/modelo/dao/SalidaLoteDao.java</file>
+        </group>
+    </open-files>
+</project-private>
