@@ -12,6 +12,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import modelo.InfoTabla.ImportanciaIT;
@@ -30,6 +31,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelRefaccionesConsulta extends JPanelBase {
+
+    private static final long serialVersionUID = 1L;
     Coordinador coordinador = new Coordinador();
     
     UtilidadesTxt_ _TxtFiltrarRefaccion;
@@ -102,32 +105,21 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         
         //ACCIONES DE BOTONES
         
+        //ACTUALIZACIONES DE TABLA. 
+         opAct.add(RefaccionIT.NOMBRE_TABLA, PanelRefaccionesConsulta.this::cargarRefaccionesInicio);
+         
         
-        /* 
+        /*
         ////////////////////////////////////////////////////////////////////////
-            FIN SETEO DE UTILIDADES
+        FIN SETEO DE UTILIDADES
         ========================================================================
-        */
-        
+         */
     }
     
     
 
     @Override
     public void configurar(){
-        
-        /*
-        =======================================================================
-            INICIO CARGA DE ELEMENTOS 
-        ///////////////////////////////////////////////////////////////////////
-        */
-            cargarRefaccionesInicio();
-        
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN CARGA DE ELEMENTOS 
-        ========================================================================
-        */
     }
     public void cargarRefaccionesInicio(){
         this.cargarRefacciones("");

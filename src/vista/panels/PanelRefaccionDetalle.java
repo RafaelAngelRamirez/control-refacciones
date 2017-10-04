@@ -66,7 +66,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
     /** Creates new form DialogoDetalleRefaccion */
     public PanelRefaccionDetalle() {
         initComponents();
-         configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo = new ConfiguracionDePanel();
         configuracionesDialogo.setModal(false);
         configuracionesDialogo.setResizable(false);
         configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_REFACCION_DETALLE);

@@ -264,6 +264,12 @@ public class PanelRefaccionAgregar extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTUALIZACION
+        
+        opAct.add(ProveedorIT.NOMBRE_TABLA, this::cargarListaProveedor);
+        opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaProveedor);
+        opAct.add(UnidadIT.NOMBRE_TABLA, this::cargarComboUnidad);
+        opAct.add(MaterialIT.NOMBRE_TABLA, this::cargarComboMaterial);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -274,21 +280,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
     
     public void configurar(){
-        
-        
-        /*
-        =======================================================================
-            INICIO CARGA DE ELEMENTOS 
-        ///////////////////////////////////////////////////////////////////////
-        */
-            cargarListasYCombos();
-        
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN CARGA DE ELEMENTOS 
-        ========================================================================
-        */
-    
+         
     }
 
     public JTextArea getTxtDescripcion() {
@@ -299,12 +291,9 @@ public class PanelRefaccionAgregar extends JPanelBase {
         this.txtDescripcion = txtDescripcion;
     }
     
-    public void cargarListasYCombos(){
-        cargarListaProveedor();
-        cargarListaMaquinaModelo();
-        cargarComboUnidad();
-        cargarComboMaterial();
-    }
+//    public void cargarListasYCombos(){
+//        
+//    }
     
     public void cargarListaProveedor(){
         List<ProveedorVo> lista = this.coordinador.proveedoresConsultarMarcas();
@@ -1562,7 +1551,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         
         _RadioImportancia.clearSelection();
         
-        cargarListasYCombos();
+        opAct.actualizarPanel();
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed

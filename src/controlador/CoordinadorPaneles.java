@@ -153,18 +153,23 @@ public class CoordinadorPaneles {
     }
     
     public JDialogBase ifContainsReturnElseCreate(JPanelBase panel){
+        JDialogBase d;
         if (dialogosAbiertos.containsKey(panel)) {
-            JDialogBase d = dialogosAbiertos.get(panel);
+            d = dialogosAbiertos.get(panel);
             d.retormarFormaYPosicion();
-            return d;
         }else{
-            JDialogBase d = new JDialogBase(coordinador);
+            d = new JDialogBase(coordinador);
             d.add(panel);
             d.configurarPanel();
             d.pack();
-            return d;
             
         }
+        
+        if (!panel.isListenersEjecutados()) {
+                panel.initConfig();
+                panel.setListenersEjecutados(true);
+        }
+        return d;
     
     }
     

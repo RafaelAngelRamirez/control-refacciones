@@ -31,6 +31,7 @@ public class ProveedorDao extends DAOGenerales{
      * @return  True si todo salio bien.
      */
     public boolean guardar(ProveedorVo vo) {
+        conexion = new Conexion(coordinador);
         String sql = "INSERT INTO "+ProveedorIT.NOMBRE_TABLA+" "
                 + "VALUES (null, ?, ?, ?, ?, ?, ?)";
         HashMap<Integer, Object> d = new HashMap<>();
@@ -50,13 +51,13 @@ public class ProveedorDao extends DAOGenerales{
      * @return La lista de proveedores existentes. 
      */
     public List<ProveedorVo> consultarProveedores(){
-       
+        conexion= new Conexion(coordinador);
+        
         List<ProveedorVo> l = new ArrayList<>();
         try {
             String sql = "SELECT " +it.getIdPDC().getNombre() +", "+it.getEmpresaProveedorPDC().getNombre()
                     + " FROM " + ProveedorIT.NOMBRE_TABLA;
-            Conexion c = new Conexion(coordinador);
-            ResultSet r = c.executeQuery(sql);            
+            ResultSet r = conexion.executeQuery(sql);            
             
             
             while (r.next()) {
@@ -78,6 +79,7 @@ public class ProveedorDao extends DAOGenerales{
      * @return True si existe.
      */
     public boolean existe(String proveedor){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + ProveedorIT.NOMBRE_TABLA
                     + " WHERE "+ it.getEmpresaProveedorPDC().getNombre() + "= ?";
@@ -105,6 +107,7 @@ public class ProveedorDao extends DAOGenerales{
      * @return True si existe.
      */
     public boolean existe(ProveedorVo vo){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + ProveedorIT.NOMBRE_TABLA
                     + " WHERE "+ it.getEmpresaProveedorPDC().getNombre() + "= ?"
@@ -130,6 +133,7 @@ public class ProveedorDao extends DAOGenerales{
     
     
     public int consultarUltimoId(){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT MAX("+it.getIdPDC().getNombre()+") FROM "+ProveedorIT.NOMBRE_TABLA;
         ResultSet r = conexion.executeQuery(sql);
         try {

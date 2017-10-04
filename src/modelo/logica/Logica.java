@@ -239,9 +239,9 @@ public class Logica {
     ////////////////////////////////////////////////////////////////////////
     */
    
-    public void paisGuardar(PaisVo vo){
+    public boolean paisGuardar(PaisVo vo){
         PaisDao paisDao_ = new PaisDao(coordinador);
-        paisDao_.guardar(vo);
+        return paisDao_.guardar(vo);
         
     
     }

@@ -1,6 +1,7 @@
 
 package controlador;
 
+import controlador.ActualizacionDeComponentesGráficos.ControladorActualizacionGUI_BD;
 import java.math.BigDecimal;
 import vista.panels.PanelEmpleadoModificar;
 import vista.panels.PanelRefaccionDetalle;
@@ -20,6 +21,9 @@ import java.util.Deque;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import modelo.InfoTabla.MaquinaModeloIT;
+import modelo.InfoTabla.PaisIT;
+import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.ComparacionLotes;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
@@ -38,6 +42,7 @@ import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
 import vista.UtilidadesIntefaz.JDialogBase;
+import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
 import vista.panels.PanelSalidaDeLoteSeleccionLotes;
@@ -73,6 +78,8 @@ public class Coordinador {
     private PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes;
     private PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarDeLote;
     
+    private ControladorActualizacionGUI_BD controladorActualizacionGUI_BD;
+    
     
     
     
@@ -96,6 +103,13 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
 
+    public ControladorActualizacionGUI_BD getControladorActualizacionGUI_BD() {
+        return controladorActualizacionGUI_BD;
+    }
+
+    public void setControladorActualizacionGUI_BD(ControladorActualizacionGUI_BD controladorActualizacionGUI_BD) {
+        this.controladorActualizacionGUI_BD = controladorActualizacionGUI_BD;
+    }
     public PanelSalidaDeLoteCantidadADescontarDeLote getPanelSalidaDeLoteCantidadADescontarDeLote() {
         return panelSalidaDeLoteCantidadADescontarDeLote;
     }
@@ -261,8 +275,8 @@ public class Coordinador {
         //ES NECESARIO LANZAR EL PROCEDIMIENTO DE CONFIGURACIÓN AQUI
         // PARA QUE LAS INSTANCIAS QUE REQUIEREN SE SETEAN POR COMPLETO.
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelProveedorRegistrar);
-        d.setVisible(true);
         panelProveedorRegistrar.configurar();
+        d.setVisible(true);
         
     }
     
@@ -273,15 +287,15 @@ public class Coordinador {
      */
     public void proveedoresAbrirDialogo(String nuevoElemento){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelProveedorRegistrar);
-        d.setVisible(true);
-        panelProveedorRegistrar.configurar();
         panelProveedorRegistrar.setProveedorPrecargado(nuevoElemento);
+        panelProveedorRegistrar.configurar();
+        d.setVisible(true);
     }
     
     public void proveedoresAbrirDialogoModificar(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelProveedorModificar);
-        d.setVisible(true);
         panelProveedorModificar.configurar();
+        d.setVisible(true);
     }
     
     public void proveedorDialogoModificarActualizarPais(){
@@ -315,15 +329,27 @@ public class Coordinador {
      * @return  True si todo salio bien. 
      */
     public boolean proveedorGuardar(ProveedorVo vo){
-        return this.logica.proveedorGuardar(vo);
+        boolean a = this.logica.proveedorGuardar(vo);
+        if (a) {
+            setTablaModificada(ProveedorIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     public boolean proveedorModificar(ProveedorVo vo){
-        return this.logica.proveedorModificar(vo);
+        boolean a = this.logica.proveedorModificar(vo);
+        if (a) {
+            setTablaModificada(ProveedorIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     public boolean proveedorEliminar(ProveedorVo vo){
-        return this.logica.proveedorEliminar(vo);
+        boolean a = this.logica.proveedorEliminar(vo) ;
+        if (a) {
+            setTablaModificada(ProveedorIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     public int proveedorConsultarUltimoId(){
@@ -388,8 +414,13 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    public void paisGuardar(PaisVo vo){
-        this.logica.paisGuardar(vo);
+    public boolean paisGuardar(PaisVo vo){
+        boolean a = this.logica.paisGuardar(vo);
+        if (a) {
+            setTablaModificada(PaisIT.NOMBRE_TABLA);
+        }
+        
+        return a;
     }
     
     
@@ -417,16 +448,16 @@ public class Coordinador {
     public void maquinaModeloAbrirDialogoAgregar(){
         
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloAgregar);
-        d.setVisible(true);
         panelMaquinaModeloAgregar.configurar();
+        d.setVisible(true);
         
     
     }
     
     public void maquinaModeloAbrirDialogoModificar(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloModificar);
-        d.setVisible(true);
         panelMaquinaModeloModificar.configurar();
+        d.setVisible(true);
     }
     
     public List<Validacion> maquinaModeloValidarCampos(MaquinaModeloVo vo, boolean validandoUpdate){
@@ -435,23 +466,37 @@ public class Coordinador {
     }
     
     public boolean maquinaModeloGuardar(MaquinaModeloVo vo){
-        return this.logica.maquinaModeloGuardar(vo);
+        boolean a = this.logica.maquinaModeloGuardar(vo);
+        if (a) {
+            setTablaModificada(MaquinaModeloIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     public boolean maquinaModeloModificar(MaquinaModeloVo vo){
-        return this.logica.maquinaModeloModificar(vo);
+        boolean a = this.logica.maquinaModeloModificar(vo);
+        if (a) {
+            setTablaModificada(MaquinaModeloIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     public boolean maquinaModeloEliminar(MaquinaModeloVo vo){
-        return this.logica.maquinaModeloEliminar(vo);
+        boolean a = this.logica.maquinaModeloEliminar(vo);
+        if (a) {
+            setTablaModificada(MaquinaModeloIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     //ACTUALIZAR
     public void maquinaModeloActualizarDialogoModificar(){
-        this.getPanelMaquinaModeloModificar().cargarCombosYListas();
+          JOptionPane.showMessageDialog(null, "deberia acualizarse---maquinaModeloActualizarDialogoModificar");
+//        this.getPanelMaquinaModeloModificar().cargarCombosYListas();
     }
     
     public void maquinaModeloActualizarDialogoAgregar(){
+          JOptionPane.showMessageDialog(null, "deberia acualizarse---maquinaModeloActualizarDialogoAgregar");
         this.getPanelMaquinaModeloAgregar().consultarProveedores();
     }
     
@@ -645,34 +690,18 @@ public class Coordinador {
     
     
     public void refaccionAbrirPanelConsultaRefacciones(){
-        refaccionAbrirPanelConsultaRefacciones_Panel(false);
-    }
-
-    public void refaccionAbrirPanelConsultaRefacciones_Panel(boolean configurar){
         this.coordinadorPaneles.setJPanel(this.panelRefaccionConsulta);
-        if (configurar) {
-        this.panelRefaccionConsulta.configurar();
-        }
+        
     }
-    
-    public JDialogBase refaccionAbrirPanelConsultaRefacciones_Dialogo(boolean configurar){
-        JDialogBase d = new JDialogBase(this);
-        d.add(this.getPanelRefaccionConsulta());
-        if (configurar) {
-            d.configurarPanel();
-        }
-        d.pack();
-        d.setVisible(true);
-        return d;
-    }
+//    
     
     
     //DETALLE DE REFACCIONES
     public void refaccionAbrirDetalleRefaccion(String id){
         JDialogBase d = getCoordinadorPaneles()
                 .ifContainsReturnElseCreate(getPanelRefaccionDetalle());
-        d.setVisible(true);
         this.getPanelRefaccionDetalle().configurar(id);
+        d.setVisible(true);
         
     }
     
@@ -690,8 +719,11 @@ public class Coordinador {
     //DETALLE DE IMAGENES
     
     public void refaccionAbrirDetalleImagen(){
-        this.getPanelImagenDetalle().setVisible(true);
+        JDialogBase d = getCoordinadorPaneles()
+                .ifContainsReturnElseCreate(panelImagenDetalle);
         this.getPanelImagenDetalle().configurar();
+        
+        d.setVisible(true);
     
     }
     
@@ -738,11 +770,11 @@ public class Coordinador {
     //ACTUALIZAR 
     
     public void refaccionActualizarPanelConsultaRefacciones(){
-        this.getPanelRefaccionConsulta().cargarRefaccionesInicio();
+        this.getPanelRefaccionConsulta().getOpAct().actualizarPanel();
     }
     
     public void refaccionActualizarPanelAgregarRefaccion(){
-        this.getPanelRefaccionAgregar().cargarListasYCombos();
+        this.getPanelRefaccionAgregar().getOpAct().actualizarPanel();
     }
     
     public void refaccionActualizarPanelModificar(){
@@ -858,26 +890,26 @@ public class Coordinador {
     public void empleadoAbrirDialogoAgregar(){
         
         JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoAgregar);
-        d.setVisible(true);
         panelEmpleadoAgregar.configurar();
+        d.setVisible(true);
     }
     
     public void empleadoAbrirDialogoAgregar(String empleadoNuevo){
         JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoAgregar);
-        d.setVisible(true);
         panelEmpleadoAgregar.configurar(empleadoNuevo);
+        d.setVisible(true);
     }
     
     public void empleadoAbrirDialogoMoficar(){
         JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoModificar);
-        d.setVisible(true);
         panelEmpleadoModificar.configurar();
+        d.setVisible(true);
     }
     
     public void empleadoAbrirDialogoMoficar(String empleado){
         JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoModificar);
-        d.setVisible(true);
         panelEmpleadoModificar.configurar(empleado);
+        d.setVisible(true);
     } 
         
     public void empleadoDialogoModificarActualizar(){
@@ -985,8 +1017,8 @@ public class Coordinador {
     */
     public void entradaLoteAbrirDialogo(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelEntradaLote);
-        d.setVisible(true);
         panelEntradaLote.configurar();
+        d.setVisible(true);
     }
 
     /**
@@ -1078,8 +1110,8 @@ public class Coordinador {
 
     public void salidaLoteAbrirDialogo(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelSalidaDeLote);
-        d.setVisible(true);
         panelSalidaDeLote.configurar();
+        d.setVisible(true);
      }
     public void salidaLoteAbrirDialogo(RefaccionVo vo){
         salidaLoteAbrirDialogo();
@@ -1168,6 +1200,16 @@ public class Coordinador {
        INICIO DE ACTUALIZACIONES DE TABLA
     ////////////////////////////////////////////////////////////////////////
     */
+    
+    public void setTablaModificada(String tabla){
+        controladorActualizacionGUI_BD.setTablaModificada(tabla);
+    }
+    
+    public void actualizarTodoLoVisible(){
+        controladorActualizacionGUI_BD.actualizarTodoLoQueEsteVisible();
+    }
+    
+    
     
 //        FIN DE ACTUALIZACIONES DE TABLA
 //    ========================================================================

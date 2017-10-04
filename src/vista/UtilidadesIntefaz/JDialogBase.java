@@ -105,10 +105,7 @@ public class JDialogBase extends JDialog{
         }
         if (b) {
             //ESTA LINEA NOS EVITA QUE CREEMOS VARIAS VECES LOS LISTENERS.
-            if (!this.getPanel().isListenersEjecutados()) {
-                this.getPanel().initConfig();
-                this.getPanel().setListenersEjecutados(true);
-            }
+            
             //SOLO SE MARCA EL SET VISIBLE AQUI
             //POR QUE CERRAMOS DESDE EL CORRDINADOR LA VENTANA. 
             this.coordinador.getCoordinadorPaneles().addDialogAbierto(this);

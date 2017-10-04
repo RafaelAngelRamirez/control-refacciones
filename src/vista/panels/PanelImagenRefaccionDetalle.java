@@ -6,15 +6,18 @@
 package vista.panels;
 
 import controlador.Coordinador;
+import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.vo.ImagenRefaccionVo;
 import org.jdesktop.swingx.JXImageView;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
@@ -37,6 +40,13 @@ public class PanelImagenRefaccionDetalle extends JPanelBase {
      */
     public PanelImagenRefaccionDetalle() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(false);
+        configuracionesDialogo.setResizable(true);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_IMAGEN_DETALLE);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        
     }
 
     public Coordinador getCoordinador() {
@@ -58,6 +68,7 @@ public class PanelImagenRefaccionDetalle extends JPanelBase {
 
     @Override
     public void initConfig() {
+        JOptionPane.showMessageDialog(null, "entro a init config de "+this.getClass().getName());
         /*
         =======================================================================
             INICIO SETEO UTILIDADES

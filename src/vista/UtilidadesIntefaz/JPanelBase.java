@@ -5,7 +5,11 @@
  */
 package vista.UtilidadesIntefaz;
 
+import controlador.ActualizacionDeComponentesGráficos.OperacionesDeActualizacion;
 import controlador.Coordinador;
+import java.awt.Container;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -15,29 +19,111 @@ import modelo.ExcepcionPersonalizada;
  *
  * @author Particular
  */
-public abstract class JPanelBase extends JPanel{
-    
+public abstract class JPanelBase extends JPanel implements HierarchyListener{
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Guarda las configuraciones del dialgo en caso de que este panel 
+     * se llame desde un JDialogBase.
+     */
     protected ConfiguracionDePanel configuracionesDialogo;
     
+    /**
+     * Almacena las operaciones de actualización. 
+     */
+    protected OperacionesDeActualizacion opAct;
+        
     Coordinador coordinador;
     int arrastre = 0;
+    
 
+    public JPanelBase() {
+        this.opAct = new OperacionesDeActualizacion(this);
+    }
+    
+    //ESTA SECCIÓN PERMITE DETECTAR SI EL PANEL ES VISIBLE. 
+    
+       
+    /**
+     * Esta función detecta si este panel esta visible para el usuario. Si
+     * hay un JDialog que sea modal y se habre sobre este detectara que no esta
+     * visible para el usuario. Cuando el panel modal se cierra detectara que
+     * este panel esta visible. 
+     * @return True si esta visible.
+     */
+    public boolean soyVisible(){
+        
+        Container c = getParent();
+        System.out.println("--------------------------------"+c.getClass().getName());
+        while(c != null){
+            if (!c.isVisible()) {
+                return false;
+            } else {
+                c = c.getParent();
+            }
+        }
+        return true;
+    }
+    
+    //PARA HierarchyListener
+    @Override
+    public void addNotify(){
+        super.addNotify();
+        addHierarchyListener(this);
+    }
+    
+    //PARA HierarchyListener
+    @Override
+    public void removeNotify(){
+        removeHierarchyListener(this);
+        super.removeNotify();
+    }
+    
+    /**
+     * Ejectua la operación que se le pase como parametro a actualizarPanel.
+     * En general esta operación debe estar relacionada con {@see ControladorActualizacionGUI_BD}
+     * @param e
+     */
+    @Override
+    public void hierarchyChanged(HierarchyEvent e){
+        if (soyVisible()) {
+            this.opAct.actualizarPanel();
+        }
+    }  
+
+    public OperacionesDeActualizacion getOpAct() {
+        return opAct;
+    }
+
+    public void setOpAct(OperacionesDeActualizacion opAct) {
+        this.opAct = opAct;
+    }
+    
     public Coordinador getCoordinador() {
         return coordinador;
     }
 
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
+        this.coordinador.getControladorActualizacionGUI_BD().listaPaneles.add(this);
     }
     
     private boolean listenersEjecutados=false;
 
+    /**
+     * Si los listeners fueron ejecutados entonces devuelve true. Se utiliza
+     * para definir si es necesario cargar de nueva cuenta los 
+     * listeners que implementamos en los diversos componentes. 
+     * @return
+     */
     public boolean isListenersEjecutados() {
         return listenersEjecutados;
     }
 
     public void setListenersEjecutados(boolean listenersEjecutados) {
         this.listenersEjecutados = listenersEjecutados;
+        
     }
     
     
@@ -53,6 +139,10 @@ public abstract class JPanelBase extends JPanel{
      */
     public abstract void initConfig();
 
+    /**
+     * Las configuracines para mostrar el dialogo. 
+     * @return
+     */
     public ConfiguracionDePanel getConfiguracionesDialogo() {
         return configuracionesDialogo;
     }
@@ -73,6 +163,10 @@ public abstract class JPanelBase extends JPanel{
             Logger.getLogger(JPanelBase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    
+    
 
         
 }
