@@ -34,7 +34,6 @@ import vista.UtilidadesIntefaz.JPanelBase;
  * @author Particular
  */
 public class PanelProveedorRegistrar extends JPanelBase {
-    private Coordinador coordinador;
     
     String proveedorPrecargado;
     UtilidadesTxt_ _TxtEmpresa;
@@ -94,7 +93,7 @@ public class PanelProveedorRegistrar extends JPanelBase {
         this._TxtPaginaWeb = new UtilidadesTxt_(getCoordinador());
         this._TxtEmail = new UtilidadesTxt_(getCoordinador());
         this._ComboPais = new UtilidadesComboBox_(getCoordinador());
-        this._ImagenesProveedor = new UtilidadesJXViewImage_(coordinador);
+        this._ImagenesProveedor = new UtilidadesJXViewImage_(getCoordinador());
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         _TxtEmpresa.setComponente(txtEmpresa);
@@ -163,14 +162,6 @@ public class PanelProveedorRegistrar extends JPanelBase {
         ========================================================================
         */
         
-    }
-
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
 
     public JComboBox<String> getComboPais() {
@@ -539,7 +530,7 @@ public class PanelProveedorRegistrar extends JPanelBase {
                     if (respuesta==JOptionPane.YES_OPTION) {
                         PaisVo vo = new PaisVo();
                         vo.setPais(this._ComboPais.getText());
-                        this.coordinador.paisGuardar(vo);
+                        this.getCoordinador().paisGuardar(vo);
                     }else{
                         this._ComboPais.setText("");
                     }
@@ -662,7 +653,7 @@ public class PanelProveedorRegistrar extends JPanelBase {
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
 
     private void cargarComboPaises(){
-        List<PaisVo> listaPaises = this.coordinador.PaisConsultar();
+        List<PaisVo> listaPaises = this.getCoordinador().PaisConsultar();
         HashMap<String, Object> datosPaises = new HashMap<>();
         for (PaisVo listaPaise : listaPaises) {
             datosPaises.put(listaPaise.getPais(), listaPaise.getId());

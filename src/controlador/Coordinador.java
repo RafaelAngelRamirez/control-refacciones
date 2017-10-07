@@ -21,9 +21,20 @@ import java.util.Deque;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import modelo.InfoTabla.DepartamentoIT;
+import modelo.InfoTabla.EmpleadoIT;
+import modelo.InfoTabla.EntradaLoteIT;
+import modelo.InfoTabla.ImagenProveedorIT;
+import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.InfoTabla.MaquinaModeloIT;
+import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.PaisIT;
 import modelo.InfoTabla.ProveedorIT;
+import modelo.InfoTabla.RefaccionIT;
+import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
+import modelo.InfoTabla.RelacionRefaccionProveedorIT;
+import modelo.InfoTabla.SalidaLoteIT;
+import modelo.InfoTabla.UnidadIT;
 import modelo.logica.ComparacionLotes;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
@@ -533,8 +544,12 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    public void unidadGuardar(UnidadVo vo){
-        this.logica.unidadGuardar(vo);
+    public boolean unidadGuardar(UnidadVo vo){
+        boolean a = this.logica.unidadGuardar(vo);
+        if (a) {
+            setTablaModificada(UnidadIT.NOMBRE_TABLA);
+        }
+        return a;
     
     }
     
@@ -558,8 +573,12 @@ public class Coordinador {
       INICIO DE MATERIAL
     ////////////////////////////////////////////////////////////////////////
     */
-    public void materialGuardar(MaterialVo vo){
-        this.logica.materialGuardar(vo);
+    public boolean materialGuardar(MaterialVo vo){
+        boolean a = logica.materialGuardar(vo);
+        if (a) {
+            setTablaModificada(MaterialIT.NOMBRE_TABLA);
+        }
+        return a;
     
     }
     
@@ -728,13 +747,18 @@ public class Coordinador {
     }
     
     public void refaccionMostrarDetalleActualizarImagenes(){
-        this.getPanelRefaccionDetalle().cargarImagenes();
-        this.getPanelImagenDetalle().cargarImagenes();
+        JOptionPane.showMessageDialog(null, "se supone que se actualiza. ---refaccionMostrarDetalleActualizarImagenes()");
+//        this.getPanelRefaccionDetalle().cargarImagenes();
+//        this.getPanelImagenDetalle().cargarImagenes();
     }
     
     //GUARDAR DATOS
-    public void refaccionGuardar(RefaccionVo vo){
-        this.logica.refaccionGuardar(vo);
+    public boolean refaccionGuardar(RefaccionVo vo){
+        boolean a = logica.refaccionGuardar(vo);
+        if (a) {
+            setTablaModificada(RefaccionIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     public void refaccionAbrirPanelAgregar(){
@@ -765,20 +789,21 @@ public class Coordinador {
         return this.logica.refaccionConsultarTodoBusqueda(buscar);
     }
     
-   
-    
     //ACTUALIZAR 
     
     public void refaccionActualizarPanelConsultaRefacciones(){
-        this.getPanelRefaccionConsulta().getOpAct().actualizarPanel();
+        JOptionPane.showMessageDialog(null, "se supone que se debe actualizar.---refaccionActualizarPanelConsultaRefacciones");
+//        this.getPanelRefaccionConsulta().getOpAct().actualizarPanel();
     }
     
     public void refaccionActualizarPanelAgregarRefaccion(){
-        this.getPanelRefaccionAgregar().getOpAct().actualizarPanel();
+        JOptionPane.showMessageDialog(null, "se supone que se debe actualizar.---refaccionActualizarPanelAgregarRefaccion");
+//        this.getPanelRefaccionAgregar().getOpAct().actualizarPanel();
     }
     
     public void refaccionActualizarPanelModificar(){
-        this.getPanelRefaccionModificar().cargarListasYCombos();
+        JOptionPane.showMessageDialog(null, "se supone que se debe actualizar.---refaccionActualizarPanelModificar");
+//        this.getPanelRefaccionModificar().cargarListasYCombos();
     }
     
     /**
@@ -790,8 +815,12 @@ public class Coordinador {
     }
     
     //MODIFICAR DATOS.
-    public void refaccionModificar(RefaccionVo vo){
-        this.logica.refaccionModificar(vo);
+    public boolean refaccionModificar(RefaccionVo vo){
+        boolean a = this.logica.refaccionModificar(vo);
+        if (a) {
+            setTablaModificada(RefaccionIT.NOMBRE_TABLA);
+        }
+        return a;
     }
      /* 
     ////////////////////////////////////////////////////////////////////////
@@ -805,6 +834,7 @@ public class Coordinador {
     */
     //IMAGENES
     public String imagenRefaccionGuardarLista(List<ImagenRefaccionVo> vo){
+        setTablaModificada(ImagenRefaccionIT.NOMBRE_TABLA);
         return this.logica.imagenRefaccionGuardarLista(vo);
     }
     
@@ -812,8 +842,13 @@ public class Coordinador {
         return this.logica.imagenRefaccionConsultar(id);
     }
     
-    public void imagenRefaccionEliminar(ImagenRefaccionVo vo){
-        this.logica.imagenRefaccionEliminar(vo);
+    public boolean imagenRefaccionEliminar(ImagenRefaccionVo vo){
+        
+        boolean a = this.logica.imagenRefaccionEliminar(vo);
+        if (a) {
+            setTablaModificada(ImagenRefaccionIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     /* 
@@ -829,6 +864,7 @@ public class Coordinador {
     */
     //IMAGENES
     public String imagenProveedorGuardarLista(List<ImagenProveedorVo> vo){
+        setTablaModificada(ImagenProveedorIT.NOMBRE_TABLA);
         return this.logica.imagenProveedorGuardarLista(vo);
     }
     
@@ -836,8 +872,12 @@ public class Coordinador {
         return this.logica.imagenProveedorConsultar(id);
     }
     
-    public void imagenProveedorEliminar(ImagenProveedorVo vo){
-        this.logica.imagenProveedorEliminar(vo);
+    public boolean imagenProveedorEliminar(ImagenProveedorVo vo){
+        boolean a = this.logica.imagenProveedorEliminar(vo);
+        if (a) {
+            setTablaModificada(ImagenProveedorIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     /* 
@@ -861,6 +901,7 @@ public class Coordinador {
      */
     public void relacionRefaccionMaquinaModeloGuardarLista(
             List <RelacionRefaccionMaquinaModeloVo> listaVo){
+        setTablaModificada(RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA);
         this.logica.relacionRefaccionMaquinaModeloGuardarLista(listaVo);
     }
     
@@ -871,6 +912,7 @@ public class Coordinador {
      */
     public void relacionRefaccionMaquinaModeloModificarLista(
             List<RelacionRefaccionMaquinaModeloVo> lvo){
+        setTablaModificada(RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA);
         this.logica.relacionRefaccionMaquinaModeloModificarLista(lvo);
     }
     
@@ -900,13 +942,13 @@ public class Coordinador {
         d.setVisible(true);
     }
     
-    public void empleadoAbrirDialogoMoficar(){
+    public void empleadoAbrirDialogoModificar(){
         JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoModificar);
         panelEmpleadoModificar.configurar();
         d.setVisible(true);
     }
     
-    public void empleadoAbrirDialogoMoficar(String empleado){
+    public void empleadoAbrirDialogoModificar(String empleado){
         JDialog d = coordinadorPaneles.ifContainsReturnElseCreate(panelEmpleadoModificar);
         panelEmpleadoModificar.configurar(empleado);
         d.setVisible(true);
@@ -926,15 +968,27 @@ public class Coordinador {
     }
     
     public boolean empleadoGuardar(EmpleadoVo vo ){
-        return this.logica.empleadoGuardar(vo);
+        boolean a = this.logica.empleadoGuardar(vo);
+        if (a) {
+            setTablaModificada(EmpleadoIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     public boolean empleadoModificar(EmpleadoVo vo){
-        return this.logica.empleadoModificar(vo);
+        boolean a = this.logica.empleadoModificar(vo);
+        if (a) {
+            setTablaModificada(EmpleadoIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     public boolean empleadoDarDeBajaAlta(EmpleadoVo vo){
-        return this.logica.empleadoDarDeBajaAlta(vo);
+        boolean a = this.logica.empleadoDarDeBajaAlta(vo);
+        if (a) {
+            setTablaModificada(EmpleadoIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     public int empleadoConsultarUltimoId(){
         return this.logica.empleadoConsultarUltimoId();
@@ -969,8 +1023,11 @@ public class Coordinador {
     */
     
     public boolean departamentoGuardar(DepartamentoVo vo){
-        return this.logica.departamentoGuardar(vo);
-    
+        boolean a  = this.logica.departamentoGuardar(vo);
+        if (a) {
+            setTablaModificada(DepartamentoIT.NOMBRE_TABLA);
+        }
+        return a;
     }
     
     public List<DepartamentoVo> departamentoConsultarTodo(){
@@ -994,11 +1051,13 @@ public class Coordinador {
     */
     
     public void relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
+        setTablaModificada(RelacionRefaccionProveedorIT.NOMBRE_TABLA);
         this.logica.relacionRefaccionProveedorGuardarLista(listaVo);
     }
     
     public void relacionRefaccionProveedorModificarLista(
             List<RelacionRefaccionProveedorVo> listaVo){
+        setTablaModificada(RelacionRefaccionProveedorIT.NOMBRE_TABLA);
         this.logica.relacionRefaccionProveedorModificarLista(listaVo);
     }
     
@@ -1058,7 +1117,11 @@ public class Coordinador {
     }
 
     public boolean entradaLoteGuadar(EntradaLoteVo vo){
-        return this.logica.entradaLoteGuardar(vo);
+        boolean a = this.logica.entradaLoteGuardar(vo);
+        if (a) {
+            setTablaModificada(EntradaLoteIT.NOMBRE_TABLA);
+        }
+        return a;
     }
 
     public float entradaLoteExistencia(int id){
@@ -1092,8 +1155,11 @@ public class Coordinador {
      * @return True si la actaulización fue correcta. 
      */
     public boolean entradaLoteActualizarLotes(List<EntradaLoteVo> listaELVParaActualizar) {
-         return this.logica.entradaloteActualizarLotes(listaELVParaActualizar);
-    
+        boolean a =  this.logica.entradaloteActualizarLotes(listaELVParaActualizar);
+        if (a) {
+             setTablaModificada(EntradaLoteIT.NOMBRE_TABLA);
+        }
+        return a; 
     }
     
     /* 
@@ -1146,7 +1212,12 @@ public class Coordinador {
      * @return
      */
     public boolean salidaLoteGuadar(List<SalidaLoteVo> vo){
-        return this.logica.salidaLoteGuadar(vo);
+        boolean a = this.logica.salidaLoteGuadar(vo);
+        if (a) {
+            setTablaModificada(SalidaLoteIT.NOMBRE_TABLA);
+        }
+        return a;
+        
     }
 
 //    public float salidaLoteExistencia(int id){

@@ -5,7 +5,6 @@
  */
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,8 +34,6 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  */
 public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
 
-    private Coordinador coordinador;
-    
     private UtilidadesTxt_ _txtBusqueda;
     private UtilidadesListas_ _listaResultados;
     private UtilidadesTxt_ _txtNombreDeLaRefaccion;
@@ -102,20 +99,20 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         */
         //INICIAMOS LAS UTILIDADES.
         
-        _txtBusqueda = new UtilidadesTxt_(coordinador);
-        _listaResultados = new UtilidadesListas_(coordinador);
-        _txtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
-        _txtCodigoInterno = new UtilidadesTxt_(coordinador);
-        _txtCodigoProveedor = new UtilidadesTxt_(coordinador);
-        _txtExistencia = new UtilidadesTxt_(coordinador);
-        _txtStockMax = new UtilidadesTxt_(coordinador);
-        _txtStockMin = new UtilidadesTxt_(coordinador);
-        _txtUnidad = new UtilidadesTxt_(coordinador);
-        _txtFechaDeLote = new UtilidadesTxt_(coordinador);
-        _txtCantidadQueEntra = new UtilidadesTxt_(coordinador);
-        _comboEmpleadoQueReciveLote = new UtilidadesComboBox_(coordinador);
-        _txtObservaciones = new UtilidadesTxtArea_(coordinador);
-        _imagenesRefaccion = new UtilidadesJXViewImage_(coordinador);
+        _txtBusqueda = new UtilidadesTxt_(getCoordinador());
+        _listaResultados = new UtilidadesListas_(getCoordinador());
+        _txtNombreDeLaRefaccion = new UtilidadesTxt_(getCoordinador());
+        _txtCodigoInterno = new UtilidadesTxt_(getCoordinador());
+        _txtCodigoProveedor = new UtilidadesTxt_(getCoordinador());
+        _txtExistencia = new UtilidadesTxt_(getCoordinador());
+        _txtStockMax = new UtilidadesTxt_(getCoordinador());
+        _txtStockMin = new UtilidadesTxt_(getCoordinador());
+        _txtUnidad = new UtilidadesTxt_(getCoordinador());
+        _txtFechaDeLote = new UtilidadesTxt_(getCoordinador());
+        _txtCantidadQueEntra = new UtilidadesTxt_(getCoordinador());
+        _comboEmpleadoQueReciveLote = new UtilidadesComboBox_(getCoordinador());
+        _txtObservaciones = new UtilidadesTxtArea_(getCoordinador());
+        _imagenesRefaccion = new UtilidadesJXViewImage_(getCoordinador());
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         
@@ -217,13 +214,6 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         ========================================================================
         */    
     
-    }
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
     
     public void setearItemComboEmpleado(Object item){
@@ -743,7 +733,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
                         "Se guardo el lote correctamente.");
                 if (cargaExterna) {
                     dispose();
-                    RefaccionVo refaVo = coordinador.refaccionConsultar(vo.getIdRefaccion());
+                    RefaccionVo refaVo = getCoordinador().refaccionConsultar(vo.getIdRefaccion());
                     this.getCoordinador().salidaLoteAbrirDialogo(refaVo);
                 }
             }else{
@@ -837,7 +827,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         _listaResultados.limpiar();
         HashMap<String, Object> datos = new HashMap<>();
         
-        List<RefaccionVo> listaVo = this.coordinador.refaccionConsultarTodoBusqueda(busqueda);
+        List<RefaccionVo> listaVo = this.getCoordinador().refaccionConsultarTodoBusqueda(busqueda);
         for (RefaccionVo vo : listaVo) {
             
             datos.put(

@@ -33,7 +33,6 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 public class PanelRefaccionesConsulta extends JPanelBase {
 
     private static final long serialVersionUID = 1L;
-    Coordinador coordinador = new Coordinador();
     
     UtilidadesTxt_ _TxtFiltrarRefaccion;
     UtilidadesTabla_ _TablaRefacciones;
@@ -72,8 +71,8 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         ///////////////////////////////////////////////////////////////////////
         */
         //INICIAMOS LAS UTILIDADES.
-        _TxtFiltrarRefaccion = new UtilidadesTxt_(coordinador);
-        _TablaRefacciones = new UtilidadesTabla_(coordinador);
+        _TxtFiltrarRefaccion = new UtilidadesTxt_(getCoordinador());
+        _TablaRefacciones = new UtilidadesTabla_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -106,7 +105,7 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         //ACCIONES DE BOTONES
         
         //ACTUALIZACIONES DE TABLA. 
-         opAct.add(RefaccionIT.NOMBRE_TABLA, PanelRefaccionesConsulta.this::cargarRefaccionesInicio);
+         opAct.add(RefaccionIT.NOMBRE_TABLA, ()->cargarRefaccionesInicio());
          
         
         /*
@@ -131,7 +130,7 @@ public class PanelRefaccionesConsulta extends JPanelBase {
     }
     
     public void cargarRefacciones(String busqueda){
-        List<RefaccionVo> listaVo = this.coordinador.refaccionConsultarTodoBusqueda(busqueda);
+        List<RefaccionVo> listaVo = this.getCoordinador().refaccionConsultarTodoBusqueda(busqueda);
         RefaccionIT rit = new RefaccionIT();
         UnidadIT uit = new UnidadIT();
         ImportanciaIT iit = new ImportanciaIT();
@@ -174,18 +173,9 @@ public class PanelRefaccionesConsulta extends JPanelBase {
     }
     
     public void mostrarDetalleRefaccion(){
-        coordinador.refaccionAbrirDetalleRefaccion(_TablaRefacciones.getDatoDeTabla(0)+"");
+        getCoordinador().refaccionAbrirDetalleRefaccion(_TablaRefacciones.getDatoDeTabla(0)+"");
     }
-
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
-    }
-    
-    
+   
    
     public JTextField getTxtBusqueda() {
         return txtFiltrarRefacciones;

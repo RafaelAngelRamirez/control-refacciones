@@ -24,7 +24,6 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
-    Coordinador coordinador;
     
     UtilidadesTxt_ _txtNombre;
     UtilidadesComboBox_ _comboDepartamentos;
@@ -178,8 +177,8 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
         */
         //INICIAMOS LAS UTILIDADES.
        
-        _txtNombre = new UtilidadesTxt_(coordinador);
-        _comboDepartamentos = new UtilidadesComboBox_(coordinador);
+        _txtNombre = new UtilidadesTxt_(getCoordinador());
+        _comboDepartamentos = new UtilidadesComboBox_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -262,7 +261,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
                     if (respuesta==JOptionPane.YES_OPTION) {
                         DepartamentoVo vo = new DepartamentoVo();
                         vo.setDepartamento(this._comboDepartamentos.getText());
-                        this.coordinador.departamentoGuardar(vo);
+                        this.getCoordinador().departamentoGuardar(vo);
                     }else{
                         this._comboDepartamentos.setText("");
                     }
@@ -276,7 +275,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
     }
     
     public void cargarComboDepartamentos(){
-        List<DepartamentoVo> listaDepartamentos = this.coordinador.departamentoConsultarTodo();
+        List<DepartamentoVo> listaDepartamentos = this.getCoordinador().departamentoConsultarTodo();
         HashMap<String, Object> datosDepartamentos = new HashMap<>();
         for (DepartamentoVo vo : listaDepartamentos) {
             datosDepartamentos.put(vo.getDepartamento(), vo.getId());
@@ -317,15 +316,6 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
     }
     
 
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
-    }
-
-    
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         EmpleadoVo vo = new EmpleadoVo();
         vo.setNombre(_txtNombre.getText());

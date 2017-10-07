@@ -24,7 +24,6 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
  * @author Particular
  */
 public class PanelImagenProveedorDetalle extends JPanelBase {
-    private Coordinador coordinador;
     private int idRefaccion;
     
     
@@ -39,21 +38,12 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
         initComponents();
     }
 
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
     public int getIdRefaccion() {
         return idRefaccion;
     }
 
     public void setIdRefaccion(int idRefaccion) {
         this.idRefaccion = idRefaccion;
-    }
-
-    
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
 
     @Override
@@ -65,7 +55,7 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
         */
         //INICIAMOS LAS UTILIDADES.
         
-        _ImagenesRefacciones = new UtilidadesJXViewImage_(coordinador);
+        _ImagenesRefacciones = new UtilidadesJXViewImage_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -120,7 +110,7 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
     
     /**
      * Carga las imágenes jalando el vo desde DialogoDetellaRefaccion a travez
-     * del coordinador.
+     * del getCoordinador().
      */
     public void cargarImagenes(){
         List<ImagenRefaccionVo> livo = this.getCoordinador().refaccionListaDeImagenesDetalles();

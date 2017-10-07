@@ -30,7 +30,6 @@ import vista.UtilidadesIntefaz.JPanelBase;
  * @author Particular
  */
 public class PanelProveedorModificar extends JPanelBase {
-    private Coordinador coordinador;
     private int id;
     
     private UtilidadesTxt_ _TxtEmpresa;
@@ -90,8 +89,8 @@ public class PanelProveedorModificar extends JPanelBase {
         this._TxtPaginaWeb = new UtilidadesTxt_(getCoordinador());
         this._TxtEmail = new UtilidadesTxt_(getCoordinador());
         this._ComboPais = new UtilidadesComboBox_(getCoordinador());
-        this._ImagenesProveedor = new UtilidadesJXViewImage_(coordinador);
-        this._ListaProveedores = new UtilidadesListas_(coordinador);
+        this._ImagenesProveedor = new UtilidadesJXViewImage_(getCoordinador());
+        this._ListaProveedores = new UtilidadesListas_(getCoordinador());
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         _TxtEmpresa.setComponente(txtEmpresa);
@@ -165,14 +164,6 @@ public class PanelProveedorModificar extends JPanelBase {
         
         
         
-    }
-
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
 
     public JComboBox<String> getComboPais() {
@@ -603,7 +594,7 @@ public class PanelProveedorModificar extends JPanelBase {
                     if (respuesta==JOptionPane.YES_OPTION) {
                         PaisVo vo = new PaisVo();
                         vo.setPais(this._ComboPais.getText());
-                        this.coordinador.paisGuardar(vo);
+                        this.getCoordinador().paisGuardar(vo);
                     }else{
                         this._ComboPais.setText("");
                     }
@@ -771,7 +762,7 @@ public class PanelProveedorModificar extends JPanelBase {
     }//GEN-LAST:event_btnEliminarProveedorActionPerformed
 
     public void cargarComboPaises(){
-        List<PaisVo> listaPaises = this.coordinador.PaisConsultar();
+        List<PaisVo> listaPaises = this.getCoordinador().PaisConsultar();
         HashMap<String, Object> datosPaises = new HashMap<>();
         for (PaisVo listaPaise : listaPaises) {
             datosPaises.put(listaPaise.getPais(), listaPaise.getId());

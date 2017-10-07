@@ -23,8 +23,8 @@ public class ControladorActualizacionGUI_BD {
     /**
      * Almacena los jpanel que han sido instanciados. 
      */
-    public List<JPanelBase> listaPaneles;
-    private HashMap<String, Boolean> tablasModificadas;
+    private final List<JPanelBase> listaPaneles;
+    private final HashMap<String, Boolean> tablasModificadas;
     
     Coordinador coordinador;
 
@@ -42,6 +42,14 @@ public class ControladorActualizacionGUI_BD {
     }
     
     /**
+     * Añade un panel a la lista de paneles que se quieren 
+     * @param panel
+     */
+    public void addPanel(JPanelBase panel){
+        listaPaneles.add(panel);
+    }
+    
+    /**
      * Revisa todos los paneles registrados que contengan operacines relacionadas
      * con la tabla que se le pase como parametro y define su estatus actualizado
      * como falso. De esta manera la siguiente vez que se llame a actualizar
@@ -54,6 +62,7 @@ public class ControladorActualizacionGUI_BD {
         for (JPanelBase panel : listaPaneles) {
             panel.getOpAct().definirCambioEnTabla(tablaModificada);
         }
+        JOptionPane.showMessageDialog(null, "Se modifico la tabla: "+ tablaModificada);
     }
     
     /**
@@ -61,6 +70,7 @@ public class ControladorActualizacionGUI_BD {
      * las tablas esten señaladas como que hubo un cambio. 
      */
     public void actualizarTodoLoQueEsteVisible(){
+        JOptionPane.showMessageDialog(null, "actualizando todo lo visible.");
         for (Map.Entry<String, Boolean> entry : tablasModificadas.entrySet()) {
             String tabla = entry.getKey();
             Boolean hayQueActualizar = entry.getValue();
@@ -68,6 +78,7 @@ public class ControladorActualizacionGUI_BD {
             if (hayQueActualizar) {
                 for (JPanelBase panel : listaPaneles) {
                     if (panel.soyVisible()) {
+                        JOptionPane.showMessageDialog(null, "actualizando: "+ panel.getClass().getName());
                         panel.getOpAct().actualizarComponentePorTabla(tabla);
                     }
                 }

@@ -449,7 +449,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEmpleadoModificar.setNombre(CoordinadorPaneles.PANEL_EMPLEADO_MODIFICAR);
         dialogoEmpleadoModificar.setPadre(menuModificar);
         dialogoEmpleadoModificar.setAccionDelItem(
-                ()->this.getCoordinador().empleadoAbrirDialogoMoficar());
+                ()->this.getCoordinador().empleadoAbrirDialogoModificar());
         this.addItemOMenu(dialogoEmpleadoModificar);
         
        

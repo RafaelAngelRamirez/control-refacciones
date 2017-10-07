@@ -7,7 +7,6 @@ package controlador.ActualizacionDeComponentesGráficos;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import vista.UtilidadesIntefaz.JPanelBase;
 
 /**
@@ -17,7 +16,7 @@ import vista.UtilidadesIntefaz.JPanelBase;
 public class OperacionesDeActualizacion {
     
     JPanelBase panel;
-    List<ComponenteActualizar> componentesActualizar;
+    List<ObjetoDeActualizacion> listOperaconesDeActualizacion;
 
     /**
      * Esta clase se encarga de almacenar las operaciones de actaulización de los
@@ -25,23 +24,27 @@ public class OperacionesDeActualizacion {
      * @param panel
      */
     public OperacionesDeActualizacion(JPanelBase panel) {
-        componentesActualizar = new ArrayList<>();
+        listOperaconesDeActualizacion = new ArrayList<>();
         this.panel = panel;
     }
     
     public void add(String tabla, Runnable operacionDeActualización){
-        ComponenteActualizar ca = new ComponenteActualizar();
+        ObjetoDeActualizacion ca = new ObjetoDeActualizacion();
         ca.setOperacionDeActualizacion(operacionDeActualización);
         ca.setTablaConElQueEstaRelacionado(tabla);
-        componentesActualizar.add(ca);
+        listOperaconesDeActualizacion.add(ca);
     }
 
-    public List<ComponenteActualizar> getComponentesActualizar() {
-        return componentesActualizar;
+    /**
+     * Retorna la lista de comp
+     * @return
+     */
+    public List<ObjetoDeActualizacion> getComponentseActualizar() {
+        return listOperaconesDeActualizacion;
     }
 
-    public void setComponentesActualizar(List<ComponenteActualizar> componentesActualizar) {
-        this.componentesActualizar = componentesActualizar;
+    public void setListOperaconesDeActualizacion(List<ObjetoDeActualizacion> listOperaconesDeActualizacion) {
+        this.listOperaconesDeActualizacion = listOperaconesDeActualizacion;
     }
 
     /**
@@ -50,20 +53,20 @@ public class OperacionesDeActualizacion {
      */
     public void actualizarPanel() {
         System.out.println("[ACTUALIZANDO PANEL]\n\n\n\t\t"+panel.getClass().getName()+"\n\n\n[ACTUALIZANDO PANEL]");
-        if (!componentesActualizar.isEmpty()) {
-            for (ComponenteActualizar cA : componentesActualizar) {
+        if (!listOperaconesDeActualizacion.isEmpty()) {
+            for (ObjetoDeActualizacion cA : listOperaconesDeActualizacion) {
                 cA.getOperacionDeActualizacion().run();
             }
         }
     }
     
     /**
-     * Actualiza los componenetes que coincidan con la tabla que se le pase
+     * Ejecuta las operaciones de actualización que coincidan con la tabla que se le pase
      * como parametro. 
      * @param tabla
      */
     public void actualizarComponentePorTabla(String tabla){
-        for (ComponenteActualizar cA : componentesActualizar) {
+        for (ObjetoDeActualizacion cA : listOperaconesDeActualizacion) {
             if (cA.getTablaConElQueEstaRelacionado().equals(panel)) {
                 cA.getOperacionDeActualizacion().run();
                 cA.setActualizado(true);
@@ -78,7 +81,7 @@ public class OperacionesDeActualizacion {
      * @param tabla La tabla que queremos definir como desactualizada. 
      */
     public void definirCambioEnTabla(String tabla){
-        for (ComponenteActualizar cA : componentesActualizar) {
+        for (ObjetoDeActualizacion cA : listOperaconesDeActualizacion) {
             if (cA.getTablaConElQueEstaRelacionado().equals(panel)) {
                 cA.setActualizado(false);
             }
@@ -89,12 +92,16 @@ public class OperacionesDeActualizacion {
     
     //ESTA CLASE GUARDA EL COMPONENETE Y SU RELACIÓN CON LAS TABLAS DE MANERA
     // QUE SI LA TABLA SE MODIFICA ENTONCES ESTE COMPONENTE SE ACTUALIZA. 
-    private class ComponenteActualizar{
+    private class ObjetoDeActualizacion{
         
         boolean actualizado;
         Runnable operacionDeActualizacion;
         String tablaConElQueEstaRelacionado;
 
+        /**
+         * Define si la operación se ha actualizado desde la última vez que
+         * se señalo algún cambio en la 
+         */
         public boolean isActualizado() {
             return actualizado;
         }

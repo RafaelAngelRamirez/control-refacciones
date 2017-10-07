@@ -55,8 +55,8 @@ public abstract class JPanelBase extends JPanel implements HierarchyListener{
     public boolean soyVisible(){
         
         Container c = getParent();
-        System.out.println("--------------------------------"+c.getClass().getName());
         while(c != null){
+            System.out.println("--------------------------------"+c.getClass().getName());
             if (!c.isVisible()) {
                 return false;
             } else {
@@ -100,13 +100,17 @@ public abstract class JPanelBase extends JPanel implements HierarchyListener{
         this.opAct = opAct;
     }
     
-    public Coordinador getCoordinador() {
+    public final Coordinador getCoordinador() {
         return coordinador;
     }
 
-    public void setCoordinador(Coordinador coordinador) {
+    /**
+     * El coordinador del sistema.
+     * @param coordinador
+     */
+    public final void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
-        this.coordinador.getControladorActualizacionGUI_BD().listaPaneles.add(this);
+        this.coordinador.getControladorActualizacionGUI_BD().addPanel(this);
     }
     
     private boolean listenersEjecutados=false;
@@ -143,18 +147,18 @@ public abstract class JPanelBase extends JPanel implements HierarchyListener{
      * Las configuracines para mostrar el dialogo. 
      * @return
      */
-    public ConfiguracionDePanel getConfiguracionesDialogo() {
+    public final ConfiguracionDePanel getConfiguracionesDialogo() {
         return configuracionesDialogo;
     }
     
     
-    public boolean dispose(){
+    public final boolean dispose(){
         return this.getCoordinador().getCoordinadorPaneles().cerrarDialogoAbierto(this);
     }
     
 
     @Override
-    public void setVisible(boolean aFlag) {
+    public final void setVisible(boolean aFlag) {
         try {
             throw new ExcepcionPersonalizada(
                     "setVisible esta deshabilitado para JPanelBase:"

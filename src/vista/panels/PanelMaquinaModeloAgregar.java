@@ -26,7 +26,6 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelMaquinaModeloAgregar extends JPanelBase {
-    private Coordinador coordinador;
     private UtilidadesTxt_ _TxtAnio;
     private UtilidadesTxt_ _TxtModeloMaquina;
     private UtilidadesComboBox_ _ComboMarca;
@@ -152,18 +151,10 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         */
     }
 
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
-    }
-    
     public void guardarProoveedor(){
         String proveedor = _ComboMarca.getText();
         if (!proveedor.equals("")) {
-            if (this.coordinador.proveedorExiste(proveedor)) {
+            if (this.getCoordinador().proveedorExiste(proveedor)) {
                 _ComboMarca.setSelectedItem(proveedor);
             }else{
                 int r = JOptionPane.showConfirmDialog(this,
@@ -173,7 +164,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
                     JOptionPane.YES_NO_OPTION);
 
                 if (r==0) {
-                    this.coordinador.proveedoresAbrirDialogo(proveedor);
+                    this.getCoordinador().proveedoresAbrirDialogo(proveedor);
                     this.consultarProveedores();
                     _ComboMarca.setSelectedItem(proveedor);
                     
@@ -185,7 +176,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
     }
     
     public void consultarProveedores(){
-        List<ProveedorVo> l = this.coordinador.proveedoresConsultarMarcas();
+        List<ProveedorVo> l = this.getCoordinador().proveedoresConsultarMarcas();
         HashMap<String, Object> map = new HashMap<>();
         
         for (ProveedorVo vo : l) {
@@ -405,7 +396,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         vo.setModelo(_TxtModeloMaquina.getText());
         vo.setId(-1);
         List<Validacion> validaciones = 
-                this.coordinador.maquinaModeloValidarCampos(vo, false);
+                this.getCoordinador().maquinaModeloValidarCampos(vo, false);
         
         boolean todoValido = true;
         boolean modeloYAnioMal = false;
@@ -452,10 +443,12 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
             }
         }
         if (todoValido) {
-            coordinador.maquinaModeloGuardar(vo);
+            getCoordinador().maquinaModeloGuardar(vo);
             JOptionPane.showMessageDialog(null,"Se guardo correctamente el modelo.");
+            getCoordinador().actualizarTodoLoVisible();
             limpiarTodo();
             dispose();
+            
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 

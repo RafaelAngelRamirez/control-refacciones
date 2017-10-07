@@ -25,13 +25,13 @@ public class UnidadDao extends DAOGenerales{
 
     
 
-    public void guardar(UnidadVo vo){
+    public boolean guardar(UnidadVo vo){
         conexion = new Conexion(coordinador);
 
         String sql = "INSERT INTO " + UnidadIT.NOMBRE_TABLA 
                 + " VALUES (null,  ?)";
        
-        conexion.executeUpdate(sql, vo.getUnidad());
+        return conexion.executeUpdate(sql, vo.getUnidad());
     }
     
     public List<UnidadVo> consultar(){

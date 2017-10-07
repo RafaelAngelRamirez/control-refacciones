@@ -6,7 +6,6 @@
 package vista.panels;
 
 import controlador.Coordinador;
-import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -35,7 +33,6 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.UnidadVo;
 import org.jdesktop.swingx.JXImageView;
-import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -50,7 +47,6 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelRefaccionModificar extends JPanelBase {
-    Coordinador coordinador;
     private int idModificandoseActualmente;
     
     UtilidadesJXViewImage_ _ImagenesRefacciones;
@@ -123,28 +119,28 @@ public class PanelRefaccionModificar extends JPanelBase {
         ///////////////////////////////////////////////////////////////////////
         */
         //INICIAMOS LAS UTILIDADES.
-        _ImagenesRefacciones = new UtilidadesJXViewImage_(coordinador);
-        _ComboUnidad = new UtilidadesComboBox_(coordinador);
-        _ComboMaterial = new UtilidadesComboBox_(coordinador) ;
+        _ImagenesRefacciones = new UtilidadesJXViewImage_(getCoordinador());
+        _ComboUnidad = new UtilidadesComboBox_(getCoordinador());
+        _ComboMaterial = new UtilidadesComboBox_(getCoordinador()) ;
 
 
-        _ListaProveedor = new UtilidadesListas_(coordinador);
-        _ListaProveedorSeleccionado = new UtilidadesListas_(coordinador);
+        _ListaProveedor = new UtilidadesListas_(getCoordinador());
+        _ListaProveedorSeleccionado = new UtilidadesListas_(getCoordinador());
 
-        _ListaMaquinaModelo = new UtilidadesListas_(coordinador);
-        _ListasMaquinasSeleccionadas = new UtilidadesListas_(coordinador);
+        _ListaMaquinaModelo = new UtilidadesListas_(getCoordinador());
+        _ListasMaquinasSeleccionadas = new UtilidadesListas_(getCoordinador());
 
-        _TxtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
-        _TxtCodigo = new UtilidadesTxt_(coordinador);
-        _TxtCodigoDelProveedor = new UtilidadesTxt_(coordinador);
-        _TxtStockMin = new UtilidadesTxt_(coordinador);
-        _TxtStockMax = new UtilidadesTxt_(coordinador);
+        _TxtNombreDeLaRefaccion = new UtilidadesTxt_(getCoordinador());
+        _TxtCodigo = new UtilidadesTxt_(getCoordinador());
+        _TxtCodigoDelProveedor = new UtilidadesTxt_(getCoordinador());
+        _TxtStockMin = new UtilidadesTxt_(getCoordinador());
+        _TxtStockMax = new UtilidadesTxt_(getCoordinador());
 
-        _TxtDescripcion = new UtilidadesTxtArea_(coordinador);
-        _TxtQueEs = new UtilidadesTxtArea_(coordinador);
-        _TxtParaQueEs = new UtilidadesTxtArea_(coordinador);
+        _TxtDescripcion = new UtilidadesTxtArea_(getCoordinador());
+        _TxtQueEs = new UtilidadesTxtArea_(getCoordinador());
+        _TxtParaQueEs = new UtilidadesTxtArea_(getCoordinador());
         
-        _RadioImportancia = new UtilidadesRadio_(coordinador);
+        _RadioImportancia = new UtilidadesRadio_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -349,7 +345,7 @@ public class PanelRefaccionModificar extends JPanelBase {
      * @param id El id que corresponde a la refacción.
      */
     public void cargarImagenes(int id){
-        listaImagenesRefaccion = this.coordinador.imagenRefaccionConsultar(id);
+        listaImagenesRefaccion = this.getCoordinador().imagenRefaccionConsultar(id);
         _ImagenesRefacciones.limpiarComponenteURL();
         for (ImagenRefaccionVo vo : listaImagenesRefaccion) {
             UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
@@ -379,7 +375,7 @@ public class PanelRefaccionModificar extends JPanelBase {
     }
     
     public void cargarListaProveedor(){
-        List<ProveedorVo> lista = this.coordinador.proveedoresConsultarMarcas();
+        List<ProveedorVo> lista = this.getCoordinador().proveedoresConsultarMarcas();
         HashMap<String, Object> datos= new HashMap<>();
         _ListaProveedor.limpiar();
         for (ProveedorVo vo : lista) {
@@ -389,7 +385,7 @@ public class PanelRefaccionModificar extends JPanelBase {
     
     }
     public void cargarListaMaquinaModelo(){
-        List<MaquinaModeloVo> lista = this.coordinador.maquinaModeloConsultar();
+        List<MaquinaModeloVo> lista = this.getCoordinador().maquinaModeloConsultar();
         HashMap<String, Object> datos = new HashMap<>();
         _ListaMaquinaModelo.limpiar();
         for (MaquinaModeloVo vo : lista) {
@@ -399,7 +395,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         _ListaMaquinaModelo.cargarLista(datos);
     }
     public void cargarComboUnidad(){
-        List<UnidadVo> l = this.coordinador.unidadConsultar();
+        List<UnidadVo> l = this.getCoordinador().unidadConsultar();
         HashMap<String, Object> map = new HashMap<>();
         
         for (UnidadVo vo : l) {
@@ -408,7 +404,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         _ComboUnidad.cargarCombo(map);
     }
     public void cargarComboMaterial(){
-        List<MaterialVo> l = this.coordinador.materialConsultar();
+        List<MaterialVo> l = this.getCoordinador().materialConsultar();
         HashMap<String, Object> map = new HashMap<>();
         for (MaterialVo vo : l) {
             map.put(vo.getMaterial(), vo.getId());
@@ -419,7 +415,7 @@ public class PanelRefaccionModificar extends JPanelBase {
     public void guardarUnidad(){
         String unidad = _ComboUnidad.getText();
         if (!unidad.isEmpty()) {
-            if (this.coordinador.unidadExiste(unidad)) {
+            if (this.getCoordinador().unidadExiste(unidad)) {
                 _ComboUnidad.setSelectedItem(unidad);
 
             }else{
@@ -431,7 +427,7 @@ public class PanelRefaccionModificar extends JPanelBase {
                 if (op == JOptionPane.YES_OPTION) {
                     UnidadVo vo = new UnidadVo();
                     vo.setUnidad(unidad);
-                    this.coordinador.unidadGuardar(vo);
+                    this.getCoordinador().unidadGuardar(vo);
                     this.cargarComboUnidad();
                     _ComboUnidad.setSelectedItem(unidad);
                 }
@@ -442,7 +438,7 @@ public class PanelRefaccionModificar extends JPanelBase {
     public void guardarMaterial(){
         String material = _ComboMaterial.getText();
         if (!material.isEmpty()) {
-            if (this.coordinador.materialExiste(material)) {
+            if (this.getCoordinador().materialExiste(material)) {
                 _ComboMaterial.setSelectedItem(material);
 
             }else{
@@ -454,21 +450,13 @@ public class PanelRefaccionModificar extends JPanelBase {
                 if (op == JOptionPane.YES_OPTION) {
                     MaterialVo vo = new MaterialVo();
                     vo.setMaterial(material);
-                    this.coordinador.materialGuardar(vo);
+                    this.getCoordinador().materialGuardar(vo);
                     this.cargarComboMaterial();
                     _ComboMaterial.setSelectedItem(material);
                 }
             }
         }
         
-    }
-
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
 
     public JButton getBtnAgregarImagen() {
@@ -1436,7 +1424,7 @@ public class PanelRefaccionModificar extends JPanelBase {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarNuevaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevaMaquinaActionPerformed
-        this.coordinador.maquinaModeloAbrirDialogoAgregar();
+        this.getCoordinador().maquinaModeloAbrirDialogoAgregar();
     }//GEN-LAST:event_btnAgregarNuevaMaquinaActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -1524,13 +1512,13 @@ public class PanelRefaccionModificar extends JPanelBase {
         //REFACCION
         List<Validacion> valRefaccion = 
                 //true por que estamos validando el update.
-                this.coordinador.refaccionValidarCampos(rVo, true);
+                this.getCoordinador().refaccionValidarCampos(rVo, true);
         //RELACION MAQUINAMODELO
         List<Validacion> valRelacionRMM = 
-                this.coordinador.refaccionValidarCamposMaquinaModelo(listarrmmVo);
+                this.getCoordinador().refaccionValidarCamposMaquinaModelo(listarrmmVo);
         //RELACION PROVEEDOR
         List<Validacion> valRelacionRP = 
-                this.coordinador.refaccionValidarCamposProveedor(listarrpVo);
+                this.getCoordinador().refaccionValidarCamposProveedor(listarrpVo);
                 
         //SI ESTA VARIABLE QUEDA EN TRUE QUIERE DECIR QUE TODAS LAS VALIDACIONES
         //PASARON.
@@ -1673,9 +1661,9 @@ public class PanelRefaccionModificar extends JPanelBase {
             this.getCoordinador().relacionRefaccionMaquinaModeloModificarLista(listarrmmVo);
             this.getCoordinador().relacionRefaccionProveedorModificarLista(listarrpVo);
                 limpiarTodo();
-                this.coordinador.refaccionActualizarPanelConsultaRefacciones();
+                this.getCoordinador().refaccionActualizarPanelConsultaRefacciones();
                 JOptionPane.showMessageDialog(
-                        coordinador.getMarcoParaVentanaPrincipal(),
+                        getCoordinador().getMarcoParaVentanaPrincipal(),
                         "Se actualizo la refaccción correctamente.");
             this.getCoordinador().refaccionAbrirPanelModificar();
         }
@@ -1708,7 +1696,7 @@ public class PanelRefaccionModificar extends JPanelBase {
 
     private void btnAgregarNuevProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevProveedorActionPerformed
         //this.controladorGestionDeRefacciones.iniciarGuardarProveedorNuevo();
-        this.coordinador.proveedorAbrirDialogoGuardarNuevo();
+        this.getCoordinador().proveedorAbrirDialogoGuardarNuevo();
     }//GEN-LAST:event_btnAgregarNuevProveedorActionPerformed
 
     private void radioBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioBajaActionPerformed

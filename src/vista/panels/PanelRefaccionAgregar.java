@@ -50,7 +50,6 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelRefaccionAgregar extends JPanelBase {
-    Coordinador coordinador;
     
     UtilidadesJXViewImage_ _ImagenesRefacciones;
     UtilidadesComboBox_ _ComboUnidad;
@@ -128,28 +127,28 @@ public class PanelRefaccionAgregar extends JPanelBase {
         ///////////////////////////////////////////////////////////////////////
         */
         //INICIAMOS LAS UTILIDADES.
-        _ImagenesRefacciones = new UtilidadesJXViewImage_(coordinador);
-        _ComboUnidad = new UtilidadesComboBox_(coordinador);
-        _ComboMaterial = new UtilidadesComboBox_(coordinador) ;
+        _ImagenesRefacciones = new UtilidadesJXViewImage_(getCoordinador());
+        _ComboUnidad = new UtilidadesComboBox_(getCoordinador());
+        _ComboMaterial = new UtilidadesComboBox_(getCoordinador()) ;
 
 
-        _ListaProveedor = new UtilidadesListas_(coordinador);
-        _ListaProveedorSeleccionado = new UtilidadesListas_(coordinador);
+        _ListaProveedor = new UtilidadesListas_(getCoordinador());
+        _ListaProveedorSeleccionado = new UtilidadesListas_(getCoordinador());
 
-        _ListaMaquinaModelo = new UtilidadesListas_(coordinador);
-        _ListasMaquinasSeleccionadas = new UtilidadesListas_(coordinador);
+        _ListaMaquinaModelo = new UtilidadesListas_(getCoordinador());
+        _ListasMaquinasSeleccionadas = new UtilidadesListas_(getCoordinador());
 
-        _TxtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
-        _TxtCodigo = new UtilidadesTxt_(coordinador);
-        _TxtCodigoDelProveedor = new UtilidadesTxt_(coordinador);
-        _TxtStockMin = new UtilidadesTxt_(coordinador);
-        _TxtStockMax = new UtilidadesTxt_(coordinador);
+        _TxtNombreDeLaRefaccion = new UtilidadesTxt_(getCoordinador());
+        _TxtCodigo = new UtilidadesTxt_(getCoordinador());
+        _TxtCodigoDelProveedor = new UtilidadesTxt_(getCoordinador());
+        _TxtStockMin = new UtilidadesTxt_(getCoordinador());
+        _TxtStockMax = new UtilidadesTxt_(getCoordinador());
 
-        _TxtDescripcion = new UtilidadesTxtArea_(coordinador);
-        _TxtQueEs = new UtilidadesTxtArea_(coordinador);
-        _TxtParaQueEs = new UtilidadesTxtArea_(coordinador);
+        _TxtDescripcion = new UtilidadesTxtArea_(getCoordinador());
+        _TxtQueEs = new UtilidadesTxtArea_(getCoordinador());
+        _TxtParaQueEs = new UtilidadesTxtArea_(getCoordinador());
         
-        _RadioImportancia = new UtilidadesRadio_(coordinador);
+        _RadioImportancia = new UtilidadesRadio_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -267,7 +266,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         //OPERACIONES DE ACTUALIZACION
         
         opAct.add(ProveedorIT.NOMBRE_TABLA, this::cargarListaProveedor);
-        opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaProveedor);
+        opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaMaquinaModelo);
         opAct.add(UnidadIT.NOMBRE_TABLA, this::cargarComboUnidad);
         opAct.add(MaterialIT.NOMBRE_TABLA, this::cargarComboMaterial);
         
@@ -291,12 +290,8 @@ public class PanelRefaccionAgregar extends JPanelBase {
         this.txtDescripcion = txtDescripcion;
     }
     
-//    public void cargarListasYCombos(){
-//        
-//    }
-    
     public void cargarListaProveedor(){
-        List<ProveedorVo> lista = this.coordinador.proveedoresConsultarMarcas();
+        List<ProveedorVo> lista = this.getCoordinador().proveedoresConsultarMarcas();
         HashMap<String, Object> datos= new HashMap<>();
         _ListaProveedor.limpiar();
         for (ProveedorVo vo : lista) {
@@ -306,7 +301,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
     
     }
     public void cargarListaMaquinaModelo(){
-        List<MaquinaModeloVo> lista = this.coordinador.maquinaModeloConsultar();
+        List<MaquinaModeloVo> lista = this.getCoordinador().maquinaModeloConsultar();
         HashMap<String, Object> datos = new HashMap<>();
         _ListaMaquinaModelo.limpiar();
         for (MaquinaModeloVo vo : lista) {
@@ -318,7 +313,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ListaMaquinaModelo.cargarLista(datos);
     }
     public void cargarComboUnidad(){
-        List<UnidadVo> l = this.coordinador.unidadConsultar();
+        List<UnidadVo> l = this.getCoordinador().unidadConsultar();
         HashMap<String, Object> map = new HashMap<>();
         
         for (UnidadVo vo : l) {
@@ -364,7 +359,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
     public void guardarMaterial(){
         String material = _ComboMaterial.getText();
         if (!material.isEmpty()) {
-            if (this.coordinador.materialExiste(material)) {
+            if (this.getCoordinador().materialExiste(material)) {
                 _ComboMaterial.setSelectedItem(material);
 
             }else{
@@ -383,14 +378,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
         }
         
-    }
-
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
 
     public JButton getBtnAgregarImagen() {
@@ -1370,13 +1357,13 @@ public class PanelRefaccionAgregar extends JPanelBase {
         //VALIDACIONES
         //REFACCION
         List<Validacion> valRefaccion = 
-                this.coordinador.refaccionValidarCampos(rVo);
+                this.getCoordinador().refaccionValidarCampos(rVo);
         //RELACION MAQUINAMODELO
         List<Validacion> valRelacionRMM = 
-                this.coordinador.refaccionValidarCamposMaquinaModelo(listarrmmVo);
+                this.getCoordinador().refaccionValidarCamposMaquinaModelo(listarrmmVo);
         //RELACION PROVEEDOR
         List<Validacion> valRelacionRP = 
-                this.coordinador.refaccionValidarCamposProveedor(listarrpVo);
+                this.getCoordinador().refaccionValidarCamposProveedor(listarrpVo);
                 
         //SI ESTA VARIABLE QUEDA EN TRUE QUIERE DECIR QUE TODAS LAS VALIDACIONES
         //PASARON.
@@ -1529,7 +1516,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
                 
                 limpiarTodo();
                 JOptionPane.showMessageDialog(
-                        coordinador.getMarcoParaVentanaPrincipal(),
+                        getCoordinador().getMarcoParaVentanaPrincipal(),
                         "Se guardo la refaccción correctamente.");
             }
         }
@@ -1537,8 +1524,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
     
     public void limpiarTodo(){
         _ImagenesRefacciones.limpiar();
-
-
         _TxtNombreDeLaRefaccion.setText("");
         _TxtCodigo.setText("");
         _TxtCodigoDelProveedor.setText("");
@@ -1562,7 +1547,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
     private void btnAgregarNuevProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevProveedorActionPerformed
         //this.controladorGestionDeRefacciones.iniciarGuardarProveedorNuevo();
-        this.coordinador.proveedorAbrirDialogoGuardarNuevo();
+        this.getCoordinador().proveedorAbrirDialogoGuardarNuevo();
     }//GEN-LAST:event_btnAgregarNuevProveedorActionPerformed
 
     private void radioBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioBajaActionPerformed

@@ -24,11 +24,11 @@ public class MaterialDao extends DAOGenerales{
     
     }
     
-    public void guardar(MaterialVo vo){
+    public boolean guardar(MaterialVo vo){
         conexion = new Conexion(coordinador);
         String sql = "INSERT INTO " + MaterialIT.NOMBRE_TABLA +
                 " VALUES (null, ?)";
-        conexion.executeUpdate(sql, vo.getMaterial());
+        return conexion.executeUpdate(sql, vo.getMaterial());
     }
     
     public List<MaterialVo> consultar(){

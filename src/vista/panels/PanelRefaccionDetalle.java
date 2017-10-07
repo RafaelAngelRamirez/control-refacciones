@@ -38,7 +38,6 @@ import vista.UtilidadesIntefaz.JPanelBase;
  * @author Particular
  */
 public class PanelRefaccionDetalle extends JPanelBase {
-    private Coordinador coordinador;
     private int idRefaccion;
     private List<ImagenRefaccionVo> listaImagenesRefaccion;
     
@@ -120,28 +119,28 @@ public class PanelRefaccionDetalle extends JPanelBase {
         */
         //INICIAMOS LAS UTILIDADES.
         
-        _ImagenesRefacciones = new UtilidadesJXViewImage_(coordinador);
+        _ImagenesRefacciones = new UtilidadesJXViewImage_(getCoordinador());
     
-        _TxtUnidad = new UtilidadesTxt_(coordinador);
+        _TxtUnidad = new UtilidadesTxt_(getCoordinador());
 
-        _ListaProveedor = new UtilidadesListas_(coordinador);
-        _ListaMaquinaModelo = new UtilidadesListas_(coordinador);
+        _ListaProveedor = new UtilidadesListas_(getCoordinador());
+        _ListaMaquinaModelo = new UtilidadesListas_(getCoordinador());
 
-        _txtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
-        _txtCodigo = new UtilidadesTxt_(coordinador);
-        _txtExistencia = new UtilidadesTxt_(coordinador);
-        _txtStockMin = new UtilidadesTxt_(coordinador);
-        _txtStockMax = new UtilidadesTxt_(coordinador);
+        _txtNombreDeLaRefaccion = new UtilidadesTxt_(getCoordinador());
+        _txtCodigo = new UtilidadesTxt_(getCoordinador());
+        _txtExistencia = new UtilidadesTxt_(getCoordinador());
+        _txtStockMin = new UtilidadesTxt_(getCoordinador());
+        _txtStockMax = new UtilidadesTxt_(getCoordinador());
         
-        _txtCodigoDelProveedor = new UtilidadesTxt_(coordinador);
+        _txtCodigoDelProveedor = new UtilidadesTxt_(getCoordinador());
 
-        _TxtDescripcion = new UtilidadesTxtArea_(coordinador);
-        _TxtQueEs = new UtilidadesTxtArea_(coordinador);
-        _TxtParaQueEs = new UtilidadesTxtArea_(coordinador);
+        _TxtDescripcion = new UtilidadesTxtArea_(getCoordinador());
+        _TxtQueEs = new UtilidadesTxtArea_(getCoordinador());
+        _TxtParaQueEs = new UtilidadesTxtArea_(getCoordinador());
 
-        _txtImportancia = new UtilidadesTxt_(coordinador);
+        _txtImportancia = new UtilidadesTxt_(getCoordinador());
         
-        _txtDeQueEstaEcho = new UtilidadesTxt_(coordinador);
+        _txtDeQueEstaEcho = new UtilidadesTxt_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -309,17 +308,6 @@ public class PanelRefaccionDetalle extends JPanelBase {
 
     public void setIdRefaccion(int idRefaccion) {
         this.idRefaccion = idRefaccion;
-    }
-    
-    
-       
-    
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
 
     public JXImageView getImagenesRefacciones() {

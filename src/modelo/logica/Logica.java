@@ -487,9 +487,9 @@ public class Logica {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    public void unidadGuardar(UnidadVo vo){
+    public boolean unidadGuardar(UnidadVo vo){
         UnidadDao dao = new UnidadDao(coordinador);
-        dao.guardar(vo);
+        return dao.guardar(vo);
     }
     
     public boolean unidadExiste(String unidad){
@@ -513,9 +513,9 @@ public class Logica {
        INICIO REGISTRO DE MATERIALES
     ////////////////////////////////////////////////////////////////////////
     */
-    public void materialGuardar(MaterialVo vo){
+    public boolean materialGuardar(MaterialVo vo){
         MaterialDao dao = new MaterialDao(coordinador);
-        dao.guardar(vo);
+        return dao.guardar(vo);
     }
     
     public boolean materialExiste(String material){
@@ -753,9 +753,9 @@ public class Logica {
         return d.consultarUltimoId();
     }
     
-    public void refaccionGuardar(RefaccionVo vo){
+    public boolean refaccionGuardar(RefaccionVo vo){
         RefaccionDao d = new RefaccionDao(coordinador);
-        d.guardar(vo);
+        return d.guardar(vo);
     }
     
     public List<RefaccionVo> refaccionConsultarTodoBusqueda(String buscar){
@@ -778,9 +778,9 @@ public class Logica {
      * Modifica la refacción que se le pase como parametro. 
      * @param vo Los dato de la refacción. 
      */
-    public void refaccionModificar(RefaccionVo vo){
+    public boolean refaccionModificar(RefaccionVo vo){
         RefaccionDao d = new RefaccionDao(coordinador);
-        d.modificar(vo);
+        return d.modificar(vo);
     }
     
     /* 
@@ -811,9 +811,9 @@ public class Logica {
         return d.consultar(id);
     }
     
-    public void imagenRefaccionEliminar(ImagenRefaccionVo vo){
+    public boolean imagenRefaccionEliminar(ImagenRefaccionVo vo){
         ImagenRefaccionDao d = new ImagenRefaccionDao(coordinador);
-        d.eliminar(vo);
+        return d.eliminar(vo);
     }
     
     /* 
@@ -843,9 +843,9 @@ public class Logica {
         return d.consultar(id);
     }
     
-    public void imagenProveedorEliminar(ImagenProveedorVo vo){
+    public boolean imagenProveedorEliminar(ImagenProveedorVo vo){
         ImagenProveedorDao d = new ImagenProveedorDao(coordinador);
-        d.eliminar(vo);
+        return d.eliminar(vo);
     }
     
     /* 
