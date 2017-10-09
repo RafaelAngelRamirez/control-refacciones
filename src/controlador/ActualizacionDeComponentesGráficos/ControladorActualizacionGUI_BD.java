@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JOptionPane;
 import vista.UtilidadesIntefaz.JPanelBase;
 
 /**
@@ -61,7 +60,6 @@ public class ControladorActualizacionGUI_BD {
         for (JPanelBase panel : listaPaneles) {
             panel.getOpAct().definirCambioEnTabla(tablaModificada);
         }
-        JOptionPane.showMessageDialog(null, "Se modifico la tabla: "+ tablaModificada);
     }
     
     /**
@@ -69,7 +67,6 @@ public class ControladorActualizacionGUI_BD {
      * las tablas esten señaladas como que hubo un cambio. 
      */
     public void actualizarTodoLoQueEsteVisible(){
-        JOptionPane.showMessageDialog(null, "actualizando todo lo visible.");
         for (Map.Entry<String, Boolean> entry : tablasModificadas.entrySet()) {
             String tabla = entry.getKey();
             Boolean hayQueActualizar = entry.getValue();
@@ -77,7 +74,6 @@ public class ControladorActualizacionGUI_BD {
             if (hayQueActualizar) {
                 for (JPanelBase panel : listaPaneles) {
                     if (panel.soyVisible()) {
-                        JOptionPane.showMessageDialog(null, "actualizando: "+ panel.getClass().getName());
                         panel.getOpAct().actualizarComponentePorTabla(tabla);
                     }
                 }

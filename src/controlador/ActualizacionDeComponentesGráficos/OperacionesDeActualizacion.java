@@ -7,7 +7,6 @@ package controlador.ActualizacionDeComponentesGráficos;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import vista.UtilidadesIntefaz.JPanelBase;
 
 /**
@@ -66,7 +65,6 @@ public class OperacionesDeActualizacion {
      * @param tabla
      */
     public void actualizarComponentePorTabla(String tabla){
-        JOptionPane.showMessageDialog(null, "Esta es la tabla que vamos a modificar:"+tabla);
         for (ObjetoDeActualizacion cA : getListOperacionesDeActualizacion()) {
             if (cA.getTablaConElQueEstaRelacionado().equals(tabla)) {
                 cA.getOperacionDeActualizacion().run();
