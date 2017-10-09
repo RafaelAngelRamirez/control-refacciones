@@ -3,19 +3,6 @@ package controlador;
 
 import controlador.ActualizacionDeComponentesGráficos.ControladorActualizacionGUI_BD;
 import java.math.BigDecimal;
-import vista.panels.PanelEmpleadoModificar;
-import vista.panels.PanelRefaccionDetalle;
-import vista.panels.PanelMaquinaModeloAgregar;
-import vista.panels.PanelProveedorModificar;
-import vista.panels.PanelImagenRefaccionDetalle;
-import vista.panels.PanelMaquinaModeloModificar;
-import vista.panels.PanelEntradaLote;
-import vista.panels.PanelEmpleadoAgregar;
-import vista.panels.PanelProveedorRegistrar;
-import vista.panels.PanelSalidaDeLote;
-import vista.panels.PanelRefaccionModificar;
-import vista.panels.PanelRefaccionAgregar;
-import vista.panels.PanelRefaccionesConsulta;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
@@ -53,8 +40,20 @@ import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
 import vista.UtilidadesIntefaz.JDialogBase;
-import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
+import vista.panels.PanelEmpleadoAgregar;
+import vista.panels.PanelEmpleadoModificar;
+import vista.panels.PanelEntradaLote;
+import vista.panels.PanelImagenRefaccionDetalle;
+import vista.panels.PanelMaquinaModeloAgregar;
+import vista.panels.PanelMaquinaModeloModificar;
+import vista.panels.PanelProveedorModificar;
+import vista.panels.PanelProveedorRegistrar;
+import vista.panels.PanelRefaccionAgregar;
+import vista.panels.PanelRefaccionDetalle;
+import vista.panels.PanelRefaccionModificar;
+import vista.panels.PanelRefaccionesConsulta;
+import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
 import vista.panels.PanelSalidaDeLoteSeleccionLotes;
 import vista.panels.PanelSalidaLoteContenedorDeFila;
@@ -719,6 +718,7 @@ public class Coordinador {
     public void refaccionAbrirDetalleRefaccion(String id){
         JDialogBase d = getCoordinadorPaneles()
                 .ifContainsReturnElseCreate(getPanelRefaccionDetalle());
+        
         this.getPanelRefaccionDetalle().configurar(id);
         d.setVisible(true);
         
@@ -791,10 +791,10 @@ public class Coordinador {
     
     //ACTUALIZAR 
     
-    public void refaccionActualizarPanelConsultaRefacciones(){
-        JOptionPane.showMessageDialog(null, "se supone que se debe actualizar.---refaccionActualizarPanelConsultaRefacciones");
-//        this.getPanelRefaccionConsulta().getOpAct().actualizarPanel();
-    }
+//    public void refaccionActualizarPanelConsultaRefacciones(){
+//        JOptionPane.showMessageDialog(null, "se supone que se debe actualizar.---refaccionActualizarPanelConsultaRefacciones");
+////        this.getPanelRefaccionConsulta().getOpAct().actualizarPanel();
+//    }
     
     public void refaccionActualizarPanelAgregarRefaccion(){
         JOptionPane.showMessageDialog(null, "se supone que se debe actualizar.---refaccionActualizarPanelAgregarRefaccion");
@@ -899,10 +899,10 @@ public class Coordinador {
      * @param listaVo La lista de RelacionRefaccionMaquinaModeloVo que se quiere
      * guardar. 
      */
-    public void relacionRefaccionMaquinaModeloGuardarLista(
+    public boolean relacionRefaccionMaquinaModeloGuardarLista(
             List <RelacionRefaccionMaquinaModeloVo> listaVo){
         setTablaModificada(RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA);
-        this.logica.relacionRefaccionMaquinaModeloGuardarLista(listaVo);
+        return this.logica.relacionRefaccionMaquinaModeloGuardarLista(listaVo);
     }
     
     /**
@@ -1050,9 +1050,9 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    public void relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
+    public boolean relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
         setTablaModificada(RelacionRefaccionProveedorIT.NOMBRE_TABLA);
-        this.logica.relacionRefaccionProveedorGuardarLista(listaVo);
+        return this.logica.relacionRefaccionProveedorGuardarLista(listaVo);
     }
     
     public void relacionRefaccionProveedorModificarLista(
@@ -1271,11 +1271,25 @@ public class Coordinador {
        INICIO DE ACTUALIZACIONES DE TABLA
     ////////////////////////////////////////////////////////////////////////
     */
-    
+
+    /**
+     * Cuando modificamos algúna tabla la seteamos con esta operación para que
+     * posteriormente se actualize con actualizarTodoLoVisible(); 
+     * 
+     * Esta se debe porner solo en el coordinador cuando llamemos las operaciones
+     * de la lógica que agregan o modifican algúna tabla. No usar en los paneles. 
+     * @param tabla
+     */
     public void setTablaModificada(String tabla){
         controladorActualizacionGUI_BD.setTablaModificada(tabla);
     }
     
+    /**
+     * Actualiza todos los paneles visible que esten etiquetados como desactualzados. 
+     * Se manda a llamar desde las últimas acciones de guardado que ejecuta el panel
+     * cuidando sea antes del mensaje de confirmación de modificación según sea
+     * el caso. 
+     */
     public void actualizarTodoLoVisible(){
         controladorActualizacionGUI_BD.actualizarTodoLoQueEsteVisible();
     }

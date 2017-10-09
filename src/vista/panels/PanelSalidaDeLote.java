@@ -5,8 +5,6 @@
  */
 package vista.panels;
 
-import modelo.logica.ComparacionLotes;
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
@@ -17,16 +15,17 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import modelo.FechaYHora;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.SalidaLoteIT;
+import modelo.logica.ComparacionLotes;
 import modelo.logica.Validacion;
 import modelo.vo.EmpleadoVo;
 import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.SalidaLoteVo;
-import modelo.FechaYHora;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
@@ -40,6 +39,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
+
+    private static final long serialVersionUID = 1L;
 
     
     private UtilidadesTxt_ _txtBusqueda;
@@ -252,12 +253,12 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
 
 
-
-
-
             //ACCIONES DE BOTONES
             UtilidadesBotones_.setEnterYEspacio(btnSalir1);
             UtilidadesBotones_.setEnterYEspacio(btnGuardar);
+            
+            //OPERACIONES DE ACTUALIZACION.
+            opAct.add(EmpleadoIT.NOMBRE_TABLA, this::cargarComboEmpleados);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -267,7 +268,6 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         
     }
     
-    @Override
     public void configurar(){
         limpiar();
         
@@ -278,9 +278,9 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         */
         
         this.deshabilitarCamposParaRellenar(true);
-        if (_comboEmpleadoQueReciveLote.isEmpty()) {
-            cargarComboEmpleados();
-        }
+//        if (_comboEmpleadoQueReciveLote.isEmpty()) {
+//            cargarComboEmpleados();
+//        }
 
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -1225,40 +1225,21 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             
             if (elCorrecto) {
                 boolean slCorrecto = this.getCoordinador().salidaLoteGuadar(listSalidaLoteVo);
-                
                 if (slCorrecto) {
                     limpiar();
+                    getCoordinador().actualizarTodoLoVisible();
                     _txtBusqueda.setFocus();
                     JOptionPane.showMessageDialog(this, "Se registro la salida correctamente.");
+                }else{
+                    JOptionPane.showMessageDialog(this, "Hubo un error y no se registro la salida correctamente.");
+                
                 }
+            }else{
+                JOptionPane.showMessageDialog(null, "Hubo un error y no se pududieron actaulizar los lotes.");
             }
         }
         
         
-     
-        
-//        //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
-//        todoValSalRestan.setTodoValido(false);
-//        //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
-//        
-//        
-//        if (todoValSalRestan.comprobar()) {
-//            //GUARDAMOS EL LOTE NUEVO.
-//            if(this.getCoordinador().salidaLoteGuadar(vo)){
-////                this.getCoordinador().entradaLoteActualizarExistencia();
-//                limpiar();
-//                JOptionPane.showMessageDialog(this,
-//                        "Se registro la salida correctamente.");
-//                
-//            }else{
-//                JOptionPane.showMessageDialog(
-//                        this,
-//                        "Algo salio mal y no se registro la salida de lote.",
-//                        "No se pudo registrar la salida.",
-//                        JOptionPane.ERROR_MESSAGE);
-//
-//            }
-//        }
     }
     
     public void descontarCantidadDelLoteMasViejoAlMasNuevo(

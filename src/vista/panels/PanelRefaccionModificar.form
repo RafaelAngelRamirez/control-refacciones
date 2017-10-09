@@ -25,7 +25,6 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtNombreDeLaRefaccion" min="-2" pref="446" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
                               <Component id="etiquetaMaquinas" min="-2" pref="167" max="-2" attributes="0"/>
@@ -35,7 +34,7 @@
                               <Component id="etiquetaImportancia" min="-2" pref="247" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="143" pref="143" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
                       <Component id="filler7" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -49,10 +48,6 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="264" pref="264" max="-2" attributes="0"/>
                       <Component id="radioMedia" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="647" pref="647" max="-2" attributes="0"/>
-                      <Component id="comboUnidad" min="-2" pref="192" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="272" pref="272" max="-2" attributes="0"/>
@@ -96,10 +91,6 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="445" pref="445" max="-2" attributes="0"/>
-                      <Component id="txtCodigo" min="-2" pref="184" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="445" pref="445" max="-2" attributes="0"/>
                       <Component id="etiquetaDescripcion" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -134,10 +125,6 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="445" pref="445" max="-2" attributes="0"/>
                       <Component id="etiquetaCodigoDelProveedor" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="439" pref="439" max="-2" attributes="0"/>
-                      <Component id="filler5" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
@@ -184,6 +171,23 @@
                               <Component id="btnAgregarNuevaMaquina" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="291" max="-2" attributes="0"/>
                               <Component id="jScrollPane7" min="-2" pref="394" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="txtNombreDeLaRefaccion" min="-2" pref="438" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="209" max="-2" attributes="0"/>
+                              <Component id="comboUnidad" min="-2" pref="192" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                              <Component id="txtCodigo" min="-2" pref="184" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                              <Component id="filler5" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import modelo.FechaYHora;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.RefaccionIT;
@@ -19,7 +20,6 @@ import modelo.vo.EmpleadoVo;
 import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
-import modelo.FechaYHora;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
@@ -33,6 +33,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
+
+    private static final long serialVersionUID = 1L;
 
     private UtilidadesTxt_ _txtBusqueda;
     private UtilidadesListas_ _listaResultados;
@@ -186,6 +188,9 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnSalir1);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTUALIZACION.
+        opAct.add(EmpleadoIT.NOMBRE_TABLA, this::cargarComboEmpleados);
+        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -195,24 +200,10 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
    
     
    
+    @Override
     public void configurar(){
-        /*
-        =======================================================================
-            INICIO CARGA DE ELEMENTOS Y CONFIGURACIONES
-        ///////////////////////////////////////////////////////////////////////
-        */
-        
         this.deshabilitarCamposParaRellenar(true);
-        this.cargarComboEmpleados();
-        
-        
-        
-
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN CARGA DE ELEMENTOS Y CONFIGURACIONES
-        ========================================================================
-        */    
+//        this.cargarComboEmpleados();
     
     }
     
@@ -226,8 +217,9 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         }
     }
     
-    public void deshabilitarCamposParaRellenar(boolean deshabilitar){
-        deshabilitar = !deshabilitar;
+    public void deshabilitarCamposParaRellenar(boolean deshabilita){
+        boolean deshabilitar;
+        deshabilitar = !deshabilita;
         
         _txtFechaDeLote.getThis().setEnabled(deshabilitar);
         _txtCantidadQueEntra.getThis().setEnabled(deshabilitar);
@@ -729,6 +721,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
             //GUARDAMOS EL LOTE NUEVO.
             if(this.getCoordinador().entradaLoteGuadar(vo)){
                 limpiar();
+                getCoordinador().actualizarTodoLoVisible();
                 JOptionPane.showMessageDialog(this,
                         "Se guardo el lote correctamente.");
                 if (cargaExterna) {

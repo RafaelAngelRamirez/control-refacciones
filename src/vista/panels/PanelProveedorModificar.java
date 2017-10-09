@@ -1,11 +1,5 @@
 package vista.panels;
 
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
@@ -16,6 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.InfoTabla.ImagenProveedorIT;
 import modelo.InfoTabla.PaisIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
@@ -24,12 +19,19 @@ import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 
 /**
  *
  * @author Particular
  */
 public class PanelProveedorModificar extends JPanelBase {
+
+    private static final long serialVersionUID = 1L;
     private int id;
     
     private UtilidadesTxt_ _TxtEmpresa;
@@ -132,6 +134,12 @@ public class PanelProveedorModificar extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTUALIZACION.
+        opAct.add(PaisIT.NOMBRE_TABLA, this::cargarComboPaises);
+        opAct.add(ProveedorIT.NOMBRE_TABLA, this::cargarListaProveedores);
+        opAct.add(ImagenProveedorIT.NOMBRE_TABLA, this::cargarImagenes);
+        
+        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -147,21 +155,21 @@ public class PanelProveedorModificar extends JPanelBase {
     public void configurar(){
         
        
-        /*
-        =======================================================================
-            INICIO CARGA DE ELEMENTOS 
-        ///////////////////////////////////////////////////////////////////////
-        */
-            this.cargarComboPaises();
-            this.cargarListaProveedores();
-            
-        
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN CARGA DE ELEMENTOS 
-        ========================================================================
-        */
-        
+//        /*
+//        =======================================================================
+//            INICIO CARGA DE ELEMENTOS 
+//        ///////////////////////////////////////////////////////////////////////
+//        */
+//            this.cargarComboPaises();
+//            this.cargarListaProveedores();
+//            
+//        
+//        /* 
+//        ////////////////////////////////////////////////////////////////////////
+//            FIN CARGA DE ELEMENTOS 
+//        ========================================================================
+//        */
+//        
         
         
     }
@@ -699,6 +707,7 @@ public class PanelProveedorModificar extends JPanelBase {
                 "No se cargaron las siguientes imagenes: \n\n" + errorImg,
                 "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);    
         }
+        getCoordinador().actualizarTodoLoVisible();
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 
     private void btnEliminarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarImagenActionPerformed
@@ -716,7 +725,8 @@ public class PanelProveedorModificar extends JPanelBase {
                 vo.setIdProveedor(imgEliminar.getIdImagen());
                 vo.setNombreServidor(imgEliminar.getNombreImagenServidor());
                 this.getCoordinador().imagenProveedorEliminar(vo);
-                cargarImagenes();
+//                cargarImagenes();
+                getCoordinador().actualizarTodoLoVisible();
             }
         }
 

@@ -5,14 +5,12 @@
  */
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import modelo.InfoTabla.ImportanciaIT;
@@ -105,7 +103,7 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         //ACCIONES DE BOTONES
         
         //ACTUALIZACIONES DE TABLA. 
-         opAct.add(RefaccionIT.NOMBRE_TABLA, ()->cargarRefaccionesInicio());
+         opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarRefaccionesInicio);
          
         
         /*
@@ -117,7 +115,6 @@ public class PanelRefaccionesConsulta extends JPanelBase {
     
     
 
-    @Override
     public void configurar(){
     }
     public void cargarRefaccionesInicio(){

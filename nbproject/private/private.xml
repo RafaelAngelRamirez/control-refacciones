@@ -5,12 +5,12 @@
             <url>src/vista/panels/PanelSalidaDeLote.java</url>
             <bookmark id="6">
                 <name/>
-                <line>940</line>
+                <line>939</line>
                 <key/>
             </bookmark>
             <bookmark id="7">
                 <name/>
-                <line>1129</line>
+                <line>1128</line>
                 <key/>
             </bookmark>
         </file>
@@ -19,9 +19,10 @@
         <group>
             <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/controlador/ActualizacionDeComponentesGráficos/ControladorActualizacionGUI_BD.java</file>
             <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelRefaccionAgregar.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelProveedorRegistrar.java</file>
             <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/controlador/ActualizacionDeComponentesGráficos/OperacionesDeActualizacion.java</file>
             <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/UtilidadesIntefaz/JPanelBase.java</file>
-            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelRefaccionesConsulta.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelMaquinaModeloAgregar.java</file>
         </group>
     </open-files>
 </project-private>

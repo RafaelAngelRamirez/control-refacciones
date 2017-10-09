@@ -5,11 +5,6 @@
  */
 package vista.panels;
 
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
@@ -28,12 +23,18 @@ import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 
 /**
  *
  * @author Particular
  */
 public class PanelProveedorRegistrar extends JPanelBase {
+
+    private static final long serialVersionUID = 1L;
     
     String proveedorPrecargado;
     UtilidadesTxt_ _TxtEmpresa;
@@ -134,6 +135,10 @@ public class PanelProveedorRegistrar extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTAULIZACION.
+        opAct.add(PaisIT.NOMBRE_TABLA, this::cargarComboPaises);
+        
+        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -153,7 +158,7 @@ public class PanelProveedorRegistrar extends JPanelBase {
             INICIO CARGA DE ELEMENTOS 
         ///////////////////////////////////////////////////////////////////////
         */
-            this.cargarComboPaises();
+//            this.cargarComboPaises();
             _TxtEmpresa.setFocus();
         
         /* 
@@ -607,13 +612,10 @@ public class PanelProveedorRegistrar extends JPanelBase {
 
                     limpiarTodo();
                     this.dispose();
+                    getCoordinador().actualizarTodoLoVisible();
                     JOptionPane.showMessageDialog(
                             this.getCoordinador().getMarcoParaVentanaPrincipal(), 
                             "Se guardo correctamente el proveedor.");
-                    //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
-//                    this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
-//                    this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
-//                    this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
                 }
             }else{
                 JOptionPane.showMessageDialog(

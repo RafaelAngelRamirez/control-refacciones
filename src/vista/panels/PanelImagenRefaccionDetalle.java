@@ -5,7 +5,6 @@
  */
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.vo.ImagenRefaccionVo;
 import org.jdesktop.swingx.JXImageView;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
@@ -27,6 +27,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
  * @author Particular
  */
 public class PanelImagenRefaccionDetalle extends JPanelBase {
+
+    private static final long serialVersionUID = 1L;
     private int idRefaccion;
     
     
@@ -95,6 +97,8 @@ public class PanelImagenRefaccionDetalle extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(getBtnRegresarImagen());
         UtilidadesBotones_.setEnterYEspacio(getBtnAgregarImagen());
         UtilidadesBotones_.setEnterYEspacio(getBtnEliminarImagen());
+        
+        opAct.add(ImagenRefaccionIT.NOMBRE_TABLA, this::cargarImagenes);
             
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -108,17 +112,17 @@ public class PanelImagenRefaccionDetalle extends JPanelBase {
     
     public void configurar(){
         
-        /*
-        =======================================================================
-            INICIO CARGA DE ELEMENTOS 
-        ///////////////////////////////////////////////////////////////////////
-        */
-        cargarImagenes();
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN CARGA DE ELEMENTOS 
-        ========================================================================
-        */
+//        /*
+//        =======================================================================
+//            INICIO CARGA DE ELEMENTOS 
+//        ///////////////////////////////////////////////////////////////////////
+//        */
+//        cargarImagenes();
+//        /* 
+//        ////////////////////////////////////////////////////////////////////////
+//            FIN CARGA DE ELEMENTOS 
+//        ========================================================================
+//        */
     }
     
     /**
@@ -332,6 +336,7 @@ public class PanelImagenRefaccionDetalle extends JPanelBase {
                 vo.setNombreServidor(imagenEliminar.getNombreImagenServidor());
                 this.getCoordinador().imagenRefaccionEliminar(vo);
 //                this.getCoordinador().refaccionMostrarDetalleActualizarImagenes(vo.getIdRefaccion());
+                getCoordinador().actualizarTodoLoVisible();
             }
         }
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
@@ -356,6 +361,8 @@ public class PanelImagenRefaccionDetalle extends JPanelBase {
                             "No se cargaron las siguientes imagenes: \n\n" + errorImg,
                             "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
         }
+        
+        getCoordinador().actualizarTodoLoVisible();
         
         
     }//GEN-LAST:event_btnAgregarImagenActionPerformed

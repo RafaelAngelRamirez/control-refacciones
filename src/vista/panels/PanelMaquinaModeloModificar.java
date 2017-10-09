@@ -1,13 +1,11 @@
 
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
@@ -25,6 +23,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelMaquinaModeloModificar extends JPanelBase {
+
+    private static final long serialVersionUID = 1L;
     private UtilidadesTxt_ _TxtAnio;
     private UtilidadesTxt_ _TxtModeloMaquina;
     private UtilidadesComboBox_ _ComboMarca;
@@ -109,6 +109,9 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTUALIZACIÓN.
+        opAct.add(ProveedorIT.NOMBRE_TABLA, this::cargarComboMarca);
+        opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaMaquinaModelo);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -119,8 +122,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         
     }
     
-    
-    
+    @Override
     public void configurar(){
         
         /*
@@ -128,7 +130,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
             INICIO CARGA DE ELEMENTOS 
         ///////////////////////////////////////////////////////////////////////
         */
-            cargarCombosYListas();
+//            cargarCombosYListas();
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -187,11 +189,11 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         _ListaMaquinaModelo.cargarLista(datos);
     }
     
-    public void cargarCombosYListas(){
-        cargarComboMarca();
-        cargarListaMaquinaModelo();
-    }
-    
+//    public void cargarCombosYListas(){
+//        cargarComboMarca();
+//        cargarListaMaquinaModelo();
+//    }
+//    
     private void limpiarTodo(){
         this._TxtModeloMaquina.setText("");
         this._TxtAnio.setText("");
@@ -467,10 +469,9 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
                 if (this.getCoordinador().maquinaModeloModificar(vo)) {
 
                     limpiarTodo();
-                    cargarListaMaquinaModelo();
+//                    cargarListaMaquinaModelo();
+                    getCoordinador().actualizarTodoLoVisible();
                     _ListaMaquinaModelo.getThis().setSelectedValue(vo.getModelo()+" "+vo.getAnio(), true);
-
-
                     JOptionPane.showMessageDialog(
                         this,
                         "Se modifico correctamente la refacción.");
@@ -513,7 +514,8 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
             if (r==JOptionPane.YES_OPTION) {
                 if(this.getCoordinador().maquinaModeloEliminar(vo)){
                     this.limpiarTodo();
-                    cargarCombosYListas();
+//                    cargarCombosYListas();
+                    getCoordinador().actualizarTodoLoVisible();
                     JOptionPane.showMessageDialog(
                             this, 
                             "Se eliminó '"+vo.getModelo()+" "+vo.getAnio()+"' correctamente.");

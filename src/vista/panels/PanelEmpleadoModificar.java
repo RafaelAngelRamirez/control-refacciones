@@ -1,20 +1,19 @@
 
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import modelo.FechaYHora;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.Textos;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
-import modelo.FechaYHora;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
@@ -27,6 +26,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
+
+    private static final long serialVersionUID = 1L;
     
     UtilidadesTxt_ _txtNombre;
     UtilidadesTxt_ _txtBusqueda;
@@ -287,6 +288,11 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         _listaEmpleados.setValueChange(()->this.cargarEmpleado());
         
+        
+        //OPERACIONES DE ACTUALIZACIÓN.
+        opAct.add(DepartamentoIT.NOMBRE_TABLA, this::cargarComboDepartamentos);
+        opAct.add(EmpleadoIT.NOMBRE_TABLA, this::cargarListaEmpleados);
+        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -312,8 +318,8 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         ///////////////////////////////////////////////////////////////////////
         */
         _txtNombre.setText(empleadoAdelantado);
-        this.cargarComboDepartamentos();
-        this.cargarListaEmpleados();
+//        this.cargarComboDepartamentos();
+//        this.cargarListaEmpleados();
             
         if (!empleadoAdelantado.equals("")) {
             this.empleadoAdelantado = true;
@@ -503,7 +509,8 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
             //GUARDAMOS EL EMPLEADO.
             if (this.getCoordinador().empleadoModificar(vo)) {
                 limpiar();
-                cargarListaEmpleados();
+//                cargarListaEmpleados();
+                getCoordinador().actualizarTodoLoVisible();
                 JOptionPane.showMessageDialog(this, "Se modifico correctamente el empleado.");
             }else{
                 JOptionPane.showMessageDialog(this, 
@@ -527,16 +534,18 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         if (!a.equals(-1)) {
             EmpleadoVo vo = (EmpleadoVo)a;
             vo.setFechaBaja(FechaYHora.Actual.getFecha_DateSQL());
-            if (vo.getBajaEmpleado()==(byte)0) 
+            if (vo.getBajaEmpleado()==(byte)0) { 
                 vo.setBajaEmpleado((byte) 1);
-            else
+            } else {
                 vo.setBajaEmpleado((byte) 0);
+            }
             
             
-            if(this.getCoordinador().empleadoDarDeBajaAlta(vo))
+            if(this.getCoordinador().empleadoDarDeBajaAlta(vo)) {
                 cargarListaEmpleados();
-            else
+            } else {
                 JOptionPane.showMessageDialog(this, "No se pudo dar de baja al empleado.");
+            }
         }
         
     }//GEN-LAST:event_btnDarDeBajaAltaActionPerformed

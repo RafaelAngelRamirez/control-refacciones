@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package vista.panels;
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +25,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelMaquinaModeloAgregar extends JPanelBase {
+
+    private static final long serialVersionUID = 1L;
     private UtilidadesTxt_ _TxtAnio;
     private UtilidadesTxt_ _TxtModeloMaquina;
     private UtilidadesComboBox_ _ComboMarca;
@@ -126,6 +127,9 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTUALIZACION.
+        opAct.add(ProveedorIT.NOMBRE_TABLA, this::consultarProveedores);
+        
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -133,22 +137,6 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         ========================================================================
         */
         
-    }
-
-    @Override
-    public void configurar() {
-        /*
-        =======================================================================
-        INICIO CARGA DE ELEMENTOS 
-        ///////////////////////////////////////////////////////////////////////
-        */
-        this.consultarProveedores();
-        
-        /*
-        ////////////////////////////////////////////////////////////////////////
-        FIN CARGA DE ELEMENTOS 
-        ========================================================================
-        */
     }
 
     public void guardarProoveedor(){
@@ -443,12 +431,15 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
             }
         }
         if (todoValido) {
-            getCoordinador().maquinaModeloGuardar(vo);
-            JOptionPane.showMessageDialog(null,"Se guardo correctamente el modelo.");
-            getCoordinador().actualizarTodoLoVisible();
-            limpiarTodo();
-            dispose();
-            
+            if (getCoordinador().maquinaModeloGuardar(vo)){
+                getCoordinador().actualizarTodoLoVisible();
+                JOptionPane.showMessageDialog(this,"Se guardo correctamente el modelo.");
+                limpiarTodo();
+                dispose();
+                
+            }else{
+                JOptionPane.showMessageDialog(this, "No se pudo guardar el modelo.");
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -463,4 +454,8 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtModeloMaquina;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void configurar() {
+    }
 }

@@ -260,7 +260,6 @@ public class PanelSalidaDeLoteCantidadADescontarDeLote extends JPanelBase {
     }
     
     
-    @Override
     public void configurar() {
         panelContenedor.removeAll();
     }

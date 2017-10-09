@@ -8,7 +8,6 @@ package controlador.ActualizacionDeComponentesGráficos;
 import controlador.Coordinador;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;

@@ -5,7 +5,6 @@
  */
 package vista.panels;
 
-import controlador.Coordinador;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,8 +19,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import modelo.InfoTabla.ImportanciaIT;
-import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.*;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenRefaccionVo;
@@ -47,6 +44,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelRefaccionModificar extends JPanelBase {
+
+    private static final long serialVersionUID = 1L;
     private int idModificandoseActualmente;
     
     UtilidadesJXViewImage_ _ImagenesRefacciones;
@@ -253,6 +252,11 @@ public class PanelRefaccionModificar extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTUALIZACIÓN.
+        opAct.add(ProveedorIT.NOMBRE_TABLA, this::cargarListaProveedor);
+        opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaMaquinaModelo);
+        opAct.add(UnidadIT.NOMBRE_TABLA, this::cargarComboUnidad);
+        opAct.add(MaterialIT.NOMBRE_TABLA, this::cargarComboMaterial);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -306,9 +310,9 @@ public class PanelRefaccionModificar extends JPanelBase {
             
         
         
-        //CARGAMOS LOS COMBOS PARA SELECCIONAR EL ELEMENTO QUE ESTA GUADRADO EN 
-        // LA BASE. 
-        cargarListasYCombos();
+//        //CARGAMOS LOS COMBOS PARA SELECCIONAR EL ELEMENTO QUE ESTA GUADRADO EN 
+//        // LA BASE. 
+//        cargarListasYCombos();
         
         _RadioImportancia.setSelectRadio((String)rvo.getImportancia());
         _ComboMaterial.setSelectedItem((String)rvo.getIdMaterial());
@@ -367,12 +371,12 @@ public class PanelRefaccionModificar extends JPanelBase {
         this.txtDescripcion = txtDescripcion;
     }
     
-    public void cargarListasYCombos(){
-        cargarListaProveedor();
-        cargarListaMaquinaModelo();
-        cargarComboUnidad();
-        cargarComboMaterial();
-    }
+//    public void cargarListasYCombos(){
+//        cargarListaProveedor();
+//        cargarListaMaquinaModelo();
+//        cargarComboUnidad();
+//        cargarComboMaterial();
+//    }
     
     public void cargarListaProveedor(){
         List<ProveedorVo> lista = this.getCoordinador().proveedoresConsultarMarcas();
@@ -1082,14 +1086,13 @@ public class PanelRefaccionModificar extends JPanelBase {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
                                 .addComponent(etiquetaMaquinas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(174, 174, 174)
                                 .addComponent(etiquetaImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(143, 143, 143)
+                        .addGap(168, 168, 168)
                         .addComponent(filler7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(647, 647, 647)
@@ -1100,9 +1103,6 @@ public class PanelRefaccionModificar extends JPanelBase {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(264, 264, 264)
                         .addComponent(radioMedia))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(647, 647, 647)
-                        .addComponent(comboUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(272, 272, 272)
                         .addComponent(etiquetaAsignados, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1135,9 +1135,6 @@ public class PanelRefaccionModificar extends JPanelBase {
                         .addComponent(btnAgregarNuevProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(445, 445, 445)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
                         .addComponent(etiquetaDescripcion))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(445, 445, 445)
@@ -1164,9 +1161,6 @@ public class PanelRefaccionModificar extends JPanelBase {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(445, 445, 445)
                         .addComponent(etiquetaCodigoDelProveedor))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(439, 439, 439)
-                        .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1203,7 +1197,19 @@ public class PanelRefaccionModificar extends JPanelBase {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAgregarNuevaMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(291, 291, 291)
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(209, 209, 209)
+                                .addComponent(comboUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(10, 10, 10)
                 .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1476,10 +1482,11 @@ public class PanelRefaccionModificar extends JPanelBase {
         rVo.setStockMinimo(stockMin);
         rVo.setUnidad(_ComboUnidad.getSelectedItem_idRetorno());
         
-         if(checkEsDeConsumoUnico.isSelected())
-            rVo.setRefaccionDeConsumoUnico((byte) 1);
-        else
-            rVo.setRefaccionDeConsumoUnico((byte) 0);
+         if(checkEsDeConsumoUnico.isSelected()) {
+             rVo.setRefaccionDeConsumoUnico((byte) 1);
+        } else {
+             rVo.setRefaccionDeConsumoUnico((byte) 0);
+        }
         
         
         //CARGAMOS LAS MAQUINAS-MODELO QUE VAN A RELACIONARSE CON ESTA REFACCION
@@ -1635,9 +1642,6 @@ public class PanelRefaccionModificar extends JPanelBase {
             }
         }
         
-        
-        
-        
         if (todoValido) {
            
             //GUARDAMOS LA REFACCIÓN.
@@ -1658,13 +1662,18 @@ public class PanelRefaccionModificar extends JPanelBase {
                 aa.setIdRefaccion(idRefaccion);
             }
 
-            this.getCoordinador().relacionRefaccionMaquinaModeloModificarLista(listarrmmVo);
-            this.getCoordinador().relacionRefaccionProveedorModificarLista(listarrpVo);
-                limpiarTodo();
-                this.getCoordinador().refaccionActualizarPanelConsultaRefacciones();
-                JOptionPane.showMessageDialog(
-                        getCoordinador().getMarcoParaVentanaPrincipal(),
-                        "Se actualizo la refaccción correctamente.");
+            getCoordinador().relacionRefaccionMaquinaModeloModificarLista(listarrmmVo);
+            getCoordinador().relacionRefaccionProveedorModificarLista(listarrpVo);
+            
+            
+            
+            
+            limpiarTodo();
+//            this.getCoordinador().refaccionActualizarPanelConsultaRefacciones();
+            getCoordinador().actualizarTodoLoVisible();
+            JOptionPane.showMessageDialog(
+                    getCoordinador().getMarcoParaVentanaPrincipal(),
+                    "Se actualizo la refaccción correctamente.");
             this.getCoordinador().refaccionAbrirPanelModificar();
         }
     }
@@ -1685,7 +1694,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         
         _RadioImportancia.clearSelection();
         
-        cargarListasYCombos();
+//        cargarListasYCombos();
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -1767,7 +1776,6 @@ public class PanelRefaccionModificar extends JPanelBase {
     private javax.swing.JTextField txtStockMin;
     // End of variables declaration//GEN-END:variables
 
-    @Override
     public void configurar() {
         
     }

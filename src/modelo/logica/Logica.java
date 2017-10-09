@@ -13,14 +13,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import modelo.FicherosOperaciones;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.MaquinaModeloIT;
-import modelo.InfoTabla.ProveedorIT;
-import modelo.dao.PaisDao;
 import modelo.InfoTabla.ParametrosDeCampo;
+import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
@@ -32,6 +30,7 @@ import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
 import modelo.dao.MaquinaModeloDao;
 import modelo.dao.MaterialDao;
+import modelo.dao.PaisDao;
 import modelo.dao.ProveedorDao;
 import modelo.dao.RefaccionDao;
 import modelo.dao.RelacionRefaccionMaquinaModeloDao;
@@ -52,7 +51,6 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
-import modelo.FechaYHora;
 import vista.panels.PanelSalidaLoteContenedorDeFila;
 
 /**
@@ -863,9 +861,9 @@ public class Logica {
      * Guarda la lista de MaquinaModelo relacionada con una refaccion. 
      * @param listaVo La lista de maquina-modelo a guardar. 
      */
-    public void relacionRefaccionMaquinaModeloGuardarLista(List<RelacionRefaccionMaquinaModeloVo> listaVo){
+    public boolean relacionRefaccionMaquinaModeloGuardarLista(List<RelacionRefaccionMaquinaModeloVo> listaVo){
         RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
-        d.guardarLista(listaVo);
+        return d.guardarLista(listaVo);
     }
     
    /**
@@ -896,9 +894,9 @@ public class Logica {
      * @param listaVo La lista de proveedores a guardar. 
      */
 
-    public void relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
+    public boolean relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
         RelacionRefaccionProveedorDao d = new RelacionRefaccionProveedorDao(coordinador);
-        d.guardarLista(listaVo);
+        return d.guardarLista(listaVo);
     }
     
     /**

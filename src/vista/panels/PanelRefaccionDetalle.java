@@ -6,31 +6,31 @@
 
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.InfoTabla.ImportanciaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
-import org.jdesktop.swingx.JXImageView;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxtArea_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
-import javax.swing.JLabel;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
+import org.jdesktop.swingx.JXImageView;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxtArea_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 
 
 /**
@@ -181,6 +181,10 @@ public class PanelRefaccionDetalle extends JPanelBase {
         
         //ACCIONES DE BOTONES
         
+        //OPERACIONES DE ACTUALIZACIÓN.
+        opAct.add(ImagenRefaccionIT.NOMBRE_TABLA, this::cargarImagenes);
+        opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarElementos);
+        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -188,11 +192,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         */
     }
     
-    @Override
-    public void configurar() {
         
-    }
-    
     public void configurar(String id){
         /*
         =======================================================================
@@ -1083,6 +1083,11 @@ public class PanelRefaccionDetalle extends JPanelBase {
     private javax.swing.JTextField txtStockMin;
     private javax.swing.JTextField txtUnidad;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void configurar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     
 

@@ -5,7 +5,6 @@
  */
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
@@ -22,8 +21,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import modelo.InfoTabla.ImportanciaIT;
-import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.*;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenRefaccionVo;
@@ -50,6 +47,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelRefaccionAgregar extends JPanelBase {
+
+    private static final long serialVersionUID = 1L;
     
     UtilidadesJXViewImage_ _ImagenesRefacciones;
     UtilidadesComboBox_ _ComboUnidad;
@@ -277,10 +276,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         */
     }
 
-    
-    public void configurar(){
-         
-    }
 
     public JTextArea getTxtDescripcion() {
         return txtDescripcion;
@@ -1322,10 +1317,11 @@ public class PanelRefaccionAgregar extends JPanelBase {
         rVo.setStockMinimo(stockMin);
         rVo.setUnidad(_ComboUnidad.getSelectedItem_idRetorno());
         
-        if(checkEsDeConsumoUnico.isSelected())
+        if(checkEsDeConsumoUnico.isSelected()) {
             rVo.setRefaccionDeConsumoUnico((byte) 1);
-        else
+        } else {
             rVo.setRefaccionDeConsumoUnico((byte) 0);
+        }
         
         
         //CARGAMOS LAS MAQUINAS-MODELO QUE VAN A RELACIONARSE CON ESTA REFACCION
@@ -1504,20 +1500,25 @@ public class PanelRefaccionAgregar extends JPanelBase {
                     aa.setIdRefaccion(idRefaccion);
                 }
 
-                String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
-                this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo);
-                this.getCoordinador().relacionRefaccionProveedorGuardarLista(listarrpVo);
-                if (errorImg!=null) {
+                if (this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo) 
+                        && this.getCoordinador().relacionRefaccionProveedorGuardarLista(listarrpVo)) {
+                    String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
+                    if (errorImg!=null) {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "No se cargaron las siguientes imagenes: \n\n" + errorImg,
+                                "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    limpiarTodo();
                     JOptionPane.showMessageDialog(
-                            null,
-                            "No se cargaron las siguientes imagenes: \n\n" + errorImg,
-                            "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
+                            getCoordinador().getMarcoParaVentanaPrincipal(),
+                            "Se guardo la refaccción correctamente.");
+                    getCoordinador().actualizarTodoLoVisible();
+                }else{
+                    JOptionPane.showMessageDialog(this, "Algo paso y no se "
+                            + "pudo guardar la refacción.");
                 }
-                
-                limpiarTodo();
-                JOptionPane.showMessageDialog(
-                        getCoordinador().getMarcoParaVentanaPrincipal(),
-                        "Se guardo la refaccción correctamente.");
             }
         }
     }
@@ -1617,4 +1618,10 @@ public class PanelRefaccionAgregar extends JPanelBase {
     private javax.swing.JTextField txtStockMax;
     private javax.swing.JTextField txtStockMin;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void configurar() {
+        System.out.println("CONFIGURAR: "+getClass().getSimpleName() + " no tiene nada que configurar.");
+    }
+
 }

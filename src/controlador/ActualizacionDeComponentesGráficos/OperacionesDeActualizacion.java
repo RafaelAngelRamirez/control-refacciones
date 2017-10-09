@@ -7,6 +7,7 @@ package controlador.ActualizacionDeComponentesGráficos;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import vista.UtilidadesIntefaz.JPanelBase;
 
 /**
@@ -15,8 +16,8 @@ import vista.UtilidadesIntefaz.JPanelBase;
  */
 public class OperacionesDeActualizacion {
     
-    JPanelBase panel;
-    List<ObjetoDeActualizacion> listOperaconesDeActualizacion;
+    private final JPanelBase panel;
+    private List<ObjetoDeActualizacion> listOperaconesDeActualizacion;
 
     /**
      * Esta clase se encarga de almacenar las operaciones de actaulización de los
@@ -28,6 +29,8 @@ public class OperacionesDeActualizacion {
         this.panel = panel;
     }
     
+    
+    
     public void add(String tabla, Runnable operacionDeActualización){
         ObjetoDeActualizacion ca = new ObjetoDeActualizacion();
         ca.setOperacionDeActualizacion(operacionDeActualización);
@@ -36,16 +39,13 @@ public class OperacionesDeActualizacion {
     }
 
     /**
-     * Retorna la lista de comp
+     * Retorna la lista de operaciones asignadas para actualizar. 
      * @return
      */
-    public List<ObjetoDeActualizacion> getComponentseActualizar() {
+    private List<ObjetoDeActualizacion> getListOperacionesDeActualizacion() {
         return listOperaconesDeActualizacion;
     }
 
-    public void setListOperaconesDeActualizacion(List<ObjetoDeActualizacion> listOperaconesDeActualizacion) {
-        this.listOperaconesDeActualizacion = listOperaconesDeActualizacion;
-    }
 
     /**
      * Ejecuta todas las operaciones de actualización del panel que esten agregadas.
@@ -53,8 +53,8 @@ public class OperacionesDeActualizacion {
      */
     public void actualizarPanel() {
         System.out.println("[ACTUALIZANDO PANEL]\n\n\n\t\t"+panel.getClass().getName()+"\n\n\n[ACTUALIZANDO PANEL]");
-        if (!listOperaconesDeActualizacion.isEmpty()) {
-            for (ObjetoDeActualizacion cA : listOperaconesDeActualizacion) {
+        if (!getListOperacionesDeActualizacion().isEmpty()) {
+            for (ObjetoDeActualizacion cA : getListOperacionesDeActualizacion()) {
                 cA.getOperacionDeActualizacion().run();
             }
         }
@@ -66,8 +66,9 @@ public class OperacionesDeActualizacion {
      * @param tabla
      */
     public void actualizarComponentePorTabla(String tabla){
-        for (ObjetoDeActualizacion cA : listOperaconesDeActualizacion) {
-            if (cA.getTablaConElQueEstaRelacionado().equals(panel)) {
+        JOptionPane.showMessageDialog(null, "Esta es la tabla que vamos a modificar:"+tabla);
+        for (ObjetoDeActualizacion cA : getListOperacionesDeActualizacion()) {
+            if (cA.getTablaConElQueEstaRelacionado().equals(tabla)) {
                 cA.getOperacionDeActualizacion().run();
                 cA.setActualizado(true);
             }
@@ -81,7 +82,7 @@ public class OperacionesDeActualizacion {
      * @param tabla La tabla que queremos definir como desactualizada. 
      */
     public void definirCambioEnTabla(String tabla){
-        for (ObjetoDeActualizacion cA : listOperaconesDeActualizacion) {
+        for (ObjetoDeActualizacion cA : getListOperacionesDeActualizacion()) {
             if (cA.getTablaConElQueEstaRelacionado().equals(panel)) {
                 cA.setActualizado(false);
             }

@@ -55,15 +55,29 @@ public abstract class JPanelBase extends JPanel implements HierarchyListener{
     public boolean soyVisible(){
         
         Container c = getParent();
-        while(c != null){
-            System.out.println("--------------------------------"+c.getClass().getName());
-            if (!c.isVisible()) {
-                return false;
-            } else {
-                c = c.getParent();
+        
+        if (isShowing()) {
+            return true;
+        }else{
+            while(c != null){
+                if (c.getClass().getSimpleName().endsWith("JPanelDialog")) {
+                    JDialogBase d = (JDialogBase) c;
+                    if (d.isShowing()) {
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+
+                if (!c.isVisible()) {
+                    return false;
+                } else {
+                    c = c.getParent();
+                }
             }
+            return false;
         }
-        return true;
+        
     }
     
     //PARA HierarchyListener
@@ -129,19 +143,6 @@ public abstract class JPanelBase extends JPanel implements HierarchyListener{
         this.listenersEjecutados = listenersEjecutados;
         
     }
-    
-    
-    
-    /**
-     * La configuración del panel.
-     */
-    public abstract void configurar();
-    
-    /**
-     * Configuracion de inicialización. Solo se ejecuta cuando el panel se 
-     * muestra por primera vez. 
-     */
-    public abstract void initConfig();
 
     /**
      * Las configuracines para mostrar el dialogo. 
@@ -168,6 +169,18 @@ public abstract class JPanelBase extends JPanel implements HierarchyListener{
         }
     }
     
+     /**
+     * Configuracion de inicialización. Solo se ejecuta cuando el panel se 
+     * muestra por primera vez. 
+     */
+    public abstract void initConfig();
+    
+    /**
+     * Almacena la configuracion particular que se debe ejecutar al llamar
+     * el panel. Normalmanente este se ejeucuta solo si es necesario y antes
+     * de que se visualize. Se coloca en alguna de las operaciones de apertura. 
+     */
+    public abstract void configurar();
     
     
     
