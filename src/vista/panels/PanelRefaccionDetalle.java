@@ -182,8 +182,10 @@ public class PanelRefaccionDetalle extends JPanelBase {
         //ACCIONES DE BOTONES
         
         //OPERACIONES DE ACTUALIZACIÓN.
-        opAct.add(ImagenRefaccionIT.NOMBRE_TABLA, this::cargarImagenes);
         opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarElementos);
+        opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarProveedores);
+        opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarMaquinaModelo);
+        opAct.add(ImagenRefaccionIT.NOMBRE_TABLA, this::cargarImagenes);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -192,21 +194,46 @@ public class PanelRefaccionDetalle extends JPanelBase {
         */
     }
     
-        
+    boolean recienAbierto = true;
     public void configurar(String id){
         /*
         =======================================================================
             INICIO CARGA DE ELEMENTOS 
         ///////////////////////////////////////////////////////////////////////
         */
+        limpiar();
         idRefaccion = Integer.parseInt(id);
-        cargarElementos();
+        if (!recienAbierto) {
+            opAct.actualizarPanel();
+        }
+        recienAbierto = false;
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN CARGA DE ELEMENTOS 
         ========================================================================
         */
     }
+    
+    @Override
+    public void limpiar(){
+        _ImagenesRefacciones.limpiarComponenteURL();
+        _ListaMaquinaModelo.limpiar();
+        _ListaProveedor.limpiar();
+        _TxtDescripcion.setText();
+        _TxtParaQueEs.setText();
+        _TxtQueEs.setText();
+        _TxtUnidad.setText();
+        _txtCodigo.setText();
+        _txtCodigoDelProveedor.setText();
+        _txtDeQueEstaEcho.setText();
+        _txtExistencia.setText();
+        _txtImportancia.setText();
+        _txtNombreDeLaRefaccion.setText();
+        _txtStockMax.setText();
+        _txtStockMin.setText();
+    }
+
+
     
     public void cargarElementos(){
         
@@ -253,25 +280,33 @@ public class PanelRefaccionDetalle extends JPanelBase {
         
         checkEsDeConsumoUnico.setSelected((rvo.getRefaccionDeConsumoUnico()==(byte)1));
         
-        List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
-        HashMap<String, Object> pvoMapa = new HashMap<>();
-        for (RelacionRefaccionProveedorVo vo : lpvo) {
-            pvoMapa.put(vo.getProveedorVo().getEmpresa(), vo.getIdProveedor());
+//        cargarImagenes();
+        
+    }
+    
+    public void cargarProveedores(){
+        if (idRefaccion!=-1) {
+            List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
+            HashMap<String, Object> pvoMapa = new HashMap<>();
+            for (RelacionRefaccionProveedorVo vo : lpvo) {
+                pvoMapa.put(vo.getProveedorVo().getEmpresa(), vo.getIdProveedor());
+            }
+            _ListaProveedor.cargarLista(pvoMapa);
         }
-        _ListaProveedor.cargarLista(pvoMapa);
-        
-        
-        List<RelacionRefaccionMaquinaModeloVo> lmmvo = this.getCoordinador().maquinaModeloConsultar(idRefaccion);
-        HashMap<String, Object> mmvoMapa = new HashMap<>();
-        for (RelacionRefaccionMaquinaModeloVo vo : lmmvo) {
-            mmvoMapa.put(vo.getMaquinaModeloVo().getModelo()
-                    + " "+vo.getMaquinaModeloVo().getAnio(), 
-                    vo.getIdMaquinaModelo());
+    
+    }
+    
+    public void cargarMaquinaModelo(){
+        if (idRefaccion!=-1) {
+            List<RelacionRefaccionMaquinaModeloVo> lmmvo = this.getCoordinador().maquinaModeloConsultar(idRefaccion);
+                HashMap<String, Object> mmvoMapa = new HashMap<>();
+                for (RelacionRefaccionMaquinaModeloVo vo : lmmvo) {
+                    mmvoMapa.put(vo.getMaquinaModeloVo().getModelo()
+                            + " "+vo.getMaquinaModeloVo().getAnio(), 
+                            vo.getIdMaquinaModelo());
+                }
+                _ListaMaquinaModelo.cargarLista(mmvoMapa);
         }
-        _ListaMaquinaModelo.cargarLista(mmvoMapa);
-        
-        cargarImagenes();
-        
     }
     
     /**

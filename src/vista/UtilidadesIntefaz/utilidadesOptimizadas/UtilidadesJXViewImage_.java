@@ -5,10 +5,8 @@
  */
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
-import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
-import controlador.capturadeerrores.Suceso;
-import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
+import controlador.capturadeerrores.Suceso;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -26,7 +24,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.ExcepcionPersonalizada;
 import org.jdesktop.swingx.JXImageView;
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
 /**
  *
@@ -489,6 +489,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
                         this.contadorImagenActiva);
                 try {
                     //CARGAMOS LA PRIMERA IMAGEN DE LA LISTA DE IMAGENES.
+                    
                     this.jxImagenView.setImage(this.imagenActiva);
                     
                 } catch (IOException ex) {

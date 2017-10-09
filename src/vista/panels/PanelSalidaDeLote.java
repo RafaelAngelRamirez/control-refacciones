@@ -1538,7 +1538,8 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         return cadenaNueva;
     }
     
-    private void limpiar(){
+    @Override
+    public void limpiar(){
         deshabilitarCamposParaRellenar(true);
         _txtBusqueda.setText("");
         _txtNombreDeLaRefaccion.setText("");

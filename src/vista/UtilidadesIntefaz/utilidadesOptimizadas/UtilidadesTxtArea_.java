@@ -5,13 +5,10 @@
  */
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
-import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
-import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextArea;
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
 /**
  *

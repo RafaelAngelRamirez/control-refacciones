@@ -182,6 +182,11 @@ public abstract class JPanelBase extends JPanel implements HierarchyListener{
      */
     public abstract void configurar();
     
+    /**
+     * La operación por necesidad de limpieza. 
+     */
+    public void limpiar(){}
+    
     
     
 
