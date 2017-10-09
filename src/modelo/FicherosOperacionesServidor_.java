@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  * Operaciones sobre los ficheros que estan en el servidor.
  * @author Particular
  */
-public class FicherosOperacionesServidor {
+public class FicherosOperacionesServidor_ {
     
     String charset = "UTF-8";
     String urlDeSubida;
@@ -33,7 +33,7 @@ public class FicherosOperacionesServidor {
     String nombreDeCampoPostSubir = "subirArchivo";
     Coordinador controlador;
 
-    public FicherosOperacionesServidor(Coordinador controlador) {
+    public FicherosOperacionesServidor_(Coordinador controlador) {
         this.controlador = controlador;
     }
 
@@ -77,7 +77,7 @@ public class FicherosOperacionesServidor {
                 return false;
             }
         } catch (IOException ex) {
-            Logger.getLogger(FicherosOperacionesServidor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FicherosOperacionesServidor_.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -99,7 +99,7 @@ public class FicherosOperacionesServidor {
             }
             
         } catch (IOException ex) {
-            Logger.getLogger(FicherosOperacionesServidor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FicherosOperacionesServidor_.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
         

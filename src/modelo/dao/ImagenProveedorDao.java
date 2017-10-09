@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.ConexionDatos;
-import modelo.FicherosOperacionesServidor;
+import modelo.FicherosOperacionesServidor_;
 import modelo.InfoTabla.ImagenProveedorIT;
 import modelo.vo.ImagenProveedorVo;
 
@@ -82,7 +82,7 @@ public class ImagenProveedorDao extends DAOGenerales{
     }
     
      public boolean subirImagenesAServidor(File img){
-        FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
+        FicherosOperacionesServidor_ ficheros = new FicherosOperacionesServidor_(coordinador);
         ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN);
         ficheros.setFichero(img);
         if (ficheros.subirFichero()) {
@@ -137,7 +137,7 @@ public class ImagenProveedorDao extends DAOGenerales{
     }
     
     public boolean eliminarImagenesEnElServidor(String img){
-        FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
+        FicherosOperacionesServidor_ ficheros = new FicherosOperacionesServidor_(coordinador);
         ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN);
         ficheros.setImagenAEliminar(img);
         return ficheros.eliminarImagen();
