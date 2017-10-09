@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Conexion;
 import modelo.ConexionDatos;
 import modelo.FicherosOperacionesServidor_;
 import modelo.InfoTabla.ImagenProveedorIT;
@@ -34,6 +35,7 @@ public class ImagenProveedorDao extends DAOGenerales{
     
     public String guardarLista(List<ImagenProveedorVo> listaVo){
     //CONTENDRA EL NOMBRE DE LAS IMAGENES QUE NO SE PUDIERON SUBIR.
+        conexion = new Conexion(coordinador);
         String retornoErrores=null;
         //LOS VALUES PARA EL INSERT.
         String values ="";
@@ -93,6 +95,7 @@ public class ImagenProveedorDao extends DAOGenerales{
     }
      
     public List<ImagenProveedorVo> consultar(int id){
+        conexion = new Conexion(coordinador);
         List<ImagenProveedorVo> livo = new ArrayList<>();
         String sql = "SELECT * FROM " + ImagenProveedorIT.NOMBRE_TABLA 
                 + " WHERE " + it.getIdProveedorPDC().getNombre() +"= ?";

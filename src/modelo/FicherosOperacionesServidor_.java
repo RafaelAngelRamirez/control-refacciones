@@ -66,7 +66,7 @@ public class FicherosOperacionesServidor_ {
         try {
             ComunicacionPOST subida = new ComunicacionPOST(this.urlDeSubida, this.charset);
             subida.addFilePart(nombreDeCampoPostSubir, ficheroASubir);
-            subida.addFormField("prueba", "$$$texto de prueba$$$");
+//            subida.addFormField("prueba", "$$$texto de prueba$$$");
             String r = subida.finish();
             if(r.contains("-$1")){
                 this.respuesta = r.replace("-$1", "");
@@ -85,16 +85,15 @@ public class FicherosOperacionesServidor_ {
     public boolean eliminarImagen(){
         try {
             ComunicacionPOST eliminar = new ComunicacionPOST(this.urlEliminar, this.charset);
-            JOptionPane.showMessageDialog(null, imagenAEliminar+"------");
             eliminar.addFormField("imagenAEliminar", imagenAEliminar);
             String r = eliminar.finish();
             if(r.contains("-$1")){
                 this.respuesta = r.replace("-$1", "");
-                JOptionPane.showMessageDialog(null, respuesta+" si se elimino");
+                JOptionPane.showMessageDialog(null, respuesta);
                 return true;
             }else{
                 this.respuesta = r;
-                JOptionPane.showMessageDialog(null, respuesta+" no se elimino");
+                JOptionPane.showMessageDialog(null, respuesta);
                 return false;
             }
             
@@ -103,22 +102,6 @@ public class FicherosOperacionesServidor_ {
         }
         return false;
         
-        
-        
-        
-//        ComunicacionPOST multipart;
-//            try {
-//                multipart = new ComunicacionPOST(
-//                        this.urlDeServidor+this.eliminarArchivo, this.charset);
-//                multipart.addFormField("uploadedfile", 
-//                        this.rutaDeArchivoAEliminar);
-//                // RESPUESTA DEL SERVIDOR
-//                String respuesta = multipart.finish(); 
-//                this.controladorGeneral.getSystemOut().println("    [WEB]"+respuesta);
-//            } catch (IOException ex) {
-//                Logger.getLogger(ImagenesEnElServidor.class.getName())
-//                        .log(Level.SEVERE, null, ex);
-//            }
             
     }
 
@@ -126,14 +109,14 @@ public class FicherosOperacionesServidor_ {
         return respuesta;
     }
    
-     public class ComunicacionPOST {
+    public class ComunicacionPOST {
 
     private final String boundary;
     private static final String LINE_FEED = "\r\n";
-    private HttpURLConnection httpConn;
-    private String charset;
-    private OutputStream outputStream;
-    private PrintWriter writer;
+    private final HttpURLConnection httpConn;
+    private final String charset;
+    private final OutputStream outputStream;
+    private final PrintWriter writer;
 
     /**
      * This constructor initializes a new HTTP POST request with content type
@@ -208,14 +191,14 @@ public class FicherosOperacionesServidor_ {
             writer.append(LINE_FEED);
             writer.flush();
 
-            FileInputStream inputStream = new FileInputStream(uploadFile);
+        try (FileInputStream inputStream = new FileInputStream(uploadFile)) {
             byte[] buffer = new byte[4096];
             int bytesRead = -1;
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);
             }
             outputStream.flush();
-            inputStream.close();
+        }
 
             writer.append(LINE_FEED);
             writer.flush();
@@ -240,7 +223,7 @@ public class FicherosOperacionesServidor_ {
          * @throws IOException Exception
          */
         public String finish() throws IOException {
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             writer.append(LINE_FEED).flush();
             writer.append("--" + boundary + "--").append(LINE_FEED);
@@ -249,13 +232,13 @@ public class FicherosOperacionesServidor_ {
             // checks server's status code first
             int status = httpConn.getResponseCode();
             if (status == HttpURLConnection.HTTP_OK) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(
-                        httpConn.getInputStream()));
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        httpConn.getInputStream()))) {
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
                 }
-                reader.close();
                 httpConn.disconnect();
             } else {
                 throw new IOException("Server returned non-OK status: " + status);

@@ -62,7 +62,6 @@ public class PanelImagenRefaccionDetalle extends JPanelBase {
 
     @Override
     public void initConfig() {
-        JOptionPane.showMessageDialog(null, "entro a init config de "+this.getClass().getName());
         /*
         =======================================================================
             INICIO SETEO UTILIDADES
