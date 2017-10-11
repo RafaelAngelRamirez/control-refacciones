@@ -9,6 +9,9 @@ import controlador.CoordinadorPaneles;
 import javax.swing.JDialog;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 
 /**
  *
@@ -17,6 +20,13 @@ import vista.UtilidadesIntefaz.JPanelBase;
 public class PanelMaquinaAsignarNumeros extends JPanelBase {
 
     private static final long serialVersionUID = 1L;
+    
+    UtilidadesTxt_ _txtNombre;
+    UtilidadesComboBox_ _comboMaquinaModelo;
+    UtilidadesListas_ _listaMaquinas;
+    
+    
+    
 
     /**
      * Creates new form PanelMaquinaAsignarNumeros
@@ -185,7 +195,64 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
 
     @Override
     public void initConfig() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         /*
+        =======================================================================
+            INICIO SETEO NOMBRES DE ETIQUETA
+        ///////////////////////////////////////////////////////////////////////
+        */
+        
+        
+        /* 
+        ////////////////////////////////////////////////////////////////////////
+            FIN SETEO NOMBRES DE ETIQUETA
+        ========================================================================
+        */
+        
+        /*
+        =======================================================================
+            INICIO SETEO UTILIDADES
+        ///////////////////////////////////////////////////////////////////////
+        */
+        //INICIAMOS LAS UTILIDADES.
+         
+        _txtNombre = new UtilidadesTxt_(getCoordinador());
+        _listaMaquinas = new UtilidadesListas_(getCoordinador());
+        _comboMaquinaModelo = new UtilidadesComboBox_(getCoordinador());
+        
+        //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
+        
+        _comboMaquinaModelo.setComponente(comboModelos);
+        _listaMaquinas.setComponente(listaMaquinas);
+        _txtNombre.setComponente(txtNumero);
+        
+        
+        
+        //ASIGNAMOS EL TAMAÑO DE CAMPO
+        
+        
+        
+        //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
+        
+        
+        //CAMPOS NUMÉRICOS
+        
+        
+        //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
+        //TRAVEL POLICY
+        
+        //ACCIONES ESPECELIALES.
+        
+        
+        
+        //ACCIONES DE BOTONES
+        
+        //OPERACIONES DE ACTUALIZACION
+        /* 
+        ////////////////////////////////////////////////////////////////////////
+            FIN SETEO DE UTILIDADES
+        ========================================================================
+        */
+
     }
 
     @Override
