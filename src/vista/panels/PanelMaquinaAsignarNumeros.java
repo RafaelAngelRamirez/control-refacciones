@@ -26,7 +26,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         configuracionesDialogo = new ConfiguracionDePanel();
         configuracionesDialogo.setModal(true);
         configuracionesDialogo.setResizable(false);
-        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_PROVEEDOR_MODIFICAR);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_MAQUINA_ASIGNAR_NUMERO);
         configuracionesDialogo.setLocationRelativeTo(null);
         configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
@@ -185,15 +185,15 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
 
     @Override
     public void initConfig() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void configurar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void limpiarTodo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

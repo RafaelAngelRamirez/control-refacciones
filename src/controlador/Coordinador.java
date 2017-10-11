@@ -1346,7 +1346,7 @@ public class Coordinador {
      * Abre el dialogo que permite registrar y asignar números a máquinas para 
      * manejarlas independientemente de maquina-modelos.
      */
-    public void maquinaAbrirDialogoAsignarNúmeros(){
+    public void maquinaAbrirDialogoAsignarNumeros(){
         JDialogBase d = coordinadorPaneles
                 .ifContainsReturnElseCreate(panelMaquinaAsignarNumeros);
         d.setVisible(true);

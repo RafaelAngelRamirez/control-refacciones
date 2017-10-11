@@ -397,11 +397,11 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 
                 MenuConstructor dialogoAsignarNúmeroAMaquina = new MenuConstructor();
                 dialogoAsignarNúmeroAMaquina.setItem();
-                dialogoAsignarNúmeroAMaquina.setNombre("NOMBRE DEL PANEL ESTA PENDIENTE|||||||||");
+                dialogoAsignarNúmeroAMaquina.setNombre(CoordinadorPaneles.PANEL_MAQUINA_ASIGNAR_NUMERO);
                 dialogoAsignarNúmeroAMaquina.setPadre(menuMaquina);
                 dialogoAsignarNúmeroAMaquina.setImagen(imgModificar);
                 dialogoAsignarNúmeroAMaquina.setAccionDelItem(
-                        ()->JOptionPane.showMessageDialog(null, "accion pendiente!"));
+                        ()->coordinador.maquinaAbrirDialogoAsignarNumeros());
                 this.addItemOMenu(dialogoAsignarNúmeroAMaquina);
                 
                 
