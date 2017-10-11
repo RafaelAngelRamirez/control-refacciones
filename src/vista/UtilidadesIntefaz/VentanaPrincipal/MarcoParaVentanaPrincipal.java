@@ -34,7 +34,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
 import modelo.ExcepcionPersonalizada;
@@ -281,36 +280,163 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         /**
          * /////////////////////////////////////////////////
          *      CREAMOS LOS MENUS
+         * 
+         *  LA INDENTACIÓN NOS AYUDA A SABER QUE LE PERTENECE A QUE. 
+         * 
          * /////////////////////////////////////////////////
          */
         String imgMenus = "/vista/imagenes/iconos_siguiente.png";
+        String imgRegistro = "/vista/imagenes/iconos_mas.png";
+        String imgModificar = "/vista/imagenes/iconos_modificar.png";
+        
         
         MenuConstructor menuConsultar = new MenuConstructor();
         menuConsultar.setMenu();
         menuConsultar.setNombre("Consultar");
         menuConsultar.setImagen(imgMenus);
         this.addItemOMenu(menuConsultar);
+            
+            MenuConstructor panelConsultaRefacciones = new MenuConstructor();
+            panelConsultaRefacciones.setItem();
+            panelConsultaRefacciones.setNombre(CoordinadorPaneles.PANEL_REFACCION_CONSULTAR);
+            panelConsultaRefacciones.setPadre(menuConsultar);
+            panelConsultaRefacciones.setAccionDelItem(
+                    ()->this.getCoordinador().refaccionAbrirPanelConsultaRefacciones());
+            this.addItemOMenu(panelConsultaRefacciones);
+            
+            MenuConstructor refaccionDetalle = new MenuConstructor();
+            refaccionDetalle.setItem();
+            refaccionDetalle.setNombre(CoordinadorPaneles.PANEL_REFACCION_DETALLE);
+            refaccionDetalle.setPadre(menuConsultar);
+            refaccionDetalle.setAccionDelItem(
+                    ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
+            this.addItemOMenu(refaccionDetalle);
         
-        MenuConstructor modificarDatos = new MenuConstructor();
-        modificarDatos.setMenu();
-        modificarDatos.setNombre("Modificar datos");
-        modificarDatos.setImagen(imgMenus);
-        this.addItemOMenu(modificarDatos);
+        //MENU MODIFICAR DATOS. 
+        MenuConstructor menuModificarDatos = new MenuConstructor();
+        menuModificarDatos.setMenu();
+        menuModificarDatos.setNombre("Modificar datos");
+        menuModificarDatos.setImagen(imgMenus);
+        this.addItemOMenu(menuModificarDatos);
         
+            MenuConstructor menuRefaccion = new MenuConstructor();
+            menuRefaccion.setMenu();
+            menuRefaccion.setNombre("Refacciones");
+            menuRefaccion.setImagen(imgMenus);
+            menuRefaccion.setPadre(menuModificarDatos);
+            this.addItemOMenu(menuRefaccion);
+                
+                MenuConstructor registroRefacciones = new MenuConstructor();
+                registroRefacciones.setItem();
+                registroRefacciones.setNombre(CoordinadorPaneles.PANEL_REGISTRAR_NUEVA_REFACCION);
+                registroRefacciones.setPadre(menuRefaccion);
+                registroRefacciones.setImagen(imgRegistro);
+                registroRefacciones.setAccionDelItem(()->coordinador.refaccionAbrirPanelAgregar());
+                this.addItemOMenu(registroRefacciones);
+
+                MenuConstructor modificarRefaccion = new MenuConstructor();
+                modificarRefaccion.setItem();
+                modificarRefaccion.setNombre(CoordinadorPaneles.PANEL_MODIFICAR_REFACCION);
+                modificarRefaccion.setPadre(menuRefaccion);
+                modificarRefaccion.setImagen(imgModificar);
+                modificarRefaccion.setAccionDelItem(()->coordinador.refaccionAbrirPanelModificar());
+                this.addItemOMenu(modificarRefaccion);
+
+            
+
+            MenuConstructor menuEmpleados = new MenuConstructor();
+            menuEmpleados.setMenu();
+            menuEmpleados.setNombre("Empleados");
+            menuEmpleados.setImagen(imgMenus);
+            menuEmpleados.setPadre(menuModificarDatos);
+            this.addItemOMenu(menuEmpleados);
+            
+                MenuConstructor dialogoEmpleadoAgregar = new MenuConstructor();
+                dialogoEmpleadoAgregar.setItem();
+                dialogoEmpleadoAgregar.setNombre(CoordinadorPaneles.PANEL_EMPLEADO_AGREGAR);
+                dialogoEmpleadoAgregar.setPadre(menuEmpleados);
+                dialogoEmpleadoAgregar.setImagen(imgRegistro);
+                dialogoEmpleadoAgregar.setAccionDelItem(
+                        ()->coordinador.empleadoAbrirDialogoAgregar());
+                this.addItemOMenu(dialogoEmpleadoAgregar);
+                
+                MenuConstructor dialogoEmpleadoModificar = new MenuConstructor();
+                dialogoEmpleadoModificar.setItem();
+                dialogoEmpleadoModificar.setNombre(CoordinadorPaneles.PANEL_EMPLEADO_MODIFICAR);
+                dialogoEmpleadoModificar.setPadre(menuEmpleados);
+                dialogoEmpleadoModificar.setImagen(imgModificar);
+                dialogoEmpleadoModificar.setAccionDelItem(
+                        ()->this.getCoordinador().empleadoAbrirDialogoModificar());
+                this.addItemOMenu(dialogoEmpleadoModificar);
         
-        MenuConstructor menuAgregarRegistrar = new MenuConstructor();
-        menuAgregarRegistrar.setMenu();
-        menuAgregarRegistrar.setNombre("Agregar/Registrar");
-        menuAgregarRegistrar.setPadre(modificarDatos);
-        menuAgregarRegistrar.setImagen(imgMenus);
-        this.addItemOMenu(menuAgregarRegistrar);
-        
-        MenuConstructor menuModificar = new MenuConstructor();
-        menuModificar.setMenu();
-        menuModificar.setNombre("Modificar");
-        menuModificar.setPadre(modificarDatos);
-        menuModificar.setImagen(imgMenus);
-        this.addItemOMenu(menuModificar);
+            MenuConstructor menuMaquina = new MenuConstructor();
+            menuMaquina.setMenu();
+            menuMaquina.setNombre("Maquinas");
+            menuMaquina.setPadre(menuModificarDatos);
+            menuMaquina.setImagen(imgMenus);
+            this.addItemOMenu(menuMaquina);
+
+                MenuConstructor dialogoMaquinaModeloAgregar = new MenuConstructor();
+                dialogoMaquinaModeloAgregar.setItem();
+                dialogoMaquinaModeloAgregar.setNombre(CoordinadorPaneles.PANEL_MAQUINA_MODELO_AGREGAR);
+                dialogoMaquinaModeloAgregar.setPadre(menuMaquina);
+                dialogoMaquinaModeloAgregar.setImagen(imgRegistro);
+                dialogoMaquinaModeloAgregar.setAccionDelItem(
+                        ()->this.getCoordinador().maquinaModeloAbrirDialogoAgregar());
+                this.addItemOMenu(dialogoMaquinaModeloAgregar);
+
+                MenuConstructor dialogoModificarMaquinaModelo = new MenuConstructor();
+                dialogoModificarMaquinaModelo.setItem();
+                dialogoModificarMaquinaModelo.setNombre(CoordinadorPaneles.PANEL_MAQUINA_MODELO_MODIFICAR);
+                dialogoModificarMaquinaModelo.setPadre(menuMaquina);
+                dialogoModificarMaquinaModelo.setImagen(imgModificar);
+                dialogoModificarMaquinaModelo.setAccionDelItem(
+                        ()->this.getCoordinador().maquinaModeloAbrirDialogoModificar());
+                this.addItemOMenu(dialogoModificarMaquinaModelo);
+
+                MenuConstructor menuNumerosDeMaquina = new MenuConstructor();
+                menuNumerosDeMaquina.setMenu();
+                menuNumerosDeMaquina.setNombre("Asignar números de máquina.");
+                menuNumerosDeMaquina.setPadre(menuModificarDatos);
+                menuNumerosDeMaquina.setImagen(imgMenus);
+                this.addItemOMenu(menuNumerosDeMaquina);
+                
+                    MenuConstructor dialogoAsignarNúmeroAMaquina = new MenuConstructor();
+                    dialogoAsignarNúmeroAMaquina.setItem();
+                    dialogoAsignarNúmeroAMaquina.setNombre("NOMBRE DEL PANEL ESTA PENDIENTE|||||||||");
+                    dialogoAsignarNúmeroAMaquina.setPadre(menuNumerosDeMaquina);
+                    dialogoAsignarNúmeroAMaquina.setImagen(imgModificar);
+                    dialogoAsignarNúmeroAMaquina.setAccionDelItem(
+                            ()->JOptionPane.showMessageDialog(null, "accion pendiente!"));
+                    this.addItemOMenu(dialogoAsignarNúmeroAMaquina);
+                
+                
+                
+                
+            MenuConstructor menuProveedor = new MenuConstructor();
+            menuProveedor.setMenu();
+            menuProveedor.setNombre("Proveedores");
+            menuProveedor.setPadre(menuModificarDatos);
+            menuProveedor.setImagen(imgMenus);
+            this.addItemOMenu(menuProveedor);
+            
+                MenuConstructor dialogoProveedorRegistrar = new MenuConstructor();
+                dialogoProveedorRegistrar.setItem();
+                dialogoProveedorRegistrar.setNombre(CoordinadorPaneles.PANEL_PROVEEDOR_REGISTRAR);
+                dialogoProveedorRegistrar.setImagen(imgRegistro);
+                dialogoProveedorRegistrar.setPadre(menuProveedor);
+                dialogoProveedorRegistrar.setAccionDelItem(
+                        ()->this.getCoordinador().proveedorAbrirDialogoGuardarNuevo());
+                this.addItemOMenu(dialogoProveedorRegistrar);
+                
+                MenuConstructor dialogoProveedorModificar = new MenuConstructor();
+                dialogoProveedorModificar.setItem();
+                dialogoProveedorModificar.setNombre(CoordinadorPaneles.PANEL_PROVEEDOR_MODIFICAR);
+                dialogoProveedorModificar.setPadre(menuProveedor);
+                dialogoProveedorModificar.setImagen(imgModificar);
+                dialogoProveedorModificar.setAccionDelItem(
+                        ()->this.getCoordinador().proveedoresAbrirDialogoModificar());
+                this.addItemOMenu(dialogoProveedorModificar);
         
         MenuConstructor menuEntradasSalidas = new MenuConstructor();
         menuEntradasSalidas.setMenu();
@@ -318,26 +444,47 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         menuEntradasSalidas.setImagen(imgMenus);
         this.addItemOMenu(menuEntradasSalidas);
         
-        MenuConstructor menuLotes = new MenuConstructor();
-        menuLotes.setMenu();
-        menuLotes.setNombre("Lotes");
-        menuLotes.setPadre(menuEntradasSalidas);
-        menuLotes.setImagen(imgMenus);
-        this.addItemOMenu(menuLotes);
+            MenuConstructor menuLotes = new MenuConstructor();
+            menuLotes.setMenu();
+            menuLotes.setNombre("Lotes");
+            menuLotes.setPadre(menuEntradasSalidas);
+            menuLotes.setImagen(imgMenus);
+            this.addItemOMenu(menuLotes);
+            
+                MenuConstructor dialogoEntradaLote = new MenuConstructor();
+                dialogoEntradaLote.setItem();
+                dialogoEntradaLote.setNombre(CoordinadorPaneles.PANEL_ENTRADA_LOTE);
+                dialogoEntradaLote.setPadre(menuLotes);
+                dialogoEntradaLote.setAccionDelItem(
+                        ()->this.getCoordinador().entradaLoteAbrirDialogo());
+                KeyStroke atajo_CtrlE = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK);
+                dialogoEntradaLote.setAtajoDeTeclado(atajo_CtrlE);
+                this.addItemOMenu(dialogoEntradaLote);
+                
+                MenuConstructor dialogoSalidaLote = new MenuConstructor();
+                dialogoSalidaLote.setItem();
+                dialogoSalidaLote.setNombre(CoordinadorPaneles.PANEL_SALIDA_LOTE);
+                dialogoSalidaLote.setPadre(menuLotes);
+                dialogoSalidaLote.setAccionDelItem(
+                        ()->this.getCoordinador().salidaLoteAbrirDialogo());
+                KeyStroke atajo_CtrlS = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK);
+                dialogoSalidaLote.setAtajoDeTeclado(atajo_CtrlS);
+                this.addItemOMenu(dialogoSalidaLote);
         
-        MenuConstructor menuEntradas = new MenuConstructor();
-        menuEntradas.setMenu();
-        menuEntradas.setNombre("Entradas");
-        menuEntradas.setPadre(menuEntradasSalidas);
-        menuEntradas.setImagen(imgMenus);
-        this.addItemOMenu(menuEntradas);
         
-        MenuConstructor menuSalidas = new MenuConstructor();
-        menuSalidas.setMenu();
-        menuSalidas.setNombre("Salidas");
-        menuSalidas.setPadre(menuEntradasSalidas);
-        menuSalidas.setImagen(imgMenus);
-        this.addItemOMenu(menuSalidas);
+            MenuConstructor menuEntradas = new MenuConstructor();
+            menuEntradas.setMenu();
+            menuEntradas.setNombre("Entradas");
+            menuEntradas.setPadre(menuEntradasSalidas);
+            menuEntradas.setImagen(imgMenus);
+            this.addItemOMenu(menuEntradas);
+
+            MenuConstructor menuSalidas = new MenuConstructor();
+            menuSalidas.setMenu();
+            menuSalidas.setNombre("Salidas");
+            menuSalidas.setPadre(menuEntradasSalidas);
+            menuSalidas.setImagen(imgMenus);
+            this.addItemOMenu(menuSalidas);
         
         MenuConstructor menuSystema = new MenuConstructor();
         menuSystema.setMenu();
@@ -345,168 +492,16 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         menuSystema.setImagen(imgMenus);
         this.addItemOMenu(menuSystema);
         
-        
-        /**
-         * /////////////////////////////////////////////////
-         *     MENU CONSULTAR   
-         * /////////////////////////////////////////////////
-         */
-        MenuConstructor panelConsultaRefacciones = new MenuConstructor();
-        panelConsultaRefacciones.setItem();
-        panelConsultaRefacciones.setNombre(CoordinadorPaneles.PANEL_REFACCION_CONSULTAR);
-        panelConsultaRefacciones.setPadre(menuConsultar);
-        panelConsultaRefacciones.setAccionDelItem(
-                ()->this.getCoordinador().refaccionAbrirPanelConsultaRefacciones());
-        this.addItemOMenu(panelConsultaRefacciones);
-        
-        //-------------------------------
-        MenuConstructor refaccionDetalle = new MenuConstructor();
-        refaccionDetalle.setItem();
-        refaccionDetalle.setNombre(CoordinadorPaneles.PANEL_REFACCION_DETALLE);
-        refaccionDetalle.setPadre(menuConsultar);
-        refaccionDetalle.setAccionDelItem(
-                ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
-        this.addItemOMenu(refaccionDetalle);
-        
-        /**
-         * /////////////////////////////////////////////////
-         *      MENU AGREGAR-REGISTRAR
-         * /////////////////////////////////////////////////
-         */
-        
-        MenuConstructor registroRefacciones = new MenuConstructor();
-        registroRefacciones.setItem();
-        registroRefacciones.setNombre(CoordinadorPaneles.PANEL_REGISTRAR_NUEVA_REFACCION);
-        registroRefacciones.setPadre(menuAgregarRegistrar);
-        registroRefacciones.setAccionDelItem(()->coordinador.refaccionAbrirPanelAgregar());
-        
-        this.addItemOMenu(registroRefacciones);
-//        
-        //-------------------------------
-        MenuConstructor dialogoProveedorRegistrar = new MenuConstructor();
-        dialogoProveedorRegistrar.setItem();
-        dialogoProveedorRegistrar.setNombre(CoordinadorPaneles.PANEL_PROVEEDOR_REGISTRAR);
-        dialogoProveedorRegistrar.setPadre(menuAgregarRegistrar);
-        dialogoProveedorRegistrar.setAccionDelItem(
-                ()->this.getCoordinador().proveedorAbrirDialogoGuardarNuevo());
-        this.addItemOMenu(dialogoProveedorRegistrar);
-        
-        
-         //-------------------------------
-        MenuConstructor dialogoMaquinaModeloAgregar = new MenuConstructor();
-        dialogoMaquinaModeloAgregar.setItem();
-        dialogoMaquinaModeloAgregar.setNombre(CoordinadorPaneles.PANEL_MAQUINA_MODELO_AGREGAR);
-        dialogoMaquinaModeloAgregar.setPadre(menuAgregarRegistrar);
-        dialogoMaquinaModeloAgregar.setAccionDelItem(
-                ()->this.getCoordinador().maquinaModeloAbrirDialogoAgregar());
-        this.addItemOMenu(dialogoMaquinaModeloAgregar);
-        
-         //-------------------------------
-        
-        MenuConstructor dialogoEmpleadoAgregar = new MenuConstructor();
-        dialogoEmpleadoAgregar.setItem();
-        dialogoEmpleadoAgregar.setNombre(CoordinadorPaneles.PANEL_EMPLEADO_AGREGAR);
-        dialogoEmpleadoAgregar.setPadre(menuAgregarRegistrar);
-        dialogoEmpleadoAgregar.setAccionDelItem(
-                ()->coordinador.empleadoAbrirDialogoAgregar());
-        this.addItemOMenu(dialogoEmpleadoAgregar);
-        
-        /**
-         * /////////////////////////////////////////////////
-         *      MENU MODIFICAR
-         * /////////////////////////////////////////////////
-         */
-        
-        MenuConstructor modificarRefaccion = new MenuConstructor();
-        modificarRefaccion.setItem();
-        modificarRefaccion.setNombre(CoordinadorPaneles.PANEL_MODIFICAR_REFACCION);
-        modificarRefaccion.setPadre(menuModificar);
-        modificarRefaccion.setAccionDelItem(()->coordinador.refaccionAbrirPanelModificar());
-        this.addItemOMenu(modificarRefaccion);
+            MenuConstructor salirSystema = new MenuConstructor();
+            salirSystema.setItem();
+            salirSystema.setNombre("Salir");
+            salirSystema.setPadre(menuSystema);
+            salirSystema.setAccionDelItem(
+                    ()->coordinador.salirDelSistema());
+            KeyStroke atajo_Salir = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK);
+            salirSystema.setAtajoDeTeclado(atajo_Salir);
+            this.addItemOMenu(salirSystema);
 
-        //-------------------------------
-        MenuConstructor dialogoProveedorModificar = new MenuConstructor();
-        dialogoProveedorModificar.setItem();
-        dialogoProveedorModificar.setNombre(CoordinadorPaneles.PANEL_PROVEEDOR_MODIFICAR);
-        dialogoProveedorModificar.setPadre(menuModificar);
-        dialogoProveedorModificar.setAccionDelItem(
-                ()->this.getCoordinador().proveedoresAbrirDialogoModificar());
-        this.addItemOMenu(dialogoProveedorModificar);
-        
-//        
-        //-------------------------------
-        MenuConstructor dialogoModificarMaquinaModelo = new MenuConstructor();
-        dialogoModificarMaquinaModelo.setItem();
-        dialogoModificarMaquinaModelo.setNombre(CoordinadorPaneles.PANEL_MAQUINA_MODELO_MODIFICAR);
-        dialogoModificarMaquinaModelo.setPadre(menuModificar);
-        dialogoModificarMaquinaModelo.setAccionDelItem(
-                ()->this.getCoordinador().maquinaModeloAbrirDialogoModificar());
-        this.addItemOMenu(dialogoModificarMaquinaModelo);
-        
-        //-------------------------------
-        MenuConstructor dialogoEmpleadoModificar = new MenuConstructor();
-        dialogoEmpleadoModificar.setItem();
-        dialogoEmpleadoModificar.setNombre(CoordinadorPaneles.PANEL_EMPLEADO_MODIFICAR);
-        dialogoEmpleadoModificar.setPadre(menuModificar);
-        dialogoEmpleadoModificar.setAccionDelItem(
-                ()->this.getCoordinador().empleadoAbrirDialogoModificar());
-        this.addItemOMenu(dialogoEmpleadoModificar);
-        
-       
-        /**
-         * /////////////////////////////////////////////////
-         *      MENU ENTRADAS/SALIDAS
-         * /////////////////////////////////////////////////
-         */
-        
-        MenuConstructor dialogoEntradaLote = new MenuConstructor();
-        dialogoEntradaLote.setItem();
-        dialogoEntradaLote.setNombre(CoordinadorPaneles.PANEL_ENTRADA_LOTE);
-        dialogoEntradaLote.setPadre(menuLotes);
-        dialogoEntradaLote.setAccionDelItem(
-                ()->this.getCoordinador().entradaLoteAbrirDialogo());
-        KeyStroke atajo_CtrlE = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK);
-        dialogoEntradaLote.setAtajoDeTeclado(atajo_CtrlE);
-        this.addItemOMenu(dialogoEntradaLote);
-
-        //-------------------------------        
-        MenuConstructor dialogoSalidaLote = new MenuConstructor();
-        dialogoSalidaLote.setItem();
-        dialogoSalidaLote.setNombre(CoordinadorPaneles.PANEL_SALIDA_LOTE);
-        dialogoSalidaLote.setPadre(menuLotes);
-        dialogoSalidaLote.setAccionDelItem(
-                ()->this.getCoordinador().salidaLoteAbrirDialogo());
-//        dialogoSalidaLote.setDialog(this.getCoordinador().getpanelSalidaLote());
-        KeyStroke atajo_CtrlS = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK);
-        dialogoSalidaLote.setAtajoDeTeclado(atajo_CtrlS);
-        this.addItemOMenu(dialogoSalidaLote);
-        
-//        
-        
-        /**
-         * /////////////////////////////////////////////////
-         *      MENU ENTRADAS/SALIDAS
-         * /////////////////////////////////////////////////
-         */
-        
-       
-        
-         /**
-         * /////////////////////////////////////////////////
-         *      MENU SYSTEMA
-         * /////////////////////////////////////////////////
-         */
-         
-        MenuConstructor salirSystema = new MenuConstructor();
-        salirSystema.setItem();
-        salirSystema.setNombre("Salir");
-        salirSystema.setPadre(menuSystema);
-        salirSystema.setAccionDelItem(
-                ()->coordinador.salirDelSistema());
-        KeyStroke atajo_Salir = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK);
-        salirSystema.setAtajoDeTeclado(atajo_Salir);
-        this.addItemOMenu(salirSystema);
-        
         
         //AÑADIMOS LOS DIALOGOS.
        
