@@ -5,7 +5,6 @@
  */
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -20,8 +19,8 @@ import modelo.InfoTabla.UnidadIT;
 import modelo.vo.RefaccionVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesModeloDeTabla_;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesModeloDeTabla_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTabla_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 
@@ -30,7 +29,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelRefaccionesConsulta extends JPanelBase {
-    Coordinador coordinador = new Coordinador();
+
+    private static final long serialVersionUID = 1L;
     
     UtilidadesTxt_ _TxtFiltrarRefaccion;
     UtilidadesTabla_ _TablaRefacciones;
@@ -51,6 +51,7 @@ public class PanelRefaccionesConsulta extends JPanelBase {
 
     @Override
     public void initConfig() {
+        
         /*
         =======================================================================
             INICIO SETEO NOMBRES DE ETIQUETA
@@ -69,8 +70,8 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         ///////////////////////////////////////////////////////////////////////
         */
         //INICIAMOS LAS UTILIDADES.
-        _TxtFiltrarRefaccion = new UtilidadesTxt_(coordinador);
-        _TablaRefacciones = new UtilidadesTabla_(coordinador);
+        _TxtFiltrarRefaccion = new UtilidadesTxt_(getCoordinador());
+        _TablaRefacciones = new UtilidadesTabla_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -102,32 +103,20 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         
         //ACCIONES DE BOTONES
         
+        //ACTUALIZACIONES DE TABLA. 
+         opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarRefaccionesInicio);
+         
         
-        /* 
+        /*
         ////////////////////////////////////////////////////////////////////////
-            FIN SETEO DE UTILIDADES
+        FIN SETEO DE UTILIDADES
         ========================================================================
-        */
-        
+         */
     }
     
     
 
-    @Override
     public void configurar(){
-        
-        /*
-        =======================================================================
-            INICIO CARGA DE ELEMENTOS 
-        ///////////////////////////////////////////////////////////////////////
-        */
-            cargarRefaccionesInicio();
-        
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN CARGA DE ELEMENTOS 
-        ========================================================================
-        */
     }
     public void cargarRefaccionesInicio(){
         this.cargarRefacciones("");
@@ -139,7 +128,7 @@ public class PanelRefaccionesConsulta extends JPanelBase {
     }
     
     public void cargarRefacciones(String busqueda){
-        List<RefaccionVo> listaVo = this.coordinador.refaccionConsultarTodoBusqueda(busqueda);
+        List<RefaccionVo> listaVo = this.getCoordinador().refaccionConsultarTodoBusqueda(busqueda);
         RefaccionIT rit = new RefaccionIT();
         UnidadIT uit = new UnidadIT();
         ImportanciaIT iit = new ImportanciaIT();
@@ -182,18 +171,9 @@ public class PanelRefaccionesConsulta extends JPanelBase {
     }
     
     public void mostrarDetalleRefaccion(){
-        coordinador.refaccionAbrirDetalleRefaccion(_TablaRefacciones.getDatoDeTabla(0)+"");
+        getCoordinador().refaccionAbrirDetalleRefaccion(_TablaRefacciones.getDatoDeTabla(0)+"");
     }
-
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
-    }
-    
-    
+   
    
     public JTextField getTxtBusqueda() {
         return txtFiltrarRefacciones;

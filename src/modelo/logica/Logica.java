@@ -13,14 +13,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import modelo.FicherosOperaciones;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.MaquinaModeloIT;
-import modelo.InfoTabla.ProveedorIT;
-import modelo.dao.PaisDao;
 import modelo.InfoTabla.ParametrosDeCampo;
+import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
@@ -30,8 +28,10 @@ import modelo.dao.EmpleadoDao;
 import modelo.dao.EntradaLoteDao;
 import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
+import modelo.dao.ImportanciaDao;
 import modelo.dao.MaquinaModeloDao;
 import modelo.dao.MaterialDao;
+import modelo.dao.PaisDao;
 import modelo.dao.ProveedorDao;
 import modelo.dao.RefaccionDao;
 import modelo.dao.RelacionRefaccionMaquinaModeloDao;
@@ -43,6 +43,7 @@ import modelo.vo.EmpleadoVo;
 import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
+import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
@@ -52,7 +53,6 @@ import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.UnidadVo;
-import modelo.FechaYHora;
 import vista.panels.PanelSalidaLoteContenedorDeFila;
 
 /**
@@ -239,9 +239,9 @@ public class Logica {
     ////////////////////////////////////////////////////////////////////////
     */
    
-    public void paisGuardar(PaisVo vo){
+    public boolean paisGuardar(PaisVo vo){
         PaisDao paisDao_ = new PaisDao(coordinador);
-        paisDao_.guardar(vo);
+        return paisDao_.guardar(vo);
         
     
     }
@@ -487,9 +487,9 @@ public class Logica {
     ////////////////////////////////////////////////////////////////////////
     */
     
-    public void unidadGuardar(UnidadVo vo){
+    public boolean unidadGuardar(UnidadVo vo){
         UnidadDao dao = new UnidadDao(coordinador);
-        dao.guardar(vo);
+        return dao.guardar(vo);
     }
     
     public boolean unidadExiste(String unidad){
@@ -513,9 +513,9 @@ public class Logica {
        INICIO REGISTRO DE MATERIALES
     ////////////////////////////////////////////////////////////////////////
     */
-    public void materialGuardar(MaterialVo vo){
+    public boolean materialGuardar(MaterialVo vo){
         MaterialDao dao = new MaterialDao(coordinador);
-        dao.guardar(vo);
+        return dao.guardar(vo);
     }
     
     public boolean materialExiste(String material){
@@ -753,9 +753,9 @@ public class Logica {
         return d.consultarUltimoId();
     }
     
-    public void refaccionGuardar(RefaccionVo vo){
+    public boolean refaccionGuardar(RefaccionVo vo){
         RefaccionDao d = new RefaccionDao(coordinador);
-        d.guardar(vo);
+        return d.guardar(vo);
     }
     
     public List<RefaccionVo> refaccionConsultarTodoBusqueda(String buscar){
@@ -778,9 +778,9 @@ public class Logica {
      * Modifica la refacción que se le pase como parametro. 
      * @param vo Los dato de la refacción. 
      */
-    public void refaccionModificar(RefaccionVo vo){
+    public boolean refaccionModificar(RefaccionVo vo){
         RefaccionDao d = new RefaccionDao(coordinador);
-        d.modificar(vo);
+        return d.modificar(vo);
     }
     
     /* 
@@ -811,9 +811,9 @@ public class Logica {
         return d.consultar(id);
     }
     
-    public void imagenRefaccionEliminar(ImagenRefaccionVo vo){
+    public boolean imagenRefaccionEliminar(ImagenRefaccionVo vo){
         ImagenRefaccionDao d = new ImagenRefaccionDao(coordinador);
-        d.eliminar(vo);
+        return d.eliminar(vo);
     }
     
     /* 
@@ -843,9 +843,9 @@ public class Logica {
         return d.consultar(id);
     }
     
-    public void imagenProveedorEliminar(ImagenProveedorVo vo){
+    public boolean imagenProveedorEliminar(ImagenProveedorVo vo){
         ImagenProveedorDao d = new ImagenProveedorDao(coordinador);
-        d.eliminar(vo);
+        return d.eliminar(vo);
     }
     
     /* 
@@ -863,9 +863,9 @@ public class Logica {
      * Guarda la lista de MaquinaModelo relacionada con una refaccion. 
      * @param listaVo La lista de maquina-modelo a guardar. 
      */
-    public void relacionRefaccionMaquinaModeloGuardarLista(List<RelacionRefaccionMaquinaModeloVo> listaVo){
+    public boolean relacionRefaccionMaquinaModeloGuardarLista(List<RelacionRefaccionMaquinaModeloVo> listaVo){
         RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
-        d.guardarLista(listaVo);
+        return d.guardarLista(listaVo);
     }
     
    /**
@@ -896,9 +896,9 @@ public class Logica {
      * @param listaVo La lista de proveedores a guardar. 
      */
 
-    public void relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
+    public boolean relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
         RelacionRefaccionProveedorDao d = new RelacionRefaccionProveedorDao(coordinador);
-        d.guardarLista(listaVo);
+        return d.guardarLista(listaVo);
     }
     
     /**
@@ -1315,6 +1315,11 @@ public class Logica {
         FIN DE SALIDA LOTE
     ========================================================================
     */
+
+    public List<ImportanciaVo> importanciaConsultar() {
+        ImportanciaDao d = new ImportanciaDao(coordinador);
+        return d.consultar();
+    }
 
     
 

@@ -1,20 +1,19 @@
 
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import modelo.FechaYHora;
 import modelo.InfoTabla.DepartamentoIT;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.Textos;
 import modelo.logica.Validacion;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
-import modelo.FechaYHora;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
@@ -27,7 +26,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
-    Coordinador coordinador;
+
+    private static final long serialVersionUID = 1L;
     
     UtilidadesTxt_ _txtNombre;
     UtilidadesTxt_ _txtBusqueda;
@@ -250,10 +250,10 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         */
         //INICIAMOS LAS UTILIDADES.
        
-        _txtNombre = new UtilidadesTxt_(coordinador);
-        _txtBusqueda = new UtilidadesTxt_(coordinador);
-        _comboDepartamentos = new UtilidadesComboBox_(coordinador);
-        _listaEmpleados = new UtilidadesListas_(coordinador);
+        _txtNombre = new UtilidadesTxt_(getCoordinador());
+        _txtBusqueda = new UtilidadesTxt_(getCoordinador());
+        _comboDepartamentos = new UtilidadesComboBox_(getCoordinador());
+        _listaEmpleados = new UtilidadesListas_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -288,6 +288,11 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         _listaEmpleados.setValueChange(()->this.cargarEmpleado());
         
+        
+        //OPERACIONES DE ACTUALIZACIÓN.
+        opAct.add(DepartamentoIT.NOMBRE_TABLA, this::cargarComboDepartamentos);
+        opAct.add(EmpleadoIT.NOMBRE_TABLA, this::cargarListaEmpleados);
+        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -313,8 +318,8 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         ///////////////////////////////////////////////////////////////////////
         */
         _txtNombre.setText(empleadoAdelantado);
-        this.cargarComboDepartamentos();
-        this.cargarListaEmpleados();
+//        this.cargarComboDepartamentos();
+//        this.cargarListaEmpleados();
             
         if (!empleadoAdelantado.equals("")) {
             this.empleadoAdelantado = true;
@@ -343,7 +348,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
     
     private void cargarListaEmpleadosBusqueda(String busqueda){
         _listaEmpleados.limpiar();
-        List<EmpleadoVo> listVo = this.coordinador.empleadoConsultarBusquedaConBajas(busqueda);
+        List<EmpleadoVo> listVo = this.getCoordinador().empleadoConsultarBusquedaConBajas(busqueda);
         cargarListaEmpleados(listVo);
     }
     
@@ -418,7 +423,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
                     if (respuesta==JOptionPane.YES_OPTION) {
                         DepartamentoVo vo = new DepartamentoVo();
                         vo.setDepartamento(this._comboDepartamentos.getText());
-                        this.coordinador.departamentoGuardar(vo);
+                        this.getCoordinador().departamentoGuardar(vo);
                     }else{
                         this._comboDepartamentos.setText("");
                     }
@@ -432,7 +437,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
     }
     
     public void cargarComboDepartamentos(){
-        List<DepartamentoVo> listaDepartamentos = this.coordinador.departamentoConsultarTodo();
+        List<DepartamentoVo> listaDepartamentos = this.getCoordinador().departamentoConsultarTodo();
         HashMap<String, Object> datosDepartamentos = new HashMap<>();
         for (DepartamentoVo vo : listaDepartamentos) {
             datosDepartamentos.put(vo.getDepartamento(), vo.getId());
@@ -472,16 +477,6 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         return true;
     }
     
-
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
-    }
-
-    
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         EmpleadoVo vo = new EmpleadoVo();
         EmpleadoVo v = (EmpleadoVo)_listaEmpleados.getSelectValueId();
@@ -514,7 +509,8 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
             //GUARDAMOS EL EMPLEADO.
             if (this.getCoordinador().empleadoModificar(vo)) {
                 limpiar();
-                cargarListaEmpleados();
+//                cargarListaEmpleados();
+                getCoordinador().actualizarTodoLoVisible();
                 JOptionPane.showMessageDialog(this, "Se modifico correctamente el empleado.");
             }else{
                 JOptionPane.showMessageDialog(this, 
@@ -538,16 +534,18 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         if (!a.equals(-1)) {
             EmpleadoVo vo = (EmpleadoVo)a;
             vo.setFechaBaja(FechaYHora.Actual.getFecha_DateSQL());
-            if (vo.getBajaEmpleado()==(byte)0) 
+            if (vo.getBajaEmpleado()==(byte)0) { 
                 vo.setBajaEmpleado((byte) 1);
-            else
+            } else {
                 vo.setBajaEmpleado((byte) 0);
+            }
             
             
-            if(this.coordinador.empleadoDarDeBajaAlta(vo))
+            if(this.getCoordinador().empleadoDarDeBajaAlta(vo)) {
                 cargarListaEmpleados();
-            else
+            } else {
                 JOptionPane.showMessageDialog(this, "No se pudo dar de baja al empleado.");
+            }
         }
         
     }//GEN-LAST:event_btnDarDeBajaAltaActionPerformed

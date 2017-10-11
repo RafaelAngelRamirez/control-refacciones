@@ -16,11 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import modelo.Conexion;
-import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.ConexionDatos;
-import modelo.FicherosOperacionesServidor;
+import modelo.FicherosOperacionesServidor_;
+import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.vo.ImagenRefaccionVo;
 /**
  *
@@ -86,13 +85,10 @@ public class ImagenRefaccionDao extends DAOGenerales{
     
     public boolean subirImagenesAServidor(File img){
         conexion = new Conexion(coordinador);
-        FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
+        FicherosOperacionesServidor_ ficheros = new FicherosOperacionesServidor_(coordinador);
         ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN);
         ficheros.setFichero(img);
-        if (ficheros.subirFichero()) {
-            return true;
-        }
-        return false;
+        return ficheros.subirFichero();
     
     }
     
@@ -145,7 +141,7 @@ public class ImagenRefaccionDao extends DAOGenerales{
     
     public boolean eliminarDeServidor(String img){
         conexion = new Conexion(coordinador);
-        FicherosOperacionesServidor ficheros = new FicherosOperacionesServidor(coordinador);
+        FicherosOperacionesServidor_ ficheros = new FicherosOperacionesServidor_(coordinador);
         ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN);
         ficheros.setImagenAEliminar(img);
         if (ficheros.eliminarImagen()) {

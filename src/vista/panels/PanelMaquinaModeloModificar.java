@@ -1,13 +1,11 @@
 
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
@@ -25,7 +23,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelMaquinaModeloModificar extends JPanelBase {
-    private Coordinador coordinador;
+
+    private static final long serialVersionUID = 1L;
     private UtilidadesTxt_ _TxtAnio;
     private UtilidadesTxt_ _TxtModeloMaquina;
     private UtilidadesComboBox_ _ComboMarca;
@@ -110,6 +109,9 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTUALIZACIÓN.
+        opAct.add(ProveedorIT.NOMBRE_TABLA, this::cargarComboMarca);
+        opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaMaquinaModelo);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -120,8 +122,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         
     }
     
-    
-    
+    @Override
     public void configurar(){
         
         /*
@@ -129,31 +130,19 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
             INICIO CARGA DE ELEMENTOS 
         ///////////////////////////////////////////////////////////////////////
         */
-            cargarCombosYListas();
+//            cargarCombosYListas();
         
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN CARGA DE ELEMENTOS 
         ========================================================================
         */
-        
-        
-        
-        
     }
 
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
-    }
-    
     public void guardarProoveedor(){
         String proveedor = _ComboMarca.getText();
         if (!proveedor.equals("")) {
-            if (this.coordinador.proveedorExiste(proveedor)) {
+            if (this.getCoordinador().proveedorExiste(proveedor)) {
                 _ComboMarca.setSelectedItem(proveedor);
             }else{
                 int r = JOptionPane.showConfirmDialog(this,
@@ -163,7 +152,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
                     JOptionPane.YES_NO_OPTION);
 
                 if (r==0) {
-                    this.coordinador.proveedoresAbrirDialogo(proveedor);
+                    this.getCoordinador().proveedoresAbrirDialogo(proveedor);
                     this.cargarComboMarca();
                     _ComboMarca.setSelectedItem(proveedor);
                     
@@ -175,7 +164,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
     }
     
     public void cargarComboMarca(){
-        List<ProveedorVo> l = this.coordinador.proveedoresConsultarMarcas();
+        List<ProveedorVo> l = this.getCoordinador().proveedoresConsultarMarcas();
         HashMap<String, Object> map = new HashMap<>();
         
         for (ProveedorVo vo : l) {
@@ -188,7 +177,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
     }
     
     public void cargarListaMaquinaModelo(){
-        List<MaquinaModeloVo> lista = this.coordinador.maquinaModeloConsultar();
+        List<MaquinaModeloVo> lista = this.getCoordinador().maquinaModeloConsultar();
         HashMap<String, Object> datos = new HashMap<>();
         _ListaMaquinaModelo.limpiar();
         for (MaquinaModeloVo vo : lista) {
@@ -200,11 +189,11 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         _ListaMaquinaModelo.cargarLista(datos);
     }
     
-    public void cargarCombosYListas(){
-        cargarComboMarca();
-        cargarListaMaquinaModelo();
-    }
-    
+//    public void cargarCombosYListas(){
+//        cargarComboMarca();
+//        cargarListaMaquinaModelo();
+//    }
+//    
     private void limpiarTodo(){
         this._TxtModeloMaquina.setText("");
         this._TxtAnio.setText("");
@@ -432,7 +421,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
             vo.setModelo(_TxtModeloMaquina.getText());
 
             List<Validacion> validaciones =
-            this.coordinador.maquinaModeloValidarCampos(vo, true);
+            this.getCoordinador().maquinaModeloValidarCampos(vo, true);
 
             boolean todoValido = true;
             boolean modeloYAnioMal = false;
@@ -480,10 +469,9 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
                 if (this.getCoordinador().maquinaModeloModificar(vo)) {
 
                     limpiarTodo();
-                    cargarListaMaquinaModelo();
+//                    cargarListaMaquinaModelo();
+                    getCoordinador().actualizarTodoLoVisible();
                     _ListaMaquinaModelo.getThis().setSelectedValue(vo.getModelo()+" "+vo.getAnio(), true);
-
-
                     JOptionPane.showMessageDialog(
                         this,
                         "Se modifico correctamente la refacción.");
@@ -526,7 +514,8 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
             if (r==JOptionPane.YES_OPTION) {
                 if(this.getCoordinador().maquinaModeloEliminar(vo)){
                     this.limpiarTodo();
-                    cargarCombosYListas();
+//                    cargarCombosYListas();
+                    getCoordinador().actualizarTodoLoVisible();
                     JOptionPane.showMessageDialog(
                             this, 
                             "Se eliminó '"+vo.getModelo()+" "+vo.getAnio()+"' correctamente.");

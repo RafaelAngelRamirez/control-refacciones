@@ -30,6 +30,7 @@ import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionesConsulta;
 import com.bulenkov.darcula.DarculaLaf;
+import controlador.ActualizacionDeComponentesGráficos.ControladorActualizacionGUI_BD;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
 import java.util.logging.Level;
@@ -82,7 +83,15 @@ public class Principal {
         System.setOut(SystemOut_);
         
         
+         //COORDINADORES
+        Coordinador coordinador = new Coordinador();
+        CoordinadorPaneles coordinadorPaneles = new CoordinadorPaneles();
         
+        //CONTROLADOR DE ACTUALIZACIÓN DE VENTANAS. 
+        ControladorActualizacionGUI_BD controladorActualizacionGUI_BD = new ControladorActualizacionGUI_BD();
+        
+        controladorActualizacionGUI_BD.setCoordinador(coordinador);
+        coordinador.setControladorActualizacionGUI_BD(controladorActualizacionGUI_BD);
         
         //VENTANA PRINCIPAL
         MarcoParaVentanaPrincipal marcoParaVentanaPrincipal = new MarcoParaVentanaPrincipal();
@@ -104,18 +113,11 @@ public class Principal {
         PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes = new PanelSalidaDeLoteSeleccionLotes();
         PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarPorLote = new PanelSalidaDeLoteCantidadADescontarDeLote();
         
-                
-        
-        
-        
         
         //LOGICA
         Logica logica = new Logica();
         
-        //COORDINADORES
-        Coordinador coordinador = new Coordinador();
-        CoordinadorPaneles coordinadorPaneles = new CoordinadorPaneles();
-        
+       
         /*
         ====================================================================
             SETEOS CLASES DENTRO DE COORDINADOR

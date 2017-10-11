@@ -5,9 +5,6 @@
  */
 package vista.panels;
 
-import com.sun.scenario.effect.AbstractShadow;
-import modelo.logica.ComparacionLotes;
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
@@ -18,16 +15,17 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import modelo.FechaYHora;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.SalidaLoteIT;
+import modelo.logica.ComparacionLotes;
 import modelo.logica.Validacion;
 import modelo.vo.EmpleadoVo;
 import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.SalidaLoteVo;
-import modelo.FechaYHora;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
@@ -42,7 +40,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  */
 public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
 
-    private Coordinador coordinador;
+    private static final long serialVersionUID = 1L;
+
     
     private UtilidadesTxt_ _txtBusqueda;
     private UtilidadesListas_ _listaResultados;
@@ -139,22 +138,22 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         
         
         
-        _txtBusqueda = new UtilidadesTxt_(coordinador);
-        _listaResultados = new UtilidadesListas_(coordinador);
-        _txtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
-        _txtCodigoInterno = new UtilidadesTxt_(coordinador);
-        _txtCodigoProveedor = new UtilidadesTxt_(coordinador);
-        _txtExistencia = new UtilidadesTxt_(coordinador);
-        _txtStockMax = new UtilidadesTxt_(coordinador);
-        _txtStockMin = new UtilidadesTxt_(coordinador);
-        _txtUnidad = new UtilidadesTxt_(coordinador);
-        _txtFechaDeLote = new UtilidadesTxt_(coordinador);
-        _txtCantidadQueSale = new UtilidadesTxt_(coordinador);
-        _comboEmpleadoQueReciveLote = new UtilidadesComboBox_(coordinador);
-        _txtObservaciones = new UtilidadesTxtArea_(coordinador);
-        _imagenesRefaccion = new UtilidadesJXViewImage_(coordinador);
-        _comboLotesDisponibles = new UtilidadesComboBox_(coordinador);
-        _txtExistenciaLote = new UtilidadesTxt_(coordinador);
+        _txtBusqueda = new UtilidadesTxt_(getCoordinador());
+        _listaResultados = new UtilidadesListas_(getCoordinador());
+        _txtNombreDeLaRefaccion = new UtilidadesTxt_(getCoordinador());
+        _txtCodigoInterno = new UtilidadesTxt_(getCoordinador());
+        _txtCodigoProveedor = new UtilidadesTxt_(getCoordinador());
+        _txtExistencia = new UtilidadesTxt_(getCoordinador());
+        _txtStockMax = new UtilidadesTxt_(getCoordinador());
+        _txtStockMin = new UtilidadesTxt_(getCoordinador());
+        _txtUnidad = new UtilidadesTxt_(getCoordinador());
+        _txtFechaDeLote = new UtilidadesTxt_(getCoordinador());
+        _txtCantidadQueSale = new UtilidadesTxt_(getCoordinador());
+        _comboEmpleadoQueReciveLote = new UtilidadesComboBox_(getCoordinador());
+        _txtObservaciones = new UtilidadesTxtArea_(getCoordinador());
+        _imagenesRefaccion = new UtilidadesJXViewImage_(getCoordinador());
+        _comboLotesDisponibles = new UtilidadesComboBox_(getCoordinador());
+        _txtExistenciaLote = new UtilidadesTxt_(getCoordinador());
       
         _txtBusqueda.setNombre("_txtBusqueda");
         _listaResultados.setNombre("_listaResultados");
@@ -254,12 +253,12 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             _comboEmpleadoQueReciveLote.setFocusAction(()->guardarEmpleado(), false);
 
 
-
-
-
             //ACCIONES DE BOTONES
             UtilidadesBotones_.setEnterYEspacio(btnSalir1);
             UtilidadesBotones_.setEnterYEspacio(btnGuardar);
+            
+            //OPERACIONES DE ACTUALIZACION.
+            opAct.add(EmpleadoIT.NOMBRE_TABLA, this::cargarComboEmpleados);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -269,7 +268,6 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         
     }
     
-    @Override
     public void configurar(){
         limpiar();
         
@@ -280,9 +278,9 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         */
         
         this.deshabilitarCamposParaRellenar(true);
-        if (_comboEmpleadoQueReciveLote.isEmpty()) {
-            cargarComboEmpleados();
-        }
+//        if (_comboEmpleadoQueReciveLote.isEmpty()) {
+//            cargarComboEmpleados();
+//        }
 
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -290,15 +288,6 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         ========================================================================
         */    
     
-    }
-    @Override
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    @Override
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
     
     public void setearItemComboEmpleado(Object item){
@@ -1140,7 +1129,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                             descontarCantidadDelLoteMasViejoAlMasNuevo(voActualMultiple, vo.getCantidad());
                             break;
                         case 1:
-                            coordinador.salidaLoteAbrirDialogoCantidadADescontarDeLote(
+                            getCoordinador().salidaLoteAbrirDialogoCantidadADescontarDeLote(
                                     listComparacionLotes, vo.getCantidad());
                             todoValSalRestan.setTodoValido(true);
                             break;
@@ -1170,7 +1159,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
                         case 0:
                             //DEJAMOS QUE EL USARIO SELECCIONE COMO SE MODIFICARAN
                             //LAS CANTIDADES DEL LOTE. 
-                            coordinador.salidaLoteAbrirDialogoCantidadADescontarDeLote(
+                            getCoordinador().salidaLoteAbrirDialogoCantidadADescontarDeLote(
                                     listComparacionLotes, vo.getCantidad());
                             todoValSalRestan.setTodoValido(true);
                             break;
@@ -1236,40 +1225,21 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
             
             if (elCorrecto) {
                 boolean slCorrecto = this.getCoordinador().salidaLoteGuadar(listSalidaLoteVo);
-                
                 if (slCorrecto) {
                     limpiar();
+                    getCoordinador().actualizarTodoLoVisible();
                     _txtBusqueda.setFocus();
                     JOptionPane.showMessageDialog(this, "Se registro la salida correctamente.");
+                }else{
+                    JOptionPane.showMessageDialog(this, "Hubo un error y no se registro la salida correctamente.");
+                
                 }
+            }else{
+                JOptionPane.showMessageDialog(null, "Hubo un error y no se pududieron actaulizar los lotes.");
             }
         }
         
         
-     
-        
-//        //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
-//        todoValSalRestan.setTodoValido(false);
-//        //QUITAR ESTA LINEA°!!!!!!!!!!!!!!!!!!!!!!!!
-//        
-//        
-//        if (todoValSalRestan.comprobar()) {
-//            //GUARDAMOS EL LOTE NUEVO.
-//            if(this.getCoordinador().salidaLoteGuadar(vo)){
-////                this.getCoordinador().entradaLoteActualizarExistencia();
-//                limpiar();
-//                JOptionPane.showMessageDialog(this,
-//                        "Se registro la salida correctamente.");
-//                
-//            }else{
-//                JOptionPane.showMessageDialog(
-//                        this,
-//                        "Algo salio mal y no se registro la salida de lote.",
-//                        "No se pudo registrar la salida.",
-//                        JOptionPane.ERROR_MESSAGE);
-//
-//            }
-//        }
     }
     
     public void descontarCantidadDelLoteMasViejoAlMasNuevo(
@@ -1296,7 +1266,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
     
     
     private List<EntradaLoteVo> mostrarLotesParaSeleccionarse(List<EntradaLoteVo> lista, List<EntradaLoteVo> listaSeleccionActual){
-        coordinador.salidaLoteAbrirDialogoSeleccionarLotes(lista, listaSeleccionActual);
+        getCoordinador().salidaLoteAbrirDialogoSeleccionarLotes(lista, listaSeleccionActual);
         return voLotesSeleccionadosPorElUsuario;
     }
     
@@ -1384,7 +1354,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         //EL MAPA QUE CONTENDRA LOS DATOS PARA CARGARLOS EN EL JLIST.
         HashMap<String, Object> datos = new HashMap<>();
         //CONSULTAMOS LAS REFACCIONES QUE COINCIDAN CON EL TEXTO INGRESADO. 
-        List<RefaccionVo> listaVo = this.coordinador.refaccionConsultarTodoBusqueda(busqueda);
+        List<RefaccionVo> listaVo = this.getCoordinador().refaccionConsultarTodoBusqueda(busqueda);
         for (RefaccionVo vo : listaVo) {
             ///CARGAMOS EL MAPA
             datos.put(
@@ -1419,9 +1389,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
      */
     public void comprobarLarefaccion(RefaccionVo vo){
         //SI EL CUADRO DE BUSQUEDA NO ESTA VACIO CONTINUAMOS. 
-        if (_txtBusqueda.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No has escrito nada en el cuadro de busqueda.");
-        } else {
+        if (!_txtBusqueda.isEmpty()) {
             //HAY UNA REFACCION CARGADA
             if(voMostrandose!=null){
                 float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());
@@ -1568,7 +1536,8 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
         return cadenaNueva;
     }
     
-    private void limpiar(){
+    @Override
+    public void limpiar(){
         deshabilitarCamposParaRellenar(true);
         _txtBusqueda.setText("");
         _txtNombreDeLaRefaccion.setText("");

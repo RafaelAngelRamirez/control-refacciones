@@ -356,7 +356,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         panelConsultaRefacciones.setNombre(CoordinadorPaneles.PANEL_REFACCION_CONSULTAR);
         panelConsultaRefacciones.setPadre(menuConsultar);
         panelConsultaRefacciones.setAccionDelItem(
-                ()->this.getCoordinador().refaccionAbrirPanelConsultaRefacciones_Panel(true));
+                ()->this.getCoordinador().refaccionAbrirPanelConsultaRefacciones());
         this.addItemOMenu(panelConsultaRefacciones);
         
         //-------------------------------
@@ -449,7 +449,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         dialogoEmpleadoModificar.setNombre(CoordinadorPaneles.PANEL_EMPLEADO_MODIFICAR);
         dialogoEmpleadoModificar.setPadre(menuModificar);
         dialogoEmpleadoModificar.setAccionDelItem(
-                ()->this.getCoordinador().empleadoAbrirDialogoMoficar());
+                ()->this.getCoordinador().empleadoAbrirDialogoModificar());
         this.addItemOMenu(dialogoEmpleadoModificar);
         
        
@@ -515,7 +515,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         this.generarMenus();
         
         //ASIGNAMOS EL PANEL QUE ABRIRA POR DEFECTO
-        this.getCoordinador().refaccionAbrirPanelConsultaRefacciones_Panel(true);
+        this.getCoordinador().refaccionAbrirPanelConsultaRefacciones();
         
         /*
         ------------------------------------------------------------

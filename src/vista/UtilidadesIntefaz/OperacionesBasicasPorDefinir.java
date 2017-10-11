@@ -5,9 +5,8 @@
  */
 package vista.UtilidadesIntefaz;
 
-import controlador.capturadeerrores.Suceso;
-import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
+import controlador.capturadeerrores.Suceso;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -22,6 +21,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JTextField;
+import modelo.ExcepcionPersonalizada;
 
 /**
  * Operaciones básicas sobre los componentes gráficos.
@@ -84,6 +84,13 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
      * @param txt Coloca texto en el componente. 
      */
     public abstract void setText(String txt);
+    
+    /**
+     * Pone en blanco el componente de texto.
+     */
+    public void setText(){
+        this.setText("");
+    }
     
     /**
      * Marca un error en la interfaz gráfica.

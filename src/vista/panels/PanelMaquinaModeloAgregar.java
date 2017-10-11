@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package vista.panels;
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +25,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelMaquinaModeloAgregar extends JPanelBase {
-    private Coordinador coordinador;
+
+    private static final long serialVersionUID = 1L;
     private UtilidadesTxt_ _TxtAnio;
     private UtilidadesTxt_ _TxtModeloMaquina;
     private UtilidadesComboBox_ _ComboMarca;
@@ -127,6 +127,9 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTUALIZACION.
+        opAct.add(ProveedorIT.NOMBRE_TABLA, this::consultarProveedores);
+        
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -136,34 +139,10 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         
     }
 
-    @Override
-    public void configurar() {
-        /*
-        =======================================================================
-        INICIO CARGA DE ELEMENTOS 
-        ///////////////////////////////////////////////////////////////////////
-        */
-        this.consultarProveedores();
-        
-        /*
-        ////////////////////////////////////////////////////////////////////////
-        FIN CARGA DE ELEMENTOS 
-        ========================================================================
-        */
-    }
-
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
-    }
-    
     public void guardarProoveedor(){
         String proveedor = _ComboMarca.getText();
         if (!proveedor.equals("")) {
-            if (this.coordinador.proveedorExiste(proveedor)) {
+            if (this.getCoordinador().proveedorExiste(proveedor)) {
                 _ComboMarca.setSelectedItem(proveedor);
             }else{
                 int r = JOptionPane.showConfirmDialog(this,
@@ -173,7 +152,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
                     JOptionPane.YES_NO_OPTION);
 
                 if (r==0) {
-                    this.coordinador.proveedoresAbrirDialogo(proveedor);
+                    this.getCoordinador().proveedoresAbrirDialogo(proveedor);
                     this.consultarProveedores();
                     _ComboMarca.setSelectedItem(proveedor);
                     
@@ -185,7 +164,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
     }
     
     public void consultarProveedores(){
-        List<ProveedorVo> l = this.coordinador.proveedoresConsultarMarcas();
+        List<ProveedorVo> l = this.getCoordinador().proveedoresConsultarMarcas();
         HashMap<String, Object> map = new HashMap<>();
         
         for (ProveedorVo vo : l) {
@@ -405,7 +384,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         vo.setModelo(_TxtModeloMaquina.getText());
         vo.setId(-1);
         List<Validacion> validaciones = 
-                this.coordinador.maquinaModeloValidarCampos(vo, false);
+                this.getCoordinador().maquinaModeloValidarCampos(vo, false);
         
         boolean todoValido = true;
         boolean modeloYAnioMal = false;
@@ -452,10 +431,15 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
             }
         }
         if (todoValido) {
-            coordinador.maquinaModeloGuardar(vo);
-            JOptionPane.showMessageDialog(null,"Se guardo correctamente el modelo.");
-            limpiarTodo();
-            dispose();
+            if (getCoordinador().maquinaModeloGuardar(vo)){
+                getCoordinador().actualizarTodoLoVisible();
+                JOptionPane.showMessageDialog(this,"Se guardo correctamente el modelo.");
+                limpiarTodo();
+                dispose();
+                
+            }else{
+                JOptionPane.showMessageDialog(this, "No se pudo guardar el modelo.");
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -470,4 +454,8 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtModeloMaquina;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void configurar() {
+    }
 }

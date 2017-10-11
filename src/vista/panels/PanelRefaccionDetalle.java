@@ -6,31 +6,31 @@
 
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.InfoTabla.ImportanciaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
-import org.jdesktop.swingx.JXImageView;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxtArea_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
-import javax.swing.JLabel;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
+import org.jdesktop.swingx.JXImageView;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxtArea_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 
 
 /**
@@ -38,8 +38,10 @@ import vista.UtilidadesIntefaz.JPanelBase;
  * @author Particular
  */
 public class PanelRefaccionDetalle extends JPanelBase {
-    private Coordinador coordinador;
+
+    private static final long serialVersionUID = 1L;
     private int idRefaccion;
+
     private List<ImagenRefaccionVo> listaImagenesRefaccion;
     
     private UtilidadesJXViewImage_ _ImagenesRefacciones;
@@ -66,7 +68,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
     /** Creates new form DialogoDetalleRefaccion */
     public PanelRefaccionDetalle() {
         initComponents();
-         configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo = new ConfiguracionDePanel();
         configuracionesDialogo.setModal(false);
         configuracionesDialogo.setResizable(false);
         configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_REFACCION_DETALLE);
@@ -75,6 +77,8 @@ public class PanelRefaccionDetalle extends JPanelBase {
         
         
     }
+    
+    
 
     @Override
     public void initConfig() {
@@ -120,28 +124,28 @@ public class PanelRefaccionDetalle extends JPanelBase {
         */
         //INICIAMOS LAS UTILIDADES.
         
-        _ImagenesRefacciones = new UtilidadesJXViewImage_(coordinador);
+        _ImagenesRefacciones = new UtilidadesJXViewImage_(getCoordinador());
     
-        _TxtUnidad = new UtilidadesTxt_(coordinador);
+        _TxtUnidad = new UtilidadesTxt_(getCoordinador());
 
-        _ListaProveedor = new UtilidadesListas_(coordinador);
-        _ListaMaquinaModelo = new UtilidadesListas_(coordinador);
+        _ListaProveedor = new UtilidadesListas_(getCoordinador());
+        _ListaMaquinaModelo = new UtilidadesListas_(getCoordinador());
 
-        _txtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
-        _txtCodigo = new UtilidadesTxt_(coordinador);
-        _txtExistencia = new UtilidadesTxt_(coordinador);
-        _txtStockMin = new UtilidadesTxt_(coordinador);
-        _txtStockMax = new UtilidadesTxt_(coordinador);
+        _txtNombreDeLaRefaccion = new UtilidadesTxt_(getCoordinador());
+        _txtCodigo = new UtilidadesTxt_(getCoordinador());
+        _txtExistencia = new UtilidadesTxt_(getCoordinador());
+        _txtStockMin = new UtilidadesTxt_(getCoordinador());
+        _txtStockMax = new UtilidadesTxt_(getCoordinador());
         
-        _txtCodigoDelProveedor = new UtilidadesTxt_(coordinador);
+        _txtCodigoDelProveedor = new UtilidadesTxt_(getCoordinador());
 
-        _TxtDescripcion = new UtilidadesTxtArea_(coordinador);
-        _TxtQueEs = new UtilidadesTxtArea_(coordinador);
-        _TxtParaQueEs = new UtilidadesTxtArea_(coordinador);
+        _TxtDescripcion = new UtilidadesTxtArea_(getCoordinador());
+        _TxtQueEs = new UtilidadesTxtArea_(getCoordinador());
+        _TxtParaQueEs = new UtilidadesTxtArea_(getCoordinador());
 
-        _txtImportancia = new UtilidadesTxt_(coordinador);
+        _txtImportancia = new UtilidadesTxt_(getCoordinador());
         
-        _txtDeQueEstaEcho = new UtilidadesTxt_(coordinador);
+        _txtDeQueEstaEcho = new UtilidadesTxt_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -179,20 +183,34 @@ public class PanelRefaccionDetalle extends JPanelBase {
         //TRAVEL POLICY
         
         //ACCIONES ESPECELIALES.
+        noActualizarOperaciones();
+        
         
         //ACCIONES DE BOTONES
+        
+        //OPERACIONES DE ACTUALIZACIÓN.
+        opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarElementos);
+        opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarProveedores);
+        opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarMaquinaModelo);
+        opAct.add(ImagenRefaccionIT.NOMBRE_TABLA, this::cargarImagenes);
+        
+        
         
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+         
     }
     
     @Override
-    public void configurar() {
-        
+    public void configurar(){
     }
+    
+
+
+    
     
     public void configurar(String id){
         /*
@@ -200,14 +218,38 @@ public class PanelRefaccionDetalle extends JPanelBase {
             INICIO CARGA DE ELEMENTOS 
         ///////////////////////////////////////////////////////////////////////
         */
+        limpiar();
         idRefaccion = Integer.parseInt(id);
-        cargarElementos();
+        opAct.actualizarPanel();
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN CARGA DE ELEMENTOS 
         ========================================================================
         */
     }
+    
+    
+    
+    @Override
+    public void limpiar(){
+        _ImagenesRefacciones.limpiarComponenteURL();
+        _ListaMaquinaModelo.limpiar();
+        _ListaProveedor.limpiar();
+        _TxtDescripcion.setText();
+        _TxtParaQueEs.setText();
+        _TxtQueEs.setText();
+        _TxtUnidad.setText();
+        _txtCodigo.setText();
+        _txtCodigoDelProveedor.setText();
+        _txtDeQueEstaEcho.setText();
+        _txtExistencia.setText();
+        _txtImportancia.setText();
+        _txtNombreDeLaRefaccion.setText();
+        _txtStockMax.setText();
+        _txtStockMin.setText();
+    }
+
+
     
     public void cargarElementos(){
         
@@ -254,25 +296,35 @@ public class PanelRefaccionDetalle extends JPanelBase {
         
         checkEsDeConsumoUnico.setSelected((rvo.getRefaccionDeConsumoUnico()==(byte)1));
         
-        List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
-        HashMap<String, Object> pvoMapa = new HashMap<>();
-        for (RelacionRefaccionProveedorVo vo : lpvo) {
-            pvoMapa.put(vo.getProveedorVo().getEmpresa(), vo.getIdProveedor());
+//        cargarImagenes();
+        
+    }
+    
+    public void cargarProveedores(){
+        _ListaProveedor.limpiar();
+        if (idRefaccion!=-1) {
+            List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
+            HashMap<String, Object> pvoMapa = new HashMap<>();
+            for (RelacionRefaccionProveedorVo vo : lpvo) {
+                pvoMapa.put(vo.getProveedorVo().getEmpresa(), vo.getIdProveedor());
+            }
+            _ListaProveedor.cargarLista(pvoMapa);
         }
-        _ListaProveedor.cargarLista(pvoMapa);
-        
-        
-        List<RelacionRefaccionMaquinaModeloVo> lmmvo = this.getCoordinador().maquinaModeloConsultar(idRefaccion);
-        HashMap<String, Object> mmvoMapa = new HashMap<>();
-        for (RelacionRefaccionMaquinaModeloVo vo : lmmvo) {
-            mmvoMapa.put(vo.getMaquinaModeloVo().getModelo()
-                    + " "+vo.getMaquinaModeloVo().getAnio(), 
-                    vo.getIdMaquinaModelo());
+    
+    }
+    
+    public void cargarMaquinaModelo(){
+        _ListaMaquinaModelo.limpiar();
+        if (idRefaccion!=-1) {
+            List<RelacionRefaccionMaquinaModeloVo> lmmvo = this.getCoordinador().maquinaModeloConsultar(idRefaccion);
+                HashMap<String, Object> mmvoMapa = new HashMap<>();
+                for (RelacionRefaccionMaquinaModeloVo vo : lmmvo) {
+                    mmvoMapa.put(vo.getMaquinaModeloVo().getModelo()
+                            + " "+vo.getMaquinaModeloVo().getAnio(), 
+                            vo.getIdMaquinaModelo());
+                }
+                _ListaMaquinaModelo.cargarLista(mmvoMapa);
         }
-        _ListaMaquinaModelo.cargarLista(mmvoMapa);
-        
-        cargarImagenes();
-        
     }
     
     /**
@@ -309,17 +361,6 @@ public class PanelRefaccionDetalle extends JPanelBase {
 
     public void setIdRefaccion(int idRefaccion) {
         this.idRefaccion = idRefaccion;
-    }
-    
-    
-       
-    
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
 
     public JXImageView getImagenesRefacciones() {
@@ -576,6 +617,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         txtDescripcion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(1);
+        txtDescripcion.setWrapStyleWord(true);
         txtDescripcion.setFocusCycleRoot(true);
         txtDescripcion.setFocusTraversalPolicyProvider(true);
         txtDescripcion.setFocusable(false);
@@ -612,6 +654,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         txtQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtQueEs.setLineWrap(true);
         txtQueEs.setRows(1);
+        txtQueEs.setWrapStyleWord(true);
         txtQueEs.setFocusCycleRoot(true);
         txtQueEs.setFocusTraversalPolicyProvider(true);
         txtQueEs.setFocusable(false);
@@ -634,6 +677,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         txtParaQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtParaQueEs.setLineWrap(true);
         txtParaQueEs.setRows(1);
+        txtParaQueEs.setWrapStyleWord(true);
         txtParaQueEs.setFocusCycleRoot(true);
         txtParaQueEs.setFocusTraversalPolicyProvider(true);
         txtParaQueEs.setFocusable(false);
@@ -1002,53 +1046,9 @@ public class PanelRefaccionDetalle extends JPanelBase {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         this.dispose();
-        this.getCoordinador().refaccionAbrirPanelModificar(idRefaccion);
+        
+        this.getCoordinador().refaccionAbrirPanelModificar(idRefaccion, true);
     }//GEN-LAST:event_btnModificarActionPerformed
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificar;
@@ -1095,7 +1095,5 @@ public class PanelRefaccionDetalle extends JPanelBase {
     private javax.swing.JTextField txtStockMin;
     private javax.swing.JTextField txtUnidad;
     // End of variables declaration//GEN-END:variables
-
-    
 
 }

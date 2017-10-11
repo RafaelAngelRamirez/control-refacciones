@@ -5,7 +5,6 @@
  */
 package vista.panels;
 
-import controlador.Coordinador;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.InfoTabla.ImagenProveedorIT;
 import modelo.vo.ImagenRefaccionVo;
 import org.jdesktop.swingx.JXImageView;
 import vista.UtilidadesIntefaz.JPanelBase;
@@ -24,7 +24,6 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
  * @author Particular
  */
 public class PanelImagenProveedorDetalle extends JPanelBase {
-    private Coordinador coordinador;
     private int idRefaccion;
     
     
@@ -39,21 +38,12 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
         initComponents();
     }
 
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
     public int getIdRefaccion() {
         return idRefaccion;
     }
 
     public void setIdRefaccion(int idRefaccion) {
         this.idRefaccion = idRefaccion;
-    }
-
-    
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
 
     @Override
@@ -65,7 +55,7 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
         */
         //INICIAMOS LAS UTILIDADES.
         
-        _ImagenesRefacciones = new UtilidadesJXViewImage_(coordinador);
+        _ImagenesRefacciones = new UtilidadesJXViewImage_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -92,7 +82,12 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(getBtnRegresarImagen());
         UtilidadesBotones_.setEnterYEspacio(getBtnAgregarImagen());
         UtilidadesBotones_.setEnterYEspacio(getBtnEliminarImagen());
-            
+        
+        
+        //OPERACIONES DE ACTUALIZACIÓN.
+        
+        opAct.add(ImagenProveedorIT.NOMBRE_TABLA, this::cargarImagenes);
+        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -102,25 +97,26 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
     
     
     
+    @Override
     public void configurar(){
        
-        
-        /*
-        =======================================================================
-            INICIO CARGA DE ELEMENTOS 
-        ///////////////////////////////////////////////////////////////////////
-        */
-        cargarImagenes();
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN CARGA DE ELEMENTOS 
-        ========================================================================
-        */
+//        
+//        /*
+//        =======================================================================
+//            INICIO CARGA DE ELEMENTOS 
+//        ///////////////////////////////////////////////////////////////////////
+//        */
+//        cargarImagenes();
+//        /* 
+//        ////////////////////////////////////////////////////////////////////////
+//            FIN CARGA DE ELEMENTOS 
+//        ========================================================================
+//        */
     }
     
     /**
      * Carga las imágenes jalando el vo desde DialogoDetellaRefaccion a travez
-     * del coordinador.
+     * del getCoordinador().
      */
     public void cargarImagenes(){
         List<ImagenRefaccionVo> livo = this.getCoordinador().refaccionListaDeImagenesDetalles();
@@ -337,6 +333,7 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
                 vo.setIdRefaccion(imagenEliminar.getIdImagen());
                 vo.setNombreServidor(imagenEliminar.getNombreImagenServidor());
                 this.getCoordinador().imagenRefaccionEliminar(vo);
+                getCoordinador().actualizarTodoLoVisible();
             }
         }
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
@@ -362,6 +359,7 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
                             "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
         }
         
+        getCoordinador().actualizarTodoLoVisible();
         
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 

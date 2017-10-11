@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.InfoTabla.ProveedorIT;
 import modelo.Conexion;
 import modelo.InfoTabla.PaisIT;
+import modelo.InfoTabla.ProveedorIT;
 import modelo.vo.*;
 
 /**
@@ -31,6 +31,7 @@ public class ProveedorDao extends DAOGenerales{
      * @return  True si todo salio bien.
      */
     public boolean guardar(ProveedorVo vo) {
+        conexion = new Conexion(coordinador);
         String sql = "INSERT INTO "+ProveedorIT.NOMBRE_TABLA+" "
                 + "VALUES (null, ?, ?, ?, ?, ?, ?)";
         HashMap<Integer, Object> d = new HashMap<>();
@@ -50,13 +51,13 @@ public class ProveedorDao extends DAOGenerales{
      * @return La lista de proveedores existentes. 
      */
     public List<ProveedorVo> consultarProveedores(){
-       
+        conexion= new Conexion(coordinador);
+        
         List<ProveedorVo> l = new ArrayList<>();
         try {
             String sql = "SELECT " +it.getIdPDC().getNombre() +", "+it.getEmpresaProveedorPDC().getNombre()
                     + " FROM " + ProveedorIT.NOMBRE_TABLA;
-            Conexion c = new Conexion(coordinador);
-            ResultSet r = c.executeQuery(sql);            
+            ResultSet r = conexion.executeQuery(sql);            
             
             
             while (r.next()) {
@@ -78,6 +79,7 @@ public class ProveedorDao extends DAOGenerales{
      * @return True si existe.
      */
     public boolean existe(String proveedor){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + ProveedorIT.NOMBRE_TABLA
                     + " WHERE "+ it.getEmpresaProveedorPDC().getNombre() + "= ?";
@@ -105,6 +107,7 @@ public class ProveedorDao extends DAOGenerales{
      * @return True si existe.
      */
     public boolean existe(ProveedorVo vo){
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + ProveedorIT.NOMBRE_TABLA
                     + " WHERE "+ it.getEmpresaProveedorPDC().getNombre() + "= ?"
@@ -130,6 +133,7 @@ public class ProveedorDao extends DAOGenerales{
     
     
     public int consultarUltimoId(){
+        conexion = new Conexion(coordinador);
         String sql = "SELECT MAX("+it.getIdPDC().getNombre()+") FROM "+ProveedorIT.NOMBRE_TABLA;
         ResultSet r = conexion.executeQuery(sql);
         try {
@@ -142,6 +146,7 @@ public class ProveedorDao extends DAOGenerales{
     }
     
     public ProveedorVo consultar(int id){
+        conexion =  new Conexion(coordinador);
         PaisIT pit = new PaisIT();
         ProveedorVo vo = new ProveedorVo();
         String sql = "SELECT "+
@@ -181,6 +186,7 @@ public class ProveedorDao extends DAOGenerales{
     }
     
     public boolean eliminar(ProveedorVo vo){
+        conexion = new Conexion(coordinador);
         String sql = 
                 "DELETE FROM " + ProveedorIT.NOMBRE_TABLA 
                 +" WHERE " +
@@ -191,7 +197,7 @@ public class ProveedorDao extends DAOGenerales{
     }
     
     public boolean modificar(ProveedorVo vo){
-        
+        conexion = new Conexion(coordinador);
         String sql = "UPDATE " + ProveedorIT.NOMBRE_TABLA 
                 +" SET " + 
                 it.getEmpresaProveedorPDC().getNombre() + "=?, "+

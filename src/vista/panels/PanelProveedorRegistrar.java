@@ -5,11 +5,6 @@
  */
 package vista.panels;
 
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
@@ -28,13 +23,18 @@ import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesJXViewImage_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 
 /**
  *
  * @author Particular
  */
 public class PanelProveedorRegistrar extends JPanelBase {
-    private Coordinador coordinador;
+
+    private static final long serialVersionUID = 1L;
     
     String proveedorPrecargado;
     UtilidadesTxt_ _TxtEmpresa;
@@ -94,7 +94,7 @@ public class PanelProveedorRegistrar extends JPanelBase {
         this._TxtPaginaWeb = new UtilidadesTxt_(getCoordinador());
         this._TxtEmail = new UtilidadesTxt_(getCoordinador());
         this._ComboPais = new UtilidadesComboBox_(getCoordinador());
-        this._ImagenesProveedor = new UtilidadesJXViewImage_(coordinador);
+        this._ImagenesProveedor = new UtilidadesJXViewImage_(getCoordinador());
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         _TxtEmpresa.setComponente(txtEmpresa);
@@ -135,6 +135,10 @@ public class PanelProveedorRegistrar extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTAULIZACION.
+        opAct.add(PaisIT.NOMBRE_TABLA, this::cargarComboPaises);
+        
+        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -154,7 +158,7 @@ public class PanelProveedorRegistrar extends JPanelBase {
             INICIO CARGA DE ELEMENTOS 
         ///////////////////////////////////////////////////////////////////////
         */
-            this.cargarComboPaises();
+//            this.cargarComboPaises();
             _TxtEmpresa.setFocus();
         
         /* 
@@ -163,14 +167,6 @@ public class PanelProveedorRegistrar extends JPanelBase {
         ========================================================================
         */
         
-    }
-
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
 
     public JComboBox<String> getComboPais() {
@@ -539,7 +535,7 @@ public class PanelProveedorRegistrar extends JPanelBase {
                     if (respuesta==JOptionPane.YES_OPTION) {
                         PaisVo vo = new PaisVo();
                         vo.setPais(this._ComboPais.getText());
-                        this.coordinador.paisGuardar(vo);
+                        this.getCoordinador().paisGuardar(vo);
                     }else{
                         this._ComboPais.setText("");
                     }
@@ -616,13 +612,10 @@ public class PanelProveedorRegistrar extends JPanelBase {
 
                     limpiarTodo();
                     this.dispose();
+                    getCoordinador().actualizarTodoLoVisible();
                     JOptionPane.showMessageDialog(
                             this.getCoordinador().getMarcoParaVentanaPrincipal(), 
                             "Se guardo correctamente el proveedor.");
-                    //OJO- CUIDADO CON EL ORDEN. ESTA PARTE SIEMPRE HASTA EL FINAL. 
-//                    this.getCoordinador().huboUnCambioEnTabla(ProveedorIT.NOMBRE_TABLA);
-//                    this.getCoordinador().huboUnCambioEnTabla(ImagenProveedorIT.NOMBRE_TABLA);
-//                    this.getCoordinador().ejecutarOperacionesParaActualizar(ProveedorIT.NOMBRE_TABLA);
                 }
             }else{
                 JOptionPane.showMessageDialog(
@@ -662,7 +655,7 @@ public class PanelProveedorRegistrar extends JPanelBase {
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
 
     private void cargarComboPaises(){
-        List<PaisVo> listaPaises = this.coordinador.PaisConsultar();
+        List<PaisVo> listaPaises = this.getCoordinador().PaisConsultar();
         HashMap<String, Object> datosPaises = new HashMap<>();
         for (PaisVo listaPaise : listaPaises) {
             datosPaises.put(listaPaise.getPais(), listaPaise.getId());

@@ -5,10 +5,10 @@
  */
 package vista.panels;
 
-import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.ButtonGroup;
@@ -22,11 +22,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import modelo.InfoTabla.ImportanciaIT;
-import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.*;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenRefaccionVo;
+import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.ProveedorVo;
@@ -50,7 +49,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelRefaccionAgregar extends JPanelBase {
-    Coordinador coordinador;
+
+    private static final long serialVersionUID = 1L;
     
     UtilidadesJXViewImage_ _ImagenesRefacciones;
     UtilidadesComboBox_ _ComboUnidad;
@@ -128,28 +128,28 @@ public class PanelRefaccionAgregar extends JPanelBase {
         ///////////////////////////////////////////////////////////////////////
         */
         //INICIAMOS LAS UTILIDADES.
-        _ImagenesRefacciones = new UtilidadesJXViewImage_(coordinador);
-        _ComboUnidad = new UtilidadesComboBox_(coordinador);
-        _ComboMaterial = new UtilidadesComboBox_(coordinador) ;
+        _ImagenesRefacciones = new UtilidadesJXViewImage_(getCoordinador());
+        _ComboUnidad = new UtilidadesComboBox_(getCoordinador());
+        _ComboMaterial = new UtilidadesComboBox_(getCoordinador()) ;
 
 
-        _ListaProveedor = new UtilidadesListas_(coordinador);
-        _ListaProveedorSeleccionado = new UtilidadesListas_(coordinador);
+        _ListaProveedor = new UtilidadesListas_(getCoordinador());
+        _ListaProveedorSeleccionado = new UtilidadesListas_(getCoordinador());
 
-        _ListaMaquinaModelo = new UtilidadesListas_(coordinador);
-        _ListasMaquinasSeleccionadas = new UtilidadesListas_(coordinador);
+        _ListaMaquinaModelo = new UtilidadesListas_(getCoordinador());
+        _ListasMaquinasSeleccionadas = new UtilidadesListas_(getCoordinador());
 
-        _TxtNombreDeLaRefaccion = new UtilidadesTxt_(coordinador);
-        _TxtCodigo = new UtilidadesTxt_(coordinador);
-        _TxtCodigoDelProveedor = new UtilidadesTxt_(coordinador);
-        _TxtStockMin = new UtilidadesTxt_(coordinador);
-        _TxtStockMax = new UtilidadesTxt_(coordinador);
+        _TxtNombreDeLaRefaccion = new UtilidadesTxt_(getCoordinador());
+        _TxtCodigo = new UtilidadesTxt_(getCoordinador());
+        _TxtCodigoDelProveedor = new UtilidadesTxt_(getCoordinador());
+        _TxtStockMin = new UtilidadesTxt_(getCoordinador());
+        _TxtStockMax = new UtilidadesTxt_(getCoordinador());
 
-        _TxtDescripcion = new UtilidadesTxtArea_(coordinador);
-        _TxtQueEs = new UtilidadesTxtArea_(coordinador);
-        _TxtParaQueEs = new UtilidadesTxtArea_(coordinador);
+        _TxtDescripcion = new UtilidadesTxtArea_(getCoordinador());
+        _TxtQueEs = new UtilidadesTxtArea_(getCoordinador());
+        _TxtParaQueEs = new UtilidadesTxtArea_(getCoordinador());
         
-        _RadioImportancia = new UtilidadesRadio_(coordinador);
+        _RadioImportancia = new UtilidadesRadio_(getCoordinador());
         
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
@@ -264,6 +264,13 @@ public class PanelRefaccionAgregar extends JPanelBase {
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
         UtilidadesBotones_.setEnterYEspacio(btnGuardar);
         
+        //OPERACIONES DE ACTUALIZACION
+        
+        opAct.add(ProveedorIT.NOMBRE_TABLA, this::cargarListaProveedor);
+        opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaMaquinaModelo);
+        opAct.add(UnidadIT.NOMBRE_TABLA, this::cargarComboUnidad);
+        opAct.add(MaterialIT.NOMBRE_TABLA, this::cargarComboMaterial);
+        opAct.add(ImportanciaIT.NOMBRE_TABLA, this::cargarCheck);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -272,24 +279,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         */
     }
 
-    
-    public void configurar(){
-        
-        
-        /*
-        =======================================================================
-            INICIO CARGA DE ELEMENTOS 
-        ///////////////////////////////////////////////////////////////////////
-        */
-            cargarListasYCombos();
-        
-        /* 
-        ////////////////////////////////////////////////////////////////////////
-            FIN CARGA DE ELEMENTOS 
-        ========================================================================
-        */
-    
-    }
 
     public JTextArea getTxtDescripcion() {
         return txtDescripcion;
@@ -299,15 +288,20 @@ public class PanelRefaccionAgregar extends JPanelBase {
         this.txtDescripcion = txtDescripcion;
     }
     
-    public void cargarListasYCombos(){
-        cargarListaProveedor();
-        cargarListaMaquinaModelo();
-        cargarComboUnidad();
-        cargarComboMaterial();
+    public void cargarCheck(){
+        
+        List<ImportanciaVo> listImportanciaVo = getCoordinador().importanciaConsultar();
+        listImportanciaVo.sort(Comparator.comparing(ImportanciaVo::getImportancia));
+        
+        int cont = 0;
+        for (JRadioButton r : _RadioImportancia.getRadios()) {
+            r.setText(listImportanciaVo.get(cont).getImportancia());
+            cont++;
+        }
     }
     
     public void cargarListaProveedor(){
-        List<ProveedorVo> lista = this.coordinador.proveedoresConsultarMarcas();
+        List<ProveedorVo> lista = this.getCoordinador().proveedoresConsultarMarcas();
         HashMap<String, Object> datos= new HashMap<>();
         _ListaProveedor.limpiar();
         for (ProveedorVo vo : lista) {
@@ -317,7 +311,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
     
     }
     public void cargarListaMaquinaModelo(){
-        List<MaquinaModeloVo> lista = this.coordinador.maquinaModeloConsultar();
+        List<MaquinaModeloVo> lista = this.getCoordinador().maquinaModeloConsultar();
         HashMap<String, Object> datos = new HashMap<>();
         _ListaMaquinaModelo.limpiar();
         for (MaquinaModeloVo vo : lista) {
@@ -329,7 +323,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ListaMaquinaModelo.cargarLista(datos);
     }
     public void cargarComboUnidad(){
-        List<UnidadVo> l = this.coordinador.unidadConsultar();
+        List<UnidadVo> l = this.getCoordinador().unidadConsultar();
         HashMap<String, Object> map = new HashMap<>();
         
         for (UnidadVo vo : l) {
@@ -375,7 +369,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
     public void guardarMaterial(){
         String material = _ComboMaterial.getText();
         if (!material.isEmpty()) {
-            if (this.coordinador.materialExiste(material)) {
+            if (this.getCoordinador().materialExiste(material)) {
                 _ComboMaterial.setSelectedItem(material);
 
             }else{
@@ -394,14 +388,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
         }
         
-    }
-
-    public Coordinador getCoordinador() {
-        return coordinador;
-    }
-
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
     }
 
     public JButton getBtnAgregarImagen() {
@@ -765,6 +751,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         txtDescripcion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(1);
+        txtDescripcion.setWrapStyleWord(true);
         txtDescripcion.setFocusCycleRoot(true);
         txtDescripcion.setFocusTraversalPolicyProvider(true);
         jScrollPane1.setViewportView(txtDescripcion);
@@ -966,6 +953,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         txtQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtQueEs.setLineWrap(true);
         txtQueEs.setRows(1);
+        txtQueEs.setWrapStyleWord(true);
         txtQueEs.setFocusCycleRoot(true);
         txtQueEs.setFocusTraversalPolicyProvider(true);
         jScrollPane2.setViewportView(txtQueEs);
@@ -980,6 +968,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         txtParaQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtParaQueEs.setLineWrap(true);
         txtParaQueEs.setRows(1);
+        txtParaQueEs.setWrapStyleWord(true);
         txtParaQueEs.setFocusCycleRoot(true);
         txtParaQueEs.setFocusTraversalPolicyProvider(true);
         jScrollPane7.setViewportView(txtParaQueEs);
@@ -1314,13 +1303,13 @@ public class PanelRefaccionAgregar extends JPanelBase {
         rVo.setIdMaterial(_ComboMaterial.getSelectedItem_idRetorno());
 
         switch(_RadioImportancia.getText()){
-             case "Alta":
+             case "ALTA":
                  rVo.setImportancia(1);
                  break;
-             case "Media":
+             case "MEDIA":
                  rVo.setImportancia(2);
                  break;
-            case "Baja":
+            case "BAJA":
                  rVo.setImportancia(3);
                  break;
             default:
@@ -1346,10 +1335,11 @@ public class PanelRefaccionAgregar extends JPanelBase {
         rVo.setStockMinimo(stockMin);
         rVo.setUnidad(_ComboUnidad.getSelectedItem_idRetorno());
         
-        if(checkEsDeConsumoUnico.isSelected())
+        if(checkEsDeConsumoUnico.isSelected()) {
             rVo.setRefaccionDeConsumoUnico((byte) 1);
-        else
+        } else {
             rVo.setRefaccionDeConsumoUnico((byte) 0);
+        }
         
         
         //CARGAMOS LAS MAQUINAS-MODELO QUE VAN A RELACIONARSE CON ESTA REFACCION
@@ -1381,13 +1371,13 @@ public class PanelRefaccionAgregar extends JPanelBase {
         //VALIDACIONES
         //REFACCION
         List<Validacion> valRefaccion = 
-                this.coordinador.refaccionValidarCampos(rVo);
+                this.getCoordinador().refaccionValidarCampos(rVo);
         //RELACION MAQUINAMODELO
         List<Validacion> valRelacionRMM = 
-                this.coordinador.refaccionValidarCamposMaquinaModelo(listarrmmVo);
+                this.getCoordinador().refaccionValidarCamposMaquinaModelo(listarrmmVo);
         //RELACION PROVEEDOR
         List<Validacion> valRelacionRP = 
-                this.coordinador.refaccionValidarCamposProveedor(listarrpVo);
+                this.getCoordinador().refaccionValidarCamposProveedor(listarrpVo);
                 
         //SI ESTA VARIABLE QUEDA EN TRUE QUIERE DECIR QUE TODAS LAS VALIDACIONES
         //PASARON.
@@ -1528,28 +1518,31 @@ public class PanelRefaccionAgregar extends JPanelBase {
                     aa.setIdRefaccion(idRefaccion);
                 }
 
-                String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
-                this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo);
-                this.getCoordinador().relacionRefaccionProveedorGuardarLista(listarrpVo);
-                if (errorImg!=null) {
+                if (this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo) 
+                        && this.getCoordinador().relacionRefaccionProveedorGuardarLista(listarrpVo)) {
+                    String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
+                    if (errorImg!=null) {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "No se cargaron las siguientes imagenes: \n\n" + errorImg,
+                                "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    limpiarTodo();
                     JOptionPane.showMessageDialog(
-                            null,
-                            "No se cargaron las siguientes imagenes: \n\n" + errorImg,
-                            "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
+                            getCoordinador().getMarcoParaVentanaPrincipal(),
+                            "Se guardo la refaccción correctamente.");
+                    getCoordinador().actualizarTodoLoVisible();
+                }else{
+                    JOptionPane.showMessageDialog(this, "Algo paso y no se "
+                            + "pudo guardar la refacción.");
                 }
-                
-                limpiarTodo();
-                JOptionPane.showMessageDialog(
-                        coordinador.getMarcoParaVentanaPrincipal(),
-                        "Se guardo la refaccción correctamente.");
             }
         }
     }
     
     public void limpiarTodo(){
         _ImagenesRefacciones.limpiar();
-
-
         _TxtNombreDeLaRefaccion.setText("");
         _TxtCodigo.setText("");
         _TxtCodigoDelProveedor.setText("");
@@ -1562,7 +1555,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         
         _RadioImportancia.clearSelection();
         
-        cargarListasYCombos();
+        opAct.actualizarPanel();
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -1573,7 +1566,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
     private void btnAgregarNuevProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevProveedorActionPerformed
         //this.controladorGestionDeRefacciones.iniciarGuardarProveedorNuevo();
-        this.coordinador.proveedorAbrirDialogoGuardarNuevo();
+        this.getCoordinador().proveedorAbrirDialogoGuardarNuevo();
     }//GEN-LAST:event_btnAgregarNuevProveedorActionPerformed
 
     private void radioBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioBajaActionPerformed
@@ -1643,4 +1636,10 @@ public class PanelRefaccionAgregar extends JPanelBase {
     private javax.swing.JTextField txtStockMax;
     private javax.swing.JTextField txtStockMin;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void configurar() {
+        System.out.println("CONFIGURAR: "+getClass().getSimpleName() + " no tiene nada que configurar.");
+    }
+
 }
