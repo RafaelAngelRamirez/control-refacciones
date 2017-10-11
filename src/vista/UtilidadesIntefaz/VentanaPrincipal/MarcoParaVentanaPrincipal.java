@@ -397,7 +397,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 MenuConstructor menuNumerosDeMaquina = new MenuConstructor();
                 menuNumerosDeMaquina.setMenu();
                 menuNumerosDeMaquina.setNombre("Asignar números de máquina.");
-                menuNumerosDeMaquina.setPadre(menuModificarDatos);
+                menuNumerosDeMaquina.setPadre(menuMaquina);
                 menuNumerosDeMaquina.setImagen(imgMenus);
                 this.addItemOMenu(menuNumerosDeMaquina);
                 
