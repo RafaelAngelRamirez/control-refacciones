@@ -722,6 +722,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 menu.setFont(fuenteMenu);
                 //ASIGNAMOS LA IMAGEN AL MENU.
                 menu.setIcon(image);
+                //ASIGNAMOS COLOR.
+//                menu.setBackground(Color.red);
                 //SETEAMOS EL MENU DENTRO DEL ELEMENTO CONTENEDOR GENERALIZANTE.
                 elemento.setMenu(menu);
             }else{
@@ -732,6 +734,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 item.setFont(fuenteItem);
                 //ASIGAMOS LA IMAGEN QUE LO ACOMPAÑARA.
                 item.setIcon( image);
+                //SETEAMOS EL COLOR.
+                item.setBackground(ColoresYFuentes.TEMA_FONDO_OSCURO);
                 //AÑADIMOS LA ACCION QUE QUEREMOS QUE EJECUTE EL ITEM.
                 // SOLO EN mousePressed.
                 item.addActionListener(new java.awt.event.ActionListener(){
