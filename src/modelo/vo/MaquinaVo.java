@@ -15,16 +15,13 @@ public class MaquinaVo extends VoGenerales{
     
     private int id;
     private Object idMaquinaModelo;
-    private String descripcion;
     private String numeroDeMáquina;
 
     public MaquinaVo() {
         MaquinaIT it = new MaquinaIT();
         relacionCampo.put(it.getIdPDC().getNombre(), ()->this.getId());
         relacionCampo.put(it.getIdMaquinaModeloPDC().getNombre(), ()->this.getIdMaquinaModelo());
-        relacionCampo.put(it.getDescripcionPDC().getNombre(), ()->this.getDescripcion());
         relacionCampo.put(it.getNumeroDeMaquinaPDC().getNombre(), ()->this.getNumeroDeMáquina());
-        
         
     }
 
@@ -43,15 +40,6 @@ public class MaquinaVo extends VoGenerales{
     public void setIdMaquinaModelo(Object idMaquinaModelo) {
         this.idMaquinaModelo = idMaquinaModelo;
     }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public String getNumeroDeMáquina() {
         return numeroDeMáquina;
     }
@@ -67,7 +55,6 @@ public class MaquinaVo extends VoGenerales{
         
         String c =  "\n             Id" +b+ id+
                     "\n    idRefaccion" +b+ idMaquinaModelo+
-                    "\n         nombre" +b+ descripcion+    
                     "\n     idMaterial" +b+ numeroDeMáquina;
 
         String d =  "----------------------"; 
