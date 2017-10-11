@@ -394,21 +394,15 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                         ()->this.getCoordinador().maquinaModeloAbrirDialogoModificar());
                 this.addItemOMenu(dialogoModificarMaquinaModelo);
 
-                MenuConstructor menuNumerosDeMaquina = new MenuConstructor();
-                menuNumerosDeMaquina.setMenu();
-                menuNumerosDeMaquina.setNombre("Asignar números de máquina.");
-                menuNumerosDeMaquina.setPadre(menuMaquina);
-                menuNumerosDeMaquina.setImagen(imgMenus);
-                this.addItemOMenu(menuNumerosDeMaquina);
                 
-                    MenuConstructor dialogoAsignarNúmeroAMaquina = new MenuConstructor();
-                    dialogoAsignarNúmeroAMaquina.setItem();
-                    dialogoAsignarNúmeroAMaquina.setNombre("NOMBRE DEL PANEL ESTA PENDIENTE|||||||||");
-                    dialogoAsignarNúmeroAMaquina.setPadre(menuNumerosDeMaquina);
-                    dialogoAsignarNúmeroAMaquina.setImagen(imgModificar);
-                    dialogoAsignarNúmeroAMaquina.setAccionDelItem(
-                            ()->JOptionPane.showMessageDialog(null, "accion pendiente!"));
-                    this.addItemOMenu(dialogoAsignarNúmeroAMaquina);
+                MenuConstructor dialogoAsignarNúmeroAMaquina = new MenuConstructor();
+                dialogoAsignarNúmeroAMaquina.setItem();
+                dialogoAsignarNúmeroAMaquina.setNombre("NOMBRE DEL PANEL ESTA PENDIENTE|||||||||");
+                dialogoAsignarNúmeroAMaquina.setPadre(menuMaquina);
+                dialogoAsignarNúmeroAMaquina.setImagen(imgModificar);
+                dialogoAsignarNúmeroAMaquina.setAccionDelItem(
+                        ()->JOptionPane.showMessageDialog(null, "accion pendiente!"));
+                this.addItemOMenu(dialogoAsignarNúmeroAMaquina);
                 
                 
                 
@@ -893,10 +887,10 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      */
     class RelojYBotonesDeCierre extends JPanel{
 
-        private JButton cerrarBtn;
-        private JButton minimizarBtn;
-        private JButton maximizarBtn;
-        private Coordinador coordinador;
+        private final JButton cerrarBtn;
+        private final JButton minimizarBtn;
+        private final JButton maximizarBtn;
+        private final Coordinador coordinador;
 
         private JFrame ventanaPrincipal;
 
