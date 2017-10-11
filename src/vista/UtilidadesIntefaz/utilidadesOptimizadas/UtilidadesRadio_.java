@@ -5,7 +5,6 @@
  */
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
-import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
+import modelo.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
 /**
@@ -22,8 +22,16 @@ import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
  */
 public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir {
 
-    ButtonGroup grupo;
-    List <JRadioButton> radios = new ArrayList<JRadioButton>();
+    private final ButtonGroup grupo;
+    private List <JRadioButton> radios;
+
+    public List<JRadioButton> getRadios() {
+        return radios;
+    }
+
+    public void setRadios(List<JRadioButton> radios) {
+        this.radios = radios;
+    }
     
     
     /**
@@ -33,9 +41,12 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir {
      */
     public UtilidadesRadio_(Coordinador coordinador) {
         super(coordinador);
+        this.radios = new ArrayList<>();
         this.exepcionALaReglaMayusculasYNumeros = true;
         this.grupo = new ButtonGroup();
     }
+    
+    
 
     /**
      * Va agrupando los radioButtons que se le pasen de manera automática. 
@@ -47,6 +58,8 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir {
         this.grupo.add(radio);
         System.out.println("[!]Radio button seteado: " + radio.getText());
     }
+    
+    
     
     /**
      * Retorna true si algúnos de los radioButtons esta seleccionado.  
@@ -189,6 +202,8 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 
 
     

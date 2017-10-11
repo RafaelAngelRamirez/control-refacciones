@@ -84,6 +84,7 @@ public class ImagenProveedorDao extends DAOGenerales{
     }
     
      public boolean subirImagenesAServidor(File img){
+        conexion = new Conexion(coordinador);
         FicherosOperacionesServidor_ ficheros = new FicherosOperacionesServidor_(coordinador);
         ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN);
         ficheros.setFichero(img);
@@ -121,6 +122,7 @@ public class ImagenProveedorDao extends DAOGenerales{
     }
     
     public boolean eliminar (ImagenProveedorVo vo){
+        conexion = new Conexion(coordinador);
         String sql = "DELETE FROM " + ImagenProveedorIT.NOMBRE_TABLA
                 + " WHERE "
                 + it.getIdProveedorPDC().getNombre()
@@ -140,6 +142,7 @@ public class ImagenProveedorDao extends DAOGenerales{
     }
     
     public boolean eliminarImagenesEnElServidor(String img){
+        conexion = new Conexion(coordinador);
         FicherosOperacionesServidor_ ficheros = new FicherosOperacionesServidor_(coordinador);
         ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN);
         ficheros.setImagenAEliminar(img);

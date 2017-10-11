@@ -28,6 +28,8 @@ public abstract class JPanelBase extends JPanel implements HierarchyListener{
      * se llame desde un JDialogBase.
      */
     protected ConfiguracionDePanel configuracionesDialogo;
+    private boolean actualizarOperacionesAlPrincipio;
+
     
     /**
      * Almacena las operaciones de actualización. 
@@ -39,6 +41,7 @@ public abstract class JPanelBase extends JPanel implements HierarchyListener{
     
 
     public JPanelBase() {
+        this.actualizarOperacionesAlPrincipio = true;
         this.opAct = new OperacionesDeActualizacion(this);
     }
     
@@ -101,10 +104,19 @@ public abstract class JPanelBase extends JPanel implements HierarchyListener{
      */
     @Override
     public void hierarchyChanged(HierarchyEvent e){
-        if (soyVisible()) {
-            this.opAct.actualizarPanel();
+        if (actualizarOperacionesAlPrincipio) {
+            if (soyVisible()) {
+                    this.opAct.actualizarPanel();
+            }
         }
-    }  
+    }
+    /**
+     * Esta función anula la actualización del panel al ser abierto. Esto para
+     * los paneles que así lo requieran. {@see: hierarchyChanged}
+     */
+    public void noActualizarOperaciones(){
+        actualizarOperacionesAlPrincipio = false;
+    }
 
     public OperacionesDeActualizacion getOpAct() {
         return opAct;

@@ -30,6 +30,7 @@ import modelo.vo.EmpleadoVo;
 import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
+import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
@@ -627,7 +628,7 @@ public class Coordinador {
     private Deque<Integer> refaccionesPorModificarId = new ArrayDeque<>();
     private boolean salirDeCicloRefaccionesPorModificar = false;
     /**
-     * Modifica las refacciones que esten seleccionadas en talbla del panel consulta
+     * Modifica las refacciones que esten seleccionadas en tabla del panel consulta
      * de refacciones una por una hasta completar el contador refacccionesPorModificar.
      * @param cancelado True si se cancela la acción de modificar refacciones 
      * antes de que llege a 0 la lista.
@@ -642,7 +643,7 @@ public class Coordinador {
             refaccionesPorModificarId.clear();
             salirDeCicloRefaccionesPorModificar = false;
         }else{
-            //COMPROBAMOS QUE NO ESTE PUESTRO EN TRUE salirDeCicloRefaccionesPorModificar
+            //COMPROBAMOS QUE NO ESTE PUESTO EN TRUE salirDeCicloRefaccionesPorModificar
             // PARA CONTINUAR MODIFICANDO REFACCIONES.
             if (!salirDeCicloRefaccionesPorModificar) {
                 //SI NO TENEMOS NINGUNA REFACCION POR MODIFICAR CARGAMOS LAS QUE
@@ -656,11 +657,11 @@ public class Coordinador {
                     // SI refaccionesPorModificarId NO ESTA VACIO ENTONCES
                     //ABRIMOS EL PANEL, LE PASAMOS EL ID A MODIFICAR Y QUITAMOS
                     // DE LA FILA ESE ID. 
+                    coordinadorPaneles.setJPanel(getPanelRefaccionModificar());
                     this.getPanelRefaccionModificar().configurar(
                             refaccionesPorModificarId.pop(),
                             refaccionesPorModificarId.size()
                     );
-                    coordinadorPaneles.setJPanel(getPanelRefaccionModificar());
                     //SI SE QUEDO VACIO refaccionesPorModificarId MANDAMOS UN TRUE
                     // A salirDeCicloRefaccionesPorModificar PARA QUE SE DETENGA
                     // EN EL PRÓXIMO CICLO.
@@ -704,14 +705,12 @@ public class Coordinador {
         coordinadorPaneles.setJPanel(getPanelRefaccionModificar());
         this.getPanelRefaccionModificar().configurar(idRefaccion, 0);
     }
-    
-    
+       
     
     public void refaccionAbrirPanelConsultaRefacciones(){
         this.coordinadorPaneles.setJPanel(this.panelRefaccionConsulta);
         
     }
-//    
     
     
     //DETALLE DE REFACCIONES
@@ -1313,6 +1312,11 @@ public class Coordinador {
         FIN DE ALGO
     ========================================================================
     */
+
+    public List<ImportanciaVo> importanciaConsultar() {
+        return this.logica.importanciaConsultar();
+
+    }
 
    
     

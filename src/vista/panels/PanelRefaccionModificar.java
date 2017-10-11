@@ -7,6 +7,7 @@ package vista.panels;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.ButtonGroup;
@@ -22,6 +23,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.InfoTabla.*;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenRefaccionVo;
+import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.ProveedorVo;
@@ -77,6 +79,8 @@ public class PanelRefaccionModificar extends JPanelBase {
 
     @Override
     public void initConfig() {
+        
+        JOptionPane.showMessageDialog(null, "here is initconfig lounch");
         
         RefaccionIT rit = new RefaccionIT();
         ProveedorIT pit = new ProveedorIT();
@@ -257,6 +261,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaMaquinaModelo);
         opAct.add(UnidadIT.NOMBRE_TABLA, this::cargarComboUnidad);
         opAct.add(MaterialIT.NOMBRE_TABLA, this::cargarComboMaterial);
+        opAct.add(ImportanciaIT.NOMBRE_TABLA, this::cargarCheck);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -286,6 +291,19 @@ public class PanelRefaccionModificar extends JPanelBase {
     
     }
     
+    public void cargarCheck(){
+        
+        List<ImportanciaVo> listImportanciaVo = getCoordinador().importanciaConsultar();
+        listImportanciaVo.sort(Comparator.comparing(ImportanciaVo::getImportancia));
+        
+        int cont = 0;
+        for (JRadioButton r : _RadioImportancia.getRadios()) {
+            r.setText(listImportanciaVo.get(cont).getImportancia());
+            cont++;
+        }
+        
+    }
+    
     public void cargarRefaccionAModificar(int id, int idRestantesCantidad){
         
         etiquetaRefaccionesPendientesPorModificar.setText("Refacciones por modificar: "+idRestantesCantidad);
@@ -303,10 +321,12 @@ public class PanelRefaccionModificar extends JPanelBase {
         _TxtDescripcion.setText(rvo.getDescripcion());
         _TxtQueEs.setText(rvo.getQueEs());
         _TxtParaQueEs.setText(rvo.getParaQueEs());
-        if (rvo.getRefaccionDeConsumoUnico()==(byte)1)
+        
+        if (rvo.getRefaccionDeConsumoUnico()==(byte)1) {
             checkEsDeConsumoUnico.setSelected(true);
-        else
+        } else {
             checkEsDeConsumoUnico.setSelected(false);
+        }
             
         
         
@@ -1450,13 +1470,13 @@ public class PanelRefaccionModificar extends JPanelBase {
         rVo.setIdMaterial(_ComboMaterial.getSelectedItem_idRetorno());
 
         switch(_RadioImportancia.getText()){
-             case "Alta":
+             case "ALTA":
                  rVo.setImportancia(1);
                  break;
-             case "Media":
+             case "MEDIA":
                  rVo.setImportancia(2);
                  break;
-            case "Baja":
+            case "BAJA":
                  rVo.setImportancia(3);
                  break;
             default:

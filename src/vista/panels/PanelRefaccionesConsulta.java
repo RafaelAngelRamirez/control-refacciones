@@ -19,8 +19,8 @@ import modelo.InfoTabla.UnidadIT;
 import modelo.vo.RefaccionVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
-import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesModeloDeTabla_;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesModeloDeTabla_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTabla_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 
@@ -51,6 +51,7 @@ public class PanelRefaccionesConsulta extends JPanelBase {
 
     @Override
     public void initConfig() {
+        
         /*
         =======================================================================
             INICIO SETEO NOMBRES DE ETIQUETA

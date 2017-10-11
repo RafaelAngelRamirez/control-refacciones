@@ -8,14 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import modelo.ExcepcionPersonalizada;
 
@@ -24,6 +21,8 @@ import modelo.ExcepcionPersonalizada;
  * @author Particular
  */
 public class JDialogBase extends JDialog{
+
+    private static final long serialVersionUID = 1L;
     
     Coordinador coordinador;
     private JPanelBase panelActual;
@@ -56,7 +55,8 @@ public class JDialogBase extends JDialog{
          
         }.parametros(this));
         
-        ActionListener escapeAction = new ActionListener() {
+        ActionListener escapeAction;
+        escapeAction = new ActionListener() {
             JDialogBase d;
             ActionListener parametros(JDialogBase d){
                 this.d=d;
@@ -64,7 +64,7 @@ public class JDialogBase extends JDialog{
             }
             @Override
             public void actionPerformed(ActionEvent e) {
-               this.d.dispose();
+                this.d.dispose();
             }
         }.parametros(this);
         

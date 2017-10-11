@@ -28,6 +28,7 @@ import modelo.dao.EmpleadoDao;
 import modelo.dao.EntradaLoteDao;
 import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
+import modelo.dao.ImportanciaDao;
 import modelo.dao.MaquinaModeloDao;
 import modelo.dao.MaterialDao;
 import modelo.dao.PaisDao;
@@ -42,6 +43,7 @@ import modelo.vo.EmpleadoVo;
 import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
+import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
@@ -1313,6 +1315,11 @@ public class Logica {
         FIN DE SALIDA LOTE
     ========================================================================
     */
+
+    public List<ImportanciaVo> importanciaConsultar() {
+        ImportanciaDao d = new ImportanciaDao(coordinador);
+        return d.consultar();
+    }
 
     
 

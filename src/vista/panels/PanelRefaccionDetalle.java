@@ -38,6 +38,8 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
  * @author Particular
  */
 public class PanelRefaccionDetalle extends JPanelBase {
+
+    private static final long serialVersionUID = 1L;
     private int idRefaccion;
     private List<ImagenRefaccionVo> listaImagenesRefaccion;
     
@@ -178,6 +180,8 @@ public class PanelRefaccionDetalle extends JPanelBase {
         //TRAVEL POLICY
         
         //ACCIONES ESPECELIALES.
+        noActualizarOperaciones();
+        
         
         //ACCIONES DE BOTONES
         
@@ -187,14 +191,24 @@ public class PanelRefaccionDetalle extends JPanelBase {
         opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarMaquinaModelo);
         opAct.add(ImagenRefaccionIT.NOMBRE_TABLA, this::cargarImagenes);
         
+        
+        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+         
     }
     
-    boolean recienAbierto = true;
+    @Override
+    public void configurar(){
+    }
+    
+
+
+    
+    
     public void configurar(String id){
         /*
         =======================================================================
@@ -203,16 +217,15 @@ public class PanelRefaccionDetalle extends JPanelBase {
         */
         limpiar();
         idRefaccion = Integer.parseInt(id);
-        if (!recienAbierto) {
-            opAct.actualizarPanel();
-        }
-        recienAbierto = false;
+        opAct.actualizarPanel();
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN CARGA DE ELEMENTOS 
         ========================================================================
         */
     }
+    
+    
     
     @Override
     public void limpiar(){
@@ -1118,11 +1131,6 @@ public class PanelRefaccionDetalle extends JPanelBase {
     private javax.swing.JTextField txtStockMin;
     private javax.swing.JTextField txtUnidad;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void configurar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     
 

@@ -657,8 +657,9 @@ public class PanelProveedorModificar extends JPanelBase {
                             "Se modifico correctamente el proveedor.");
                     
                     limpiarTodo();
-                    cargarProveedorSeleccionado();
-                    cargarListaProveedores();
+//                    cargarProveedorSeleccionado();
+//                    cargarListaProveedores();
+                    getCoordinador().actualizarTodoLoVisible();
                     _ListaProveedores.getThis().setSelectedValue(vo.getEmpresa(), true);
                     
                 }else{
@@ -749,6 +750,7 @@ public class PanelProveedorModificar extends JPanelBase {
             if (r==JOptionPane.YES_OPTION) {
                 
                 this.getCoordinador().proveedorEliminar(vo);
+                
                 UtilidadesJXViewImage_.TransporteImagenesURL imgEliminar = _ImagenesProveedor.obtenerImagenActual();
                 if (imgEliminar!=null) {
                     ImagenProveedorVo iPvo = new ImagenProveedorVo();
@@ -757,7 +759,7 @@ public class PanelProveedorModificar extends JPanelBase {
                     this.getCoordinador().imagenProveedorEliminar(iPvo);
                 }
                 this.limpiarTodo();
-                cargarListaProveedores();
+                getCoordinador().actualizarTodoLoVisible();
                 
             }        
         }else{
