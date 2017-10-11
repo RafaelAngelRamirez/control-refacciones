@@ -46,6 +46,7 @@ import vista.panels.PanelEmpleadoAgregar;
 import vista.panels.PanelEmpleadoModificar;
 import vista.panels.PanelEntradaLote;
 import vista.panels.PanelImagenRefaccionDetalle;
+import vista.panels.PanelMaquinaAsignarNumeros;
 import vista.panels.PanelMaquinaModeloAgregar;
 import vista.panels.PanelMaquinaModeloModificar;
 import vista.panels.PanelProveedorModificar;
@@ -88,6 +89,7 @@ public class Coordinador {
     private PanelSalidaDeLote panelSalidaDeLote;
     private PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes;
     private PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarDeLote;
+    private PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros;
     
     private ControladorActualizacionGUI_BD controladorActualizacionGUI_BD;
     
@@ -113,6 +115,14 @@ public class Coordinador {
     GETS AND SETS
     ////////////////////////////////////////////////////////////////////////
      */
+
+    public PanelMaquinaAsignarNumeros getPanelMaquinaAsignarNumeros() {
+        return panelMaquinaAsignarNumeros;
+    }
+
+    public void setPanelMaquinaAsignarNumeros(PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros) {
+        this.panelMaquinaAsignarNumeros = panelMaquinaAsignarNumeros;
+    }
 
     public ControladorActualizacionGUI_BD getControladorActualizacionGUI_BD() {
         return controladorActualizacionGUI_BD;
@@ -1268,9 +1278,24 @@ public class Coordinador {
     ========================================================================
     */
     
-    
-    
-    
+    /* 
+    ========================================================================
+       INICIO DE IMPORTANCIA
+    ////////////////////////////////////////////////////////////////////////
+    */
+
+        public List<ImportanciaVo> importanciaConsultar() {
+            return this.logica.importanciaConsultar();
+
+        }
+    /* 
+        
+        
+      /* ////////////////////////////////////////////////////////////////////////
+        FIN DE IMPORTANCIA
+    ========================================================================
+    */
+   
     /* 
     ========================================================================
        INICIO DE ACTUALIZACIONES DE TABLA
@@ -1300,31 +1325,33 @@ public class Coordinador {
     }
     
     
-    
-//        FIN DE ACTUALIZACIONES DE TABLA
-//    ========================================================================
-//    */
-//    
-    
+    /*
+        FIN DE ACTUALIZACIONES DE TABLA
+    ========================================================================
+    */
    
-    
     /* 
     ========================================================================
        INICIO DE ALGO
     ////////////////////////////////////////////////////////////////////////
     */
-    /* 
+    
+     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE ALGO
     ========================================================================
     */
 
-    public List<ImportanciaVo> importanciaConsultar() {
-        return this.logica.importanciaConsultar();
-
+    /**
+     * Abre el dialogo que permite registrar y asignar números a máquinas para 
+     * manejarlas independientemente de maquina-modelos.
+     */
+    public void maquinaAbrirDialogoAsignarNúmeros(){
+        JDialogBase d = coordinadorPaneles
+                .ifContainsReturnElseCreate(panelMaquinaAsignarNumeros);
+        d.setVisible(true);
     }
-
-   
+    
     
     
 }

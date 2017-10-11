@@ -85,6 +85,11 @@ public class CoordinadorPaneles {
      */
     public static final String PANEL_EMPLEADO_MODIFICAR = "Modificar empleado";
     
+    /**
+     * Nombre del panel maquina asignar números.  
+     */
+    public static final String PANEL_MAQUINA_ASIGNAR_NUMERO = "Asignar número de máquina.";
+    
     private final HashMap<JPanelBase, JDialogBase> dialogosAbiertos;
 
     public CoordinadorPaneles() {

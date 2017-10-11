@@ -5,6 +5,9 @@
  */
 package vista.panels;
 
+import controlador.CoordinadorPaneles;
+import javax.swing.JDialog;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
 
 /**
@@ -20,6 +23,12 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
      */
     public PanelMaquinaAsignarNumeros() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_PROVEEDOR_MODIFICAR);
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 
     /**
