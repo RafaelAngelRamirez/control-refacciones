@@ -49,6 +49,7 @@ public class PanelRefaccionModificar extends JPanelBase {
 
     private static final long serialVersionUID = 1L;
     private int idModificandoseActualmente;
+    private boolean unaSolaRefaccion;
     
     UtilidadesJXViewImage_ _ImagenesRefacciones;
     UtilidadesComboBox_ _ComboUnidad;
@@ -76,11 +77,10 @@ public class PanelRefaccionModificar extends JPanelBase {
     public PanelRefaccionModificar() {
         initComponents();
     }
+    
 
     @Override
     public void initConfig() {
-        
-        JOptionPane.showMessageDialog(null, "here is initconfig lounch");
         
         RefaccionIT rit = new RefaccionIT();
         ProveedorIT pit = new ProveedorIT();
@@ -268,6 +268,15 @@ public class PanelRefaccionModificar extends JPanelBase {
             FIN SETEO DE UTILIDADES
         ========================================================================
         */
+    }
+
+    /**
+     * True para definir que es una sola refacción y que no se ejecuta de nuevo
+     * la operación que carga las refacciónes pendientes. 
+     * @param unaSolaRefaccion
+     */
+    public void setUnaSolaRefaccion(boolean unaSolaRefaccion) {
+        this.unaSolaRefaccion = unaSolaRefaccion;
     }
     
     
@@ -820,6 +829,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         checkEsDeConsumoUnico = new javax.swing.JCheckBox();
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        etiquetaNombreDeLaRefaccion1 = new javax.swing.JLabel();
 
         etiquetaNombreDeLaRefaccion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion.setText("Nombre de la refaccion");
@@ -842,6 +852,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         txtDescripcion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(1);
+        txtDescripcion.setWrapStyleWord(true);
         txtDescripcion.setFocusCycleRoot(true);
         txtDescripcion.setFocusTraversalPolicyProvider(true);
         jScrollPane1.setViewportView(txtDescripcion);
@@ -1043,6 +1054,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         txtQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtQueEs.setLineWrap(true);
         txtQueEs.setRows(1);
+        txtQueEs.setWrapStyleWord(true);
         txtQueEs.setFocusCycleRoot(true);
         txtQueEs.setFocusTraversalPolicyProvider(true);
         jScrollPane2.setViewportView(txtQueEs);
@@ -1057,6 +1069,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         txtParaQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtParaQueEs.setLineWrap(true);
         txtParaQueEs.setRows(1);
+        txtParaQueEs.setWrapStyleWord(true);
         txtParaQueEs.setFocusCycleRoot(true);
         txtParaQueEs.setFocusTraversalPolicyProvider(true);
         jScrollPane7.setViewportView(txtParaQueEs);
@@ -1097,146 +1110,156 @@ public class PanelRefaccionModificar extends JPanelBase {
         checkEsDeConsumoUnico.setFont(new java.awt.Font("Calibri Light", 0, 16)); // NOI18N
         checkEsDeConsumoUnico.setText("Es de consumo único.");
 
+        etiquetaNombreDeLaRefaccion1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaNombreDeLaRefaccion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_agregar refaccion copia.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(7, 7, 7)
+                                        .addComponent(etiquetaMaquinas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(174, 174, 174)
+                                        .addComponent(etiquetaImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(168, 168, 168)
+                                .addComponent(filler7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(647, 647, 647)
+                                .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(647, 647, 647)
+                                .addComponent(etiquetaStockMax))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(264, 264, 264)
+                                .addComponent(radioMedia))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(272, 272, 272)
+                                .addComponent(etiquetaAsignados, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(647, 647, 647)
+                                .addComponent(etiquetaUnidad))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(272, 272, 272)
+                                .addComponent(etiquetaCompatibles, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(266, 266, 266)
+                                .addComponent(filler6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(647, 647, 647)
+                                .addComponent(etiquetaDeQueEstaEcho))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(445, 445, 445)
+                                .addComponent(etiquetaCodigoInterno))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(647, 647, 647)
+                                .addComponent(comboMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(272, 272, 272)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(445, 445, 445)
+                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(btnAgregarNuevProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(445, 445, 445)
+                                .addComponent(etiquetaDescripcion))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(445, 445, 445)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(445, 445, 445)
+                                .addComponent(etiquetaParaQueEs))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(445, 445, 445)
+                                .addComponent(txtCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
-                                .addComponent(etiquetaMaquinas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(etiquetaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(174, 174, 174)
-                                .addComponent(etiquetaImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(168, 168, 168)
-                        .addComponent(filler7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(647, 647, 647)
-                        .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(647, 647, 647)
-                        .addComponent(etiquetaStockMax))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(264, 264, 264)
-                        .addComponent(radioMedia))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(272, 272, 272)
-                        .addComponent(etiquetaAsignados, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(647, 647, 647)
-                        .addComponent(etiquetaUnidad))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(272, 272, 272)
-                        .addComponent(etiquetaCompatibles, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(266, 266, 266)
-                        .addComponent(filler6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(647, 647, 647)
-                        .addComponent(etiquetaDeQueEstaEcho))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(etiquetaCodigoInterno))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(647, 647, 647)
-                        .addComponent(comboMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(272, 272, 272)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(btnAgregarNuevProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(etiquetaDescripcion))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(etiquetaParaQueEs))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(txtCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(etiquetaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(radioAkta))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(272, 272, 272)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(etiquetaNombreDeLaRefaccion)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(etiquetaStockMin))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(etiquetaCodigoDelProveedor))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(354, 354, 354)
-                        .addComponent(radioBaja))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(etiquetaQueEs))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
-                        .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(184, 184, 184)
+                                .addComponent(radioAkta))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(etiquetaRefaccionesPendientesPorModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(287, 287, 287)
-                                .addComponent(checkEsDeConsumoUnico)
-                                .addGap(3, 3, 3)
-                                .addComponent(btnCancelar)
-                                .addGap(11, 11, 11)
-                                .addComponent(btnGuardar))
+                                .addGap(272, 272, 272)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(etiquetaNombreDeLaRefaccion)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAgregarNuevaMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(291, 291, 291)
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(445, 445, 445)
+                                .addComponent(etiquetaStockMin))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(209, 209, 209)
-                                .addComponent(comboUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(445, 445, 445)
+                                .addComponent(etiquetaCodigoDelProveedor))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(445, 445, 445)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(354, 354, 354)
+                                .addComponent(radioBaja))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(445, 445, 445)
+                                .addComponent(etiquetaQueEs))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(445, 445, 445)
+                                .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(etiquetaRefaccionesPendientesPorModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(287, 287, 287)
+                                        .addComponent(checkEsDeConsumoUnico)
+                                        .addGap(3, 3, 3)
+                                        .addComponent(btnCancelar)
+                                        .addGap(11, 11, 11)
+                                        .addComponent(btnGuardar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnAgregarNuevaMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(291, 291, 291)
+                                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(209, 209, 209)
+                                        .addComponent(comboUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(7, 7, 7)
+                                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(8, 8, 8)
+                .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
@@ -1353,8 +1376,7 @@ public class PanelRefaccionModificar extends JPanelBase {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(checkEsDeConsumoUnico))
-                    .addComponent(etiquetaRefaccionesPendientesPorModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(etiquetaRefaccionesPendientesPorModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1685,16 +1707,21 @@ public class PanelRefaccionModificar extends JPanelBase {
             getCoordinador().relacionRefaccionMaquinaModeloModificarLista(listarrmmVo);
             getCoordinador().relacionRefaccionProveedorModificarLista(listarrpVo);
             
-            
-            
-            
             limpiarTodo();
-//            this.getCoordinador().refaccionActualizarPanelConsultaRefacciones();
             getCoordinador().actualizarTodoLoVisible();
             JOptionPane.showMessageDialog(
                     getCoordinador().getMarcoParaVentanaPrincipal(),
                     "Se actualizo la refaccción correctamente.");
-            this.getCoordinador().refaccionAbrirPanelModificar();
+            //SI SE PUSO EN TRUE ENTONCES YA NO REVISAMOS SI HAY MÁS REFACCIONES
+            // POR MODIFICAR Y ABRIRMOS LA CONSULTA DE REFACCIONES. 
+            if (unaSolaRefaccion) {
+                unaSolaRefaccion = false;
+                getCoordinador().refaccionAbrirPanelConsultaRefacciones();
+            }else{
+            //SIRVE PARA ITERAR SOBRE LA LISTA QUE CONTIENE LAS RERFACCIONES 
+            // SELECCIONADAS PARA MODIFICAR.
+                this.getCoordinador().refaccionAbrirPanelModificar();
+            }
         }
     }
     
@@ -1756,6 +1783,7 @@ public class PanelRefaccionModificar extends JPanelBase {
     private javax.swing.JLabel etiquetaImportancia;
     private javax.swing.JLabel etiquetaMaquinas;
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion;
+    private javax.swing.JLabel etiquetaNombreDeLaRefaccion1;
     private javax.swing.JLabel etiquetaParaQueEs;
     private javax.swing.JLabel etiquetaProveedores;
     private javax.swing.JLabel etiquetaQueEs;

@@ -1389,9 +1389,7 @@ public class PanelSalidaDeLote extends vista.UtilidadesIntefaz.JPanelBase {
      */
     public void comprobarLarefaccion(RefaccionVo vo){
         //SI EL CUADRO DE BUSQUEDA NO ESTA VACIO CONTINUAMOS. 
-        if (_txtBusqueda.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No has escrito nada en el cuadro de busqueda.");
-        } else {
+        if (!_txtBusqueda.isEmpty()) {
             //HAY UNA REFACCION CARGADA
             if(voMostrandose!=null){
                 float existencia = this.getCoordinador().entradaLoteExistencia(vo.getId());

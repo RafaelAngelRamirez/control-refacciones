@@ -8,6 +8,7 @@ package vista.panels;
 import controlador.CoordinadorPaneles;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.ButtonGroup;
@@ -24,6 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.InfoTabla.*;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenRefaccionVo;
+import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.ProveedorVo;
@@ -268,6 +270,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaMaquinaModelo);
         opAct.add(UnidadIT.NOMBRE_TABLA, this::cargarComboUnidad);
         opAct.add(MaterialIT.NOMBRE_TABLA, this::cargarComboMaterial);
+        opAct.add(ImportanciaIT.NOMBRE_TABLA, this::cargarCheck);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -283,6 +286,18 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
     public void setTxtDescripcion(JTextArea txtDescripcion) {
         this.txtDescripcion = txtDescripcion;
+    }
+    
+    public void cargarCheck(){
+        
+        List<ImportanciaVo> listImportanciaVo = getCoordinador().importanciaConsultar();
+        listImportanciaVo.sort(Comparator.comparing(ImportanciaVo::getImportancia));
+        
+        int cont = 0;
+        for (JRadioButton r : _RadioImportancia.getRadios()) {
+            r.setText(listImportanciaVo.get(cont).getImportancia());
+            cont++;
+        }
     }
     
     public void cargarListaProveedor(){
@@ -736,6 +751,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         txtDescripcion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(1);
+        txtDescripcion.setWrapStyleWord(true);
         txtDescripcion.setFocusCycleRoot(true);
         txtDescripcion.setFocusTraversalPolicyProvider(true);
         jScrollPane1.setViewportView(txtDescripcion);
@@ -937,6 +953,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         txtQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtQueEs.setLineWrap(true);
         txtQueEs.setRows(1);
+        txtQueEs.setWrapStyleWord(true);
         txtQueEs.setFocusCycleRoot(true);
         txtQueEs.setFocusTraversalPolicyProvider(true);
         jScrollPane2.setViewportView(txtQueEs);
@@ -951,6 +968,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         txtParaQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtParaQueEs.setLineWrap(true);
         txtParaQueEs.setRows(1);
+        txtParaQueEs.setWrapStyleWord(true);
         txtParaQueEs.setFocusCycleRoot(true);
         txtParaQueEs.setFocusTraversalPolicyProvider(true);
         jScrollPane7.setViewportView(txtParaQueEs);
@@ -1285,13 +1303,13 @@ public class PanelRefaccionAgregar extends JPanelBase {
         rVo.setIdMaterial(_ComboMaterial.getSelectedItem_idRetorno());
 
         switch(_RadioImportancia.getText()){
-             case "Alta":
+             case "ALTA":
                  rVo.setImportancia(1);
                  break;
-             case "Media":
+             case "MEDIA":
                  rVo.setImportancia(2);
                  break;
-            case "Baja":
+            case "BAJA":
                  rVo.setImportancia(3);
                  break;
             default:

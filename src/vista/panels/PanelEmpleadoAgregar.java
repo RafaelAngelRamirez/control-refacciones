@@ -361,6 +361,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
                     this.dispose();
                     
                 }
+                getCoordinador().actualizarTodoLoVisible();
             }else{
                 JOptionPane.showMessageDialog(this, 
                         "Algo sucedio y no se guardo el empleado.", 

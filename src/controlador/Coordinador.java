@@ -651,6 +651,7 @@ public class Coordinador {
                 if (refaccionesPorModificarId.isEmpty()) {
                     refaccionesPorModificarId = this.getPanelRefaccionConsulta().getIdSeleccionados();
                 }
+                JOptionPane.showMessageDialog(null, "arrayDeque: "+refaccionesPorModificarId.toString());
                 // SI refaccionesPorModificarId NO ESTA VACIO ENTONCES QUIERE
                 //DECIR QUE SE SELECCIONARON ELEMENTOS DE LA TABLA.
                 if (!refaccionesPorModificarId.isEmpty()) {
@@ -670,7 +671,7 @@ public class Coordinador {
                     }
                 }else{
                     //LO PONEMOS ASI POR QUE SI. xp
-                    this.refaccionAbrirPanelConsultaRefacciones();
+//                    this.refaccionAbrirPanelConsultaRefacciones();
                     JOptionPane.showMessageDialog(this.getMarcoParaVentanaPrincipal(),
                             "Debes seleccionar por lo menos una refacción de la tabla.");
                 }
@@ -698,13 +699,18 @@ public class Coordinador {
     
     /**
      * Abre el panel para modificar la refacción que se le pase como parametro.
+     * Si la refacción es única se ponde en True, así no ejecuta de nuevo la operación
+     * para revisar si hay nuevas operaciones. 
      * @param idRefaccion El id de la refacción que se quiere modificar. 
+     * @param esUnica 
      */
-
-    public void refaccionAbrirPanelModificar(int idRefaccion){
+    public void refaccionAbrirPanelModificar(int idRefaccion, boolean esUnica){
         coordinadorPaneles.setJPanel(getPanelRefaccionModificar());
+        getPanelRefaccionModificar().setUnaSolaRefaccion(esUnica);
         this.getPanelRefaccionModificar().configurar(idRefaccion, 0);
     }
+    
+    
        
     
     public void refaccionAbrirPanelConsultaRefacciones(){

@@ -355,6 +355,7 @@
             </Property>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="1"/>
+            <Property name="wrapStyleWord" type="boolean" value="true"/>
             <Property name="focusCycleRoot" type="boolean" value="true"/>
             <Property name="focusTraversalPolicyProvider" type="boolean" value="true"/>
           </Properties>
@@ -778,6 +779,7 @@
             </Property>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="1"/>
+            <Property name="wrapStyleWord" type="boolean" value="true"/>
             <Property name="focusCycleRoot" type="boolean" value="true"/>
             <Property name="focusTraversalPolicyProvider" type="boolean" value="true"/>
           </Properties>
@@ -815,6 +817,7 @@
             </Property>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="1"/>
+            <Property name="wrapStyleWord" type="boolean" value="true"/>
             <Property name="focusCycleRoot" type="boolean" value="true"/>
             <Property name="focusTraversalPolicyProvider" type="boolean" value="true"/>
           </Properties>

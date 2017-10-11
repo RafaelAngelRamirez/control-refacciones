@@ -41,6 +41,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
 
     private static final long serialVersionUID = 1L;
     private int idRefaccion;
+
     private List<ImagenRefaccionVo> listaImagenesRefaccion;
     
     private UtilidadesJXViewImage_ _ImagenesRefacciones;
@@ -76,6 +77,8 @@ public class PanelRefaccionDetalle extends JPanelBase {
         
         
     }
+    
+    
 
     @Override
     public void initConfig() {
@@ -298,6 +301,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
     }
     
     public void cargarProveedores(){
+        _ListaProveedor.limpiar();
         if (idRefaccion!=-1) {
             List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
             HashMap<String, Object> pvoMapa = new HashMap<>();
@@ -310,6 +314,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
     }
     
     public void cargarMaquinaModelo(){
+        _ListaMaquinaModelo.limpiar();
         if (idRefaccion!=-1) {
             List<RelacionRefaccionMaquinaModeloVo> lmmvo = this.getCoordinador().maquinaModeloConsultar(idRefaccion);
                 HashMap<String, Object> mmvoMapa = new HashMap<>();
@@ -612,6 +617,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         txtDescripcion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(1);
+        txtDescripcion.setWrapStyleWord(true);
         txtDescripcion.setFocusCycleRoot(true);
         txtDescripcion.setFocusTraversalPolicyProvider(true);
         txtDescripcion.setFocusable(false);
@@ -648,6 +654,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         txtQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtQueEs.setLineWrap(true);
         txtQueEs.setRows(1);
+        txtQueEs.setWrapStyleWord(true);
         txtQueEs.setFocusCycleRoot(true);
         txtQueEs.setFocusTraversalPolicyProvider(true);
         txtQueEs.setFocusable(false);
@@ -670,6 +677,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         txtParaQueEs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtParaQueEs.setLineWrap(true);
         txtParaQueEs.setRows(1);
+        txtParaQueEs.setWrapStyleWord(true);
         txtParaQueEs.setFocusCycleRoot(true);
         txtParaQueEs.setFocusTraversalPolicyProvider(true);
         txtParaQueEs.setFocusable(false);
@@ -1038,53 +1046,9 @@ public class PanelRefaccionDetalle extends JPanelBase {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         this.dispose();
-        this.getCoordinador().refaccionAbrirPanelModificar(idRefaccion);
+        
+        this.getCoordinador().refaccionAbrirPanelModificar(idRefaccion, true);
     }//GEN-LAST:event_btnModificarActionPerformed
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificar;
@@ -1131,7 +1095,5 @@ public class PanelRefaccionDetalle extends JPanelBase {
     private javax.swing.JTextField txtStockMin;
     private javax.swing.JTextField txtUnidad;
     // End of variables declaration//GEN-END:variables
-
-    
 
 }
