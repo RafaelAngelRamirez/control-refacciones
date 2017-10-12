@@ -54,7 +54,12 @@ public class MaquinaDao extends DAOGenerales{
         
         return listVo;
     }
-
+    
+     /**
+     * Elimina la máquina seleccionada y todo lo que este relacionada con ella. 
+     * @param vo La máquina que se quiere eliminar. 
+     * @return True si se elimino correctamente. 
+     */
     public boolean eliminar(MaquinaVo vo) {
         conexion = new Conexion(coordinador);
         String sql = "DELETE FROM " + MaquinaIT.NOMBRE_TABLA 
@@ -62,8 +67,47 @@ public class MaquinaDao extends DAOGenerales{
                it.getIdPDC().getNombre()+" = ?";
         
         return conexion.executeUpdate(sql, vo.getId());
+    }
+
+    /**
+     * Comprueba si la refacción existe. A diferencia de {@see maquinaRepetido}
+     * esta comprueba solo si la refacción que se le pase existe más de una vez
+     * incluida la misma que se le pase.
+     * 
+     * Sirve para comprobar si se modifica la máquina o se agrega una nueva. 
+     * 
+     * @param vo La refacción que se comprobara si esta repetida. 
+     * @return True si esta repetida. 
+     */
+    public boolean existe(MaquinaVo vo) {
+        conexion = new Conexion(coordinador);
+        String sql = "SELECT COUNT(*) FROM " + MaquinaIT.NOMBRE_TABLA
+                +" WHERE "+
+                it.getNumeroDeMaquinaPDC().getNombre() +" = ?";
         
-       
+        ResultSet r = conexion.executeQuery(sql, vo.getNumeroDeMáquina());
+        try {
+            r.next();
+            if (r.getInt(1)>0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MaquinaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+     /**
+     * Revisa que la máquina no este repetida sin incluirse a ella misma. 
+     * @param vo La máquina que se quiere comparar.
+     * @return True si existe repetido. 
+     */
+    public boolean repetido(MaquinaVo vo) {
+        conexion = new Conexion(coordinador);
+        String sql = "SELECT COUNT(*) FROM " + MaquinaIT.NOMBRE_TABLA
+                + " WHERE "+
+                it.getIdPDC().getNombre()+" <> ?";
+        return conexion.executeUpdate(sql, vo.getId());
     }
     
     

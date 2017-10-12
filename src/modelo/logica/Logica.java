@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import modelo.FicherosOperaciones;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
+import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ParametrosDeCampo;
 import modelo.InfoTabla.ProveedorIT;
@@ -1340,6 +1341,49 @@ public class Logica {
     public boolean maquinaEliminar(MaquinaVo vo) {
         MaquinaDao d = new MaquinaDao(coordinador);
         return d.eliminar(vo);
+    }
+    
+    
+    /**
+     * Comprueba si la refacción existe. A diferencia de {@see maquinaRepetido}
+     * esta comprueba solo si la refacción que se le pase existe más de una vez
+     * incluida la misma que se le pase.
+     * 
+     * Sirve para comprobar si se modifica la máquina o se agrega una nueva. 
+     * 
+     * @param vo La refacción que se comprobara si esta repetida. 
+     * @return True si esta repetida. 
+     */
+    public boolean maquinaExiste(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.existe(vo);
+    }
+
+    public List<Validacion> maquinaValidadCampos(MaquinaVo vo) {
+        
+        MaquinaIT it = new MaquinaIT();
+        List<ParametrosDeCampo> campos = it.getCamposPDC();
+        List<Validacion> listVal = new ArrayList<>();
+        for (ParametrosDeCampo campo : campos) {
+            if (campo.getNombre().equals(it.getNumeroDeMaquinaPDC())) {
+                Validacion a = new Validacion();
+                a.setNombreDeCampo(campo);
+                if (maquinaRepetido(vo)) {
+                    a.setValido(false);
+                    a.setMensajeDeError("El número o nombre que asiganaste a la máquina ya esta relacionado con otra máquina.");
+                }else{
+                    a.setValido(true);
+                }
+                listVal.add(a);
+            }
+        }
+        return listVal;
+    }
+
+    public boolean maquinaRepetido(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.repetido(vo);
+        
     }
 
     

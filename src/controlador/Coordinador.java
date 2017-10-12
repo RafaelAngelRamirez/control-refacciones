@@ -1369,7 +1369,37 @@ public class Coordinador {
     public boolean maquinaEliminar(MaquinaVo vo) {
         return logica.maquinaEliminar(vo);
     }
+
+    /**
+     * Comprueba si la refacción existe. A diferencia de {@see maquinaRepetido}
+     * esta comprueba solo si la refacción que se le pase existe más de una vez
+     * incluida la misma que se le pase.
+     * 
+     * Sirve para comprobar si se modifica la máquina o se agrega una nueva. 
+     * 
+     * @param vo La refacción que se comprobara si esta repetida. 
+     * @return True si esta repetida. 
+     */
+    public boolean maquinaExiste(MaquinaVo vo) {
+        return logica.maquinaExiste(vo);
+    }
+
+    /**
+     * Valida que los campos cumplan las condiciones para almacenarse o modificarse. 
+     * 
+     * @param vo
+     * @return
+     */
+    public List<Validacion> maquinaValidarCampos(MaquinaVo vo) {
+        return logica.maquinaValidadCampos(vo);
+    }
     
-    
-    
+    /**
+     * Revisa que la máquina no este repetida sin incluirse a ella misma. 
+     * @param vo La máquina que se quiere comparar.
+     * @return True si existe repetido. 
+     */
+    public boolean maquinaRepetido(MaquinaVo vo) {
+        return logica.maquinaRepetido(vo);
+    }
 }

@@ -295,7 +295,7 @@ public class Conexion {
      * 
      * 
      */
-    public ResultSet executeQuery (String sql, String dato){
+    public ResultSet executeQuery (String sql, Object dato){
         //PARA FACILITAR LAS CONSULTAS CUANDO SOLO SEA UN DATO.
         HashMap<Integer, Object> datos = new HashMap<>();
         datos.put(1, dato);
