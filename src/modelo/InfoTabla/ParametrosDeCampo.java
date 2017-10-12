@@ -1,10 +1,10 @@
 
 package modelo.InfoTabla;
-import modelo.ExcepcionPersonalizada;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.ExcepcionPersonalizada;
 /**
  * Esta clase maneja guarda los parametros del campo que tienen que coincidir 
  * con los de la base de datos. 
@@ -33,6 +33,7 @@ public class ParametrosDeCampo {
     tiposDeDatoEnLaBD.add("float");
     tiposDeDatoEnLaBD.add("int");
     tiposDeDatoEnLaBD.add("date");
+    tiposDeDatoEnLaBD.add("datetime");
     tiposDeDatoEnLaBD.add("boolean");
     tiposDeDatoEnLaBD.add("longint");
     tiposDeDatoEnLaBD.add("byte");

@@ -412,9 +412,9 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             if (modOGuar) {
                 //MODIFICAMOS LA REFACCIÓN. 
                 if (getCoordinador().maquinaModificar(vo)) {
+                    
                     MaquinaHistorialNombresVO mhnVo = new MaquinaHistorialNombresVO();
-                    
-                    
+                    mhnVo
                     getCoordinador().maquinaHistorialNombres(vo);
                     getCoordinador().actualizarTodoLoVisible();
                     JOptionPane.showMessageDialog(this, "Se modificó correctamente la máquina.");

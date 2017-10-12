@@ -13,44 +13,61 @@ public class MaquinaHistorialNombresIT extends ITGenerales{
     
     public static final String NOMBRE_TABLA = "maquinahistorialnombres";
     
-    private ParametrosDeCampo idMaquina = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreAnterior = new ParametrosDeCampo();
+    private ParametrosDeCampo idMaquinaPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo nombreAnteriorPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo fechaDeCambioPDC = new ParametrosDeCampo();
 
     public MaquinaHistorialNombresIT() {
         
-        idMaquina.setNombre("idMaquina");
-        idMaquina.setLongitudDeCaracteres(11);
-        idMaquina.setTipoDeDatos("int");
-        idMaquina.setNulo(false);
-        idMaquina.setAutoIncrement(false);
-        idMaquina.setPermiteRepetido(true);
+        idMaquinaPDC.setNombre("idMaquina");
+        idMaquinaPDC.setLongitudDeCaracteres(11);
+        idMaquinaPDC.setTipoDeDatos("int");
+        idMaquinaPDC.setNulo(false);
+        idMaquinaPDC.setAutoIncrement(false);
+        idMaquinaPDC.setPermiteRepetido(true);
         
-        nombreAnterior.setNombre("nombre");
-        nombreAnterior.setLongitudDeCaracteres(50);
-        nombreAnterior.setTipoDeDatos("varchar");
-        nombreAnterior.setNulo(false);
-        nombreAnterior.setAutoIncrement(false);
-        nombreAnterior.setPermiteRepetido(true);
+        nombreAnteriorPDC.setNombre("nombre");
+        nombreAnteriorPDC.setLongitudDeCaracteres(50);
+        nombreAnteriorPDC.setTipoDeDatos("varchar");
+        nombreAnteriorPDC.setNulo(false);
+        nombreAnteriorPDC.setAutoIncrement(false);
+        nombreAnteriorPDC.setPermiteRepetido(true);
         
-        camposPDC.add(idMaquina);
-        camposPDC.add(nombreAnterior);
+        fechaDeCambioPDC.setNombre("fechaDeCambio");
+        fechaDeCambioPDC.setLongitudDeCaracteres(50);
+        fechaDeCambioPDC.setTipoDeDatos("datetime");
+        fechaDeCambioPDC.setNulo(false);
+        fechaDeCambioPDC.setAutoIncrement(false);
+        fechaDeCambioPDC.setPermiteRepetido(true);
+        
+        camposPDC.add(idMaquinaPDC);
+        camposPDC.add(nombreAnteriorPDC);
+        camposPDC.add(fechaDeCambioPDC);
         
     }
 
-    public ParametrosDeCampo getIdMaquina() {
-        return idMaquina;
+    public ParametrosDeCampo getFechaDeCambioPDC() {
+        return fechaDeCambioPDC;
     }
 
-    public void setIdMaquina(ParametrosDeCampo idMaquina) {
-        this.idMaquina = idMaquina;
+    public void setFechaDeCambioPDC(ParametrosDeCampo fechaDeCambioPDC) {
+        this.fechaDeCambioPDC = fechaDeCambioPDC;
+    }
+    
+    public ParametrosDeCampo getIdMaquinaPDC() {
+        return idMaquinaPDC;
     }
 
-    public ParametrosDeCampo getNombreAnterior() {
-        return nombreAnterior;
+    public void setIdMaquinaPDC(ParametrosDeCampo idMaquinaPDC) {
+        this.idMaquinaPDC = idMaquinaPDC;
     }
 
-    public void setNombreAnterior(ParametrosDeCampo nombreAnterior) {
-        this.nombreAnterior = nombreAnterior;
+    public ParametrosDeCampo getNombreAnteriorPDC() {
+        return nombreAnteriorPDC;
+    }
+
+    public void setNombreAnteriorPDC(ParametrosDeCampo nombreAnteriorPDC) {
+        this.nombreAnteriorPDC = nombreAnteriorPDC;
     }
     
 }

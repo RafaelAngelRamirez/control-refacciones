@@ -42,6 +42,7 @@ public class MaquinaIT extends ITGenerales{
         camposPDC.add(idMaquinaModeloPDC);
         camposPDC.add(numeroDeMaquinaPDC);
         
+        
     }
 
     public ParametrosDeCampo getIdPDC() {
