@@ -6,9 +6,19 @@
 package vista.panels;
 
 import controlador.CoordinadorPaneles;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import modelo.InfoTabla.MaquinaIT;
+import modelo.InfoTabla.MaquinaModeloIT;
+import modelo.logica.Validacion;
+import modelo.vo.EntradaLoteVo;
+import modelo.vo.MaquinaModeloVo;
+import modelo.vo.MaquinaVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
@@ -56,7 +66,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        etiquetaEmpresa = new javax.swing.JLabel();
+        etiquetaNombre = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
         comboModelos = new javax.swing.JComboBox<>();
         etiquetaPais = new javax.swing.JLabel();
@@ -95,8 +105,8 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             }
         });
 
-        etiquetaEmpresa.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaEmpresa.setText("Número");
+        etiquetaNombre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaNombre.setText("Número");
 
         txtNumero.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtNumero.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -108,7 +118,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         comboModelos.setMinimumSize(new java.awt.Dimension(195, 32));
 
         etiquetaPais.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaPais.setText("Modelos");
+        etiquetaPais.setText("Modelo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -128,7 +138,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                     .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaEmpresa)
+                            .addComponent(etiquetaNombre)
                             .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +157,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(etiquetaPais)
-                            .addComponent(etiquetaEmpresa))
+                            .addComponent(etiquetaNombre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(comboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,8 +172,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
-      
+        guardarMaquina();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -171,7 +180,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       
+       this.eliminarMaquina();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
@@ -180,7 +189,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> comboModelos;
-    private javax.swing.JLabel etiquetaEmpresa;
+    private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion1;
     private javax.swing.JLabel etiquetaPais;
     private javax.swing.JScrollPane jScrollPane5;
@@ -200,7 +209,8 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             INICIO SETEO NOMBRES DE ETIQUETA
         ///////////////////////////////////////////////////////////////////////
         */
-        
+        MaquinaIT it = new MaquinaIT();
+        etiquetaNombre.setText(it.getNumeroDeMaquinaPDC().getNombreParaMostrar());
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -228,25 +238,42 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         
         
         //ASIGNAMOS EL TAMAÑO DE CAMPO
-        
-        
+        _txtNombre.setTamanoDeCampo(it.getNumeroDeMaquinaPDC().getLongitudDeCaracteres());
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
-        
+        _txtNombre.setPermitirSoloMayusculas();
         
         //CAMPOS NUMÉRICOS
         
         
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
+        _txtNombre.setEspaciosEnBlanco();
+
         //TRAVEL POLICY
+        _txtNombre.setNextFocusableComponent(_comboMaquinaModelo.getThis());
+        _comboMaquinaModelo.setNextFocusableComponent(btnGuardar);
+        btnGuardar.setNextFocusableComponent(btnCancelar);
+        btnCancelar.setNextFocusableComponent(btnEliminar);
+        btnEliminar.setNextFocusableComponent(_txtNombre.getThis());
+        
+        
         
         //ACCIONES ESPECELIALES.
-        
+        _listaMaquinas.setValueChange(this::cargarDatosDeListaParaModificar);
         
         
         //ACCIONES DE BOTONES
+        UtilidadesBotones_.setEnterYEspacio(btnCancelar);
+        UtilidadesBotones_.setEnterYEspacio(btnEliminar);
+        UtilidadesBotones_.setEnterYEspacio(btnGuardar);
+        
         
         //OPERACIONES DE ACTUALIZACION
+        
+        opAct.add(MaquinaIT.NOMBRE_TABLA, this::cargarLista);
+        opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarCombo);
+        
+        
         /* 
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO DE UTILIDADES
@@ -257,10 +284,155 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
 
     @Override
     public void configurar() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void limpiarTodo() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        _txtNombre.setText();
+        _comboMaquinaModelo.limpiar();
+        _listaMaquinas.limpiar();
+    }
+    
+    
+    /**
+     * Carga las máquinas existententes de la lista a los campos para modificarlos. 
+     * 
+     */
+    public void cargarDatosDeListaParaModificar(){
+        Object o = _listaMaquinas.getSelectValueId();
+        if (!o.equals(-1)) {
+            MaquinaVo vo = (MaquinaVo)o;
+            _txtNombre.setText(vo.getNumeroDeMáquina());
+            _comboMaquinaModelo.setSelectedItem(vo.getIdMaquinaModelo());
+        }
+    }
+    
+    /**
+     * Carga las máquinas en la lista. 
+     */
+    public void cargarLista(){
+        _listaMaquinas.limpiar();
+        List<MaquinaVo> list = getCoordinador().maquinaConsultar();
+        
+        HashMap<String, Object> mapa = new HashMap<>();
+        for (MaquinaVo vo : list) {
+            mapa.put(vo.getNumeroDeMáquina(), vo);
+        }
+        _listaMaquinas.cargarLista(mapa);
+        
+    }
+    
+    /**
+     * Carga los modelos en el combo. 
+     */
+    public void cargarCombo(){
+        _comboMaquinaModelo.limpiar();
+        List<MaquinaModeloVo> list = getCoordinador().maquinaModeloConsultar();
+        HashMap<String, Object> mapa = new HashMap<>();
+        
+        for (MaquinaModeloVo vo : list) {
+            mapa.put(vo.getModelo()+" "+vo.getAnio(), vo);
+        }
+    }
+
+    private void eliminarMaquina() {
+        Object o = _listaMaquinas.getSelectValueId();
+        if (!o.equals(-1)) {
+            MaquinaVo vo = (MaquinaVo) o;
+            int r = JOptionPane.showConfirmDialog(
+                    this,
+                    "¿Estas segúro que quieres eliminar la máquina "
+                            + "\""+vo.getNumeroDeMáquina()+"\". \n"
+                            + "Esta acción no se puede deshacer y eliminara "
+                                    + "todos los registros relacionados con esta máquina. .",
+                    "¿Eliminar la máquina?",
+                    JOptionPane.YES_NO_OPTION);
+            if (r==JOptionPane.YES_OPTION) {
+                if(getCoordinador().maquinaEliminar(idActual)){
+                    getCoordinador().actualizarTodoLoVisible();
+                    JOptionPane.showMessageDialog(this, "Se elimino la máquina correctamente.");
+                }
+            }
+        }
+    }
+
+    private void guardarMaquina() {
+        boolean todoValido = true;
+        MaquinaVo vo = new MaquinaVo();
+        
+        if (_txtNombre.isEmpty()) {
+            _txtNombre.setError("Debes definir un número o nombre.");
+            todoValido = false;
+        }else{
+            _txtNombre.setErrorQuitar();
+            todoValido = true;
+        }
+        boolean modOGuar = true;
+        List<Validacion> listValidacion;
+        if (todoValido) {
+            vo.setNumeroDeMáquina(_txtNombre.getText());
+            if (getCoordinador().maquinaExiste(vo)) {
+                MaquinaVo v = (MaquinaVo) _listaMaquinas.getSelectValueId();
+                EntradaLoteVo eVo = (EntradaLoteVo)_comboMaquinaModelo.getSelectedItem_idRetorno();
+                
+                vo.setId(v.getId());
+                vo.setIdMaquinaModelo(eVo.getId());
+                vo.setNumeroDeMáquina(_txtNombre.getText());
+                
+                modOGuar = true;
+            }else{
+                EntradaLoteVo eVo = (EntradaLoteVo)_comboMaquinaModelo.getSelectedItem_idRetorno();
+                vo.setIdMaquinaModelo(eVo.getId());
+                vo.setNumeroDeMáquina(_txtNombre.getText());
+                
+                modOGuar = false;
+            
+            }
+            listValidacion = getCoordinador().maquinaValidarCampos(vo);
+            
+            //EL NÚMERO DE MÁQUINA EXISTE SIN TOMAR EN CUENTA A SÍ MISMO. AQUI
+            // ES OTRA OPERACÍON DIFERENTE QUE LA DE maquinaExiste(). Ojo. ESTA
+            // OTRA OPERACIÓ ES MAQUINA maquinaNoEstaRepetida().
+            MaquinaIT it = new MaquinaIT();
+            for (Validacion val : listValidacion) {
+                if (val.getNombreDeCampo().equals(it.getNumeroDeMaquinaPDC().getNombre())) {
+                    if (val.isValido()) {
+                        _txtNombre.setErrorQuitar();
+                        todoValido = true;
+                    }else{
+                        _txtNombre.setError(val.getMensajeDeError());
+                        todoValido = false;
+                    }
+                }
+            }
+        }
+        
+        if (todoValido) {
+            //TRUE modifica, false guarda una nueva refacción. 
+            if (modOGuar) {
+                //MODIFICAMOS LA REFACCIÓN. 
+                if (getCoordinador().maquinaModificar(vo)) {
+                    getCoordinador().actualizarTodoLoVisible();
+                    JOptionPane.showMessageDialog(this, "Se modificó correctamente la máquina.");
+                }else{
+                    JOptionPane.showMessageDialog(
+                            this, 
+                            "Algo paso y no se pudo modificar la refacción.",
+                            "Error modificando.", 
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                if (getCoordinador().maquinaGuardar(vo)) {
+                    getCoordinador().actualizarTodoLoVisible();
+                    JOptionPane.showMessageDialog(this, "Se guardo correctamente la máquina.");
+                    
+                } else {
+                    JOptionPane.showMessageDialog(
+                            this, 
+                            "Algo paso y no se pudo guardar la refacción.",
+                            "Error guardando.", 
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
     }
 }

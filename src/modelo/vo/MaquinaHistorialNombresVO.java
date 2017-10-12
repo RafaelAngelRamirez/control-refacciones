@@ -42,7 +42,15 @@ public class MaquinaHistorialNombresVO extends VoGenerales{
     
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String a = "Clase: "+this.getClass().getSimpleName()+"\n";
+        String b= "       | ";
+        String c =  "\n      idMaquina" +b+ idMaquina+
+                    "\n nombreAnterior" +b+ nombreAnterior;
+        String d =  "----------------------"; 
+        
+        return a+d+c+d;
+        
     }
     
 }

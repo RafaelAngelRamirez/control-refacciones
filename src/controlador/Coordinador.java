@@ -32,6 +32,7 @@ import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
+import modelo.vo.MaquinaVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
@@ -1350,6 +1351,10 @@ public class Coordinador {
         JDialogBase d = coordinadorPaneles
                 .ifContainsReturnElseCreate(panelMaquinaAsignarNumeros);
         d.setVisible(true);
+    }
+
+    public List<MaquinaVo> maquinaConsultar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

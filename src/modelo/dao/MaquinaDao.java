@@ -6,7 +6,9 @@
 package modelo.dao;
 
 import controlador.Coordinador;
+import java.util.List;
 import modelo.InfoTabla.MaquinaIT;
+import modelo.vo.MaquinaVo;
 
 /**
  *
@@ -20,6 +22,10 @@ public class MaquinaDao extends DAOGenerales{
         super(coordinador);
         it = new MaquinaIT();
         
+    }
+
+    public List<MaquinaVo> consultar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

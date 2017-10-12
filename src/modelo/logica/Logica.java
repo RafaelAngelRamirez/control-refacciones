@@ -29,6 +29,7 @@ import modelo.dao.EntradaLoteDao;
 import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
 import modelo.dao.ImportanciaDao;
+import modelo.dao.MaquinaDao;
 import modelo.dao.MaquinaModeloDao;
 import modelo.dao.MaterialDao;
 import modelo.dao.PaisDao;
@@ -45,6 +46,7 @@ import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
+import modelo.vo.MaquinaVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
@@ -1318,6 +1320,11 @@ public class Logica {
 
     public List<ImportanciaVo> importanciaConsultar() {
         ImportanciaDao d = new ImportanciaDao(coordinador);
+        return d.consultar();
+    }
+
+    public List<MaquinaVo> maquinaConsultar() {
+        MaquinaDao d = new MaquinaDao(coordinador);
         return d.consultar();
     }
 
