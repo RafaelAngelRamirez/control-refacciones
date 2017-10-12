@@ -347,7 +347,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                     "¿Eliminar la máquina?",
                     JOptionPane.YES_NO_OPTION);
             if (r==JOptionPane.YES_OPTION) {
-                if(getCoordinador().maquinaEliminar(idActual)){
+                if(getCoordinador().maquinaEliminar(vo)){
                     getCoordinador().actualizarTodoLoVisible();
                     JOptionPane.showMessageDialog(this, "Se elimino la máquina correctamente.");
                 }

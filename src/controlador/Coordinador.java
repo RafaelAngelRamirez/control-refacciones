@@ -1353,8 +1353,21 @@ public class Coordinador {
         d.setVisible(true);
     }
 
+    /**
+     * Retorna todas las máquinas existentes en la tabla Maquina.
+     * @return
+     */
     public List<MaquinaVo> maquinaConsultar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return logica.maquinaConsultar();
+    }
+
+    /**
+     * Elimina la máquina seleccionada y todo lo que este relacionada con ella. 
+     * @param vo La máquina que se quiere eliminar. 
+     * @return True si se elimino correctamente. 
+     */
+    public boolean maquinaEliminar(MaquinaVo vo) {
+        return logica.maquinaEliminar(vo);
     }
     
     

@@ -1323,9 +1323,23 @@ public class Logica {
         return d.consultar();
     }
 
+    /**
+     * Retorna la lista de todas las máquinas existenten en la tabla maquina.  
+     * @return 
+     */
     public List<MaquinaVo> maquinaConsultar() {
         MaquinaDao d = new MaquinaDao(coordinador);
         return d.consultar();
+    }
+
+    /**
+     * Elimina la máquina seleccionada y todo lo que este relacionada con ella. 
+     * @param vo La máquina que se quiere eliminar. 
+     * @return True si se elimino correctamente. 
+     */
+    public boolean maquinaEliminar(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.eliminar(vo);
     }
 
     

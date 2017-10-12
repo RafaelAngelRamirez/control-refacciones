@@ -7,13 +7,13 @@ package modelo;
  */
 
 import controlador.*;
+import controlador.capturadeerrores.Suceso;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import controlador.capturadeerrores.Suceso;
 
 /**
  * Gestión de las conexiones a la base de datos.
@@ -168,7 +168,7 @@ public class Conexion {
      * @return Retorna true si la sentencia de se ejecuto de manera correcta.
      * 
      */
-    public boolean executeUpdate(String sql, String datos){
+    public boolean executeUpdate(String sql, Object datos){
         Suceso s = new Suceso();
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
