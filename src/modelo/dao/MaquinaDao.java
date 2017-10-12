@@ -139,7 +139,7 @@ public class MaquinaDao extends DAOGenerales{
      * @param vo
      * @return
      */
-    public boolean maquinaGuardar(MaquinaVo vo) {
+    public boolean guardar(MaquinaVo vo) {
         conexion = new Conexion(coordinador);
         String sql = "INSERT INTO " + MaquinaIT.NOMBRE_TABLA 
                 +" VALUES (null, ?, ?)";

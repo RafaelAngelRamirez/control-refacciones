@@ -31,6 +31,7 @@ import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
 import modelo.dao.ImportanciaDao;
 import modelo.dao.MaquinaDao;
+import modelo.dao.MaquinaHistorialNombresDao;
 import modelo.dao.MaquinaModeloDao;
 import modelo.dao.MaterialDao;
 import modelo.dao.PaisDao;
@@ -46,6 +47,7 @@ import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.ImportanciaVo;
+import modelo.vo.MaquinaHistorialNombresVO;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaquinaVo;
 import modelo.vo.MaterialVo;
@@ -1404,7 +1406,19 @@ public class Logica {
      */
     public boolean maquinaGuardar(MaquinaVo vo) {
         MaquinaDao d = new MaquinaDao(coordinador);
-        return d.maquinaGuardar(vo);
+        return d.guardar(vo);
+    }
+
+    /**
+     * Almacena el nombre que fue modificado y guarda la fecha y hora en que se 
+     * modifico. 
+     * @param mhnVo El objeto que contiene los datos a alamcenar. 
+     * @return True si se logro.
+     */
+    public boolean maquinaHistorialNombresGuardar(MaquinaHistorialNombresVO mhnVo) {
+        MaquinaHistorialNombresDao d = new MaquinaHistorialNombresDao(coordinador);
+        return d.guardar(mhnVo);
+
     }
     
 

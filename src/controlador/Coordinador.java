@@ -31,6 +31,7 @@ import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.ImportanciaVo;
+import modelo.vo.MaquinaHistorialNombresVO;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaquinaVo;
 import modelo.vo.MaterialVo;
@@ -1333,16 +1334,11 @@ public class Coordinador {
    
     /* 
     ========================================================================
-       INICIO DE ALGO
+       INICIO DE MAQUINA
     ////////////////////////////////////////////////////////////////////////
     */
     
-     /* 
-    ////////////////////////////////////////////////////////////////////////
-        FIN DE ALGO
-    ========================================================================
-    */
-
+    
     /**
      * Abre el dialogo que permite registrar y asignar números a máquinas para 
      * manejarlas independientemente de maquina-modelos.
@@ -1419,5 +1415,34 @@ public class Coordinador {
      */
     public boolean maquinaGuardar(MaquinaVo vo) {
         return logica.maquinaGuardar(vo);
+    }
+
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE MAQUINA
+    ========================================================================
+    */
+    
+     /* 
+    ========================================================================
+       INICIO DE ALGO
+    ////////////////////////////////////////////////////////////////////////
+    */
+    
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE ALGO
+    ========================================================================
+    */
+
+    /**
+     * Almacena el nombre que fue modificado y guarda la fecha y hora en que se 
+     * modifico. 
+     * @param mhnVo El objeto que contiene los datos a alamcenar. 
+     * @return True si se logro.
+     */
+    public boolean maquinaHistorialNombresGuardar(MaquinaHistorialNombresVO mhnVo) {
+        return logica.maquinaHistorialNombresGuardar(mhnVo);
+
     }
 }

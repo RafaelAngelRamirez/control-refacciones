@@ -414,8 +414,13 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                 if (getCoordinador().maquinaModificar(vo)) {
                     
                     MaquinaHistorialNombresVO mhnVo = new MaquinaHistorialNombresVO();
-                    mhnVo
-                    getCoordinador().maquinaHistorialNombres(vo);
+                    MaquinaVo m2Vo = (MaquinaVo)_listaMaquinas.getSelectValueId();
+                    
+                    mhnVo.setIdMaquina(vo.getId());
+                    mhnVo.setNombreAnterior(m2Vo.getNumeroDeMáquina());
+                    getCoordinador().maquinaHistorialNombresGuardar(mhnVo);
+                    
+                    
                     getCoordinador().actualizarTodoLoVisible();
                     JOptionPane.showMessageDialog(this, "Se modificó correctamente la máquina.");
                 }else{
