@@ -9,6 +9,7 @@ import controlador.Coordinador;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -109,6 +110,47 @@ public class MaquinaDao extends DAOGenerales{
                 it.getIdPDC().getNombre()+" <> ?";
         return conexion.executeUpdate(sql, vo.getId());
     }
+
+    /**
+     * Modifica la máquina que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
+    public boolean modificar(MaquinaVo vo) {
+        conexion = new Conexion(coordinador);
+        
+        String sql = "UPDATE " + MaquinaIT.NOMBRE_TABLA
+                +" SET "+
+                it.getNumeroDeMaquinaPDC().getNombre() + "=?"+
+                it.getIdMaquinaModeloPDC().getNombre() + "=?"
+                +" WHERE "+
+                it.getIdPDC().getNombre() +" =?";
+        
+        HashMap<Integer, Object> mapa = new HashMap<>();
+        mapa.put(1, vo.getNumeroDeMáquina());
+        mapa.put(2, vo.getIdMaquinaModelo());
+        mapa.put(3, vo.getId());
+        
+        return conexion.executeUpdate(sql, mapa);
+    }
+
+    /**
+     * Guarda la máquina que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
+    public boolean maquinaGuardar(MaquinaVo vo) {
+        conexion = new Conexion(coordinador);
+        String sql = "INSERT INTO " + MaquinaIT.NOMBRE_TABLA 
+                +" VALUES (null, ?, ?)";
+                
+        HashMap<Integer, Object> mapa = new HashMap<>();
+        mapa.put(1, vo.getIdMaquinaModelo());
+        mapa.put(2, vo.getNumeroDeMáquina());
+        
+        return conexion.executeUpdate(sql, mapa);
+                
+    }   
     
     
     

@@ -1402,4 +1402,22 @@ public class Coordinador {
     public boolean maquinaRepetido(MaquinaVo vo) {
         return logica.maquinaRepetido(vo);
     }
+
+    /**
+     * Modifca la refacción que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
+    public boolean maquinaModificar(MaquinaVo vo) {
+        return logica.maquinaModificar(vo);
+    }
+
+    /**
+     * Guarda la máquina que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
+    public boolean maquinaGuardar(MaquinaVo vo) {
+        return logica.maquinaGuardar(vo);
+    }
 }

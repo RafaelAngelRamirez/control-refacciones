@@ -1386,6 +1386,26 @@ public class Logica {
         
     }
 
+    /**
+     * Modifca la refacción que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
+    public boolean maquinaModificar(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.modificar(vo);
+
+    }
+
+    /**
+     * Guarda la máquina que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
+    public boolean maquinaGuardar(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.maquinaGuardar(vo);
+    }
     
 
     

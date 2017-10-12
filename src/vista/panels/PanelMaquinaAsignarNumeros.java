@@ -14,6 +14,7 @@ import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.logica.Validacion;
 import modelo.vo.EntradaLoteVo;
+import modelo.vo.MaquinaHistorialNombresVO;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaquinaVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
@@ -411,6 +412,10 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             if (modOGuar) {
                 //MODIFICAMOS LA REFACCIÓN. 
                 if (getCoordinador().maquinaModificar(vo)) {
+                    MaquinaHistorialNombresVO mhnVo = new MaquinaHistorialNombresVO();
+                    
+                    
+                    getCoordinador().maquinaHistorialNombres(vo);
                     getCoordinador().actualizarTodoLoVisible();
                     JOptionPane.showMessageDialog(this, "Se modificó correctamente la máquina.");
                 }else{
