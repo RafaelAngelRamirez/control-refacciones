@@ -80,7 +80,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         jScrollPane5.setViewportView(listaMaquinas);
 
         btnGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_palomita.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_palomita.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +89,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         });
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,7 +98,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         });
 
         btnEliminar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,7 +122,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         etiquetaPais.setText("Modelo");
 
         btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_limpiar.png"))); // NOI18N
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_limpiar.png"))); // NOI18N
         btnCancelar1.setText("Limpiar");
         btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

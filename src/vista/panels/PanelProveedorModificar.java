@@ -262,7 +262,7 @@ public class PanelProveedorModificar extends JPanelBase {
         etiquetaPaginaWeb.setText("Pagina web");
 
         btnGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_palomita.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_palomita.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,7 +275,7 @@ public class PanelProveedorModificar extends JPanelBase {
         txtPaginaWeb.setMinimumSize(new java.awt.Dimension(208, 30));
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -300,7 +300,7 @@ public class PanelProveedorModificar extends JPanelBase {
 
         jLabel1.setBackground(new java.awt.Color(104, 126, 13));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_titulo_ modificar proveedor.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_ modificar proveedor.png"))); // NOI18N
 
         imagenView.setOpaque(false);
 
@@ -309,7 +309,7 @@ public class PanelProveedorModificar extends JPanelBase {
         etiquetaContadorImagenes.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         etiquetaContadorImagenes.setOpaque(true);
 
-        btnSiguienteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_siguiente.png"))); // NOI18N
+        btnSiguienteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_siguiente.png"))); // NOI18N
         btnSiguienteImagen.setFocusable(false);
         btnSiguienteImagen.setOpaque(false);
         btnSiguienteImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -318,7 +318,7 @@ public class PanelProveedorModificar extends JPanelBase {
             }
         });
 
-        btnRegresarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_anterios.png"))); // NOI18N
+        btnRegresarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_anterios.png"))); // NOI18N
         btnRegresarImagen.setFocusable(false);
         btnRegresarImagen.setOpaque(false);
         btnRegresarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -328,7 +328,7 @@ public class PanelProveedorModificar extends JPanelBase {
         });
 
         btnAgregarImagen.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnAgregarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_mas.png"))); // NOI18N
+        btnAgregarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_mas.png"))); // NOI18N
         btnAgregarImagen.setText("Agregar");
         btnAgregarImagen.setOpaque(false);
         btnAgregarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -338,7 +338,7 @@ public class PanelProveedorModificar extends JPanelBase {
         });
 
         btnEliminarImagen.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnEliminarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnEliminarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnEliminarImagen.setText("Eliminar");
         btnEliminarImagen.setOpaque(false);
         btnEliminarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -385,7 +385,7 @@ public class PanelProveedorModificar extends JPanelBase {
         jScrollPane5.setViewportView(listaProveedores);
 
         btnEliminarProveedor.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnEliminarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnEliminarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnEliminarProveedor.setText("Eliminar Proveedor");
         btnEliminarProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

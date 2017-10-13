@@ -252,7 +252,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
 
         jLabel1.setBackground(new java.awt.Color(104, 127, 13));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_titulo_agregar modelo maquina.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_agregar modelo maquina.png"))); // NOI18N
         jLabel1.setOpaque(true);
 
         etiquetaModeloMaquina.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -292,7 +292,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         });
 
         btnGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_palomita.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_palomita.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,7 +301,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         });
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,7 +320,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         jScrollPane3.setViewportView(listaMaquinanasModelo);
 
         btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnCancelar1.setText("Eliminar");
         btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
