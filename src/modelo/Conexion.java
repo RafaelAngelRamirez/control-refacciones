@@ -37,8 +37,6 @@ public class Conexion {
      */
     public Conexion(Coordinador controlador) {
         this.controlador = controlador;
-        //this.capturaDeSuscesos = new CapturaDeSucesos(this.controlador);
-        //this.capturaDeSuscesos.println("[+] CONECTANDO A LA BASE DE DATOS.");
         System.out.println("[+] CONECTANDO A LA BASE DE DATOS.");
         this.exitosa = Miconexion();
     }
@@ -266,6 +264,13 @@ public class Conexion {
             conexion.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se pudo cerrar la conexión con el servidor.");
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        try {
+            System.out.println("Conexion cerrada:"+conexion.isClosed());
+        } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
