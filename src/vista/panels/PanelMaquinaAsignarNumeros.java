@@ -70,6 +70,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         txtNumero = new javax.swing.JTextField();
         comboModelos = new javax.swing.JComboBox<>();
         etiquetaPais = new javax.swing.JLabel();
+        btnCancelar1 = new javax.swing.JButton();
 
         etiquetaNombreDeLaRefaccion1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_maquina asignar numero.png"))); // NOI18N
@@ -120,6 +121,15 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         etiquetaPais.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaPais.setText("Modelo");
 
+        btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_limpiar.png"))); // NOI18N
+        btnCancelar1.setText("Limpiar");
+        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,8 +150,9 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(etiquetaPais)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(comboModelos, 0, 239, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                                .addComponent(btnCancelar1))
+                            .addComponent(comboModelos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,11 +168,14 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(etiquetaPais)
-                            .addComponent(etiquetaNombre))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(etiquetaPais)
+                                    .addComponent(etiquetaNombre)))
+                            .addComponent(btnCancelar1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(comboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,9 +202,16 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
        this.eliminarMaquina();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
+        limpiar();
+        cargarLista();
+        cargarCombo();
+    }//GEN-LAST:event_btnCancelar1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCancelar1;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> comboModelos;
@@ -355,16 +376,50 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             int r = JOptionPane.showConfirmDialog(
                     this,
                     "¿Estas segúro que quieres eliminar la máquina "
-                            + "\""+vo.getNumeroDeMáquina()+"\". \n"
+                            + "\""+vo.getNumeroDeMáquina()+"\"?. \n"
                             + "Esta acción no se puede deshacer y eliminara "
-                                    + "todos los registros relacionados con esta máquina. .",
+                                    + "todos los registros relacionados con esta máquina.",
                     "¿Eliminar la máquina?",
                     JOptionPane.YES_NO_OPTION);
             if (r==JOptionPane.YES_OPTION) {
-                if(getCoordinador().maquinaEliminar(vo)){
-                    getCoordinador().actualizarTodoLoVisible();
-                    JOptionPane.showMessageDialog(this, "Se elimino la máquina correctamente.");
+                String[] opciones = new String[3];
+                opciones[0]= "¡ Si !, conozco los riesgos";
+                opciones[1]= "No estoy segúro";
+                opciones[2]= "¡ Claro que no !, !Dios mio! ¿Que clase de persona soy?";
+                
+                String mensaje = "Te lo preguntare de nuevo.\n"
+                               + "\n----------------------------------\n "
+                        + "\n¿Estas MUY SEGURO que quieres eliminar esta máquina? Esto perjudicará todos los registros y el historial que puede \n"
+                        + "haberse formado durante el tiempo que se ha utilizado.";
+                int r2 = JOptionPane.showOptionDialog(
+                            this, 
+                            mensaje, 
+                            "ESTO ES MUY PELIGROSO",
+                            JOptionPane.YES_NO_CANCEL_OPTION , 
+                            JOptionPane.QUESTION_MESSAGE,
+                            null, opciones, opciones[2]);  
+                switch(r2){
+                    case 0:
+                        if(getCoordinador().maquinaEliminar(vo)){
+                            getCoordinador().actualizarTodoLoVisible();
+                            JOptionPane.showMessageDialog(this, "Se elimino la máquina correctamente.");
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Algo paso y no se pudo eliminar la máquina.");
+                        }
+                        break;
+                    case 1:
+                        JOptionPane.showMessageDialog(null, "Entonces no lo hagas. "
+                                + "\nSi en realidad no la ocupas más adelante podras eliminarla.");
+                        JOptionPane.showMessageDialog(this, "No se eliminó la máquina.");
+                        break;
+                    case 2:
+                        JOptionPane.showMessageDialog(null, "¡Aleluya! ¡Una oveja que vuelve al camino!. "
+                                + "\n. Por el bien de tu alma dejaremos esto por la paz.");
+                        JOptionPane.showMessageDialog(this, "No se eliminó la máquina.");
+                        break;
+                    
                 }
+                
             }
         }
     }
@@ -388,8 +443,6 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             if (idMaquinaActual!=null) {
                 MaquinaVo v = (MaquinaVo) _listaMaquinas.getSelectValueId();
                 MaquinaModeloVo eVo = (MaquinaModeloVo)_comboMaquinaModelo.getSelectedItem_idRetorno();
-                JOptionPane.showMessageDialog(null, eVo.toString());
-                JOptionPane.showMessageDialog(null, v.toString());
                 vo.setId(idMaquinaActual.getId());
                 vo.setIdMaquinaModelo(eVo.getId());
                 vo.setNumeroDeMáquina(_txtNombre.getText());
