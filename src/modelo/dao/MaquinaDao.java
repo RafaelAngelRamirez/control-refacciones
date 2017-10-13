@@ -126,9 +126,14 @@ public class MaquinaDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "SELECT COUNT(*) FROM " + MaquinaIT.NOMBRE_TABLA
                 + " WHERE "+
-                it.getIdPDC().getNombre()+" <> ?";
+                it.getIdPDC().getNombre()+" <> ?"
+                + " AND "+
+                it.getNumeroDeMaquinaPDC().getNombre() +" = ?";
+        HashMap<Integer, Object> mapa = new HashMap<>();
+        mapa.put(1, vo.getId());
+        mapa.put(2, vo.getNumeroDeMáquina());
         ResultSet r;
-        r = conexion.executeQuery(sql, vo.getId());
+        r = conexion.executeQuery(sql, mapa);
         try {
             r.next();
             if (r.getInt(1)>0) {
