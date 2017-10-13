@@ -13,6 +13,7 @@ import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.ImagenProveedorIT;
 import modelo.InfoTabla.ImagenRefaccionIT;
+import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.PaisIT;
@@ -467,15 +468,27 @@ public class Coordinador {
        INICIO MAQUINAS Y MAQUINASMODELO
     ////////////////////////////////////////////////////////////////////////
     */
-    
+
+    /**
+     * Abre el dialogo agregar maquinaModelo.
+     * @param modelo El modelo que se quiere precargar. 
+     */
+    public void maquinaModeloAbrirDialogoAgregar(String modelo){
+        JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloAgregar);
+        panelMaquinaModeloAgregar.configurar();
+        panelMaquinaModeloAgregar.preCargarModelo(modelo);
+        d.setVisible(true);
+    }
+    /**
+     * Abre el dialogo agregar maquinaModelo.
+     */
     public void maquinaModeloAbrirDialogoAgregar(){
-        
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloAgregar);
         panelMaquinaModeloAgregar.configurar();
         d.setVisible(true);
-        
-    
     }
+    
+    
     
     public void maquinaModeloAbrirDialogoModificar(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloModificar);
@@ -1363,6 +1376,7 @@ public class Coordinador {
      * @return True si se elimino correctamente. 
      */
     public boolean maquinaEliminar(MaquinaVo vo) {
+        setTablaModificada(MaquinaIT.NOMBRE_TABLA);
         return logica.maquinaEliminar(vo);
     }
 
@@ -1405,6 +1419,7 @@ public class Coordinador {
      * @return
      */
     public boolean maquinaModificar(MaquinaVo vo) {
+        setTablaModificada(MaquinaIT.NOMBRE_TABLA);
         return logica.maquinaModificar(vo);
     }
 
@@ -1414,6 +1429,7 @@ public class Coordinador {
      * @return
      */
     public boolean maquinaGuardar(MaquinaVo vo) {
+        setTablaModificada(MaquinaIT.NOMBRE_TABLA);
         return logica.maquinaGuardar(vo);
     }
 

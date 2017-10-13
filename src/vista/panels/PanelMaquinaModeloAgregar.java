@@ -29,7 +29,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
     private static final long serialVersionUID = 1L;
     private UtilidadesTxt_ _TxtAnio;
     private UtilidadesTxt_ _TxtModeloMaquina;
-    private UtilidadesComboBox_ _ComboMarca;
+    private UtilidadesComboBox_ _comboMarca;
 
     public PanelMaquinaModeloAgregar() {
         initComponents();
@@ -94,22 +94,22 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         
         this._TxtAnio = new UtilidadesTxt_ (getCoordinador());
         this._TxtModeloMaquina = new UtilidadesTxt_ (getCoordinador());
-        this._ComboMarca = new UtilidadesComboBox_ (getCoordinador());
+        this._comboMarca = new UtilidadesComboBox_ (getCoordinador());
         
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
         
         _TxtAnio.setComponente(txtAnio);
         _TxtModeloMaquina.setComponente(txtModeloMaquina);
-        _ComboMarca.setComponente(comboMarca);
+        _comboMarca.setComponente(comboMarca);
        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         _TxtAnio.setTamanoDeCampo(mmit.getAnioPDC().getLongitudDeCaracteres());
         _TxtModeloMaquina.setTamanoDeCampo(mmit.getModeloPDC().getLongitudDeCaracteres());
-        _ComboMarca.setTamanoDeCampo(pit.getEmpresaProveedorPDC().getLongitudDeCaracteres());
+        _comboMarca.setTamanoDeCampo(pit.getEmpresaProveedorPDC().getLongitudDeCaracteres());
         
         //CAMPOS QUE REQUIEREN TEXO EN MAYUSCULAS.
         _TxtModeloMaquina.setPermitirSoloMayusculas();
-        _ComboMarca.setPermitirSoloMayusculas();
+        _comboMarca.setPermitirSoloMayusculas();
         
         //CAMPOS SOLO NUMEROS.
         _TxtAnio.setPermitirSoloNumeros();
@@ -117,11 +117,11 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
         _TxtAnio.setEspaciosEnBlanco();
         _TxtModeloMaquina.setEspaciosEnBlanco();
-        _ComboMarca.setEspaciosEnBlanco();
+        _comboMarca.setEspaciosEnBlanco();
                 
         
         //ACCIONES ESPECELIALES.
-        _ComboMarca.setFocusAction(()->this.guardarProoveedor(), false);
+        _comboMarca.setFocusAction(()->this.guardarProoveedor(), false);
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
@@ -138,12 +138,16 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         */
         
     }
+    
+    public void preCargarModelo(String modelo){
+        _TxtModeloMaquina.setText(modelo);
+    }
 
     public void guardarProoveedor(){
-        String proveedor = _ComboMarca.getText();
+        String proveedor = _comboMarca.getText();
         if (!proveedor.equals("")) {
             if (this.getCoordinador().proveedorExiste(proveedor)) {
-                _ComboMarca.setSelectedItem(proveedor);
+                _comboMarca.setSelectedItem(proveedor);
             }else{
                 int r = JOptionPane.showConfirmDialog(this,
                     "¿Estas segúro que quieres agregar '"+proveedor+"' "
@@ -153,11 +157,16 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
 
                 if (r==0) {
                     this.getCoordinador().proveedoresAbrirDialogo(proveedor);
-                    this.consultarProveedores();
-                    _ComboMarca.setSelectedItem(proveedor);
+                    if (_comboMarca.contieneElItemEscrito(proveedor)) {
+                        _comboMarca.setSelectedItem(proveedor);
+                    }else{
+                        _comboMarca.setText();
+                        _comboMarca.setFocus();
+                    }
                     
                 }else{
-                    _ComboMarca.setText("");
+                    _comboMarca.setText();
+                    _comboMarca.setFocus();
                 }
             }
         }
@@ -172,18 +181,18 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         }
 
 
-        _ComboMarca.cargarCombo(map);
+        _comboMarca.cargarCombo(map);
     
     }
     
     private void limpiarTodo(){
         this._TxtModeloMaquina.setText("");
         this._TxtAnio.setText("");
-        this._ComboMarca.setText("");
+        this._comboMarca.setText("");
         
         this._TxtModeloMaquina.setErrorQuitar();
         this._TxtAnio.setErrorQuitar();
-        this._ComboMarca.setErrorQuitar();
+        this._comboMarca.setErrorQuitar();
     }
     
     private void cancelar(){
@@ -193,7 +202,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         
         if (    !this._TxtModeloMaquina.isEmpty() ||
                 !this._TxtAnio.isEmpty() ||
-                !this._ComboMarca.isEmpty() 
+                !this._comboMarca.isEmpty() 
                 ) {
             todoVacio = false;
         }
@@ -380,7 +389,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         }else{
             vo.setAnio(Integer.parseInt(a));
         }
-        vo.setIdProveedor(_ComboMarca.getSelectedItem_idRetorno());
+        vo.setIdProveedor(_comboMarca.getSelectedItem_idRetorno());
         vo.setModelo(_TxtModeloMaquina.getText());
         vo.setId(-1);
         List<Validacion> validaciones = 
@@ -419,10 +428,10 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
             
             if (validacione.getNombreDeCampo().equals(iT.getIdProoveedorPDC().getNombre())) {
                 if (!validacione.isValido()) {
-                    _ComboMarca.setError(validacione.getMensajeDeError());
+                    _comboMarca.setError(validacione.getMensajeDeError());
                     
                 }else{
-                    _ComboMarca.setErrorQuitar();
+                    _comboMarca.setErrorQuitar();
                 }
             }
             

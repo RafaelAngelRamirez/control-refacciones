@@ -13,8 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.InfoTabla.MaquinaIT;
+import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.vo.MaquinaVo;
 
 /**
@@ -37,7 +39,22 @@ public class MaquinaDao extends DAOGenerales{
      */
     public List<MaquinaVo> consultar() {
         conexion = new Conexion(coordinador);
-        String sql = "SELECT * FROM "+MaquinaIT.NOMBRE_TABLA;
+        MaquinaModeloIT mmit = new MaquinaModeloIT();
+        String sql = "SELECT "+
+                MaquinaIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre()+", "+
+                MaquinaIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre()+", "+
+                MaquinaIT.NOMBRE_TABLA+"."+it.getNumeroDeMaquinaPDC().getNombre()+", "+
+                MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getModeloPDC().getNombre()+", "+
+                MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getAnioPDC().getNombre()
+                
+                +" FROM "+
+                MaquinaIT.NOMBRE_TABLA
+                +" INNER JOIN " + 
+                MaquinaModeloIT.NOMBRE_TABLA
+                +" ON "+
+                MaquinaIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre() 
+                +"="+
+                MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getIdPDC().getNombre();
         
         ResultSet r = conexion.executeQuery(sql);
         List<MaquinaVo> listVo = new ArrayList<>();
@@ -45,7 +62,10 @@ public class MaquinaDao extends DAOGenerales{
             while (r.next()) {
                 MaquinaVo vo = new MaquinaVo();
                 vo.setId(r.getInt(it.getIdPDC().getNombre()));
-                vo.setIdMaquinaModelo(r.getInt(it.getIdMaquinaModeloPDC().getNombre()));
+                vo.setIdMaquinaModelo(
+                        r.getObject(mmit.getModeloPDC().getNombre())+" "+
+                        r.getObject(mmit.getAnioPDC().getNombre())
+                );
                 vo.setNumeroDeMáquina(r.getString(it.getNumeroDeMaquinaPDC().getNombre()));
                 listVo.add(vo);
             }
@@ -86,6 +106,7 @@ public class MaquinaDao extends DAOGenerales{
                 +" WHERE "+
                 it.getNumeroDeMaquinaPDC().getNombre() +" = ?";
         
+        JOptionPane.showMessageDialog(null, vo.getNumeroDeMáquina());
         ResultSet r = conexion.executeQuery(sql, vo.getNumeroDeMáquina());
         try {
             r.next();
@@ -121,8 +142,8 @@ public class MaquinaDao extends DAOGenerales{
         
         String sql = "UPDATE " + MaquinaIT.NOMBRE_TABLA
                 +" SET "+
-                it.getNumeroDeMaquinaPDC().getNombre() + "=?"+
-                it.getIdMaquinaModeloPDC().getNombre() + "=?"
+                it.getNumeroDeMaquinaPDC().getNombre() + "=?, "+
+                it.getIdMaquinaModeloPDC().getNombre() + "=? "
                 +" WHERE "+
                 it.getIdPDC().getNombre() +" =?";
         
