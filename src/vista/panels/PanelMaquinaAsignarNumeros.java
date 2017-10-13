@@ -199,7 +199,8 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       this.eliminarMaquina();
+       
+        this.eliminarMaquina();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
@@ -401,6 +402,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                 switch(r2){
                     case 0:
                         if(getCoordinador().maquinaEliminar(vo)){
+                            _txtNombre.setText();
                             getCoordinador().actualizarTodoLoVisible();
                             JOptionPane.showMessageDialog(this, "Se elimino la máquina correctamente.");
                         }else{
@@ -450,9 +452,9 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                 modOGuar = true;
             }else{
                 MaquinaModeloVo eVo = (MaquinaModeloVo)_comboMaquinaModelo.getSelectedItem_idRetorno();
+                vo.setId(-1);
                 vo.setIdMaquinaModelo(eVo.getId());
                 vo.setNumeroDeMáquina(_txtNombre.getText());
-                
                 modOGuar = false;
             
             }

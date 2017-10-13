@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
@@ -106,7 +105,6 @@ public class MaquinaDao extends DAOGenerales{
                 +" WHERE "+
                 it.getNumeroDeMaquinaPDC().getNombre() +" = ?";
         
-        JOptionPane.showMessageDialog(null, vo.getNumeroDeMáquina());
         ResultSet r = conexion.executeQuery(sql, vo.getNumeroDeMáquina());
         try {
             r.next();
@@ -129,7 +127,18 @@ public class MaquinaDao extends DAOGenerales{
         String sql = "SELECT COUNT(*) FROM " + MaquinaIT.NOMBRE_TABLA
                 + " WHERE "+
                 it.getIdPDC().getNombre()+" <> ?";
-        return conexion.executeUpdate(sql, vo.getId());
+        ResultSet r;
+        r = conexion.executeQuery(sql, vo.getId());
+        try {
+            r.next();
+            if (r.getInt(1)>0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MaquinaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+        
     }
 
     /**

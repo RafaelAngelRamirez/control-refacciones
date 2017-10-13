@@ -1367,16 +1367,28 @@ public class Logica {
         List<ParametrosDeCampo> campos = it.getCamposPDC();
         List<Validacion> listVal = new ArrayList<>();
         for (ParametrosDeCampo campo : campos) {
-            if (campo.getNombre().equals(it.getNumeroDeMaquinaPDC())) {
-                Validacion a = new Validacion();
-                a.setNombreDeCampo(campo);
-                if (maquinaRepetido(vo)) {
-                    a.setValido(false);
-                    a.setMensajeDeError("El número o nombre que asiganaste a la máquina ya esta relacionado con otra máquina.");
+            if (campo.getNombre().equals(it.getNumeroDeMaquinaPDC().getNombre())) {
+                if (vo.getId()==-1) {
+                    Validacion a = new Validacion();
+                    a.setNombreDeCampo(campo);
+                    if (maquinaExiste(vo)) {
+                        a.setValido(false);
+                        a.setMensajeDeError("Este número ya esta registrado.");
+                    } else {
+                        a.setValido(true);
+                    }
+                    listVal.add(a);
                 }else{
-                    a.setValido(true);
+                    Validacion a = new Validacion();
+                    a.setNombreDeCampo(campo);
+                    if (maquinaRepetido(vo)) {
+                        a.setValido(false);
+                        a.setMensajeDeError("El número o nombre que asiganaste a la máquina ya esta relacionado con otra máquina.");
+                    }else{
+                        a.setValido(true);
+                    }
+                    listVal.add(a);
                 }
-                listVal.add(a);
             }
         }
         return listVal;
