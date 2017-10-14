@@ -17,6 +17,7 @@ import modelo.vo.MaquinaHistorialNombresVO;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaquinaVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
+import vista.UtilidadesIntefaz.ConfirmacionExahustiva;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -374,54 +375,22 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         Object o = _listaMaquinas.getSelectValueId();
         if (!o.equals(-1)) {
             MaquinaVo vo = (MaquinaVo) o;
-            int r = JOptionPane.showConfirmDialog(
-                    this,
-                    "¿Estas segúro que quieres eliminar la máquina "
+            String msj1 = "¿Estas segúro que quieres eliminar la máquina "
                             + "\""+vo.getNumeroDeMáquina()+"\"?. \n"
                             + "Esta acción no se puede deshacer y eliminara "
-                                    + "todos los registros relacionados con esta máquina.",
-                    "¿Eliminar la máquina?",
-                    JOptionPane.YES_NO_OPTION);
-            if (r==JOptionPane.YES_OPTION) {
-                String[] opciones = new String[3];
-                opciones[0]= "¡ Si !, conozco los riesgos";
-                opciones[1]= "No estoy segúro";
-                opciones[2]= "¡ Claro que no !, !Dios mio! ¿Que clase de persona soy?";
+                                    + "todos los registros relacionados con esta máquina.";
                 
-                String mensaje = "Te lo preguntare de nuevo.\n"
-                               + "\n----------------------------------\n "
-                        + "\n¿Estas MUY SEGURO que quieres eliminar esta máquina? Esto perjudicará todos los registros y el historial que puede \n"
-                        + "haberse formado durante el tiempo que se ha utilizado.";
-                int r2 = JOptionPane.showOptionDialog(
-                            this, 
-                            mensaje, 
-                            "ESTO ES MUY PELIGROSO",
-                            JOptionPane.YES_NO_CANCEL_OPTION , 
-                            JOptionPane.QUESTION_MESSAGE,
-                            null, opciones, opciones[2]);  
-                switch(r2){
-                    case 0:
-                        if(getCoordinador().maquinaEliminar(vo)){
-                            _txtNombre.setText();
-                            getCoordinador().actualizarTodoLoVisible();
-                            JOptionPane.showMessageDialog(this, "Se elimino la máquina correctamente.");
-                        }else{
-                            JOptionPane.showMessageDialog(this, "Algo paso y no se pudo eliminar la máquina.");
-                        }
-                        break;
-                    case 1:
-                        JOptionPane.showMessageDialog(null, "Entonces no lo hagas. "
-                                + "\nSi en realidad no la ocupas más adelante podras eliminarla.");
-                        JOptionPane.showMessageDialog(this, "No se eliminó la máquina.");
-                        break;
-                    case 2:
-                        JOptionPane.showMessageDialog(null, "¡Aleluya! ¡Una oveja que vuelve al camino!. "
-                                + "\n. Por el bien de tu alma dejaremos esto por la paz.");
-                        JOptionPane.showMessageDialog(this, "No se eliminó la máquina.");
-                        break;
-                    
-                }
-                
+            String msj2 =   "¿Estas MUY SEGURO que quieres eliminar esta máquina? Esto perjudicará todos los registros y el historial que puede \n"
+                            + "haberse formado durante el tiempo que se ha utilizado.";
+            int r = ConfirmacionExahustiva.confirmarEliminacionPeligrosa(msj1, msj2);
+            if(r==ConfirmacionExahustiva.SI_ELIMINAR){
+                    if(getCoordinador().maquinaEliminar(vo)){
+                        _txtNombre.setText();
+                        getCoordinador().actualizarTodoLoVisible();
+                        JOptionPane.showMessageDialog(this, "Se elimino la máquina correctamente.");
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Algo paso y no se pudo eliminar la máquina.");
+                    }
             }
         }
     }

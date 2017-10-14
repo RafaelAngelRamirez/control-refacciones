@@ -12,6 +12,7 @@ import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.ProveedorVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
+import vista.UtilidadesIntefaz.ConfirmacionExahustiva;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -500,25 +501,28 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
         MaquinaModeloVo vo = new MaquinaModeloVo();
-        vo.setId(this.idConsultandoseActualmente);
-        vo.setModelo(this._TxtModeloMaquina.getText());
-        vo.setAnio(Integer.parseInt(this._TxtAnio.getText()));
-        if (vo.getId()!=-1) {
-            int r = JOptionPane.showConfirmDialog(
-                    this, 
-                    "¿Estas segúro que quieres eliminar este modelo?\n "
-                    + "Esta acción no se puede deshacer.", 
-                    "Confirmar eliminar modelo.", 
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.WARNING_MESSAGE);
-            if (r==JOptionPane.YES_OPTION) {
-                if(this.getCoordinador().maquinaModeloEliminar(vo)){
-                    this.limpiarTodo();
-//                    cargarCombosYListas();
-                    getCoordinador().actualizarTodoLoVisible();
-                    JOptionPane.showMessageDialog(
-                            this, 
-                            "Se eliminó '"+vo.getModelo()+" "+vo.getAnio()+"' correctamente.");
+        if (!_ListaMaquinaModelo.getSelectValueId().equals(-1)) {
+            vo.setId(this.idConsultandoseActualmente);
+            vo.setModelo(this._TxtModeloMaquina.getText());
+            vo.setAnio(Integer.parseInt(this._TxtAnio.getText()));
+            if (vo.getId()!=-1) {
+
+                String msj1 =  "¿Estas segúro que quieres eliminar este modelo?\n "
+                        + "Esta acción no se puede deshacer.";
+                String msj2 = "Estas MUY SEGÚRO que quieres eliminar este modelo de máquina? Esto perjudicará todos los registros y el historial que pudo \n"
+                        + "formarse durante el tiempo que se ha utilizado.";
+
+                int r = ConfirmacionExahustiva.confirmarEliminacionPeligrosa(msj1, msj2);
+
+                if (r==ConfirmacionExahustiva.SI_ELIMINAR) {
+                    if(this.getCoordinador().maquinaModeloEliminar(vo)){
+                        this.limpiarTodo();
+    //                    cargarCombosYListas();
+                        getCoordinador().actualizarTodoLoVisible();
+                        JOptionPane.showMessageDialog(
+                                this, 
+                                "Se eliminó '"+vo.getModelo()+" "+vo.getAnio()+"' correctamente.");
+                    }
                 }
             }
         }
