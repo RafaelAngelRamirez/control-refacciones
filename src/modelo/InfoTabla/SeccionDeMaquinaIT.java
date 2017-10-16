@@ -41,8 +41,25 @@ public class SeccionDeMaquinaIT extends ITGenerales{
         camposPDC.add(nombreSeccion);
        
     
-    
     }
+
+    public ParametrosDeCampo getIdPDC() {
+        return idPDC;
+    }
+
+    public void setIdPDC(ParametrosDeCampo idPDC) {
+        this.idPDC = idPDC;
+    }
+
+    public ParametrosDeCampo getNombreSeccion() {
+        return nombreSeccion;
+    }
+
+    public void setNombreSeccion(ParametrosDeCampo nombreSeccion) {
+        this.nombreSeccion = nombreSeccion;
+    }
+    
+    
     
     
     
