@@ -9,7 +9,7 @@ package modelo.InfoTabla;
  *
  * @author Particular
  */
-public class SeccionDeMaquinaIT extends ITGenerales{
+public class  SeccionDeMaquinaIT extends ITGenerales{
     
      /*
     * El nombre de la tabla en la base de datos. 
