@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import modelo.FicherosOperaciones;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
+import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ParametrosDeCampo;
 import modelo.InfoTabla.ProveedorIT;
@@ -29,6 +30,8 @@ import modelo.dao.EntradaLoteDao;
 import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
 import modelo.dao.ImportanciaDao;
+import modelo.dao.MaquinaDao;
+import modelo.dao.MaquinaHistorialNombresDao;
 import modelo.dao.MaquinaModeloDao;
 import modelo.dao.MaterialDao;
 import modelo.dao.PaisDao;
@@ -44,7 +47,9 @@ import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.ImportanciaVo;
+import modelo.vo.MaquinaHistorialNombresVO;
 import modelo.vo.MaquinaModeloVo;
+import modelo.vo.MaquinaVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
@@ -1321,6 +1326,112 @@ public class Logica {
         return d.consultar();
     }
 
+    /**
+     * Retorna la lista de todas las máquinas existenten en la tabla maquina.  
+     * @return 
+     */
+    public List<MaquinaVo> maquinaConsultar() {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.consultar();
+    }
+
+    /**
+     * Elimina la máquina seleccionada y todo lo que este relacionada con ella. 
+     * @param vo La máquina que se quiere eliminar. 
+     * @return True si se elimino correctamente. 
+     */
+    public boolean maquinaEliminar(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.eliminar(vo);
+    }
+    
+    
+    /**
+     * Comprueba si la refacción existe. A diferencia de {@see maquinaRepetido}
+     * esta comprueba solo si la refacción que se le pase existe más de una vez
+     * incluida la misma que se le pase.
+     * 
+     * Sirve para comprobar si se modifica la máquina o se agrega una nueva. 
+     * 
+     * @param vo La refacción que se comprobara si esta repetida. 
+     * @return True si esta repetida. 
+     */
+    public boolean maquinaExiste(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.existe(vo);
+    }
+
+    public List<Validacion> maquinaValidadCampos(MaquinaVo vo) {
+        
+        MaquinaIT it = new MaquinaIT();
+        List<ParametrosDeCampo> campos = it.getCamposPDC();
+        List<Validacion> listVal = new ArrayList<>();
+        for (ParametrosDeCampo campo : campos) {
+            if (campo.getNombre().equals(it.getNumeroDeMaquinaPDC().getNombre())) {
+                if (vo.getId()==-1) {
+                    Validacion a = new Validacion();
+                    a.setNombreDeCampo(campo);
+                    if (maquinaExiste(vo)) {
+                        a.setValido(false);
+                        a.setMensajeDeError("Este número ya esta registrado.");
+                    } else {
+                        a.setValido(true);
+                    }
+                    listVal.add(a);
+                }else{
+                    Validacion a = new Validacion();
+                    a.setNombreDeCampo(campo);
+                    if (maquinaRepetido(vo)) {
+                        a.setValido(false);
+                        a.setMensajeDeError("El número o nombre que asiganaste a la máquina ya esta relacionado con otra máquina.");
+                    }else{
+                        a.setValido(true);
+                    }
+                    listVal.add(a);
+                }
+            }
+        }
+        return listVal;
+    }
+
+    public boolean maquinaRepetido(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.repetido(vo);
+        
+    }
+
+    /**
+     * Modifca la refacción que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
+    public boolean maquinaModificar(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.modificar(vo);
+
+    }
+
+    /**
+     * Guarda la máquina que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
+    public boolean maquinaGuardar(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.guardar(vo);
+    }
+
+    /**
+     * Almacena el nombre que fue modificado y guarda la fecha y hora en que se 
+     * modifico. 
+     * @param mhnVo El objeto que contiene los datos a alamcenar. 
+     * @return True si se logro.
+     */
+    public boolean maquinaHistorialNombresGuardar(MaquinaHistorialNombresVO mhnVo) {
+        MaquinaHistorialNombresDao d = new MaquinaHistorialNombresDao(coordinador);
+        return d.guardar(mhnVo);
+
+    }
     
 
     

@@ -15,20 +15,6 @@
  */
 package controlador;
 
-import vista.panels.PanelEmpleadoModificar;
-import vista.panels.PanelRefaccionDetalle;
-import vista.panels.PanelMaquinaModeloAgregar;
-import vista.panels.PanelProveedorModificar;
-import vista.panels.PanelImagenRefaccionDetalle;
-import vista.panels.PanelMaquinaModeloModificar;
-import vista.panels.PanelEntradaLote;
-import vista.panels.PanelEmpleadoAgregar;
-import vista.panels.PanelProveedorRegistrar;
-import vista.panels.PanelSalidaDeLote;
-import vista.panels.PanelRefaccionModificar;
-import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
-import vista.panels.PanelRefaccionAgregar;
-import vista.panels.PanelRefaccionesConsulta;
 import com.bulenkov.darcula.DarculaLaf;
 import controlador.ActualizacionDeComponentesGráficos.ControladorActualizacionGUI_BD;
 import controlador.capturadeerrores.CapturaDeSucesos;
@@ -39,6 +25,21 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import modelo.logica.Logica;
+import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
+import vista.panels.PanelEmpleadoAgregar;
+import vista.panels.PanelEmpleadoModificar;
+import vista.panels.PanelEntradaLote;
+import vista.panels.PanelImagenRefaccionDetalle;
+import vista.panels.PanelMaquinaAsignarNumeros;
+import vista.panels.PanelMaquinaModeloAgregar;
+import vista.panels.PanelMaquinaModeloModificar;
+import vista.panels.PanelProveedorModificar;
+import vista.panels.PanelProveedorRegistrar;
+import vista.panels.PanelRefaccionAgregar;
+import vista.panels.PanelRefaccionDetalle;
+import vista.panels.PanelRefaccionModificar;
+import vista.panels.PanelRefaccionesConsulta;
+import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
 import vista.panels.PanelSalidaDeLoteSeleccionLotes;
 
@@ -112,6 +113,9 @@ public class Principal {
         PanelSalidaDeLote panelSalidaDeLote = new PanelSalidaDeLote();
         PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes = new PanelSalidaDeLoteSeleccionLotes();
         PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarPorLote = new PanelSalidaDeLoteCantidadADescontarDeLote();
+        PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros = new PanelMaquinaAsignarNumeros();
+        
+                
         
         
         //LOGICA
@@ -142,6 +146,7 @@ public class Principal {
         coordinador.setPanelSalidaDeLote(panelSalidaDeLote);
         coordinador.setCoordinadorPaneles(coordinadorPaneles);
         coordinador.setPanelSalidaDeLoteCantidadADescontarDeLote(panelSalidaDeLoteCantidadADescontarPorLote);
+        coordinador.setPanelMaquinaAsignarNumeros(panelMaquinaAsignarNumeros);
         
         /*
         ====================================================================
@@ -167,6 +172,7 @@ public class Principal {
         coordinadorPaneles.setCoordinador(coordinador);
         panelSalidaDeLoteSeleccionLotes.setCoordinador(coordinador);
         panelSalidaDeLoteCantidadADescontarPorLote.setCoordinador(coordinador);
+        panelMaquinaAsignarNumeros.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         

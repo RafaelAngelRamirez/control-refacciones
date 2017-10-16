@@ -8,15 +8,18 @@ public class ConexionDatos {
     /**
      * Contraseña de debugueo. Despues hay que cambiar para usar seguridad. 
      */
-    public static final String CONTRASENA_SERVIDOR = "";
+//    public static final String CONTRASENA_SERVIDOR = "";
+    public static final String CONTRASENA_SERVIDOR = "continuar";
     /**
      * Usuario con el que se trabajara en la base de datos. 
      */
-    public static final String USUARIO_SERVIDOR = "root";
+//    public static final String USUARIO_SERVIDOR = "root";
+    public static final String USUARIO_SERVIDOR = "desarrollo";
     /**
      * Dirección del servidor de datos e imagenes. 
      */
-    public static final String URL_SERVIDOR = "127.0.0.1/";
+    public static final String URL_SERVIDOR = "192.168.1.73/";
+//    public static final String URL_SERVIDOR = "187.152.42.1/";
     /**
      *La ruta donde se alojaran las imagenes.  
      */

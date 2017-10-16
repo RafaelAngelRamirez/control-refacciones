@@ -82,5 +82,10 @@ public class ColoresYFuentes {
      */
     public static final Color TEMA_VISOR_DE_IMAGENES = TEMA_TXT_BG;
     
+    /**
+     * Gris muy oscuro para los menus. 
+     */
+    public static final Color TEMA_FONDO_OSCURO = new Color(30,30,30);
+    
     
 }

@@ -900,7 +900,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         etiquetaMaquinas.setText("Maquinas");
 
         btnGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_palomita.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_palomita.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -909,7 +909,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         });
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -918,7 +918,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         });
 
         btnAgregarNuevaMaquina.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnAgregarNuevaMaquina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_mas.png"))); // NOI18N
+        btnAgregarNuevaMaquina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_mas.png"))); // NOI18N
         btnAgregarNuevaMaquina.setText("Nueva maquina");
         btnAgregarNuevaMaquina.setFocusable(false);
         btnAgregarNuevaMaquina.addActionListener(new java.awt.event.ActionListener() {
@@ -934,7 +934,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         etiquetaContadorImagenes.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         etiquetaContadorImagenes.setOpaque(true);
 
-        btnSiguienteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_siguiente.png"))); // NOI18N
+        btnSiguienteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_siguiente.png"))); // NOI18N
         btnSiguienteImagen.setFocusable(false);
         btnSiguienteImagen.setOpaque(false);
         btnSiguienteImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -943,7 +943,7 @@ public class PanelRefaccionModificar extends JPanelBase {
             }
         });
 
-        btnRegresarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_anterios.png"))); // NOI18N
+        btnRegresarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_anterios.png"))); // NOI18N
         btnRegresarImagen.setFocusable(false);
         btnRegresarImagen.setOpaque(false);
         btnRegresarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -953,7 +953,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         });
 
         btnAgregarImagen.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnAgregarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_mas.png"))); // NOI18N
+        btnAgregarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_mas.png"))); // NOI18N
         btnAgregarImagen.setText("Agregar");
         btnAgregarImagen.setOpaque(false);
         btnAgregarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -963,7 +963,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         });
 
         btnEliminarImagen.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnEliminarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnEliminarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnEliminarImagen.setText("Eliminar");
         btnEliminarImagen.setOpaque(false);
         btnEliminarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -1034,7 +1034,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         etiquetaProveedores.setText("Proveedores");
 
         btnAgregarNuevProveedor.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnAgregarNuevProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_mas.png"))); // NOI18N
+        btnAgregarNuevProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_mas.png"))); // NOI18N
         btnAgregarNuevProveedor.setText("Nuevo proveedor");
         btnAgregarNuevProveedor.setFocusable(false);
         btnAgregarNuevProveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -1111,7 +1111,7 @@ public class PanelRefaccionModificar extends JPanelBase {
         checkEsDeConsumoUnico.setText("Es de consumo único.");
 
         etiquetaNombreDeLaRefaccion1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaNombreDeLaRefaccion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_agregar refaccion copia.png"))); // NOI18N
+        etiquetaNombreDeLaRefaccion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_modificar refaccion.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

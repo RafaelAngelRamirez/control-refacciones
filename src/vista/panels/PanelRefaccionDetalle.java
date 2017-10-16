@@ -545,7 +545,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         checkEsDeConsumoUnico = new javax.swing.JCheckBox();
 
         btnSalir.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -610,7 +610,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
 
         jLabel1.setBackground(new java.awt.Color(98, 15, 89));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_titulo_detalle de refaccion.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_detalle de refaccion.png"))); // NOI18N
 
         txtDescripcion.setEditable(false);
         txtDescripcion.setColumns(20);
@@ -706,7 +706,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
             }
         });
 
-        btnSiguienteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_siguiente.png"))); // NOI18N
+        btnSiguienteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_siguiente.png"))); // NOI18N
         btnSiguienteImagen.setFocusable(false);
         btnSiguienteImagen.setOpaque(false);
         btnSiguienteImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -715,7 +715,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
             }
         });
 
-        btnRegresarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_anterios.png"))); // NOI18N
+        btnRegresarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_anterios.png"))); // NOI18N
         btnRegresarImagen.setFocusable(false);
         btnRegresarImagen.setOpaque(false);
         btnRegresarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -803,7 +803,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         etiquetaParaQueEs1.setOpaque(true);
 
         btnModificar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_mas.png"))); // NOI18N
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_mas.png"))); // NOI18N
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

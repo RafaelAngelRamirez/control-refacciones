@@ -13,6 +13,7 @@ import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.ImagenProveedorIT;
 import modelo.InfoTabla.ImagenRefaccionIT;
+import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.PaisIT;
@@ -31,7 +32,9 @@ import modelo.vo.EntradaLoteVo;
 import modelo.vo.ImagenProveedorVo;
 import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.ImportanciaVo;
+import modelo.vo.MaquinaHistorialNombresVO;
 import modelo.vo.MaquinaModeloVo;
+import modelo.vo.MaquinaVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.PaisVo;
 import modelo.vo.ProveedorVo;
@@ -46,6 +49,7 @@ import vista.panels.PanelEmpleadoAgregar;
 import vista.panels.PanelEmpleadoModificar;
 import vista.panels.PanelEntradaLote;
 import vista.panels.PanelImagenRefaccionDetalle;
+import vista.panels.PanelMaquinaAsignarNumeros;
 import vista.panels.PanelMaquinaModeloAgregar;
 import vista.panels.PanelMaquinaModeloModificar;
 import vista.panels.PanelProveedorModificar;
@@ -88,6 +92,7 @@ public class Coordinador {
     private PanelSalidaDeLote panelSalidaDeLote;
     private PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes;
     private PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarDeLote;
+    private PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros;
     
     private ControladorActualizacionGUI_BD controladorActualizacionGUI_BD;
     
@@ -113,6 +118,14 @@ public class Coordinador {
     GETS AND SETS
     ////////////////////////////////////////////////////////////////////////
      */
+
+    public PanelMaquinaAsignarNumeros getPanelMaquinaAsignarNumeros() {
+        return panelMaquinaAsignarNumeros;
+    }
+
+    public void setPanelMaquinaAsignarNumeros(PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros) {
+        this.panelMaquinaAsignarNumeros = panelMaquinaAsignarNumeros;
+    }
 
     public ControladorActualizacionGUI_BD getControladorActualizacionGUI_BD() {
         return controladorActualizacionGUI_BD;
@@ -455,15 +468,27 @@ public class Coordinador {
        INICIO MAQUINAS Y MAQUINASMODELO
     ////////////////////////////////////////////////////////////////////////
     */
-    
+
+    /**
+     * Abre el dialogo agregar maquinaModelo.
+     * @param modelo El modelo que se quiere precargar. 
+     */
+    public void maquinaModeloAbrirDialogoAgregar(String modelo){
+        JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloAgregar);
+        panelMaquinaModeloAgregar.configurar();
+        panelMaquinaModeloAgregar.preCargarModelo(modelo);
+        d.setVisible(true);
+    }
+    /**
+     * Abre el dialogo agregar maquinaModelo.
+     */
     public void maquinaModeloAbrirDialogoAgregar(){
-        
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloAgregar);
         panelMaquinaModeloAgregar.configurar();
         d.setVisible(true);
-        
-    
     }
+    
+    
     
     public void maquinaModeloAbrirDialogoModificar(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloModificar);
@@ -1268,9 +1293,24 @@ public class Coordinador {
     ========================================================================
     */
     
-    
-    
-    
+    /* 
+    ========================================================================
+       INICIO DE IMPORTANCIA
+    ////////////////////////////////////////////////////////////////////////
+    */
+
+        public List<ImportanciaVo> importanciaConsultar() {
+            return this.logica.importanciaConsultar();
+
+        }
+    /* 
+        
+        
+      /* ////////////////////////////////////////////////////////////////////////
+        FIN DE IMPORTANCIA
+    ========================================================================
+    */
+   
     /* 
     ========================================================================
        INICIO DE ACTUALIZACIONES DE TABLA
@@ -1300,31 +1340,125 @@ public class Coordinador {
     }
     
     
-    
-//        FIN DE ACTUALIZACIONES DE TABLA
-//    ========================================================================
-//    */
-//    
-    
+    /*
+        FIN DE ACTUALIZACIONES DE TABLA
+    ========================================================================
+    */
    
-    
     /* 
+    ========================================================================
+       INICIO DE MAQUINA
+    ////////////////////////////////////////////////////////////////////////
+    */
+    
+    
+    /**
+     * Abre el dialogo que permite registrar y asignar números a máquinas para 
+     * manejarlas independientemente de maquina-modelos.
+     */
+    public void maquinaAbrirDialogoAsignarNumeros(){
+        JDialogBase d = coordinadorPaneles
+                .ifContainsReturnElseCreate(panelMaquinaAsignarNumeros);
+        d.setVisible(true);
+    }
+
+    /**
+     * Retorna todas las máquinas existentes en la tabla Maquina.
+     * @return
+     */
+    public List<MaquinaVo> maquinaConsultar() {
+        return logica.maquinaConsultar();
+    }
+
+    /**
+     * Elimina la máquina seleccionada y todo lo que este relacionada con ella. 
+     * @param vo La máquina que se quiere eliminar. 
+     * @return True si se elimino correctamente. 
+     */
+    public boolean maquinaEliminar(MaquinaVo vo) {
+        setTablaModificada(MaquinaIT.NOMBRE_TABLA);
+        return logica.maquinaEliminar(vo);
+    }
+
+    /**
+     * Comprueba si la refacción existe. A diferencia de {@see maquinaRepetido}
+     * esta comprueba solo si la refacción que se le pase existe más de una vez
+     * incluida la misma que se le pase.
+     * 
+     * Sirve para comprobar si se modifica la máquina o se agrega una nueva. 
+     * 
+     * @param vo La refacción que se comprobara si esta repetida. 
+     * @return True si esta repetida. 
+     */
+    public boolean maquinaExiste(MaquinaVo vo) {
+        return logica.maquinaExiste(vo);
+    }
+
+    /**
+     * Valida que los campos cumplan las condiciones para almacenarse o modificarse. 
+     * 
+     * @param vo
+     * @return
+     */
+    public List<Validacion> maquinaValidarCampos(MaquinaVo vo) {
+        return logica.maquinaValidadCampos(vo);
+    }
+    
+    /**
+     * Revisa que la máquina no este repetida sin incluirse a ella misma. 
+     * @param vo La máquina que se quiere comparar.
+     * @return True si existe repetido. 
+     */
+    public boolean maquinaRepetido(MaquinaVo vo) {
+        return logica.maquinaRepetido(vo);
+    }
+
+    /**
+     * Modifca la refacción que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
+    public boolean maquinaModificar(MaquinaVo vo) {
+        setTablaModificada(MaquinaIT.NOMBRE_TABLA);
+        return logica.maquinaModificar(vo);
+    }
+
+    /**
+     * Guarda la máquina que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
+    public boolean maquinaGuardar(MaquinaVo vo) {
+        setTablaModificada(MaquinaIT.NOMBRE_TABLA);
+        return logica.maquinaGuardar(vo);
+    }
+
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE MAQUINA
+    ========================================================================
+    */
+    
+     /* 
     ========================================================================
        INICIO DE ALGO
     ////////////////////////////////////////////////////////////////////////
     */
-    /* 
+    
+     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE ALGO
     ========================================================================
     */
 
-    public List<ImportanciaVo> importanciaConsultar() {
-        return this.logica.importanciaConsultar();
+    /**
+     * Almacena el nombre que fue modificado y guarda la fecha y hora en que se 
+     * modifico. 
+     * @param mhnVo El objeto que contiene los datos a alamcenar. 
+     * @return True si se logro.
+     */
+    public boolean maquinaHistorialNombresGuardar(MaquinaHistorialNombresVO mhnVo) {
+        return logica.maquinaHistorialNombresGuardar(mhnVo);
 
     }
-
-   
-    
-    
 }

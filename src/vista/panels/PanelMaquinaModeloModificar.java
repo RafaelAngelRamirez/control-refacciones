@@ -12,6 +12,7 @@ import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.ProveedorVo;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
+import vista.UtilidadesIntefaz.ConfirmacionExahustiva;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesComboBox_;
@@ -252,7 +253,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
 
         jLabel1.setBackground(new java.awt.Color(104, 127, 13));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_titulo_agregar modelo maquina.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_agregar modelo maquina.png"))); // NOI18N
         jLabel1.setOpaque(true);
 
         etiquetaModeloMaquina.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -292,7 +293,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         });
 
         btnGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_palomita.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_palomita.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,7 +302,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         });
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,7 +321,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         jScrollPane3.setViewportView(listaMaquinanasModelo);
 
         btnCancelar1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnCancelar1.setText("Eliminar");
         btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -500,25 +501,28 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
         MaquinaModeloVo vo = new MaquinaModeloVo();
-        vo.setId(this.idConsultandoseActualmente);
-        vo.setModelo(this._TxtModeloMaquina.getText());
-        vo.setAnio(Integer.parseInt(this._TxtAnio.getText()));
-        if (vo.getId()!=-1) {
-            int r = JOptionPane.showConfirmDialog(
-                    this, 
-                    "¿Estas segúro que quieres eliminar este modelo?\n "
-                    + "Esta acción no se puede deshacer.", 
-                    "Confirmar eliminar modelo.", 
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.WARNING_MESSAGE);
-            if (r==JOptionPane.YES_OPTION) {
-                if(this.getCoordinador().maquinaModeloEliminar(vo)){
-                    this.limpiarTodo();
-//                    cargarCombosYListas();
-                    getCoordinador().actualizarTodoLoVisible();
-                    JOptionPane.showMessageDialog(
-                            this, 
-                            "Se eliminó '"+vo.getModelo()+" "+vo.getAnio()+"' correctamente.");
+        if (!_ListaMaquinaModelo.getSelectValueId().equals(-1)) {
+            vo.setId(this.idConsultandoseActualmente);
+            vo.setModelo(this._TxtModeloMaquina.getText());
+            vo.setAnio(Integer.parseInt(this._TxtAnio.getText()));
+            if (vo.getId()!=-1) {
+
+                String msj1 =  "¿Estas segúro que quieres eliminar este modelo?\n "
+                        + "Esta acción no se puede deshacer.";
+                String msj2 = "Estas MUY SEGÚRO que quieres eliminar este modelo de máquina? Esto perjudicará todos los registros y el historial que pudo \n"
+                        + "formarse durante el tiempo que se ha utilizado.";
+
+                int r = ConfirmacionExahustiva.confirmarEliminacionPeligrosa(msj1, msj2);
+
+                if (r==ConfirmacionExahustiva.SI_ELIMINAR) {
+                    if(this.getCoordinador().maquinaModeloEliminar(vo)){
+                        this.limpiarTodo();
+    //                    cargarCombosYListas();
+                        getCoordinador().actualizarTodoLoVisible();
+                        JOptionPane.showMessageDialog(
+                                this, 
+                                "Se eliminó '"+vo.getModelo()+" "+vo.getAnio()+"' correctamente.");
+                    }
                 }
             }
         }

@@ -17,12 +17,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/controlador/ActualizacionDeComponentesGráficos/ControladorActualizacionGUI_BD.java</file>
-            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelRefaccionAgregar.java</file>
-            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelProveedorRegistrar.java</file>
-            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/controlador/ActualizacionDeComponentesGráficos/OperacionesDeActualizacion.java</file>
-            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/UtilidadesIntefaz/JPanelBase.java</file>
-            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelMaquinaModeloAgregar.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelMaquinaAsignarNumeros.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/vista/panels/PanelRefaccionesConsulta.java</file>
+            <file>file:/C:/Users/Particular/Desktop/Almacen%20de%20refacciones/AlmacenDeRefacciones/src/modelo/dao/MaquinaDao.java</file>
         </group>
     </open-files>
 </project-private>

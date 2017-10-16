@@ -7,13 +7,13 @@ package modelo;
  */
 
 import controlador.*;
+import controlador.capturadeerrores.Suceso;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import controlador.capturadeerrores.Suceso;
 
 /**
  * Gestión de las conexiones a la base de datos.
@@ -37,8 +37,6 @@ public class Conexion {
      */
     public Conexion(Coordinador controlador) {
         this.controlador = controlador;
-        //this.capturaDeSuscesos = new CapturaDeSucesos(this.controlador);
-        //this.capturaDeSuscesos.println("[+] CONECTANDO A LA BASE DE DATOS.");
         System.out.println("[+] CONECTANDO A LA BASE DE DATOS.");
         this.exitosa = Miconexion();
     }
@@ -168,7 +166,7 @@ public class Conexion {
      * @return Retorna true si la sentencia de se ejecuto de manera correcta.
      * 
      */
-    public boolean executeUpdate(String sql, String datos){
+    public boolean executeUpdate(String sql, Object datos){
         Suceso s = new Suceso();
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
@@ -268,6 +266,13 @@ public class Conexion {
             JOptionPane.showMessageDialog(null, "No se pudo cerrar la conexión con el servidor.");
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        try {
+            System.out.println("Conexion cerrada:"+conexion.isClosed());
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return rs;
     }
     
@@ -295,7 +300,7 @@ public class Conexion {
      * 
      * 
      */
-    public ResultSet executeQuery (String sql, String dato){
+    public ResultSet executeQuery (String sql, Object dato){
         //PARA FACILITAR LAS CONSULTAS CUANDO SOLO SEA UN DATO.
         HashMap<Integer, Object> datos = new HashMap<>();
         datos.put(1, dato);

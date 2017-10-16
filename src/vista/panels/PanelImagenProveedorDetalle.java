@@ -173,7 +173,7 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
         etiquetaContadorImagenes.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         etiquetaContadorImagenes.setOpaque(true);
 
-        btnSiguienteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_siguiente.png"))); // NOI18N
+        btnSiguienteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_siguiente.png"))); // NOI18N
         btnSiguienteImagen.setFocusable(false);
         btnSiguienteImagen.setOpaque(false);
         btnSiguienteImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -182,7 +182,7 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
             }
         });
 
-        btnRegresarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_anterios.png"))); // NOI18N
+        btnRegresarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_anterios.png"))); // NOI18N
         btnRegresarImagen.setFocusable(false);
         btnRegresarImagen.setOpaque(false);
         btnRegresarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -192,7 +192,7 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
         });
 
         btnAgregarImagen.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnAgregarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_mas.png"))); // NOI18N
+        btnAgregarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_mas.png"))); // NOI18N
         btnAgregarImagen.setText("Agregar");
         btnAgregarImagen.setOpaque(false);
         btnAgregarImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -202,7 +202,7 @@ public class PanelImagenProveedorDetalle extends JPanelBase {
         });
 
         btnEliminarImagen.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnEliminarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnEliminarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnEliminarImagen.setText("Eliminar");
         btnEliminarImagen.setOpaque(false);
         btnEliminarImagen.addActionListener(new java.awt.event.ActionListener() {

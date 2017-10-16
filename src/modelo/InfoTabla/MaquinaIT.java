@@ -8,7 +8,6 @@ public class MaquinaIT extends ITGenerales{
     
     private ParametrosDeCampo idPDC = new ParametrosDeCampo();
     private ParametrosDeCampo idMaquinaModeloPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo descripcionPDC = new ParametrosDeCampo();
     private ParametrosDeCampo numeroDeMaquinaPDC = new ParametrosDeCampo();
 
     public MaquinaIT() {
@@ -28,26 +27,21 @@ public class MaquinaIT extends ITGenerales{
         idMaquinaModeloPDC.setPermiteRepetido(true);
         idMaquinaModeloPDC.setNombreParaMostrar("Modelo de máquina");
         
-        descripcionPDC.setNombre("descripcion");
-        descripcionPDC.setLongitudDeCaracteres(400);
-        descripcionPDC.setTipoDeDatos("varchar");
-        descripcionPDC.setNulo(true);
-        descripcionPDC.setAutoIncrement(false);
-        descripcionPDC.setPermiteRepetido(true);
-        descripcionPDC.setNombreParaMostrar("Descripcion");
         
-        numeroDeMaquinaPDC.setNombre("numeroDeMaquina");
-        numeroDeMaquinaPDC.setLongitudDeCaracteres(20);
+        numeroDeMaquinaPDC.setNombre("nombre");
+        numeroDeMaquinaPDC.setNombreParaMostrar("Número");
+        numeroDeMaquinaPDC.setLongitudDeCaracteres(50);
         numeroDeMaquinaPDC.setTipoDeDatos("varchar");
         numeroDeMaquinaPDC.setNulo(false);
         numeroDeMaquinaPDC.setAutoIncrement(false);
-        numeroDeMaquinaPDC.setPermiteRepetido(true);
-        numeroDeMaquinaPDC.setNombreParaMostrar("Número de máquina");
+        numeroDeMaquinaPDC.setPermiteRepetido(false);
+        numeroDeMaquinaPDC.setNombreParaMostrar("Número");
+        
 
         camposPDC.add(idPDC);
         camposPDC.add(idMaquinaModeloPDC);
-        camposPDC.add(descripcionPDC);
         camposPDC.add(numeroDeMaquinaPDC);
+        
         
     }
 
@@ -66,15 +60,6 @@ public class MaquinaIT extends ITGenerales{
     public void setIdMaquinaModeloPDC(ParametrosDeCampo idMaquinaModeloPDC) {
         this.idMaquinaModeloPDC = idMaquinaModeloPDC;
     }
-
-    public ParametrosDeCampo getDescripcionPDC() {
-        return descripcionPDC;
-    }
-
-    public void setDescripcionPDC(ParametrosDeCampo descripcionPDC) {
-        this.descripcionPDC = descripcionPDC;
-    }
-
     public ParametrosDeCampo getNumeroDeMaquinaPDC() {
         return numeroDeMaquinaPDC;
     }

@@ -101,7 +101,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         comboDepartamento.setMinimumSize(new java.awt.Dimension(195, 32));
 
         btnGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_palomita.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_palomita.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,7 +110,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         });
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,7 +127,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         jScrollPane1.setViewportView(listaEmpleados);
 
         btnDarDeBajaAlta.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnDarDeBajaAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png"))); // NOI18N
+        btnDarDeBajaAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
         btnDarDeBajaAlta.setText("Dar de baja");
         btnDarDeBajaAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +143,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/imagenes/iconos_buscar.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_buscar.png"))); // NOI18N
 
         checkMostrarEmpleadosDadosDeBaja.setText("Mostrar empleados dados de baja");
         checkMostrarEmpleadosDadosDeBaja.addItemListener(new java.awt.event.ItemListener() {
@@ -360,10 +360,10 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
             EmpleadoVo vo = (EmpleadoVo) a;
             if (vo.getBajaEmpleado()==1) {
                 btnDarDeBajaAlta.setText("Dar de alta");
-                btnDarDeBajaAlta.setIcon(new ImageIcon(getClass().getResource("/Vista/imagenes/iconos_palomita.png")));
+                btnDarDeBajaAlta.setIcon(new ImageIcon(getClass().getResource("/vista/imagenes/iconos_palomita.png")));
             }else{
                 btnDarDeBajaAlta.setText("Dar de baja");
-                btnDarDeBajaAlta.setIcon(new ImageIcon(getClass().getResource("/Vista/imagenes/iconos_tache.png")));
+                btnDarDeBajaAlta.setIcon(new ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png")));
             
             }
             _txtNombre.setText(vo.getNombre());

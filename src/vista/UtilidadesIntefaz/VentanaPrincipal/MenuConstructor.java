@@ -7,8 +7,6 @@ package vista.UtilidadesIntefaz.VentanaPrincipal;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import modelo.ExcepcionPersonalizada;
 
@@ -21,54 +19,13 @@ public class MenuConstructor {
         
     private boolean menu;
     private boolean item;
-//    private JPanel thisPanel;
-//    private JDialog thisDialog;
-
 
     private String nombre;
     private String padre;
     private String imagen;
 
     private Runnable accionDelItem;
-//    private Runnable accionInicializacion;
-//    private boolean accionInicializacionEjecutada = false;
-//    private boolean siempreAccionInicializada = false;
-
     private KeyStroke atajoDeTeclado;
-
-
-    /**
-    * SE ENCARGA DE ALMACENAR EL PANEL JUNTO CON LA INFORMACION DEL MENU CONSTRUCTOR
-    * PARA ACCEDER ATRAVEZ DE EL EN LA LISTA.
-    */
-    public MenuConstructor() {
-    }
-
-//    @Deprecated
-//    public JDialog getThisDialog() {
-//        if (thisDialog == null) {
-//            try {
-//                throw new ExcepcionPersonalizada("No has definido un dialgo.", this, "getThisDialog");
-//            } catch (ExcepcionPersonalizada ex) {
-//                Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }else if( thisPanel!=null){
-//            try {
-//                throw new ExcepcionPersonalizada(" No puedes tener un dialgo y un panel en el mismo objeto.", this, "getThisDialog");
-//            } catch (ExcepcionPersonalizada ex) {
-//                Logger.getLogger(MarcoParaVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        return thisDialog;
-//    }
-//    @Deprecated
-//    public void setDialog(JDialog thisDialog) {
-//
-//        this.thisDialog = thisDialog;
-//    }
-
-
-
 
     /**
      * Devuelve la acción que ejecutara el item al ser presionado. Si no se
