@@ -5,16 +5,48 @@
  */
 package modelo.vo;
 
+import modelo.InfoTabla.SeccionDeMaquinaIT;
+
 /**
  *
  * @author Particular
  */
 public class SeccionDeMaquinaVO extends VoGenerales{
+    
+    private int id;
+    private String nombreSeccion;
 
+    public SeccionDeMaquinaVO() {
+        SeccionDeMaquinaIT i = new SeccionDeMaquinaIT();
+        relacionCampo.put(i.getIdPDC().getNombre(), this::getId);
+        relacionCampo.put(i.getNombreSeccion().getNombre(), this::getNombreSeccion);
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombreSeccion() {
+        return nombreSeccion;
+    }
+
+    public void setNombreSeccion(String nombreSeccion) {
+        this.nombreSeccion = nombreSeccion;
+    }
+    
     
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+ String a = "Clase: "+this.getClass().getSimpleName()+"\n";
+        String b= "       | ";
+        String c =  "\n                Id" +b+ id+
+                    "\n  nomnombreSeccion" +b+ nombreSeccion;
+        String d =  "----------------------";
+        return a+d+c+d;
     }
     
 }

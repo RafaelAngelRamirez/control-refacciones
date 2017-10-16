@@ -9,7 +9,7 @@ package modelo.InfoTabla;
  *
  * @author Particular
  */
-public class RelacionSeccionMaqRefaccion extends ITGenerales{
+public class RelacionSeccionMaqRefaccionIT extends ITGenerales{
     
      /*
     * El nombre de la tabla en la base de datos. 
@@ -19,7 +19,7 @@ public class RelacionSeccionMaqRefaccion extends ITGenerales{
     private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
     private ParametrosDeCampo idSeccionMaquinaPDC = new ParametrosDeCampo();
 
-    public RelacionSeccionMaqRefaccion() {
+    public RelacionSeccionMaqRefaccionIT() {
         idRefaccionPDC.setNombre("idRefaccion");
         idRefaccionPDC.setLongitudDeCaracteres(11);
         idRefaccionPDC.setTipoDeDatos("int");

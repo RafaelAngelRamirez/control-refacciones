@@ -5,14 +5,25 @@
  */
 package modelo.vo;
 
+import modelo.InfoTabla.MaterialIT;
+
 /**
  *
  * @author Particular
  */
-public class MaterialVo {
+public class MaterialVo extends VoGenerales{
     
-    int id;
-    String material;
+    private int id;
+    private String material;
+
+    public MaterialVo() {
+        MaterialIT i = new MaterialIT();
+        relacionCampo.put(i.getIdPDC().getNombre(), this::getId);
+        relacionCampo.put(i.getMaterialPDC().getNombre(), this::getMaterial);
+    
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -28,6 +39,16 @@ public class MaterialVo {
 
     public void setMaterial(String material) {
         this.material = material;
+    }
+
+    @Override
+    public String toString() {
+        String a = "Clase: "+this.getClass().getSimpleName()+"\n";
+        String b= "       | ";
+        String c =  "\n                Id" +b+ id+
+                    "\n          Material" +b+ material;
+        String d =  "----------------------";
+        return a+d+c+d;
     }
     
     
