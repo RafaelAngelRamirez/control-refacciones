@@ -45,6 +45,10 @@ public class RefaccionVo extends VoGenerales{
     
     }
 
+    public boolean equals(RefaccionVo vo) {
+        return vo.getId()==getId();
+    }
+
     public int getId() {
         return id;
     }
