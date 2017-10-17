@@ -29,59 +29,43 @@
                               <Component id="filler3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="etiquetaNombreDeLaRefaccion" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtNombreDeLaRefaccion" min="-2" pref="390" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                                      <Component id="etiquetaProveedores" min="-2" pref="97" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane3" min="-2" pref="167" max="-2" attributes="0"/>
-                                  </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                                       <Component id="btnAgregarNuevaMaquina" min="-2" pref="150" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="txtNombreDeLaRefaccion" alignment="0" min="-2" pref="407" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jScrollPane3" linkSize="1" min="-2" pref="167" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane5" linkSize="1" alignment="1" min="-2" pref="197" max="-2" attributes="0"/>
+                                          <Component id="etiquetaProveedores" min="-2" pref="97" max="-2" attributes="0"/>
+                                          <Component id="etiquetaMaquinas" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="etiquetaAsignados" min="-2" pref="97" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="filler6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                                                      <Component id="filler5" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Component id="jScrollPane6" linkSize="1" min="-2" pref="167" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="etiquetaNombreDeLaRefaccion" alignment="0" min="-2" pref="186" max="-2" attributes="0"/>
                               </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="221" pref="221" max="-2" attributes="0"/>
-                              <Component id="filler6" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="394" pref="394" max="-2" attributes="0"/>
-                              <Component id="filler5" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="180" pref="180" max="-2" attributes="0"/>
                               <Component id="etiquetaImportancia" min="-2" pref="215" max="-2" attributes="0"/>
                           </Group>
                           <Component id="filler4" min="-2" pref="439" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="227" pref="227" max="-2" attributes="0"/>
-                              <Component id="etiquetaAsignados" min="-2" pref="97" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="227" pref="227" max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" min="-2" pref="167" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
-                              <Component id="etiquetaMaquinas" min="-2" pref="82" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
-                              <Component id="jScrollPane5" min="-2" pref="167" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="227" pref="227" max="-2" attributes="0"/>
-                              <Component id="jScrollPane6" min="-2" pref="167" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="227" pref="227" max="-2" attributes="0"/>
-                              <Component id="etiquetaCompatibles" min="-2" pref="105" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="btnAgregarNuevProveedor" min="-2" pref="150" max="-2" attributes="0"/>
@@ -91,6 +75,13 @@
                               <Component id="radioMedia" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                               <Component id="radioBaja" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="227" pref="227" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="etiquetaCompatibles" min="-2" pref="105" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane4" linkSize="1" min="-2" pref="167" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
@@ -164,70 +155,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="etiquetaNombreDeLaRefaccion1" min="-2" pref="42" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="278" pref="278" max="-2" attributes="0"/>
-                              <Component id="filler3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="etiquetaNombreDeLaRefaccion" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                              <Component id="txtNombreDeLaRefaccion" min="-2" pref="40" max="-2" attributes="0"/>
-                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Component id="etiquetaProveedores" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="222" pref="222" max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" min="-2" pref="159" max="-2" attributes="0"/>
-                              <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
-                              <Component id="btnAgregarNuevaMaquina" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="88" pref="88" max="-2" attributes="0"/>
-                              <Component id="filler6" min="-2" pref="369" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
-                              <Component id="filler5" min="-2" pref="491" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="493" pref="493" max="-2" attributes="0"/>
-                              <Component id="etiquetaImportancia" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="filler4" min="-2" pref="6" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="88" pref="88" max="-2" attributes="0"/>
-                              <Component id="etiquetaAsignados" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="323" pref="323" max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" min="-2" pref="159" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="294" pref="294" max="-2" attributes="0"/>
-                              <Component id="etiquetaMaquinas" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="113" pref="113" max="-2" attributes="0"/>
-                              <Component id="jScrollPane5" min="-2" pref="159" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="117" pref="117" max="-2" attributes="0"/>
-                              <Component id="jScrollPane6" min="-2" pref="159" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="294" pref="294" max="-2" attributes="0"/>
-                              <Component id="etiquetaCompatibles" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnAgregarNuevProveedor" min="-2" max="-2" attributes="0"/>
-                          <Component id="radioAkta" min="-2" max="-2" attributes="0"/>
-                          <Component id="radioMedia" min="-2" max="-2" attributes="0"/>
-                          <Component id="radioBaja" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="etiquetaCodigoInterno" min="-2" max="-2" attributes="0"/>
@@ -288,6 +216,61 @@
                           <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="487" max="-2" attributes="0"/>
+                      <Component id="etiquetaImportancia" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                      <Component id="filler5" min="-2" pref="491" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="88" pref="88" max="-2" attributes="0"/>
+                      <Component id="filler6" min="-2" pref="369" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="278" pref="278" max="-2" attributes="0"/>
+                      <Component id="filler3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="etiquetaNombreDeLaRefaccion" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                              <Component id="txtNombreDeLaRefaccion" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="filler4" alignment="0" min="-2" pref="6" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="etiquetaProveedores" min="-2" max="-2" attributes="0"/>
+                          <Component id="etiquetaAsignados" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jScrollPane5" alignment="2" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="jScrollPane6" alignment="2" min="-2" pref="159" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="etiquetaMaquinas" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="etiquetaCompatibles" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jScrollPane3" alignment="2" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="jScrollPane4" alignment="2" min="-2" pref="159" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                      <Component id="btnAgregarNuevaMaquina" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnAgregarNuevProveedor" min="-2" max="-2" attributes="0"/>
+                          <Component id="radioAkta" min="-2" max="-2" attributes="0"/>
+                          <Component id="radioMedia" min="-2" max="-2" attributes="0"/>
+                          <Component id="radioBaja" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
       </Group>
@@ -299,7 +282,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Nombre de la refaccion"/>
+        <Property name="text" type="java.lang.String" value="Nombre de la refaccion."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombreDeLaRefaccion">
@@ -485,9 +468,9 @@
     <Component class="javax.swing.JLabel" name="etiquetaMaquinas">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="18" style="0"/>
+          <Font name="Calibri" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Maquinas"/>
+        <Property name="text" type="java.lang.String" value="Nuevo modelo de m&#xe1;quina."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnGuardar">
@@ -679,9 +662,9 @@
     <Component class="javax.swing.JLabel" name="etiquetaCompatibles">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="18" style="0"/>
+          <Font name="Calibri" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Compatibles"/>
+        <Property name="text" type="java.lang.String" value="Compatibles."/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane5">
@@ -713,9 +696,9 @@
     <Component class="javax.swing.JLabel" name="etiquetaProveedores">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="18" style="0"/>
+          <Font name="Calibri" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Proveedores"/>
+        <Property name="text" type="java.lang.String" value="Proveedores."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnAgregarNuevProveedor">
@@ -759,9 +742,9 @@
     <Component class="javax.swing.JLabel" name="etiquetaAsignados">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="18" style="0"/>
+          <Font name="Calibri" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Asignados"/>
+        <Property name="text" type="java.lang.String" value="Asignados."/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">

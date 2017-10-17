@@ -32,9 +32,9 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
 
     private static final long serialVersionUID = 1L;
     
-    UtilidadesTxt_ _txtNombre;
-    UtilidadesComboBox_ _comboMaquinaModelo;
-    UtilidadesListas_ _listaMaquinas;
+    private UtilidadesTxt_ _txtNombre;
+    private UtilidadesComboBox_ _comboMaquinaModelo;
+    private UtilidadesListas_ _listaMaquinas;
     
     
     

@@ -19,7 +19,7 @@ public class SeccionDeMaquinaVO extends VoGenerales{
     public SeccionDeMaquinaVO() {
         SeccionDeMaquinaIT i = new SeccionDeMaquinaIT();
         relacionCampo.put(i.getIdPDC().getNombre(), this::getId);
-        relacionCampo.put(i.getNombreSeccion().getNombre(), this::getNombreSeccion);
+        relacionCampo.put(i.getNombreSeccionPDC().getNombre(), this::getNombreSeccion);
     }
     
     public int getId() {

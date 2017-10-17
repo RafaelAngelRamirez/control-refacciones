@@ -17,7 +17,7 @@ public class SeccionDeMaquinaIT extends ITGenerales{
     public static final String NOMBRE_TABLA = "secciondemaquina";
     
     private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreSeccion = new ParametrosDeCampo();
+    private ParametrosDeCampo nombreSeccionPDC = new ParametrosDeCampo();
  
 
     public SeccionDeMaquinaIT() {
@@ -28,17 +28,17 @@ public class SeccionDeMaquinaIT extends ITGenerales{
         idPDC.setAutoIncrement(true);
         idPDC.setPermiteRepetido(false);
 
-        nombreSeccion.setNombre("nombreSeccion");
-        nombreSeccion.setNombreParaMostrar("Nombre de seccion");
-        nombreSeccion.setLongitudDeCaracteres(30);
-        nombreSeccion.setTipoDeDatos("varchar");
-        nombreSeccion.setNulo(false);
-        nombreSeccion.setAutoIncrement(false);
-        nombreSeccion.setPermiteRepetido(false);
+        nombreSeccionPDC.setNombre("nombreSeccion");
+        nombreSeccionPDC.setNombreParaMostrar("Nombre de seccion");
+        nombreSeccionPDC.setLongitudDeCaracteres(30);
+        nombreSeccionPDC.setTipoDeDatos("varchar");
+        nombreSeccionPDC.setNulo(false);
+        nombreSeccionPDC.setAutoIncrement(false);
+        nombreSeccionPDC.setPermiteRepetido(false);
         
               
         camposPDC.add(idPDC);
-        camposPDC.add(nombreSeccion);
+        camposPDC.add(nombreSeccionPDC);
        
     
     }
@@ -51,12 +51,12 @@ public class SeccionDeMaquinaIT extends ITGenerales{
         this.idPDC = idPDC;
     }
 
-    public ParametrosDeCampo getNombreSeccion() {
-        return nombreSeccion;
+    public ParametrosDeCampo getNombreSeccionPDC() {
+        return nombreSeccionPDC;
     }
 
-    public void setNombreSeccion(ParametrosDeCampo nombreSeccion) {
-        this.nombreSeccion = nombreSeccion;
+    public void setNombreSeccionPDC(ParametrosDeCampo nombreSeccionPDC) {
+        this.nombreSeccionPDC = nombreSeccionPDC;
     }
     
     

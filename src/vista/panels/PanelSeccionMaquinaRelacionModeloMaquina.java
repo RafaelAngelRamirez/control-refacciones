@@ -5,17 +5,53 @@
  */
 package vista.panels;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import modelo.InfoTabla.SeccionDeMaquinaIT;
+import modelo.logica.Validacion;
+import modelo.vo.MaquinaModeloVo;
+import modelo.vo.RefaccionVo;
+import modelo.vo.RelacionMaqModSeccionDeMaquinaVO;
+import modelo.vo.RelacionSeccionMaqRefaccionVO;
+import modelo.vo.SeccionDeMaquinaVO;
+import vista.UtilidadesIntefaz.ConfiguracionDePanel;
+import vista.UtilidadesIntefaz.ConfirmacionExahustiva;
+import vista.UtilidadesIntefaz.JPanelBase;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
+import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
+
 /**
  *
  * @author Particular
  */
-public class PanelSeccionMaquinaRelacionModeloMaquina extends javax.swing.JPanel {
+public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
 
+    private static final long serialVersionUID = 1L;
+    private UtilidadesListas_ _listaModelosMaquinaAsignados;
+    private UtilidadesListas_ _listaModelosMaquinaDisponibles;
+    private UtilidadesListas_ _listaRefaccionesAsignadas;
+    private UtilidadesListas_ _listaRefaccionesDisponibles;
+    private UtilidadesListas_ _listaSecciones;
+    
+    private UtilidadesTxt_ _txtNombre;
+    
+    
+    
     /**
      * Creates new form PanelSeccionMaquinaRelacionModeloMaquina
      */
     public PanelSeccionMaquinaRelacionModeloMaquina() {
         initComponents();
+        configuracionesDialogo = new ConfiguracionDePanel();
+        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setResizable(false);
+        configuracionesDialogo.setTitle("TITULO PENDIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        configuracionesDialogo.setLocationRelativeTo(null);
+        configuracionesDialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -46,11 +82,9 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends javax.swing.JPanel
         etiquetaNombreDeLaRefaccion6 = new javax.swing.JLabel();
         etiquetaNombreDeLaRefaccion7 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        listaMaquinas3 = new javax.swing.JList<>();
+        listaRefaccionesAsignadas = new javax.swing.JList<>();
         jScrollPane9 = new javax.swing.JScrollPane();
         listaRefaccionesDisponibles = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
-        txtBusquedaRefaccion = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -96,11 +130,11 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends javax.swing.JPanel
             }
         });
 
-        listaModelosMaquinaAsignados.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        listaModelosMaquinaAsignados.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         listaModelosMaquinaAsignados.setFocusable(false);
         jScrollPane6.setViewportView(listaModelosMaquinaAsignados);
 
-        listaModelosMaquinaDisponibles.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        listaModelosMaquinaDisponibles.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         listaModelosMaquinaDisponibles.setFocusable(false);
         jScrollPane7.setViewportView(listaModelosMaquinaDisponibles);
 
@@ -122,23 +156,13 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends javax.swing.JPanel
         etiquetaNombreDeLaRefaccion7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion7.setText("Asignar refacción a sección.");
 
-        listaMaquinas3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        listaMaquinas3.setFocusable(false);
-        jScrollPane8.setViewportView(listaMaquinas3);
+        listaRefaccionesAsignadas.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
+        listaRefaccionesAsignadas.setFocusable(false);
+        jScrollPane8.setViewportView(listaRefaccionesAsignadas);
 
-        listaRefaccionesDisponibles.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        listaRefaccionesDisponibles.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         listaRefaccionesDisponibles.setFocusable(false);
         jScrollPane9.setViewportView(listaRefaccionesDisponibles);
-
-        jLabel1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_buscar.png"))); // NOI18N
-
-        txtBusquedaRefaccion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtBusquedaRefaccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBusquedaRefaccionActionPerformed(evt);
-            }
-        });
 
         btnLimpiar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_limpiar.png"))); // NOI18N
@@ -160,8 +184,8 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends javax.swing.JPanel
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnEliminar))
+                                    .addComponent(btnEliminar)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -173,40 +197,41 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends javax.swing.JPanel
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addGroup(layout.createSequentialGroup()
                                                     .addComponent(etiquetaNombre)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(btnLimpiar))
-                                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(etiquetaNombreDeLaRefaccion3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(jLabel1)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                                                    .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBusquedaRefaccion))
-                                            .addComponent(etiquetaNombreDeLaRefaccion5, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jScrollPane9))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(etiquetaNombreDeLaRefaccion3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(etiquetaNombreDeLaRefaccion5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(6, 6, 6)
+                                                        .addComponent(etiquetaNombreDeLaRefaccion6, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addGap(0, 0, 0))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(etiquetaNombreDeLaRefaccion7, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(146, 146, 146)))))
                         .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(etiquetaNombreDeLaRefaccion7, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(etiquetaNombreDeLaRefaccion6, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(etiquetaNombreDeLaRefaccion4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(300, 300, 300))))
@@ -218,77 +243,63 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnLimpiar)
+                            .addComponent(etiquetaNombre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(etiquetaNombreDeLaRefaccion4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(etiquetaNombreDeLaRefaccion)
-                            .addComponent(etiquetaNombreDeLaRefaccion3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 14, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(etiquetaNombreDeLaRefaccion7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(etiquetaNombreDeLaRefaccion6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etiquetaNombreDeLaRefaccion)
+                    .addComponent(etiquetaNombreDeLaRefaccion3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtBusquedaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(etiquetaNombreDeLaRefaccion5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane8))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(etiquetaNombreDeLaRefaccion7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etiquetaNombreDeLaRefaccion5)
+                    .addComponent(etiquetaNombreDeLaRefaccion6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnGuardar)
                         .addComponent(btnCancelar))
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane6, jScrollPane7, jScrollPane9});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane6, jScrollPane7, jScrollPane8, jScrollPane9});
 
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.cancelar();
+        cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
-        this.eliminarMaquina();
+        eliminarSeccion();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        guardarMaquina();
+        guardarSeccion();
     }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void txtBusquedaRefaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaRefaccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBusquedaRefaccionActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiar();
-        cargarLista();
-        cargarCombo();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
@@ -305,18 +316,299 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends javax.swing.JPanel
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion5;
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion6;
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion7;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JList<String> listaMaquinas3;
     private javax.swing.JList<String> listaModelosMaquinaAsignados;
     private javax.swing.JList<String> listaModelosMaquinaDisponibles;
+    private javax.swing.JList<String> listaRefaccionesAsignadas;
     private javax.swing.JList<String> listaRefaccionesDisponibles;
     private javax.swing.JList<String> listaSecciones;
-    private javax.swing.JTextField txtBusquedaRefaccion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void initConfig() {
+           /*
+        =======================================================================
+            INICIO SETEO NOMBRES DE ETIQUETA
+        ///////////////////////////////////////////////////////////////////////
+        */
+        SeccionDeMaquinaIT sdmIT = new SeccionDeMaquinaIT();
+        etiquetaNombre.setText(sdmIT.getNombreSeccionPDC().getNombreParaMostrar());
+        
+        /* 
+        ////////////////////////////////////////////////////////////////////////
+            FIN SETEO NOMBRES DE ETIQUETA
+        ========================================================================
+        */
+        
+        /*
+        =======================================================================
+            INICIO SETEO UTILIDADES
+        ///////////////////////////////////////////////////////////////////////
+        */
+        //INICIAMOS LAS UTILIDADES.
+        _listaModelosMaquinaAsignados = new UtilidadesListas_(getCoordinador());
+        _listaModelosMaquinaDisponibles = new UtilidadesListas_(getCoordinador());
+        _listaRefaccionesAsignadas = new UtilidadesListas_(getCoordinador());
+        _listaRefaccionesDisponibles = new UtilidadesListas_(getCoordinador());
+        _listaSecciones = new UtilidadesListas_(getCoordinador());
+        
+        _txtNombre = new UtilidadesTxt_(getCoordinador());
+        
+        //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
+        
+       _listaModelosMaquinaDisponibles.setComponente(listaModelosMaquinaDisponibles);
+       _listaModelosMaquinaAsignados.setComponente(listaModelosMaquinaAsignados);
+       _listaModelosMaquinaDisponibles.setComponenteListaAAgregar(_listaModelosMaquinaAsignados);
+       
+       _listaRefaccionesDisponibles.setComponente(listaRefaccionesDisponibles);
+       _listaRefaccionesAsignadas.setComponente(listaRefaccionesAsignadas);
+       _listaRefaccionesAsignadas.setComponenteListaAAgregar(_listaRefaccionesAsignadas);
+       
+       _listaSecciones.setComponente(listaSecciones);
+       
+       _txtNombre.setComponente(txtNombre);
+              
+        
+        //ASIGNAMOS EL TAMAÑO DE CAMPO
+        
+        _txtNombre.setTamanoDeCampo(sdmIT.getNombreSeccionPDC().getLongitudDeCaracteres());
+        
+        
+        //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
+        _txtNombre.setPermitirSoloMayusculas();
+        
+        //CAMPOS NUMÉRICOS
+        
+        
+        //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
+        _txtNombre.setEspaciosEnBlanco();
+
+        //TRAVEL POLICY
+        
+        _txtNombre.setNextFocusableComponent(btnGuardar);
+        btnGuardar.setNextFocusableComponent(btnCancelar);
+        btnCancelar.setNextFocusableComponent(btnEliminar);
+        btnEliminar.setNextFocusableComponent(btnLimpiar);
+        btnLimpiar.setNextFocusableComponent(_txtNombre.getThis());
+        
+        //ACCIONES ESPECELIALES.
+        
+        _listaModelosMaquinaDisponibles.setValueChange(()->_listaModelosMaquinaDisponibles.cambioEntreListas(false));
+        _listaModelosMaquinaAsignados.setValueChange(()->_listaModelosMaquinaDisponibles.cambioEntreListas(true));
+        
+        _listaRefaccionesDisponibles.setValueChange(()->_listaRefaccionesDisponibles.cambioEntreListas(false));
+        _listaRefaccionesAsignadas.setValueChange(()->_listaRefaccionesDisponibles.cambioEntreListas(true));
+        
+        _listaSecciones.setValueChange(this::cargarDatosDeListaParaModificar);
+        
+        _listaModelosMaquinaDisponibles.setActivoEjecucionDeOperacionesEnCambioEntreListas(true);
+        _listaModelosMaquinaDisponibles.addOperacionAlQuitarItem(this::cargarListaRefacciones, true);
+        _listaModelosMaquinaDisponibles.addOperacionAlQuitarItem(this::cargarListaRefacciones, false);
+              
+        
+        //ACCIONES DE BOTONES
+        UtilidadesBotones_.setEnterYEspacio(btnCancelar);
+        UtilidadesBotones_.setEnterYEspacio(btnEliminar);
+        UtilidadesBotones_.setEnterYEspacio(btnGuardar);
+        UtilidadesBotones_.setEnterYEspacio(btnLimpiar);
+        
+        //OPERACIONES DE ACTUALIZACION
+        
+        opAct.add(SeccionDeMaquinaIT.NOMBRE_TABLA, this::cargarListaSecciones);
+        opAct.add(SeccionDeMaquinaIT.NOMBRE_TABLA, this::cargarListaMaqModelo);
+//        opAct.add(SeccionDeMaquinaIT.NOMBRE_TABLA, this::cargarListaRefacciones);
+        
+        /* 
+        ////////////////////////////////////////////////////////////////////////
+            FIN SETEO DE UTILIDADES
+        ========================================================================
+        */
+        
+    }
+
+    @Override
+    public void configurar() {
+
+    }
+
+    private void cancelar() {
+        limpiar();
+        dispose();
+    }
+
+    private void cargarListaSecciones() {
+        _listaSecciones.limpiar();
+        List<SeccionDeMaquinaVO> listVO = getCoordinador().seccionDeMaquinaConsultar();
+        HashMap<String, Object> mapa = new HashMap<>();
+        
+        for (SeccionDeMaquinaVO v : listVO) {
+            mapa.put(v.getNombreSeccion(), v);
+        }
+        
+        _listaSecciones.cargarLista(mapa);
+
+    }
+    
+    SeccionDeMaquinaVO idActual;
+    private void cargarDatosDeListaParaModificar(){
+        Object o = _listaSecciones.getSelectValueId();
+        if (!o.equals(-1)) {
+            SeccionDeMaquinaVO v = (SeccionDeMaquinaVO)o;
+            _txtNombre.setText(v.getNombreSeccion());
+            idActual = v;
+            
+            //CARGAMOS LAS OTRAS LISTAS CON LAS REFACCIONES.
+            List<MaquinaModeloVo> listMaqMod = getCoordinador().seccionDeMaquinaConsultarMaquinaModelo(v.getId());
+            
+            _listaModelosMaquinaDisponibles.limpiar();
+            _listaRefaccionesDisponibles.limpiar();
+            
+            cargarListaMaqModelo(listMaqMod);
+            cargarListaRefacciones();
+        }
+    }
+     
+
+    private void cargarListaMaqModelo() {
+        cargarListaMaqModelo(null);
+    }
+    
+    private void cargarListaMaqModelo(List<MaquinaModeloVo>listMaquinaModeloVo) {
+        _listaModelosMaquinaDisponibles.limpiar();
+            List<MaquinaModeloVo> listVO ;
+        
+        if (listMaquinaModeloVo==null) {
+            listVO = getCoordinador().maquinaModeloConsultar();
+            
+        } else {
+            listVO = listMaquinaModeloVo;
+        }
+        HashMap<String, Object> mapa = new HashMap<>();
+        
+        for (MaquinaModeloVo v : listVO) {
+            mapa.put(v.getModelo()+" "+v.getAnio(), v);
+        }
+        
+        _listaModelosMaquinaDisponibles.cargarLista(mapa);
+
+    }
+
+    @SuppressWarnings("unchecked")
+    private void cargarListaRefacciones(){
+        //PRIMERO COMPROBAMOS QUE LA LISTA DE MAQUINAS-MODELO NO ESTE VACIA. 
+        if (_listaModelosMaquinaAsignados.isEmpty()) {
+            
+            //DESPUES CARGAMOS LAS MAQUINAS-MODELO QUE ESTAN SELECCIONADAS.
+            List<MaquinaModeloVo> mmVo = 
+                    (List<MaquinaModeloVo>)(List<?>)_listaModelosMaquinaAsignados.getItems_soloId();
+            
+            List<RefaccionVo>listParaComparar = new ArrayList<>();
+            
+            //REVISAMOS QUE LA LISTA DE REFACCIONES ASIGNADAS NO TENGA NADA.
+            if (_listaRefaccionesAsignadas.isEmpty()) {
+                //SI TIENE ALGO HAY QUE REVISAR SI SON COMPATIBLES CON LA MÁQUINA.MOD.
+                listParaComparar = 
+                        (List<RefaccionVo>)(List<?>)_listaRefaccionesAsignadas.getItems_soloId();
+                
+                
+            }
+            
+        
+        
+        
+        
+        //SI NO SON COMPATIBLES LAS QUITAMOS. 
+        
+        //SI SON COMPATIBLES LAS GUARDAMOS PARA LUEGO DESCONTARLOS DE LA LISTA
+        // DE DISPONIBLES.
+        
+        //MOSTRAMOS LA LISTA DE REFACCIONES. 
+        
+        }
+        
+        
+        
+        
+    }
+    
+    private void eliminarSeccion() {
+        Object a = _listaSecciones.getSelectValueId();
+        if (!a.equals(-1)) {
+            SeccionDeMaquinaVO seccionDeMaquinaVO = (SeccionDeMaquinaVO)a;
+            
+            String m1 = "¿Estas segúro que quieres eliminar esta sección?";
+            String m2 = "¿Estas muy segúro que quieres eliminar esta sección? Esta acción no se puede deshacer y perjudicara "
+                    + " los registros que tienen relación con esta sección \n"
+                    + " independientemente del modelo o refacción.¿Aun así quieres hacerlo?";
+            int r = ConfirmacionExahustiva.confirmarEliminacionPeligrosa(m1, m2);
+            if (r==ConfirmacionExahustiva.SI_ELIMINAR) {
+                if (getCoordinador().seccionDeMaquinaEliminar(seccionDeMaquinaVO)) {
+                    getCoordinador().actualizarTodoLoVisible();
+                    JOptionPane.showMessageDialog(this, "Se eliminó la sección.");
+                }else{
+                    JOptionPane.showMessageDialog(this, "Álgo paso y no se pudo eliminar la sección.");
+                }
+            }
+        }
+    }
+    
+   
+    
+    private void guardarSeccion() {
+        SeccionDeMaquinaIT it = new SeccionDeMaquinaIT();
+        
+        SeccionDeMaquinaVO sdmvo = new SeccionDeMaquinaVO();
+        sdmvo.setNombreSeccion(TOOL_TIP_TEXT_KEY);
+        
+        @SuppressWarnings("unchecked")
+        List<RefaccionVo> listRefacciones = (List<RefaccionVo>)(List<?>)_listaRefaccionesAsignadas.getItems_soloId();
+        @SuppressWarnings("unchecked")
+        List<MaquinaModeloVo> listMaquinaModelo = (List<MaquinaModeloVo>)(List<?>)_listaModelosMaquinaAsignados.getItems_soloId();
+        
+        
+        
+        
+        boolean todoValido = true;
+        List<Validacion> listVal = getCoordinador().seccionDeMaquinaValidar(sdmvo);
+        for (Validacion v : listVal) {
+            if (v.getNombreDeCampo().equals(it.getNombreSeccionPDC().getNombre())) {
+                if (v.isValido()) {
+                    _txtNombre.setErrorQuitar();
+                }else{
+                    todoValido = false;
+                    _txtNombre.setError(v.getMensajeDeError());
+                }
+            }
+        }
+        
+        if (todoValido) {
+            List<RelacionSeccionMaqRefaccionVO> listRSMR = new ArrayList<>();
+            List<RelacionMaqModSeccionDeMaquinaVO> listMMSDM = new ArrayList<>();
+            
+            for (RefaccionVo v : listRefacciones) {
+                RelacionSeccionMaqRefaccionVO r = new RelacionSeccionMaqRefaccionVO();
+                r.setIdRefaccion(v.getId());
+            }
+            
+            
+            
+            
+        }
+    }
+    
+    private void guardar(){
+    
+    }
+    
+    private void modificar(){}
+    
+    @Override
+    public void limpiar(){}
+    
 }
+

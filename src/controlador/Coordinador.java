@@ -488,19 +488,31 @@ public class Coordinador {
         d.setVisible(true);
     }
     
-    
-    
+    /**
+     * Abre el dialogo modificar maquina modelo. 
+     */
     public void maquinaModeloAbrirDialogoModificar(){
         JDialogBase d = coordinadorPaneles.ifContainsReturnElseCreate(panelMaquinaModeloModificar);
         panelMaquinaModeloModificar.configurar();
         d.setVisible(true);
     }
     
+    /**
+     * Valida que los datos que se le pasen sean correctos. 
+     * @param vo
+     * @param validandoUpdate
+     * @return
+     */
     public List<Validacion> maquinaModeloValidarCampos(MaquinaModeloVo vo, boolean validandoUpdate){
         return this.logica.maquinaModeloValidarCampos(vo, validandoUpdate);
     
     }
     
+    /** 
+     * Guarda la máquina modelo que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
     public boolean maquinaModeloGuardar(MaquinaModeloVo vo){
         boolean a = this.logica.maquinaModeloGuardar(vo);
         if (a) {
@@ -509,6 +521,11 @@ public class Coordinador {
         return a;
     }
     
+    /**
+     *  Modifica la maquina modelo que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
     public boolean maquinaModeloModificar(MaquinaModeloVo vo){
         boolean a = this.logica.maquinaModeloModificar(vo);
         if (a) {
@@ -517,6 +534,11 @@ public class Coordinador {
         return a;
     }
     
+    /**
+     * Elimina la máquina-modelo que se le pase como parametro. 
+     * @param vo
+     * @return
+     */
     public boolean maquinaModeloEliminar(MaquinaModeloVo vo){
         boolean a = this.logica.maquinaModeloEliminar(vo);
         if (a) {
@@ -526,16 +548,23 @@ public class Coordinador {
     }
     
     //ACTUALIZAR
-    public void maquinaModeloActualizarDialogoModificar(){
-          JOptionPane.showMessageDialog(null, "deberia acualizarse---maquinaModeloActualizarDialogoModificar");
-//        this.getPanelMaquinaModeloModificar().cargarCombosYListas();
-    }
+//    public void maquinaModeloActualizarDialogoModificar(){
+//          JOptionPane.showMessageDialog(null, "deberia acualizarse---maquinaModeloActualizarDialogoModificar");
+////        this.getPanelMaquinaModeloModificar().cargarCombosYListas();
+//    }
+//    
+//    /**
+//     * Actualiza el
+//     */
+//    public void maquinaModeloActualizarDialogoAgregar(){
+//          JOptionPane.showMessageDialog(null, "deberia acualizarse---maquinaModeloActualizarDialogoAgregar");
+//        this.getPanelMaquinaModeloAgregar().consultarProveedores();
+//    }
     
-    public void maquinaModeloActualizarDialogoAgregar(){
-          JOptionPane.showMessageDialog(null, "deberia acualizarse---maquinaModeloActualizarDialogoAgregar");
-        this.getPanelMaquinaModeloAgregar().consultarProveedores();
-    }
-    
+    /**
+     * Consulta la lista de modelos - año.
+     * @return  Retorna un objeto MaquinaModeloVo.
+     */
     public List<MaquinaModeloVo> maquinaModeloConsultar(){
         return this.logica.maquinaModeloConsultarModeloAnio();
     
@@ -676,7 +705,6 @@ public class Coordinador {
                 if (refaccionesPorModificarId.isEmpty()) {
                     refaccionesPorModificarId = this.getPanelRefaccionConsulta().getIdSeleccionados();
                 }
-                JOptionPane.showMessageDialog(null, "arrayDeque: "+refaccionesPorModificarId.toString());
                 // SI refaccionesPorModificarId NO ESTA VACIO ENTONCES QUIERE
                 //DECIR QUE SE SELECCIONARON ELEMENTOS DE LA TABLA.
                 if (!refaccionesPorModificarId.isEmpty()) {
@@ -1461,4 +1489,7 @@ public class Coordinador {
         return logica.maquinaHistorialNombresGuardar(mhnVo);
 
     }
+    
+    
+
 }

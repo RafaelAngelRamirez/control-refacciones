@@ -1,13 +1,8 @@
 
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
-import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
-import controlador.capturadeerrores.Suceso;
-import modelo.ExcepcionPersonalizada;
 import controlador.Coordinador;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import controlador.capturadeerrores.Suceso;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,9 +12,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import modelo.ExcepcionPersonalizada;
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
 /**
  * Utilidades para el fácil manejo de las listas.
@@ -129,6 +125,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * mostrarse en la lista. 
      */
     public void cargarLista(HashMap <String, Object> datos) {
+        activoEjecucionDeOperacionesEnCambioEntreListas = true;
         Suceso s = new Suceso();
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
@@ -147,6 +144,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         for (String datoOrdenado : ordenar) {
             defaultListModel.addElement(datoOrdenado);
         }
+        activoEjecucionDeOperacionesEnCambioEntreListas = false;
         
     }
     
@@ -158,6 +156,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         DefaultListModel quitarDeAqui = _listaQueSeSelecciona.getDefaultListModel();
         DefaultListModel agregarAqui = _listaALaQueSeAgregaLaSeleccion.getDefaultListModel();
         System.out.println(quitarDeAqui.size()+"-"+agregarAqui.size());
+        @SuppressWarnings("unchecked")
         List<Object> itemSeleccionados = _listaQueSeSelecciona.getThis().getSelectedValuesList();
         
         for (Object valor : itemSeleccionados) {
@@ -182,7 +181,85 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         } else {
             this.cambioEntreListas(this.ComponenteListaAAgregar, this );
         }
+        ejecutarOperacionesDeCambioEntreLista(invertir);
     }
+    
+    
+    /**
+     * Esta función ejecuta las operaciones cuando hay un cambio entre las listas.
+     * 
+     */
+    private void ejecutarOperacionesDeCambioEntreLista(boolean invertir){
+        if (activoEjecucionDeOperacionesEnCambioEntreListas) {
+            for (OperacionAlCambiarItem op : operacionesAlCambiarItem) {
+                if (op.isCuandoEjecutar()==invertir) {
+                    op.getOp().run();
+                }
+            }
+        }
+    }
+    private boolean activoEjecucionDeOperacionesEnCambioEntreListas = false;
+    List<OperacionAlCambiarItem> operacionesAlCambiarItem = new ArrayList<>();
+
+    /**
+     * True cuando la ejecucuón de operaciones entre listas esta activa. 
+     * {@see: addOperacionAlQuitarItem}
+     * @return
+     */
+    public boolean isActivoEjecucionDeOperacionesEnCambioEntreListas() {
+        return activoEjecucionDeOperacionesEnCambioEntreListas;
+    }
+
+    /**
+     * True si se quiere desactivar la ejecución de operaciones cuando hay un 
+     * cambio entre listas. 
+     * @param activoEjecucionDeOperacionesEnCambioEntreListas
+     */
+    public void setActivoEjecucionDeOperacionesEnCambioEntreListas(boolean activoEjecucionDeOperacionesEnCambioEntreListas) {
+        this.activoEjecucionDeOperacionesEnCambioEntreListas = activoEjecucionDeOperacionesEnCambioEntreListas;
+    }
+
+    
+    /**
+     * Añade operaciones que se ejecutaran cuando haya un cambio entre las listas.
+     * @param operacion La operación que se quiere añadir. 
+     * @param cuandoEjecutar True cuando se mandan de la lista principal a la secundaria.
+     * False al reves. 
+     */
+    public void addOperacionAlQuitarItem(Runnable operacion, boolean cuandoEjecutar){
+        OperacionAlCambiarItem a = new OperacionAlCambiarItem();
+        a.setCuandoEjecutar(cuandoEjecutar);
+        a.setOp(operacion);
+        operacionesAlCambiarItem.add(a);
+    }
+    
+    /**
+     * Esta clase almacena una operación que se ejecutara durante el cambio 
+     * entre listas. 
+     */
+    private class OperacionAlCambiarItem{
+        
+        private Runnable op;
+        private boolean cuandoEjecutar;
+
+        public Runnable getOp() {
+            return op;
+        }
+
+        public void setOp(Runnable op) {
+            this.op = op;
+        }
+
+        public boolean isCuandoEjecutar() {
+            return cuandoEjecutar;
+        }
+
+        public void setCuandoEjecutar(boolean cuandoEjecutar) {
+            this.cuandoEjecutar = cuandoEjecutar;
+        }
+    
+    }
+    
 
     @Override
     public void setError() {
@@ -323,4 +400,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
             }
         }.parametros(r, this));
     }
+    
+    
 }
