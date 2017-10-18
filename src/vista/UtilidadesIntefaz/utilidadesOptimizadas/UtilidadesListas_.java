@@ -224,9 +224,9 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * Añade operaciones que se ejecutaran cuando haya un cambio entre las listas.
      * @param operacion La operación que se quiere añadir. 
      * @param cuandoEjecutar True cuando se mandan de la lista principal a la secundaria.
-     * False al reves. 
+     * False al reves.(Esta es la lista principal.) 
      */
-    public void addOperacionAlQuitarItem(Runnable operacion, boolean cuandoEjecutar){
+    public void addOperacionAlIntercambiarItem(Runnable operacion, boolean cuandoEjecutar){
         OperacionAlCambiarItem a = new OperacionAlCambiarItem();
         a.setCuandoEjecutar(cuandoEjecutar);
         a.setOp(operacion);

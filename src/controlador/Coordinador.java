@@ -580,6 +580,11 @@ public class Coordinador {
     
     }
     
+    /** 
+     * Consulta las máquinas que esten relacionadas con el id 
+     * @param id
+     * @return
+     */
     public List<RelacionRefaccionMaquinaModeloVo> maquinaModeloConsultar(int id){
         return this.logica.maquinaModeloConsultarModeloAnio(id);
     
