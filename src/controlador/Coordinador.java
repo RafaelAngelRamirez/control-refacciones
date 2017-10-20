@@ -42,6 +42,7 @@ import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.SalidaLoteVo;
+import modelo.vo.SeccionDeMaquinaVO;
 import modelo.vo.UnidadVo;
 import vista.UtilidadesIntefaz.JDialogBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
@@ -62,6 +63,7 @@ import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
 import vista.panels.PanelSalidaDeLoteSeleccionLotes;
 import vista.panels.PanelSalidaLoteContenedorDeFila;
+import vista.panels.PanelSeccionMaquinaRelacionModeloMaquina;
 
 /**
  * Se controlan todas las interacciónes entre las diferentes ventanas. Se mantiene
@@ -93,6 +95,7 @@ public class Coordinador {
     private PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes;
     private PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarDeLote;
     private PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros;
+    private PanelSeccionMaquinaRelacionModeloMaquina panelSeccionMaquinaRelacionModeloMaquina;
     
     private ControladorActualizacionGUI_BD controladorActualizacionGUI_BD;
     
@@ -119,6 +122,14 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
 
+    public PanelSeccionMaquinaRelacionModeloMaquina getPanelSeccionMaquinaRelacionModeloMaquina() {
+        return panelSeccionMaquinaRelacionModeloMaquina;
+    }
+
+    public void setPanelSeccionMaquinaRelacionModeloMaquina(PanelSeccionMaquinaRelacionModeloMaquina panelSeccionMaquinaRelacionModeloMaquina) {
+        this.panelSeccionMaquinaRelacionModeloMaquina = panelSeccionMaquinaRelacionModeloMaquina;
+    }
+    
     public PanelMaquinaAsignarNumeros getPanelMaquinaAsignarNumeros() {
         return panelMaquinaAsignarNumeros;
     }
@@ -1465,6 +1476,17 @@ public class Coordinador {
         setTablaModificada(MaquinaIT.NOMBRE_TABLA);
         return logica.maquinaGuardar(vo);
     }
+    
+     /**
+     * Almacena el nombre que fue modificado y guarda la fecha y hora en que se 
+     * modifico. 
+     * @param mhnVo El objeto que contiene los datos a alamcenar. 
+     * @return True si se logro.
+     */
+    public boolean maquinaHistorialNombresGuardar(MaquinaHistorialNombresVO mhnVo) {
+        return logica.maquinaHistorialNombresGuardar(mhnVo);
+
+    }
 
      /* 
     ////////////////////////////////////////////////////////////////////////
@@ -1484,16 +1506,17 @@ public class Coordinador {
     ========================================================================
     */
 
-    /**
-     * Almacena el nombre que fue modificado y guarda la fecha y hora en que se 
-     * modifico. 
-     * @param mhnVo El objeto que contiene los datos a alamcenar. 
-     * @return True si se logro.
-     */
-    public boolean maquinaHistorialNombresGuardar(MaquinaHistorialNombresVO mhnVo) {
-        return logica.maquinaHistorialNombresGuardar(mhnVo);
-
+    public void seccionDeMaquinaAbrirDialogo(){
+        JDialogBase d = getCoordinadorPaneles().ifContainsReturnElseCreate(panelSeccionMaquinaRelacionModeloMaquina);
+        d.setVisible(true);
     }
+
+    public List<SeccionDeMaquinaVO> seccionDeMaquinaConsultar() {
+        return logica.seccionDeMaquinaConsultar();
+    }
+    
+    
+    
     
     
 

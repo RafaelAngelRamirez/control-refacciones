@@ -404,6 +404,15 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                         ()->coordinador.maquinaAbrirDialogoAsignarNumeros());
                 this.addItemOMenu(dialogoAsignarNúmeroAMaquina);
                 
+                MenuConstructor dialogoSeccionDeMaquinas = new MenuConstructor();
+                dialogoSeccionDeMaquinas.setItem();
+                dialogoSeccionDeMaquinas.setNombre(CoordinadorPaneles.PANEL_SECCION_DE_MAQUINAS);
+                dialogoSeccionDeMaquinas.setPadre(menuMaquina);
+                dialogoSeccionDeMaquinas.setImagen(imgModificar);
+                dialogoSeccionDeMaquinas.setAccionDelItem(
+                        ()->coordinador.seccionDeMaquinaAbrirDialogo());
+                this.addItemOMenu(dialogoSeccionDeMaquinas);
+                
                 
                 
                 
@@ -1130,6 +1139,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 //SUMA O RESTA LA EL MOVIMIENTO DEL MOUSE A LA POSICIÓN ACTUAL 
                 //DE LA VENTANA.
             addMouseMotionListener(new MouseMotionAdapter() {
+                @Override
                 public void mouseDragged(MouseEvent me) {
 
                     ventanaPrincipal.setLocation(
@@ -1147,6 +1157,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      * El borde y color que tienen la ventana aqui se definen.
      */
     class PanelSuperContenedor extends JPanel {
+
+        private static final long serialVersionUID = 1L;
 
         public PanelSuperContenedor() {
             setLayout(new BorderLayout());

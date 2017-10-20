@@ -40,6 +40,11 @@ public class RelacionSeccionMaqRefaccionVO extends VoGenerales{
         this.idSeccionMaquina = idSeccionMaquina;
     }
 
+    public boolean equals(RelacionSeccionMaqRefaccionVO obj) {
+         return obj.equals(idRefaccion) && obj.equals(idSeccionMaquina);
+         
+    }
+
     @Override
     public String toString() {
            String a = "Clase: "+this.getClass().getSimpleName()+"\n";

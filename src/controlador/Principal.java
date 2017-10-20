@@ -42,6 +42,7 @@ import vista.panels.PanelRefaccionesConsulta;
 import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
 import vista.panels.PanelSalidaDeLoteSeleccionLotes;
+import vista.panels.PanelSeccionMaquinaRelacionModeloMaquina;
 
 /**
  *
@@ -114,7 +115,9 @@ public class Principal {
         PanelSalidaDeLoteSeleccionLotes panelSalidaDeLoteSeleccionLotes = new PanelSalidaDeLoteSeleccionLotes();
         PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarPorLote = new PanelSalidaDeLoteCantidadADescontarDeLote();
         PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros = new PanelMaquinaAsignarNumeros();
+        PanelSeccionMaquinaRelacionModeloMaquina panelSeccionMaquinaRelacionModeloMaquina = new PanelSeccionMaquinaRelacionModeloMaquina();
         
+                
                 
         
         
@@ -147,6 +150,7 @@ public class Principal {
         coordinador.setCoordinadorPaneles(coordinadorPaneles);
         coordinador.setPanelSalidaDeLoteCantidadADescontarDeLote(panelSalidaDeLoteCantidadADescontarPorLote);
         coordinador.setPanelMaquinaAsignarNumeros(panelMaquinaAsignarNumeros);
+        coordinador.setPanelSeccionMaquinaRelacionModeloMaquina(panelSeccionMaquinaRelacionModeloMaquina);
         
         /*
         ====================================================================
@@ -173,6 +177,7 @@ public class Principal {
         panelSalidaDeLoteSeleccionLotes.setCoordinador(coordinador);
         panelSalidaDeLoteCantidadADescontarPorLote.setCoordinador(coordinador);
         panelMaquinaAsignarNumeros.setCoordinador(coordinador);
+        panelSeccionMaquinaRelacionModeloMaquina.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
         
