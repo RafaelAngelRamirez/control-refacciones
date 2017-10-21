@@ -687,15 +687,22 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         }
         
         if (todoValido) {
-        //SI LA SECCION NO EXISTE ENTONCES LA GUARDAMOS.
+        //LA SECCION NO EXISTE ENTONCES LA GUARDAMOS Y OBTENEMOS SU ID.
             if (getCoordinador().seccionDeMaquinaGuardar(sdmvo)) {
                 todoValido = true;
                 //CARGAMOS EL ID DE LA REFACCION GENERADO.
                 sdmvo.setId(getCoordinador().seccionDeMaquinaUltimoId());
+                if (sdmvo.getId()==-1) {
+                    todoValido = false;
+                    JOptionPane.showMessageDialog(this, "Algo paso y no se pudieron guardar"
+                            + " las refacciones que se relacionaron. "
+                            + "\nIntentalo recargando esta ventana.");
+                }
             }else{
-                JOptionPane.showMessageDialog(this, "Algo paso y no se pudo guardar la sección.");
                 todoValido = false;
             }
+            
+            
         }
         
         //LA LISTA QUE CONTENDRA LAS REFACCIONES COMPATIBLES. 
@@ -728,7 +735,8 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
          
         if (todoValido) {
             //GUARDAMOS LA RELACION ENTRE LA SECCIÓN Y LA REFACCIÓN.
-            if (getCoordinador().seccionDeMaquinaRelacionRefaccion(listRelacion)) {
+            if (getCoordinador().seccionDeMaquinaRelacionRefaccionGuardar(listRelacion)) {
+                getCoordinador().actualizarTodoLoVisible();
                 JOptionPane.showMessageDialog(this, "Se guardo la sección \""+sdmvo.getNombreSeccion()+"\" "
                         + "correctamente.");
             }else{
@@ -785,7 +793,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                     
                 });
         
-        _listaRefaccionesAsignadas
+//        _listaRefaccionesAsignadas
         
     }
 

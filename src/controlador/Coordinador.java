@@ -4,6 +4,7 @@ package controlador;
 import controlador.ActualizacionDeComponentesGráficos.ControladorActualizacionGUI_BD;
 import java.math.BigDecimal;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import javax.swing.JDialog;
@@ -17,11 +18,13 @@ import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.PaisIT;
+import modelo.InfoTabla.ParametrosDeCampo;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.InfoTabla.SalidaLoteIT;
+import modelo.InfoTabla.SeccionDeMaquinaIT;
 import modelo.InfoTabla.UnidadIT;
 import modelo.logica.ComparacionLotes;
 import modelo.logica.Logica;
@@ -41,6 +44,7 @@ import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
+import modelo.vo.RelacionSeccionMaqRefaccionVO;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.SeccionDeMaquinaVO;
 import modelo.vo.UnidadVo;
@@ -71,6 +75,8 @@ import vista.panels.PanelSeccionMaquinaRelacionModeloMaquina;
  * @author Rafael Ángel Ramírez Estrada.
  */
 public class Coordinador {
+    
+    private boolean debugMode;
     
     private CoordinadorPaneles coordinadorPaneles;
     
@@ -103,7 +109,7 @@ public class Coordinador {
     
     
     public void salirDelSistema(){
-        JOptionPane.showMessageDialog(null, "saliendo!");
+//        JOptionPane.showMessageDialog(null, "saliendo!");
         System.exit(0);
     
     }
@@ -121,6 +127,15 @@ public class Coordinador {
     GETS AND SETS
     ////////////////////////////////////////////////////////////////////////
      */
+
+    public boolean isDebugMode() {
+        return debugMode;
+    }
+
+    public void setDebugMode(boolean debugMode) {
+        this.debugMode = debugMode;
+    }
+    
 
     public PanelSeccionMaquinaRelacionModeloMaquina getPanelSeccionMaquinaRelacionModeloMaquina() {
         return panelSeccionMaquinaRelacionModeloMaquina;
@@ -1506,13 +1521,96 @@ public class Coordinador {
     ========================================================================
     */
 
+    /**
+     * Abre el dialogo seccion de maquina. 
+     */
     public void seccionDeMaquinaAbrirDialogo(){
         JDialogBase d = getCoordinadorPaneles().ifContainsReturnElseCreate(panelSeccionMaquinaRelacionModeloMaquina);
         d.setVisible(true);
     }
 
+    /**
+     * Consulta todas las secciones que hay registradas. 
+     * @return
+     */
     public List<SeccionDeMaquinaVO> seccionDeMaquinaConsultar() {
         return logica.seccionDeMaquinaConsultar();
+    }
+
+    /**
+     * Esto que hace????
+     * @param idActual
+     * @return
+     */
+    public List<MaquinaModeloVo> maquinaModeloRelacionSeccion(SeccionDeMaquinaVO idActual) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Valida que la sección este correcta. 
+     * @param sdmvo Los datos de la sección.
+     * @return El resultado de las validaciones. 
+     */
+    public List<Validacion> seccionDeMaquinaValidar(SeccionDeMaquinaVO sdmvo) {
+        SeccionDeMaquinaIT it = new SeccionDeMaquinaIT();
+        List<Validacion> listVal = new ArrayList<>();
+        for (ParametrosDeCampo parametrosDeCampo : it.getCamposPDC()) {
+            
+            if (parametrosDeCampo.getNombre().equals(it.getIdPDC().getNombre())) {
+                Validacion val = new Validacion();
+                if (sdmvo.getNombreSeccion().isEmpty()) {
+                    val.setMensajeDeError("No has definido un nombre.");
+                    val.setValido(false);
+                } else {
+                    val.setValido(true);
+                }
+                listVal.add(val);
+            }
+        }
+        return listVal;
+    }
+
+    /**
+     * Guarda una sección de máquina en la BD.
+     * @param sdmvo Los datos de la sección que se quieren guardar. 
+     * @return True si todo fue correcto. 
+     */
+    public boolean seccionDeMaquinaGuardar(SeccionDeMaquinaVO sdmvo) {
+        boolean a = logica.seccionDeMaquinaGuardar(sdmvo);
+        if (a) {
+            setTablaModificada(SeccionDeMaquinaIT.NOMBRE_TABLA);
+        }
+        return a;
+    }
+
+    /**
+     * Retorna el último id en la tabla de secciones máquinas. 
+     * @return El último id de la seccion;
+     */
+    public int seccionDeMaquinaUltimoId() {
+        return logica.seccionDeMaquinaUltimoId();
+    }
+
+    /**
+     * Guarda la relacion que hay entre la sección de la máquina y la refacción.
+     * @param listRelacion Lista de refacciones relacionadas.
+     * @return True si todo fue bien. 
+     */
+    public boolean seccionDeMaquinaRelacionRefaccionGuardar(List<RelacionSeccionMaqRefaccionVO> listRelacion) {
+        return logica.seccionDeMaquinaRelacionRefaccionGuardar(listRelacion);
+        
+    }
+
+    public List<RefaccionVo> refaccionConsultarCompatiblesConMaquinaModelo(MaquinaModeloVo mmvo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<RefaccionVo> refaccionRelacionSeccionMaquina(SeccionDeMaquinaVO idActual) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean seccionDeMaquinaEliminar(SeccionDeMaquinaVO seccionDeMaquinaVO) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

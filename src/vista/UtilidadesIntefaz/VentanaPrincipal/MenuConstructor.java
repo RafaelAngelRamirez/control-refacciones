@@ -8,7 +8,7 @@ package vista.UtilidadesIntefaz.VentanaPrincipal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.KeyStroke;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 
 /**
  * Guarda la información del item o menú que se quiere crear para mostrarlo 

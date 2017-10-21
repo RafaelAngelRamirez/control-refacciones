@@ -37,9 +37,11 @@ import modelo.dao.MaterialDao;
 import modelo.dao.PaisDao;
 import modelo.dao.ProveedorDao;
 import modelo.dao.RefaccionDao;
+import modelo.dao.RelaccionSeccionDeMaquinaRefaccionDAO;
 import modelo.dao.RelacionRefaccionMaquinaModeloDao;
 import modelo.dao.RelacionRefaccionProveedorDao;
 import modelo.dao.SalidaLoteDao;
+import modelo.dao.SeccionDeMaquinaDAO;
 import modelo.dao.UnidadDao;
 import modelo.vo.DepartamentoVo;
 import modelo.vo.EmpleadoVo;
@@ -56,7 +58,9 @@ import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
+import modelo.vo.RelacionSeccionMaqRefaccionVO;
 import modelo.vo.SalidaLoteVo;
+import modelo.vo.SeccionDeMaquinaVO;
 import modelo.vo.UnidadVo;
 import vista.panels.PanelSalidaLoteContenedorDeFila;
 
@@ -1431,6 +1435,44 @@ public class Logica {
         MaquinaHistorialNombresDao d = new MaquinaHistorialNombresDao(coordinador);
         return d.guardar(mhnVo);
 
+    }
+    
+    /**
+     * Consulta todas las secciones que hay registradas. 
+     * @return
+     */
+    public List<SeccionDeMaquinaVO> seccionDeMaquinaConsultar() {
+        SeccionDeMaquinaDAO d = new SeccionDeMaquinaDAO(coordinador);
+        return d.consultar();
+    }
+    
+    /**
+     * Guarda una sección de máquina en la BD.
+     * @param sdmvo Los datos de la sección que se quieren guardar. 
+     * @return True si todo fue correcto. 
+     */
+    public boolean seccionDeMaquinaGuardar(SeccionDeMaquinaVO sdmvo) {
+        SeccionDeMaquinaDAO d = new SeccionDeMaquinaDAO(coordinador);
+        return d.guardar(sdmvo);
+    }
+
+    /**
+     * Retorna el último id en la tabla de secciones máquinas. 
+     * @return El último id de la seccion;
+     */
+    public int seccionDeMaquinaUltimoId() {
+        SeccionDeMaquinaDAO d = new SeccionDeMaquinaDAO(coordinador);
+        return d.ultimoId();
+    }
+    
+    /**
+     * Guarda la relacion que hay entre la sección de la máquina y la refacción.
+     * @param listRelacion Lista de refacciones relacionadas.
+     * @return True si todo fue bien. 
+     */
+    public boolean seccionDeMaquinaRelacionRefaccionGuardar(List<RelacionSeccionMaqRefaccionVO> listRelacion) {
+        RelaccionSeccionDeMaquinaRefaccionDAO d = new RelaccionSeccionDeMaquinaRefaccionDAO(coordinador);
+        return d.guardarRelacion(listRelacion);
     }
     
 

@@ -1,5 +1,6 @@
 package modelo;
 
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;

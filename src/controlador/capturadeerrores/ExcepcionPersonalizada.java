@@ -1,5 +1,5 @@
 
-package modelo;
+package controlador.capturadeerrores;
 
 
 /**
@@ -7,6 +7,8 @@ package modelo;
  * @author Particular
  */
 public class ExcepcionPersonalizada extends Exception {
+
+    private static final long serialVersionUID = 1L;
     
     
     
@@ -60,6 +62,5 @@ public class ExcepcionPersonalizada extends Exception {
         "       METODO -> "+metodo+        
         "\n\n[-][-][-][-][-][-][-][-][-][-][-][-][-]\n\n"
         );
-        
     } 
 }

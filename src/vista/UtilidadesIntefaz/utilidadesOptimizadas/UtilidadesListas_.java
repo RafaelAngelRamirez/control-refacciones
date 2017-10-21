@@ -14,7 +14,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
 /**

@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.KeyStroke;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 
 /**
  * Este dialogo es el que permite mostrar los paneles de manera flotante. 

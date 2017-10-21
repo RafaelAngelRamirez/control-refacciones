@@ -21,7 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.InfoTabla.*;
 import modelo.logica.Validacion;
 import modelo.vo.ImagenRefaccionVo;
@@ -1224,7 +1223,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
 
-        _ImagenesRefacciones.setFiltros(new FileNameExtensionFilter("Imagenes", "jpg", "gif", "png", "tiff", "jpeg"));
         _ImagenesRefacciones.cargarImagenes();
 
     }//GEN-LAST:event_btnAgregarImagenActionPerformed

@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JTextField;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 
 /**
  * Operaciones básicas sobre los componentes gráficos.

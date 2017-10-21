@@ -19,7 +19,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
 /**

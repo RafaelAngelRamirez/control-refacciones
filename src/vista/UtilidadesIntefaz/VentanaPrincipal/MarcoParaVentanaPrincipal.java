@@ -36,7 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.ColoresYFuentes;
 

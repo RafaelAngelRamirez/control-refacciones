@@ -7,6 +7,7 @@ package modelo;
  */
 
 import controlador.*;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import controlador.capturadeerrores.Suceso;
 import java.sql.*;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class Conexion {
    
     private final boolean exitosa;
     private boolean queryExitoso;
-    private final Coordinador controlador;
+    private final Coordinador coordinador;
     
             
 
@@ -33,10 +34,10 @@ public class Conexion {
      * Gestiona las conexiones con la base de datos. Los datos se añaden modificando
      * directamente esta clase.
      * 
-     * @param controlador El jefe de jefe, señores!
+     * @param coordinador El jefe de jefe, señores!
      */
-    public Conexion(Coordinador controlador) {
-        this.controlador = controlador;
+    public Conexion(Coordinador coordinador) {
+        this.coordinador = coordinador;
         System.out.println("[+] CONECTANDO A LA BASE DE DATOS.");
         this.exitosa = Miconexion();
     }
@@ -44,13 +45,23 @@ public class Conexion {
     //CREAMOS UNA CONEXION CONSTANTE. 
     private boolean Miconexion(){
         try{
-            Class.forName("org.mariadb.jdbc.Driver");  
-            this.conexion= DriverManager.getConnection("jdbc:mariadb://"
-                    +ConexionDatos.URL_SERVIDOR
-                    +ConexionDatos.BD,
-                    ConexionDatos.USUARIO_SERVIDOR,
-                    ConexionDatos.CONTRASENA_SERVIDOR);
-            System.out.println("[+] CONEXIÓN EXITOSA: "+ConexionDatos.URL_SERVIDOR );
+            if (coordinador.isDebugMode()) {
+                Class.forName("org.mariadb.jdbc.Driver");  
+                this.conexion= DriverManager.getConnection("jdbc:mariadb://"
+                        +ConexionDatos.URL_SERVIDOR
+                        +ConexionDatos.BD_PRUEBAS,
+                        ConexionDatos.USUARIO_SERVIDOR,
+                        ConexionDatos.CONTRASENA_SERVIDOR);
+                System.out.println("[+] CONEXIÓN EXITOSA : "+ConexionDatos.URL_SERVIDOR +"\n\n \t\t-----MODO PRUEBAS----\n\n");
+            } else {
+                Class.forName("org.mariadb.jdbc.Driver");  
+                this.conexion= DriverManager.getConnection("jdbc:mariadb://"
+                        +ConexionDatos.URL_SERVIDOR
+                        +ConexionDatos.BD,
+                        ConexionDatos.USUARIO_SERVIDOR,
+                        ConexionDatos.CONTRASENA_SERVIDOR);
+                System.out.println("[+] CONEXIÓN EXITOSA: "+ConexionDatos.URL_SERVIDOR );
+            }
             return true;    
         } 
         catch(ClassNotFoundException | SQLException e){

@@ -7,7 +7,7 @@ package modelo.logica;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import modelo.InfoTabla.ParametrosDeCampo;
 
 /**

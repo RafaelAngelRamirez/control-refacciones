@@ -86,7 +86,11 @@ public class ImagenRefaccionDao extends DAOGenerales{
     public boolean subirImagenesAServidor(File img){
         conexion = new Conexion(coordinador);
         FicherosOperacionesServidor_ ficheros = new FicherosOperacionesServidor_(coordinador);
-        ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN);
+        if (coordinador.isDebugMode()) {
+            ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN_PRUEBA);
+         } else {
+            ficheros.setUrlDeSubida(ConexionDatos.SUBIDA_IMAGEN);
+         }
         ficheros.setFichero(img);
         return ficheros.subirFichero();
     
@@ -105,8 +109,12 @@ public class ImagenRefaccionDao extends DAOGenerales{
                 v.setNombreParaMostrar(r.getString(it.getNombreParaMostarPDC().getNombre()));
                 v.setNombreServidor(r.getString(it.getNombreServidorPDC().getNombre()));
                 v.setIdRefaccion(r.getInt(it.getIdRefaccionPDC().getNombre()));
-                String nombreImagen = 
-                        ConexionDatos.IMAGENES_RUTA_COMPLETA + v.getNombreServidor();
+                String nombreImagen;
+                if (coordinador.isDebugMode()) {
+                    nombreImagen = ConexionDatos.IMAGENES_RUTA_COMPLETA_PRUEBA + v.getNombreServidor();
+                } else {
+                    nombreImagen = ConexionDatos.IMAGENES_RUTA_COMPLETA + v.getNombreServidor();
+                }
                 System.out.println("nombre de imagen "+nombreImagen);
                 URL u = new URL(nombreImagen);
                 v.setUrlImagen(u);
@@ -142,7 +150,11 @@ public class ImagenRefaccionDao extends DAOGenerales{
     public boolean eliminarDeServidor(String img){
         conexion = new Conexion(coordinador);
         FicherosOperacionesServidor_ ficheros = new FicherosOperacionesServidor_(coordinador);
-        ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN);
+        if (coordinador.isDebugMode()) {
+            ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN_PRUEBA);
+        } else {
+            ficheros.setUrlEliminar(ConexionDatos.ELIMINAR_IMAGEN);
+        }
         ficheros.setImagenAEliminar(img);
         if (ficheros.eliminarImagen()) {
             System.out.println(ficheros.getRespuesta());

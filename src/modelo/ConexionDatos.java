@@ -8,7 +8,6 @@ public class ConexionDatos {
     /**
      * Contraseña de debugueo. Despues hay que cambiar para usar seguridad. 
      */
-//    public static final String CONTRASENA_SERVIDOR = "";
     public static final String CONTRASENA_SERVIDOR = "continuar";
     /**
      * Usuario con el que se trabajara en la base de datos. 
@@ -17,7 +16,7 @@ public class ConexionDatos {
     /**
      * Dirección del servidor de datos e imagenes. 
      */
-    public static final String URL_SERVIDOR = "127.0.0.1/";
+    public static final String URL_SERVIDOR = "192.168.1.109/";
     /**
      *La ruta donde se alojaran las imagenes.  
      */
@@ -43,5 +42,30 @@ public class ConexionDatos {
      */
     public static final String IMAGENES_RUTA_COMPLETA = 
             PROTOCOLO + URL_SERVIDOR +CARPETA_IMAGENES_SERVIDOR;
+    
+    
+    
+    //VARIABLES PARA PRUEBAS UNICAMENTE. 
+     /**
+      *Nombre de la base de datos de prueba. 
+      */
+    public static final String BD_PRUEBAS = "controlderefacciones_pruebas";
+    /**
+     *El fichero php que recivira las imagenes. 
+     */
+    public static final String SUBIDA_IMAGEN_PRUEBA = PROTOCOLO + URL_SERVIDOR+"$u63_4rc8iv0_prueba.php";
+    /**
+     *La ruta donde se alojaran las imagenes.  
+     */
+    public static final String CARPETA_IMAGENES_SERVIDOR_PRUEBA = "imagenesPrueba/";
+    /**
+     *El fichero php que elimina la imagen en el servidor. 
+     */
+    public static final String ELIMINAR_IMAGEN_PRUEBA = PROTOCOLO + URL_SERVIDOR+"3l1m1n4r_prueba.php";
+    /**
+     *Ruta para acceder a las imagenes en el servidor.
+     */
+    public static final String IMAGENES_RUTA_COMPLETA_PRUEBA = 
+            PROTOCOLO + URL_SERVIDOR +CARPETA_IMAGENES_SERVIDOR_PRUEBA;
     
 }

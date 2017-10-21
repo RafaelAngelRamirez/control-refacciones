@@ -7,7 +7,6 @@ package controlador.capturadeerrores;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.ExcepcionPersonalizada;
 
 /**
      * Esta clase permite el tranporte de una más complicada información para

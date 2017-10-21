@@ -14,7 +14,6 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.InfoTabla.PaisIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.logica.Validacion;
@@ -646,7 +645,6 @@ public class PanelProveedorRegistrar extends JPanelBase {
 
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
 
-        _ImagenesProveedor.setFiltros(new FileNameExtensionFilter("Imagenes", "jpg", "gif", "png", "tiff", "jpeg"));
         _ImagenesProveedor.cargarImagenes();
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 

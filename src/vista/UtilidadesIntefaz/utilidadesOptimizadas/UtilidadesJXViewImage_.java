@@ -24,7 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import org.jdesktop.swingx.JXImageView;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
@@ -52,6 +52,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
 
     public UtilidadesJXViewImage_(Coordinador controlador) {
         super(controlador);
+        setFiltros(new FileNameExtensionFilter("Imagenes", "jpg", "JPG", "gif", "GIF", "png", "PNG", "jpeg", "JPEG"));
     }
     
     

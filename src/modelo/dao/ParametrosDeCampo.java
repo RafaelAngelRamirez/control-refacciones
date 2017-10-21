@@ -1,6 +1,6 @@
 
 package modelo.dao;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

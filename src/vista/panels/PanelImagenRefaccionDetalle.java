@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.InfoTabla.ImagenRefaccionIT;
 import modelo.vo.ImagenRefaccionVo;
 import org.jdesktop.swingx.JXImageView;
@@ -341,7 +340,6 @@ public class PanelImagenRefaccionDetalle extends JPanelBase {
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
 
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
-        _ImagenesRefacciones.setFiltros(new FileNameExtensionFilter("Imagenes", "jpg", "gif", "png", "tiff", "jpeg"));
         _ImagenesRefacciones.cargarImagenes();
         List<ImagenRefaccionVo> listaiVo = new ArrayList<>();
         List<File> file = _ImagenesRefacciones.getImagenesPorCargar();

@@ -3,7 +3,7 @@ package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import controlador.capturadeerrores.Suceso;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import controlador.Coordinador;
 import java.awt.Component;
 import java.util.ArrayList;

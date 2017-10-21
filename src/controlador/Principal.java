@@ -85,9 +85,14 @@ public class Principal {
         System.setOut(SystemOut_);
         
         
+        
+        
          //COORDINADORES
         Coordinador coordinador = new Coordinador();
+        coordinador.setDebugMode(ESTADO_DE_DEBUG);
+        
         CoordinadorPaneles coordinadorPaneles = new CoordinadorPaneles();
+        
         
         //CONTROLADOR DE ACTUALIZACIÓN DE VENTANAS. 
         ControladorActualizacionGUI_BD controladorActualizacionGUI_BD = new ControladorActualizacionGUI_BD();

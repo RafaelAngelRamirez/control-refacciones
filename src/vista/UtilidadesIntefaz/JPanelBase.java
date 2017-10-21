@@ -13,7 +13,7 @@ import java.awt.event.HierarchyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
-import modelo.ExcepcionPersonalizada;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 
 /**
  *
