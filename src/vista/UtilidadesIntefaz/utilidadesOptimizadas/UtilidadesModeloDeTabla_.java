@@ -44,11 +44,11 @@ public class UtilidadesModeloDeTabla_ extends DefaultTableModel {
      * @param mapaDatos Mapa de datos super complicado que no entiendo a la 
      * hora de comentar. XP!!! Hay que comentar esto.
      */
-    public void addDatos(HashMap<Integer,String> mapaDatos){
+    public void addDatos(HashMap<Integer,Object> mapaDatos){
         Object[] fila = new Object[mapaDatos.size()];
-        for (Map.Entry<Integer, String> dato : mapaDatos.entrySet()) {
+        for (Map.Entry<Integer, Object> dato : mapaDatos.entrySet()) {
             Integer columna = dato.getKey();
-            String valor = dato.getValue();
+            Object valor = dato.getValue();
             fila[columna-1] = valor;
                 
         }

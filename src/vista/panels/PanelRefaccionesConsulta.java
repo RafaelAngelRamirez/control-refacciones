@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.ImportanciaIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.UnidadIT;
@@ -105,6 +106,7 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         
         //ACTUALIZACIONES DE TABLA. 
          opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarRefaccionesInicio);
+         opAct.add(EntradaLoteIT.NOMBRE_TABLA, this::cargarRefaccionesInicio);
          
         
         /*
@@ -143,6 +145,7 @@ public class PanelRefaccionesConsulta extends JPanelBase {
             iit.getImportanciaPDC().getNombreParaMostrar(),
             rit.getStockMaximoPDC().getNombreParaMostrar(),
             rit.getStockMinimoPDC().getNombreParaMostrar(),
+            "Existencia",
             uit.getUnidadPDC().getNombreParaMostrar()
             
         };
@@ -150,7 +153,8 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         mt.setTitulosDeLaTabla(titulos);
         
         for (RefaccionVo vo : listaVo) {
-            HashMap<Integer, String> mapaDatos = new HashMap<>();
+            float existencia = getCoordinador().entradaLoteExistencia(vo.getId());
+            HashMap<Integer, Object> mapaDatos = new HashMap<>();
             mapaDatos.put(1, vo.getId()+"");
             mapaDatos.put(2, vo.getCodigoInterno());
             mapaDatos.put(3, vo.getCodigoProveedor());
@@ -159,13 +163,14 @@ public class PanelRefaccionesConsulta extends JPanelBase {
             mapaDatos.put(6, (String)vo.getImportancia());
             mapaDatos.put(7, vo.getStockMaximo()+"");
             mapaDatos.put(8, vo.getStockMinimo()+"");
-            mapaDatos.put(9, (String)vo.getUnidad());
+            mapaDatos.put(9, existencia);
+            mapaDatos.put(10, (String)vo.getUnidad());
             
             mt.addDatos(mapaDatos);
         }
-        _TablaRefacciones.setTamanoMinimoDeColumna(new int[]{      0,   0,   0,   0,   0,   0,   0,   0,   0});
-        _TablaRefacciones.setTamanoMaximoDeColumna(new int[]{     50, 200, 200,1000,1000, 200, 200, 200, 200});
-        _TablaRefacciones.setTamanoPreferidoDeColumna(new int[]{  50, 200, 200,0600,0600,  80, 120, 120, 100});
+        _TablaRefacciones.setTamanoMinimoDeColumna(new int[]{      0,   0,   0,   0,   0,   0,   0, 0  ,   0,   0});
+        _TablaRefacciones.setTamanoMaximoDeColumna(new int[]{     50, 200, 200,1000,1000, 200, 200, 200, 200, 200});
+        _TablaRefacciones.setTamanoPreferidoDeColumna(new int[]{  20, 100, 200,0600,0600,  80, 100, 100, 120, 100});
         _TablaRefacciones.setTableModel(mt);
         
     }
