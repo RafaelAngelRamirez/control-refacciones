@@ -189,6 +189,8 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         this._TxtModeloMaquina.setText("");
         this._TxtAnio.setText("");
         this._comboMarca.setText("");
+        _comboMarca.seleccionarPrimerItemDelCombo();
+        
         
         this._TxtModeloMaquina.setErrorQuitar();
         this._TxtAnio.setErrorQuitar();
@@ -201,8 +203,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         // AL USUARIO CONFIRMACIÓN.
         
         if (    !this._TxtModeloMaquina.isEmpty() ||
-                !this._TxtAnio.isEmpty() ||
-                !this._comboMarca.isEmpty() 
+                !this._TxtAnio.isEmpty() 
                 ) {
             todoVacio = false;
         }
@@ -444,8 +445,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
                 getCoordinador().actualizarTodoLoVisible();
                 JOptionPane.showMessageDialog(this,"Se guardo correctamente el modelo.");
                 limpiarTodo();
-                dispose();
-                
+                _TxtModeloMaquina.setFocus();
             }else{
                 JOptionPane.showMessageDialog(this, "No se pudo guardar el modelo.");
             }

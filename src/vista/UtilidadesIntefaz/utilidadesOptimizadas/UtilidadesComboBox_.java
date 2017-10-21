@@ -1,9 +1,8 @@
 
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
-import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
-import controlador.capturadeerrores.Suceso;
 import controlador.Coordinador;
+import controlador.capturadeerrores.Suceso;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-
 import org.jdesktop.swingx.autocomplete.*;
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
 /**
  *  Utilidades para el facil manejo de los comboBox.
@@ -182,7 +181,7 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
     blanco se selecciona el primer item de la lista siempre y cuando el combo
     contenga algun elemento.
     */
-    private void seleccionarPrimerItemDelCombo(){
+    public void seleccionarPrimerItemDelCombo(){
         if(this.comboBox.getItemCount()!=0){
             if (this.isEmpty()) {
                 if (this.comboBox.getSelectedIndex()==-1) {
@@ -321,7 +320,6 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
         return this.comboBox;
     }
     
-    @Override
     public void setEditable(boolean editable) {
         this.getThisComboBox().setEditable(editable);
         this.getThisComboBox().getEditor().getEditorComponent().setVisible(editable);
@@ -355,4 +353,5 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
     public HashMap<String, Object> getRelacionDatoObjeto() {
         return relacionDatoObjeto;
     }
+    
 }
