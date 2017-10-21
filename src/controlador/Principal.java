@@ -73,23 +73,23 @@ public class Principal {
             INSTANCIAMOS LAS CLASES PRINCIPALES
         ====================================================================
         */
-        final boolean ESTADO_DE_DEBUG = true;
+        final boolean ESTADO_DE_DEBUG = false;
         
 //        //VENTANAS SECUNDARIAS
         ConsolaDeErrores consolaDeErrores = new ConsolaDeErrores();
         consolaDeErrores.setVisible(ESTADO_DE_DEBUG);
         //RECURSOS VARIOS
         CapturaDeSucesos SystemOut_ = new CapturaDeSucesos(System.out);
-        SystemOut_.setDebug(ESTADO_DE_DEBUG);
+        SystemOut_.setDebug(true);
         SystemOut_.setConsolaDeErrores(consolaDeErrores);
         System.setOut(SystemOut_);
         
         
-        
-        
-         //COORDINADORES
+        //COORDINADORES
         Coordinador coordinador = new Coordinador();
         coordinador.setDebugMode(ESTADO_DE_DEBUG);
+        coordinador.setConsolaDeErrores(consolaDeErrores);
+        coordinador.setCapturaDeSucesos(SystemOut_);
         
         CoordinadorPaneles coordinadorPaneles = new CoordinadorPaneles();
         

@@ -2,6 +2,8 @@
 package controlador;
 
 import controlador.ActualizacionDeComponentesGráficos.ControladorActualizacionGUI_BD;
+import controlador.capturadeerrores.CapturaDeSucesos;
+import controlador.capturadeerrores.ConsolaDeErrores;
 import java.math.BigDecimal;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -77,6 +79,8 @@ import vista.panels.PanelSeccionMaquinaRelacionModeloMaquina;
 public class Coordinador {
     
     private boolean debugMode;
+    private ConsolaDeErrores consolaDeErrores;
+    private CapturaDeSucesos capturaDeSucesos;
     
     private CoordinadorPaneles coordinadorPaneles;
     
@@ -114,6 +118,12 @@ public class Coordinador {
     
     }
     
+    public void entrarOQuitarModoDebug(){
+        debugMode = !debugMode;
+        consolaDeErrores.setVisible(debugMode);
+        marcoParaVentanaPrincipal.barraTituloColor();
+    }
+    
 //    /**
 //     * Comprueba que el forma de fecha que se le pase sea correcto.
 //     * @param fecha
@@ -127,6 +137,22 @@ public class Coordinador {
     GETS AND SETS
     ////////////////////////////////////////////////////////////////////////
      */
+
+    public CapturaDeSucesos getCapturaDeSucesos() {
+        return capturaDeSucesos;
+    }
+
+    public void setCapturaDeSucesos(CapturaDeSucesos capturaDeSucesos) {
+        this.capturaDeSucesos = capturaDeSucesos;
+    }
+    
+    public ConsolaDeErrores getConsolaDeErrores() {
+        return consolaDeErrores;
+    }
+
+    public void setConsolaDeErrores(ConsolaDeErrores consolaDeErrores) {
+        this.consolaDeErrores = consolaDeErrores;
+    }
 
     public boolean isDebugMode() {
         return debugMode;

@@ -2,6 +2,7 @@ package vista.UtilidadesIntefaz.VentanaPrincipal;
 
 import controlador.Coordinador;
 import controlador.CoordinadorPaneles;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -36,7 +37,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
-import controlador.capturadeerrores.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.ColoresYFuentes;
 
@@ -94,7 +94,20 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     // ESTE BOTON DEFINE LA ACCIÓN DE LA IMAGEN DE INICIO QUE SE
     // QUIERE REALIZAR AL HACER UN CLICK.
     private Runnable accionMenuInicio;
-    
+
+    public void barraTituloColor() {
+         if (coordinador.isDebugMode()) {
+            //SI ES PRUEBA ROJO PA QUE NO NOS EQUIVOQUEMOS
+            barraTitulo.setBackground(Color.red);
+            barraTitulo.setTitulo("PRUEBAS-PRUEBAS-PRUEBAS-PRUEBAS-PRUEBAS-PRUEBAS");
+        } else {
+            //LE DAMOS EL COLORCITO AZUL
+            barraTitulo.setBackground(new Color(0,158,227));
+            barraTitulo.setTitulo("GESTION DE REFACCIONES");
+        }
+        barraTitulo.revalidate();
+    }
+
     
    
     /**
@@ -504,6 +517,16 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             KeyStroke atajo_Salir = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK);
             salirSystema.setAtajoDeTeclado(atajo_Salir);
             this.addItemOMenu(salirSystema);
+            
+            MenuConstructor modoDebug = new MenuConstructor();
+            modoDebug.setItem();
+            modoDebug.setNombre("Modo Pruebas");
+            modoDebug.setPadre(menuSystema);
+            modoDebug.setAccionDelItem(
+                    ()->coordinador.entrarOQuitarModoDebug());
+            KeyStroke atajo_Debug = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_MASK);
+            modoDebug.setAtajoDeTeclado(atajo_Debug);
+            this.addItemOMenu(modoDebug);
 
         
         //AÑADIMOS LOS DIALOGOS.
@@ -627,8 +650,14 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             add(etiqueta);
             
             setPreferredSize(new Dimension(this.getWidth(), 16));
-            //LE DAMOS EL COLORCITO AZUL
-            setBackground(new Color(0,158,227));
+            
+            if (coordinador.isDebugMode()) {
+                //SI ES PRUEBA ROJO PA QUE NO NOS EQUIVOQUEMOS
+                setBackground(Color.red);
+            } else {
+                //LE DAMOS EL COLORCITO AZUL
+                setBackground(new Color(0,158,227));
+            }
         }
         /*
         * El título que llevara la ventana. 
