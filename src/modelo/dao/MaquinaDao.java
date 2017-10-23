@@ -43,6 +43,7 @@ public class MaquinaDao extends DAOGenerales{
                 MaquinaIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre()+", "+
                 MaquinaIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre()+", "+
                 MaquinaIT.NOMBRE_TABLA+"."+it.getNumeroDeMaquinaPDC().getNombre()+", "+
+                MaquinaIT.NOMBRE_TABLA+"."+it.getMatriculaPDC().getNombre()+", "+
                 MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getModeloPDC().getNombre()+", "+
                 MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getAnioPDC().getNombre()
                 
@@ -66,6 +67,7 @@ public class MaquinaDao extends DAOGenerales{
                         r.getObject(mmit.getAnioPDC().getNombre())
                 );
                 vo.setNumeroDeMáquina(r.getString(it.getNumeroDeMaquinaPDC().getNombre()));
+                vo.setMatricula(r.getString(it.getMatriculaPDC().getNombre()));
                 listVo.add(vo);
             }
         } catch (SQLException ex) {
@@ -185,7 +187,49 @@ public class MaquinaDao extends DAOGenerales{
         
         return conexion.executeUpdate(sql, mapa);
                 
-    }   
+    } 
+    
+    /**
+     * Revisa que la mátricula que se le pase como parametro no este ya registradas.
+     * @param vo La máquina con la matricula a revisar.
+     * @return True si existe. 
+     */
+    public boolean existeMatricula(MaquinaVo vo) {
+        String sql = "SELECT COUNT(*) FROM "+MaquinaIT.NOMBRE_TABLA 
+                +" WHERE "+
+                it.getMatriculaPDC().getNombre() +" = ?";
+        
+        ResultSet r = conexion.executeQuery(sql, vo.getMatricula());
+        try {
+            r.next();
+            return r.getInt(1)>0;
+        } catch (SQLException ex) {
+            Logger.getLogger(MaquinaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+     /**
+     * Retorna true si la matrícula esta repetida para otra máquina exepto para
+     * si misma. 
+     * @param vo La máquina que se quiere revisar con su matricula.
+     * @return True si esta repetida. 
+     */
+    public boolean repetidoMatricula(MaquinaVo vo) {
+        try {
+            String sql = "SELECT COUNT(*) FROM " + MaquinaIT.NOMBRE_TABLA
+                    +" WHERE "+
+                    it.getMatriculaPDC().getNombre() +"<> ?";
+            ResultSet r = conexion.executeQuery(sql, vo.getMatricula());
+            r.next();
+            return r.getInt(1)>0;
+        } catch (SQLException ex) {
+            Logger.getLogger(MaquinaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+     
     
     
     

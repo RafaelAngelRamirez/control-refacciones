@@ -1394,6 +1394,33 @@ public class Logica {
                     listVal.add(a);
                 }
             }
+            
+            
+            if (campo.getNombre().equals(it.getMatriculaPDC().getNombre())) {
+                //VALIDAMOS CUANDO ES UN NUEVO ELEMENTO A GUARDAR. 
+                if (vo.getId()==-1) {
+                    Validacion validacion = new Validacion();
+                    validacion.setNombreDeCampo(campo);
+                    if (maquinaExisteMatricula(vo)) {
+                        validacion.setValido(false);
+                        validacion.setMensajeDeError("Ya esta registrada esta matricula.");
+                    }else{
+                        validacion.setValido(true);
+                    }
+                    listVal.add(validacion);
+                } else {
+                    //VALIDAMOS CUANDO SE ESTA ACTUALIZANDO EL DATO. 
+                    Validacion v = new Validacion();
+                    v.setNombreDeCampo(campo);
+                    if (maquinaRepetidoMatricula(vo)) {
+                        v.setValido(false);
+                        v.setMensajeDeError("La matricula que asignaste a la máquina ya esta relacionado con otra máquina.");
+                    } else {
+                        v.setValido(true);
+                    }
+                    listVal.add(v);
+                }
+            }
         }
         return listVal;
     }
@@ -1473,6 +1500,27 @@ public class Logica {
     public boolean seccionDeMaquinaRelacionRefaccionGuardar(List<RelacionSeccionMaqRefaccionVO> listRelacion) {
         RelaccionSeccionDeMaquinaRefaccionDAO d = new RelaccionSeccionDeMaquinaRefaccionDAO(coordinador);
         return d.guardarRelacion(listRelacion);
+    }
+
+    /**
+     * Revisa que la mátricula que se le pase como parametro no este ya registradas.
+     * @param vo La máquina con la matricula a revisar.
+     * @return True si existe. 
+     */
+    public boolean maquinaExisteMatricula(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.existeMatricula(vo);
+    }
+
+    /**
+     * Retorna true si la matrícula esta repetida para otra máquina exepto para
+     * si misma. 
+     * @param vo La máquina que se quiere revisar con su matricula.
+     * @return True si esta repetida. 
+     */
+    public boolean maquinaRepetidoMatricula(MaquinaVo vo) {
+        MaquinaDao d = new MaquinaDao(coordinador);
+        return d.repetidoMatricula(vo);
     }
     
 

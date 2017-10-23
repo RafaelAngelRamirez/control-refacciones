@@ -16,13 +16,23 @@ public class MaquinaVo extends VoGenerales{
     private int id;
     private Object idMaquinaModelo;
     private String numeroDeMáquina;
+    private String matricula;
 
     public MaquinaVo() {
         MaquinaIT it = new MaquinaIT();
         relacionCampo.put(it.getIdPDC().getNombre(), ()->this.getId());
         relacionCampo.put(it.getIdMaquinaModeloPDC().getNombre(), ()->this.getIdMaquinaModelo());
         relacionCampo.put(it.getNumeroDeMaquinaPDC().getNombre(), ()->this.getNumeroDeMáquina());
+        relacionCampo.put(it.getMatriculaPDC().getNombre(), ()->this.getMatricula());
         
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 
     public int getId() {

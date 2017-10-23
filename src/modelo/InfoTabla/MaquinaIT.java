@@ -9,6 +9,7 @@ public class MaquinaIT extends ITGenerales{
     private ParametrosDeCampo idPDC = new ParametrosDeCampo();
     private ParametrosDeCampo idMaquinaModeloPDC = new ParametrosDeCampo();
     private ParametrosDeCampo numeroDeMaquinaPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo matriculaPDC = new ParametrosDeCampo();
 
     public MaquinaIT() {
         
@@ -29,7 +30,6 @@ public class MaquinaIT extends ITGenerales{
         
         
         numeroDeMaquinaPDC.setNombre("nombre");
-        numeroDeMaquinaPDC.setNombreParaMostrar("Número");
         numeroDeMaquinaPDC.setLongitudDeCaracteres(50);
         numeroDeMaquinaPDC.setTipoDeDatos("varchar");
         numeroDeMaquinaPDC.setNulo(false);
@@ -37,14 +37,31 @@ public class MaquinaIT extends ITGenerales{
         numeroDeMaquinaPDC.setPermiteRepetido(false);
         numeroDeMaquinaPDC.setNombreParaMostrar("Número");
         
+        matriculaPDC.setNombre("matricula");
+        matriculaPDC.setLongitudDeCaracteres(200);
+        matriculaPDC.setTipoDeDatos("varchar");
+        matriculaPDC.setNulo(true);
+        matriculaPDC.setAutoIncrement(false);
+        matriculaPDC.setPermiteRepetido(false);
+        matriculaPDC.setNombreParaMostrar("Matricula");
+        
 
         camposPDC.add(idPDC);
         camposPDC.add(idMaquinaModeloPDC);
         camposPDC.add(numeroDeMaquinaPDC);
+        camposPDC.add(matriculaPDC);
         
         
     }
 
+    public ParametrosDeCampo getMatriculaPDC() {
+        return matriculaPDC;
+    }
+
+    public void setMatriculaPDC(ParametrosDeCampo matriculaPDC) {
+        this.matriculaPDC = matriculaPDC;
+    }
+    
     public ParametrosDeCampo getIdPDC() {
         return idPDC;
     }

@@ -33,9 +33,9 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
     private static final long serialVersionUID = 1L;
     
     private UtilidadesTxt_ _txtNombre;
+    private UtilidadesTxt_ _txtMatricula;
     private UtilidadesComboBox_ _comboMaquinaModelo;
     private UtilidadesListas_ _listaMaquinas;
-    
     
     
 
@@ -67,11 +67,13 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        etiquetaNombre = new javax.swing.JLabel();
+        etiquetaMatricula = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
         comboModelos = new javax.swing.JComboBox<>();
         etiquetaPais = new javax.swing.JLabel();
         btnCancelar1 = new javax.swing.JButton();
+        txtMatricula = new javax.swing.JTextField();
+        etiquetaNombre = new javax.swing.JLabel();
 
         etiquetaNombreDeLaRefaccion1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_maquina asignar numero.png"))); // NOI18N
@@ -107,8 +109,8 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             }
         });
 
-        etiquetaNombre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaNombre.setText("Número");
+        etiquetaMatricula.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaMatricula.setText("Matricula");
 
         txtNumero.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtNumero.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -131,13 +133,21 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             }
         });
 
+        txtMatricula.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtMatricula.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtMatricula.setMaximumSize(new java.awt.Dimension(395, 2147483647));
+        txtMatricula.setMinimumSize(new java.awt.Dimension(395, 35));
+
+        etiquetaNombre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaNombre.setText("Número");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -145,13 +155,14 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etiquetaNombre)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(etiquetaMatricula)
+                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(etiquetaNombre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(etiquetaPais)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
                                 .addComponent(btnCancelar1))
                             .addComponent(comboModelos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -159,7 +170,8 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuardar)))
+                        .addComponent(btnGuardar))
+                    .addComponent(txtMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -173,20 +185,23 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(etiquetaPais)
                                     .addComponent(etiquetaNombre)))
                             .addComponent(btnCancelar1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(comboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(etiquetaMatricula)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar)
                             .addComponent(btnCancelar)
-                            .addComponent(btnEliminar))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(btnEliminar))))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -217,11 +232,13 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> comboModelos;
+    private javax.swing.JLabel etiquetaMatricula;
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion1;
     private javax.swing.JLabel etiquetaPais;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JList<String> listaMaquinas;
+    private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
 
@@ -240,6 +257,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         MaquinaIT it = new MaquinaIT();
         MaquinaModeloIT mmit = new MaquinaModeloIT();
         etiquetaNombre.setText(it.getNumeroDeMaquinaPDC().getNombreParaMostrar());
+        etiquetaMatricula.setText(it.getMatriculaPDC().getNombreParaMostrar());
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -255,6 +273,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         //INICIAMOS LAS UTILIDADES.
          
         _txtNombre = new UtilidadesTxt_(getCoordinador());
+        _txtMatricula = new UtilidadesTxt_(getCoordinador());
         _listaMaquinas = new UtilidadesListas_(getCoordinador());
         _comboMaquinaModelo = new UtilidadesComboBox_(getCoordinador());
         
@@ -263,16 +282,17 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         _comboMaquinaModelo.setComponente(comboModelos);
         _listaMaquinas.setComponente(listaMaquinas);
         _txtNombre.setComponente(txtNumero);
-        
-        
+        _txtMatricula.setComponente(txtMatricula);
         
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         _txtNombre.setTamanoDeCampo(it.getNumeroDeMaquinaPDC().getLongitudDeCaracteres());
+        _txtMatricula.setTamanoDeCampo(it.getMatriculaPDC().getLongitudDeCaracteres());
         _comboMaquinaModelo.setTamanoDeCampo(mmit.getModeloPDC().getLongitudDeCaracteres());
         
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         _txtNombre.setPermitirSoloMayusculas();
+        _txtMatricula.setPermitirSoloMayusculas();
         _comboMaquinaModelo.setPermitirSoloMayusculas();
         
         //CAMPOS NUMÉRICOS
@@ -280,10 +300,12 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
         _txtNombre.setEspaciosEnBlanco();
+        _txtMatricula.setEspaciosEnBlanco();
 
         //TRAVEL POLICY
         _txtNombre.setNextFocusableComponent(_comboMaquinaModelo.getThis());
-        _comboMaquinaModelo.setNextFocusableComponent(btnGuardar);
+        _comboMaquinaModelo.setNextFocusableComponent(_txtMatricula.getThis());
+        _txtMatricula.setNextFocusableComponent(btnGuardar);
         btnGuardar.setNextFocusableComponent(btnCancelar);
         btnCancelar.setNextFocusableComponent(btnEliminar);
         btnEliminar.setNextFocusableComponent(_txtNombre.getThis());
@@ -337,6 +359,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             MaquinaVo vo = (MaquinaVo)o;
             _txtNombre.setText(vo.getNumeroDeMáquina());
             _comboMaquinaModelo.setSelectedItem(vo.getIdMaquinaModelo());
+            _txtMatricula.setText(vo.getMatricula());
             idMaquinaActual = vo;
         }
     }
@@ -346,11 +369,13 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
      */
     public void cargarLista(){
         _listaMaquinas.limpiar();
-        List<MaquinaVo> list = getCoordinador().maquinaConsultar();
+        List<MaquinaVo> list;
+        list = getCoordinador().maquinaConsultar();
         
         HashMap<String, Object> mapa = new HashMap<>();
         for (MaquinaVo vo : list) {
-            mapa.put("No. "+vo.getNumeroDeMáquina() + " " +vo.getIdMaquinaModelo(), vo);
+            mapa.put(
+                "No. "+vo.getNumeroDeMáquina() + " " +vo.getIdMaquinaModelo() + " "+vo.getMatricula(), vo);
         }
         _listaMaquinas.cargarLista(mapa);
         
@@ -406,6 +431,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             _txtNombre.setErrorQuitar();
             todoValido = true;
         }
+        
         boolean modOGuar = true;
         List<Validacion> listValidacion;
         if (todoValido) {
@@ -417,6 +443,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                 vo.setId(idMaquinaActual.getId());
                 vo.setIdMaquinaModelo(eVo.getId());
                 vo.setNumeroDeMáquina(_txtNombre.getText());
+                vo.setMatricula(_txtMatricula.getText());
                 
                 modOGuar = true;
             }else{
@@ -424,6 +451,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                 vo.setId(-1);
                 vo.setIdMaquinaModelo(eVo.getId());
                 vo.setNumeroDeMáquina(_txtNombre.getText());
+                vo.setMatricula(_txtMatricula.getText());
                 modOGuar = false;
             
             }
@@ -440,6 +468,15 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                         todoValido = true;
                     }else{
                         _txtNombre.setError(val.getMensajeDeError());
+                        todoValido = false;
+                    }
+                }
+                
+                if (val.getNombreDeCampo().equals(it.getMatriculaPDC().getNombre())) {
+                    if (val.isValido()) {
+                        _txtMatricula.setErrorQuitar();
+                    } else {
+                        _txtMatricula.setError(val.getMensajeDeError());
                         todoValido = false;
                     }
                 }
