@@ -1627,8 +1627,15 @@ public class Coordinador {
         
     }
 
+    /**
+     * Consulta todas las refacciones que sean compatibles con la máquina modelo 
+     * que se le pase como parametro. 
+     * @param mmvo La máquina modelo que se quiere buscar. 
+     * @return La lista de refacciones compatibles. 
+     */
     public List<RefaccionVo> refaccionConsultarCompatiblesConMaquinaModelo(MaquinaModeloVo mmvo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return logica.refaccionConsultarCompatiblesConMaquinaModelo(mmvo);
+        
     }
 
     public List<RefaccionVo> refaccionRelacionSeccionMaquina(SeccionDeMaquinaVO idActual) {

@@ -10,8 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Conexion;
 import modelo.InfoTabla.MaquinaModeloIT;
+import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.vo.MaquinaModeloVo;
+import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 
 /**
@@ -128,6 +130,51 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
                 + " WHERE " + it.getIdRefaccionPDC().getNombre() + " =? ";
         conexion.executeUpdate(sql, listaVo.get(0).getIdRefaccion()+"");
         return this.guardarLista(listaVo);
+    }
+    
+    /**
+     * Consulta todas las refacciones que sean compatibles con la máquina modelo 
+     * que se le pase como parametro. 
+     * @param mmvo La máquina modelo que se quiere buscar. 
+     * @return La lista de refacciones compatibles. 
+     */
+    public List<RefaccionVo> consultarCompatiblesConMaquinaModelo(MaquinaModeloVo mmvo) {
+        conexion = new Conexion(coordinador);
+        List<RefaccionVo> list = new ArrayList<>();
+        RefaccionIT rit = new RefaccionIT();
+        
+        String sql = "SELECT "+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getIdPDC().getNombre()+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getCodigoInternoPDC().getNombre()+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getCodigoProveedorPDC().getNombre()+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getDescripcionPDC().getNombre()
+                
+                +" FROM "+
+                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
+                +" WHERE "+
+                it.getIdMaquinaModeloPDC().getNombre() +" =?"
+                +" INNER JOIN "+
+                RefaccionIT.NOMBRE_TABLA
+                +" ON "+
+                it.getIdRefaccionPDC().getNombre() +"="+ rit.getIdPDC().getNombre();
+        
+        ResultSet r = conexion.executeQuery(sql, mmvo.getId());
+        
+        try {
+            while (r.next()) {
+                RefaccionVo vo = new RefaccionVo();
+                vo.setId(r.getInt(rit.getIdPDC().getNombre()));
+                vo.setCodigoInterno(r.getString(rit.getCodigoInternoPDC().getNombre()));
+                vo.setCodigoProveedor(r.getString(rit.getCodigoInternoPDC().getNombre()));
+                vo.setDescripcion(r.getString(rit.getDescripcionPDC().getNombre()));
+                list.add(vo);
+                
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RelacionRefaccionMaquinaModeloDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
     
     
