@@ -145,6 +145,7 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
         
         String sql = "SELECT "+
                 RefaccionIT.NOMBRE_TABLA+"."+rit.getIdPDC().getNombre()+", "+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getNombrePDC().getNombre()+", "+
                 RefaccionIT.NOMBRE_TABLA+"."+rit.getCodigoInternoPDC().getNombre()+", "+
                 RefaccionIT.NOMBRE_TABLA+"."+rit.getCodigoProveedorPDC().getNombre()+", "+
                 RefaccionIT.NOMBRE_TABLA+"."+rit.getDescripcionPDC().getNombre()
@@ -160,13 +161,13 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
                 RefaccionIT.NOMBRE_TABLA+"."+rit.getIdPDC().getNombre()
                  +" WHERE "+
                 RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre() +" =?";
-        
         ResultSet r = conexion.executeQuery(sql, mmvo.getId());
         
         try {
             while (r.next()) {
                 RefaccionVo vo = new RefaccionVo();
                 vo.setId(r.getInt(rit.getIdPDC().getNombre()));
+                vo.setNombre(r.getString(rit.getNombrePDC().getNombre()));
                 vo.setCodigoInterno(r.getString(rit.getCodigoInternoPDC().getNombre()));
                 vo.setCodigoProveedor(r.getString(rit.getCodigoInternoPDC().getNombre()));
                 vo.setDescripcion(r.getString(rit.getDescripcionPDC().getNombre()));

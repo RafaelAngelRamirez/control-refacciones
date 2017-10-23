@@ -2,7 +2,7 @@
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
 import controlador.Coordinador;
-import controlador.capturadeerrores.Suceso;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,7 +14,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import controlador.capturadeerrores.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
 /**
@@ -23,11 +22,30 @@ import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
  */
 public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
     
-    private String nombreColumnaId, nombreDatoAMostrar;
+//    private String nombreColumnaId, nombreDatoAMostrar;
     private JList<String> lista;
     private UtilidadesListas_ ComponenteListaAAgregar;
-    protected boolean limpiandoLista = false;
+    protected boolean listaEnMantenimiento = false;
     private DefaultListModel defaultListModel;
+
+    /**
+     * Si esta en true evita que se ejecuta el evento que detecta cambios en la 
+     * lista
+     * 
+     * @return
+     */
+    public boolean isListaEnMantenimiento() {
+        return listaEnMantenimiento;
+    }
+
+    public void setListaEnMantenimiento(boolean listaEnMantenimiento) {
+        this.listaEnMantenimiento = listaEnMantenimiento;
+    }
+    
+    
+    private boolean ejecutarOperacionesEntreCambioDeListas;
+    List<OperacionAlCambiarItem> operacionesAlCambiarItem;
+    
 
     public DefaultListModel getDefaultListModel() {
         return defaultListModel;
@@ -37,10 +55,14 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         this.defaultListModel = defaultListModel;
     }
     
-    private HashMap<Object, Object> relacionDatoId  = new HashMap();
+    private HashMap<Object, Object> relacionDatoId;
 
+    @SuppressWarnings("unchecked")
     public UtilidadesListas_(Coordinador controlador) {
         super(controlador);
+        this.ejecutarOperacionesEntreCambioDeListas = true;
+        this.operacionesAlCambiarItem = new ArrayList<>();
+        this.relacionDatoId = new HashMap();
         this.defaultListModel = new DefaultListModel();
     }
 
@@ -103,13 +125,13 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         this.ComponenteListaAAgregar = ComponenteListaAAgregar;
     }
     
-    public String getNombreColumnaId() {
-        return nombreColumnaId;
-    }
-
-    public String getNombreDatoAMostrar() {
-        return nombreDatoAMostrar;
-    }
+//    public String getNombreColumnaId() {
+//        return nombreColumnaId;
+//    }
+//
+//    public String getNombreDatoAMostrar() {
+//        return nombreDatoAMostrar;
+//    }
 
     public JList<String> getLista() {
         return lista;
@@ -125,13 +147,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * mostrarse en la lista. 
      */
     public void cargarLista(HashMap <String, Object> datos) {
-        activoEjecucionDeOperacionesEnCambioEntreListas = true;
-        Suceso s = new Suceso();
-        s.setClase(this);
-        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-        s.setTextoAMostrar("[i]Cargando datos en lista.");
-        System.out.println(s);
-        
         List<String> ordenar = new ArrayList<>();
         for (Map.Entry<String, Object> datosMap : datos.entrySet()) {
             Object id = datosMap.getValue();
@@ -144,7 +159,6 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         for (String datoOrdenado : ordenar) {
             defaultListModel.addElement(datoOrdenado);
         }
-        activoEjecucionDeOperacionesEnCambioEntreListas = false;
         
     }
     
@@ -155,18 +169,22 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
                                    
         DefaultListModel quitarDeAqui = _listaQueSeSelecciona.getDefaultListModel();
         DefaultListModel agregarAqui = _listaALaQueSeAgregaLaSeleccion.getDefaultListModel();
-        System.out.println(quitarDeAqui.size()+"-"+agregarAqui.size());
         @SuppressWarnings("unchecked")
         List<Object> itemSeleccionados = _listaQueSeSelecciona.getThis().getSelectedValuesList();
         
+        _listaQueSeSelecciona.setListaEnMantenimiento(true);
+        _listaALaQueSeAgregaLaSeleccion.setListaEnMantenimiento(true);
+        
         for (Object valor : itemSeleccionados) {
-            
             agregarAqui.addElement(valor);
             quitarDeAqui.removeElement(valor);
             Object id = _listaQueSeSelecciona.getRelacionDatoId().get(valor);
             _listaALaQueSeAgregaLaSeleccion.getRelacionDatoId().put(valor, id);
             _listaQueSeSelecciona.getRelacionDatoId().remove(valor);
         }
+        
+        _listaQueSeSelecciona.setListaEnMantenimiento(false);
+        _listaALaQueSeAgregaLaSeleccion.setListaEnMantenimiento(false);
     }
     
     /**
@@ -175,6 +193,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * @param invertir True manda los datos de la lista principal a la secundaria
      * y viceversa.
      */
+    
     public void cambioEntreListas(boolean invertir){
         if (!invertir) {
             this.cambioEntreListas(this, this.ComponenteListaAAgregar);
@@ -190,7 +209,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * 
      */
     private void ejecutarOperacionesDeCambioEntreLista(boolean invertir){
-        if (activoEjecucionDeOperacionesEnCambioEntreListas) {
+        if (ejecutarOperacionesEntreCambioDeListas) {
             for (OperacionAlCambiarItem op : operacionesAlCambiarItem) {
                 if (op.isCuandoEjecutar()==invertir) {
                     op.getOp().run();
@@ -198,25 +217,24 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
             }
         }
     }
-    private boolean activoEjecucionDeOperacionesEnCambioEntreListas = false;
-    List<OperacionAlCambiarItem> operacionesAlCambiarItem = new ArrayList<>();
+    
 
     /**
      * True cuando la ejecucuón de operaciones entre listas esta activa. 
      * {@see: addOperacionAlQuitarItem}
      * @return
      */
-    public boolean isActivoEjecucionDeOperacionesEnCambioEntreListas() {
-        return activoEjecucionDeOperacionesEnCambioEntreListas;
+    public boolean isEjecutarOperacionesEntreCambioDeListas() {
+        return ejecutarOperacionesEntreCambioDeListas;
     }
 
     /**
-     * True si se quiere desactivar la ejecución de operaciones cuando hay un 
+     * False si se quiere desactivar la ejecución de operaciones cuando hay un 
      * cambio entre listas. 
-     * @param activoEjecucionDeOperacionesEnCambioEntreListas
+     * @param ejecutarOperacionesEntreCambioDeListas
      */
-    public void setActivoEjecucionDeOperacionesEnCambioEntreListas(boolean activoEjecucionDeOperacionesEnCambioEntreListas) {
-        this.activoEjecucionDeOperacionesEnCambioEntreListas = activoEjecucionDeOperacionesEnCambioEntreListas;
+    public void setEjecutarOperacionesEntreCambioDeListas(boolean ejecutarOperacionesEntreCambioDeListas) {
+        this.ejecutarOperacionesEntreCambioDeListas = ejecutarOperacionesEntreCambioDeListas;
     }
 
     
@@ -257,9 +275,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
         public void setCuandoEjecutar(boolean cuandoEjecutar) {
             this.cuandoEjecutar = cuandoEjecutar;
         }
-    
     }
-    
 
     @Override
     public void setError() {
@@ -312,13 +328,13 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * es !=null entonces tambien la limpia. 
      */
     public void limpiar(){
-        limpiandoLista = true;
+        listaEnMantenimiento = true;
         defaultListModel.clear();
         if (this.ComponenteListaAAgregar!=null) {
             this.ComponenteListaAAgregar.getDefaultListModel().clear();
         }
         relacionDatoId.clear();
-        limpiandoLista = false;
+        listaEnMantenimiento = false;
     }
     
     
@@ -394,7 +410,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
             
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!utilildad.limpiandoLista) {
+                if (!utilildad.listaEnMantenimiento) {
                     r.run();
                 }
             }

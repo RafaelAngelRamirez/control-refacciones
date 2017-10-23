@@ -91,8 +91,6 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         jScrollPane9 = new javax.swing.JScrollPane();
         listaRefaccionesDisponibles = new javax.swing.JList<>();
         btnLimpiar = new javax.swing.JButton();
-        btnQuitar = new javax.swing.JButton();
-        btnAgregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         txtNombre1 = new javax.swing.JTextField();
@@ -181,24 +179,6 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             }
         });
 
-        btnQuitar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_anterios.png"))); // NOI18N
-        btnQuitar.setText("Quitar");
-        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitarActionPerformed(evt);
-            }
-        });
-
-        btnAgregar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_siguiente.png"))); // NOI18N
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-
         jTextPane1.setEditable(false);
         jTextPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jTextPane1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -229,59 +209,54 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                         .addComponent(etiquetaNombreDeLaRefaccion5, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 991, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnEliminar)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 120, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(btnCancelar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnGuardar))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(btnCancelar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnGuardar))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addComponent(etiquetaNombre)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(btnEliminar)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                     .addComponent(btnLimpiar))
-                                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(etiquetaNombreDeLaRefaccion3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
-                                            .addComponent(btnAgregar))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(etiquetaNombreDeLaRefaccion3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnQuitar)))
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel1)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(6, 6, 6)
-                                                .addComponent(etiquetaNombreDeLaRefaccion6, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(etiquetaNombreDeLaRefaccion6, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(etiquetaNombreDeLaRefaccion4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -299,7 +274,9 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                         .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnLimpiar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnLimpiar)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(etiquetaNombre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -314,11 +291,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane7)
                     .addComponent(jScrollPane6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnQuitar)
-                    .addComponent(btnAgregar))
-                .addGap(14, 14, 14)
+                .addGap(53, 53, 53)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,11 +309,9 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnGuardar)
-                        .addComponent(btnCancelar))
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnCancelar))
                 .addGap(12, 12, 12))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -366,22 +337,12 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
-        _listaModelosMaquinaDisponibles.cambioEntreListas(true);
-    }//GEN-LAST:event_btnQuitarActionPerformed
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        _listaModelosMaquinaDisponibles.cambioEntreListas(false);
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnQuitar;
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion;
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion1;
@@ -476,14 +437,18 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         //ACCIONES ESPECELIALES.
         _listaSecciones.setValueChange(this::cargarDatosDeListaParaModificar);
         
-        _listaModelosMaquinaAsignados.setValueChange(this::cargarListaRefacciones);
-        
+        _listaModelosMaquinaDisponibles.setValueChange(()->_listaModelosMaquinaDisponibles.cambioEntreListas(false));
+        _listaModelosMaquinaAsignados.setValueChange(()->_listaModelosMaquinaDisponibles.cambioEntreListas(true));
         
         _listaRefaccionesDisponibles.setValueChange(()->_listaRefaccionesAsignadas.cambioEntreListas(true));
         _listaRefaccionesAsignadas.setValueChange(() -> _listaRefaccionesAsignadas.cambioEntreListas(false));
         
-        _listaRefaccionesDisponibles.addOperacionAlIntercambiarItem(() -> this.agregarDatosAlMapaRefacciones(), true);
-        _listaRefaccionesDisponibles.addOperacionAlIntercambiarItem(() -> this.agregarDatosAlMapaRefacciones(), false);
+        _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(()->JOptionPane.showMessageDialog(null, "Hubo un cambio true"), true);
+        _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(()->JOptionPane.showMessageDialog(null, "Hubo un cambio false"), false);
+        
+        
+//        _listaRefaccionesDisponibles.addOperacionAlIntercambiarItem(() -> this.agregarDatosAlMapaRefacciones(), true);
+//        _listaRefaccionesDisponibles.addOperacionAlIntercambiarItem(() -> this.agregarDatosAlMapaRefacciones(), false);
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
@@ -798,20 +763,26 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     }
 
     private void cargarListaDeRefaccionesParaGuardarNuevo() {
-        // SOLO CARGAMOS LAS REFACCIONES PARA ASIGNARLAS A LA MÁQUINA MODELO. 
-        MaquinaModeloVo mmvo = 
-                (MaquinaModeloVo)_listaModelosMaquinaAsignados.getSelectValueId();
+        // SOLO CARGAMOS LAS REFACCIONES PARA ASIGNARLAS A LA MÁQUINA MODELO.
+        Object a = _listaModelosMaquinaAsignados.getSelectValueId();
+        if (!a.equals(-1)) {
+            MaquinaModeloVo mmvo = (MaquinaModeloVo)a;
+
+            //CARGAMOS LAS REFACCIONES COMPATIBLES. 
+            List<RefaccionVo> listRefacccionesCompatibles = 
+                    getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(mmvo);
+            JOptionPane.showMessageDialog(null, "Estamos en guardar nuevo"+listRefacccionesCompatibles.toString());
+
+            HashMap<String, Object> mapaDisponibles = new HashMap<>();
+            listRefacccionesCompatibles.forEach(vo->{
+                
+                mapaDisponibles.put(vo.getNombre(), vo);
+            });
+
+            _listaRefaccionesDisponibles.cargarLista(mapaDisponibles);
+            
+        }
         
-        //CARGAMOS LAS REFACCIONES COMPATIBLES. 
-        List<RefaccionVo> listRefacccionesCompatibles = 
-                getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(mmvo);
-        
-        HashMap<String, Object> mapaDisponibles = new HashMap<>();
-        listRefacccionesCompatibles.forEach(vo->{
-            mapaDisponibles.put(vo.getNombre(), vo);
-        });
-        
-        _listaRefaccionesDisponibles.cargarLista(mapaDisponibles);
         
     }
     
