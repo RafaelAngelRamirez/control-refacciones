@@ -12,6 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
+import modelo.Textos;
 import modelo.logica.Validacion;
 import modelo.vo.MaquinaHistorialNombresVO;
 import modelo.vo.MaquinaModeloVo;
@@ -78,7 +79,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         etiquetaNombreDeLaRefaccion1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_maquina asignar numero.png"))); // NOI18N
 
-        listaMaquinas.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        listaMaquinas.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         listaMaquinas.setFocusable(false);
         jScrollPane5.setViewportView(listaMaquinas);
 
@@ -147,7 +148,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -162,7 +163,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(etiquetaPais)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                                 .addComponent(btnCancelar1))
                             .addComponent(comboModelos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -372,10 +373,15 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         List<MaquinaVo> list;
         list = getCoordinador().maquinaConsultar();
         
+        
+        
         HashMap<String, Object> mapa = new HashMap<>();
         for (MaquinaVo vo : list) {
+            String a = Textos.formatearEspacios(10, vo.getNumeroDeMáquina(), "|");
+            String b = Textos.formatearEspacios(25, vo.getIdMaquinaModelo()+"", "|");
+            String c = Textos.formatearEspacios(20, vo.getMatricula()+"", " ");
             mapa.put(
-                "No. "+vo.getNumeroDeMáquina() + " " +vo.getIdMaquinaModelo() + " "+vo.getMatricula(), vo);
+                "No. "+a+b+c, vo);
         }
         _listaMaquinas.cargarLista(mapa);
         

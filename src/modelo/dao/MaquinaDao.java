@@ -179,11 +179,12 @@ public class MaquinaDao extends DAOGenerales{
     public boolean guardar(MaquinaVo vo) {
         conexion = new Conexion(coordinador);
         String sql = "INSERT INTO " + MaquinaIT.NOMBRE_TABLA 
-                +" VALUES (null, ?, ?)";
+                +" VALUES (null, ?, ?, ?)";
                 
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getIdMaquinaModelo());
         mapa.put(2, vo.getNumeroDeMáquina());
+        mapa.put(3, vo.getMatricula());
         
         return conexion.executeUpdate(sql, mapa);
                 
@@ -195,6 +196,7 @@ public class MaquinaDao extends DAOGenerales{
      * @return True si existe. 
      */
     public boolean existeMatricula(MaquinaVo vo) {
+        conexion = new Conexion(coordinador);
         String sql = "SELECT COUNT(*) FROM "+MaquinaIT.NOMBRE_TABLA 
                 +" WHERE "+
                 it.getMatriculaPDC().getNombre() +" = ?";
@@ -216,6 +218,7 @@ public class MaquinaDao extends DAOGenerales{
      * @return True si esta repetida. 
      */
     public boolean repetidoMatricula(MaquinaVo vo) {
+        conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + MaquinaIT.NOMBRE_TABLA
                     +" WHERE "+
