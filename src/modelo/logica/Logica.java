@@ -1522,6 +1522,18 @@ public class Logica {
         MaquinaDao d = new MaquinaDao(coordinador);
         return d.repetidoMatricula(vo);
     }
+
+    /**
+     * Consulta todas las refacciones que sean compatibles con la máquina modelo 
+     * que se le pase como parametro. 
+     * @param mmvo La máquina modelo que se quiere buscar. 
+     * @return La lista de refacciones compatibles. 
+     */
+    public List<RefaccionVo> refaccionConsultarCompatiblesConMaquinaModelo(MaquinaModeloVo mmvo) {
+        RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
+        return d.consultarCompatiblesConMaquinaModelo(mmvo);
+
+    }
     
 
     

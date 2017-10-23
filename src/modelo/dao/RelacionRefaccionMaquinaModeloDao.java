@@ -144,19 +144,22 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
         RefaccionIT rit = new RefaccionIT();
         
         String sql = "SELECT "+
-                RefaccionIT.NOMBRE_TABLA+"."+rit.getIdPDC().getNombre()+
-                RefaccionIT.NOMBRE_TABLA+"."+rit.getCodigoInternoPDC().getNombre()+
-                RefaccionIT.NOMBRE_TABLA+"."+rit.getCodigoProveedorPDC().getNombre()+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getIdPDC().getNombre()+", "+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getCodigoInternoPDC().getNombre()+", "+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getCodigoProveedorPDC().getNombre()+", "+
                 RefaccionIT.NOMBRE_TABLA+"."+rit.getDescripcionPDC().getNombre()
                 
                 +" FROM "+
                 RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
-                +" WHERE "+
-                it.getIdMaquinaModeloPDC().getNombre() +" =?"
+               
                 +" INNER JOIN "+
                 RefaccionIT.NOMBRE_TABLA
                 +" ON "+
-                it.getIdRefaccionPDC().getNombre() +"="+ rit.getIdPDC().getNombre();
+                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdRefaccionPDC().getNombre() 
+                +"="+ 
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getIdPDC().getNombre()
+                 +" WHERE "+
+                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre() +" =?";
         
         ResultSet r = conexion.executeQuery(sql, mmvo.getId());
         
