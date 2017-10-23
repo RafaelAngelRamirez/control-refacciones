@@ -1633,9 +1633,19 @@ public class Coordinador {
      * @param mmvo La máquina modelo que se quiere buscar. 
      * @return La lista de refacciones compatibles. 
      */
-    public List<RefaccionVo> refaccionConsultarCompatiblesConMaquinaModelo(MaquinaModeloVo mmvo) {
+    public List<RefaccionVo> refaccionConsultarCompatiblesConMaquinaModelo(List<MaquinaModeloVo>  mmvo) {
         return logica.refaccionConsultarCompatiblesConMaquinaModelo(mmvo);
-        
+    }
+
+    /**
+     * Consulta todas las refacciones que sean compatibles con la máquina modelo 
+     * filtrandolas con el parametro de texto que se le pase. 
+     * @param listMMVO Las máquinas modelos que son compatibles. 
+     * @param texto El texto para buscar dentro de estas compatibles. 
+     * @return La lista de refacciones compatibles. 
+     */
+    public List<RefaccionVo> refaccionConsultarCompatiblesConMaquinaModelo(List<MaquinaModeloVo> listMMVO, String texto) {
+        return logica.refaccionConsultarCompatiblesConMaquinaModelo(listMMVO, texto);
     }
 
     public List<RefaccionVo> refaccionRelacionSeccionMaquina(SeccionDeMaquinaVO idActual) {
@@ -1645,6 +1655,7 @@ public class Coordinador {
     public boolean seccionDeMaquinaEliminar(SeccionDeMaquinaVO seccionDeMaquinaVO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     
     
     

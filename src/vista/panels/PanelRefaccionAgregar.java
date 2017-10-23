@@ -1331,7 +1331,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         
         
         //CARGAMOS LAS MAQUINAS-MODELO QUE VAN A RELACIONARSE CON ESTA REFACCION
-        List<Object> mmSeleccinadas = _ListasMaquinasSeleccionadas.getItems_soloId();
+        List<Object> mmSeleccinadas = _ListasMaquinasSeleccionadas.getItems_ObjectsRelacionados();
         for (Object s : mmSeleccinadas) {
             RelacionRefaccionMaquinaModeloVo rrmmVo = new RelacionRefaccionMaquinaModeloVo();
             rrmmVo.setIdMaquinaModelo((int)s);
@@ -1348,7 +1348,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         }
         
         //CARGAMOS LOS PROVEEDORES QUE VAN A RELACIONARSE CON ESTA REFACCIÓN.
-        List<Object> pSeleccionado = _ListaProveedorSeleccionado.getItems_soloId();
+        List<Object> pSeleccionado = _ListaProveedorSeleccionado.getItems_ObjectsRelacionados();
         for (Object i : pSeleccionado) {
             RelacionRefaccionProveedorVo v = new RelacionRefaccionProveedorVo();
             v.setIdProveedor((int)i);

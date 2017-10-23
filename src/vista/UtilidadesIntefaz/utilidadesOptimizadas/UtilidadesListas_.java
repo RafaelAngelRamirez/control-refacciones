@@ -370,7 +370,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * Retorna todos los id(u objetos) de la lista. 
      * @return La lista que contiene los id definidos dentro de la lista. 
      */
-    public List<Object> getItems_soloId(){
+    public List<Object> getItems_ObjectsRelacionados(){
         List<Object> ids = new ArrayList<>();
         
         for (Map.Entry<Object, Object> entry : relacionDatoId.entrySet()) {

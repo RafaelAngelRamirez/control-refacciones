@@ -1529,10 +1529,22 @@ public class Logica {
      * @param mmvo La máquina modelo que se quiere buscar. 
      * @return La lista de refacciones compatibles. 
      */
-    public List<RefaccionVo> refaccionConsultarCompatiblesConMaquinaModelo(MaquinaModeloVo mmvo) {
+    public List<RefaccionVo> refaccionConsultarCompatiblesConMaquinaModelo(List<MaquinaModeloVo> mmvo) {
         RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
         return d.consultarCompatiblesConMaquinaModelo(mmvo);
 
+    }
+
+    /**
+     * Consulta todas las refacciones que sean compatibles con la máquina modelo 
+     * que se le pase como parametro filtradas por el texto. s
+     * @param mmvo La máquina modelo que se quiere buscar. 
+     * @param texto 
+     * @return La lista de refacciones compatibles. 
+     */
+    public List<RefaccionVo> refaccionConsultarCompatiblesConMaquinaModelo(List<MaquinaModeloVo> mmvo, String texto) {
+        RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
+        return d.consultarCompatiblesConMaquinaModelo(mmvo, texto);
     }
     
 

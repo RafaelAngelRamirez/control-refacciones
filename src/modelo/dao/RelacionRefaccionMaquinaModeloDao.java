@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -132,13 +133,25 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
         return this.guardarLista(listaVo);
     }
     
+   
     /**
      * Consulta todas las refacciones que sean compatibles con la máquina modelo 
      * que se le pase como parametro. 
      * @param mmvo La máquina modelo que se quiere buscar. 
      * @return La lista de refacciones compatibles. 
      */
-    public List<RefaccionVo> consultarCompatiblesConMaquinaModelo(MaquinaModeloVo mmvo) {
+    public List<RefaccionVo> consultarCompatiblesConMaquinaModelo(List<MaquinaModeloVo>  mmvo) {
+        return consultarCompatiblesConMaquinaModelo(mmvo, "");
+    }
+    
+     /**
+     * Consulta todas las refacciones que sean compatibles con la máquina modelo 
+     * que se le pase como parametro filtradas por el texto. s
+     * @param mmvo La máquina modelo que se quiere buscar. 
+     * @param busqueda El texto que se va a buscar. 
+     * @return La lista de refacciones compatibles. 
+     */
+    public List<RefaccionVo> consultarCompatiblesConMaquinaModelo(List<MaquinaModeloVo> mmvo, String busqueda) {
         conexion = new Conexion(coordinador);
         List<RefaccionVo> list = new ArrayList<>();
         RefaccionIT rit = new RefaccionIT();
@@ -160,8 +173,40 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
                 +"="+ 
                 RefaccionIT.NOMBRE_TABLA+"."+rit.getIdPDC().getNombre()
                  +" WHERE "+
-                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre() +" =?";
-        ResultSet r = conexion.executeQuery(sql, mmvo.getId());
+                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre() 
+                +" IN (";
+        
+        String a ="";
+        HashMap<Integer,Object> mapa = new HashMap<>();
+        int cont = 1;
+        for (Iterator<MaquinaModeloVo> i = mmvo.iterator(); i.hasNext();) {
+            MaquinaModeloVo vo = i.next();
+            a+= i.hasNext() ? " ?, ":"?";
+            mapa.put(cont, vo.getId());
+            cont++;
+        }
+        
+        sql+=a+")";
+        
+        
+        String regexp = " REGEXP '.*"+busqueda+"|"+busqueda+".*' ";
+           
+        String sqlBusqueda = 
+                " AND " +
+                rit.getNombrePDC().getNombre() + regexp
+                + " OR " + 
+                rit.getCodigoInternoPDC().getNombre() + regexp
+                + " OR " + 
+                rit.getCodigoProveedorPDC().getNombre() + regexp
+                + " OR " + 
+                rit.getDescripcionPDC().getNombre() + regexp;
+        
+        if (!busqueda.isEmpty()) {
+            sql+=sqlBusqueda;
+        }
+        
+        
+        ResultSet r = conexion.executeQuery(sql, mapa);
         
         try {
             while (r.next()) {
@@ -180,6 +225,8 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
         }
         return list;
     }
+
+    
     
     
 }
