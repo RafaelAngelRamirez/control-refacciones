@@ -816,26 +816,36 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
      * Filtra las refacciones tomando en cuenta la lista de maquinas modelos 
      * asignadas. 
      */
+    @SuppressWarnings("unchecked")
     private void filtrarRefaccionesDisponibles() {
-        if (!_txtBusqueda.equals("") && !_listaModelosMaquinaAsignados.isEmpty()) {
-            @SuppressWarnings("unchecked")
-            List<MaquinaModeloVo> listMMVo = 
-                    (List<MaquinaModeloVo>)(List<?>)_listaModelosMaquinaAsignados.getItems_ObjectsRelacionados();
-            
-            List<RefaccionVo> listRVO = 
-                    getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(
-                            listMMVo, _txtBusqueda.getText());
-            
-            cargarRefaccioneEnListaDisponibles(listRVO);
-        }else{
-            if (_listaModelosMaquinaAsignados.isEmpty()) {
-                _listaRefaccionesDisponibles.limpiar();
+        if (!_listaModelosMaquinaAsignados.isEmpty()) {
+            //HAY MAQUINAS MODELO ASIGNADAS.
+            if (!_txtBusqueda.equals("")) {
+                //EL CAMPO DE BUSQUEDA NO ESTA VACIO.
+                List<MaquinaModeloVo> listMMVo = 
+                        (List<MaquinaModeloVo>)(List<?>)_listaModelosMaquinaAsignados.getItems_ObjectsRelacionados();
+
+                List<RefaccionVo> listRVO = 
+                        getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(
+                                listMMVo, _txtBusqueda.getText());
+
+                cargarRefaccioneEnListaDisponibles(listRVO);
             }else{
-                if (!txtBusqueda.equals("")) {
-                    cargarListaRefacciones();
-                }
+                //EL CAMPO DE BUSQUEDA ESTA VACIO. CARGAMOS TODO. 
+                List<MaquinaModeloVo> listMMVo = 
+                        (List<MaquinaModeloVo>)(List<?>)_listaModelosMaquinaAsignados.getItems_ObjectsRelacionados();
+
+                List<RefaccionVo> listRVO = 
+                        getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(
+                                listMMVo);
+                cargarRefaccioneEnListaDisponibles(listRVO);
             }
+        }else{
+            //SI NO HAY MAQUINAS MODELO SELECCIONADAS ENTONCES LIMPIAMOS LAS 
+            //REFACCIONES.
+            _listaRefaccionesDisponibles.limpiar();
         }
+        
     }
 
     

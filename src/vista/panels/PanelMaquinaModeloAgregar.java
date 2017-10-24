@@ -244,13 +244,6 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         comboMarca = new javax.swing.JComboBox<>();
         etiquetaMarca = new javax.swing.JLabel();
 
-       
-
-
-
-
-
-
         txtModeloMaquina.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtModeloMaquina.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtModeloMaquina.setText("MASS");
@@ -281,9 +274,8 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         });
 
         jLabel1.setBackground(new java.awt.Color(104, 127, 13));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_agregar modelo maquina.png"))); // NOI18N
-        jLabel1.setOpaque(true);
 
         etiquetaModeloMaquina.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaModeloMaquina.setText("Modelo de máquina");
@@ -362,7 +354,6 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
                     .addComponent(btnCancelar))
                 .addContainerGap())
         );
-
     }// </editor-fold>//GEN-END:initComponents
     
     private void txtModeloMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModeloMaquinaActionPerformed
