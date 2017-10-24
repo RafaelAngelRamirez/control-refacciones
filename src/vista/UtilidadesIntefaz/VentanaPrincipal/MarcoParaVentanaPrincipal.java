@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -36,7 +35,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
-import javax.swing.border.LineBorder;
 import vista.UtilidadesIntefaz.JPanelBase;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.ColoresYFuentes;
 
@@ -63,6 +61,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     private final Font fuenteMenu = ColoresYFuentes.FUENTE_MENU;
     private final Font fuenteItem = ColoresYFuentes.FUENTE_MENU_ITEM;
     private final Font fuenteFechaYHora = ColoresYFuentes.FUENTE_FECHA_Y_HORA;
+    private Reloj relojYBotonesDeCierre;
 
 
      ///////////////////////
@@ -87,7 +86,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     //El ménu para agregar las acciones. 
     private Menu menu;
     // LA BARRA DE TITULO DE LA VENTANA CON EL FONDO DE COLOR (DEPENDE DE CUAL)
-    private BarraTitulo barraTitulo;
+//    private BarraTitulo barraTitulo;
     
     
     //ACCION DE BOTON DE INICIO.
@@ -95,18 +94,20 @@ public class MarcoParaVentanaPrincipal extends JFrame{
     // QUIERE REALIZAR AL HACER UN CLICK.
     private Runnable accionMenuInicio;
 
+    Color colorNormalParaDebug = null;
     public void barraTituloColor() {
          if (coordinador.isDebugMode()) {
             //SI ES PRUEBA ROJO PA QUE NO NOS EQUIVOQUEMOS
-            barraTitulo.setBackground(Color.red);
-            barraTitulo.setTitulo("PRUEBAS-PRUEBAS-PRUEBAS-PRUEBAS-PRUEBAS-PRUEBAS");
+            colorNormalParaDebug = relojYBotonesDeCierre.getBackground();
+            relojYBotonesDeCierre.setBackground(Color.red);
+            
         } else {
-            //LE DAMOS EL COLORCITO AZUL
-            barraTitulo.setBackground(new Color(0,158,227));
-            barraTitulo.setTitulo("GESTION DE REFACCIONES");
+            //LE DAMOS EL COLORCITO NORMAL
+            relojYBotonesDeCierre.setBackground(colorNormalParaDebug);
         }
-        barraTitulo.revalidate();
+        menu.revalidate();
     }
+
 
     
    
@@ -115,8 +116,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      * contendra todos los elementos gráficos. Es la base de todo. 
      */
     public void init(){
-     
-       
         
         //EL TAMAÑO POR DEFECTO DE APERTURA DE LA VENTANA.
         // POR EL MOMENTO LO DEJAREMOS EN EL TAMAÑO DE LA RESOLUCIÓN 1440x900
@@ -140,16 +139,16 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         //SETEAMOS EL TAMAÑO POR DEFECTO CON EL QUE INICIALIZARA. 
         this.setPreferredSize(medidasVentana);
         
-        //ESTA CLASE ES LA QUE NOS PERMITE REDIMENCIONAR EL JFRAME.
-        ComponentResizer cr = new ComponentResizer();
-        //LAS MEDIDAS DEL COMPONENTE MÁXIMAS Y MÍNIMAS.
-        cr.setMinimumSize(medidasVentanaMinimo);
-        cr.setMaximumSize(medidasVentanaMaximo);
-        cr.registerComponent(this);
-        //LA CANTIDAD DE ESPACIO QUE TENEMOS QUE ARRASTRAR EL MOUSE PARA QUE 
-        // EMPIEZE A REDIMENCIONAR. SE PUEDE VER TAMBIEN COMO EL BRINCO QUE DARA.
-        // ENTRE MÁS ALTO SEA EL VALOR MÁS NOTORIO SERA EL SALTO. MIN = 1
-        cr.setSnapSize(new Dimension(2, 2));
+////        //ESTA CLASE ES LA QUE NOS PERMITE REDIMENCIONAR EL JFRAME.
+////        ComponentResizer cr = new ComponentResizer();
+////        //LAS MEDIDAS DEL COMPONENTE MÁXIMAS Y MÍNIMAS.
+        this.setMinimumSize(medidasVentanaMinimo);
+        this.setMaximumSize(medidasVentanaMaximo);
+////        cr.registerComponent(this);
+//        //LA CANTIDAD DE ESPACIO QUE TENEMOS QUE ARRASTRAR EL MOUSE PARA QUE 
+//        // EMPIEZE A REDIMENCIONAR. SE PUEDE VER TAMBIEN COMO EL BRINCO QUE DARA.
+//        // ENTRE MÁS ALTO SEA EL VALOR MÁS NOTORIO SERA EL SALTO. MIN = 1
+//        cr.setSnapSize(new Dimension(2, 2));
         
         /*------------------------------------------------------------
         INICIALIZAMOS TODOS LOS TIPOS DE CONTENEDORES QUE OCUPAMOS.
@@ -187,7 +186,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         EL TITULO QUE SE LE ASIGNA AQUI ES QUE PREVALECERA DURANTE TODA LA APLICACIÓN.
         LOS PANELES QUE AGREGUEMOS SE AGRAGARAN AL LADO DE ESTE TITULO.
          */
-        this.barraTitulo = new BarraTitulo("GESTION DE REFACCIONES");
+//        this.barraTitulo = new BarraTitulo("GESTION DE REFACCIONES");
         
         /*
         CREAMOS UN ICONO PARA LA BARRA.
@@ -195,6 +194,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         URL imageURL;
         imageURL = this.getClass().getResource("/vista/imagenes/iconos_icono_principal.png");
         JLabel iconoEtiquetaPrincipal = new JLabel(new ImageIcon(imageURL));
+        iconoEtiquetaPrincipal.setPreferredSize(new Dimension(28, 8));
         /**
          ASIGNAMOS LA ACCIÓN DE EJECUCIÓN DEL ICONO DE LA BARRA. 
          */
@@ -217,15 +217,15 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          CREAMOS EL PANEL QUE CONTIENE EL RELOJ, LA FECH Y LOS BOTONES DE INTERACCIÓN
          DE LA VENTANA.
          */
-        RelojYBotonesDeCierre rybdc = new RelojYBotonesDeCierre(coordinador);
-        
+        relojYBotonesDeCierre = new Reloj(coordinador);
         /*
         ORDENAMOS LOS PANELES AGREGANDOLOS A SU RESPECTIVO PADRE. TENER CUIDADDO
         DE RESPETAR EL ÓRDEN QUE TIENEN PUESTO QUE AFECTA A LA ESTRUCUTRA. 
         */
         
         this.menu.add(iconoEtiquetaPrincipal);
-        panelEncabezado.add(this.barraTitulo, BorderLayout.PAGE_START);
+        this.menu.setPreferredSize(new Dimension(0, 28));
+//        panelEncabezado.add(this.barraTitulo, BorderLayout.PAGE_START);
         panelEncabezado.add(this.menu, BorderLayout.SOUTH);
         panelSuperContenedor.add(panelEncabezado, BorderLayout.PAGE_START);
         panelSuperContenedor.add(this.contenedorParaPaneles);
@@ -552,18 +552,18 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          * QUE LOS BOTONES INTERECTUEN CON ELLA. SI NO LO HACEMOS NOS MANDARA
          * ERROR DE NULL POINTER EXCEPTION. 
          */
-        rybdc.setVentanaPrincipal(this);
+        relojYBotonesDeCierre.setVentanaPrincipal(this);
         //ASIGMAMOS LOS BOTONES. IMPORTANTE POR QUE SI NO NO FUNCIONAN. 
-        rybdc.asignarAcciones();
+        relojYBotonesDeCierre.asignarAcciones();
         //AÑADIMOS EL PANEL AL MENU.
-        this.menu.add(rybdc);
+        this.menu.add(relojYBotonesDeCierre);
 
         /*------------------------------------------------------------
             CONFIGURACIONES BÁSICAS PARA EL JFRAME. 
         ------------------------------------------------------------*/
         this.dispose();
         this.setLocationRelativeTo(null);
-        this.setUndecorated(true);
+//        this.setUndecorated(true);
        
         /*
         NECESITAMOS EMPACAR PARA QUE TODOS LOS CAMBIOS EN LOS PANELES FUNCIONEN.
@@ -923,23 +923,20 @@ public class MarcoParaVentanaPrincipal extends JFrame{
      * del menu de la ventana incluyendo las acciones que tomaran los botones
      * de minimizar. 
      */
-    class RelojYBotonesDeCierre extends JPanel{
+    class Reloj extends JPanel{
 
-        private final JButton cerrarBtn;
-        private final JButton minimizarBtn;
-        private final JButton maximizarBtn;
+//        private final JButton cerrarBtn;
+//        private final JButton minimizarBtn;
+//        private final JButton maximizarBtn;
         private final Coordinador coordinador;
-
+        
+        
         private JFrame ventanaPrincipal;
 
-        public RelojYBotonesDeCierre(Coordinador coordinador) {
+        public Reloj(Coordinador coordinador) {
 
             this.coordinador = coordinador;
             //EL PANEL QUE CONTENDRA EL RELOJ.
-            JPanel reloj = new JPanel();
-
-            //EL PANEL QUE CONTENDRA LOS BOTONES DE CIERRE Y APERTURA.
-            JPanel botones = new JPanel();
 
             //LLAMAMOS A LA CLASE FECHA Y HORA Y LAS AGREGAMOS A SUS PANELES.
             HiloParaFechaYHoraCabecera fechaHora = new HiloParaFechaYHoraCabecera();
@@ -953,52 +950,14 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             hora.setFont(fuenteFechaYHora);
             fecha.setFont(fuenteFechaYHora);
 
-            reloj.add(fecha);
-            reloj.add(relleno);
-            reloj.add(hora);
-
-            //CREAMOS LOS BOTONES QUE LLEVARAN PARA CIEERE
-            this.cerrarBtn = new JButton("X");
-            this.minimizarBtn = new JButton("_");
-            this.maximizarBtn = new JButton("█");
+            this.add(fecha);
+            this.add(relleno);
+            this.add(hora);
             
-            //NO FOCUSABLES
-            this.cerrarBtn.setFocusable(false);
-            this.minimizarBtn.setFocusable(false);
-            this.maximizarBtn.setFocusable(false);
-            
-            
-            //FUENTE
-            Font fuenteBotones = new Font("Arial", 0, 7);
-            this.cerrarBtn.setFont(fuenteBotones);
-            this.minimizarBtn.setFont(fuenteBotones);
-            this.maximizarBtn.setFont(fuenteBotones);
-            
-            //AGREGAMOS AL JPANEL BOTONES LOS BOTONES.
-            botones.add(minimizarBtn);
-            botones.add(maximizarBtn);
-            botones.add(cerrarBtn);
             
             //LOS LAYOUT PARA DAR ORDEN
             this.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            reloj.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            botones.setLayout(new FlowLayout(FlowLayout.RIGHT));
             
-            //MEDIDAS DE LOS PANELES. 
-            Dimension relojDim = new Dimension(450, 35);
-            reloj.setPreferredSize(relojDim);
-            reloj.setMinimumSize(relojDim);
-            reloj.setMaximumSize(relojDim);
-            reloj.setAutoscrolls(true);
-
-            Dimension btnDimencion = new Dimension(120, 35);
-            botones.setPreferredSize(btnDimencion);
-            botones.setMinimumSize(btnDimencion);
-            botones.setMaximumSize(btnDimencion);
-
-            //AGREGAMOS LOS PANELES AL PANEL QUE LOS VA A CONTENER.
-            this.add(reloj);
-            this.add(botones);
 
         }
         
@@ -1006,7 +965,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             return ventanaPrincipal;
         }
 
-        
+
         /**
          * Seteamos la ventana principal para fines de acomdoo. 
          */
@@ -1087,10 +1046,10 @@ public class MarcoParaVentanaPrincipal extends JFrame{
          * 
          */
         public void asignarAcciones(){
-            this.asignarAccionABoton(this.minimizarBtn, ()->this.minimizar());
-            this.asignarAccionABoton(this.maximizarBtn, ()->this.maximizar());
-//            this.asignarAccionABoton(this.encimaBtn, ()->this.encima());
-            this.asignarAccionABoton(this.cerrarBtn, ()->this.cerrar());
+//            this.asignarAccionABoton(this.minimizarBtn, ()->this.minimizar());
+//            this.asignarAccionABoton(this.maximizarBtn, ()->this.maximizar());
+////            this.asignarAccionABoton(this.encimaBtn, ()->this.encima());
+//            this.asignarAccionABoton(this.cerrarBtn, ()->this.cerrar());
         }
         
         /**
@@ -1155,6 +1114,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 
             //AÑADE LA ESCUCHA PARA ARRASTRAR LA VENTANA 
             addMouseListener(new MouseAdapter() {
+                @Override
                 public void mousePressed(MouseEvent me) {
                     //GUARDA LA POSICION ACTUAL AL PRESIONAR EL MOUSE.
                     pX = me.getX();
@@ -1191,7 +1151,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
 
         public PanelSuperContenedor() {
             setLayout(new BorderLayout());
-            setBorder(new LineBorder(new Color(70,70,70), 5, false));
+//            setBorder(new LineBorder(new Color(70,70,70), 5, false));
         }
     }
     

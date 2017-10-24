@@ -12,13 +12,13 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.InfoTabla.SeccionDeMaquinaIT;
 import modelo.Textos;
-import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.SeccionDeMaquinaVO;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.ConfirmacionExahustiva;
 import vista.UtilidadesIntefaz.JPanelBase;
+import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
@@ -50,9 +50,8 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
      */
     public PanelSeccionMaquinaRelacionModeloMaquina() {
         initComponents();
-//        this.mapaDeRelaciones = new HashMap<>();
         configuracionesDialogo = new ConfiguracionDePanel();
-        configuracionesDialogo.setModal(true);
+        configuracionesDialogo.setModal(false);
         configuracionesDialogo.setResizable(false);
         configuracionesDialogo.setTitle(CoordinadorPaneles.PANEL_SECCION_DE_MAQUINAS);
         configuracionesDialogo.setLocationRelativeTo(null);
@@ -449,7 +448,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(this::cargarListaDeRefaccionesParaModificar, false);
         
             /*Filtra las refacciones*/
-        _txtBusqueda.setKeyTyped(this::filtrarRefaccionesDisponibles, UtilidadesTxt_.TECLA_CUALQUIERA);
+        _txtBusqueda.setKeyRelease(this::filtrarRefaccionesDisponibles, OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
        
         
         
@@ -517,7 +516,8 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             List<MaquinaModeloVo> listVOQuitar = getCoordinador().maquinaModeloRelacionSeccion(idActual);
             //CARGAMOS LA LISTA DE MODELOS DE MÁQUINA. 
             cargarListaMaqModelo(listVOQuitar);
-
+        }else{
+            cargarListaRefacciones();
         }
     }
      
@@ -586,15 +586,6 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             _listaModelosMaquinaDisponibles.cargarLista(mapaDisponibles);
             _listaModelosMaquinaAsignados.cargarLista(mapaAsignados);
             
-            //CARGAMOS EL MAPA CON LAS REFACCIONES QUE SABEMOS QUE YA TIENEN
-            // UNA SECCIÓN ASIGNADA. 
-            
-//            listMaquinaModeloAsigandos.forEach(mmvo->{
-//                //CONSULTAMOS LAS REFACCIONES QUE ESTEN RELACIONADAS CON ESTA SECCION. 
-//                // Y LAS CARGAMOS EN EL MAPA PARA QUE ESTEN DISPONIBLES.
-//                List<RefaccionVo> listrvo = getCoordinador().refaccionRelacionSeccionMaquina(idActual);
-//                mapaDeRelaciones.put(mmvo, listrvo);
-//            });
         }
     }    
     
@@ -637,44 +628,44 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
      * Guarda las nuevas relaciones entre las secciones y las refacciones.  
      */
     private void guardarNuevaSeccion(){
-        SeccionDeMaquinaIT sdmit = new SeccionDeMaquinaIT();
-
-        //OBTENEMOS LA NUEVA SECCIÓN.
-        SeccionDeMaquinaVO sdmvo = new SeccionDeMaquinaVO();
-        sdmvo.setNombreSeccion(_txtNombre.getText());
-        
-        //VALIDAMOS QUE NO ESTE REPETIDA. 
-        List<Validacion> listVal = getCoordinador().seccionDeMaquinaValidar(sdmvo);
-        
-        boolean todoValido = true;
-        for (Validacion val : listVal) {
-            if (val.getNombreDeCampo().equals(sdmit.getNombreSeccionPDC().getNombre())) {
-                if (val.isValido()) {
-                    _txtNombre.setErrorQuitar();
-                }else{
-                    _txtNombre.setError(val.getMensajeDeError());
-                    todoValido = false;
-                }
-            }
-        }
-        
-        if (todoValido) {
-        //LA SECCION NO EXISTE ENTONCES LA GUARDAMOS Y OBTENEMOS SU ID.
-            if (getCoordinador().seccionDeMaquinaGuardar(sdmvo)) {
-                todoValido = true;
-                //CARGAMOS EL ID DE LA REFACCION GENERADO.
-                sdmvo.setId(getCoordinador().seccionDeMaquinaUltimoId());
-                if (sdmvo.getId()==-1) {
-                    todoValido = false;
-                    JOptionPane.showMessageDialog(this, "Algo paso y no se pudieron guardar"
-                            + " las refacciones que se relacionaron. "
-                            + "\nIntentalo recargando esta ventana.");
-                }
-            }else{
-                todoValido = false;
-            }
-        }
-        
+//        SeccionDeMaquinaIT sdmit = new SeccionDeMaquinaIT();
+//
+//        //OBTENEMOS LA NUEVA SECCIÓN.
+//        SeccionDeMaquinaVO sdmvo = new SeccionDeMaquinaVO();
+//        sdmvo.setNombreSeccion(_txtNombre.getText());
+//        
+//        //VALIDAMOS QUE NO ESTE REPETIDA. 
+//        List<Validacion> listVal = getCoordinador().seccionDeMaquinaValidar(sdmvo);
+//        
+//        boolean todoValido = true;
+//        for (Validacion val : listVal) {
+//            if (val.getNombreDeCampo().equals(sdmit.getNombreSeccionPDC().getNombre())) {
+//                if (val.isValido()) {
+//                    _txtNombre.setErrorQuitar();
+//                }else{
+//                    _txtNombre.setError(val.getMensajeDeError());
+//                    todoValido = false;
+//                }
+//            }
+//        }
+//        
+//        if (todoValido) {
+//        //LA SECCION NO EXISTE ENTONCES LA GUARDAMOS Y OBTENEMOS SU ID.
+//            if (getCoordinador().seccionDeMaquinaGuardar(sdmvo)) {
+//                todoValido = true;
+//                //CARGAMOS EL ID DE LA REFACCION GENERADO.
+//                sdmvo.setId(getCoordinador().seccionDeMaquinaUltimoId());
+//                if (sdmvo.getId()==-1) {
+//                    todoValido = false;
+//                    JOptionPane.showMessageDialog(this, "Algo paso y no se pudieron guardar"
+//                            + " las refacciones que se relacionaron. "
+//                            + "\nIntentalo recargando esta ventana.");
+//                }
+//            }else{
+//                todoValido = false;
+//            }
+//        }
+//        
         
         //LA LISTA QUE CONTENDRA LAS REFACCIONES COMPATIBLES. 
         
@@ -826,7 +817,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
      * asignadas. 
      */
     private void filtrarRefaccionesDisponibles() {
-        if (!_txtBusqueda.isEmpty()) {
+        if (!_txtBusqueda.equals("") && !_listaModelosMaquinaAsignados.isEmpty()) {
             @SuppressWarnings("unchecked")
             List<MaquinaModeloVo> listMMVo = 
                     (List<MaquinaModeloVo>)(List<?>)_listaModelosMaquinaAsignados.getItems_ObjectsRelacionados();
@@ -837,7 +828,13 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             
             cargarRefaccioneEnListaDisponibles(listRVO);
         }else{
-//            this.cargarListaRefacciones();
+            if (_listaModelosMaquinaAsignados.isEmpty()) {
+                _listaRefaccionesDisponibles.limpiar();
+            }else{
+                if (!txtBusqueda.equals("")) {
+                    cargarListaRefacciones();
+                }
+            }
         }
     }
 
