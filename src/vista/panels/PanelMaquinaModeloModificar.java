@@ -207,7 +207,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
     
     public void cargarDatosConsultados(){
         limpiarTodo();
-        idConsultandoseActualmente = (int)_ListaMaquinaModelo.getSelectValueId();
+        idConsultandoseActualmente = (int)_ListaMaquinaModelo.getSelectValueObject();
         if (idConsultandoseActualmente!=-1) {
             MaquinaModeloVo vo = 
                     this.getCoordinador()
@@ -501,7 +501,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
         MaquinaModeloVo vo = new MaquinaModeloVo();
-        if (!_ListaMaquinaModelo.getSelectValueId().equals(-1)) {
+        if (!_ListaMaquinaModelo.getSelectValueObject().equals(-1)) {
             vo.setId(this.idConsultandoseActualmente);
             vo.setModelo(this._TxtModeloMaquina.getText());
             vo.setAnio(Integer.parseInt(this._TxtAnio.getText()));

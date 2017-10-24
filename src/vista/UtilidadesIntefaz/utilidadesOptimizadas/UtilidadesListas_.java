@@ -75,7 +75,8 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
     }
 
     /**
-     * Remueve un elemento de la lista.
+     * Remueve un elemento de la lista. Para hacer referencia a el se debe
+     * pasar como parametro el nombre del objeto. 
      * @param dato El elemento que se quiere remover.
      */
     public void removeElement(Object dato){
@@ -317,11 +318,24 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
     }
 
     
+    /**
+     * Retorna el texto del item seleccionado.  {@see getSelectedValue}
+     * @return 
+     */
     @Override
     public String getText() {
-        throw new UnsupportedOperationException("getText no Soportado. Listas."); //To change body of generated methods, choose Tools | Templates.
-
+        return lista.getSelectedValue();
     }
+    
+    /**
+     * Retorna el texto del item seleccionado. 
+     * @return
+     */
+    public String getSelectedValue(){
+        return getText();
+    }
+    
+    
     
     /**
      * Limpia la lista controlada por esta utilidad y si la lista de intercambio
@@ -384,7 +398,7 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
      * Retorna el id que esta relacionado con el valor que se selecciona.
      * @return El id relacionado con el valor que se selecciono o en caso contrario -1.
      */
-    public Object getSelectValueId(){
+    public Object getSelectValueObject(){
         if (this.getThis().getSelectedValue()==null) {
             return -1;
         }

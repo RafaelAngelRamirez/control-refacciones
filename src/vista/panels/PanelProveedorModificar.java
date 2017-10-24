@@ -477,7 +477,7 @@ public class PanelProveedorModificar extends JPanelBase {
     }// </editor-fold>//GEN-END:initComponents
     
     public void cargarProveedorSeleccionado(){
-        this.id = (int)_ListaProveedores.getSelectValueId(); 
+        this.id = (int)_ListaProveedores.getSelectValueObject(); 
         if (id!=-1) {
             limpiarTodo();
             if (id!=0) {
@@ -688,7 +688,7 @@ public class PanelProveedorModificar extends JPanelBase {
         List<File> file = _ImagenesProveedor.getImagenesPorCargar();
         for (File f : file) {
             ImagenProveedorVo vo = new ImagenProveedorVo();
-            vo.setIdProveedor((int)_ListaProveedores.getSelectValueId());
+            vo.setIdProveedor((int)_ListaProveedores.getSelectValueObject());
             vo.setFicheroImagen(f);
             vo.setNombreParaMostrar(f.getName());
             listaiVo.add(vo);

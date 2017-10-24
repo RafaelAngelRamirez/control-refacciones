@@ -355,7 +355,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
      * 
      */
     public void cargarDatosDeListaParaModificar(){
-        Object o = _listaMaquinas.getSelectValueId();
+        Object o = _listaMaquinas.getSelectValueObject();
         if (!o.equals(-1)) {
             MaquinaVo vo = (MaquinaVo)o;
             _txtNombre.setText(vo.getNumeroDeMáquina());
@@ -403,7 +403,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
     }
 
     private void eliminarMaquina() {
-        Object o = _listaMaquinas.getSelectValueId();
+        Object o = _listaMaquinas.getSelectValueObject();
         if (!o.equals(-1)) {
             MaquinaVo vo = (MaquinaVo) o;
             String msj1 = "¿Estas segúro que quieres eliminar la máquina "
@@ -444,7 +444,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             vo.setNumeroDeMáquina(_txtNombre.getText());
                        
             if (idMaquinaActual!=null) {
-                MaquinaVo v = (MaquinaVo) _listaMaquinas.getSelectValueId();
+                MaquinaVo v = (MaquinaVo) _listaMaquinas.getSelectValueObject();
                 MaquinaModeloVo eVo = (MaquinaModeloVo)_comboMaquinaModelo.getSelectedItem_idRetorno();
                 vo.setId(idMaquinaActual.getId());
                 vo.setIdMaquinaModelo(eVo.getId());
@@ -496,7 +496,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                 if (getCoordinador().maquinaModificar(vo)) {
                     
                     MaquinaHistorialNombresVO mhnVo = new MaquinaHistorialNombresVO();
-                    MaquinaVo m2Vo = (MaquinaVo)_listaMaquinas.getSelectValueId();
+                    MaquinaVo m2Vo = (MaquinaVo)_listaMaquinas.getSelectValueObject();
                     
                     mhnVo.setIdMaquina(vo.getId());
                     mhnVo.setNombreAnterior(m2Vo.getNumeroDeMáquina());

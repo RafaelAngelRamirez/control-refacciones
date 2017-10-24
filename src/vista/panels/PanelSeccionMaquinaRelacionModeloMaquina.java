@@ -401,7 +401,6 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
        
        _listaRefaccionesDisponibles.setComponente(listaRefaccionesDisponibles);
        _listaRefaccionesAsignadas.setComponente(listaRefaccionesAsignadas);
-       _listaRefaccionesAsignadas.setComponenteListaAAgregar(_listaRefaccionesAsignadas);
        
        _listaSecciones.setComponente(listaSecciones);
        
@@ -440,21 +439,17 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         _listaModelosMaquinaDisponibles.setValueChange(()->_listaModelosMaquinaDisponibles.cambioEntreListas(false));
         _listaModelosMaquinaAsignados.setValueChange(()->_listaModelosMaquinaDisponibles.cambioEntreListas(true));
         
-        _listaRefaccionesDisponibles.setValueChange(()->_listaRefaccionesAsignadas.cambioEntreListas(true));
-        _listaRefaccionesAsignadas.setValueChange(() -> _listaRefaccionesAsignadas.cambioEntreListas(false));
+        _listaRefaccionesDisponibles.setValueChange(this::seleccionarRefaccionCompatible);
+        _listaRefaccionesAsignadas.setValueChange(this::quitarRefaccionCompatible);
         
             /*Carga las refacciones compatibles o las quita*/
-        _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(this::cargarListaDeRefaccionesParaModificar, true);
         _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(this::cargarListaDeRefaccionesParaModificar, false);
         
             /*Filtra las refacciones*/
         _txtBusqueda.setKeyRelease(this::filtrarRefaccionesDisponibles, OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
-       
+
+            /**/
         
-        
-        
-//        _listaRefaccionesDisponibles.addOperacionAlIntercambiarItem(() -> this.agregarDatosAlMapaRefacciones(), true);
-//        _listaRefaccionesDisponibles.addOperacionAlIntercambiarItem(() -> this.agregarDatosAlMapaRefacciones(), false);
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);
@@ -505,7 +500,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     @SuppressWarnings("unchecked")
     private void cargarDatosDeListaParaModificar(){
         limpiar();
-        Object o = _listaSecciones.getSelectValueId();
+        Object o = _listaSecciones.getSelectValueObject();
         if (!o.equals(-1)) {
             SeccionDeMaquinaVO v = (SeccionDeMaquinaVO)o;
             _txtNombre.setText(v.getNombreSeccion());
@@ -604,7 +599,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     }
     
     private void eliminarSeccion() {
-        Object a = _listaSecciones.getSelectValueId();
+        Object a = _listaSecciones.getSelectValueObject();
         if (!a.equals(-1)) {
             SeccionDeMaquinaVO seccionDeMaquinaVO = (SeccionDeMaquinaVO)a;
             
@@ -757,21 +752,25 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
 
         listRVO.forEach(
                 rvo->{
-
                     String a  = Textos.formatearEspacios(12, rvo.getCodigoProveedor(), "|");
                     String b  = Textos.formatearEspacios(25, rvo.getNombre(), "|");
                     String c  = Textos.formatearEspacios(25, rvo.getCodigoInterno(), "|");
+                    
+                    //SI LA REFACCIÓN YA LA TENEMOS SELECCIONADA ENTONCES NO LA MOSTRAMOS
+                    if(!mapaDeRefaccionesSeleccionadas.containsKey(a+b+c)){
+                        mapaDisponibles.put(a+b+c, rvo);
+                    }
 
-                    mapaDisponibles.put(a+b+c, rvo);
 
                 });
+        
 
         _listaRefaccionesDisponibles.cargarLista(mapaDisponibles);
     }
 
     private void cargarListaDeRefaccionesParaGuardarNuevo() {
 //        // SOLO CARGAMOS LAS REFACCIONES PARA ASIGNARLAS A LA MÁQUINA MODELO.
-//        Object a = _listaModelosMaquinaAsignados.getSelectValueId();
+//        Object a = _listaModelosMaquinaAsignados.getSelectValueObject();
 //        if (!a.equals(-1)) {
 //            MaquinaModeloVo mmvo = (MaquinaModeloVo)a;
 //
@@ -801,7 +800,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     private void agregarDatosAlMapaRefacciones() {
 //        //OBTENEMOS EL MODELO DE MÁQUINA SELECCIONADO. 
 //        MaquinaModeloVo mmVOSeleccionado = 
-//                (MaquinaModeloVo)_listaModelosMaquinaAsignados.getSelectValueId();
+//                (MaquinaModeloVo)_listaModelosMaquinaAsignados.getSelectValueObject();
 //        
 //        //OBTENEMOS TODAS LAS REFACCIONES QUE SE LE ASIGNARON.
 //        @SuppressWarnings("unchecked")
@@ -847,6 +846,74 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         }
         
     }
+    
+    
+    HashMap<String, Object>mapaDeRefaccionesSeleccionadas = new HashMap<>();
+    /**
+     * Esta función pasa el item que se seleccione a la lista de refacciones 
+     * asignadas y la elimina de la otra. Tambien revisa que este limpia de
+     * las refacciones ya asignadas. 
+     */ 
+    private void seleccionarRefaccionCompatible() {
+        //PRIMERO OBTENEMOS EL VALOR SELECCIONADO QUE DESENCADEMO EL CAMBIO 
+        // A LA OTRA LISTA.
+        Object a = _listaRefaccionesDisponibles.getSelectValueObject();
+        if (!a.equals(-1)) {
+            
+            RefaccionVo rvoSeleccionado = (RefaccionVo) a;
+            String nombre = _listaRefaccionesDisponibles.getText();
+
+            //LO CARGAMOS AL MAPA.
+            mapaDeRefaccionesSeleccionadas.put(nombre, rvoSeleccionado);
+
+            _listaRefaccionesAsignadas.limpiar();
+            _listaRefaccionesAsignadas.cargarLista(mapaDeRefaccionesSeleccionadas);
+
+            //AHORA LO QUITAMOS DE LA OTRA LISTA.
+            _listaRefaccionesDisponibles.removeElement(nombre);
+        }
+    }
+
+    /**
+     *Esta función quita el item que estaba seleccionado de la lista de refacciones
+     * asignadas y lo devuelve a las disponibles.
+     */
+    private void quitarRefaccionCompatible() {
+        //OBTENEMOS EL VALOR QUE VAMOS A QUITAR. 
+        Object a = _listaRefaccionesAsignadas.getSelectValueObject();
+        if (!a.equals(-1)) {
+            RefaccionVo rvoSeleccionado = (RefaccionVo) a;
+            String nombre = _listaRefaccionesAsignadas.getText();
+            
+            
+            //LO QUITAMOS DEL MAPA. 
+            mapaDeRefaccionesSeleccionadas.remove(nombre);
+            
+            
+            //QUITAMOS DE LA LISTA DE ASIGNADOS.
+            _listaRefaccionesAsignadas.removeElement(nombre);
+            
+            //OBTENEMOS LA LISTA TEMP.
+            @SuppressWarnings("unchecked")
+            HashMap<String, Object> mapaTem = new HashMap<>();
+            _listaRefaccionesDisponibles.getRelacionDatoId().forEach((Object key, Object value) -> {
+                mapaTem.put(key.toString(), value);
+            });
+            
+            
+            //AÑADIMOS EL ELEMENTO QUE HABIAMOS QUITADO.
+            mapaTem.put(nombre, rvoSeleccionado);
+
+            //CARGAMOS LA LISTA DE DISPONIBLES CON EL MAPA TEMP.
+            _listaRefaccionesDisponibles.limpiar();
+            _listaRefaccionesDisponibles.cargarLista(mapaTem);
+            
+            
+        }
+        
+    }
+    
+    
 
     
        

@@ -862,7 +862,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
             HashMap<Object, Object> datos = _listaResultados.getRelacionDatoId();
             
             if (!_listaResultados.getThis().isSelectionEmpty()) {
-                vo = (RefaccionVo) _listaResultados.getSelectValueId();
+                vo = (RefaccionVo) _listaResultados.getSelectValueObject();
             }else if (!_listaResultados.isEmpty()) {
                 vo = (RefaccionVo) datos.get(_listaResultados.getThis().getModel().getElementAt(0));
             }

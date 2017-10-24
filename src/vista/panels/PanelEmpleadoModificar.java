@@ -355,7 +355,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
     
     
     public void cargarEmpleado(){
-        Object a = _listaEmpleados.getSelectValueId();
+        Object a = _listaEmpleados.getSelectValueObject();
         if (!a.equals(-1)) {
             EmpleadoVo vo = (EmpleadoVo) a;
             if (vo.getBajaEmpleado()==1) {
@@ -479,7 +479,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         EmpleadoVo vo = new EmpleadoVo();
-        EmpleadoVo v = (EmpleadoVo)_listaEmpleados.getSelectValueId();
+        EmpleadoVo v = (EmpleadoVo)_listaEmpleados.getSelectValueObject();
         vo.setId(v.getId());
         vo.setNombre(_txtNombre.getText());
         vo.setIdDepartamento(_comboDepartamentos.getSelectedItem_idRetorno());
@@ -530,7 +530,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
     }//GEN-LAST:event_formWindowClosing
     
     private void btnDarDeBajaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaAltaActionPerformed
-        Object a = _listaEmpleados.getSelectValueId();
+        Object a = _listaEmpleados.getSelectValueObject();
         if (!a.equals(-1)) {
             EmpleadoVo vo = (EmpleadoVo)a;
             vo.setFechaBaja(FechaYHora.Actual.getFecha_DateSQL());
