@@ -63,6 +63,7 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
     public List<RelacionRefaccionProveedorVo> consultarProveedores(int id){
         conexion = new Conexion(coordinador);
 <<<<<<< HEAD
+<<<<<<< HEAD
         List<ProveedorVo> lrrpvo = new ArrayList<>();
         
         ProveedorIT pit = new ProveedorIT();
@@ -72,6 +73,8 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
         String sql = "SELECT " +
                 ProveedorIT.NOMBRE_TABLA+"."+
 =======
+=======
+>>>>>>> parent of 9694f68... Renombravo variables estaticas!! Ha!!
         List<RelacionRefaccionProveedorVo> lrrpvo = new ArrayList<>();
         ProveedorIT pit = new ProveedorIT();
         String sql = 
@@ -79,6 +82,7 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
                 + ProveedorIT.NOMBRE_TABLA+"."+pit.getEmpresaProveedorPDC().getNombre() +", "
                 + RelacionRefaccionProveedorIT.NOMBRE_TABLA+"."+it.getIdProveedorPDC().getNombre()
                 +" FROM " + RelacionRefaccionProveedorIT.NOMBRE_TABLA +
+<<<<<<< HEAD
                 
                 " INNER JOIN " + ProveedorIT.NOMBRE_TABLA +
                 " ON " +
@@ -103,6 +107,29 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
                 
 <<<<<<< HEAD
 =======
+=======
+                
+                " INNER JOIN " + ProveedorIT.NOMBRE_TABLA +
+                " ON " +
+                ProveedorIT.NOMBRE_TABLA+"."+pit.getIdPDC().getNombre()
+                + " = " +
+                RelacionRefaccionProveedorIT.NOMBRE_TABLA+"."+it.getIdProveedorPDC().getNombre()
+                
+                + " WHERE " + it.getIdRefaccionPDC().getNombre() + " = ?" 
+                ;
+        
+        ResultSet r = conexion.executeQuery(sql, id+"");
+        
+        try {
+            while (r.next()) {
+                RelacionRefaccionProveedorVo vo = new RelacionRefaccionProveedorVo();
+                ProveedorVo pvo = new ProveedorVo();
+                vo.setIdProveedor(r.getInt(it.getIdProveedorPDC().getNombre()));
+                vo.setProveedorVo(pvo);
+                
+                pvo.setEmpresa(r.getString(pit.getEmpresaProveedorPDC().getNombre()));
+                
+>>>>>>> parent of 9694f68... Renombravo variables estaticas!! Ha!!
                 lrrpvo.add(vo);
             }
         } catch (SQLException ex) {
