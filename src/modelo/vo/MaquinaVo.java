@@ -20,10 +20,10 @@ public class MaquinaVo extends VoGenerales{
 
     public MaquinaVo() {
         MaquinaIT it = new MaquinaIT();
-        relacionCampo.put(it.getIdPDC().getNombre(), ()->this.getId());
-        relacionCampo.put(it.getIdMaquinaModeloPDC().getNombre(), ()->this.getIdMaquinaModelo());
-        relacionCampo.put(it.getNumeroDeMaquinaPDC().getNombre(), ()->this.getNumeroDeMáquina());
-        relacionCampo.put(it.getMatriculaPDC().getNombre(), ()->this.getMatricula());
+        relacionCampo.put(it.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(it.getID_MAQUINA_MODELO().getNombre(), ()->this.getIdMaquinaModelo());
+        relacionCampo.put(it.getNUMERO_DE_MAQUINA().getNombre(), ()->this.getNumeroDeMáquina());
+        relacionCampo.put(it.getMATRICULA().getNombre(), ()->this.getMatricula());
         
     }
 

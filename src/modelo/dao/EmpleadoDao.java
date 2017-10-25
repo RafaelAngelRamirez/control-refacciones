@@ -33,11 +33,11 @@ public class EmpleadoDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "SELECT COUNT(*) FROM " + EmpleadoIT.NOMBRE_TABLA 
                 +" WHERE "+
-                it.getNombrePDC().getNombre()+" =? "
+                it.getNOMBRE().getNombre()+" =? "
                 +" AND "+
-                it.getIdDepartamentoPDC().getNombre() +" =?"
+                it.getID_DEPARTAMENTO().getNombre() +" =?"
                 +" AND "+
-                it.getBajaEmpleadoPDC().getNombre() +" =false"               
+                it.getBAJA_EMPLEADO().getNombre() +" =false"               
                 ;
         
         HashMap<Integer, Object> mapa = new HashMap<>();
@@ -71,7 +71,7 @@ public class EmpleadoDao extends DAOGenerales{
     }
     
     public int consultarUltimoId(){
-        String sql = "SELECT MAX(" + it.getIdPDC().getNombre() + ") FROM "+EmpleadoIT.NOMBRE_TABLA;
+        String sql = "SELECT MAX(" + it.getID().getNombre() + ") FROM "+EmpleadoIT.NOMBRE_TABLA;
         ResultSet r = conexion.executeQuery(sql);
         try {
             r.next();
@@ -108,15 +108,15 @@ public class EmpleadoDao extends DAOGenerales{
         DepartamentoIT dit = new DepartamentoIT();
         List<EmpleadoVo> listVo= new ArrayList<>();
         String sql = "SELECT "+
-                EmpleadoIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre()+", "+
-                EmpleadoIT.NOMBRE_TABLA+"."+it.getNombrePDC().getNombre()+", "+
-                DepartamentoIT.NOMBRE_TABLA+"."+dit.getDepartamentoPDC().getNombre();
+                EmpleadoIT.NOMBRE_TABLA+"."+it.getID().getNombre()+", "+
+                EmpleadoIT.NOMBRE_TABLA+"."+it.getNOMBRE().getNombre()+", "+
+                DepartamentoIT.NOMBRE_TABLA+"."+dit.getDEPARTAMENTO().getNombre();
         if (incluirBajas) {
             
             String sqlBaj = ", "+            
-                    EmpleadoIT.NOMBRE_TABLA+"."+it.getBajaEmpleadoPDC().getNombre()+", "+
-                    EmpleadoIT.NOMBRE_TABLA+"."+it.getFechaBaja().getNombre()+", "+
-                    EmpleadoIT.NOMBRE_TABLA+"."+it.getFechaAlta().getNombre();
+                    EmpleadoIT.NOMBRE_TABLA+"."+it.getBAJA_EMPLEADO().getNombre()+", "+
+                    EmpleadoIT.NOMBRE_TABLA+"."+it.getFECHA_BAJA().getNombre()+", "+
+                    EmpleadoIT.NOMBRE_TABLA+"."+it.getFECHA_ALTA().getNombre();
             sql += sqlBaj;
         }
         sql +=  " FROM " + 
@@ -124,29 +124,29 @@ public class EmpleadoDao extends DAOGenerales{
                 +" INNER JOIN "+
                 DepartamentoIT.NOMBRE_TABLA
                 +" ON "+
-                EmpleadoIT.NOMBRE_TABLA+"."+it.getIdDepartamentoPDC().getNombre()
+                EmpleadoIT.NOMBRE_TABLA+"."+it.getID_DEPARTAMENTO().getNombre()
                 +" = "+
-                DepartamentoIT.NOMBRE_TABLA+"."+dit.getIdPDC().getNombre();
+                DepartamentoIT.NOMBRE_TABLA+"."+dit.getID().getNombre();
         
         if (!incluirBajas) {
             String sqlBajas = 
                 " WHERE "+
-                EmpleadoIT.NOMBRE_TABLA+"."+it.getBajaEmpleadoPDC().getNombre()+"=false";
+                EmpleadoIT.NOMBRE_TABLA+"."+it.getBAJA_EMPLEADO().getNombre()+"=false";
             sql =sql+sqlBajas;
         }
-        sql += " ORDER BY "+EmpleadoIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre() + " DESC";
+        sql += " ORDER BY "+EmpleadoIT.NOMBRE_TABLA+"."+it.getID().getNombre() + " DESC";
         
         ResultSet r = conexion.executeQuery(sql);
         try {
             while (r.next()) {
                 EmpleadoVo vo = new EmpleadoVo();
-                vo.setId(r.getInt(it.getIdPDC().getNombre()));
-                vo.setNombre(r.getString(it.getNombrePDC().getNombre()));
-                vo.setIdDepartamento(r.getObject(dit.getDepartamentoPDC().getNombre()));
+                vo.setId(r.getInt(it.getID().getNombre()));
+                vo.setNombre(r.getString(it.getNOMBRE().getNombre()));
+                vo.setIdDepartamento(r.getObject(dit.getDEPARTAMENTO().getNombre()));
                 if (incluirBajas) {
-                    vo.setBajaEmpleado(r.getByte(it.getBajaEmpleadoPDC().getNombre()));
-                    vo.setFechaBaja(r.getDate(it.getFechaBaja().getNombre()));
-                    vo.setFechaAlta(r.getDate(it.getFechaAlta().getNombre()));
+                    vo.setBajaEmpleado(r.getByte(it.getBAJA_EMPLEADO().getNombre()));
+                    vo.setFechaBaja(r.getDate(it.getFECHA_BAJA().getNombre()));
+                    vo.setFechaAlta(r.getDate(it.getFECHA_ALTA().getNombre()));
                 }
                 listVo.add(vo);
             }
@@ -184,15 +184,15 @@ public class EmpleadoDao extends DAOGenerales{
         busqueda = Textos.especialREGEX(busqueda);
         
         String sql = "SELECT "+
-                EmpleadoIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre()+", "+
-                EmpleadoIT.NOMBRE_TABLA+"."+it.getNombrePDC().getNombre()+", "+
-                DepartamentoIT.NOMBRE_TABLA+"."+dit.getDepartamentoPDC().getNombre();
+                EmpleadoIT.NOMBRE_TABLA+"."+it.getID().getNombre()+", "+
+                EmpleadoIT.NOMBRE_TABLA+"."+it.getNOMBRE().getNombre()+", "+
+                DepartamentoIT.NOMBRE_TABLA+"."+dit.getDEPARTAMENTO().getNombre();
         if (incluirBajas) {
             
             String sqlBaj = ", "+            
-                    EmpleadoIT.NOMBRE_TABLA+"."+it.getBajaEmpleadoPDC().getNombre()+", "+
-                    EmpleadoIT.NOMBRE_TABLA+"."+it.getFechaBaja().getNombre()+", "+
-                    EmpleadoIT.NOMBRE_TABLA+"."+it.getFechaAlta().getNombre();
+                    EmpleadoIT.NOMBRE_TABLA+"."+it.getBAJA_EMPLEADO().getNombre()+", "+
+                    EmpleadoIT.NOMBRE_TABLA+"."+it.getFECHA_BAJA().getNombre()+", "+
+                    EmpleadoIT.NOMBRE_TABLA+"."+it.getFECHA_ALTA().getNombre();
             sql += sqlBaj;
         }
         sql +=  " FROM " + 
@@ -200,9 +200,9 @@ public class EmpleadoDao extends DAOGenerales{
                 +" INNER JOIN "+
                 DepartamentoIT.NOMBRE_TABLA
                 +" ON "+
-                EmpleadoIT.NOMBRE_TABLA+"."+it.getIdDepartamentoPDC().getNombre()
+                EmpleadoIT.NOMBRE_TABLA+"."+it.getID_DEPARTAMENTO().getNombre()
                 +" = "+
-                DepartamentoIT.NOMBRE_TABLA+"."+dit.getIdPDC().getNombre();
+                DepartamentoIT.NOMBRE_TABLA+"."+dit.getID().getNombre();
         
         
         
@@ -210,14 +210,14 @@ public class EmpleadoDao extends DAOGenerales{
            
         String sqlBusqueda = 
                 " WHERE " +
-                it.getNombrePDC().getNombre() + regexp
+                it.getNOMBRE().getNombre() + regexp
                 + " OR " + 
-                DepartamentoIT.NOMBRE_TABLA+"."+dit.getDepartamentoPDC().getNombre() + regexp;
+                DepartamentoIT.NOMBRE_TABLA+"."+dit.getDEPARTAMENTO().getNombre() + regexp;
         
         
         
         String sqlOrden =  
-                " ORDER BY "+  EmpleadoIT.NOMBRE_TABLA +"."+ it.getNombrePDC().getNombre() +" ASC ";
+                " ORDER BY "+  EmpleadoIT.NOMBRE_TABLA +"."+ it.getNOMBRE().getNombre() +" ASC ";
     
         if (!busqueda.isEmpty()) {
             sql += sqlBusqueda;
@@ -225,7 +225,7 @@ public class EmpleadoDao extends DAOGenerales{
             if (!incluirBajas) {
                 String sqlBajas = 
                     " AND "+
-                    EmpleadoIT.NOMBRE_TABLA+"."+it.getBajaEmpleadoPDC().getNombre()+"=false";
+                    EmpleadoIT.NOMBRE_TABLA+"."+it.getBAJA_EMPLEADO().getNombre()+"=false";
                 sql =sql+sqlBajas;
             }
         }
@@ -238,13 +238,13 @@ public class EmpleadoDao extends DAOGenerales{
         try {
             while (r.next()) {
                 EmpleadoVo v = new EmpleadoVo();
-                v.setId(r.getInt(it.getIdPDC().getNombre()));
-                v.setIdDepartamento(r.getObject(dit.getDepartamentoPDC().getNombre()));
-                v.setNombre(r.getString(it.getNombrePDC().getNombre()));
+                v.setId(r.getInt(it.getID().getNombre()));
+                v.setIdDepartamento(r.getObject(dit.getDEPARTAMENTO().getNombre()));
+                v.setNombre(r.getString(it.getNOMBRE().getNombre()));
                 if (incluirBajas) {
-                    v.setBajaEmpleado(r.getByte(it.getBajaEmpleadoPDC().getNombre()));
-                    v.setFechaBaja(r.getDate(it.getFechaBaja().getNombre()));
-                    v.setFechaAlta(r.getDate(it.getFechaAlta().getNombre()));
+                    v.setBajaEmpleado(r.getByte(it.getBAJA_EMPLEADO().getNombre()));
+                    v.setFechaBaja(r.getDate(it.getFECHA_BAJA().getNombre()));
+                    v.setFechaAlta(r.getDate(it.getFECHA_ALTA().getNombre()));
                 }
                 listVo.add(v);
                 
@@ -260,11 +260,11 @@ public class EmpleadoDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "UPDATE " + EmpleadoIT.NOMBRE_TABLA 
                 +" SET "+
-                it.getNombrePDC().getNombre()+" = ?,"+ 
-                it.getIdDepartamentoPDC().getNombre()+" = ?,"+ 
-                it.getBajaEmpleadoPDC().getNombre()+" = ?" 
+                it.getNOMBRE().getNombre()+" = ?,"+ 
+                it.getID_DEPARTAMENTO().getNombre()+" = ?,"+ 
+                it.getBAJA_EMPLEADO().getNombre()+" = ?" 
                 +" WHERE "+
-                it.getIdPDC().getNombre()+"=?";
+                it.getID().getNombre()+"=?";
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getNombre());
         mapa.put(2, vo.getIdDepartamento());
@@ -280,9 +280,9 @@ public class EmpleadoDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = " UPDATE " + EmpleadoIT.NOMBRE_TABLA
                 +" SET "+
-                it.getBajaEmpleadoPDC().getNombre()+"=?"
+                it.getBAJA_EMPLEADO().getNombre()+"=?"
                 +" WHERE "+
-                it.getIdPDC().getNombre()+"=?";
+                it.getID().getNombre()+"=?";
         
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getBajaEmpleado());

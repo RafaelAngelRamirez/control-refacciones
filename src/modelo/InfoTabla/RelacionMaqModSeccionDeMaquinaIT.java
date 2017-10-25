@@ -16,38 +16,38 @@ public class RelacionMaqModSeccionDeMaquinaIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "relacionmaqmodsecciondemaquina";
     
-    private ParametrosDeCampo idSeccionMaq = new ParametrosDeCampo();
-    private ParametrosDeCampo idMaquinaModelo = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_SECCION_MAQ = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_MAQUINA_MODELO = new ParametrosDeCampo();
 
     public RelacionMaqModSeccionDeMaquinaIT() {
-        idSeccionMaq.setNombre("idSeccionMaq");
-        idSeccionMaq.setLongitudDeCaracteres(11);
-        idSeccionMaq.setTipoDeDatos("int");
-        idSeccionMaq.setNulo(false);
-        idSeccionMaq.setAutoIncrement(false);
-        idSeccionMaq.setPermiteRepetido(true);
+        ID_SECCION_MAQ.setNombre("idSeccionMaq");
+        ID_SECCION_MAQ.setLongitudDeCaracteres(11);
+        ID_SECCION_MAQ.setTipoDeDatos("int");
+        ID_SECCION_MAQ.setNulo(false);
+        ID_SECCION_MAQ.setAutoIncrement(false);
+        ID_SECCION_MAQ.setPermiteRepetido(true);
 
-        idMaquinaModelo.setNombre("idMaquinaModelo");
-        idMaquinaModelo.setLongitudDeCaracteres(11);
-        idMaquinaModelo.setTipoDeDatos("int");
-        idMaquinaModelo.setNulo(false);
-        idMaquinaModelo.setAutoIncrement(false);
-        idMaquinaModelo.setPermiteRepetido(true);
+        ID_MAQUINA_MODELO.setNombre("idMaquinaModelo");
+        ID_MAQUINA_MODELO.setLongitudDeCaracteres(11);
+        ID_MAQUINA_MODELO.setTipoDeDatos("int");
+        ID_MAQUINA_MODELO.setNulo(false);
+        ID_MAQUINA_MODELO.setAutoIncrement(false);
+        ID_MAQUINA_MODELO.setPermiteRepetido(true);
         
-        camposPDC.add(idSeccionMaq);
-        camposPDC.add(idMaquinaModelo);
+        CAMPOS_PDC.add(ID_SECCION_MAQ);
+        CAMPOS_PDC.add(ID_MAQUINA_MODELO);
       
         
     }
 
-    public ParametrosDeCampo getIdSeccionMaq() {
-        return idSeccionMaq;
+    public static ParametrosDeCampo getID_SECCION_MAQ() {
+        return ID_SECCION_MAQ;
     }
 
     
 
-    public ParametrosDeCampo getIdMaquinaModelo() {
-        return idMaquinaModelo;
+    public static ParametrosDeCampo getID_MAQUINA_MODELO() {
+        return ID_MAQUINA_MODELO;
     }
 
     

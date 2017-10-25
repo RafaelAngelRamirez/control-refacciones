@@ -15,36 +15,36 @@ public class MaterialIT extends ITGenerales{
      * El nombre de la tabla en la base de datos. 
      */
     public static final String NOMBRE_TABLA = "material";
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo materialPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo MATERIAL = new ParametrosDeCampo();
 
     public MaterialIT() {
         
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
 
-        materialPDC.setNombre("material");
-        materialPDC.setNombreParaMostrar("¿De que esta echo?");
-        materialPDC.setLongitudDeCaracteres(30);
-        materialPDC.setTipoDeDatos("varchar");
-        materialPDC.setNulo(false);
-        materialPDC.setAutoIncrement(false);
-        materialPDC.setPermiteRepetido(false);
+        MATERIAL.setNombre("material");
+        MATERIAL.setNombreParaMostrar("¿De que esta echo?");
+        MATERIAL.setLongitudDeCaracteres(30);
+        MATERIAL.setTipoDeDatos("varchar");
+        MATERIAL.setNulo(false);
+        MATERIAL.setAutoIncrement(false);
+        MATERIAL.setPermiteRepetido(false);
     
     }
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
     
 
-    public ParametrosDeCampo getMaterialPDC() {
-        return materialPDC;
+    public static ParametrosDeCampo getMATERIAL() {
+        return MATERIAL;
     }
 
     

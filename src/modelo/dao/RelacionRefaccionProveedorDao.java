@@ -68,7 +68,7 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
     public boolean modificar(List<RelacionRefaccionProveedorVo> vo){
         conexion = new Conexion(coordinador);
         String sql = "DELETE FROM "+RelacionRefaccionProveedorIT.NOMBRE_TABLA +
-                " WHERE " +it.getIdRefaccionPDC().getNombre() + "=?" ;
+                " WHERE " +it.getID_REFACCION().getNombre() + "=?" ;
         conexion.executeUpdate(sql, vo.get(0).getIdRefaccion()+"");
         
         return guardarLista(vo);

@@ -57,7 +57,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
         ProveedorIT pit = new ProveedorIT();
         etiquetaAno.setText(mmit.getAnioPDC().getNombreParaMostrar());
         etiquetaMarca.setText("Marca-"+pit.getEmpresaProveedorPDC().getNombreParaMostrar());
-        etiquetaModeloMaquina.setText(mmit.getModeloPDC().getNombreParaMostrar());
+        etiquetaModeloMaquina.setText(mmit.getMODELO().getNombreParaMostrar());
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         _TxtAnio.setTamanoDeCampo(mmit.getAnioPDC().getLongitudDeCaracteres());
-        _TxtModeloMaquina.setTamanoDeCampo(mmit.getModeloPDC().getLongitudDeCaracteres());
+        _TxtModeloMaquina.setTamanoDeCampo(mmit.getMODELO().getLongitudDeCaracteres());
         _ComboMarca.setTamanoDeCampo(pit.getEmpresaProveedorPDC().getLongitudDeCaracteres());
         
         //CAMPOS QUE REQUIEREN TEXO EN MAYUSCULAS.
@@ -429,7 +429,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
             MaquinaModeloIT iT = new MaquinaModeloIT();
             for (Validacion validacione : validaciones) {
                 //VALIDAMOS QUE EL MODELO Y EL AÑO NO ESTEN REGISTRADOS JUNTOS.
-                if (validacione.getNombreDeCampo().equals(iT.getModeloPDC().getNombre())) {
+                if (validacione.getNombreDeCampo().equals(iT.getMODELO().getNombre())) {
                     if (!validacione.isValido()) {
                         _TxtAnio.setError();
                         _TxtModeloMaquina.setError(validacione.getMensajeDeError());
@@ -453,7 +453,7 @@ public class PanelMaquinaModeloModificar extends JPanelBase {
 
                 //QUE EL ITEM NO ESTE REPETIDO. ESTE CREO QUE CASI NO SE OCUPARA.
 
-                if (validacione.getNombreDeCampo().equals(iT.getIdProoveedorPDC().getNombre())) {
+                if (validacione.getNombreDeCampo().equals(iT.getID_PROVEEDOR().getNombre())) {
                     if (!validacione.isValido()) {
                         _ComboMarca.setError(validacione.getMensajeDeError());
                     }else{

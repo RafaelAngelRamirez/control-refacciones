@@ -39,8 +39,8 @@ public class MaterialDao extends DAOGenerales{
         try {
             while (r.next()) {
                 MaterialVo vo = new MaterialVo();
-                vo.setId(r.getInt(it.getIdPDC().getNombre()));
-                vo.setMaterial(r.getString(it.getMaterialPDC().getNombre()));
+                vo.setId(r.getInt(it.getID().getNombre()));
+                vo.setMaterial(r.getString(it.getMATERIAL().getNombre()));
                 l.add(vo);
                 
             }
@@ -53,7 +53,7 @@ public class MaterialDao extends DAOGenerales{
     public boolean existe(String material){
         conexion = new Conexion(coordinador);
         String sql = "SELECT COUNT(*) FROM " + MaterialIT.NOMBRE_TABLA 
-                +" WHERE " + it.getMaterialPDC().getNombre() + "=? ";
+                +" WHERE " + it.getMATERIAL().getNombre() + "=? ";
         ResultSet r = conexion.executeQuery(sql, material);
         try {
             r.next();

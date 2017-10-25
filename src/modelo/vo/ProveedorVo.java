@@ -26,12 +26,12 @@ public class ProveedorVo extends VoGenerales{
         ProveedorIT pit = new ProveedorIT();
                 
         relacionCampo.put(pit.getEmpresaProveedorPDC().getNombre(), ()->this.getEmpresa());
-        relacionCampo.put(pit.getIdPDC().getNombre(), ()->this.getId());
-        relacionCampo.put(pit.getIdPaisPDC().getNombre(), ()->this.getIdPais());
-        relacionCampo.put(pit.getNombreContactoPDC().getNombre(), ()->this.getNombreContacto());
-        relacionCampo.put(pit.getPaginaWebPDC().getNombre(), ()->this.getPaginaWeb());
-        relacionCampo.put(pit.getTelefonoPDC().getNombre(), ()->this.getTelefono());
-        relacionCampo.put(pit.getEmailPDC().getNombre(), ()->this.getEmail());
+        relacionCampo.put(pit.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(pit.getID_PAIS().getNombre(), ()->this.getIdPais());
+        relacionCampo.put(pit.getNOMBRE_CONTACTO().getNombre(), ()->this.getNombreContacto());
+        relacionCampo.put(pit.getPAGINA_WEB().getNombre(), ()->this.getPaginaWeb());
+        relacionCampo.put(pit.getTELEFONO().getNombre(), ()->this.getTelefono());
+        relacionCampo.put(pit.getEMAIL().getNombre(), ()->this.getEmail());
         
     }
 

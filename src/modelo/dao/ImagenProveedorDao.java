@@ -103,15 +103,15 @@ public class ImagenProveedorDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         List<ImagenProveedorVo> livo = new ArrayList<>();
         String sql = "SELECT * FROM " + ImagenProveedorIT.NOMBRE_TABLA 
-                + " WHERE " + it.getIdProveedorPDC().getNombre() +"= ?";
+                + " WHERE " + it.getID_PROVEEDOR().getNombre() +"= ?";
         ResultSet r = conexion.executeQuery(sql, id+"");
 
         try {
             while (r.next()) {
                 ImagenProveedorVo v = new ImagenProveedorVo();
-                v.setNombreParaMostrar(r.getString(it.getNombreParaMostarPDC().getNombre()));
-                v.setNombreServidor(r.getString(it.getNombreServidorPDC().getNombre()));
-                v.setIdProveedor(r.getInt(it.getIdProveedorPDC().getNombre()));
+                v.setNombreParaMostrar(r.getString(it.getNOMBRE_PARA_MOSTRAR().getNombre()));
+                v.setNombreServidor(r.getString(it.getNOMBRE_SERVIDOR().getNombre()));
+                v.setIdProveedor(r.getInt(it.getID_PROVEEDOR().getNombre()));
                 String nombreImagen;
                 if (coordinador.isDebugMode()) {
                     nombreImagen = ConexionDatos.IMAGENES_RUTA_COMPLETA_PRUEBA + v.getNombreServidor();
@@ -133,9 +133,9 @@ public class ImagenProveedorDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "DELETE FROM " + ImagenProveedorIT.NOMBRE_TABLA
                 + " WHERE "
-                + it.getIdProveedorPDC().getNombre()
+                + it.getID_PROVEEDOR().getNombre()
                 + "=?  AND "
-                + it.getNombreServidorPDC().getNombre()
+                + it.getNOMBRE_SERVIDOR().getNombre()
                 + "=?";
         
         HashMap<Integer, Object> mapa = new HashMap<>();

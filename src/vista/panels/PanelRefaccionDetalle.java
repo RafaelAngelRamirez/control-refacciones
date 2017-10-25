@@ -99,18 +99,18 @@ public class PanelRefaccionDetalle extends JPanelBase {
         MaterialIT mit = new MaterialIT();
         ImportanciaIT iit= new ImportanciaIT();
         
-        etiquetaCodigoDelProveedor.setText(rit.getCodigoProveedorPDC().getNombreParaMostrar());
-        etiquetaCodigoInterno.setText(rit.getCodigoInternoPDC().getNombreParaMostrar());
-        etiquetaDeQueEstaEcho.setText(mit.getMaterialPDC().getNombreParaMostrar());
-        etiquetaDescripcion.setText(rit.getDescripcionPDC().getNombreParaMostrar());
-        etiquetaImportancia.setText(iit.getImportanciaPDC().getNombreParaMostrar());
-        etiquetaMaquinas.setText(mmit.getModeloPDC().getNombreParaMostrar());
-        etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
-        etiquetaParaQueEs.setText(rit.getParaQueEsPDC().getNombreParaMostrar());
+        etiquetaCodigoDelProveedor.setText(rit.getCODIGO_PROVEEDOR().getNombreParaMostrar());
+        etiquetaCodigoInterno.setText(rit.getCODIGO_INTERNO().getNombreParaMostrar());
+        etiquetaDeQueEstaEcho.setText(mit.getMATERIAL().getNombreParaMostrar());
+        etiquetaDescripcion.setText(rit.getDESCRIPCION().getNombreParaMostrar());
+        etiquetaImportancia.setText(iit.getIMPORTANCIA().getNombreParaMostrar());
+        etiquetaMaquinas.setText(mmit.getMODELO().getNombreParaMostrar());
+        etiquetaNombreDeLaRefaccion.setText(rit.getNOMBRE().getNombreParaMostrar());
+        etiquetaParaQueEs.setText(rit.getPARA_QUE_ES().getNombreParaMostrar());
         etiquetaProveedores.setText(pit.getEmpresaProveedorPDC().getNombreParaMostrar());
-        etiquetaQueEs.setText(rit.getQueEsPDC().getNombreParaMostrar());
-        etiquetaStockMax.setText(rit.getStockMaximoPDC().getNombreParaMostrar());
-        etiquetaStockMin.setText(rit.getStockMinimoPDC().getNombreParaMostrar());
+        etiquetaQueEs.setText(rit.getQUE_ES().getNombreParaMostrar());
+        etiquetaStockMax.setText(rit.getSTOCK_MAXIMO().getNombreParaMostrar());
+        etiquetaStockMin.setText(rit.getSTOCK_MINIMO().getNombreParaMostrar());
                
         /* 
         ////////////////////////////////////////////////////////////////////////

@@ -13,53 +13,53 @@ public class MaquinaHistorialNombresIT extends ITGenerales{
     
     public static final String NOMBRE_TABLA = "maquinahistorialnombres";
     
-    private ParametrosDeCampo idMaquinaPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreAnteriorPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo fechaDeCambioPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_MAQUINA = new ParametrosDeCampo();
+    private static final ParametrosDeCampo NOMBRE_ANTERIOR = new ParametrosDeCampo();
+    private static final ParametrosDeCampo FECHA_DE_CAMBIO = new ParametrosDeCampo();
 
     public MaquinaHistorialNombresIT() {
         
-        idMaquinaPDC.setNombre("idMaquina");
-        idMaquinaPDC.setLongitudDeCaracteres(11);
-        idMaquinaPDC.setTipoDeDatos("int");
-        idMaquinaPDC.setNulo(false);
-        idMaquinaPDC.setAutoIncrement(false);
-        idMaquinaPDC.setPermiteRepetido(true);
+        ID_MAQUINA.setNombre("idMaquina");
+        ID_MAQUINA.setLongitudDeCaracteres(11);
+        ID_MAQUINA.setTipoDeDatos("int");
+        ID_MAQUINA.setNulo(false);
+        ID_MAQUINA.setAutoIncrement(false);
+        ID_MAQUINA.setPermiteRepetido(true);
         
-        nombreAnteriorPDC.setNombre("nombre");
-        nombreAnteriorPDC.setLongitudDeCaracteres(50);
-        nombreAnteriorPDC.setTipoDeDatos("varchar");
-        nombreAnteriorPDC.setNulo(false);
-        nombreAnteriorPDC.setAutoIncrement(false);
-        nombreAnteriorPDC.setPermiteRepetido(true);
+        NOMBRE_ANTERIOR.setNombre("nombre");
+        NOMBRE_ANTERIOR.setLongitudDeCaracteres(50);
+        NOMBRE_ANTERIOR.setTipoDeDatos("varchar");
+        NOMBRE_ANTERIOR.setNulo(false);
+        NOMBRE_ANTERIOR.setAutoIncrement(false);
+        NOMBRE_ANTERIOR.setPermiteRepetido(true);
         
-        fechaDeCambioPDC.setNombre("fechaDeCambio");
-        fechaDeCambioPDC.setLongitudDeCaracteres(50);
-        fechaDeCambioPDC.setTipoDeDatos("datetime");
-        fechaDeCambioPDC.setNulo(false);
-        fechaDeCambioPDC.setAutoIncrement(false);
-        fechaDeCambioPDC.setPermiteRepetido(true);
+        FECHA_DE_CAMBIO.setNombre("fechaDeCambio");
+        FECHA_DE_CAMBIO.setLongitudDeCaracteres(50);
+        FECHA_DE_CAMBIO.setTipoDeDatos("datetime");
+        FECHA_DE_CAMBIO.setNulo(false);
+        FECHA_DE_CAMBIO.setAutoIncrement(false);
+        FECHA_DE_CAMBIO.setPermiteRepetido(true);
         
-        camposPDC.add(idMaquinaPDC);
-        camposPDC.add(nombreAnteriorPDC);
-        camposPDC.add(fechaDeCambioPDC);
+        CAMPOS_PDC.add(ID_MAQUINA);
+        CAMPOS_PDC.add(NOMBRE_ANTERIOR);
+        CAMPOS_PDC.add(FECHA_DE_CAMBIO);
         
     }
 
-    public ParametrosDeCampo getFechaDeCambioPDC() {
-        return fechaDeCambioPDC;
+    public static ParametrosDeCampo getFECHA_DE_CAMBIO() {
+        return FECHA_DE_CAMBIO;
     }
 
     
     
-    public ParametrosDeCampo getIdMaquinaPDC() {
-        return idMaquinaPDC;
+    public static ParametrosDeCampo getID_MAQUINA() {
+        return ID_MAQUINA;
     }
 
     
 
-    public ParametrosDeCampo getNombreAnteriorPDC() {
-        return nombreAnteriorPDC;
+    public static ParametrosDeCampo getNOMBRE_ANTERIOR() {
+        return NOMBRE_ANTERIOR;
     }
 
     

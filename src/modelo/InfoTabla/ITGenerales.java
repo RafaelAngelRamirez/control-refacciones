@@ -14,10 +14,13 @@ import java.util.List;
  */
 public class ITGenerales {
     
-    protected List<ParametrosDeCampo> camposPDC = new ArrayList<>();
+    /**
+     * Los campos de la tabla. 
+     */
+    protected static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
 
-    public List<ParametrosDeCampo> getCamposPDC() {
-        return camposPDC;
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
     }
     
     

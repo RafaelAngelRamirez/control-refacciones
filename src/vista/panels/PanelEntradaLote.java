@@ -78,15 +78,15 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         EntradaLoteIT elit = new EntradaLoteIT();
         EmpleadoIT eit = new EmpleadoIT();
         
-        etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
-        etiquetaCodigoInterno.setText(rit.getCodigoInternoPDC().getNombreParaMostrar());
-        etiquetaCodigoDelProveedor.setText(rit.getCodigoProveedorPDC().getNombreParaMostrar());
-        etiquetaStockMin.setText(rit.getStockMinimoPDC().getNombreParaMostrar());
-        etiquetaStockMax.setText(rit.getStockMaximoPDC().getNombreParaMostrar());
-        etiquetaFechaDeLote.setText(elit.getFechaRecepcionLotePDC().getNombreParaMostrar());
-        etiquetaCantidadQueEntra.setText(elit.getCantidadPDC().getNombreParaMostrar());
-        etiquetaEmpleadoQueReciveElLote.setText(eit.getNombrePDC().getNombreParaMostrar());
-        etiquetaObservaciones.setText(elit.getObservacionesPDC().getNombreParaMostrar());
+        etiquetaNombreDeLaRefaccion.setText(rit.getNOMBRE().getNombreParaMostrar());
+        etiquetaCodigoInterno.setText(rit.getCODIGO_INTERNO().getNombreParaMostrar());
+        etiquetaCodigoDelProveedor.setText(rit.getCODIGO_PROVEEDOR().getNombreParaMostrar());
+        etiquetaStockMin.setText(rit.getSTOCK_MINIMO().getNombreParaMostrar());
+        etiquetaStockMax.setText(rit.getSTOCK_MAXIMO().getNombreParaMostrar());
+        etiquetaFechaDeLote.setText(elit.getFECHA_RECEPCION_LOTE().getNombreParaMostrar());
+        etiquetaCantidadQueEntra.setText(elit.getCANTIDAD().getNombreParaMostrar());
+        etiquetaEmpleadoQueReciveElLote.setText(eit.getNOMBRE().getNombreParaMostrar());
+        etiquetaObservaciones.setText(elit.getOBSERVACIONES().getNombreParaMostrar());
         
                
         /* 
@@ -138,11 +138,11 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
         _txtBusqueda.setTamanoDeCampo(300);
-        _txtFechaDeLote.setTamanoDeCampo(elit.getFechaRecepcionLotePDC().getLongitudDeCaracteres());
-        _txtCantidadQueEntra.setTamanoDeCampo(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
-        _txtObservaciones.setTamanoDeCampo(elit.getObservacionesPDC().getLongitudDeCaracteres());
-        _comboEmpleadoQueReciveLote.setTamanoDeCampo(eit.getNombrePDC().getLongitudDeCaracteres());
-        _txtObservaciones.setTamanoDeCampo(elit.getObservacionesPDC().getLongitudDeCaracteres());
+        _txtFechaDeLote.setTamanoDeCampo(elit.getFECHA_RECEPCION_LOTE().getLongitudDeCaracteres());
+        _txtCantidadQueEntra.setTamanoDeCampo(elit.getCANTIDAD().getLongitudDeCaracteres(), elit.getCANTIDAD().getLongitudDeDecimales());
+        _txtObservaciones.setTamanoDeCampo(elit.getOBSERVACIONES().getLongitudDeCaracteres());
+        _comboEmpleadoQueReciveLote.setTamanoDeCampo(eit.getNOMBRE().getLongitudDeCaracteres());
+        _txtObservaciones.setTamanoDeCampo(elit.getOBSERVACIONES().getLongitudDeCaracteres());
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         
@@ -156,7 +156,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
                 
         //CAMPOS NUMÉRICOS
         
-        _txtCantidadQueEntra.setPermitirSoloNumeros(elit.getCantidadPDC().getLongitudDeCaracteres(), elit.getCantidadPDC().getLongitudDeDecimales());
+        _txtCantidadQueEntra.setPermitirSoloNumeros(elit.getCANTIDAD().getLongitudDeCaracteres(), elit.getCANTIDAD().getLongitudDeDecimales());
         
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
         _txtBusqueda.setEspaciosEnBlanco();
@@ -686,7 +686,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
         List<Validacion> validaciones = this.getCoordinador().entradaLoteValidarCampos(vo);
         for (Validacion validacione : validaciones) {
             
-            if (validacione.getNombreDeCampo().equals(it.getCantidadPDC().getNombre())) {
+            if (validacione.getNombreDeCampo().equals(it.getCANTIDAD().getNombre())) {
                 if (!validacione.isValido()) {
                     _txtCantidadQueEntra.setError(validacione.getMensajeDeError());
                         
@@ -695,7 +695,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
                 }
             }
             
-            if (validacione.getNombreDeCampo().equals(it.getFechaRecepcionLotePDC().getNombre())) {
+            if (validacione.getNombreDeCampo().equals(it.getFECHA_RECEPCION_LOTE().getNombre())) {
                 if (!validacione.isValido()) {
                     _txtFechaDeLote.setError(validacione.getMensajeDeError());
                 }else{
@@ -703,7 +703,7 @@ public class PanelEntradaLote extends vista.UtilidadesIntefaz.JPanelBase {
                 }
             }
             
-            if (validacione.getNombreDeCampo().equals(it.getIdEmpleadoPDC().getNombre())) {
+            if (validacione.getNombreDeCampo().equals(it.getID_EMPLEADO().getNombre())) {
                 if (!validacione.isValido()) {
                     _comboEmpleadoQueReciveLote.setError(validacione.getMensajeDeError());
                 } else {

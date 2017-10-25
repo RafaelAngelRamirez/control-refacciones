@@ -11,56 +11,56 @@ public class ImagenProveedorIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "imagenproveedor";
     
-    private ParametrosDeCampo idProveedorPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreParaMostarPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreServidorPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_PROVEEDOR = new ParametrosDeCampo();
+    private static final ParametrosDeCampo NOMBRE_PARA_MOSTRAR = new ParametrosDeCampo();
+    private static final ParametrosDeCampo NOMBRE_SERVIDOR = new ParametrosDeCampo();
 
     public ImagenProveedorIT() {
         
         
-        idProveedorPDC.setNombre("idProveedor");
-        idProveedorPDC.setLongitudDeCaracteres(11);
-        idProveedorPDC.setTipoDeDatos("int");
-        idProveedorPDC.setNulo(false);
-        idProveedorPDC.setAutoIncrement(false);
-        idProveedorPDC.setPermiteRepetido(true);
+        ID_PROVEEDOR.setNombre("idProveedor");
+        ID_PROVEEDOR.setLongitudDeCaracteres(11);
+        ID_PROVEEDOR.setTipoDeDatos("int");
+        ID_PROVEEDOR.setNulo(false);
+        ID_PROVEEDOR.setAutoIncrement(false);
+        ID_PROVEEDOR.setPermiteRepetido(true);
 
-        nombreParaMostarPDC.setNombre("nombreParaMostrar");
-        nombreParaMostarPDC.setNombreParaMostrar("Nombre imagen");
-        nombreParaMostarPDC.setLongitudDeCaracteres(200);
-        nombreParaMostarPDC.setTipoDeDatos("varchar");
-        nombreParaMostarPDC.setNulo(false);
-        nombreParaMostarPDC.setAutoIncrement(false);
-        nombreParaMostarPDC.setPermiteRepetido(true);
+        NOMBRE_PARA_MOSTRAR.setNombre("nombreParaMostrar");
+        NOMBRE_PARA_MOSTRAR.setNombreParaMostrar("Nombre imagen");
+        NOMBRE_PARA_MOSTRAR.setLongitudDeCaracteres(200);
+        NOMBRE_PARA_MOSTRAR.setTipoDeDatos("varchar");
+        NOMBRE_PARA_MOSTRAR.setNulo(false);
+        NOMBRE_PARA_MOSTRAR.setAutoIncrement(false);
+        NOMBRE_PARA_MOSTRAR.setPermiteRepetido(true);
         
-        nombreServidorPDC.setNombre("nombreServidor");
-        nombreServidorPDC.setNombreParaMostrar("Nombre servidor");
-        nombreServidorPDC.setLongitudDeCaracteres(200);
-        nombreServidorPDC.setTipoDeDatos("varchar");
-        nombreServidorPDC.setNulo(false);
-        nombreServidorPDC.setAutoIncrement(false);
-        nombreServidorPDC.setPermiteRepetido(true);
+        NOMBRE_SERVIDOR.setNombre("nombreServidor");
+        NOMBRE_SERVIDOR.setNombreParaMostrar("Nombre servidor");
+        NOMBRE_SERVIDOR.setLongitudDeCaracteres(200);
+        NOMBRE_SERVIDOR.setTipoDeDatos("varchar");
+        NOMBRE_SERVIDOR.setNulo(false);
+        NOMBRE_SERVIDOR.setAutoIncrement(false);
+        NOMBRE_SERVIDOR.setPermiteRepetido(true);
         
-        camposPDC.add(idProveedorPDC);
-        camposPDC.add(nombreParaMostarPDC);
-        camposPDC.add(nombreServidorPDC);
+        CAMPOS_PDC.add(ID_PROVEEDOR);
+        CAMPOS_PDC.add(NOMBRE_PARA_MOSTRAR);
+        CAMPOS_PDC.add(NOMBRE_SERVIDOR);
     
     }   
 
-    public ParametrosDeCampo getIdProveedorPDC() {
-        return idProveedorPDC;
+    public static ParametrosDeCampo getID_PROVEEDOR() {
+        return ID_PROVEEDOR;
     }
 
     
 
-    public ParametrosDeCampo getNombreParaMostarPDC() {
-        return nombreParaMostarPDC;
+    public static ParametrosDeCampo getNOMBRE_PARA_MOSTRAR() {
+        return NOMBRE_PARA_MOSTRAR;
     }
 
     
 
-    public ParametrosDeCampo getNombreServidorPDC() {
-        return nombreServidorPDC;
+    public static ParametrosDeCampo getNOMBRE_SERVIDOR() {
+        return NOMBRE_SERVIDOR;
     }
 
     

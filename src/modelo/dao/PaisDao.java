@@ -51,8 +51,8 @@ public class PaisDao extends DAOGenerales{
             
             while(resultado.next()){
                 PaisVo a = new PaisVo();
-                a.setPais(resultado.getString(it.getPaisPDC().getNombre()));
-                a.setId(resultado.getInt(it.getIdPDC().getNombre()));
+                a.setPais(resultado.getString(it.getPAIS().getNombre()));
+                a.setId(resultado.getInt(it.getID().getNombre()));
                 lista.add(a);
             }
         } catch (SQLException ex) {
@@ -67,7 +67,7 @@ public class PaisDao extends DAOGenerales{
         try {
             Conexion con = new Conexion(coordinador);
             String sql = "SELECT COUNT(*) FROM "+PaisIT.NOMBRE_TABLA+" "
-                    + "where "+it.getPaisPDC().getNombre()+"=?";
+                    + "where "+it.getPAIS().getNombre()+"=?";
             ResultSet r = con.executeQuery(sql, pais);
             
             r.next();

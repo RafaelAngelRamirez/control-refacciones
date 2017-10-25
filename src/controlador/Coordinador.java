@@ -1580,9 +1580,9 @@ public class Coordinador {
     public List<Validacion> seccionDeMaquinaValidar(SeccionDeMaquinaVO sdmvo) {
         SeccionDeMaquinaIT it = new SeccionDeMaquinaIT();
         List<Validacion> listVal = new ArrayList<>();
-        for (ParametrosDeCampo parametrosDeCampo : it.getCamposPDC()) {
+        for (ParametrosDeCampo parametrosDeCampo : it.getCAMPOS_PDC()) {
             
-            if (parametrosDeCampo.getNombre().equals(it.getIdPDC().getNombre())) {
+            if (parametrosDeCampo.getNombre().equals(it.getID().getNombre())) {
                 Validacion val = new Validacion();
                 if (sdmvo.getNombreSeccion().isEmpty()) {
                     val.setMensajeDeError("No has definido un nombre.");

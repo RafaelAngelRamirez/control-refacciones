@@ -16,41 +16,39 @@ public class SeccionDeMaquinaIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "secciondemaquina";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreSeccionPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo NOMBRE_SECCION = new ParametrosDeCampo();
  
 
     public SeccionDeMaquinaIT() {
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
 
-        nombreSeccionPDC.setNombre("nombreSeccion");
-        nombreSeccionPDC.setNombreParaMostrar("Nombre de seccion");
-        nombreSeccionPDC.setLongitudDeCaracteres(30);
-        nombreSeccionPDC.setTipoDeDatos("varchar");
-        nombreSeccionPDC.setNulo(false);
-        nombreSeccionPDC.setAutoIncrement(false);
-        nombreSeccionPDC.setPermiteRepetido(false);
-        
+        NOMBRE_SECCION.setNombre("nombreSeccion");
+        NOMBRE_SECCION.setNombreParaMostrar("Nombre de seccion");
+        NOMBRE_SECCION.setLongitudDeCaracteres(30);
+        NOMBRE_SECCION.setTipoDeDatos("varchar");
+        NOMBRE_SECCION.setNulo(false);
+        NOMBRE_SECCION.setAutoIncrement(false);
+        NOMBRE_SECCION.setPermiteRepetido(false);
               
-        camposPDC.add(idPDC);
-        camposPDC.add(nombreSeccionPDC);
-       
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(NOMBRE_SECCION);
     
     }
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
     
 
-    public ParametrosDeCampo getNombreSeccionPDC() {
-        return nombreSeccionPDC;
+    public static ParametrosDeCampo getNOMBRE_SECCION() {
+        return NOMBRE_SECCION;
     }
 
     

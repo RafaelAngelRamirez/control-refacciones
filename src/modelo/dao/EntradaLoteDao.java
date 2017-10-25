@@ -48,11 +48,11 @@ public class EntradaLoteDao extends DAOGenerales{
     public float existencia(int id){
         conexion = new Conexion(coordinador);
         try {
-            String sql = "SELECT SUM("+it.getCantidadPDC().getNombre()+")"
+            String sql = "SELECT SUM("+it.getCANTIDAD().getNombre()+")"
                     +" FROM " +
                     EntradaLoteIT.NOMBRE_TABLA
                     +" WHERE "+
-                    it.getIdRefaccionPDC().getNombre()+"=?";
+                    it.getID_REFACCION().getNombre()+"=?";
             ResultSet r = conexion.executeQuery(sql, id+"");
             r.next();
             return r.getFloat(1);
@@ -74,10 +74,10 @@ public class EntradaLoteDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "SELECT * FROM " + EntradaLoteIT.NOMBRE_TABLA
                 +" WHERE "+
-                it.getIdRefaccionPDC().getNombre()+" = ?";
+                it.getID_REFACCION().getNombre()+" = ?";
         String sqlTodo =
                 " AND "+
-                it.getCantidadPDC().getNombre()+" >0";
+                it.getCANTIDAD().getNombre()+" >0";
         if (!todosLosLotes) {
             sql+=sqlTodo;
         }
@@ -87,9 +87,9 @@ public class EntradaLoteDao extends DAOGenerales{
         try {
             while (r.next()) {
                 EntradaLoteVo vo = new EntradaLoteVo();
-                vo.setCantidad(r.getFloat(it.getCantidadPDC().getNombre()));
-                vo.setFechaRecepcionLote(r.getDate(it.getFechaRecepcionLotePDC().getNombre()));
-                vo.setId(r.getInt(it.getIdPDC().getNombre()));
+                vo.setCantidad(r.getFloat(it.getCANTIDAD().getNombre()));
+                vo.setFechaRecepcionLote(r.getDate(it.getFECHA_RECEPCION_LOTE().getNombre()));
+                vo.setId(r.getInt(it.getID().getNombre()));
                 listVo.add(vo);
             }
         } catch (SQLException ex) {
@@ -111,34 +111,34 @@ public class EntradaLoteDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "SELECT * FROM "+EntradaLoteIT.NOMBRE_TABLA 
                 +" WHERE "+
-                it.getIdRefaccionPDC().getNombre()+"=?"
+                it.getID_REFACCION().getNombre()+"=?"
                 +" AND "+
-                it.getCantidadPDC().getNombre() +">0"
+                it.getCANTIDAD().getNombre() +">0"
                 +" AND "+
-                it.getFechaRecepcionLotePDC().getNombre()+" = " 
-                +"(SELECT min("+it.getFechaRecepcionLotePDC().getNombre()+") "
+                it.getFECHA_RECEPCION_LOTE().getNombre()+" = " 
+                +"(SELECT min("+it.getFECHA_RECEPCION_LOTE().getNombre()+") "
                         + " FROM "+EntradaLoteIT.NOMBRE_TABLA
                         + " WHERE "+
-                        it.getIdRefaccionPDC().getNombre()+ " =? "
+                        it.getID_REFACCION().getNombre()+ " =? "
                         + " AND "+
-                        it.getCantidadPDC().getNombre() +">0 )" 
+                        it.getCANTIDAD().getNombre() +">0 )" 
                 +" AND "+
-                it.getIdPDC().getNombre() +" = "+
-                "(SELECT min("+it.getIdPDC().getNombre()+") "
+                it.getID().getNombre() +" = "+
+                "(SELECT min("+it.getID().getNombre()+") "
                         +" FROM "+
                         EntradaLoteIT.NOMBRE_TABLA
                         +" WHERE "+
-                        it.getIdRefaccionPDC().getNombre()+"= ?"
+                        it.getID_REFACCION().getNombre()+"= ?"
                         +" AND "+ 
-                        it.getCantidadPDC().getNombre() + " >0 "
+                        it.getCANTIDAD().getNombre() + " >0 "
                         +" AND " + 
-                        it.getFechaRecepcionLotePDC().getNombre() +" = "
-                        +"(SELECT min("+it.getFechaRecepcionLotePDC().getNombre() +") "
+                        it.getFECHA_RECEPCION_LOTE().getNombre() +" = "
+                        +"(SELECT min("+it.getFECHA_RECEPCION_LOTE().getNombre() +") "
                             + " FROM " + EntradaLoteIT.NOMBRE_TABLA 
                             + " WHERE "+
-                            it.getIdRefaccionPDC().getNombre() + " =? "
+                            it.getID_REFACCION().getNombre() + " =? "
                             + " AND "+
-                            it.getCantidadPDC().getNombre() +">0 )"+
+                            it.getCANTIDAD().getNombre() +">0 )"+
                 ")";
         HashMap<Integer, Object> datos = new HashMap<>();
         datos.put(1, id);
@@ -150,9 +150,9 @@ public class EntradaLoteDao extends DAOGenerales{
         try {
             if(r.next()){
                 vo = new EntradaLoteVo();
-                vo.setId(r.getInt(it.getIdPDC().getNombre()));
-                vo.setFechaRecepcionLote(r.getDate(it.getFechaRecepcionLotePDC().getNombre()));
-                vo.setCantidad(r.getFloat(it.getCantidadPDC().getNombre()));
+                vo.setId(r.getInt(it.getID().getNombre()));
+                vo.setFechaRecepcionLote(r.getDate(it.getFECHA_RECEPCION_LOTE().getNombre()));
+                vo.setCantidad(r.getFloat(it.getCANTIDAD().getNombre()));
             }
         
         } catch (SQLException ex) {
@@ -173,7 +173,7 @@ public class EntradaLoteDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String signos="";
         String sql = "UPDATE "+ EntradaLoteIT.NOMBRE_TABLA;
-              sql += " SET " + it.getCantidadPDC().getNombre()+"= CASE " + it.getIdPDC().getNombre();
+              sql += " SET " + it.getCANTIDAD().getNombre()+"= CASE " + it.getID().getNombre();
         
         int contador = 1;
         for (EntradaLoteVo a : listaELVParaActualizar) {
@@ -186,7 +186,7 @@ public class EntradaLoteDao extends DAOGenerales{
         }
         sql+=" END ";
         
-        sql+=" WHERE "+it.getIdPDC().getNombre()+" IN ("+signos+")" ;
+        sql+=" WHERE "+it.getID().getNombre()+" IN ("+signos+")" ;
         
         HashMap<Integer, Object> mapa = new HashMap<>();
         

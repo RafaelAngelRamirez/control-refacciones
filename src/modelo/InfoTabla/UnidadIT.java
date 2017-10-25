@@ -14,39 +14,39 @@ public class UnidadIT extends ITGenerales{
     * El nombre de la tabla en la base de datos. 
     */
     public static final String NOMBRE_TABLA = "unidad";
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo unidadPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo UNIDAD = new ParametrosDeCampo();
 
     public UnidadIT() {
         
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
 
-        unidadPDC.setNombre("unidad");
-        unidadPDC.setNombreParaMostrar("Unidad");
-        unidadPDC.setLongitudDeCaracteres(20);
-        unidadPDC.setTipoDeDatos("varchar");
-        unidadPDC.setNulo(false);
-        unidadPDC.setAutoIncrement(false);
-        unidadPDC.setPermiteRepetido(false);
+        UNIDAD.setNombre("unidad");
+        UNIDAD.setNombreParaMostrar("Unidad");
+        UNIDAD.setLongitudDeCaracteres(20);
+        UNIDAD.setTipoDeDatos("varchar");
+        UNIDAD.setNulo(false);
+        UNIDAD.setAutoIncrement(false);
+        UNIDAD.setPermiteRepetido(false);
         
-        camposPDC.add(idPDC);
-        camposPDC.add(unidadPDC);
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(UNIDAD);
         
     }
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
     
 
-    public ParametrosDeCampo getUnidadPDC() {
-        return unidadPDC;
+    public static ParametrosDeCampo getUNIDAD() {
+        return UNIDAD;
     }
 
     

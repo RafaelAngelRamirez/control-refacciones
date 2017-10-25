@@ -43,8 +43,8 @@ public class DepartamentoDao extends DAOGenerales{
         try {
             while (r.next()) {
                 DepartamentoVo vo = new DepartamentoVo();
-                vo.setId(r.getInt(it.getIdPDC().getNombre()));
-                vo.setDepartamento(r.getString(it.getDepartamentoPDC().getNombre()));
+                vo.setId(r.getInt(it.getID().getNombre()));
+                vo.setDepartamento(r.getString(it.getDEPARTAMENTO().getNombre()));
                 listaVo.add(vo);
                 
             }

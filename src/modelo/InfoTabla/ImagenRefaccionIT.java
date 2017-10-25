@@ -19,56 +19,56 @@ public class ImagenRefaccionIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "imagenRefaccion";
     
-    private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreParaMostarPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreServidorPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_REFACCION = new ParametrosDeCampo();
+    private static final ParametrosDeCampo NOMBRE_PARA_MOSTRAR = new ParametrosDeCampo();
+    private static final ParametrosDeCampo NOMBRE_SERVIDOR = new ParametrosDeCampo();
 
     public ImagenRefaccionIT() {
         
         
-        idRefaccionPDC.setNombre("idRefaccion");
-        idRefaccionPDC.setLongitudDeCaracteres(11);
-        idRefaccionPDC.setTipoDeDatos("int");
-        idRefaccionPDC.setNulo(false);
-        idRefaccionPDC.setAutoIncrement(false);
-        idRefaccionPDC.setPermiteRepetido(true);
+        ID_REFACCION.setNombre("idRefaccion");
+        ID_REFACCION.setLongitudDeCaracteres(11);
+        ID_REFACCION.setTipoDeDatos("int");
+        ID_REFACCION.setNulo(false);
+        ID_REFACCION.setAutoIncrement(false);
+        ID_REFACCION.setPermiteRepetido(true);
 
-        nombreParaMostarPDC.setNombre("nombreParaMostrar");
-        nombreParaMostarPDC.setNombreParaMostrar("Nombre imagen");
-        nombreParaMostarPDC.setLongitudDeCaracteres(200);
-        nombreParaMostarPDC.setTipoDeDatos("varchar");
-        nombreParaMostarPDC.setNulo(false);
-        nombreParaMostarPDC.setAutoIncrement(false);
-        nombreParaMostarPDC.setPermiteRepetido(true);
+        NOMBRE_PARA_MOSTRAR.setNombre("nombreParaMostrar");
+        NOMBRE_PARA_MOSTRAR.setNombreParaMostrar("Nombre imagen");
+        NOMBRE_PARA_MOSTRAR.setLongitudDeCaracteres(200);
+        NOMBRE_PARA_MOSTRAR.setTipoDeDatos("varchar");
+        NOMBRE_PARA_MOSTRAR.setNulo(false);
+        NOMBRE_PARA_MOSTRAR.setAutoIncrement(false);
+        NOMBRE_PARA_MOSTRAR.setPermiteRepetido(true);
         
-        nombreServidorPDC.setNombre("nombreServidor");
-        nombreServidorPDC.setNombreParaMostrar("Nombre servidor");
-        nombreServidorPDC.setLongitudDeCaracteres(200);
-        nombreServidorPDC.setTipoDeDatos("varchar");
-        nombreServidorPDC.setNulo(false);
-        nombreServidorPDC.setAutoIncrement(false);
-        nombreServidorPDC.setPermiteRepetido(true);
+        NOMBRE_SERVIDOR.setNombre("nombreServidor");
+        NOMBRE_SERVIDOR.setNombreParaMostrar("Nombre servidor");
+        NOMBRE_SERVIDOR.setLongitudDeCaracteres(200);
+        NOMBRE_SERVIDOR.setTipoDeDatos("varchar");
+        NOMBRE_SERVIDOR.setNulo(false);
+        NOMBRE_SERVIDOR.setAutoIncrement(false);
+        NOMBRE_SERVIDOR.setPermiteRepetido(true);
         
-        camposPDC.add(idRefaccionPDC);
-        camposPDC.add(nombreParaMostarPDC);
-        camposPDC.add(nombreServidorPDC);
+        CAMPOS_PDC.add(ID_REFACCION);
+        CAMPOS_PDC.add(NOMBRE_PARA_MOSTRAR);
+        CAMPOS_PDC.add(NOMBRE_SERVIDOR);
     
     }   
 
-    public ParametrosDeCampo getNombreServidorPDC() {
-        return nombreServidorPDC;
+    public static ParametrosDeCampo getNOMBRE_SERVIDOR() {
+        return NOMBRE_SERVIDOR;
     }
 
     
 
-    public ParametrosDeCampo getIdRefaccionPDC() {
-        return idRefaccionPDC;
+    public static ParametrosDeCampo getID_REFACCION() {
+        return ID_REFACCION;
     }
 
     
 
-    public ParametrosDeCampo getNombreParaMostarPDC() {
-        return nombreParaMostarPDC;
+    public static ParametrosDeCampo getNOMBRE_PARA_MOSTRAR() {
+        return NOMBRE_PARA_MOSTRAR;
     }
 
     

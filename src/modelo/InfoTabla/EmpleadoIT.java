@@ -11,100 +11,100 @@ public class EmpleadoIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "empleado";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombrePDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idDepartamentoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo bajaEmpleadoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo fechaBaja = new ParametrosDeCampo();
-    private ParametrosDeCampo fechaAlta = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo NOMBRE = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_DEPARTAMENTO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo BAJA_EMPLEADO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo FECHA_BAJA = new ParametrosDeCampo();
+    private static final ParametrosDeCampo FECHA_ALTA = new ParametrosDeCampo();
 
     public EmpleadoIT() {
         
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
 
-        nombrePDC.setNombre("nombre");
-        nombrePDC.setNombreParaMostrar("Nombre del empleado");
-        nombrePDC.setLongitudDeCaracteres(50);
-        nombrePDC.setTipoDeDatos("varchar");
-        nombrePDC.setNulo(false);
-        nombrePDC.setAutoIncrement(false);
-        nombrePDC.setPermiteRepetido(true);
+        NOMBRE.setNombre("nombre");
+        NOMBRE.setNombreParaMostrar("Nombre del empleado");
+        NOMBRE.setLongitudDeCaracteres(50);
+        NOMBRE.setTipoDeDatos("varchar");
+        NOMBRE.setNulo(false);
+        NOMBRE.setAutoIncrement(false);
+        NOMBRE.setPermiteRepetido(true);
         
-        idDepartamentoPDC.setNombre("idDepartamento");
-        idDepartamentoPDC.setLongitudDeCaracteres(11);
-        idDepartamentoPDC.setTipoDeDatos("int");
-        idDepartamentoPDC.setNulo(false);
-        idDepartamentoPDC.setAutoIncrement(false);
-        idDepartamentoPDC.setPermiteRepetido(true);
+        ID_DEPARTAMENTO.setNombre("idDepartamento");
+        ID_DEPARTAMENTO.setLongitudDeCaracteres(11);
+        ID_DEPARTAMENTO.setTipoDeDatos("int");
+        ID_DEPARTAMENTO.setNulo(false);
+        ID_DEPARTAMENTO.setAutoIncrement(false);
+        ID_DEPARTAMENTO.setPermiteRepetido(true);
         
-        bajaEmpleadoPDC.setNombre("bajaEmpleado");
-        bajaEmpleadoPDC.setLongitudDeCaracteres(11);
-        bajaEmpleadoPDC.setTipoDeDatos("boolean");
-        bajaEmpleadoPDC.setNulo(false);
-        bajaEmpleadoPDC.setAutoIncrement(false);
-        bajaEmpleadoPDC.setPermiteRepetido(true);
+        BAJA_EMPLEADO.setNombre("bajaEmpleado");
+        BAJA_EMPLEADO.setLongitudDeCaracteres(11);
+        BAJA_EMPLEADO.setTipoDeDatos("boolean");
+        BAJA_EMPLEADO.setNulo(false);
+        BAJA_EMPLEADO.setAutoIncrement(false);
+        BAJA_EMPLEADO.setPermiteRepetido(true);
         
-        fechaBaja.setNombre("fechaBaja");
-        fechaBaja.setLongitudDeCaracteres(11);
-        fechaBaja.setTipoDeDatos("date");
-        fechaBaja.setNulo(true);
-        fechaBaja.setAutoIncrement(false);
-        fechaBaja.setPermiteRepetido(true);
+        FECHA_BAJA.setNombre("fechaBaja");
+        FECHA_BAJA.setLongitudDeCaracteres(11);
+        FECHA_BAJA.setTipoDeDatos("date");
+        FECHA_BAJA.setNulo(true);
+        FECHA_BAJA.setAutoIncrement(false);
+        FECHA_BAJA.setPermiteRepetido(true);
         
-        fechaAlta.setNombre("fechaAlta");
-        fechaAlta.setLongitudDeCaracteres(11);
-        fechaAlta.setTipoDeDatos("date");
-        fechaAlta.setNulo(true);
-        fechaAlta.setAutoIncrement(false);
-        fechaAlta.setPermiteRepetido(true);
+        FECHA_ALTA.setNombre("fechaAlta");
+        FECHA_ALTA.setLongitudDeCaracteres(11);
+        FECHA_ALTA.setTipoDeDatos("date");
+        FECHA_ALTA.setNulo(true);
+        FECHA_ALTA.setAutoIncrement(false);
+        FECHA_ALTA.setPermiteRepetido(true);
         
-        camposPDC.add(idPDC);
-        camposPDC.add(nombrePDC);
-        camposPDC.add(idDepartamentoPDC);
-        camposPDC.add(bajaEmpleadoPDC);
-        camposPDC.add(fechaBaja);
-        camposPDC.add(fechaAlta);
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(NOMBRE);
+        CAMPOS_PDC.add(ID_DEPARTAMENTO);
+        CAMPOS_PDC.add(BAJA_EMPLEADO);
+        CAMPOS_PDC.add(FECHA_BAJA);
+        CAMPOS_PDC.add(FECHA_ALTA);
         
     
     }
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
     
 
-    public ParametrosDeCampo getNombrePDC() {
-        return nombrePDC;
+    public static ParametrosDeCampo getNOMBRE() {
+        return NOMBRE;
     }
 
     
 
-    public ParametrosDeCampo getIdDepartamentoPDC() {
-        return idDepartamentoPDC;
+    public static ParametrosDeCampo getID_DEPARTAMENTO() {
+        return ID_DEPARTAMENTO;
     }
 
     
 
-    public ParametrosDeCampo getBajaEmpleadoPDC() {
-        return bajaEmpleadoPDC;
+    public static ParametrosDeCampo getBAJA_EMPLEADO() {
+        return BAJA_EMPLEADO;
     }
 
     
 
-    public ParametrosDeCampo getFechaBaja() {
-        return fechaBaja;
+    public static ParametrosDeCampo getFECHA_BAJA() {
+        return FECHA_BAJA;
     }
 
     
 
-    public ParametrosDeCampo getFechaAlta() {
-        return fechaAlta;
+    public static ParametrosDeCampo getFECHA_ALTA() {
+        return FECHA_ALTA;
     }
 
     

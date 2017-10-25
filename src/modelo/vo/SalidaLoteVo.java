@@ -20,13 +20,13 @@ public class SalidaLoteVo extends VoGenerales{
 
     public SalidaLoteVo() {
         SalidaLoteIT i = new SalidaLoteIT();
-        relacionCampo.put(i.getIdPDC().getNombre(), ()->this.getId());
-        relacionCampo.put(i.getFechaSalidaLotePDC().getNombre(), ()->this.getFechaSalidaLote());
-        relacionCampo.put(i.getCantidadPDC().getNombre(), ()->this.getCantidad());
-        relacionCampo.put(i.getIdRefaccionPDC().getNombre(), ()->this.getIdRefaccion());
-        relacionCampo.put(i.getIdEmpleadoPDC().getNombre(), ()->this.getIdEmpleado());
-        relacionCampo.put(i.getIdLotePDC().getNombre(), ()->this.getIdLote());
-        relacionCampo.put(i.getObservacionesPDC().getNombre(), ()->this.getObservaciones());
+        relacionCampo.put(i.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(i.getFECHA_SALIDA_LOTE().getNombre(), ()->this.getFechaSalidaLote());
+        relacionCampo.put(i.getCANTIDAD().getNombre(), ()->this.getCantidad());
+        relacionCampo.put(i.getID_REFACCION().getNombre(), ()->this.getIdRefaccion());
+        relacionCampo.put(i.getID_EMPLEADO().getNombre(), ()->this.getIdEmpleado());
+        relacionCampo.put(i.getID_LOTE().getNombre(), ()->this.getIdLote());
+        relacionCampo.put(i.getOBSERVACIONES().getNombre(), ()->this.getObservaciones());
     
     }
 

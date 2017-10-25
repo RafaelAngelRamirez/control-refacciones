@@ -67,12 +67,12 @@ public class PanelProveedorRegistrar extends JPanelBase {
         ProveedorIT pit = new ProveedorIT();
         PaisIT paisit = new PaisIT();
 
-        this.etiquetaEmail.setText(pit.getEmailPDC().getNombreParaMostrar());
+        this.etiquetaEmail.setText(pit.getEMAIL().getNombreParaMostrar());
         this.etiquetaEmpresa.setText(pit.getEmpresaProveedorPDC().getNombreParaMostrar());
-        this.etiquetaNombrecontacto.setText(pit.getNombreContactoPDC().getNombreParaMostrar());
-        this.etiquetaPaginaWeb.setText(pit.getPaginaWebPDC().getNombreParaMostrar());
-        this.etiquetaPais.setText(paisit.getPaisPDC().getNombreParaMostrar());
-        this.etiquetaTelefono.setText(pit.getTelefonoPDC().getNombreParaMostrar());
+        this.etiquetaNombrecontacto.setText(pit.getNOMBRE_CONTACTO().getNombreParaMostrar());
+        this.etiquetaPaginaWeb.setText(pit.getPAGINA_WEB().getNombreParaMostrar());
+        this.etiquetaPais.setText(paisit.getPAIS().getNombreParaMostrar());
+        this.etiquetaTelefono.setText(pit.getTELEFONO().getNombreParaMostrar());
         
         
         /* 
@@ -109,11 +109,11 @@ public class PanelProveedorRegistrar extends JPanelBase {
        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         _TxtEmpresa.setTamanoDeCampo(pit.getEmpresaProveedorPDC().getLongitudDeCaracteres());
-        _TxtNombreContacto.setTamanoDeCampo(pit.getNombreContactoPDC().getLongitudDeCaracteres());
-        _TxtTelefono.setTamanoDeCampo(pit.getTelefonoPDC().getLongitudDeCaracteres());
-        _TxtPaginaWeb.setTamanoDeCampo(pit.getPaginaWebPDC().getLongitudDeCaracteres());
-        _TxtEmail.setTamanoDeCampo(pit.getEmailPDC().getLongitudDeCaracteres());
-        _ComboPais.setTamanoDeCampo(paisit.getPaisPDC().getLongitudDeCaracteres());
+        _TxtNombreContacto.setTamanoDeCampo(pit.getNOMBRE_CONTACTO().getLongitudDeCaracteres());
+        _TxtTelefono.setTamanoDeCampo(pit.getTELEFONO().getLongitudDeCaracteres());
+        _TxtPaginaWeb.setTamanoDeCampo(pit.getPAGINA_WEB().getLongitudDeCaracteres());
+        _TxtEmail.setTamanoDeCampo(pit.getEMAIL().getLongitudDeCaracteres());
+        _ComboPais.setTamanoDeCampo(paisit.getPAIS().getLongitudDeCaracteres());
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         _TxtEmpresa.setPermitirSoloMayusculas();

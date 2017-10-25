@@ -50,8 +50,8 @@ public class ImportanciaDao extends DAOGenerales{
         try {
             while (r.next()) {
                 ImportanciaVo vo = new ImportanciaVo();
-                vo.setId(r.getInt(it.getIdPDC().getNombre()));
-                vo.setImportancia(r.getString(it.getImportanciaPDC().getNombre()));
+                vo.setId(r.getInt(it.getID().getNombre()));
+                vo.setImportancia(r.getString(it.getIMPORTANCIA().getNombre()));
                 listVo.add(vo);
                 
             }

@@ -18,8 +18,8 @@ public class ImportanciaVo extends VoGenerales{
 
     public ImportanciaVo() {
         ImportanciaIT i = new ImportanciaIT();
-        relacionCampo.put(i.getIdPDC().getNombre(), this::getId);
-        relacionCampo.put(i.getImportanciaPDC().getNombre(), this::getImportancia);
+        relacionCampo.put(i.getID().getNombre(), this::getId);
+        relacionCampo.put(i.getIMPORTANCIA().getNombre(), this::getImportancia);
     
     }
 

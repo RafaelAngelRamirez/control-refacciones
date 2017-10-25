@@ -85,18 +85,18 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
         List<RelacionRefaccionMaquinaModeloVo> lrrmm = new ArrayList<>();
         MaquinaModeloIT mmit = new MaquinaModeloIT();
         String sql = "SELECT "
-                +MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getModeloPDC().getNombre() + " ,"
+                +MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getMODELO().getNombre() + " ,"
                 +MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getAnioPDC().getNombre() + " ,"
-                +RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre()
+                +RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getID_MAQUINA_MODELO().getNombre()
                 +" FROM " + RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA +
                 
                 " INNER JOIN " + MaquinaModeloIT.NOMBRE_TABLA +
                 " ON " +
-                MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getIdPDC().getNombre()
+                MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getID().getNombre()
                 + " = " +
-                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre()
+                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getID_MAQUINA_MODELO().getNombre()
                 
-                +" WHERE " + it.getIdRefaccionPDC().getNombre() + "=?"
+                +" WHERE " + it.getID_REFACCION().getNombre() + "=?"
                 ;
         
         ResultSet r = conexion.executeQuery(sql, id+"");
@@ -105,10 +105,10 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
             while (r.next()) {            
                     RelacionRefaccionMaquinaModeloVo vo = new RelacionRefaccionMaquinaModeloVo();
                     MaquinaModeloVo mvo = new MaquinaModeloVo();
-                    vo.setIdMaquinaModelo(r.getInt(it.getIdMaquinaModeloPDC().getNombre()));
+                    vo.setIdMaquinaModelo(r.getInt(it.getID_MAQUINA_MODELO().getNombre()));
                     vo.setMaquinaModeloVo(mvo);
                     mvo.setAnio(r.getInt(mmit.getAnioPDC().getNombre()));
-                    mvo.setModelo(r.getString(mmit.getModeloPDC().getNombre()));
+                    mvo.setModelo(r.getString(mmit.getMODELO().getNombre()));
                     lrrmm.add(vo);
             }
         } catch (SQLException ex) {
@@ -128,7 +128,7 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
     public boolean modificar( List<RelacionRefaccionMaquinaModeloVo> listaVo){
         conexion = new Conexion(coordinador);
         String sql = "DELETE FROM "+ RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
-                + " WHERE " + it.getIdRefaccionPDC().getNombre() + " =? ";
+                + " WHERE " + it.getID_REFACCION().getNombre() + " =? ";
         conexion.executeUpdate(sql, listaVo.get(0).getIdRefaccion()+"");
         return this.guardarLista(listaVo);
     }
@@ -157,11 +157,11 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
         RefaccionIT rit = new RefaccionIT();
         
         String sql = "SELECT "+
-                RefaccionIT.NOMBRE_TABLA+"."+rit.getIdPDC().getNombre()+", "+
-                RefaccionIT.NOMBRE_TABLA+"."+rit.getNombrePDC().getNombre()+", "+
-                RefaccionIT.NOMBRE_TABLA+"."+rit.getCodigoInternoPDC().getNombre()+", "+
-                RefaccionIT.NOMBRE_TABLA+"."+rit.getCodigoProveedorPDC().getNombre()+", "+
-                RefaccionIT.NOMBRE_TABLA+"."+rit.getDescripcionPDC().getNombre()
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getID().getNombre()+", "+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getNOMBRE().getNombre()+", "+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getCODIGO_INTERNO().getNombre()+", "+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getCODIGO_PROVEEDOR().getNombre()+", "+
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getDESCRIPCION().getNombre()
                 
                 +" FROM "+
                 RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
@@ -169,11 +169,11 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
                 +" INNER JOIN "+
                 RefaccionIT.NOMBRE_TABLA
                 +" ON "+
-                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdRefaccionPDC().getNombre() 
+                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getID_REFACCION().getNombre() 
                 +"="+ 
-                RefaccionIT.NOMBRE_TABLA+"."+rit.getIdPDC().getNombre()
+                RefaccionIT.NOMBRE_TABLA+"."+rit.getID().getNombre()
                  +" WHERE "+
-                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre() 
+                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+it.getID_MAQUINA_MODELO().getNombre() 
                 +" IN (";
         
         String a ="";
@@ -193,13 +193,13 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
            
         String sqlBusqueda = 
                 " AND " +
-                rit.getNombrePDC().getNombre() + regexp
+                rit.getNOMBRE().getNombre() + regexp
                 + " OR " + 
-                rit.getCodigoInternoPDC().getNombre() + regexp
+                rit.getCODIGO_INTERNO().getNombre() + regexp
                 + " OR " + 
-                rit.getCodigoProveedorPDC().getNombre() + regexp
+                rit.getCODIGO_PROVEEDOR().getNombre() + regexp
                 + " OR " + 
-                rit.getDescripcionPDC().getNombre() + regexp;
+                rit.getDESCRIPCION().getNombre() + regexp;
         
         if (!busqueda.isEmpty()) {
             sql+=sqlBusqueda;
@@ -211,11 +211,11 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
         try {
             while (r.next()) {
                 RefaccionVo vo = new RefaccionVo();
-                vo.setId(r.getInt(rit.getIdPDC().getNombre()));
-                vo.setNombre(r.getString(rit.getNombrePDC().getNombre()));
-                vo.setCodigoInterno(r.getString(rit.getCodigoInternoPDC().getNombre()));
-                vo.setCodigoProveedor(r.getString(rit.getCodigoInternoPDC().getNombre()));
-                vo.setDescripcion(r.getString(rit.getDescripcionPDC().getNombre()));
+                vo.setId(r.getInt(rit.getID().getNombre()));
+                vo.setNombre(r.getString(rit.getNOMBRE().getNombre()));
+                vo.setCodigoInterno(r.getString(rit.getCODIGO_INTERNO().getNombre()));
+                vo.setCodigoProveedor(r.getString(rit.getCODIGO_INTERNO().getNombre()));
+                vo.setDescripcion(r.getString(rit.getDESCRIPCION().getNombre()));
                 list.add(vo);
                 
                 

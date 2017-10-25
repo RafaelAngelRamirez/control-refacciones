@@ -11,120 +11,120 @@ public class SalidaLoteIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "salidalote";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo fechaSalidaLotePDC = new ParametrosDeCampo();
-    private ParametrosDeCampo cantidadPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idEmpleadoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo observacionesPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idLotePDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo FECHA_SALIDA_LOTE = new ParametrosDeCampo();
+    private static final ParametrosDeCampo CANTIDAD = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_REFACCION = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_EMPLEADO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo OBSERVACIONES = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_LOTE = new ParametrosDeCampo();
     
 
     public SalidaLoteIT() {
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
 
-        fechaSalidaLotePDC.setNombre("fechaSalidaLote");
-        fechaSalidaLotePDC.setNombreParaMostrar("Fecha de Lote");
-        fechaSalidaLotePDC.setLongitudDeCaracteres(8);
-        fechaSalidaLotePDC.setTipoDeDatos("date");
-        fechaSalidaLotePDC.setNulo(false);
-        fechaSalidaLotePDC.setAutoIncrement(false);
-        fechaSalidaLotePDC.setPermiteRepetido(true);
+        FECHA_SALIDA_LOTE.setNombre("fechaSalidaLote");
+        FECHA_SALIDA_LOTE.setNombreParaMostrar("Fecha de Lote");
+        FECHA_SALIDA_LOTE.setLongitudDeCaracteres(8);
+        FECHA_SALIDA_LOTE.setTipoDeDatos("date");
+        FECHA_SALIDA_LOTE.setNulo(false);
+        FECHA_SALIDA_LOTE.setAutoIncrement(false);
+        FECHA_SALIDA_LOTE.setPermiteRepetido(true);
 
-        cantidadPDC.setNombre("cantidad");
-        cantidadPDC.setNombreParaMostrar("Cantidad que sale");
-        cantidadPDC.setTipoDeDatos("float");
-        cantidadPDC.setLongitudDeCaracteres(10);
-        cantidadPDC.setLongitudDeDecimales(3);
-        cantidadPDC.setNulo(false);
-        cantidadPDC.setAutoIncrement(false);
-        cantidadPDC.setPermiteRepetido(true);
+        CANTIDAD.setNombre("cantidad");
+        CANTIDAD.setNombreParaMostrar("Cantidad que sale");
+        CANTIDAD.setTipoDeDatos("float");
+        CANTIDAD.setLongitudDeCaracteres(10);
+        CANTIDAD.setLongitudDeDecimales(3);
+        CANTIDAD.setNulo(false);
+        CANTIDAD.setAutoIncrement(false);
+        CANTIDAD.setPermiteRepetido(true);
 
-        idRefaccionPDC.setNombre("idRefaccion");
-        idRefaccionPDC.setNombreParaMostrar("Nombre de la refacción");
-        idRefaccionPDC.setLongitudDeCaracteres(11);
-        idRefaccionPDC.setTipoDeDatos("int");
-        idRefaccionPDC.setNulo(false);
-        idRefaccionPDC.setAutoIncrement(false);
-        idRefaccionPDC.setPermiteRepetido(true);
+        ID_REFACCION.setNombre("idRefaccion");
+        ID_REFACCION.setNombreParaMostrar("Nombre de la refacción");
+        ID_REFACCION.setLongitudDeCaracteres(11);
+        ID_REFACCION.setTipoDeDatos("int");
+        ID_REFACCION.setNulo(false);
+        ID_REFACCION.setAutoIncrement(false);
+        ID_REFACCION.setPermiteRepetido(true);
         
-        idLotePDC.setNombre("idLote");
-        idLotePDC.setNombreParaMostrar("Lote");
-        idLotePDC.setLongitudDeCaracteres(11);
-        idLotePDC.setTipoDeDatos("int");
-        idLotePDC.setNulo(false);
-        idLotePDC.setAutoIncrement(false);
-        idLotePDC.setPermiteRepetido(true);
+        ID_LOTE.setNombre("idLote");
+        ID_LOTE.setNombreParaMostrar("Lote");
+        ID_LOTE.setLongitudDeCaracteres(11);
+        ID_LOTE.setTipoDeDatos("int");
+        ID_LOTE.setNulo(false);
+        ID_LOTE.setAutoIncrement(false);
+        ID_LOTE.setPermiteRepetido(true);
 
-        idEmpleadoPDC.setNombre("idEmpleado");
-        idEmpleadoPDC.setNombreParaMostrar("Nombre del empleado");
-        idEmpleadoPDC.setLongitudDeCaracteres(11);
-        idEmpleadoPDC.setTipoDeDatos("int");
-        idEmpleadoPDC.setNulo(false);
-        idEmpleadoPDC.setAutoIncrement(false);
-        idEmpleadoPDC.setPermiteRepetido(true);
+        ID_EMPLEADO.setNombre("idEmpleado");
+        ID_EMPLEADO.setNombreParaMostrar("Nombre del empleado");
+        ID_EMPLEADO.setLongitudDeCaracteres(11);
+        ID_EMPLEADO.setTipoDeDatos("int");
+        ID_EMPLEADO.setNulo(false);
+        ID_EMPLEADO.setAutoIncrement(false);
+        ID_EMPLEADO.setPermiteRepetido(true);
         
-        observacionesPDC.setNombre("observaciones");
-        observacionesPDC.setNombreParaMostrar("Observaciones");
-        observacionesPDC.setLongitudDeCaracteres(200);
-        observacionesPDC.setTipoDeDatos("varchar");
-        observacionesPDC.setNulo(true);
-        observacionesPDC.setAutoIncrement(false);
-        observacionesPDC.setPermiteRepetido(true);
+        OBSERVACIONES.setNombre("observaciones");
+        OBSERVACIONES.setNombreParaMostrar("Observaciones");
+        OBSERVACIONES.setLongitudDeCaracteres(200);
+        OBSERVACIONES.setTipoDeDatos("varchar");
+        OBSERVACIONES.setNulo(true);
+        OBSERVACIONES.setAutoIncrement(false);
+        OBSERVACIONES.setPermiteRepetido(true);
         
-        camposPDC.add(idPDC);
-        camposPDC.add(fechaSalidaLotePDC);
-        camposPDC.add(cantidadPDC);
-        camposPDC.add(idRefaccionPDC);
-        camposPDC.add(idEmpleadoPDC);
-        camposPDC.add(observacionesPDC);
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(FECHA_SALIDA_LOTE);
+        CAMPOS_PDC.add(CANTIDAD);
+        CAMPOS_PDC.add(ID_REFACCION);
+        CAMPOS_PDC.add(ID_EMPLEADO);
+        CAMPOS_PDC.add(OBSERVACIONES);
     
     
     }
 
-    public ParametrosDeCampo getIdLotePDC() {
-        return idLotePDC;
+    public static ParametrosDeCampo getID_LOTE() {
+        return ID_LOTE;
     }
 
     
     
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
     
 
-    public ParametrosDeCampo getFechaSalidaLotePDC() {
-        return fechaSalidaLotePDC;
+    public static ParametrosDeCampo getFECHA_SALIDA_LOTE() {
+        return FECHA_SALIDA_LOTE;
     }
 
     
 
-    public ParametrosDeCampo getCantidadPDC() {
-        return cantidadPDC;
+    public static ParametrosDeCampo getCANTIDAD() {
+        return CANTIDAD;
     }
 
     
 
-    public ParametrosDeCampo getIdRefaccionPDC() {
-        return idRefaccionPDC;
+    public static ParametrosDeCampo getID_REFACCION() {
+        return ID_REFACCION;
     }
 
     
 
-    public ParametrosDeCampo getIdEmpleadoPDC() {
-        return idEmpleadoPDC;
+    public static ParametrosDeCampo getID_EMPLEADO() {
+        return ID_EMPLEADO;
     }
 
     
 
-    public ParametrosDeCampo getObservacionesPDC() {
-        return observacionesPDC;
+    public static ParametrosDeCampo getOBSERVACIONES() {
+        return OBSERVACIONES;
     }
 
     

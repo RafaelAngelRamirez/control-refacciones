@@ -10,40 +10,40 @@ public class DepartamentoIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "departamento";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo departamentoPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo DEPARTAMENTO = new ParametrosDeCampo();
 
     public DepartamentoIT() {
         
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
         
-        departamentoPDC.setNombre("departamento");
-        departamentoPDC.setNombreParaMostrar("Departamento");
-        departamentoPDC.setLongitudDeCaracteres(200);
-        departamentoPDC.setTipoDeDatos("varchar");
-        departamentoPDC.setNulo(false);
-        departamentoPDC.setAutoIncrement(false);
-        departamentoPDC.setPermiteRepetido(true);
+        DEPARTAMENTO.setNombre("departamento");
+        DEPARTAMENTO.setNombreParaMostrar("Departamento");
+        DEPARTAMENTO.setLongitudDeCaracteres(200);
+        DEPARTAMENTO.setTipoDeDatos("varchar");
+        DEPARTAMENTO.setNulo(false);
+        DEPARTAMENTO.setAutoIncrement(false);
+        DEPARTAMENTO.setPermiteRepetido(true);
         
-        camposPDC.add(idPDC);
-        camposPDC.add(departamentoPDC);
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(DEPARTAMENTO);
         
         
     }
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
     
 
-    public ParametrosDeCampo getDepartamentoPDC() {
-        return departamentoPDC;
+    public static ParametrosDeCampo getDEPARTAMENTO() {
+        return DEPARTAMENTO;
     }
 
     

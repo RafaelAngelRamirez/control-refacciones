@@ -108,7 +108,7 @@ public class PanelSalidaLoteContenedorDeFila extends JPanel {
         EntradaLoteIT eit = new EntradaLoteIT();
         _txtRecuadroEntrada = new UtilidadesTxt_(getCoordinador());
         _txtRecuadroEntrada.setComponente(recuadroEntrada);
-        _txtRecuadroEntrada.setTamanoDeCampo(eit.getCantidadPDC().getLongitudDeCaracteres(), eit.getCantidadPDC().getLongitudDeDecimales());
+        _txtRecuadroEntrada.setTamanoDeCampo(eit.getCANTIDAD().getLongitudDeCaracteres(), eit.getCANTIDAD().getLongitudDeDecimales());
         _txtRecuadroEntrada.setPermitirSoloNumeros();
         _txtRecuadroEntrada.getThis().setHorizontalAlignment(JTextField.CENTER);
         // ASIGNAMOS LOS VALORES PARA LAS ETIQUETAS.

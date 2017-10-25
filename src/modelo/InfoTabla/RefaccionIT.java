@@ -18,221 +18,221 @@ public class RefaccionIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "refaccion";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombrePDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idMaterialPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo importanciaPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo stockMinimoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo stockMaximoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo unidadPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo codigoInternoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo codigoProveedorPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo descripcionPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo queEsPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo paraQueEsPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo refaccionDeConsumoUnicoPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo NOMBRE = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_MATERIAL = new ParametrosDeCampo();
+    private static final ParametrosDeCampo IMPORTANCIA = new ParametrosDeCampo();
+    private static final ParametrosDeCampo STOCK_MINIMO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo STOCK_MAXIMO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo UNIDAD = new ParametrosDeCampo();
+    private static final ParametrosDeCampo CODIGO_INTERNO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo CODIGO_PROVEEDOR = new ParametrosDeCampo();
+    private static final ParametrosDeCampo DESCRIPCION = new ParametrosDeCampo();
+    private static final ParametrosDeCampo QUE_ES = new ParametrosDeCampo();
+    private static final ParametrosDeCampo PARA_QUE_ES = new ParametrosDeCampo();
+    private static final ParametrosDeCampo REFACCION_DE_CONSUMO_UNICO = new ParametrosDeCampo();
 
     public RefaccionIT() {
     
            
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
 
-        nombrePDC.setNombre("nombre");
-        nombrePDC.setLongitudDeCaracteres(50);
-        nombrePDC.setTipoDeDatos("int");
-        nombrePDC.setNulo(false);
-        nombrePDC.setAutoIncrement(false);
-        nombrePDC.setPermiteRepetido(true);
-        nombrePDC.setNombreParaMostrar("Nombre de la Refacción");
+        NOMBRE.setNombre("nombre");
+        NOMBRE.setLongitudDeCaracteres(50);
+        NOMBRE.setTipoDeDatos("int");
+        NOMBRE.setNulo(false);
+        NOMBRE.setAutoIncrement(false);
+        NOMBRE.setPermiteRepetido(true);
+        NOMBRE.setNombreParaMostrar("Nombre de la Refacción");
 
-        idMaterialPDC.setNombre("idMaterial");
-        idMaterialPDC.setLongitudDeCaracteres(11);
-        idMaterialPDC.setTipoDeDatos("int");
-        idMaterialPDC.setNulo(false);
-        idMaterialPDC.setAutoIncrement(false);
-        idMaterialPDC.setPermiteRepetido(true);
-        idMaterialPDC.setNombreParaMostrar("Material");
+        ID_MATERIAL.setNombre("idMaterial");
+        ID_MATERIAL.setLongitudDeCaracteres(11);
+        ID_MATERIAL.setTipoDeDatos("int");
+        ID_MATERIAL.setNulo(false);
+        ID_MATERIAL.setAutoIncrement(false);
+        ID_MATERIAL.setPermiteRepetido(true);
+        ID_MATERIAL.setNombreParaMostrar("Material");
 
-        importanciaPDC.setNombre("importancia");
-        importanciaPDC.setLongitudDeCaracteres(11);
-        importanciaPDC.setTipoDeDatos("int");
-        importanciaPDC.setNulo(false);
-        importanciaPDC.setAutoIncrement(false);
-        importanciaPDC.setPermiteRepetido(true);
-        importanciaPDC.setNombreParaMostrar("Importancia");
+        IMPORTANCIA.setNombre("importancia");
+        IMPORTANCIA.setLongitudDeCaracteres(11);
+        IMPORTANCIA.setTipoDeDatos("int");
+        IMPORTANCIA.setNulo(false);
+        IMPORTANCIA.setAutoIncrement(false);
+        IMPORTANCIA.setPermiteRepetido(true);
+        IMPORTANCIA.setNombreParaMostrar("Importancia");
 
-        stockMinimoPDC.setNombre("stockMinimo");
-        stockMinimoPDC.setTipoDeDatos("float");
-        stockMinimoPDC.setLongitudDeCaracteres(10);
-        stockMinimoPDC.setLongitudDeDecimales(3);
-        stockMinimoPDC.setNulo(false);
-        stockMinimoPDC.setAutoIncrement(false);
-        stockMinimoPDC.setPermiteRepetido(true);
-        stockMinimoPDC.setNombreParaMostrar("Stock Mín");
+        STOCK_MINIMO.setNombre("stockMinimo");
+        STOCK_MINIMO.setTipoDeDatos("float");
+        STOCK_MINIMO.setLongitudDeCaracteres(10);
+        STOCK_MINIMO.setLongitudDeDecimales(3);
+        STOCK_MINIMO.setNulo(false);
+        STOCK_MINIMO.setAutoIncrement(false);
+        STOCK_MINIMO.setPermiteRepetido(true);
+        STOCK_MINIMO.setNombreParaMostrar("Stock Mín");
 
-        stockMaximoPDC.setNombre("stockMaximo");
-        stockMaximoPDC.setTipoDeDatos("float");
-        stockMaximoPDC.setLongitudDeCaracteres(10);
-        stockMaximoPDC.setLongitudDeDecimales(3);
-        stockMaximoPDC.setNulo(false);
-        stockMaximoPDC.setAutoIncrement(false);
-        stockMaximoPDC.setPermiteRepetido(true);
-        stockMaximoPDC.setNombreParaMostrar("Stock Máx");
+        STOCK_MAXIMO.setNombre("stockMaximo");
+        STOCK_MAXIMO.setTipoDeDatos("float");
+        STOCK_MAXIMO.setLongitudDeCaracteres(10);
+        STOCK_MAXIMO.setLongitudDeDecimales(3);
+        STOCK_MAXIMO.setNulo(false);
+        STOCK_MAXIMO.setAutoIncrement(false);
+        STOCK_MAXIMO.setPermiteRepetido(true);
+        STOCK_MAXIMO.setNombreParaMostrar("Stock Máx");
 
-        unidadPDC.setNombre("unidad");
-        unidadPDC.setLongitudDeCaracteres(11);
-        unidadPDC.setTipoDeDatos("int");
-        unidadPDC.setNulo(false);
-        unidadPDC.setAutoIncrement(false);
-        unidadPDC.setPermiteRepetido(true);
-        unidadPDC.setNombreParaMostrar("Unidad");
+        UNIDAD.setNombre("unidad");
+        UNIDAD.setLongitudDeCaracteres(11);
+        UNIDAD.setTipoDeDatos("int");
+        UNIDAD.setNulo(false);
+        UNIDAD.setAutoIncrement(false);
+        UNIDAD.setPermiteRepetido(true);
+        UNIDAD.setNombreParaMostrar("Unidad");
 
-        codigoInternoPDC.setNombre("codigoInterno");
-        codigoInternoPDC.setLongitudDeCaracteres(20);
-        codigoInternoPDC.setTipoDeDatos("varchar");
-        codigoInternoPDC.setNulo(false);
-        codigoInternoPDC.setAutoIncrement(false);
-        codigoInternoPDC.setPermiteRepetido(false);
-        codigoInternoPDC.setNombreParaMostrar("Código Interno");
+        CODIGO_INTERNO.setNombre("codigoInterno");
+        CODIGO_INTERNO.setLongitudDeCaracteres(20);
+        CODIGO_INTERNO.setTipoDeDatos("varchar");
+        CODIGO_INTERNO.setNulo(false);
+        CODIGO_INTERNO.setAutoIncrement(false);
+        CODIGO_INTERNO.setPermiteRepetido(false);
+        CODIGO_INTERNO.setNombreParaMostrar("Código Interno");
 
-        codigoProveedorPDC.setNombre("codigoProveedor");
-        codigoProveedorPDC.setLongitudDeCaracteres(20);
-        codigoProveedorPDC.setTipoDeDatos("varchar");
-        codigoProveedorPDC.setNulo(true);
-        codigoProveedorPDC.setAutoIncrement(false);
-        codigoProveedorPDC.setPermiteRepetido(true);
-        codigoProveedorPDC.setNombreParaMostrar("Código del Proveedor");
+        CODIGO_PROVEEDOR.setNombre("codigoProveedor");
+        CODIGO_PROVEEDOR.setLongitudDeCaracteres(20);
+        CODIGO_PROVEEDOR.setTipoDeDatos("varchar");
+        CODIGO_PROVEEDOR.setNulo(true);
+        CODIGO_PROVEEDOR.setAutoIncrement(false);
+        CODIGO_PROVEEDOR.setPermiteRepetido(true);
+        CODIGO_PROVEEDOR.setNombreParaMostrar("Código del Proveedor");
 
-        descripcionPDC.setNombre("descripcion");
-        descripcionPDC.setLongitudDeCaracteres(500);
-        descripcionPDC.setTipoDeDatos("varchar");
-        descripcionPDC.setNulo(false);
-        descripcionPDC.setAutoIncrement(false);
-        descripcionPDC.setPermiteRepetido(true);
-        descripcionPDC.setNombreParaMostrar("Descripción");
+        DESCRIPCION.setNombre("descripcion");
+        DESCRIPCION.setLongitudDeCaracteres(500);
+        DESCRIPCION.setTipoDeDatos("varchar");
+        DESCRIPCION.setNulo(false);
+        DESCRIPCION.setAutoIncrement(false);
+        DESCRIPCION.setPermiteRepetido(true);
+        DESCRIPCION.setNombreParaMostrar("Descripción");
 
-        queEsPDC.setNombre("queEs");
-        queEsPDC.setLongitudDeCaracteres(250);
-        queEsPDC.setTipoDeDatos("varchar");
-        queEsPDC.setNulo(true);
-        queEsPDC.setAutoIncrement(false);
-        queEsPDC.setPermiteRepetido(true);
-        queEsPDC.setNombreParaMostrar("¿Que es?");
+        QUE_ES.setNombre("queEs");
+        QUE_ES.setLongitudDeCaracteres(250);
+        QUE_ES.setTipoDeDatos("varchar");
+        QUE_ES.setNulo(true);
+        QUE_ES.setAutoIncrement(false);
+        QUE_ES.setPermiteRepetido(true);
+        QUE_ES.setNombreParaMostrar("¿Que es?");
 
-        paraQueEsPDC.setNombre("paraQueEs");
-        paraQueEsPDC.setLongitudDeCaracteres(250);
-        paraQueEsPDC.setTipoDeDatos("varchar");
-        paraQueEsPDC.setNulo(true);
-        paraQueEsPDC.setAutoIncrement(false);
-        paraQueEsPDC.setPermiteRepetido(true);
-        paraQueEsPDC.setNombreParaMostrar("¿Para que es?");
+        PARA_QUE_ES.setNombre("paraQueEs");
+        PARA_QUE_ES.setLongitudDeCaracteres(250);
+        PARA_QUE_ES.setTipoDeDatos("varchar");
+        PARA_QUE_ES.setNulo(true);
+        PARA_QUE_ES.setAutoIncrement(false);
+        PARA_QUE_ES.setPermiteRepetido(true);
+        PARA_QUE_ES.setNombreParaMostrar("¿Para que es?");
         
-        refaccionDeConsumoUnicoPDC.setNombre("refaccionDeConsumoUnico");
-        refaccionDeConsumoUnicoPDC.setLongitudDeCaracteres(1);
-        refaccionDeConsumoUnicoPDC.setTipoDeDatos("byte");
-        refaccionDeConsumoUnicoPDC.setNulo(false);
-        refaccionDeConsumoUnicoPDC.setAutoIncrement(false);
-        refaccionDeConsumoUnicoPDC.setPermiteRepetido(true);
-        refaccionDeConsumoUnicoPDC.setNombreParaMostrar("¿Es refacción de consumo único?");
+        REFACCION_DE_CONSUMO_UNICO.setNombre("refaccionDeConsumoUnico");
+        REFACCION_DE_CONSUMO_UNICO.setLongitudDeCaracteres(1);
+        REFACCION_DE_CONSUMO_UNICO.setTipoDeDatos("byte");
+        REFACCION_DE_CONSUMO_UNICO.setNulo(false);
+        REFACCION_DE_CONSUMO_UNICO.setAutoIncrement(false);
+        REFACCION_DE_CONSUMO_UNICO.setPermiteRepetido(true);
+        REFACCION_DE_CONSUMO_UNICO.setNombreParaMostrar("¿Es refacción de consumo único?");
         
-        camposPDC.add(idPDC);
-        camposPDC.add(nombrePDC);
-        camposPDC.add(idMaterialPDC);
-        camposPDC.add(importanciaPDC);
-        camposPDC.add(stockMinimoPDC);
-        camposPDC.add(stockMaximoPDC);
-        camposPDC.add(unidadPDC);
-        camposPDC.add(codigoInternoPDC);
-        camposPDC.add(codigoProveedorPDC);
-        camposPDC.add(descripcionPDC);
-        camposPDC.add(queEsPDC);
-        camposPDC.add(paraQueEsPDC);
-        camposPDC.add(refaccionDeConsumoUnicoPDC);
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(NOMBRE);
+        CAMPOS_PDC.add(ID_MATERIAL);
+        CAMPOS_PDC.add(IMPORTANCIA);
+        CAMPOS_PDC.add(STOCK_MINIMO);
+        CAMPOS_PDC.add(STOCK_MAXIMO);
+        CAMPOS_PDC.add(UNIDAD);
+        CAMPOS_PDC.add(CODIGO_INTERNO);
+        CAMPOS_PDC.add(CODIGO_PROVEEDOR);
+        CAMPOS_PDC.add(DESCRIPCION);
+        CAMPOS_PDC.add(QUE_ES);
+        CAMPOS_PDC.add(PARA_QUE_ES);
+        CAMPOS_PDC.add(REFACCION_DE_CONSUMO_UNICO);
         
         
 
     }
 
    
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
     
 
-    public ParametrosDeCampo getNombrePDC() {
-        return nombrePDC;
+    public static ParametrosDeCampo getNOMBRE() {
+        return NOMBRE;
     }
 
     
 
-    public ParametrosDeCampo getIdMaterialPDC() {
-        return idMaterialPDC;
+    public static ParametrosDeCampo getID_MATERIAL() {
+        return ID_MATERIAL;
     }
 
     
 
-    public ParametrosDeCampo getImportanciaPDC() {
-        return importanciaPDC;
+    public static ParametrosDeCampo getIMPORTANCIA() {
+        return IMPORTANCIA;
     }
 
     
 
-    public ParametrosDeCampo getStockMinimoPDC() {
-        return stockMinimoPDC;
+    public static ParametrosDeCampo getSTOCK_MINIMO() {
+        return STOCK_MINIMO;
     }
 
     
 
-    public ParametrosDeCampo getStockMaximoPDC() {
-        return stockMaximoPDC;
+    public static ParametrosDeCampo getSTOCK_MAXIMO() {
+        return STOCK_MAXIMO;
     }
 
     
 
-    public ParametrosDeCampo getUnidadPDC() {
-        return unidadPDC;
+    public static ParametrosDeCampo getUNIDAD() {
+        return UNIDAD;
     }
 
     
 
-    public ParametrosDeCampo getCodigoInternoPDC() {
-        return codigoInternoPDC;
+    public static ParametrosDeCampo getCODIGO_INTERNO() {
+        return CODIGO_INTERNO;
     }
 
     
 
-    public ParametrosDeCampo getCodigoProveedorPDC() {
-        return codigoProveedorPDC;
+    public static ParametrosDeCampo getCODIGO_PROVEEDOR() {
+        return CODIGO_PROVEEDOR;
     }
 
     
 
-    public ParametrosDeCampo getDescripcionPDC() {
-        return descripcionPDC;
+    public static ParametrosDeCampo getDESCRIPCION() {
+        return DESCRIPCION;
     }
 
     
 
-    public ParametrosDeCampo getQueEsPDC() {
-        return queEsPDC;
+    public static ParametrosDeCampo getQUE_ES() {
+        return QUE_ES;
     }
 
     
 
-    public ParametrosDeCampo getParaQueEsPDC() {
-        return paraQueEsPDC;
+    public static ParametrosDeCampo getPARA_QUE_ES() {
+        return PARA_QUE_ES;
     }
 
     
 
-    public ParametrosDeCampo getRefaccionDeConsumoUnicoPDC() {
-        return refaccionDeConsumoUnicoPDC;
+    public static ParametrosDeCampo getREFACCION_DE_CONSUMO_UNICO() {
+        return REFACCION_DE_CONSUMO_UNICO;
     }
 
     

@@ -16,38 +16,38 @@ public class RelacionSeccionMaqRefaccionIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "relacionseccionmaqrefaccion";
     
-    private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idSeccionMaquinaPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_REFACCION = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_SECCION_MAQUINA = new ParametrosDeCampo();
 
     public RelacionSeccionMaqRefaccionIT() {
-        idRefaccionPDC.setNombre("idRefaccion");
-        idRefaccionPDC.setLongitudDeCaracteres(11);
-        idRefaccionPDC.setTipoDeDatos("int");
-        idRefaccionPDC.setNulo(false);
-        idRefaccionPDC.setAutoIncrement(false);
-        idRefaccionPDC.setPermiteRepetido(true);
+        ID_REFACCION.setNombre("idRefaccion");
+        ID_REFACCION.setLongitudDeCaracteres(11);
+        ID_REFACCION.setTipoDeDatos("int");
+        ID_REFACCION.setNulo(false);
+        ID_REFACCION.setAutoIncrement(false);
+        ID_REFACCION.setPermiteRepetido(true);
 
-        idSeccionMaquinaPDC.setNombre("idSeccionMaquina");
-        idSeccionMaquinaPDC.setLongitudDeCaracteres(11);
-        idSeccionMaquinaPDC.setTipoDeDatos("int");
-        idSeccionMaquinaPDC.setNulo(false);
-        idSeccionMaquinaPDC.setAutoIncrement(false);
-        idSeccionMaquinaPDC.setPermiteRepetido(true);
+        ID_SECCION_MAQUINA.setNombre("idSeccionMaquina");
+        ID_SECCION_MAQUINA.setLongitudDeCaracteres(11);
+        ID_SECCION_MAQUINA.setTipoDeDatos("int");
+        ID_SECCION_MAQUINA.setNulo(false);
+        ID_SECCION_MAQUINA.setAutoIncrement(false);
+        ID_SECCION_MAQUINA.setPermiteRepetido(true);
         
-        camposPDC.add(idRefaccionPDC);
-        camposPDC.add(idSeccionMaquinaPDC);
+        CAMPOS_PDC.add(ID_REFACCION);
+        CAMPOS_PDC.add(ID_SECCION_MAQUINA);
       
         
     }
 
-    public ParametrosDeCampo getIdRefaccionPDC() {
-        return idRefaccionPDC;
+    public static ParametrosDeCampo getID_REFACCION() {
+        return ID_REFACCION;
     }
 
     
 
-    public ParametrosDeCampo getIdSeccionMaquinaPDC() {
-        return idSeccionMaquinaPDC;
+    public static ParametrosDeCampo getID_SECCION_MAQUINA() {
+        return ID_SECCION_MAQUINA;
     }
 
     

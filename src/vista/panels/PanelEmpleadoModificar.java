@@ -234,8 +234,8 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         EmpleadoIT eit = new EmpleadoIT();
         DepartamentoIT dit = new DepartamentoIT();
         
-        etiquetaDepartamento.setText(dit.getDepartamentoPDC().getNombreParaMostrar());
-        etiquetaNombre.setText(eit.getNombrePDC().getNombreParaMostrar());
+        etiquetaDepartamento.setText(dit.getDEPARTAMENTO().getNombreParaMostrar());
+        etiquetaNombre.setText(eit.getNOMBRE().getNombreParaMostrar());
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -265,8 +265,8 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
         _txtBusqueda.setTamanoDeCampo(300);
-        _txtNombre.setTamanoDeCampo(eit.getNombrePDC().getLongitudDeCaracteres());
-        _comboDepartamentos.setTamanoDeCampo(dit.getDepartamentoPDC().getLongitudDeCaracteres());
+        _txtNombre.setTamanoDeCampo(eit.getNOMBRE().getLongitudDeCaracteres());
+        _comboDepartamentos.setTamanoDeCampo(dit.getDEPARTAMENTO().getLongitudDeCaracteres());
 
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         _txtNombre.setPermitirSoloMayusculas();
@@ -490,7 +490,7 @@ public class PanelEmpleadoModificar extends vista.UtilidadesIntefaz.JPanelBase {
         boolean todoValido = true;
         
         for (Validacion val : validaciones) {
-            if (val.getNombreDeCampo().equals(it.getDepartamentoPDC().getNombre())) {
+            if (val.getNombreDeCampo().equals(it.getDEPARTAMENTO().getNombre())) {
                 if (!val.isValido()) {
                     _txtNombre.setError(val.getMensajeDeError());
                 }else{

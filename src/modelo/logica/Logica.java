@@ -162,7 +162,7 @@ public class Logica {
         
         //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO.
         ProveedorIT b = new ProveedorIT();
-        List<ParametrosDeCampo> listaPDC =b.getCamposPDC();
+        List<ParametrosDeCampo> listaPDC =b.getCAMPOS_PDC();
         //RECORREMOS CADA CAMPO.
         for (ParametrosDeCampo parametrosDeCampo : listaPDC) {
             try {
@@ -363,7 +363,7 @@ public class Logica {
         
         //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO.
         MaquinaModeloIT b = new MaquinaModeloIT();
-        List<ParametrosDeCampo> listaPDC =b.getCamposPDC();
+        List<ParametrosDeCampo> listaPDC =b.getCAMPOS_PDC();
         //RECORREMOS CADA CAMPO.
         for (ParametrosDeCampo parametrosDeCampo : listaPDC) {
             try {
@@ -403,7 +403,7 @@ public class Logica {
                     val.setNombreDeCampo(parametrosDeCampo);
                     int anio = Integer.parseInt(""+vo.getRelacionCampo().get(b.getAnioPDC().getNombre()).call()) ;
                     if (validarUpdate) {
-                        if (parametrosDeCampo.getNombre().equals(b.getModeloPDC().getNombre())) {
+                        if (parametrosDeCampo.getNombre().equals(b.getMODELO().getNombre())) {
                             if (this.maquinaModeloExiste(vo)) {
                                 val.setMensajeDeError("El valor '"+valorAValidar+"' "
                                         + "y '"+ anio+"' ya están registrados para otro modelo." );
@@ -574,7 +574,7 @@ public class Logica {
         
         //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO.
         RefaccionIT rIT = new RefaccionIT();
-        List<ParametrosDeCampo> listaPDC =rIT.getCamposPDC();
+        List<ParametrosDeCampo> listaPDC =rIT.getCAMPOS_PDC();
         //RECORREMOS CADA CAMPO.
         listaPDC.forEach((_PDC) -> {
             try {
@@ -598,17 +598,17 @@ public class Logica {
                     // VACIO.
                     if (valor.isEmpty() || valor.equals("-1")|| valor.equals("-1.0") ) {
                         boolean ningunoDeLosAnteriores = true;
-                        if (_PDC.getNombre().equals(rIT.getImportanciaPDC().getNombre())) {
+                        if (_PDC.getNombre().equals(rIT.getIMPORTANCIA().getNombre())) {
                             //MENSAJE PARA IMPORTANCIA.
                             vNulo.setMensajeDeError("Debes definir la importancia de la refacción.");
                             ningunoDeLosAnteriores = false;
                         }
-                        if(_PDC.getNombre().equals(rIT.getIdMaterialPDC().getNombre())){
+                        if(_PDC.getNombre().equals(rIT.getID_MATERIAL().getNombre())){
                             //MENSAJE PARA MATERIAL.
                             vNulo.setMensajeDeError("Debes registrar un material");
                             ningunoDeLosAnteriores = false;
                         }
-                        if(_PDC.getNombre().equals(rIT.getUnidadPDC().getNombre())){
+                        if(_PDC.getNombre().equals(rIT.getUNIDAD().getNombre())){
                             //MENSAJE PARA UNIDAD.
                             vNulo.setMensajeDeError("Debes registrar una unidad.");
                             ningunoDeLosAnteriores = false;
@@ -639,7 +639,7 @@ public class Logica {
                      //DEFINIRA COMO TRUE DE QUE PASO LA VALIDACION.
                      // CUANDO SE VALIDA UN UPDATE EL CÓDIGO INTERNO SE VALIDA
                      // PARA QUE NO ESTE REPEDITO CON OTRO.
-                     if (_PDC.getNombre().equals(rIT.getCodigoInternoPDC().getNombre())) {
+                     if (_PDC.getNombre().equals(rIT.getCODIGO_INTERNO().getNombre())) {
                          if (validandoUpdate) {
                          //SI ESTAMOS VALIDANDO UNA MODIFICAION ENTRA AQUI.
                             if (this.refaccionExisteCodigoInterno(vo)) {
@@ -669,18 +669,18 @@ public class Logica {
                 COMPROBAMOS QUE EL STOCK MINIMO Y MAXIMO ESTEN BIEN.
                 ----------------------------------------------------------------
                 */
-                if (_PDC.getNombre().equals(rIT.getStockMaximoPDC().getNombre())) {
+                if (_PDC.getNombre().equals(rIT.getSTOCK_MAXIMO().getNombre())) {
                     String smax = vo.getRelacionCampo().get(
-                            rIT.getStockMaximoPDC().getNombre()).call()+"";
+                            rIT.getSTOCK_MAXIMO().getNombre()).call()+"";
                     String smin = vo.getRelacionCampo().get(
-                            rIT.getStockMinimoPDC().getNombre()).call()+"";
+                            rIT.getSTOCK_MINIMO().getNombre()).call()+"";
                     if (!smax.equals("-1.0") && !smin.equals("-1.0")) {
                         float fmax = Float.parseFloat(smax);
                         float fmin = Float.parseFloat(smin);
                         
                         if (fmax<fmin) {
                             Validacion val = new Validacion();
-                            val.setNombreDeCampo(rIT.getStockMaximoPDC());
+                            val.setNombreDeCampo(rIT.getSTOCK_MAXIMO());
                             val.setMensajeDeError(
                                     "El stock máximo("+fmax+") no puede ser menor "
                                     + "\nque el stock mínimo("+fmin+")");
@@ -688,7 +688,7 @@ public class Logica {
                             listaValidaciones.add(val);
                         }else if (fmax==fmin && fmax!=0 && fmin!=0) {
                             Validacion val = new Validacion();
-                            val.setNombreDeCampo(rIT.getStockMaximoPDC());
+                            val.setNombreDeCampo(rIT.getSTOCK_MAXIMO());
                             val.setMensajeDeError(
                                     "El stock máximo no puede ser igual"
                                     + "\nque el stock mínimo.");
@@ -698,7 +698,7 @@ public class Logica {
                         
                         if (fmin==0) {
                             Validacion val = new Validacion();
-                            val.setNombreDeCampo(rIT.getStockMinimoPDC());
+                            val.setNombreDeCampo(rIT.getSTOCK_MINIMO());
                             val.setMensajeDeError(
                                     "El stock mínimo no puede 0.");
                             val.setValido(false);
@@ -707,7 +707,7 @@ public class Logica {
                         
                         if (fmax==0) {
                             Validacion val = new Validacion();
-                            val.setNombreDeCampo(rIT.getStockMaximoPDC());
+                            val.setNombreDeCampo(rIT.getSTOCK_MAXIMO());
                             val.setMensajeDeError(
                                     "El stock máximo no puede 0.");
                             val.setValido(false);
@@ -727,7 +727,7 @@ public class Logica {
     public List<Validacion> refaccionValidarCamposMaquinaModelo(List<RelacionRefaccionMaquinaModeloVo> lista){
         Validacion val = new Validacion();
         RelacionRefaccionMaquinaModeloIT it = new RelacionRefaccionMaquinaModeloIT();
-        val.setNombreDeCampo(it.getIdMaquinaModeloPDC());
+        val.setNombreDeCampo(it.getID_MAQUINA_MODELO());
         if (lista.isEmpty()) {
             val.setMensajeDeError("No has seleccionado ningún modelo para esta refacción.");
             val.setValido(false);
@@ -745,7 +745,7 @@ public class Logica {
     public List<Validacion> refaccionValidarCamposProveedor(List<RelacionRefaccionProveedorVo> lista){
         Validacion val = new Validacion();
         RelacionRefaccionProveedorIT it = new RelacionRefaccionProveedorIT();
-        val.setNombreDeCampo(it.getIdProveedorPDC());
+        val.setNombreDeCampo(it.getID_PROVEEDOR());
         if (lista.isEmpty()) {
             val.setMensajeDeError("No has seleccionado ningún proveedor para esta refacción.");
             val.setValido(false);
@@ -969,7 +969,7 @@ public class Logica {
 
             //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO.
             EmpleadoIT b = new EmpleadoIT();
-            List<ParametrosDeCampo> listaPDC =b.getCamposPDC();
+            List<ParametrosDeCampo> listaPDC =b.getCAMPOS_PDC();
             //RECORREMOS CADA CAMPO.
             for (ParametrosDeCampo parametrosDeCampo : listaPDC) {
                 try {
@@ -1101,7 +1101,7 @@ public class Logica {
         
         //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO
         EntradaLoteIT b = new EntradaLoteIT();
-        List<ParametrosDeCampo> listaPDC = b.getCamposPDC();
+        List<ParametrosDeCampo> listaPDC = b.getCAMPOS_PDC();
         
         //RECORREMOS CADA CAMPO.
         for (ParametrosDeCampo _PDC : listaPDC) {
@@ -1189,7 +1189,7 @@ public class Logica {
 
            //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO
            SalidaLoteIT b = new SalidaLoteIT();
-           List<ParametrosDeCampo> listaPDC = b.getCamposPDC();
+           List<ParametrosDeCampo> listaPDC = b.getCAMPOS_PDC();
 
            //RECORREMOS CADA CAMPO.
            for (ParametrosDeCampo _PDC : listaPDC) {
@@ -1368,10 +1368,10 @@ public class Logica {
     public List<Validacion> maquinaValidadCampos(MaquinaVo vo) {
         
         MaquinaIT it = new MaquinaIT();
-        List<ParametrosDeCampo> campos = it.getCamposPDC();
+        List<ParametrosDeCampo> campos = it.getCAMPOS_PDC();
         List<Validacion> listVal = new ArrayList<>();
         for (ParametrosDeCampo campo : campos) {
-            if (campo.getNombre().equals(it.getNumeroDeMaquinaPDC().getNombre())) {
+            if (campo.getNombre().equals(it.getNUMERO_DE_MAQUINA().getNombre())) {
                 if (vo.getId()==-1) {
                     Validacion a = new Validacion();
                     a.setNombreDeCampo(campo);
@@ -1396,7 +1396,7 @@ public class Logica {
             }
             
             
-            if (campo.getNombre().equals(it.getMatriculaPDC().getNombre())) {
+            if (campo.getNombre().equals(it.getMATRICULA().getNombre())) {
                 //VALIDAMOS CUANDO ES UN NUEVO ELEMENTO A GUARDAR. 
                 if (vo.getId()==-1) {
                     Validacion validacion = new Validacion();
