@@ -1,9 +1,13 @@
 package modelo.dao;
 
 import controlador.Coordinador;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Conexion;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
@@ -56,22 +60,49 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
         return conexion.executeUpdate(sql, mapa);
     }
     
-    /**
-     * Consulta todos los proveedores que esten relacionados con el id de la 
-     * refacción que se le pase como parametro.  
-     * @param id El id de refacción del que se quiere obtener las máquinas relacionadas.
-     * @return La lista de relaciones entre una refacción y un proveedor dentro de un 
-     * clase para ello.
-     * @see RelacionRefaccionProveedorVo
-     */
-    public List<ProveedorVo> consultarProveedores(int id){
+    public List<RelacionRefaccionProveedorVo> consultarProveedores(int id){
         conexion = new Conexion(coordinador);
-        List<ProveedorVo> lrrpvo = new ArrayList<>();
+        List<RelacionRefaccionProveedorVo> lrrpvo = new ArrayList<>();
         ProveedorIT pit = new ProveedorIT();
+<<<<<<< HEAD
+=======
+        String sql = 
+                " SELECT " 
+                + ProveedorIT.NOMBRE_TABLA+"."+pit.getEmpresaProveedorPDC().getNombre() +", "
+                + RelacionRefaccionProveedorIT.NOMBRE_TABLA+"."+it.getIdProveedorPDC().getNombre()
+                +" FROM " + RelacionRefaccionProveedorIT.NOMBRE_TABLA +
                 
+                " INNER JOIN " + ProveedorIT.NOMBRE_TABLA +
+                " ON " +
+                ProveedorIT.NOMBRE_TABLA+"."+pit.getIdPDC().getNombre()
+                + " = " +
+                RelacionRefaccionProveedorIT.NOMBRE_TABLA+"."+it.getIdProveedorPDC().getNombre()
                 
+                + " WHERE " + it.getIdRefaccionPDC().getNombre() + " = ?" 
+                ;
+        
+        ResultSet r = conexion.executeQuery(sql, id+"");
+        
+        try {
+            while (r.next()) {
+                RelacionRefaccionProveedorVo vo = new RelacionRefaccionProveedorVo();
+                ProveedorVo pvo = new ProveedorVo();
+                vo.setIdProveedor(r.getInt(it.getIdProveedorPDC().getNombre()));
+                vo.setProveedorVo(pvo);
+>>>>>>> parent of 9694f68... Renombravo variables estaticas!! Ha!!
+                
+                pvo.setEmpresa(r.getString(pit.getEmpresaProveedorPDC().getNombre()));
+                
+<<<<<<< HEAD
         
         
+=======
+                lrrpvo.add(vo);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RelacionRefaccionProveedorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+>>>>>>> parent of 9694f68... Renombravo variables estaticas!! Ha!!
         return lrrpvo;
     }
     
