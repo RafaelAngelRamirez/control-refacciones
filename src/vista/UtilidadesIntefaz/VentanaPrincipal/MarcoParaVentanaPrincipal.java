@@ -424,6 +424,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 dialogoSeccionDeMaquinas.setImagen(imgModificar);
                 dialogoSeccionDeMaquinas.setAccionDelItem(
                         ()->coordinador.seccionDeMaquinaAbrirDialogo());
+                KeyStroke atajoSecciones = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_DOWN_MASK);
+                dialogoSeccionDeMaquinas.setAtajoDeTeclado(atajoSecciones);
                 this.addItemOMenu(dialogoSeccionDeMaquinas);
                 
                 

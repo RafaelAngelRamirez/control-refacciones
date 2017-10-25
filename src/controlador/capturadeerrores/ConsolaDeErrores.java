@@ -15,7 +15,7 @@ import javax.swing.JTextArea;
 public class ConsolaDeErrores extends javax.swing.JFrame {
 
     /**
-     * Creates new form ConsolaDeErrores
+     * Creates new form NewJFrame
      */
     public ConsolaDeErrores() {
         initComponents();
@@ -23,8 +23,14 @@ public class ConsolaDeErrores extends javax.swing.JFrame {
         this.txtAreaConsola.setEditable(false);
         this.txtAreaConsola.setSelectedTextColor(Color.black);
         this.txtAreaConsola.setSelectionColor(Color.ORANGE);
-        
-        
+    }
+
+    public JTextArea getTxtAreaConsola() {
+        return txtAreaConsola;
+    }
+
+    public void setTxtAreaConsola(JTextArea txtAreaConsola) {
+        this.txtAreaConsola = txtAreaConsola;
     }
 
     /**
@@ -38,49 +44,58 @@ public class ConsolaDeErrores extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaConsola = new javax.swing.JTextArea();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtAreaConsola.setBackground(new java.awt.Color(51, 51, 51));
         txtAreaConsola.setColumns(20);
         txtAreaConsola.setFont(new java.awt.Font("Lucida Console", 0, 12)); // NOI18N
         txtAreaConsola.setLineWrap(true);
         txtAreaConsola.setRows(5);
-        txtAreaConsola.setRequestFocusEnabled(false);
-        txtAreaConsola.setVerifyInputWhenFocusTarget(false);
+        txtAreaConsola.setWrapStyleWord(true);
+        txtAreaConsola.setDoubleBuffered(true);
+        txtAreaConsola.setDragEnabled(true);
+        txtAreaConsola.setFocusable(false);
+        txtAreaConsola.setOpaque(false);
         jScrollPane1.setViewportView(txtAreaConsola);
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnLimpiar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnLimpiar)
+                .addGap(13, 13, 13))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTextArea getTxtAreaConsola() {
-        
-        
-        return txtAreaConsola;
-    }
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtAreaConsola.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    public void setTxtAreaConsola(JTextArea txtAreaConsola) {
-        this.txtAreaConsola = txtAreaConsola;
-    }
-    
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -107,6 +122,7 @@ public class ConsolaDeErrores extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ConsolaDeErrores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -117,6 +133,7 @@ public class ConsolaDeErrores extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtAreaConsola;
     // End of variables declaration//GEN-END:variables

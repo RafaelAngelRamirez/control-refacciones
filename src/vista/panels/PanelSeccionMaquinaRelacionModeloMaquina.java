@@ -6,6 +6,7 @@
 package vista.panels;
 
 import controlador.CoordinadorPaneles;
+import controlador.RetrasarEjecucionDeOperacion;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
@@ -22,6 +23,7 @@ import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesBotones_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesListas_;
 import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
+
 
 /**
  *
@@ -443,7 +445,15 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         _listaRefaccionesAsignadas.setValueChange(this::quitarRefaccionCompatible);
         
             /*Carga las refacciones compatibles o las quita*/
-        _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(this::cargarListaDeRefaccionesParaModificar, false);
+            
+        RetrasarEjecucionDeOperacion tempCargaAgregar = new RetrasarEjecucionDeOperacion(this);
+        tempCargaAgregar.setOperacion(this::cargarListaDeRefaccionesParaSeleccionar);
+        
+        RetrasarEjecucionDeOperacion tempCargaEliminar = new RetrasarEjecucionDeOperacion(this);
+        tempCargaEliminar.setOperacion(this::quitarDeLaListaDeRefacciones);
+            
+        _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(tempCargaAgregar::ejecutar, false);
+        _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(tempCargaEliminar::ejecutar, true);
         
             /*Filtra las refacciones*/
         _txtBusqueda.setKeyRelease(this::filtrarRefaccionesDisponibles, OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
@@ -594,7 +604,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         if (idActual== null) {
             cargarListaDeRefaccionesParaGuardarNuevo();
         }else{
-            cargarListaDeRefaccionesParaModificar();
+            cargarListaDeRefaccionesParaSeleccionar();
         }
     }
     
@@ -715,16 +725,17 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     
     @Override
     public void limpiar(){
-//        mapaDeRelaciones.clear();
+        mapaDeRefaccionesSeleccionadas.clear();
         idActual = null;
         cargarListaMaqModelo();
+        _listaRefaccionesAsignadas.limpiar();
+        _listaRefaccionesDisponibles.limpiar();
     }
 
-    private void cargarListaDeRefaccionesParaModificar() {
+    private void cargarListaDeRefaccionesParaSeleccionar() {
         //SELECCIONAMOS LA LISTA DE REFACCIONES QUE ESTAN ASIGNADAS Y LAS
         //UTILIZAMOS PARA FILTRAR LAS REFACCIONES QUE SERAN COMPATIBLES CON
         // ESTA SECCIÓN.
-               
         
         // OBTENEMOS LOS MODELOS SELECCIONADOS. 
         @SuppressWarnings("unchecked")
@@ -755,13 +766,12 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                     String a  = Textos.formatearEspacios(12, rvo.getCodigoProveedor(), "|");
                     String b  = Textos.formatearEspacios(25, rvo.getNombre(), "|");
                     String c  = Textos.formatearEspacios(25, rvo.getCodigoInterno(), "|");
+                    System.out.println(a+b+c);
                     
                     //SI LA REFACCIÓN YA LA TENEMOS SELECCIONADA ENTONCES NO LA MOSTRAMOS
                     if(!mapaDeRefaccionesSeleccionadas.containsKey(a+b+c)){
                         mapaDisponibles.put(a+b+c, rvo);
                     }
-
-
                 });
         
 
@@ -884,8 +894,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         if (!a.equals(-1)) {
             RefaccionVo rvoSeleccionado = (RefaccionVo) a;
             String nombre = _listaRefaccionesAsignadas.getText();
-            
-            
+                        
             //LO QUITAMOS DEL MAPA. 
             mapaDeRefaccionesSeleccionadas.remove(nombre);
             
@@ -905,20 +914,108 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             mapaTem.put(nombre, rvoSeleccionado);
 
             //CARGAMOS LA LISTA DE DISPONIBLES CON EL MAPA TEMP.
-            _listaRefaccionesDisponibles.limpiar();
+            _listaRefaccionesDisponibles.limpiar(); 
             _listaRefaccionesDisponibles.cargarLista(mapaTem);
             
             
         }
         
     }
-    
-    
 
-    
-       
-    
+    /**
+     * Elimina la maquina seleccionada y revisa que las refacciones que esten
+     * seleccionadas no contengan refacciones que no correspondan contra la lista
+     * de las que si estan seleccionadas. 
+     */
+    @SuppressWarnings("unchecked")
+    private void quitarDeLaListaDeRefacciones() {
+        
+        //REVISAMOS LAS REFACCIONES QUE SON COMPATIBLES QUE ESTAN SELECCIONADAS.
+        if (!_listaModelosMaquinaAsignados.isEmpty()) {
+            
+            List<MaquinaModeloVo> listMMVO = 
+                    (List<MaquinaModeloVo>)(List<?>)
+                    _listaModelosMaquinaAsignados.getItems_ObjectsRelacionados();
 
+            List<RefaccionVo> listRVOCompatibles = 
+                    getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(listMMVO);
+
+            if (!_listaRefaccionesAsignadas.isEmpty()) {
+
+                //OBTENEMOS LAS QUE YA TENIAMOS SELECCIONADAS Y
+                //ELIMINAMOS LAS REFACCIONES QUE NO SEAN COMPATIBLES CON TRA LA LISTA DE 
+                //COMPATIBLES. 
+
+                HashMap<String, Object> mapaRVOAsignadas = new HashMap<>();
+
+                _listaRefaccionesAsignadas.getItems().forEach(
+                        (Object nombre, Object vo)->{
+                            if (listRVOCompatibles.contains(vo)) {
+                                mapaRVOAsignadas.put(nombre.toString(), vo);
+                                RefaccionVo v = (RefaccionVo)vo;
+                                listRVOCompatibles.remove(v);
+                            }
+                        });
+                JOptionPane.showMessageDialog(null, "aqui");
+                _listaRefaccionesAsignadas.limpiar();
+                mapaDeRefaccionesSeleccionadas = mapaRVOAsignadas;
+                JOptionPane.showMessageDialog(null, "aqui");
+                _listaRefaccionesAsignadas.cargarLista(mapaRVOAsignadas);
+            }
+
+            cargarRefaccioneEnListaDisponibles(listRVOCompatibles);
+        }else{
+            mapaDeRefaccionesSeleccionadas.clear();
+            _listaRefaccionesDisponibles.limpiar();
+            _listaRefaccionesAsignadas.limpiar();
+        }
+    }
+    
+    
+//    private class TemporizarCarga{
+//        Runnable operacion;
+//        boolean repetir = false;
+//        Hilo esteHilo;
+//
+//        private TemporizarCarga() {
+//            this.esteHilo = new Hilo();
+//        }
+//
+//        public Runnable getOperacion() {
+//            return operacion;
+//        }
+//
+//        public void setOperacion(Runnable operacion) {
+//            this.operacion = operacion;
+//        }
+//        int contador = 0;
+//        public void ejecutar(){
+//            repetir = true;
+//            contador++;
+//            if (!esteHilo.isAlive()) {
+//                esteHilo = new Hilo();
+//                esteHilo.start();
+//            }
+//        }
+//        
+//        private class Hilo extends Thread{
+//
+//            @Override
+//            public void run() {
+//                try {
+//                    while (repetir) {                    
+//                        repetir = false;
+//                        esteHilo.sleep(100);
+//                    }
+//                operacion.run();
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(PanelSeccionMaquinaRelacionModeloMaquina.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//            
+//        }
+//        
+//    }
 
 }
 
