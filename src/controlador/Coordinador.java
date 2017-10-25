@@ -1166,14 +1166,6 @@ public class Coordinador {
     */
     
     public boolean relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        has un cambio aqui!
->>>>>>> parent of 9694f68... Renombravo variables estaticas!! Ha!!
-=======
-        has un cambio aqui!
->>>>>>> parent of 9694f68... Renombravo variables estaticas!! Ha!!
         setTablaModificada(RelacionRefaccionProveedorIT.NOMBRE_TABLA);
         return this.logica.relacionRefaccionProveedorGuardarLista(listaVo);
     }
