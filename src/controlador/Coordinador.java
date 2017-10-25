@@ -1166,6 +1166,7 @@ public class Coordinador {
     */
     
     public boolean relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
+        has un cambio aqui!
         setTablaModificada(RelacionRefaccionProveedorIT.NOMBRE_TABLA);
         return this.logica.relacionRefaccionProveedorGuardarLista(listaVo);
     }
