@@ -46,17 +46,13 @@ public class RelacionRefaccionMaquinaModeloIT  extends ITGenerales{
         return idMaquinaModeloPDC;
     }
 
-    public void setIdMaquinaModeloPDC(ParametrosDeCampo idMaquinaModeloPDC) {
-        this.idMaquinaModeloPDC = idMaquinaModeloPDC;
-    }
+    
 
     public ParametrosDeCampo getIdRefaccionPDC() {
         return idRefaccionPDC;
     }
 
-    public void setIdRefaccionPDC(ParametrosDeCampo idRefaccionPDC) {
-        this.idRefaccionPDC = idRefaccionPDC;
-    }
+    
     
     
     

@@ -67,13 +67,15 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
     public List<ProveedorVo> consultarProveedores(int id){
         conexion = new Conexion(coordinador);
         List<ProveedorVo> lrrpvo = new ArrayList<>();
+        
         ProveedorIT pit = new ProveedorIT();
-        String sql = 
-               
+        
+        
+        ProveedorIT pit = new ProveedorIT();
+        String sql = "SELECT " +
+                ProveedorIT.NOMBRE_TABLA+"."+
                 
                 
-                
-        return lrrpvo;
     }
     
     

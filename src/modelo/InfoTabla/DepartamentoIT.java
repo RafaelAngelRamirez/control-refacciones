@@ -40,17 +40,13 @@ public class DepartamentoIT extends ITGenerales{
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getDepartamentoPDC() {
         return departamentoPDC;
     }
 
-    public void setDepartamentoPDC(ParametrosDeCampo departamentoPDC) {
-        this.departamentoPDC = departamentoPDC;
-    }
+    
     
     
     

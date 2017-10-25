@@ -51,25 +51,19 @@ public class ImagenProveedorIT extends ITGenerales{
         return idProveedorPDC;
     }
 
-    public void setIdProveedorPDC(ParametrosDeCampo idProveedorPDC) {
-        this.idProveedorPDC = idProveedorPDC;
-    }
+    
 
     public ParametrosDeCampo getNombreParaMostarPDC() {
         return nombreParaMostarPDC;
     }
 
-    public void setNombreParaMostarPDC(ParametrosDeCampo nombreParaMostarPDC) {
-        this.nombreParaMostarPDC = nombreParaMostarPDC;
-    }
+    
 
     public ParametrosDeCampo getNombreServidorPDC() {
         return nombreServidorPDC;
     }
 
-    public void setNombreServidorPDC(ParametrosDeCampo nombreServidorPDC) {
-        this.nombreServidorPDC = nombreServidorPDC;
-    }
+    
     
     
     

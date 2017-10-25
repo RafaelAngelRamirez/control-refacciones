@@ -81,49 +81,37 @@ public class EntradaLoteIT extends ITGenerales{
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getFechaRecepcionLotePDC() {
         return fechaRecepcionLotePDC;
     }
 
-    public void setFechaRecepcionLotePDC(ParametrosDeCampo fechaRecepcionLotePDC) {
-        this.fechaRecepcionLotePDC = fechaRecepcionLotePDC;
-    }
+    
 
     public ParametrosDeCampo getCantidadPDC() {
         return cantidadPDC;
     }
 
-    public void setCantidadPDC(ParametrosDeCampo cantidadPDC) {
-        this.cantidadPDC = cantidadPDC;
-    }
+    
 
     public ParametrosDeCampo getIdRefaccionPDC() {
         return idRefaccionPDC;
     }
 
-    public void setIdRefaccionPDC(ParametrosDeCampo idRefaccionPDC) {
-        this.idRefaccionPDC = idRefaccionPDC;
-    }
+    
 
     public ParametrosDeCampo getIdEmpleadoPDC() {
         return idEmpleadoPDC;
     }
 
-    public void setIdEmpleadoPDC(ParametrosDeCampo idEmpleadoPDC) {
-        this.idEmpleadoPDC = idEmpleadoPDC;
-    }
+    
 
     public ParametrosDeCampo getObservacionesPDC() {
         return observacionesPDC;
     }
 
-    public void setObservacionesPDC(ParametrosDeCampo observacionesPDC) {
-        this.observacionesPDC = observacionesPDC;
-    }
+    
     
     
 }

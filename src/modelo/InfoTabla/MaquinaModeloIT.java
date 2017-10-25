@@ -63,33 +63,25 @@ public class MaquinaModeloIT extends ITGenerales{
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getModeloPDC() {
         return modeloPDC;
     }
 
-    public void setModeloPDC(ParametrosDeCampo modeloPDC) {
-        this.modeloPDC = modeloPDC;
-    }
+    
 
     public ParametrosDeCampo getAnioPDC() {
         return anoPDC;
     }
 
-    public void setAnoPDC(ParametrosDeCampo anoPDC) {
-        this.anoPDC = anoPDC;
-    }
+    
 
     public ParametrosDeCampo getIdProoveedorPDC() {
         return idProoveedorPDC;
     }
 
-    public void setIdProoveedorPDC(ParametrosDeCampo idProoveedorPDC) {
-        this.idProoveedorPDC = idProoveedorPDC;
-    }
+    
     
     
     

@@ -41,17 +41,13 @@ public class MaterialIT extends ITGenerales{
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getMaterialPDC() {
         return materialPDC;
     }
 
-    public void setMaterialPDC(ParametrosDeCampo materialPDC) {
-        this.materialPDC = materialPDC;
-    }
+    
     
     
    

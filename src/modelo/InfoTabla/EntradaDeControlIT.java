@@ -94,57 +94,43 @@ public class EntradaDeControlIT extends ITGenerales{
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getIdRefaccionPDC() {
         return idRefaccionPDC;
     }
 
-    public void setIdRefaccionPDC(ParametrosDeCampo idRefaccionPDC) {
-        this.idRefaccionPDC = idRefaccionPDC;
-    }
+    
 
     public ParametrosDeCampo getIdMaquinaEnLaQueSeUsaraPDC() {
         return idMaquinaEnLaQueSeUsaraPDC;
     }
 
-    public void setIdMaquinaEnLaQueSeUsaraPDC(ParametrosDeCampo idMaquinaEnLaQueSeUsaraPDC) {
-        this.idMaquinaEnLaQueSeUsaraPDC = idMaquinaEnLaQueSeUsaraPDC;
-    }
+    
 
     public ParametrosDeCampo getIdEmpleadoPDC() {
         return idEmpleadoPDC;
     }
 
-    public void setIdEmpleadoPDC(ParametrosDeCampo idEmpleadoPDC) {
-        this.idEmpleadoPDC = idEmpleadoPDC;
-    }
+    
 
     public ParametrosDeCampo getFechaSalidaPDC() {
         return fechaSalidaPDC;
     }
 
-    public void setFechaSalidaPDC(ParametrosDeCampo fechaSalidaPDC) {
-        this.fechaSalidaPDC = fechaSalidaPDC;
-    }
+    
 
     public ParametrosDeCampo getCantidadPDC() {
         return cantidadPDC;
     }
 
-    public void setCantidadPDC(ParametrosDeCampo cantidadPDC) {
-        this.cantidadPDC = cantidadPDC;
-    }
+    
 
     public ParametrosDeCampo getObservacionesPDC() {
         return observacionesPDC;
     }
 
-    public void setObservacionesPDC(ParametrosDeCampo observacionesPDC) {
-        this.observacionesPDC = observacionesPDC;
-    }
+    
     
     
     

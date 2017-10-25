@@ -58,32 +58,24 @@ public class MaquinaIT extends ITGenerales{
         return matriculaPDC;
     }
 
-    public void setMatriculaPDC(ParametrosDeCampo matriculaPDC) {
-        this.matriculaPDC = matriculaPDC;
-    }
+    
     
     public ParametrosDeCampo getIdPDC() {
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getIdMaquinaModeloPDC() {
         return idMaquinaModeloPDC;
     }
 
-    public void setIdMaquinaModeloPDC(ParametrosDeCampo idMaquinaModeloPDC) {
-        this.idMaquinaModeloPDC = idMaquinaModeloPDC;
-    }
+    
     public ParametrosDeCampo getNumeroDeMaquinaPDC() {
         return numeroDeMaquinaPDC;
     }
 
-    public void setNumeroDeMaquinaPDC(ParametrosDeCampo numeroDeMaquinaPDC) {
-        this.numeroDeMaquinaPDC = numeroDeMaquinaPDC;
-    }
+    
     
     
     

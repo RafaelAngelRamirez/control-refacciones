@@ -88,57 +88,43 @@ public class ProveedorIT extends ITGenerales{
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getNombreContactoPDC() {
         return nombreContactoPDC;
     }
 
-    public void setNombreContactoPDC(ParametrosDeCampo nombreContactoPDC) {
-        this.nombreContactoPDC = nombreContactoPDC;
-    }
+    
 
     public ParametrosDeCampo getTelefonoPDC() {
         return telefonoPDC;
     }
 
-    public void setTelefonoPDC(ParametrosDeCampo telefonoPDC) {
-        this.telefonoPDC = telefonoPDC;
-    }
+    
 
     public ParametrosDeCampo getEmailPDC() {
         return emailPDC;
     }
 
-    public void setEmailPDC(ParametrosDeCampo emailPDC) {
-        this.emailPDC = emailPDC;
-    }
+    
 
     public ParametrosDeCampo getEmpresaProveedorPDC() {
         return empresaProveedorePDC;
     }
 
-    public void setEmpresaProveedorePDC(ParametrosDeCampo empresaProveedorePDC) {
-        this.empresaProveedorePDC = empresaProveedorePDC;
-    }
+    
 
     public ParametrosDeCampo getPaginaWebPDC() {
         return paginaWebPDC;
     }
 
-    public void setPaginaWebPDC(ParametrosDeCampo paginaWebPDC) {
-        this.paginaWebPDC = paginaWebPDC;
-    }
+    
 
     public ParametrosDeCampo getIdPaisPDC() {
         return idPaisPDC;
     }
 
-    public void setIdPaisPDC(ParametrosDeCampo idPaisPDC) {
-        this.idPaisPDC = idPaisPDC;
-    }
+    
     
     
     

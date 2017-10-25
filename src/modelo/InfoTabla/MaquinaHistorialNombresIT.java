@@ -50,24 +50,18 @@ public class MaquinaHistorialNombresIT extends ITGenerales{
         return fechaDeCambioPDC;
     }
 
-    public void setFechaDeCambioPDC(ParametrosDeCampo fechaDeCambioPDC) {
-        this.fechaDeCambioPDC = fechaDeCambioPDC;
-    }
+    
     
     public ParametrosDeCampo getIdMaquinaPDC() {
         return idMaquinaPDC;
     }
 
-    public void setIdMaquinaPDC(ParametrosDeCampo idMaquinaPDC) {
-        this.idMaquinaPDC = idMaquinaPDC;
-    }
+    
 
     public ParametrosDeCampo getNombreAnteriorPDC() {
         return nombreAnteriorPDC;
     }
 
-    public void setNombreAnteriorPDC(ParametrosDeCampo nombreAnteriorPDC) {
-        this.nombreAnteriorPDC = nombreAnteriorPDC;
-    }
+    
     
 }

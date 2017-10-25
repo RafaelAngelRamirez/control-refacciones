@@ -43,17 +43,13 @@ private static final ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
         return idProveedorPDC;
     }
 
-    public void setIdProveedorPDC(ParametrosDeCampo idProveedorPDC) {
-        this.idProveedorPDC = idProveedorPDC;
-    }
+    
 
     public ParametrosDeCampo getIdRefaccionPDC() {
         return idRefaccionPDC;
     }
 
-    public void setIdRefaccionPDC(ParametrosDeCampo idRefaccionPDC) {
-        this.idRefaccionPDC = idRefaccionPDC;
-    }
+    
     
     
     

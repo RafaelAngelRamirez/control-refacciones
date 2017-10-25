@@ -43,17 +43,13 @@ public class ImportanciaIT extends ITGenerales{
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getImportanciaPDC() {
         return importanciaPDC;
     }
 
-    public void setImportanciaPDC(ParametrosDeCampo importanciaPDC) {
-        this.importanciaPDC = importanciaPDC;
-    }
+    
     
     
 }

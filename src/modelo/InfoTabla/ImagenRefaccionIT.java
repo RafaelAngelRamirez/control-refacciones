@@ -59,25 +59,19 @@ public class ImagenRefaccionIT extends ITGenerales{
         return nombreServidorPDC;
     }
 
-    public void setNombreServidorPDC(ParametrosDeCampo nombreServidorPDC) {
-        this.nombreServidorPDC = nombreServidorPDC;
-    }
+    
 
     public ParametrosDeCampo getIdRefaccionPDC() {
         return idRefaccionPDC;
     }
 
-    public void setIdRefaccionPDC(ParametrosDeCampo idRefaccionPDC) {
-        this.idRefaccionPDC = idRefaccionPDC;
-    }
+    
 
     public ParametrosDeCampo getNombreParaMostarPDC() {
         return nombreParaMostarPDC;
     }
 
-    public void setNombreParaMostarPDC(ParametrosDeCampo nombreParaMostarPDC) {
-        this.nombreParaMostarPDC = nombreParaMostarPDC;
-    }
+    
     
 //    public String subirImagen(File file){
 //        JOptionPane.showMessageDialog(null, "pendiente subir imagenes.");

@@ -161,104 +161,78 @@ public class RefaccionIT extends ITGenerales{
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getNombrePDC() {
         return nombrePDC;
     }
 
-    public void setNombrePDC(ParametrosDeCampo nombrePDC) {
-        this.nombrePDC = nombrePDC;
-    }
+    
 
     public ParametrosDeCampo getIdMaterialPDC() {
         return idMaterialPDC;
     }
 
-    public void setIdMaterialPDC(ParametrosDeCampo idMaterialPDC) {
-        this.idMaterialPDC = idMaterialPDC;
-    }
+    
 
     public ParametrosDeCampo getImportanciaPDC() {
         return importanciaPDC;
     }
 
-    public void setImportanciaPDC(ParametrosDeCampo importanciaPDC) {
-        this.importanciaPDC = importanciaPDC;
-    }
+    
 
     public ParametrosDeCampo getStockMinimoPDC() {
         return stockMinimoPDC;
     }
 
-    public void setStockMinimoPDC(ParametrosDeCampo stockMinimoPDC) {
-        this.stockMinimoPDC = stockMinimoPDC;
-    }
+    
 
     public ParametrosDeCampo getStockMaximoPDC() {
         return stockMaximoPDC;
     }
 
-    public void setStockMaximoPDC(ParametrosDeCampo stockMaximoPDC) {
-        this.stockMaximoPDC = stockMaximoPDC;
-    }
+    
 
     public ParametrosDeCampo getUnidadPDC() {
         return unidadPDC;
     }
 
-    public void setUnidadPDC(ParametrosDeCampo unidadPDC) {
-        this.unidadPDC = unidadPDC;
-    }
+    
 
     public ParametrosDeCampo getCodigoInternoPDC() {
         return codigoInternoPDC;
     }
 
-    public void setCodigoInternoPDC(ParametrosDeCampo codigoInternoPDC) {
-        this.codigoInternoPDC = codigoInternoPDC;
-    }
+    
 
     public ParametrosDeCampo getCodigoProveedorPDC() {
         return codigoProveedorPDC;
     }
 
-    public void setCodigoProveedorPDC(ParametrosDeCampo codigoProveedorPDC) {
-        this.codigoProveedorPDC = codigoProveedorPDC;
-    }
+    
 
     public ParametrosDeCampo getDescripcionPDC() {
         return descripcionPDC;
     }
 
-    public void setDescripcionPDC(ParametrosDeCampo descripcionPDC) {
-        this.descripcionPDC = descripcionPDC;
-    }
+    
 
     public ParametrosDeCampo getQueEsPDC() {
         return queEsPDC;
     }
 
-    public void setQueEsPDC(ParametrosDeCampo queEsPDC) {
-        this.queEsPDC = queEsPDC;
-    }
+    
 
     public ParametrosDeCampo getParaQueEsPDC() {
         return paraQueEsPDC;
     }
 
-    public void setParaQueEsPDC(ParametrosDeCampo paraQueEsPDC) {
-        this.paraQueEsPDC = paraQueEsPDC;
-    }
+    
 
     public ParametrosDeCampo getRefaccionDeConsumoUnicoPDC() {
         return refaccionDeConsumoUnicoPDC;
     }
 
-    public void setRefaccionDeConsumoUnicoPDC(ParametrosDeCampo refaccionDeConsumoUnicoPDC) {
-        this.refaccionDeConsumoUnicoPDC = refaccionDeConsumoUnicoPDC;
-    }
+    
     
 }

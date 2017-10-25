@@ -43,17 +43,13 @@ public class UnidadIT extends ITGenerales{
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getUnidadPDC() {
         return unidadPDC;
     }
 
-    public void setUnidadPDC(ParametrosDeCampo unidadPDC) {
-        this.unidadPDC = unidadPDC;
-    }
+    
     
     
 }

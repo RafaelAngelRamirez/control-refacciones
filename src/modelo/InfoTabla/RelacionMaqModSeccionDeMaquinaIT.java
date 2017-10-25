@@ -44,16 +44,12 @@ public class RelacionMaqModSeccionDeMaquinaIT extends ITGenerales{
         return idSeccionMaq;
     }
 
-    public void setIdSeccionMaq(ParametrosDeCampo idSeccionMaq) {
-        this.idSeccionMaq = idSeccionMaq;
-    }
+    
 
     public ParametrosDeCampo getIdMaquinaModelo() {
         return idMaquinaModelo;
     }
 
-    public void setIdMaquinaModelo(ParametrosDeCampo idMaquinaModelo) {
-        this.idMaquinaModelo = idMaquinaModelo;
-    }
+    
     
 }

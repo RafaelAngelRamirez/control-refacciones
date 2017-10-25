@@ -77,49 +77,37 @@ public class EmpleadoIT extends ITGenerales{
         return idPDC;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
-    }
+    
 
     public ParametrosDeCampo getNombrePDC() {
         return nombrePDC;
     }
 
-    public void setNombrePDC(ParametrosDeCampo nombrePDC) {
-        this.nombrePDC = nombrePDC;
-    }
+    
 
     public ParametrosDeCampo getIdDepartamentoPDC() {
         return idDepartamentoPDC;
     }
 
-    public void setIdDepartamentoPDC(ParametrosDeCampo idDepartamentoPDC) {
-        this.idDepartamentoPDC = idDepartamentoPDC;
-    }
+    
 
     public ParametrosDeCampo getBajaEmpleadoPDC() {
         return bajaEmpleadoPDC;
     }
 
-    public void setBajaEmpleadoPDC(ParametrosDeCampo bajaEmpleadoPDC) {
-        this.bajaEmpleadoPDC = bajaEmpleadoPDC;
-    }
+    
 
     public ParametrosDeCampo getFechaBaja() {
         return fechaBaja;
     }
 
-    public void setFechaBaja(ParametrosDeCampo fechaBaja) {
-        this.fechaBaja = fechaBaja;
-    }
+    
 
     public ParametrosDeCampo getFechaAlta() {
         return fechaAlta;
     }
 
-    public void setFechaAlta(ParametrosDeCampo fechaAlta) {
-        this.fechaAlta = fechaAlta;
-    }
+    
     
     
     
