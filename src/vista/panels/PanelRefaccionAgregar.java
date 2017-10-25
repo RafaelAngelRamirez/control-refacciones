@@ -27,8 +27,10 @@ import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
+import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
+import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.UnidadVo;
 import org.jdesktop.swingx.JXImageView;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
@@ -52,6 +54,9 @@ public class PanelRefaccionAgregar extends JPanelBase {
     UtilidadesJXViewImage_ _ImagenesRefacciones;
     UtilidadesComboBox_ _ComboUnidad;
     UtilidadesComboBox_ _ComboMaterial;
+
+    UtilidadesListas_ _ListaProveedor;
+    UtilidadesListas_ _ListaProveedorSeleccionado;
     UtilidadesListas_ _ListaMaquinaModelo;
     UtilidadesListas_ _ListasMaquinasSeleccionadas;
     
@@ -104,6 +109,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         etiquetaMaquinas.setText(mmit.getModeloPDC().getNombreParaMostrar());
         etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
         etiquetaParaQueEs.setText(rit.getParaQueEsPDC().getNombreParaMostrar());
+        etiquetaProveedores.setText(pit.getEmpresaProveedorPDC().getNombreParaMostrar());
         etiquetaQueEs.setText(rit.getQueEsPDC().getNombreParaMostrar());
         etiquetaStockMax.setText(rit.getStockMaximoPDC().getNombreParaMostrar());
         etiquetaStockMin.setText(rit.getStockMinimoPDC().getNombreParaMostrar());
@@ -126,6 +132,8 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ComboMaterial = new UtilidadesComboBox_(getCoordinador()) ;
 
 
+        _ListaProveedor = new UtilidadesListas_(getCoordinador());
+        _ListaProveedorSeleccionado = new UtilidadesListas_(getCoordinador());
 
         _ListaMaquinaModelo = new UtilidadesListas_(getCoordinador());
         _ListasMaquinasSeleccionadas = new UtilidadesListas_(getCoordinador());
@@ -149,6 +157,10 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ImagenesRefacciones.setjLabelContador(getEtiquetaContadorImagenes());
         _ComboUnidad.setComponente(getComboUnidad());
         _ComboMaterial.setComponente(getComboMaterial());
+
+        _ListaProveedor.setComponente(getListaProveedores());
+        _ListaProveedorSeleccionado.setComponente(getListaProveedoresSeleccionados());
+        _ListaProveedor.setComponenteListaAAgregar(_ListaProveedorSeleccionado);
 
         _ListaMaquinaModelo.setComponente(getListaMaquinas());
         _ListasMaquinasSeleccionadas.setComponente(getListaMaquinasSeleccionadas());
@@ -239,6 +251,9 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ComboUnidad.setFocusAction(()->guardarUnidad(), false);
         _ComboMaterial.setFocusAction(()->guardarMaterial(), false);
         
+        _ListaProveedor.setValueChange(()->_ListaProveedor.cambioEntreListas(false));
+        _ListaProveedorSeleccionado.setValueChange(()->_ListaProveedor.cambioEntreListas(true));
+
         _ListaMaquinaModelo.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(false));
         _ListasMaquinasSeleccionadas.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(true));
         
@@ -250,6 +265,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         
         //OPERACIONES DE ACTUALIZACION
         
+        opAct.add(ProveedorIT.NOMBRE_TABLA, this::cargarListaProveedor);
         opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaMaquinaModelo);
         opAct.add(UnidadIT.NOMBRE_TABLA, this::cargarComboUnidad);
         opAct.add(MaterialIT.NOMBRE_TABLA, this::cargarComboMaterial);
@@ -283,6 +299,16 @@ public class PanelRefaccionAgregar extends JPanelBase {
         }
     }
     
+    public void cargarListaProveedor(){
+        List<ProveedorVo> lista = this.getCoordinador().proveedoresConsultarMarcas();
+        HashMap<String, Object> datos= new HashMap<>();
+        _ListaProveedor.limpiar();
+        for (ProveedorVo vo : lista) {
+            datos.put(vo.getEmpresa(), vo.getId());
+        }
+        _ListaProveedor.cargarLista(datos);
+    
+    }
     public void cargarListaMaquinaModelo(){
         List<MaquinaModeloVo> lista = this.getCoordinador().maquinaModeloConsultar();
         HashMap<String, Object> datos = new HashMap<>();
@@ -372,6 +398,14 @@ public class PanelRefaccionAgregar extends JPanelBase {
     }
 
 
+    public JButton getBtnAgregarNuevProveedor() {
+        return btnAgregarNuevProveedor;
+    }
+
+    public void setBtnAgregarNuevProveedor(JButton btnAgregarNuevProveedor) {
+        this.btnAgregarNuevProveedor = btnAgregarNuevProveedor;
+    }
+
     public JButton getBtnAgregarNuevaMaquina() {
         return btnAgregarNuevaMaquina;
     }
@@ -434,6 +468,14 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
     public void setComboUnidad(JComboBox<String> comboUnidad) {
         this.comboUnidad = comboUnidad;
+    }
+
+    public JLabel getEtiquetaAsignados() {
+        return etiquetaAsignados;
+    }
+
+    public void setEtiquetaAsignados(JLabel etiquetaAsignados) {
+        this.etiquetaAsignados = etiquetaAsignados;
     }
 
     public JLabel getEtiquetaCodigoDelProveedor() {
@@ -506,6 +548,22 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
     public void setListaMaquinasSeleccionadas(JList<String> listaMaquinasSeleccionadas) {
         this.listaMaquinasSeleccionadas = listaMaquinasSeleccionadas;
+    }
+
+    public JList<String> getListaProveedores() {
+        return listaProveedores;
+    }
+
+    public void setListaProveedores(JList<String> listaProveedores) {
+        this.listaProveedores = listaProveedores;
+    }
+
+    public JList<String> getListaProveedoresSeleccionados() {
+        return listaProveedoresSeleccionados;
+    }
+
+    public void setListaProveedoresSeleccionados(JList<String> listaProveedoresSeleccionados) {
+        this.listaProveedoresSeleccionados = listaProveedoresSeleccionados;
     }
 
     public JRadioButton getRadioAlta() {
@@ -625,6 +683,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         etiquetaCodigoInterno = new javax.swing.JLabel();
         etiquetaDeQueEstaEcho = new javax.swing.JLabel();
         comboMaterial = new javax.swing.JComboBox<>();
+        etiquetaImportancia = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listaMaquinas = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -650,22 +709,20 @@ public class PanelRefaccionAgregar extends JPanelBase {
         txtParaQueEs = new javax.swing.JTextArea();
         etiquetaCodigoDelProveedor = new javax.swing.JLabel();
         txtCodigoDelProveedor = new javax.swing.JTextField();
+        radioAkta = new javax.swing.JRadioButton();
+        radioMedia = new javax.swing.JRadioButton();
+        radioBaja = new javax.swing.JRadioButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(2, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(2, 32767));
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 2), new java.awt.Dimension(0, 2), new java.awt.Dimension(32767, 2));
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(32767, 8));
+        checkEsDeConsumoUnico = new javax.swing.JCheckBox();
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         etiquetaNombreDeLaRefaccion1 = new javax.swing.JLabel();
         txtBusqueda = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        etiquetaImportancia = new javax.swing.JLabel();
-        radioBaja = new javax.swing.JRadioButton();
-        radioMedia = new javax.swing.JRadioButton();
-        radioAkta = new javax.swing.JRadioButton();
-        checkEsDeConsumoUnico = new javax.swing.JCheckBox();
 
         etiquetaNombreDeLaRefaccion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion.setText("Nombre de la refaccion.");
@@ -713,6 +770,11 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
         comboMaterial.setEditable(true);
         comboMaterial.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        etiquetaImportancia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaImportancia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaImportancia.setText("Importancia");
+        etiquetaImportancia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         listaMaquinas.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         listaMaquinas.setFocusable(false);
@@ -819,7 +881,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
                         .addComponent(btnEliminarImagen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregarImagen)))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         imagenViewLayout.setVerticalGroup(
             imagenViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -886,21 +948,15 @@ public class PanelRefaccionAgregar extends JPanelBase {
         txtCodigoDelProveedor.setMinimumSize(new java.awt.Dimension(184, 30));
         txtCodigoDelProveedor.setPreferredSize(new java.awt.Dimension(184, 31));
 
-        etiquetaNombreDeLaRefaccion1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaNombreDeLaRefaccion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_agregar refaccion.png"))); // NOI18N
+        radioBotones.add(radioAkta);
+        radioAkta.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        radioAkta.setText("Alta");
+        radioAkta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        txtBusqueda.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtBusqueda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtBusqueda.setMaximumSize(new java.awt.Dimension(395, 2147483647));
-        txtBusqueda.setMinimumSize(new java.awt.Dimension(395, 35));
-
-        jLabel1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_buscar.png"))); // NOI18N
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
-
-        etiquetaImportancia.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        etiquetaImportancia.setText("IMPORTANCIA");
+        radioBotones.add(radioMedia);
+        radioMedia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        radioMedia.setText("Media");
+        radioMedia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         radioBotones.add(radioBaja);
         radioBaja.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -912,53 +968,19 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
         });
 
-        radioBotones.add(radioMedia);
-        radioMedia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        radioMedia.setText("Media");
-        radioMedia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        radioBotones.add(radioAkta);
-        radioAkta.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        radioAkta.setText("Alta");
-        radioAkta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         checkEsDeConsumoUnico.setFont(new java.awt.Font("Calibri Light", 0, 16)); // NOI18N
         checkEsDeConsumoUnico.setText("Es de consumo único.");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(etiquetaImportancia, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkEsDeConsumoUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioAkta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioMedia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioBaja)
-                .addContainerGap())
-        );
+        etiquetaNombreDeLaRefaccion1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaNombreDeLaRefaccion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_agregar refaccion.png"))); // NOI18N
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {radioAkta, radioBaja, radioMedia});
+        txtBusqueda.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtBusqueda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBusqueda.setMaximumSize(new java.awt.Dimension(395, 2147483647));
+        txtBusqueda.setMinimumSize(new java.awt.Dimension(395, 35));
 
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(etiquetaImportancia)
-                    .addComponent(checkEsDeConsumoUnico)
-                    .addComponent(radioAkta)
-                    .addComponent(radioMedia)
-                    .addComponent(radioBaja))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {checkEsDeConsumoUnico, radioAkta, radioBaja, radioMedia});
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_buscar.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -976,29 +998,48 @@ public class PanelRefaccionAgregar extends JPanelBase {
                                 .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(etiquetaCompatibles, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnAgregarNuevaMaquina))
-                                            .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                                        .addGap(2, 2, 2)
+                                        .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(etiquetaMaquinas)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel1)
+                                                .addGap(2, 2, 2)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(etiquetaMaquinas)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                                                        .addComponent(jLabel1)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(jScrollPane3))
+                                                .addGap(6, 6, 6))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(2, 2, 2)
+                                                        .addComponent(etiquetaCompatibles, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(btnAgregarNuevaMaquina))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jScrollPane4)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                            .addGroup(layout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(etiquetaImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(radioAkta)
+                                                .addGap(9, 9, 9)
+                                                .addComponent(radioMedia)
+                                                .addGap(2, 2, 2)
+                                                .addComponent(radioBaja)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(filler6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
+                        .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(etiquetaCodigoInterno)
@@ -1030,22 +1071,18 @@ public class PanelRefaccionAgregar extends JPanelBase {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(etiquetaParaQueEs)
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(btnCancelar)
-                        .addGap(6, 6, 6)
-                        .addComponent(btnGuardar)))
+                            .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(checkEsDeConsumoUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancelar)
+                                .addGap(6, 6, 6)
+                                .addComponent(btnGuardar)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filler7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane3, jScrollPane4, txtNombreDeLaRefaccion});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(imagenView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1060,87 +1097,92 @@ public class PanelRefaccionAgregar extends JPanelBase {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(etiquetaCodigoInterno)
-                                    .addComponent(etiquetaUnidad))
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12, 12, 12)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(etiquetaStockMin)
-                                    .addComponent(etiquetaStockMax))
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addComponent(etiquetaCodigoDelProveedor))
-                                    .addComponent(etiquetaDeQueEstaEcho))
-                                .addGap(3, 3, 3)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addComponent(txtCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(comboMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12, 12, 12)
-                                .addComponent(etiquetaDescripcion)
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(etiquetaQueEs)
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(etiquetaParaQueEs)
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(11, 11, 11)
+                                .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(filler6, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(etiquetaNombreDeLaRefaccion)
-                                    .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(245, 245, 245)
-                                        .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(etiquetaCodigoInterno)
+                                            .addComponent(etiquetaUnidad))
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(comboUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(12, 12, 12)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(etiquetaStockMin)
+                                            .addComponent(etiquetaStockMax))
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtStockMin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtStockMax, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(3, 3, 3)
+                                                .addComponent(etiquetaCodigoDelProveedor))
+                                            .addComponent(etiquetaDeQueEstaEcho))
+                                        .addGap(3, 3, 3)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(3, 3, 3)
+                                                .addComponent(txtCodigoDelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(comboMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(12, 12, 12)
+                                        .addComponent(etiquetaDescripcion)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(etiquetaQueEs)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(etiquetaParaQueEs)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(etiquetaNombreDeLaRefaccion)
+                                            .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(5, 5, 5)
                                         .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                            .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(etiquetaMaquinas))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(etiquetaCompatibles)
-                                            .addComponent(btnAgregarNuevaMaquina))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(btnCancelar)
-                            .addComponent(btnGuardar)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(filler6, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(etiquetaCompatibles)
+                                                    .addComponent(btnAgregarNuevaMaquina))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(etiquetaImportancia)
+                                            .addComponent(radioAkta)
+                                            .addComponent(radioMedia)
+                                            .addComponent(radioBaja))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnCancelar)
+                                        .addComponent(checkEsDeConsumoUnico))
+                                    .addComponent(btnGuardar))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {etiquetaCompatibles, etiquetaMaquinas, jLabel1, txtBusqueda});
-
     }// </editor-fold>//GEN-END:initComponents
 
     private void listaMaquinasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaMaquinasMouseClicked
@@ -1174,6 +1216,10 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ComboUnidad.setErrorQuitar();
         _ComboMaterial.setErrorQuitar();
 
+
+        _ListaProveedor.setErrorQuitar();
+        _ListaProveedorSeleccionado.setErrorQuitar();
+
         _ListaMaquinaModelo.setErrorQuitar();
         _ListasMaquinasSeleccionadas.setErrorQuitar();
 
@@ -1198,6 +1244,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         //LAS LISTAS QUE CONTENDRAN LOS DATOS PARA LAS MULTIPLES RELACIONES QUE TENEMOS.
         List<ImagenRefaccionVo> listaiVo = new ArrayList<>();
         List<RelacionRefaccionMaquinaModeloVo> listarrmmVo = new ArrayList<>();
+        List<RelacionRefaccionProveedorVo> listarrpVo = new ArrayList<>();
               
         
         //VO DE REFACCION.
@@ -1263,6 +1310,14 @@ public class PanelRefaccionAgregar extends JPanelBase {
             listaiVo.add(vo);
         }
         
+        //CARGAMOS LOS PROVEEDORES QUE VAN A RELACIONARSE CON ESTA REFACCIÓN.
+        List<Object> pSeleccionado = _ListaProveedorSeleccionado.getItems_ObjectsRelacionados();
+        for (Object i : pSeleccionado) {
+            RelacionRefaccionProveedorVo v = new RelacionRefaccionProveedorVo();
+            v.setIdProveedor((int)i);
+            listarrpVo.add(v);
+        }
+        
         
         //VALIDACIONES
         //REFACCION
@@ -1271,6 +1326,9 @@ public class PanelRefaccionAgregar extends JPanelBase {
         //RELACION MAQUINAMODELO
         List<Validacion> valRelacionRMM = 
                 this.getCoordinador().refaccionValidarCamposMaquinaModelo(listarrmmVo);
+        //RELACION PROVEEDOR
+        List<Validacion> valRelacionRP = 
+                this.getCoordinador().refaccionValidarCamposProveedor(listarrpVo);
                 
         //SI ESTA VARIABLE QUEDA EN TRUE QUIERE DECIR QUE TODAS LAS VALIDACIONES
         //PASARON.
@@ -1367,6 +1425,16 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
         }
         
+        //VALIDAMOS PROVEEDOR.
+        for (Validacion v : valRelacionRP) {
+            if (!v.isValido()) {
+                _ListaProveedorSeleccionado.setError(v.getMensajeDeError());
+                todoValido = false;
+            }else{
+                _ListaProveedorSeleccionado.setErrorQuitar();
+            
+            }
+        }
         //VALIDAMOS MAQUINAMODELO
         for (Validacion v : valRelacionRMM) {
             if (!v.isValido()) {
@@ -1397,7 +1465,12 @@ public class PanelRefaccionAgregar extends JPanelBase {
                     rr.setIdRefaccion(idRefaccion);
                 }
 
-                if (this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo)) {
+                for (RelacionRefaccionProveedorVo aa : listarrpVo) {
+                    aa.setIdRefaccion(idRefaccion);
+                }
+
+                if (this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo) 
+                        && this.getCoordinador().relacionRefaccionProveedorGuardarLista(listarrpVo)) {
                     String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
                     if (errorImg!=null) {
                         JOptionPane.showMessageDialog(
@@ -1483,7 +1556,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
     private javax.swing.Box.Filler filler7;
     private org.jdesktop.swingx.JXImageView imagenView;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
