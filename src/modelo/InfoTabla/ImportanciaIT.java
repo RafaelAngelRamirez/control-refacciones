@@ -14,8 +14,8 @@ public class ImportanciaIT extends ITGenerales{
     * El nombre de la tabla en la base de datos. 
     */
     public static final String NOMBRE_TABLA = "importancia";
-    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo importanciaPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo importanciaPDC = new ParametrosDeCampo();
 
     public ImportanciaIT() {
         

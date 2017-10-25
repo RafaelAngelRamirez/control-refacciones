@@ -11,12 +11,12 @@ public class EmpleadoIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "empleado";
     
-    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo nombrePDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idDepartamentoPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo bajaEmpleadoPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo fechaBaja = new ParametrosDeCampo();
-    private static final ParametrosDeCampo fechaAlta = new ParametrosDeCampo();
+    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo nombrePDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idDepartamentoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo bajaEmpleadoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo fechaBaja = new ParametrosDeCampo();
+    private ParametrosDeCampo fechaAlta = new ParametrosDeCampo();
 
     public EmpleadoIT() {
         

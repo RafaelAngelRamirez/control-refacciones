@@ -10,8 +10,8 @@ public class DepartamentoIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "departamento";
     
-    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo departamentoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo departamentoPDC = new ParametrosDeCampo();
 
     public DepartamentoIT() {
         

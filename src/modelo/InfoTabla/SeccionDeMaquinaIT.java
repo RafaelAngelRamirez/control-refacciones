@@ -16,8 +16,8 @@ public class SeccionDeMaquinaIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "secciondemaquina";
     
-    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo nombreSeccionPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo nombreSeccionPDC = new ParametrosDeCampo();
  
 
     public SeccionDeMaquinaIT() {

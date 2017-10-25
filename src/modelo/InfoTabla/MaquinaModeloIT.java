@@ -15,10 +15,10 @@ public class MaquinaModeloIT extends ITGenerales{
     * El nombre de la tabla en la base de datos. 
     */
     public static final String NOMBRE_TABLA = "maquinamodelo";
-    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo modeloPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo anoPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idProoveedorPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo modeloPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo anoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idProoveedorPDC = new ParametrosDeCampo();
 
     public MaquinaModeloIT() {
        

@@ -16,8 +16,8 @@ public class RelacionSeccionMaqRefaccionIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "relacionseccionmaqrefaccion";
     
-    private static final ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idSeccionMaquinaPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idSeccionMaquinaPDC = new ParametrosDeCampo();
 
     public RelacionSeccionMaqRefaccionIT() {
         idRefaccionPDC.setNombre("idRefaccion");

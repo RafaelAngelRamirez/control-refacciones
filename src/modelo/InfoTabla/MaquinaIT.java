@@ -6,10 +6,10 @@ public class MaquinaIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "maquina";
     
-    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idMaquinaModeloPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo numeroDeMaquinaPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo matriculaPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idMaquinaModeloPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo numeroDeMaquinaPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo matriculaPDC = new ParametrosDeCampo();
 
     public MaquinaIT() {
         

@@ -15,13 +15,13 @@ public class ProveedorIT extends ITGenerales{
      */
     public static final String NOMBRE_TABLA = "proveedor";
     
-    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo nombreContactoPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo telefonoPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo emailPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo empresaProveedorePDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo paginaWebPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idPaisPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo nombreContactoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo telefonoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo emailPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo empresaProveedorePDC = new ParametrosDeCampo();
+    private ParametrosDeCampo paginaWebPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idPaisPDC = new ParametrosDeCampo();
     
     public ProveedorIT() {
     

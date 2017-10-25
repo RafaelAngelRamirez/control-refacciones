@@ -21,9 +21,9 @@ import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.vo.ImagenRefaccionVo;
-import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
+import modelo.vo.RelacionRefaccionProveedorVo;
 import org.jdesktop.swingx.JXImageView;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
@@ -303,10 +303,10 @@ public class PanelRefaccionDetalle extends JPanelBase {
     public void cargarProveedores(){
         _ListaProveedor.limpiar();
         if (idRefaccion!=-1) {
-            List<ProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
+            List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
             HashMap<String, Object> pvoMapa = new HashMap<>();
-            for (ProveedorVo vo : lpvo) {
-                pvoMapa.put(vo.getEmpresa(), vo);
+            for (RelacionRefaccionProveedorVo vo : lpvo) {
+                pvoMapa.put(vo.getProveedorVo().getEmpresa(), vo.getIdProveedor());
             }
             _ListaProveedor.cargarLista(pvoMapa);
         }

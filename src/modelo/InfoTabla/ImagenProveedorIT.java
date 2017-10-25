@@ -11,9 +11,9 @@ public class ImagenProveedorIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "imagenproveedor";
     
-    private static final ParametrosDeCampo idProveedorPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo nombreParaMostarPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo nombreServidorPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idProveedorPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo nombreParaMostarPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo nombreServidorPDC = new ParametrosDeCampo();
 
     public ImagenProveedorIT() {
         

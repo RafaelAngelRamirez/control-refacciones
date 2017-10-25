@@ -15,13 +15,13 @@ public class EntradaDeControlIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "entradadecontrol";
     
-    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idMaquinaEnLaQueSeUsaraPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idEmpleadoPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo fechaSalidaPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo cantidadPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo observacionesPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idMaquinaEnLaQueSeUsaraPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idEmpleadoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo fechaSalidaPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo cantidadPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo observacionesPDC = new ParametrosDeCampo();
 
     public EntradaDeControlIT() {
         

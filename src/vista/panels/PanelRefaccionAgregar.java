@@ -60,7 +60,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
     UtilidadesTxt_ _TxtStockMin;
     UtilidadesTxt_ _TxtStockMax;
     UtilidadesTxt_ _TxtCodigoDelProveedor;
-    UtilidadesTxt_ _txtBusqueda;
     
     UtilidadesTxtArea_ _TxtDescripcion;
     UtilidadesTxtArea_ _TxtQueEs;
@@ -140,7 +139,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _TxtDescripcion = new UtilidadesTxtArea_(getCoordinador());
         _TxtQueEs = new UtilidadesTxtArea_(getCoordinador());
         _TxtParaQueEs = new UtilidadesTxtArea_(getCoordinador());
-        _txtBusqueda = new UtilidadesTxt_(getCoordinador());
         
         _RadioImportancia = new UtilidadesRadio_(getCoordinador());
         
@@ -165,7 +163,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _TxtDescripcion.setComponente(getTxtDescripcion());
         _TxtQueEs.setComponente(getTxtQueEs());
         _TxtParaQueEs.setComponente(getTxtParaQueEs());
-        _txtBusqueda.setComponente(txtBusqueda);
         
         _RadioImportancia.setComponente(getRadioAlta());
         _RadioImportancia.setComponente(getRadioBaja());
@@ -244,6 +241,8 @@ public class PanelRefaccionAgregar extends JPanelBase {
         
         _ListaMaquinaModelo.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(false));
         _ListasMaquinasSeleccionadas.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(true));
+        
+        
         
         //ACCIONES DE BOTONES
         UtilidadesBotones_.setEnterYEspacio(btnCancelar);

@@ -5,6 +5,8 @@
  */
 package modelo.InfoTabla;
 
+import java.util.List;
+
 /**
  *
  * @author Rafael Ramírez
@@ -14,21 +16,21 @@ public class RefaccionIT extends ITGenerales{
     /**
     * El nombre de la tabla en la base de datos. 
     */
-    public final String NOMBRE_TABLA = "refaccion";
+    public static final String NOMBRE_TABLA = "refaccion";
     
-    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo nombrePDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idMaterialPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo importanciaPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo stockMinimoPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo stockMaximoPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo unidadPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo codigoInternoPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo codigoProveedorPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo descripcionPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo queEsPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo paraQueEsPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo refaccionDeConsumoUnicoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo nombrePDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idMaterialPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo importanciaPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo stockMinimoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo stockMaximoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo unidadPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo codigoInternoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo codigoProveedorPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo descripcionPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo queEsPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo paraQueEsPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo refaccionDeConsumoUnicoPDC = new ParametrosDeCampo();
 
     public RefaccionIT() {
     

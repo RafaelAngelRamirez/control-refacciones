@@ -11,12 +11,12 @@ public class EntradaLoteIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "entradalote";
     
-    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo fechaRecepcionLotePDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo cantidadPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo idEmpleadoPDC = new ParametrosDeCampo();
-    private static final ParametrosDeCampo observacionesPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo fechaRecepcionLotePDC = new ParametrosDeCampo();
+    private ParametrosDeCampo cantidadPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo idEmpleadoPDC = new ParametrosDeCampo();
+    private ParametrosDeCampo observacionesPDC = new ParametrosDeCampo();
 
     public EntradaLoteIT() {
         idPDC.setNombre("id");

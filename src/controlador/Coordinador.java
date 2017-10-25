@@ -442,14 +442,14 @@ public class Coordinador {
     
     
     /**
-     * Consulta todos los proveedores que esten relacionados con el id de la 
-     * refacción que se le pase como parametro.  
-     * @param id El id de refacción del que se quiere obtener las máquinas relacionadas.
+     * Consulta toda la lista de proveedores y retorna solo el campo empresa 
+     * filtrando las coincidencias con el id que se le pase como parametro.  
+     * @param id El id que se quiere filtrar en la tabla. 
      * @return La lista de relaciones entre una refacción y un proveedor dentro de un 
      * clase para ello.
      * @see RelacionRefaccionProveedorVo
      */
-    public List<ProveedorVo> proveedoresConsultarMarcas(int id){
+    public List<RelacionRefaccionProveedorVo> proveedoresConsultarMarcas(int id){
         return this.logica.proveedorConsultarMarcas(id);
     }
     
@@ -1166,7 +1166,7 @@ public class Coordinador {
     */
     
     public boolean relacionRefaccionProveedorGuardarLista(List<RelacionRefaccionProveedorVo> listaVo){
-//        has un cambio aqui!
+        has un cambio aqui!
         setTablaModificada(RelacionRefaccionProveedorIT.NOMBRE_TABLA);
         return this.logica.relacionRefaccionProveedorGuardarLista(listaVo);
     }
