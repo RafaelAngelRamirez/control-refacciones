@@ -19,9 +19,9 @@ public class ImagenRefaccionIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "imagenRefaccion";
     
-    private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreParaMostarPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreServidorPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo nombreParaMostarPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo nombreServidorPDC = new ParametrosDeCampo();
 
     public ImagenRefaccionIT() {
         

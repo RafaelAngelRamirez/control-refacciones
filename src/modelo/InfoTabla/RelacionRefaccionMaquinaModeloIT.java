@@ -17,8 +17,8 @@ public class RelacionRefaccionMaquinaModeloIT  extends ITGenerales{
     
 
     
-    private ParametrosDeCampo idMaquinaModeloPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idMaquinaModeloPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
 
     public RelacionRefaccionMaquinaModeloIT() {
         

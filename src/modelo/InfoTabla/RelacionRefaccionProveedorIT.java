@@ -12,8 +12,8 @@ package modelo.InfoTabla;
 public class RelacionRefaccionProveedorIT extends ITGenerales{
     
 public static final String NOMBRE_TABLA = "relacionrefaccionproveedor";    
-private ParametrosDeCampo idProveedorPDC = new ParametrosDeCampo();
-private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
+private static final ParametrosDeCampo idProveedorPDC = new ParametrosDeCampo();
+private static final ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
 
     public RelacionRefaccionProveedorIT() {
         

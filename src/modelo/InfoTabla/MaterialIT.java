@@ -15,8 +15,8 @@ public class MaterialIT extends ITGenerales{
      * El nombre de la tabla en la base de datos. 
      */
     public static final String NOMBRE_TABLA = "material";
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo materialPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo materialPDC = new ParametrosDeCampo();
 
     public MaterialIT() {
         

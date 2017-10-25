@@ -16,8 +16,8 @@ public class RelacionMaqModSeccionDeMaquinaIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "relacionmaqmodsecciondemaquina";
     
-    private ParametrosDeCampo idSeccionMaq = new ParametrosDeCampo();
-    private ParametrosDeCampo idMaquinaModelo = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idSeccionMaq = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idMaquinaModelo = new ParametrosDeCampo();
 
     public RelacionMaqModSeccionDeMaquinaIT() {
         idSeccionMaq.setNombre("idSeccionMaq");

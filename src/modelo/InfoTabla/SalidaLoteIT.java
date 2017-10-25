@@ -11,13 +11,13 @@ public class SalidaLoteIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "salidalote";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo fechaSalidaLotePDC = new ParametrosDeCampo();
-    private ParametrosDeCampo cantidadPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idEmpleadoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo observacionesPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idLotePDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo fechaSalidaLotePDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo cantidadPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idEmpleadoPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo observacionesPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idLotePDC = new ParametrosDeCampo();
     
 
     public SalidaLoteIT() {

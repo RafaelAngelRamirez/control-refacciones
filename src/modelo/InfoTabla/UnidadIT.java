@@ -14,8 +14,8 @@ public class UnidadIT extends ITGenerales{
     * El nombre de la tabla en la base de datos. 
     */
     public static final String NOMBRE_TABLA = "unidad";
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo unidadPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo unidadPDC = new ParametrosDeCampo();
 
     public UnidadIT() {
         

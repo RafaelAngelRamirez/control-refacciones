@@ -12,8 +12,8 @@ package modelo.InfoTabla;
 public class PaisIT extends ITGenerales{
     public static final String NOMBRE_TABLA = "pais";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo paisPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo paisPDC = new ParametrosDeCampo();
 
     public PaisIT() {
         

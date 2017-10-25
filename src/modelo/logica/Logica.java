@@ -128,13 +128,14 @@ public class Logica {
     }
     
     /**
-     * Consulta la lista de todos los proveedores y solo devuelve al proveedor-
-     * empresa que se filtre como parametro.
-     * 
-     * @param id El id del proveedor a filtrar. 
-     * @return La lista coincidente de proveedores.
+     * Consulta todos los proveedores que esten relacionados con el id de la 
+     * refacción que se le pase como parametro.  
+     * @param id El id de refacción del que se quiere obtener las máquinas relacionadas.
+     * @return La lista de relaciones entre una refacción y un proveedor dentro de un 
+     * clase para ello.
+     * @see RelacionRefaccionProveedorVo
      */
-    public List<RelacionRefaccionProveedorVo> proveedorConsultarMarcas(int id){
+    public List<ProveedorVo> proveedorConsultarMarcas(int id){
         RelacionRefaccionProveedorDao dao = new RelacionRefaccionProveedorDao(coordinador);
         return dao.consultarProveedores(id);
         

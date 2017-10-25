@@ -13,9 +13,9 @@ public class MaquinaHistorialNombresIT extends ITGenerales{
     
     public static final String NOMBRE_TABLA = "maquinahistorialnombres";
     
-    private ParametrosDeCampo idMaquinaPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreAnteriorPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo fechaDeCambioPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo idMaquinaPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo nombreAnteriorPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo fechaDeCambioPDC = new ParametrosDeCampo();
 
     public MaquinaHistorialNombresIT() {
         
