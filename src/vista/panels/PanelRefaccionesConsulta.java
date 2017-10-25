@@ -6,6 +6,7 @@
 package vista.panels;
 
 import controlador.CoordinadorPaneles;
+import controlador.RetrasarEjecucionDeOperacion;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
@@ -98,7 +99,11 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         
 
         //ACCIONES ESPECIALES.
-            _TxtFiltrarRefaccion.setKeyRelease(()->busqueda(), OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
+        
+        RetrasarEjecucionDeOperacion retrasarBusqueda = new RetrasarEjecucionDeOperacion(this);
+        retrasarBusqueda.setOperacion(this::busqueda);
+        
+            _TxtFiltrarRefaccion.setKeyRelease(retrasarBusqueda::ejecutar, OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
             _TablaRefacciones.setDobleClick(()->this.mostrarDetalleRefaccion());
         
         
