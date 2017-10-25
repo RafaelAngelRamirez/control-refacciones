@@ -1,10 +1,10 @@
 
 package modelo.InfoTabla;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import controlador.capturadeerrores.ExcepcionPersonalizada;
 /**
  * Esta clase maneja guarda los parametros del campo que tienen que coincidir 
  * con los de la base de datos. 
@@ -52,6 +52,9 @@ public class ParametrosDeCampo {
      * 
      * @param nombre El nombre del campo como esta en la base de datos. 
      */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     
 
     public String getNombreParaMostrar() {
@@ -62,12 +65,18 @@ public class ParametrosDeCampo {
      * Nombre para mostrar del campo. Definir como se quiere mostrar. 
      * @param nombreParaMostrar El nombre que se mostrara al usuario. 
      */
+    public void setNombreParaMostrar(String nombreParaMostrar) {
+        this.nombreParaMostrar = nombreParaMostrar;
+    }
     
 
     public List<String> getTiposDeDatoEnLaBD() {
         return tiposDeDatoEnLaBD;
     }
 
+    public void setTiposDeDatoEnLaBD(List<String> tiposDeDatoEnLaBD) {
+        this.tiposDeDatoEnLaBD = tiposDeDatoEnLaBD;
+    }
     
     
     
@@ -96,6 +105,9 @@ public class ParametrosDeCampo {
      * Longitud del campo como se definio en la bae de datos. 
      * @param longitudDeCaracteres La longitud de los caracteres que se definieron en la base de datos. 
      */
+    public void setLongitudDeCaracteres(int longitudDeCaracteres) {
+        this.longitudDeCaracteres = longitudDeCaracteres;
+    }
     
     
     /**
@@ -148,7 +160,9 @@ public class ParametrosDeCampo {
      * de este tipo.
      * @param longitudDeDecimales La longitud de los decimales que se definieron en la base de datos. 
      */
-    
+    public void setLongitudDeDecimales(int longitudDeDecimales) {
+        try{
+            if(this.tipoDeDatos == null){
                 throw new ExcepcionPersonalizada(
                         "No has definido el tipo de dato del campo.",
                         this,
@@ -203,9 +217,11 @@ public class ParametrosDeCampo {
 
     /**
      * Tipo de datos para el campo definido en la tabla. 
-     * @param tipoDeDatos Define el tipo de datos que aceptara. 
+     * @param tipoDeDatos
      */
-    
+    public void setTipoDeDatos(String tipoDeDatos) {
+        if (!this.tiposDeDatoEnLaBD.contains(tipoDeDatos)) {
+            try {
                 throw new ExcepcionPersonalizada(
                         "El tipo de datos '"+tipoDeDatos+"' no existe. \n"
                                 + "Si es un error por favor corrige la clase ParametrosDeCampo",
@@ -242,7 +258,9 @@ public class ParametrosDeCampo {
      *Permite valores nulos dentro de la tabla. 
      * @param nulo True si se permite nulo. 
      */
-    
+    public void setNulo(boolean nulo) {
+        if (autoIncrement && nulo) {
+            try {
                 throw new ExcepcionPersonalizada(
                         "El campo esta definido como autoincrement y no puede ser nulo.",
                         this,
@@ -278,7 +296,9 @@ public class ParametrosDeCampo {
      * La columna esta definida como autoincrement. 
      * @param autoIncrement True para definir como autoincrement. 
      */
-    
+    public void setAutoIncrement(boolean autoIncrement) {
+        if (autoIncrement && nulo) {
+            try {
                 throw new ExcepcionPersonalizada(
                         "El campo esta definido como null y no puede ser autoincrement.",
                         this,
@@ -294,6 +314,9 @@ public class ParametrosDeCampo {
         return permiteRepetido;
     }
 
+    public void setPermiteRepetido(boolean permiteRepetido) {
+        this.permiteRepetido = permiteRepetido;
+    }
     
     
 }

@@ -109,7 +109,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         etiquetaMaquinas.setText(mmit.getModeloPDC().getNombreParaMostrar());
         etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
         etiquetaParaQueEs.setText(rit.getParaQueEsPDC().getNombreParaMostrar());
-        etiquetaProveedores.setText(pit.getEmpresaProveedorPDC().getNombreParaMostrar());
         etiquetaQueEs.setText(rit.getQueEsPDC().getNombreParaMostrar());
         etiquetaStockMax.setText(rit.getStockMaximoPDC().getNombreParaMostrar());
         etiquetaStockMin.setText(rit.getStockMinimoPDC().getNombreParaMostrar());
@@ -132,8 +131,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ComboMaterial = new UtilidadesComboBox_(getCoordinador()) ;
 
 
-        _ListaProveedor = new UtilidadesListas_(getCoordinador());
-        _ListaProveedorSeleccionado = new UtilidadesListas_(getCoordinador());
 
         _ListaMaquinaModelo = new UtilidadesListas_(getCoordinador());
         _ListasMaquinasSeleccionadas = new UtilidadesListas_(getCoordinador());
@@ -157,10 +154,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ImagenesRefacciones.setjLabelContador(getEtiquetaContadorImagenes());
         _ComboUnidad.setComponente(getComboUnidad());
         _ComboMaterial.setComponente(getComboMaterial());
-
-        _ListaProveedor.setComponente(getListaProveedores());
-        _ListaProveedorSeleccionado.setComponente(getListaProveedoresSeleccionados());
-        _ListaProveedor.setComponenteListaAAgregar(_ListaProveedorSeleccionado);
 
         _ListaMaquinaModelo.setComponente(getListaMaquinas());
         _ListasMaquinasSeleccionadas.setComponente(getListaMaquinasSeleccionadas());
@@ -251,9 +244,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ComboUnidad.setFocusAction(()->guardarUnidad(), false);
         _ComboMaterial.setFocusAction(()->guardarMaterial(), false);
         
-        _ListaProveedor.setValueChange(()->_ListaProveedor.cambioEntreListas(false));
-        _ListaProveedorSeleccionado.setValueChange(()->_ListaProveedor.cambioEntreListas(true));
-
         _ListaMaquinaModelo.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(false));
         _ListasMaquinasSeleccionadas.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(true));
         
@@ -265,7 +255,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         
         //OPERACIONES DE ACTUALIZACION
         
-        opAct.add(ProveedorIT.NOMBRE_TABLA, this::cargarListaProveedor);
         opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaMaquinaModelo);
         opAct.add(UnidadIT.NOMBRE_TABLA, this::cargarComboUnidad);
         opAct.add(MaterialIT.NOMBRE_TABLA, this::cargarComboMaterial);
@@ -398,14 +387,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
     }
 
 
-    public JButton getBtnAgregarNuevProveedor() {
-        return btnAgregarNuevProveedor;
-    }
-
-    public void setBtnAgregarNuevProveedor(JButton btnAgregarNuevProveedor) {
-        this.btnAgregarNuevProveedor = btnAgregarNuevProveedor;
-    }
-
     public JButton getBtnAgregarNuevaMaquina() {
         return btnAgregarNuevaMaquina;
     }
@@ -470,13 +451,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         this.comboUnidad = comboUnidad;
     }
 
-    public JLabel getEtiquetaAsignados() {
-        return etiquetaAsignados;
-    }
-
-    public void setEtiquetaAsignados(JLabel etiquetaAsignados) {
-        this.etiquetaAsignados = etiquetaAsignados;
-    }
 
     public JLabel getEtiquetaCodigoDelProveedor() {
         return etiquetaCodigoDelProveedor;
@@ -550,21 +524,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         this.listaMaquinasSeleccionadas = listaMaquinasSeleccionadas;
     }
 
-    public JList<String> getListaProveedores() {
-        return listaProveedores;
-    }
-
-    public void setListaProveedores(JList<String> listaProveedores) {
-        this.listaProveedores = listaProveedores;
-    }
-
-    public JList<String> getListaProveedoresSeleccionados() {
-        return listaProveedoresSeleccionados;
-    }
-
-    public void setListaProveedoresSeleccionados(JList<String> listaProveedoresSeleccionados) {
-        this.listaProveedoresSeleccionados = listaProveedoresSeleccionados;
-    }
 
     public JRadioButton getRadioAlta() {
         return radioAkta;
@@ -1469,8 +1428,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
                     aa.setIdRefaccion(idRefaccion);
                 }
 
-                if (this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo) 
-                        && this.getCoordinador().relacionRefaccionProveedorGuardarLista(listarrpVo)) {
+                if (this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo)) {
                     String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
                     if (errorImg!=null) {
                         JOptionPane.showMessageDialog(
