@@ -40,8 +40,8 @@ public class SeccionDeMaquinaDAO extends DAOGenerales{
         try {
             while (r.next()) {
                 SeccionDeMaquinaVO vo = new SeccionDeMaquinaVO();
-                vo.setId(r.getInt(it.getIdPDC().getNombre()));
-                vo.setNombreSeccion(r.getString(it.getNombreSeccionPDC().getNombre()));
+                vo.setId(r.getInt(it.getID().getNombre()));
+                vo.setNombreSeccion(r.getString(it.getNOMBRE_SECCION().getNombre()));
                 list.add(vo);
             }
         } catch (SQLException ex) {
@@ -68,7 +68,7 @@ public class SeccionDeMaquinaDAO extends DAOGenerales{
      */
     public int ultimoId() {
         conexion = new Conexion(coordinador);
-        String sql = "SELECT MAX("+it.getIdPDC().getNombre()+") FROM " 
+        String sql = "SELECT MAX("+it.getID().getNombre()+") FROM " 
                 +SeccionDeMaquinaIT.NOMBRE_TABLA;
         ResultSet r = conexion.executeQuery(sql);
         try {

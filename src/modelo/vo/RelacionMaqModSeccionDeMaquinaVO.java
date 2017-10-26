@@ -18,8 +18,8 @@ public class RelacionMaqModSeccionDeMaquinaVO extends VoGenerales{
 
     public RelacionMaqModSeccionDeMaquinaVO() {
         RelacionMaqModSeccionDeMaquinaIT i = new RelacionMaqModSeccionDeMaquinaIT();
-        relacionCampo.put(i.getIdSeccionMaq().getNombreParaMostrar(), this::getIdSeccionMaq);
-        relacionCampo.put(i.getIdMaquinaModelo().getNombre(), this::getIdMaquinaModelo);
+        relacionCampo.put(i.getID_SECCION_MAQ().getNombreParaMostrar(), this::getIdSeccionMaq);
+        relacionCampo.put(i.getID_MAQUINA_MODELO().getNombre(), this::getIdMaquinaModelo);
     }
 
     public int getIdSeccionMaq() {

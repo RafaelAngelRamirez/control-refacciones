@@ -14,8 +14,8 @@ public class DepartamentoVo extends VoGenerales{
     public DepartamentoVo() {
         DepartamentoIT i = new DepartamentoIT();
         
-        relacionCampo.put(i.getIdPDC().getNombre(), ()->this.getId());
-        relacionCampo.put(i.getDepartamentoPDC().getNombre(), ()->this.getDepartamento());
+        relacionCampo.put(i.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(i.getDEPARTAMENTO().getNombre(), ()->this.getDepartamento());
                 
     
     }

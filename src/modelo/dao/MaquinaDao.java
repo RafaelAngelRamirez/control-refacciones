@@ -40,11 +40,11 @@ public class MaquinaDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         MaquinaModeloIT mmit = new MaquinaModeloIT();
         String sql = "SELECT "+
-                MaquinaIT.NOMBRE_TABLA+"."+it.getIdPDC().getNombre()+", "+
-                MaquinaIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre()+", "+
-                MaquinaIT.NOMBRE_TABLA+"."+it.getNumeroDeMaquinaPDC().getNombre()+", "+
-                MaquinaIT.NOMBRE_TABLA+"."+it.getMatriculaPDC().getNombre()+", "+
-                MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getModeloPDC().getNombre()+", "+
+                MaquinaIT.NOMBRE_TABLA+"."+it.getID().getNombre()+", "+
+                MaquinaIT.NOMBRE_TABLA+"."+it.getID_MAQUINA_MODELO().getNombre()+", "+
+                MaquinaIT.NOMBRE_TABLA+"."+it.getNUMERO_DE_MAQUINA().getNombre()+", "+
+                MaquinaIT.NOMBRE_TABLA+"."+it.getMATRICULA().getNombre()+", "+
+                MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getMODELO().getNombre()+", "+
                 MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getAnioPDC().getNombre()
                 
                 +" FROM "+
@@ -52,22 +52,22 @@ public class MaquinaDao extends DAOGenerales{
                 +" INNER JOIN " + 
                 MaquinaModeloIT.NOMBRE_TABLA
                 +" ON "+
-                MaquinaIT.NOMBRE_TABLA+"."+it.getIdMaquinaModeloPDC().getNombre() 
+                MaquinaIT.NOMBRE_TABLA+"."+it.getID_MAQUINA_MODELO().getNombre() 
                 +"="+
-                MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getIdPDC().getNombre();
+                MaquinaModeloIT.NOMBRE_TABLA+"."+mmit.getID().getNombre();
         
         ResultSet r = conexion.executeQuery(sql);
         List<MaquinaVo> listVo = new ArrayList<>();
         try {
             while (r.next()) {
                 MaquinaVo vo = new MaquinaVo();
-                vo.setId(r.getInt(it.getIdPDC().getNombre()));
+                vo.setId(r.getInt(it.getID().getNombre()));
                 vo.setIdMaquinaModelo(
-                        r.getObject(mmit.getModeloPDC().getNombre())+" "+
+                        r.getObject(mmit.getMODELO().getNombre())+" "+
                         r.getObject(mmit.getAnioPDC().getNombre())
                 );
-                vo.setNumeroDeMáquina(r.getString(it.getNumeroDeMaquinaPDC().getNombre()));
-                vo.setMatricula(r.getString(it.getMatriculaPDC().getNombre()));
+                vo.setNumeroDeMáquina(r.getString(it.getNUMERO_DE_MAQUINA().getNombre()));
+                vo.setMatricula(r.getString(it.getMATRICULA().getNombre()));
                 listVo.add(vo);
             }
         } catch (SQLException ex) {
@@ -86,7 +86,7 @@ public class MaquinaDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "DELETE FROM " + MaquinaIT.NOMBRE_TABLA 
                +" WHERE "+
-               it.getIdPDC().getNombre()+" = ?";
+               it.getID().getNombre()+" = ?";
         
         return conexion.executeUpdate(sql, vo.getId());
     }
@@ -105,7 +105,7 @@ public class MaquinaDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "SELECT COUNT(*) FROM " + MaquinaIT.NOMBRE_TABLA
                 +" WHERE "+
-                it.getNumeroDeMaquinaPDC().getNombre() +" = ?";
+                it.getNUMERO_DE_MAQUINA().getNombre() +" = ?";
         
         ResultSet r = conexion.executeQuery(sql, vo.getNumeroDeMáquina());
         try {
@@ -128,9 +128,9 @@ public class MaquinaDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "SELECT COUNT(*) FROM " + MaquinaIT.NOMBRE_TABLA
                 + " WHERE "+
-                it.getIdPDC().getNombre()+" <> ?"
+                it.getID().getNombre()+" <> ?"
                 + " AND "+
-                it.getNumeroDeMaquinaPDC().getNombre() +" = ?";
+                it.getNUMERO_DE_MAQUINA().getNombre() +" = ?";
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getId());
         mapa.put(2, vo.getNumeroDeMáquina());
@@ -158,10 +158,10 @@ public class MaquinaDao extends DAOGenerales{
         
         String sql = "UPDATE " + MaquinaIT.NOMBRE_TABLA
                 +" SET "+
-                it.getNumeroDeMaquinaPDC().getNombre() + "=?, "+
-                it.getIdMaquinaModeloPDC().getNombre() + "=? "
+                it.getNUMERO_DE_MAQUINA().getNombre() + "=?, "+
+                it.getID_MAQUINA_MODELO().getNombre() + "=? "
                 +" WHERE "+
-                it.getIdPDC().getNombre() +" =?";
+                it.getID().getNombre() +" =?";
         
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getNumeroDeMáquina());
@@ -199,7 +199,7 @@ public class MaquinaDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "SELECT COUNT(*) FROM "+MaquinaIT.NOMBRE_TABLA 
                 +" WHERE "+
-                it.getMatriculaPDC().getNombre() +" = ?";
+                it.getMATRICULA().getNombre() +" = ?";
         
         ResultSet r = conexion.executeQuery(sql, vo.getMatricula());
         try {
@@ -222,7 +222,7 @@ public class MaquinaDao extends DAOGenerales{
         try {
             String sql = "SELECT COUNT(*) FROM " + MaquinaIT.NOMBRE_TABLA
                     +" WHERE "+
-                    it.getMatriculaPDC().getNombre() +"<> ?";
+                    it.getMATRICULA().getNombre() +"<> ?";
             ResultSet r = conexion.executeQuery(sql, vo.getMatricula());
             r.next();
             return r.getInt(1)>0;

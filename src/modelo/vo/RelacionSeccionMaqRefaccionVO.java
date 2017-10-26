@@ -19,8 +19,8 @@ public class RelacionSeccionMaqRefaccionVO extends VoGenerales{
     public RelacionSeccionMaqRefaccionVO() {
         RelacionSeccionMaqRefaccionIT i = new RelacionSeccionMaqRefaccionIT();
         
-        relacionCampo.put(i.getIdRefaccionPDC().getNombre(), this::getIdRefaccion);
-        relacionCampo.put(i.getIdSeccionMaquinaPDC().getNombre(), this::getIdSeccionMaquina);
+        relacionCampo.put(i.getID_REFACCION().getNombre(), this::getIdRefaccion);
+        relacionCampo.put(i.getID_SECCION_MAQUINA().getNombre(), this::getIdSeccionMaquina);
     
     }
 

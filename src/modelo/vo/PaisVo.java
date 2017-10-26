@@ -18,8 +18,8 @@ public class PaisVo extends VoGenerales{
 
     public PaisVo() {
         PaisIT iT = new PaisIT();
-        relacionCampo.put(iT.getIdPDC().getNombre(), ()->this.getId());
-        relacionCampo.put(iT.getPaisPDC().getNombre(), ()->this.getPais());
+        relacionCampo.put(iT.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(iT.getPAIS().getNombre(), ()->this.getPais());
     
     }
 

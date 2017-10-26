@@ -1,5 +1,11 @@
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import modelo.ParametrosDeCampo;
+
+
 /**
  *
  * @author Particular
@@ -10,47 +16,53 @@ public class DepartamentoIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "departamento";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo departamentoPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo DEPARTAMENTO = new ParametrosDeCampo();
 
-    public DepartamentoIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
         
-        departamentoPDC.setNombre("departamento");
-        departamentoPDC.setNombreParaMostrar("Departamento");
-        departamentoPDC.setLongitudDeCaracteres(200);
-        departamentoPDC.setTipoDeDatos("varchar");
-        departamentoPDC.setNulo(false);
-        departamentoPDC.setAutoIncrement(false);
-        departamentoPDC.setPermiteRepetido(true);
+        DEPARTAMENTO.setNombre("departamento");
+        DEPARTAMENTO.setNombreParaMostrar("Departamento");
+        DEPARTAMENTO.setLongitudDeCaracteres(200);
+        DEPARTAMENTO.setTipoDeDatos("varchar");
+        DEPARTAMENTO.setNulo(false);
+        DEPARTAMENTO.setAutoIncrement(false);
+        DEPARTAMENTO.setPermiteRepetido(true);
         
-        camposPDC.add(idPDC);
-        camposPDC.add(departamentoPDC);
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(DEPARTAMENTO);
         
         
     }
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
+    
+
+    public static ParametrosDeCampo getDEPARTAMENTO() {
+        return DEPARTAMENTO;
     }
 
-    public ParametrosDeCampo getDepartamentoPDC() {
-        return departamentoPDC;
-    }
-
-    public void setDepartamentoPDC(ParametrosDeCampo departamentoPDC) {
-        this.departamentoPDC = departamentoPDC;
-    }
+    
     
     
     

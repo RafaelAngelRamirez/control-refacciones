@@ -5,6 +5,12 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import modelo.ParametrosDeCampo;
+
+
 /**
  *
  * @author Particular
@@ -15,81 +21,83 @@ public class MaquinaModeloIT extends ITGenerales{
     * El nombre de la tabla en la base de datos. 
     */
     public static final String NOMBRE_TABLA = "maquinamodelo";
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo modeloPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo anoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idProoveedorPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo MODELO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ANIO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_PROVEEDOR = new ParametrosDeCampo();
 
-    public MaquinaModeloIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
        
-        idPDC.setNombre("id");
-        idPDC.setNombreParaMostrar("ID");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+        ID.setNombre("id");
+        ID.setNombreParaMostrar("ID");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
 
-        modeloPDC.setNombre("modelo");
-        modeloPDC.setNombreParaMostrar("Modelo");
-        modeloPDC.setLongitudDeCaracteres(30);
-        modeloPDC.setTipoDeDatos("varchar");
-        modeloPDC.setNulo(false);
-        modeloPDC.setAutoIncrement(false);
-        modeloPDC.setPermiteRepetido(false);
+        MODELO.setNombre("modelo");
+        MODELO.setNombreParaMostrar("Modelo");
+        MODELO.setLongitudDeCaracteres(30);
+        MODELO.setTipoDeDatos("varchar");
+        MODELO.setNulo(false);
+        MODELO.setAutoIncrement(false);
+        MODELO.setPermiteRepetido(false);
 
-        anoPDC.setNombre("anio");
-        anoPDC.setNombreParaMostrar("Año");
-        anoPDC.setLongitudDeCaracteres(4);
-        anoPDC.setTipoDeDatos("int");
-        anoPDC.setNulo(false);
-        anoPDC.setAutoIncrement(false);
-        anoPDC.setPermiteRepetido(true);
+        ANIO.setNombre("anio");
+        ANIO.setNombreParaMostrar("Año");
+        ANIO.setLongitudDeCaracteres(4);
+        ANIO.setTipoDeDatos("int");
+        ANIO.setNulo(false);
+        ANIO.setAutoIncrement(false);
+        ANIO.setPermiteRepetido(true);
 
-        idProoveedorPDC.setNombre("idProveedor");
-        idProoveedorPDC.setLongitudDeCaracteres(11);
-        idProoveedorPDC.setTipoDeDatos("int");
-        idProoveedorPDC.setNulo(false);
-        idProoveedorPDC.setAutoIncrement(false);
-        idProoveedorPDC.setPermiteRepetido(true);
+        ID_PROVEEDOR.setNombre("idProveedor");
+        ID_PROVEEDOR.setLongitudDeCaracteres(11);
+        ID_PROVEEDOR.setTipoDeDatos("int");
+        ID_PROVEEDOR.setNulo(false);
+        ID_PROVEEDOR.setAutoIncrement(false);
+        ID_PROVEEDOR.setPermiteRepetido(true);
         
-        camposPDC.add(idPDC);
-        camposPDC.add(modeloPDC);
-        camposPDC.add(anoPDC);
-        camposPDC.add(idProoveedorPDC);
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(MODELO);
+        CAMPOS_PDC.add(ANIO);
+        CAMPOS_PDC.add(ID_PROVEEDOR);
     }
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
+    
+
+    public static ParametrosDeCampo getMODELO() {
+        return MODELO;
     }
 
-    public ParametrosDeCampo getModeloPDC() {
-        return modeloPDC;
+    
+
+    public static ParametrosDeCampo getAnioPDC() {
+        return ANIO;
     }
 
-    public void setModeloPDC(ParametrosDeCampo modeloPDC) {
-        this.modeloPDC = modeloPDC;
+    
+
+    public static ParametrosDeCampo getID_PROVEEDOR() {
+        return ID_PROVEEDOR;
     }
 
-    public ParametrosDeCampo getAnioPDC() {
-        return anoPDC;
-    }
-
-    public void setAnoPDC(ParametrosDeCampo anoPDC) {
-        this.anoPDC = anoPDC;
-    }
-
-    public ParametrosDeCampo getIdProoveedorPDC() {
-        return idProoveedorPDC;
-    }
-
-    public void setIdProoveedorPDC(ParametrosDeCampo idProoveedorPDC) {
-        this.idProoveedorPDC = idProoveedorPDC;
-    }
+    
     
     
     

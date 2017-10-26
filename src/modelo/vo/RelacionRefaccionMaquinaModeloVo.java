@@ -22,8 +22,8 @@ public class RelacionRefaccionMaquinaModeloVo extends VoGenerales{
     public RelacionRefaccionMaquinaModeloVo() {
         RelacionRefaccionMaquinaModeloIT i = new RelacionRefaccionMaquinaModeloIT();
         
-        relacionCampo.put(i.getIdMaquinaModeloPDC().getNombre(),()->this.getIdMaquinaModelo());
-        relacionCampo.put(i.getIdRefaccionPDC().getNombre(),()->this.getIdRefaccion());
+        relacionCampo.put(i.getID_MAQUINA_MODELO().getNombre(),()->this.getIdMaquinaModelo());
+        relacionCampo.put(i.getID_REFACCION().getNombre(),()->this.getIdRefaccion());
     
     }
 

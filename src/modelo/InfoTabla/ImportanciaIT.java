@@ -5,6 +5,12 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import modelo.ParametrosDeCampo;
+
+
 /**
  *
  * @author Particular
@@ -14,46 +20,52 @@ public class ImportanciaIT extends ITGenerales{
     * El nombre de la tabla en la base de datos. 
     */
     public static final String NOMBRE_TABLA = "importancia";
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo importanciaPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo IMPORTANCIA = new ParametrosDeCampo();
 
-    public ImportanciaIT() {
-        
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
 
-        importanciaPDC.setNombre("importancia");
-        importanciaPDC.setNombreParaMostrar("Importancia");
-        importanciaPDC.setLongitudDeCaracteres(30);
-        importanciaPDC.setTipoDeDatos("varchar");
-        importanciaPDC.setNulo(false);
-        importanciaPDC.setAutoIncrement(false);
-        importanciaPDC.setPermiteRepetido(false);
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
-        camposPDC.add(idPDC);
-        camposPDC.add(importanciaPDC);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
+
+        IMPORTANCIA.setNombre("importancia");
+        IMPORTANCIA.setNombreParaMostrar("Importancia");
+        IMPORTANCIA.setLongitudDeCaracteres(30);
+        IMPORTANCIA.setTipoDeDatos("varchar");
+        IMPORTANCIA.setNulo(false);
+        IMPORTANCIA.setAutoIncrement(false);
+        IMPORTANCIA.setPermiteRepetido(false);
+        
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(IMPORTANCIA);
     
     }   
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
+    
+
+    public static ParametrosDeCampo getIMPORTANCIA() {
+        return IMPORTANCIA;
     }
 
-    public ParametrosDeCampo getImportanciaPDC() {
-        return importanciaPDC;
-    }
-
-    public void setImportanciaPDC(ParametrosDeCampo importanciaPDC) {
-        this.importanciaPDC = importanciaPDC;
-    }
+    
     
     
 }

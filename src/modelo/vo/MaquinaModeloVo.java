@@ -22,9 +22,9 @@ public class MaquinaModeloVo extends VoGenerales{
         MaquinaModeloIT it = new MaquinaModeloIT();
 
         relacionCampo.put(it.getAnioPDC().getNombre(), ()->this.getAnio());
-        relacionCampo.put(it.getIdPDC().getNombre(), ()->this.getId());
-        relacionCampo.put(it.getModeloPDC().getNombre(), ()->this.getModelo());
-        relacionCampo.put(it.getIdProoveedorPDC().getNombre(), ()->this.getIdProveedor());
+        relacionCampo.put(it.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(it.getMODELO().getNombre(), ()->this.getModelo());
+        relacionCampo.put(it.getID_PROVEEDOR().getNombre(), ()->this.getIdProveedor());
     }
 
     

@@ -23,9 +23,9 @@ public class ImagenProveedorVo extends VoGenerales{
     
      public ImagenProveedorVo() {
         ImagenProveedorIT i = new ImagenProveedorIT();
-        relacionCampo.put(i.getIdProveedorPDC().getNombre(), ()->this.getIdProveedor());
-        relacionCampo.put(i.getNombreParaMostarPDC().getNombre(), ()->this.getNombreParaMostrar());
-        relacionCampo.put(i.getNombreServidorPDC().getNombre(), ()->this.getNombreServidor());
+        relacionCampo.put(i.getID_PROVEEDOR().getNombre(), ()->this.getIdProveedor());
+        relacionCampo.put(i.getNOMBRE_PARA_MOSTRAR().getNombre(), ()->this.getNombreParaMostrar());
+        relacionCampo.put(i.getNOMBRE_SERVIDOR().getNombre(), ()->this.getNombreServidor());
     }
     
     

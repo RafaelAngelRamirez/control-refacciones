@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Conexion;
+import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
+import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.vo.*;
 
@@ -22,7 +24,6 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
     RelacionRefaccionProveedorIT it;
     public RelacionRefaccionProveedorDao(Coordinador coordinador) {
         super(coordinador);
-        this.it = new RelacionRefaccionProveedorIT();
     }
     
     public boolean guardarLista(List<RelacionRefaccionProveedorVo> listaVo){
@@ -60,49 +61,60 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
         return conexion.executeUpdate(sql, mapa);
     }
     
-    public List<RelacionRefaccionProveedorVo> consultarProveedores(int id){
+    /**
+     * Consulta los proveedores que estan seleccionados con el id de la máquina
+     * que se le pase como parametro. 
+     * @param vo La refacción de la cual se quiere buscar las máquinas. 
+     * @return La lista de máquinas relacionadas. 
+     */
+    public List<ProveedorVo> consultarProveedores(RefaccionVo vo){
         conexion = new Conexion(coordinador);
-        List<RelacionRefaccionProveedorVo> lrrpvo = new ArrayList<>();
-        ProveedorIT pit = new ProveedorIT();
-        String sql = 
-                " SELECT " 
-                + ProveedorIT.NOMBRE_TABLA+"."+pit.getEmpresaProveedorPDC().getNombre() +", "
-                + RelacionRefaccionProveedorIT.NOMBRE_TABLA+"."+it.getIdProveedorPDC().getNombre()
-                +" FROM " + RelacionRefaccionProveedorIT.NOMBRE_TABLA +
-                
-                " INNER JOIN " + ProveedorIT.NOMBRE_TABLA +
-                " ON " +
-                ProveedorIT.NOMBRE_TABLA+"."+pit.getIdPDC().getNombre()
-                + " = " +
-                RelacionRefaccionProveedorIT.NOMBRE_TABLA+"."+it.getIdProveedorPDC().getNombre()
-                
-                + " WHERE " + it.getIdRefaccionPDC().getNombre() + " = ?" 
-                ;
+        List<ProveedorVo> lrrpvo = new ArrayList<>();
         
-        ResultSet r = conexion.executeQuery(sql, id+"");
+        String sql = "SELECT " +
+                    ProveedorIT.NOMBRE_TABLA+"."+ProveedorIT.getID().getNombre()+" ,"+
+                    ProveedorIT.NOMBRE_TABLA+"."+ProveedorIT.getEMPRESA_PROVEEDOR().getNombre()
+                +" FROM "+
+                    ProveedorIT.NOMBRE_TABLA
+                +" JOIN "+
+                    MaquinaModeloIT.NOMBRE_TABLA
+                +" ON "+
+                    MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getID_PROVEEDOR().getNombre()
+                    +" = "+
+                    ProveedorIT.NOMBRE_TABLA+"."+ProveedorIT.getID().getNombre()
+                +" WHERE "+
+                    MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getID().getNombre()
+                +" IN ( SELECT "+
+                            RelacionRefaccionMaquinaModeloIT.getID_MAQUINA_MODELO().getNombre() 
+                        +" FROM "+
+                            RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
+                        +" WHERE "+
+                            RelacionRefaccionMaquinaModeloIT.getID_REFACCION().getNombre()+" =? )"
+                +" GROUP BY " +
+                    ProveedorIT.NOMBRE_TABLA+"."+ProveedorIT.getID().getNombre();
         
+        ResultSet r = conexion.executeQuery(sql, vo.getId());
         try {
             while (r.next()) {
-                RelacionRefaccionProveedorVo vo = new RelacionRefaccionProveedorVo();
                 ProveedorVo pvo = new ProveedorVo();
-                vo.setIdProveedor(r.getInt(it.getIdProveedorPDC().getNombre()));
-                vo.setProveedorVo(pvo);
-                
-                pvo.setEmpresa(r.getString(pit.getEmpresaProveedorPDC().getNombre()));
-                
-                lrrpvo.add(vo);
+                pvo.setId(r.getInt(ProveedorIT.getID().getNombre()));
+                pvo.setEmpresa(r.getString(ProveedorIT.getEMPRESA_PROVEEDOR().getNombre()));
+                lrrpvo.add(pvo);
             }
         } catch (SQLException ex) {
             Logger.getLogger(RelacionRefaccionProveedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+                            
         return lrrpvo;
     }
+    
     
     
     public boolean modificar(List<RelacionRefaccionProveedorVo> vo){
         conexion = new Conexion(coordinador);
         String sql = "DELETE FROM "+RelacionRefaccionProveedorIT.NOMBRE_TABLA +
-                " WHERE " +it.getIdRefaccionPDC().getNombre() + "=?" ;
+                " WHERE " +
+                RelacionRefaccionProveedorIT.getID_REFACCION().getNombre() + "=?" ;
         conexion.executeUpdate(sql, vo.get(0).getIdRefaccion()+"");
         
         return guardarLista(vo);

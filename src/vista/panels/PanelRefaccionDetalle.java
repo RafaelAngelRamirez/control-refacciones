@@ -21,9 +21,9 @@ import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.vo.ImagenRefaccionVo;
+import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
-import modelo.vo.RelacionRefaccionProveedorVo;
 import org.jdesktop.swingx.JXImageView;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.JPanelBase;
@@ -99,18 +99,18 @@ public class PanelRefaccionDetalle extends JPanelBase {
         MaterialIT mit = new MaterialIT();
         ImportanciaIT iit= new ImportanciaIT();
         
-        etiquetaCodigoDelProveedor.setText(rit.getCodigoProveedorPDC().getNombreParaMostrar());
-        etiquetaCodigoInterno.setText(rit.getCodigoInternoPDC().getNombreParaMostrar());
-        etiquetaDeQueEstaEcho.setText(mit.getMaterialPDC().getNombreParaMostrar());
-        etiquetaDescripcion.setText(rit.getDescripcionPDC().getNombreParaMostrar());
-        etiquetaImportancia.setText(iit.getImportanciaPDC().getNombreParaMostrar());
-        etiquetaMaquinas.setText(mmit.getModeloPDC().getNombreParaMostrar());
-        etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
-        etiquetaParaQueEs.setText(rit.getParaQueEsPDC().getNombreParaMostrar());
-        etiquetaProveedores.setText(pit.getEmpresaProveedorPDC().getNombreParaMostrar());
-        etiquetaQueEs.setText(rit.getQueEsPDC().getNombreParaMostrar());
-        etiquetaStockMax.setText(rit.getStockMaximoPDC().getNombreParaMostrar());
-        etiquetaStockMin.setText(rit.getStockMinimoPDC().getNombreParaMostrar());
+        etiquetaCodigoDelProveedor.setText(rit.getCODIGO_PROVEEDOR().getNombreParaMostrar());
+        etiquetaCodigoInterno.setText(rit.getCODIGO_INTERNO().getNombreParaMostrar());
+        etiquetaDeQueEstaEcho.setText(mit.getMATERIAL().getNombreParaMostrar());
+        etiquetaDescripcion.setText(rit.getDESCRIPCION().getNombreParaMostrar());
+        etiquetaImportancia.setText(iit.getIMPORTANCIA().getNombreParaMostrar());
+        etiquetaMaquinas.setText(mmit.getMODELO().getNombreParaMostrar());
+        etiquetaNombreDeLaRefaccion.setText(rit.getNOMBRE().getNombreParaMostrar());
+        etiquetaParaQueEs.setText(rit.getPARA_QUE_ES().getNombreParaMostrar());
+        etiquetaProveedores.setText(pit.getEMPRESA_PROVEEDOR().getNombreParaMostrar());
+        etiquetaQueEs.setText(rit.getQUE_ES().getNombreParaMostrar());
+        etiquetaStockMax.setText(rit.getSTOCK_MAXIMO().getNombreParaMostrar());
+        etiquetaStockMin.setText(rit.getSTOCK_MINIMO().getNombreParaMostrar());
                
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -303,10 +303,12 @@ public class PanelRefaccionDetalle extends JPanelBase {
     public void cargarProveedores(){
         _ListaProveedor.limpiar();
         if (idRefaccion!=-1) {
-            List<RelacionRefaccionProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(idRefaccion);
+            RefaccionVo rvo = new RefaccionVo();
+            rvo.setId(idRefaccion);
+            List<ProveedorVo> lpvo = this.getCoordinador().proveedoresConsultarMarcas(rvo);
             HashMap<String, Object> pvoMapa = new HashMap<>();
-            for (RelacionRefaccionProveedorVo vo : lpvo) {
-                pvoMapa.put(vo.getProveedorVo().getEmpresa(), vo.getIdProveedor());
+            for (ProveedorVo vo : lpvo) {
+                pvoMapa.put(vo.getEmpresa(), vo);
             }
             _ListaProveedor.cargarLista(pvoMapa);
         }

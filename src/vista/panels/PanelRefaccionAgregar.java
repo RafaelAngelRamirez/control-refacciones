@@ -27,7 +27,6 @@ import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
-import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
@@ -55,8 +54,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
     UtilidadesComboBox_ _ComboUnidad;
     UtilidadesComboBox_ _ComboMaterial;
 
-    UtilidadesListas_ _ListaProveedor;
-    UtilidadesListas_ _ListaProveedorSeleccionado;
     UtilidadesListas_ _ListaMaquinaModelo;
     UtilidadesListas_ _ListasMaquinasSeleccionadas;
     
@@ -101,19 +98,18 @@ public class PanelRefaccionAgregar extends JPanelBase {
         ImportanciaIT iit= new ImportanciaIT();
         UnidadIT uit = new UnidadIT();
         
-        etiquetaCodigoDelProveedor.setText(rit.getCodigoProveedorPDC().getNombreParaMostrar());
-        etiquetaCodigoInterno.setText(rit.getCodigoInternoPDC().getNombreParaMostrar());
-        etiquetaDeQueEstaEcho.setText(mit.getMaterialPDC().getNombreParaMostrar());
-        etiquetaDescripcion.setText(rit.getDescripcionPDC().getNombreParaMostrar());
-        etiquetaImportancia.setText(iit.getImportanciaPDC().getNombreParaMostrar());
-        etiquetaMaquinas.setText(mmit.getModeloPDC().getNombreParaMostrar());
-        etiquetaNombreDeLaRefaccion.setText(rit.getNombrePDC().getNombreParaMostrar());
-        etiquetaParaQueEs.setText(rit.getParaQueEsPDC().getNombreParaMostrar());
-        etiquetaProveedores.setText(pit.getEmpresaProveedorPDC().getNombreParaMostrar());
-        etiquetaQueEs.setText(rit.getQueEsPDC().getNombreParaMostrar());
-        etiquetaStockMax.setText(rit.getStockMaximoPDC().getNombreParaMostrar());
-        etiquetaStockMin.setText(rit.getStockMinimoPDC().getNombreParaMostrar());
-        etiquetaUnidad.setText(uit.getUnidadPDC().getNombreParaMostrar());
+        etiquetaCodigoDelProveedor.setText(rit.getCODIGO_PROVEEDOR().getNombreParaMostrar());
+        etiquetaCodigoInterno.setText(rit.getCODIGO_INTERNO().getNombreParaMostrar());
+        etiquetaDeQueEstaEcho.setText(mit.getMATERIAL().getNombreParaMostrar());
+        etiquetaDescripcion.setText(rit.getDESCRIPCION().getNombreParaMostrar());
+        etiquetaImportancia.setText(iit.getIMPORTANCIA().getNombreParaMostrar());
+        etiquetaMaquinas.setText(mmit.getMODELO().getNombreParaMostrar());
+        etiquetaNombreDeLaRefaccion.setText(rit.getNOMBRE().getNombreParaMostrar());
+        etiquetaParaQueEs.setText(rit.getPARA_QUE_ES().getNombreParaMostrar());
+        etiquetaQueEs.setText(rit.getQUE_ES().getNombreParaMostrar());
+        etiquetaStockMax.setText(rit.getSTOCK_MAXIMO().getNombreParaMostrar());
+        etiquetaStockMin.setText(rit.getSTOCK_MINIMO().getNombreParaMostrar());
+        etiquetaUnidad.setText(uit.getUNIDAD().getNombreParaMostrar());
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -132,8 +128,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ComboMaterial = new UtilidadesComboBox_(getCoordinador()) ;
 
 
-        _ListaProveedor = new UtilidadesListas_(getCoordinador());
-        _ListaProveedorSeleccionado = new UtilidadesListas_(getCoordinador());
 
         _ListaMaquinaModelo = new UtilidadesListas_(getCoordinador());
         _ListasMaquinasSeleccionadas = new UtilidadesListas_(getCoordinador());
@@ -158,10 +152,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ComboUnidad.setComponente(getComboUnidad());
         _ComboMaterial.setComponente(getComboMaterial());
 
-        _ListaProveedor.setComponente(getListaProveedores());
-        _ListaProveedorSeleccionado.setComponente(getListaProveedoresSeleccionados());
-        _ListaProveedor.setComponenteListaAAgregar(_ListaProveedorSeleccionado);
-
         _ListaMaquinaModelo.setComponente(getListaMaquinas());
         _ListasMaquinasSeleccionadas.setComponente(getListaMaquinasSeleccionadas());
         _ListaMaquinaModelo.setComponenteListaAAgregar(_ListasMaquinasSeleccionadas);
@@ -181,21 +171,21 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _RadioImportancia.setComponente(getRadioMedia());
        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
-        _ComboUnidad.setTamanoDeCampo(uit.getUnidadPDC().getLongitudDeCaracteres());
-        _ComboMaterial.setTamanoDeCampo(mit.getMaterialPDC().getLongitudDeCaracteres());
+        _ComboUnidad.setTamanoDeCampo(uit.getUNIDAD().getLongitudDeCaracteres());
+        _ComboMaterial.setTamanoDeCampo(mit.getMATERIAL().getLongitudDeCaracteres());
 
-        _TxtNombreDeLaRefaccion.setTamanoDeCampo(rit.getNombrePDC().getLongitudDeCaracteres());
-        _TxtCodigo.setTamanoDeCampo(rit.getCodigoInternoPDC().getLongitudDeCaracteres());
-        _TxtCodigoDelProveedor.setTamanoDeCampo(rit.getCodigoProveedorPDC().getLongitudDeCaracteres());
+        _TxtNombreDeLaRefaccion.setTamanoDeCampo(rit.getNOMBRE().getLongitudDeCaracteres());
+        _TxtCodigo.setTamanoDeCampo(rit.getCODIGO_INTERNO().getLongitudDeCaracteres());
+        _TxtCodigoDelProveedor.setTamanoDeCampo(rit.getCODIGO_PROVEEDOR().getLongitudDeCaracteres());
         
-        _TxtStockMin.setTamanoDeCampo(rit.getStockMinimoPDC().getLongitudDeCaracteres(),
-                                      rit.getStockMinimoPDC().getLongitudDeDecimales());
-        _TxtStockMax.setTamanoDeCampo(rit.getStockMaximoPDC().getLongitudDeCaracteres(),
-                                      rit.getStockMaximoPDC().getLongitudDeDecimales());
+        _TxtStockMin.setTamanoDeCampo(rit.getSTOCK_MINIMO().getLongitudDeCaracteres(),
+                                      rit.getSTOCK_MINIMO().getLongitudDeDecimales());
+        _TxtStockMax.setTamanoDeCampo(rit.getSTOCK_MAXIMO().getLongitudDeCaracteres(),
+                                      rit.getSTOCK_MAXIMO().getLongitudDeDecimales());
 
-        _TxtDescripcion.setTamanoDeCampo(rit.getDescripcionPDC().getLongitudDeCaracteres());
-        _TxtQueEs.setTamanoDeCampo(rit.getQueEsPDC().getLongitudDeCaracteres());
-        _TxtParaQueEs.setTamanoDeCampo(rit.getParaQueEsPDC().getLongitudDeCaracteres());
+        _TxtDescripcion.setTamanoDeCampo(rit.getDESCRIPCION().getLongitudDeCaracteres());
+        _TxtQueEs.setTamanoDeCampo(rit.getQUE_ES().getLongitudDeCaracteres());
+        _TxtParaQueEs.setTamanoDeCampo(rit.getPARA_QUE_ES().getLongitudDeCaracteres());
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
         
@@ -251,9 +241,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ComboUnidad.setFocusAction(()->guardarUnidad(), false);
         _ComboMaterial.setFocusAction(()->guardarMaterial(), false);
         
-        _ListaProveedor.setValueChange(()->_ListaProveedor.cambioEntreListas(false));
-        _ListaProveedorSeleccionado.setValueChange(()->_ListaProveedor.cambioEntreListas(true));
-
         _ListaMaquinaModelo.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(false));
         _ListasMaquinasSeleccionadas.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(true));
         
@@ -265,7 +252,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         
         //OPERACIONES DE ACTUALIZACION
         
-        opAct.add(ProveedorIT.NOMBRE_TABLA, this::cargarListaProveedor);
         opAct.add(MaquinaModeloIT.NOMBRE_TABLA, this::cargarListaMaquinaModelo);
         opAct.add(UnidadIT.NOMBRE_TABLA, this::cargarComboUnidad);
         opAct.add(MaterialIT.NOMBRE_TABLA, this::cargarComboMaterial);
@@ -299,16 +285,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         }
     }
     
-    public void cargarListaProveedor(){
-        List<ProveedorVo> lista = this.getCoordinador().proveedoresConsultarMarcas();
-        HashMap<String, Object> datos= new HashMap<>();
-        _ListaProveedor.limpiar();
-        for (ProveedorVo vo : lista) {
-            datos.put(vo.getEmpresa(), vo.getId());
-        }
-        _ListaProveedor.cargarLista(datos);
-    
-    }
     public void cargarListaMaquinaModelo(){
         List<MaquinaModeloVo> lista = this.getCoordinador().maquinaModeloConsultar();
         HashMap<String, Object> datos = new HashMap<>();
@@ -398,14 +374,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
     }
 
 
-    public JButton getBtnAgregarNuevProveedor() {
-        return btnAgregarNuevProveedor;
-    }
-
-    public void setBtnAgregarNuevProveedor(JButton btnAgregarNuevProveedor) {
-        this.btnAgregarNuevProveedor = btnAgregarNuevProveedor;
-    }
-
     public JButton getBtnAgregarNuevaMaquina() {
         return btnAgregarNuevaMaquina;
     }
@@ -470,13 +438,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         this.comboUnidad = comboUnidad;
     }
 
-    public JLabel getEtiquetaAsignados() {
-        return etiquetaAsignados;
-    }
-
-    public void setEtiquetaAsignados(JLabel etiquetaAsignados) {
-        this.etiquetaAsignados = etiquetaAsignados;
-    }
 
     public JLabel getEtiquetaCodigoDelProveedor() {
         return etiquetaCodigoDelProveedor;
@@ -550,21 +511,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         this.listaMaquinasSeleccionadas = listaMaquinasSeleccionadas;
     }
 
-    public JList<String> getListaProveedores() {
-        return listaProveedores;
-    }
-
-    public void setListaProveedores(JList<String> listaProveedores) {
-        this.listaProveedores = listaProveedores;
-    }
-
-    public JList<String> getListaProveedoresSeleccionados() {
-        return listaProveedoresSeleccionados;
-    }
-
-    public void setListaProveedoresSeleccionados(JList<String> listaProveedoresSeleccionados) {
-        this.listaProveedoresSeleccionados = listaProveedoresSeleccionados;
-    }
 
     public JRadioButton getRadioAlta() {
         return radioAkta;
@@ -994,54 +940,52 @@ public class PanelRefaccionAgregar extends JPanelBase {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(2, 2, 2)
-                                        .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addGap(2, 2, 2)
-                                                .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(etiquetaMaquinas)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                                                        .addComponent(jLabel1)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(jScrollPane3))
+                                                .addGap(6, 6, 6))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addGroup(layout.createSequentialGroup()
                                                         .addGap(2, 2, 2)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                            .addComponent(txtNombreDeLaRefaccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                            .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(etiquetaMaquinas)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                                                                .addComponent(jLabel1)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                            .addComponent(jScrollPane3))
-                                                        .addGap(6, 6, 6))
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                            .addGroup(layout.createSequentialGroup()
-                                                                .addGap(2, 2, 2)
-                                                                .addComponent(etiquetaCompatibles, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(btnAgregarNuevaMaquina))
-                                                            .addGroup(layout.createSequentialGroup()
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jScrollPane4)))
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(filler6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                    .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(8, 8, 8))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(etiquetaImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radioAkta)
-                                .addGap(9, 9, 9)
-                                .addComponent(radioMedia)
-                                .addGap(2, 2, 2)
-                                .addComponent(radioBaja)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                        .addComponent(etiquetaCompatibles, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(btnAgregarNuevaMaquina))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jScrollPane4)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(etiquetaImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(radioAkta)
+                                                .addGap(9, 9, 9)
+                                                .addComponent(radioMedia)
+                                                .addGap(2, 2, 2)
+                                                .addComponent(radioBaja)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(filler6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(etiquetaCodigoInterno)
@@ -1169,20 +1113,20 @@ public class PanelRefaccionAgregar extends JPanelBase {
                                                     .addComponent(btnAgregarNuevaMaquina))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(45, 45, 45)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(etiquetaImportancia)
-                                    .addComponent(radioAkta)
-                                    .addComponent(radioMedia)
-                                    .addComponent(radioBaja)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(22, 22, 22)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(btnCancelar)
-                                                .addComponent(checkEsDeConsumoUnico))
-                                            .addComponent(btnGuardar))))))))
+                                            .addComponent(etiquetaImportancia)
+                                            .addComponent(radioAkta)
+                                            .addComponent(radioMedia)
+                                            .addComponent(radioBaja))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnCancelar)
+                                        .addComponent(checkEsDeConsumoUnico))
+                                    .addComponent(btnGuardar))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1219,8 +1163,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ComboMaterial.setErrorQuitar();
 
 
-        _ListaProveedor.setErrorQuitar();
-        _ListaProveedorSeleccionado.setErrorQuitar();
 
         _ListaMaquinaModelo.setErrorQuitar();
         _ListasMaquinasSeleccionadas.setErrorQuitar();
@@ -1312,14 +1254,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
             listaiVo.add(vo);
         }
         
-        //CARGAMOS LOS PROVEEDORES QUE VAN A RELACIONARSE CON ESTA REFACCIÓN.
-        List<Object> pSeleccionado = _ListaProveedorSeleccionado.getItems_ObjectsRelacionados();
-        for (Object i : pSeleccionado) {
-            RelacionRefaccionProveedorVo v = new RelacionRefaccionProveedorVo();
-            v.setIdProveedor((int)i);
-            listarrpVo.add(v);
-        }
-        
         
         //VALIDACIONES
         //REFACCION
@@ -1342,7 +1276,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             System.out.println(v.toString());
             
             //NOMBRE DE LA REFACCION.
-            if (v.getNombreDeCampo().equals(t.getNombrePDC().getNombre())) {
+            if (v.getNombreDeCampo().equals(t.getNOMBRE().getNombre())) {
                 if (!v.isValido()) {
                     _TxtNombreDeLaRefaccion.setError(v.getMensajeDeError());
                 } else {
@@ -1351,7 +1285,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //CODIGO INTERNO DE LA REFACCION
-            if (v.getNombreDeCampo().equals(t.getCodigoInternoPDC().getNombre())) {
+            if (v.getNombreDeCampo().equals(t.getCODIGO_INTERNO().getNombre())) {
                 if (!v.isValido()) {
                     _TxtCodigo.setError(v.getMensajeDeError());
                 } else {
@@ -1360,7 +1294,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //UNIDAD
-            if (v.getNombreDeCampo().equals(t.getUnidadPDC().getNombre())) {
+            if (v.getNombreDeCampo().equals(t.getUNIDAD().getNombre())) {
                 if (!v.isValido()) {
                     _ComboUnidad.setError(v.getMensajeDeError());
                 } else {
@@ -1369,7 +1303,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //STOCK MINIMO
-            if (v.getNombreDeCampo().equals(t.getStockMinimoPDC().getNombre())) {
+            if (v.getNombreDeCampo().equals(t.getSTOCK_MINIMO().getNombre())) {
                 if (!v.isValido()) {
                     _TxtStockMin.setError(v.getMensajeDeError());
                 } else {
@@ -1378,7 +1312,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //STOCK MAXIMO
-            if (v.getNombreDeCampo().equals(t.getStockMaximoPDC().getNombre())) {
+            if (v.getNombreDeCampo().equals(t.getSTOCK_MAXIMO().getNombre())) {
                 if (!v.isValido()) {
                     _TxtStockMax.setError(v.getMensajeDeError());
                 } else {
@@ -1387,7 +1321,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
            
             //CODIGO EXTERNO DE LA REFACCIÓN.
-            if (v.getNombreDeCampo().equals(t.getCodigoProveedorPDC().getNombre())) {
+            if (v.getNombreDeCampo().equals(t.getCODIGO_PROVEEDOR().getNombre())) {
                 if (!v.isValido()) {
                     _TxtCodigoDelProveedor.setError(v.getMensajeDeError());
                 } else {
@@ -1396,7 +1330,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //MATERIAL - DE QUE ESTA ECHO.
-            if (v.getNombreDeCampo().equals(t.getIdMaterialPDC().getNombre())) {
+            if (v.getNombreDeCampo().equals(t.getID_MATERIAL().getNombre())) {
                 if (!v.isValido()) {
                     _ComboMaterial.setError(v.getMensajeDeError());
                 } else {
@@ -1405,7 +1339,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //DESCRIPCION
-            if (v.getNombreDeCampo().equals(t.getDescripcionPDC().getNombre())) {
+            if (v.getNombreDeCampo().equals(t.getDESCRIPCION().getNombre())) {
                 if (!v.isValido()) {
                     _TxtDescripcion.setError(v.getMensajeDeError());
                 } else {
@@ -1414,7 +1348,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //IMPORTANCIA
-            if (v.getNombreDeCampo().equals(t.getImportanciaPDC().getNombre())) {
+            if (v.getNombreDeCampo().equals(t.getIMPORTANCIA().getNombre())) {
                 if (!v.isValido()) {
                     _RadioImportancia.setError(v.getMensajeDeError());
                 } else {
@@ -1427,16 +1361,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
         }
         
-        //VALIDAMOS PROVEEDOR.
-        for (Validacion v : valRelacionRP) {
-            if (!v.isValido()) {
-                _ListaProveedorSeleccionado.setError(v.getMensajeDeError());
-                todoValido = false;
-            }else{
-                _ListaProveedorSeleccionado.setErrorQuitar();
-            
-            }
-        }
         //VALIDAMOS MAQUINAMODELO
         for (Validacion v : valRelacionRMM) {
             if (!v.isValido()) {
@@ -1471,8 +1395,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
                     aa.setIdRefaccion(idRefaccion);
                 }
 
-                if (this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo) 
-                        && this.getCoordinador().relacionRefaccionProveedorGuardarLista(listarrpVo)) {
+                if (this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo)) {
                     String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
                     if (errorImg!=null) {
                         JOptionPane.showMessageDialog(

@@ -5,6 +5,12 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import modelo.ParametrosDeCampo;
+
+
 /**
  *
  * @author Particular
@@ -12,48 +18,54 @@ package modelo.InfoTabla;
 public class RelacionRefaccionProveedorIT extends ITGenerales{
     
 public static final String NOMBRE_TABLA = "relacionrefaccionproveedor";    
-private ParametrosDeCampo idProveedorPDC = new ParametrosDeCampo();
-private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
+private static final ParametrosDeCampo ID_PROVEEDOR = new ParametrosDeCampo();
+private static final ParametrosDeCampo ID_REFACCION = new ParametrosDeCampo();
 
-    public RelacionRefaccionProveedorIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
 
-        idRefaccionPDC.setNombre("idRefaccion");
-        idRefaccionPDC.setLongitudDeCaracteres(11);
-        idRefaccionPDC.setTipoDeDatos("int");
-        idRefaccionPDC.setNulo(false);
-        idRefaccionPDC.setAutoIncrement(false);
-        idRefaccionPDC.setPermiteRepetido(true);
+        ID_REFACCION.setNombre("idRefaccion");
+        ID_REFACCION.setLongitudDeCaracteres(11);
+        ID_REFACCION.setTipoDeDatos("int");
+        ID_REFACCION.setNulo(false);
+        ID_REFACCION.setAutoIncrement(false);
+        ID_REFACCION.setPermiteRepetido(true);
         
-        idProveedorPDC.setNombre("idProveedor");
-        idProveedorPDC.setLongitudDeCaracteres(11);
-        idProveedorPDC.setTipoDeDatos("int");
-        idProveedorPDC.setNulo(false);
-        idProveedorPDC.setAutoIncrement(false);
-        idProveedorPDC.setPermiteRepetido(true);
-        idProveedorPDC.setNombreParaMostrar("Proveedor");
+        ID_PROVEEDOR.setNombre("idProveedor");
+        ID_PROVEEDOR.setLongitudDeCaracteres(11);
+        ID_PROVEEDOR.setTipoDeDatos("int");
+        ID_PROVEEDOR.setNulo(false);
+        ID_PROVEEDOR.setAutoIncrement(false);
+        ID_PROVEEDOR.setPermiteRepetido(true);
+        ID_PROVEEDOR.setNombreParaMostrar("Proveedor");
         
         
-        camposPDC.add(idProveedorPDC);
-        camposPDC.add(idRefaccionPDC);
+        CAMPOS_PDC.add(ID_PROVEEDOR);
+        CAMPOS_PDC.add(ID_REFACCION);
     
     }   
 
-    public ParametrosDeCampo getIdProveedorPDC() {
-        return idProveedorPDC;
+    public static ParametrosDeCampo getID_PROVEEDOR() {
+        return ID_PROVEEDOR;
     }
 
-    public void setIdProveedorPDC(ParametrosDeCampo idProveedorPDC) {
-        this.idProveedorPDC = idProveedorPDC;
+    
+
+    public static ParametrosDeCampo getID_REFACCION() {
+        return ID_REFACCION;
     }
 
-    public ParametrosDeCampo getIdRefaccionPDC() {
-        return idRefaccionPDC;
-    }
-
-    public void setIdRefaccionPDC(ParametrosDeCampo idRefaccionPDC) {
-        this.idRefaccionPDC = idRefaccionPDC;
-    }
+    
     
     
     

@@ -5,6 +5,12 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import modelo.ParametrosDeCampo;
+
+
 /**
  *
  * @author Particular
@@ -15,136 +21,132 @@ public class EntradaDeControlIT extends ITGenerales{
     */
     public static final String NOMBRE_TABLA = "entradadecontrol";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idRefaccionPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idMaquinaEnLaQueSeUsaraPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idEmpleadoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo fechaSalidaPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo cantidadPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo observacionesPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_REFACCION_ = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_MAQUINA_EN_LA_QUE_SE_USARA = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_EMPLEADO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo FECHA_SALIDA = new ParametrosDeCampo();
+    private static final ParametrosDeCampo CANTIDAD = new ParametrosDeCampo();
+    private static final ParametrosDeCampo OBSERVACIONES = new ParametrosDeCampo();
 
-    public EntradaDeControlIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
        
-        idRefaccionPDC.setNombre("idRefaccion");
-        idRefaccionPDC.setLongitudDeCaracteres(11);
-        idRefaccionPDC.setTipoDeDatos("int");
-        idRefaccionPDC.setNulo(false);
-        idRefaccionPDC.setAutoIncrement(false);
-        idRefaccionPDC.setPermiteRepetido(true);
+        ID_REFACCION_.setNombre("idRefaccion");
+        ID_REFACCION_.setLongitudDeCaracteres(11);
+        ID_REFACCION_.setTipoDeDatos("int");
+        ID_REFACCION_.setNulo(false);
+        ID_REFACCION_.setAutoIncrement(false);
+        ID_REFACCION_.setPermiteRepetido(true);
         
-        idMaquinaEnLaQueSeUsaraPDC.setNombre("idMaquinaEnLaQueSeUsara");
-        idMaquinaEnLaQueSeUsaraPDC.setLongitudDeCaracteres(11);
-        idMaquinaEnLaQueSeUsaraPDC.setTipoDeDatos("int");
-        idMaquinaEnLaQueSeUsaraPDC.setNulo(true);
-        idMaquinaEnLaQueSeUsaraPDC.setAutoIncrement(false);
-        idMaquinaEnLaQueSeUsaraPDC.setPermiteRepetido(true);
-        idMaquinaEnLaQueSeUsaraPDC.setNombreParaMostrar("Maquina en la que se utilizara.");
+        ID_MAQUINA_EN_LA_QUE_SE_USARA.setNombre("idMaquinaEnLaQueSeUsara");
+        ID_MAQUINA_EN_LA_QUE_SE_USARA.setLongitudDeCaracteres(11);
+        ID_MAQUINA_EN_LA_QUE_SE_USARA.setTipoDeDatos("int");
+        ID_MAQUINA_EN_LA_QUE_SE_USARA.setNulo(true);
+        ID_MAQUINA_EN_LA_QUE_SE_USARA.setAutoIncrement(false);
+        ID_MAQUINA_EN_LA_QUE_SE_USARA.setPermiteRepetido(true);
+        ID_MAQUINA_EN_LA_QUE_SE_USARA.setNombreParaMostrar("Maquina en la que se utilizara.");
        
-        idEmpleadoPDC.setNombre("idEmpleado");
-        idEmpleadoPDC.setLongitudDeCaracteres(11);
-        idEmpleadoPDC.setTipoDeDatos("int");
-        idEmpleadoPDC.setNulo(false);
-        idEmpleadoPDC.setAutoIncrement(false);
-        idEmpleadoPDC.setPermiteRepetido(true);
+        ID_EMPLEADO.setNombre("idEmpleado");
+        ID_EMPLEADO.setLongitudDeCaracteres(11);
+        ID_EMPLEADO.setTipoDeDatos("int");
+        ID_EMPLEADO.setNulo(false);
+        ID_EMPLEADO.setAutoIncrement(false);
+        ID_EMPLEADO.setPermiteRepetido(true);
         
-        fechaSalidaPDC.setNombre("fechaSalida");
-//        fechaSalidaPDC.setLongitudDeCaracteres();
-        fechaSalidaPDC.setTipoDeDatos("timestamp");
-        fechaSalidaPDC.setNulo(false);
-        fechaSalidaPDC.setAutoIncrement(false);
-        fechaSalidaPDC.setPermiteRepetido(true);
-        fechaSalidaPDC.setNombreParaMostrar("FechaDeSalida");
+        FECHA_SALIDA.setNombre("fechaSalida");
+//        FECHA_SALIDA.setLongitudDeCaracteres();
+        FECHA_SALIDA.setTipoDeDatos("timestamp");
+        FECHA_SALIDA.setNulo(false);
+        FECHA_SALIDA.setAutoIncrement(false);
+        FECHA_SALIDA.setPermiteRepetido(true);
+        FECHA_SALIDA.setNombreParaMostrar("FechaDeSalida");
         
-        cantidadPDC.setNombre("cantidad");
-        cantidadPDC.setLongitudDeCaracteres(10);
-        cantidadPDC.setLongitudDeDecimales(3);
-        cantidadPDC.setTipoDeDatos("float");
-        cantidadPDC.setNulo(false);
-        cantidadPDC.setAutoIncrement(false);
-        cantidadPDC.setPermiteRepetido(true);
-        cantidadPDC.setNombreParaMostrar("Cantidad");
+        CANTIDAD.setNombre("cantidad");
+        CANTIDAD.setLongitudDeCaracteres(10);
+        CANTIDAD.setLongitudDeDecimales(3);
+        CANTIDAD.setTipoDeDatos("float");
+        CANTIDAD.setNulo(false);
+        CANTIDAD.setAutoIncrement(false);
+        CANTIDAD.setPermiteRepetido(true);
+        CANTIDAD.setNombreParaMostrar("Cantidad");
         
-        observacionesPDC.setNombre("observaciones");
-        observacionesPDC.setLongitudDeCaracteres(200);
-        observacionesPDC.setTipoDeDatos("varchar");
-        observacionesPDC.setNulo(true);
-        observacionesPDC.setAutoIncrement(false);
-        observacionesPDC.setPermiteRepetido(true);
-        observacionesPDC.setNombreParaMostrar("Observaciones");
+        OBSERVACIONES.setNombre("observaciones");
+        OBSERVACIONES.setLongitudDeCaracteres(200);
+        OBSERVACIONES.setTipoDeDatos("varchar");
+        OBSERVACIONES.setNulo(true);
+        OBSERVACIONES.setAutoIncrement(false);
+        OBSERVACIONES.setPermiteRepetido(true);
+        OBSERVACIONES.setNombreParaMostrar("Observaciones");
 
-        camposPDC.add(idPDC);
-        camposPDC.add(idRefaccionPDC);
-        camposPDC.add(idMaquinaEnLaQueSeUsaraPDC);
-        camposPDC.add(idEmpleadoPDC);
-        camposPDC.add(fechaSalidaPDC);
-        camposPDC.add(cantidadPDC);
-        camposPDC.add(observacionesPDC);
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(ID_REFACCION_);
+        CAMPOS_PDC.add(ID_MAQUINA_EN_LA_QUE_SE_USARA);
+        CAMPOS_PDC.add(ID_EMPLEADO);
+        CAMPOS_PDC.add(FECHA_SALIDA);
+        CAMPOS_PDC.add(CANTIDAD);
+        CAMPOS_PDC.add(OBSERVACIONES);
         
         
     }
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
+    
+
+    public static ParametrosDeCampo getID_REFACCION_() {
+        return ID_REFACCION_;
     }
 
-    public ParametrosDeCampo getIdRefaccionPDC() {
-        return idRefaccionPDC;
+    
+
+    public static ParametrosDeCampo getID_MAQUINA_EN_LA_QUE_SE_USARA() {
+        return ID_MAQUINA_EN_LA_QUE_SE_USARA;
     }
 
-    public void setIdRefaccionPDC(ParametrosDeCampo idRefaccionPDC) {
-        this.idRefaccionPDC = idRefaccionPDC;
+    
+
+    public static ParametrosDeCampo getID_EMPLEADO() {
+        return ID_EMPLEADO;
     }
 
-    public ParametrosDeCampo getIdMaquinaEnLaQueSeUsaraPDC() {
-        return idMaquinaEnLaQueSeUsaraPDC;
+    
+
+    public static ParametrosDeCampo getFECHA_SALIDA() {
+        return FECHA_SALIDA;
     }
 
-    public void setIdMaquinaEnLaQueSeUsaraPDC(ParametrosDeCampo idMaquinaEnLaQueSeUsaraPDC) {
-        this.idMaquinaEnLaQueSeUsaraPDC = idMaquinaEnLaQueSeUsaraPDC;
+    
+
+    public static ParametrosDeCampo getCANTIDAD() {
+        return CANTIDAD;
     }
 
-    public ParametrosDeCampo getIdEmpleadoPDC() {
-        return idEmpleadoPDC;
+    
+
+    public static ParametrosDeCampo getOBSERVACIONES() {
+        return OBSERVACIONES;
     }
 
-    public void setIdEmpleadoPDC(ParametrosDeCampo idEmpleadoPDC) {
-        this.idEmpleadoPDC = idEmpleadoPDC;
-    }
-
-    public ParametrosDeCampo getFechaSalidaPDC() {
-        return fechaSalidaPDC;
-    }
-
-    public void setFechaSalidaPDC(ParametrosDeCampo fechaSalidaPDC) {
-        this.fechaSalidaPDC = fechaSalidaPDC;
-    }
-
-    public ParametrosDeCampo getCantidadPDC() {
-        return cantidadPDC;
-    }
-
-    public void setCantidadPDC(ParametrosDeCampo cantidadPDC) {
-        this.cantidadPDC = cantidadPDC;
-    }
-
-    public ParametrosDeCampo getObservacionesPDC() {
-        return observacionesPDC;
-    }
-
-    public void setObservacionesPDC(ParametrosDeCampo observacionesPDC) {
-        this.observacionesPDC = observacionesPDC;
-    }
+    
     
     
     

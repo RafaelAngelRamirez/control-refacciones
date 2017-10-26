@@ -21,8 +21,8 @@ public class RelacionRefaccionProveedorVo extends VoGenerales{
     public RelacionRefaccionProveedorVo() {
         RelacionRefaccionProveedorIT i = new RelacionRefaccionProveedorIT();
         
-        relacionCampo.put(i.getIdProveedorPDC().getNombre(), ()->this.getIdProveedor());
-        relacionCampo.put(i.getIdRefaccionPDC().getNombre(), ()->this.getIdProveedor());
+        relacionCampo.put(i.getID_PROVEEDOR().getNombre(), ()->this.getIdProveedor());
+        relacionCampo.put(i.getID_REFACCION().getNombre(), ()->this.getIdProveedor());
     
     }
 

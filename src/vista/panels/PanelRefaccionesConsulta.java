@@ -142,16 +142,16 @@ public class PanelRefaccionesConsulta extends JPanelBase {
       
     
         String[] titulos = {
-            rit.getIdPDC().getNombreParaMostrar(),
-            rit.getCodigoInternoPDC().getNombreParaMostrar(),
-            rit.getCodigoProveedorPDC().getNombreParaMostrar(),
-            rit.getNombrePDC().getNombreParaMostrar(),
-            rit.getDescripcionPDC().getNombreParaMostrar(),
-            iit.getImportanciaPDC().getNombreParaMostrar(),
-            rit.getStockMaximoPDC().getNombreParaMostrar(),
-            rit.getStockMinimoPDC().getNombreParaMostrar(),
+            rit.getID().getNombreParaMostrar(),
+            rit.getCODIGO_INTERNO().getNombreParaMostrar(),
+            rit.getCODIGO_PROVEEDOR().getNombreParaMostrar(),
+            rit.getNOMBRE().getNombreParaMostrar(),
+            rit.getDESCRIPCION().getNombreParaMostrar(),
+            iit.getIMPORTANCIA().getNombreParaMostrar(),
+            rit.getSTOCK_MAXIMO().getNombreParaMostrar(),
+            rit.getSTOCK_MINIMO().getNombreParaMostrar(),
             "Existencia",
-            uit.getUnidadPDC().getNombreParaMostrar()
+            uit.getUNIDAD().getNombreParaMostrar()
             
         };
         UtilidadesModeloDeTabla_ mt = new UtilidadesModeloDeTabla_();

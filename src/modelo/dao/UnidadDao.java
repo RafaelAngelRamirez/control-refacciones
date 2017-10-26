@@ -43,8 +43,8 @@ public class UnidadDao extends DAOGenerales{
             ResultSet r = conexion.executeQuery(sql);
             while (r.next()) {
                 UnidadVo vo = new UnidadVo();
-                vo.setId(r.getInt(it.getIdPDC().getNombre()));
-                vo.setUnidad(r.getString(it.getUnidadPDC().getNombre()));
+                vo.setId(r.getInt(it.getID().getNombre()));
+                vo.setUnidad(r.getString(it.getUNIDAD().getNombre()));
                 l.add(vo);
             }
             return l;
@@ -58,7 +58,7 @@ public class UnidadDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " +UnidadIT.NOMBRE_TABLA 
-                    + " WHERE "+it.getUnidadPDC().getNombre()+"=?";
+                    + " WHERE "+it.getUNIDAD().getNombre()+"=?";
             ResultSet r = conexion.executeQuery(sql, unidad);
             r.next();
             int a = r.getInt(1);

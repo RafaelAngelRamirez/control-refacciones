@@ -8,7 +8,7 @@ package modelo.logica;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import controlador.capturadeerrores.ExcepcionPersonalizada;
-import modelo.InfoTabla.ParametrosDeCampo;
+import modelo.ParametrosDeCampo;
 
 /**
  * Alamace los campos que se validan en la clase de lógica para 

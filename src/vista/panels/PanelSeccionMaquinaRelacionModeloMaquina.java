@@ -372,7 +372,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         ///////////////////////////////////////////////////////////////////////
         */
         SeccionDeMaquinaIT sdmIT = new SeccionDeMaquinaIT();
-        etiquetaNombre.setText(sdmIT.getNombreSeccionPDC().getNombreParaMostrar());
+        etiquetaNombre.setText(sdmIT.getNOMBRE_SECCION().getNombreParaMostrar());
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -412,7 +412,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
-        _txtNombre.setTamanoDeCampo(sdmIT.getNombreSeccionPDC().getLongitudDeCaracteres());
+        _txtNombre.setTamanoDeCampo(sdmIT.getNOMBRE_SECCION().getLongitudDeCaracteres());
         _txtBusqueda.setTamanoDeCampo(200);
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.

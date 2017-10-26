@@ -257,8 +257,8 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         */
         MaquinaIT it = new MaquinaIT();
         MaquinaModeloIT mmit = new MaquinaModeloIT();
-        etiquetaNombre.setText(it.getNumeroDeMaquinaPDC().getNombreParaMostrar());
-        etiquetaMatricula.setText(it.getMatriculaPDC().getNombreParaMostrar());
+        etiquetaNombre.setText(it.getNUMERO_DE_MAQUINA().getNombreParaMostrar());
+        etiquetaMatricula.setText(it.getMATRICULA().getNombreParaMostrar());
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -286,9 +286,9 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
         _txtMatricula.setComponente(txtMatricula);
         
         //ASIGNAMOS EL TAMAÑO DE CAMPO
-        _txtNombre.setTamanoDeCampo(it.getNumeroDeMaquinaPDC().getLongitudDeCaracteres());
-        _txtMatricula.setTamanoDeCampo(it.getMatriculaPDC().getLongitudDeCaracteres());
-        _comboMaquinaModelo.setTamanoDeCampo(mmit.getModeloPDC().getLongitudDeCaracteres());
+        _txtNombre.setTamanoDeCampo(it.getNUMERO_DE_MAQUINA().getLongitudDeCaracteres());
+        _txtMatricula.setTamanoDeCampo(it.getMATRICULA().getLongitudDeCaracteres());
+        _comboMaquinaModelo.setTamanoDeCampo(mmit.getMODELO().getLongitudDeCaracteres());
         
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
@@ -468,7 +468,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
             // OTRA OPERACIÓ ES MAQUINA maquinaNoEstaRepetida().
             MaquinaIT it = new MaquinaIT();
             for (Validacion val : listValidacion) {
-                if (val.getNombreDeCampo().equals(it.getNumeroDeMaquinaPDC().getNombre())) {
+                if (val.getNombreDeCampo().equals(it.getNUMERO_DE_MAQUINA().getNombre())) {
                     if (val.isValido()) {
                         _txtNombre.setErrorQuitar();
                         todoValido = true;
@@ -478,7 +478,7 @@ public class PanelMaquinaAsignarNumeros extends JPanelBase {
                     }
                 }
                 
-                if (val.getNombreDeCampo().equals(it.getMatriculaPDC().getNombre())) {
+                if (val.getNombreDeCampo().equals(it.getMATRICULA().getNombre())) {
                     if (val.isValido()) {
                         _txtMatricula.setErrorQuitar();
                     } else {

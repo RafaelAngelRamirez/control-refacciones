@@ -21,9 +21,9 @@ public class MaquinaHistorialNombresVO extends VoGenerales{
 
     public MaquinaHistorialNombresVO() {
         MaquinaHistorialNombresIT it= new MaquinaHistorialNombresIT();
-        relacionCampo.put(it.getIdMaquinaPDC().getNombre(), this::getIdMaquina);
-        relacionCampo.put(it.getNombreAnteriorPDC().getNombre(), this::getNombreAnterior);
-        relacionCampo.put(it.getFechaDeCambioPDC().getNombre(), this::getFechaDeCambio);
+        relacionCampo.put(it.getID_MAQUINA().getNombre(), this::getIdMaquina);
+        relacionCampo.put(it.getNOMBRE_ANTERIOR().getNombre(), this::getNombreAnterior);
+        relacionCampo.put(it.getFECHA_DE_CAMBIO().getNombre(), this::getFechaDeCambio);
 
     }
 

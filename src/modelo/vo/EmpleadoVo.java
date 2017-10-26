@@ -18,12 +18,12 @@ public class EmpleadoVo extends VoGenerales{
 
     public EmpleadoVo() {
         EmpleadoIT i = new EmpleadoIT();
-        relacionCampo.put(i.getIdPDC().getNombre(), ()->this.getId());
-        relacionCampo.put(i.getNombrePDC().getNombre(), ()->this.getNombre());
-        relacionCampo.put(i.getIdDepartamentoPDC().getNombre(), ()->this.getIdDepartamento());
-        relacionCampo.put(i.getBajaEmpleadoPDC().getNombre(), ()->this.getBajaEmpleado());
-        relacionCampo.put(i.getFechaAlta().getNombre(), ()->this.getFechaAlta());
-        relacionCampo.put(i.getFechaBaja().getNombre(), ()->this.getFechaAlta());
+        relacionCampo.put(i.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(i.getNOMBRE().getNombre(), ()->this.getNombre());
+        relacionCampo.put(i.getID_DEPARTAMENTO().getNombre(), ()->this.getIdDepartamento());
+        relacionCampo.put(i.getBAJA_EMPLEADO().getNombre(), ()->this.getBajaEmpleado());
+        relacionCampo.put(i.getFECHA_ALTA().getNombre(), ()->this.getFechaAlta());
+        relacionCampo.put(i.getFECHA_BAJA().getNombre(), ()->this.getFechaAlta());
     }
 
     

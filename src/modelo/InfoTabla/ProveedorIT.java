@@ -5,6 +5,12 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import modelo.ParametrosDeCampo;
+
+
 /**
  *
  * @author Particular
@@ -15,130 +21,126 @@ public class ProveedorIT extends ITGenerales{
      */
     public static final String NOMBRE_TABLA = "proveedor";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo nombreContactoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo telefonoPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo emailPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo empresaProveedorePDC = new ParametrosDeCampo();
-    private ParametrosDeCampo paginaWebPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo idPaisPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo NOMBRE_CONTACTO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo TELEFONO = new ParametrosDeCampo();
+    private static final ParametrosDeCampo EMAIL = new ParametrosDeCampo();
+    private static final ParametrosDeCampo EMPRESA_PROVEEDOR = new ParametrosDeCampo();
+    private static final ParametrosDeCampo PAGINA_WEB = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID_PAIS = new ParametrosDeCampo();
     
-    public ProveedorIT() {
     
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
-        idPDC.setPermiteRepetido(false);
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
 
-        nombreContactoPDC.setNombre("nombreContacto");
-        nombreContactoPDC.setNombreParaMostrar("Nombre contacto");
-        nombreContactoPDC.setLongitudDeCaracteres(100);
-        nombreContactoPDC.setTipoDeDatos("varchar");
-        nombreContactoPDC.setNulo(true);
-        nombreContactoPDC.setAutoIncrement(false);
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
+    
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
+        ID.setPermiteRepetido(false);
 
-        telefonoPDC.setNombre("telefono");
-        telefonoPDC.setNombreParaMostrar("Telefono");
-        telefonoPDC.setLongitudDeCaracteres(15);
-        telefonoPDC.setTipoDeDatos("varchar");
-        telefonoPDC.setNulo(true);
-        telefonoPDC.setAutoIncrement(false);
+        NOMBRE_CONTACTO.setNombre("nombreContacto");
+        NOMBRE_CONTACTO.setNombreParaMostrar("Nombre contacto");
+        NOMBRE_CONTACTO.setLongitudDeCaracteres(100);
+        NOMBRE_CONTACTO.setTipoDeDatos("varchar");
+        NOMBRE_CONTACTO.setNulo(true);
+        NOMBRE_CONTACTO.setAutoIncrement(false);
 
-        emailPDC.setNombre("email");
-        emailPDC.setNombreParaMostrar("Email");
-        emailPDC.setLongitudDeCaracteres(50);
-        emailPDC.setTipoDeDatos("varchar");
-        emailPDC.setNulo(true);
-        emailPDC.setAutoIncrement(false);
+        TELEFONO.setNombre("telefono");
+        TELEFONO.setNombreParaMostrar("Telefono");
+        TELEFONO.setLongitudDeCaracteres(15);
+        TELEFONO.setTipoDeDatos("varchar");
+        TELEFONO.setNulo(true);
+        TELEFONO.setAutoIncrement(false);
 
-        empresaProveedorePDC.setNombre("empresa");
-        empresaProveedorePDC.setNombreParaMostrar("Proveedores");
-        empresaProveedorePDC.setLongitudDeCaracteres(50);
-        empresaProveedorePDC.setTipoDeDatos("varchar");
-        empresaProveedorePDC.setNulo(false);
-        empresaProveedorePDC.setAutoIncrement(false);
-        empresaProveedorePDC.setPermiteRepetido(false);
+        EMAIL.setNombre("email");
+        EMAIL.setNombreParaMostrar("Email");
+        EMAIL.setLongitudDeCaracteres(50);
+        EMAIL.setTipoDeDatos("varchar");
+        EMAIL.setNulo(true);
+        EMAIL.setAutoIncrement(false);
 
-        paginaWebPDC.setNombre("paginaWeb");
-        paginaWebPDC.setNombreParaMostrar("Pagina web");
-        paginaWebPDC.setLongitudDeCaracteres(100);
-        paginaWebPDC.setTipoDeDatos("varchar");
-        paginaWebPDC.setNulo(true);
-        paginaWebPDC.setAutoIncrement(false);
+        EMPRESA_PROVEEDOR.setNombre("empresa");
+        EMPRESA_PROVEEDOR.setNombreParaMostrar("Proveedores");
+        EMPRESA_PROVEEDOR.setLongitudDeCaracteres(50);
+        EMPRESA_PROVEEDOR.setTipoDeDatos("varchar");
+        EMPRESA_PROVEEDOR.setNulo(false);
+        EMPRESA_PROVEEDOR.setAutoIncrement(false);
+        EMPRESA_PROVEEDOR.setPermiteRepetido(false);
 
-        idPaisPDC.setNombre("idPais");
-        idPaisPDC.setLongitudDeCaracteres(11);
-        idPaisPDC.setTipoDeDatos("int");
-        idPaisPDC.setNulo(true);
-        idPaisPDC.setAutoIncrement(false);
+        PAGINA_WEB.setNombre("paginaWeb");
+        PAGINA_WEB.setNombreParaMostrar("Pagina web");
+        PAGINA_WEB.setLongitudDeCaracteres(100);
+        PAGINA_WEB.setTipoDeDatos("varchar");
+        PAGINA_WEB.setNulo(true);
+        PAGINA_WEB.setAutoIncrement(false);
+
+        ID_PAIS.setNombre("idPais");
+        ID_PAIS.setLongitudDeCaracteres(11);
+        ID_PAIS.setTipoDeDatos("int");
+        ID_PAIS.setNulo(true);
+        ID_PAIS.setAutoIncrement(false);
         
-        camposPDC.add(idPDC);
-        camposPDC.add(nombreContactoPDC);
-        camposPDC.add(telefonoPDC);
-        camposPDC.add(emailPDC);
-        camposPDC.add(empresaProveedorePDC);
-        camposPDC.add(paginaWebPDC);
-        camposPDC.add(idPaisPDC);
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(NOMBRE_CONTACTO);
+        CAMPOS_PDC.add(TELEFONO);
+        CAMPOS_PDC.add(EMAIL);
+        CAMPOS_PDC.add(EMPRESA_PROVEEDOR);
+        CAMPOS_PDC.add(PAGINA_WEB);
+        CAMPOS_PDC.add(ID_PAIS);
     
     }
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
-    public void setIdPDC(ParametrosDeCampo idPDC) {
-        this.idPDC = idPDC;
+    
+
+    public static ParametrosDeCampo getNOMBRE_CONTACTO() {
+        return NOMBRE_CONTACTO;
     }
 
-    public ParametrosDeCampo getNombreContactoPDC() {
-        return nombreContactoPDC;
+    
+
+    public static ParametrosDeCampo getTELEFONO() {
+        return TELEFONO;
     }
 
-    public void setNombreContactoPDC(ParametrosDeCampo nombreContactoPDC) {
-        this.nombreContactoPDC = nombreContactoPDC;
+    
+
+    public static ParametrosDeCampo getEMAIL() {
+        return EMAIL;
     }
 
-    public ParametrosDeCampo getTelefonoPDC() {
-        return telefonoPDC;
+    
+
+    public static ParametrosDeCampo getEMPRESA_PROVEEDOR() {
+        return EMPRESA_PROVEEDOR;
     }
 
-    public void setTelefonoPDC(ParametrosDeCampo telefonoPDC) {
-        this.telefonoPDC = telefonoPDC;
+    
+
+    public static ParametrosDeCampo getPAGINA_WEB() {
+        return PAGINA_WEB;
     }
 
-    public ParametrosDeCampo getEmailPDC() {
-        return emailPDC;
+    
+
+    public static ParametrosDeCampo getID_PAIS() {
+        return ID_PAIS;
     }
 
-    public void setEmailPDC(ParametrosDeCampo emailPDC) {
-        this.emailPDC = emailPDC;
-    }
-
-    public ParametrosDeCampo getEmpresaProveedorPDC() {
-        return empresaProveedorePDC;
-    }
-
-    public void setEmpresaProveedorePDC(ParametrosDeCampo empresaProveedorePDC) {
-        this.empresaProveedorePDC = empresaProveedorePDC;
-    }
-
-    public ParametrosDeCampo getPaginaWebPDC() {
-        return paginaWebPDC;
-    }
-
-    public void setPaginaWebPDC(ParametrosDeCampo paginaWebPDC) {
-        this.paginaWebPDC = paginaWebPDC;
-    }
-
-    public ParametrosDeCampo getIdPaisPDC() {
-        return idPaisPDC;
-    }
-
-    public void setIdPaisPDC(ParametrosDeCampo idPaisPDC) {
-        this.idPaisPDC = idPaisPDC;
-    }
+    
     
     
     

@@ -28,13 +28,13 @@ public class SalidaDeControlVo extends VoGenerales{
     public SalidaDeControlVo() {
         
         SalidaDeControlIT it = new SalidaDeControlIT();
-        relacionCampo.put(it.getIdPDC().getNombre(), ()->this.getId());
-        relacionCampo.put(it.getIdRefaccionPDC().getNombre(), ()->this.getIdRefaccion());
-        relacionCampo.put(it.getIdMaquinaEnLaQueSeUsaraPDC().getNombre(), ()->this.getIdMaquinaEnLaQueSeUsara());
-        relacionCampo.put(it.getIdEmpleadoPDC().getNombre(), ()->this.getIdEmpleado());
-        relacionCampo.put(it.getFechaSalidaPDC().getNombre(), ()->this.getFechaSalida());
-        relacionCampo.put(it.getCantidadPDC().getNombre(), ()->this.getCantidad());
-        relacionCampo.put(it.getObservacionesPDC().getNombre(), ()->this.getObservaciones());
+        relacionCampo.put(it.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(it.getID_REFACCION().getNombre(), ()->this.getIdRefaccion());
+        relacionCampo.put(it.getID_MAQUINA_EN_LA_QUE_SE_USARA().getNombre(), ()->this.getIdMaquinaEnLaQueSeUsara());
+        relacionCampo.put(it.getID_EMPLEADO().getNombre(), ()->this.getIdEmpleado());
+        relacionCampo.put(it.getFECHA_SALIDA().getNombre(), ()->this.getFechaSalida());
+        relacionCampo.put(it.getCANTIDAD().getNombre(), ()->this.getCantidad());
+        relacionCampo.put(it.getOBSERVACIONES().getNombre(), ()->this.getObservaciones());
     
     }
 

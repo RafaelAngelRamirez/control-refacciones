@@ -5,20 +5,13 @@
  */
 package modelo.InfoTabla;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Particular
  */
 public class ITGenerales {
     
-    protected List<ParametrosDeCampo> camposPDC = new ArrayList<>();
-
-    public List<ParametrosDeCampo> getCamposPDC() {
-        return camposPDC;
-    }
+   
     
     
     

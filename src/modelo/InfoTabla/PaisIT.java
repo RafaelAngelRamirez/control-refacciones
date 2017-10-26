@@ -5,6 +5,12 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import modelo.ParametrosDeCampo;
+
+
 /**
  *
  * @author Particular
@@ -12,35 +18,45 @@ package modelo.InfoTabla;
 public class PaisIT extends ITGenerales{
     public static final String NOMBRE_TABLA = "pais";
     
-    private ParametrosDeCampo idPDC = new ParametrosDeCampo();
-    private ParametrosDeCampo paisPDC = new ParametrosDeCampo();
+    private static final ParametrosDeCampo ID = new ParametrosDeCampo();
+    private static final ParametrosDeCampo PAIS = new ParametrosDeCampo();
 
-    public PaisIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
-        idPDC.setNombre("id");
-        idPDC.setLongitudDeCaracteres(11);
-        idPDC.setTipoDeDatos("int");
-        idPDC.setNulo(false);
-        idPDC.setAutoIncrement(true);
+        ID.setNombre("id");
+        ID.setLongitudDeCaracteres(11);
+        ID.setTipoDeDatos("int");
+        ID.setNulo(false);
+        ID.setAutoIncrement(true);
 
-        paisPDC.setNombre("pais");
-        paisPDC.setNombreParaMostrar("Pais");
-        paisPDC.setLongitudDeCaracteres(25);
-        paisPDC.setTipoDeDatos("varchar");
-        paisPDC.setNulo(false);
-        paisPDC.setAutoIncrement(false);
+        PAIS.setNombre("pais");
+        PAIS.setNombreParaMostrar("Pais");
+        PAIS.setLongitudDeCaracteres(25);
+        PAIS.setTipoDeDatos("varchar");
+        PAIS.setNulo(false);
+        PAIS.setAutoIncrement(false);
 
-        camposPDC.add(idPDC);
-        camposPDC.add(paisPDC);
+        CAMPOS_PDC.add(ID);
+        CAMPOS_PDC.add(PAIS);
     
     }
 
-    public ParametrosDeCampo getIdPDC() {
-        return idPDC;
+    public static ParametrosDeCampo getID() {
+        return ID;
     }
 
-    public ParametrosDeCampo getPaisPDC() {
-        return paisPDC;
+    public static ParametrosDeCampo getPAIS() {
+        return PAIS;
     }
     
     

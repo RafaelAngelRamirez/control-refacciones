@@ -1,10 +1,8 @@
 package modelo.vo;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.Callable;
 import modelo.InfoTabla.ProveedorIT;
-import modelo.dao.ProveedorDao;
 
 /**
  *
@@ -25,13 +23,13 @@ public class ProveedorVo extends VoGenerales{
     public ProveedorVo() {
         ProveedorIT pit = new ProveedorIT();
                 
-        relacionCampo.put(pit.getEmpresaProveedorPDC().getNombre(), ()->this.getEmpresa());
-        relacionCampo.put(pit.getIdPDC().getNombre(), ()->this.getId());
-        relacionCampo.put(pit.getIdPaisPDC().getNombre(), ()->this.getIdPais());
-        relacionCampo.put(pit.getNombreContactoPDC().getNombre(), ()->this.getNombreContacto());
-        relacionCampo.put(pit.getPaginaWebPDC().getNombre(), ()->this.getPaginaWeb());
-        relacionCampo.put(pit.getTelefonoPDC().getNombre(), ()->this.getTelefono());
-        relacionCampo.put(pit.getEmailPDC().getNombre(), ()->this.getEmail());
+        relacionCampo.put(ProveedorIT.getEMPRESA_PROVEEDOR().getNombre(), ()->this.getEmpresa());
+        relacionCampo.put(ProveedorIT.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(ProveedorIT.getID_PAIS().getNombre(), ()->this.getIdPais());
+        relacionCampo.put(ProveedorIT.getNOMBRE_CONTACTO().getNombre(), ()->this.getNombreContacto());
+        relacionCampo.put(ProveedorIT.getPAGINA_WEB().getNombre(), ()->this.getPaginaWeb());
+        relacionCampo.put(ProveedorIT.getTELEFONO().getNombre(), ()->this.getTelefono());
+        relacionCampo.put(ProveedorIT.getEMAIL().getNombre(), ()->this.getEmail());
         
     }
 
@@ -97,7 +95,14 @@ public class ProveedorVo extends VoGenerales{
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 
+        "id:" + id+"\n"+                            
+        "nombreContacto:" + nombreContacto+"\n"+
+        "telefono:" + telefono+"\n"+
+        "email:" + email+"\n"+
+        "empresa:" + empresa+"\n"+
+        "paginaWeb:" + paginaWeb+"\n"+
+        "idPais:" + idPais+"\n";
     }
     
     

@@ -22,9 +22,9 @@ public class ImagenRefaccionVo extends VoGenerales{
 
     public ImagenRefaccionVo() {
         ImagenRefaccionIT i = new ImagenRefaccionIT();
-        relacionCampo.put(i.getIdRefaccionPDC().getNombre(), ()->this.getIdRefaccion());
-        relacionCampo.put(i.getNombreParaMostarPDC().getNombre(), ()->this.getNombreParaMostrar());
-        relacionCampo.put(i.getNombreServidorPDC().getNombre(), ()->this.getNombreServidor());
+        relacionCampo.put(i.getID_REFACCION().getNombre(), ()->this.getIdRefaccion());
+        relacionCampo.put(i.getNOMBRE_PARA_MOSTRAR().getNombre(), ()->this.getNombreParaMostrar());
+        relacionCampo.put(i.getNOMBRE_SERVIDOR().getNombre(), ()->this.getNombreServidor());
     }
 
     public String getNombreServidor() {

@@ -20,7 +20,7 @@ import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.PaisIT;
-import modelo.InfoTabla.ParametrosDeCampo;
+import modelo.ParametrosDeCampo;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
@@ -442,15 +442,13 @@ public class Coordinador {
     
     
     /**
-     * Consulta toda la lista de proveedores y retorna solo el campo empresa 
-     * filtrando las coincidencias con el id que se le pase como parametro.  
-     * @param id El id que se quiere filtrar en la tabla. 
-     * @return La lista de relaciones entre una refacción y un proveedor dentro de un 
-     * clase para ello.
-     * @see RelacionRefaccionProveedorVo
+     * Consulta los proveedores que estan seleccionados con el id de la máquina
+     * que se le pase como parametro. 
+     * @param vo La refacción de la cual se quiere buscar las máquinas. 
+     * @return La lista de máquinas relacionadas. 
      */
-    public List<RelacionRefaccionProveedorVo> proveedoresConsultarMarcas(int id){
-        return this.logica.proveedorConsultarMarcas(id);
+    public List<ProveedorVo> proveedoresConsultarMarcas(RefaccionVo vo){
+        return this.logica.proveedorConsultarMarcas(vo);
     }
     
     public ProveedorVo proveedorConsultar(int id){
@@ -1580,9 +1578,9 @@ public class Coordinador {
     public List<Validacion> seccionDeMaquinaValidar(SeccionDeMaquinaVO sdmvo) {
         SeccionDeMaquinaIT it = new SeccionDeMaquinaIT();
         List<Validacion> listVal = new ArrayList<>();
-        for (ParametrosDeCampo parametrosDeCampo : it.getCamposPDC()) {
+        for (ParametrosDeCampo parametrosDeCampo : it.getCAMPOS_PDC()) {
             
-            if (parametrosDeCampo.getNombre().equals(it.getIdPDC().getNombre())) {
+            if (parametrosDeCampo.getNombre().equals(it.getID().getNombre())) {
                 Validacion val = new Validacion();
                 if (sdmvo.getNombreSeccion().isEmpty()) {
                     val.setMensajeDeError("No has definido un nombre.");

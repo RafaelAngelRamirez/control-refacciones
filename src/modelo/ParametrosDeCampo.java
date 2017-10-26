@@ -1,10 +1,10 @@
 
-package modelo.InfoTabla;
+package modelo;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import controlador.capturadeerrores.ExcepcionPersonalizada;
 /**
  * Esta clase maneja guarda los parametros del campo que tienen que coincidir 
  * con los de la base de datos. 
@@ -55,6 +55,7 @@ public class ParametrosDeCampo {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
 
     public String getNombreParaMostrar() {
         return nombreParaMostrar;
@@ -67,6 +68,7 @@ public class ParametrosDeCampo {
     public void setNombreParaMostrar(String nombreParaMostrar) {
         this.nombreParaMostrar = nombreParaMostrar;
     }
+    
 
     public List<String> getTiposDeDatoEnLaBD() {
         return tiposDeDatoEnLaBD;
@@ -75,6 +77,7 @@ public class ParametrosDeCampo {
     public void setTiposDeDatoEnLaBD(List<String> tiposDeDatoEnLaBD) {
         this.tiposDeDatoEnLaBD = tiposDeDatoEnLaBD;
     }
+    
     
     
     
@@ -105,6 +108,7 @@ public class ParametrosDeCampo {
     public void setLongitudDeCaracteres(int longitudDeCaracteres) {
         this.longitudDeCaracteres = longitudDeCaracteres;
     }
+    
     
     /**
      * Cantidad de decimales definidos para los tipos float y decimal en la 
@@ -213,7 +217,7 @@ public class ParametrosDeCampo {
 
     /**
      * Tipo de datos para el campo definido en la tabla. 
-     * @param tipoDeDatos Define el tipo de datos que aceptara. 
+     * @param tipoDeDatos
      */
     public void setTipoDeDatos(String tipoDeDatos) {
         if (!this.tiposDeDatoEnLaBD.contains(tipoDeDatos)) {
@@ -313,5 +317,27 @@ public class ParametrosDeCampo {
     public void setPermiteRepetido(boolean permiteRepetido) {
         this.permiteRepetido = permiteRepetido;
     }
+
+    @Override
+    public String toString() {
+        return 
+        "---------------------------------------------\n"+
+        "nombre" + nombre +"\n"+			                
+        "nombreParaMostrar" + nombreParaMostrar +"\n"+      
+        "longitudDeCaracteres" + longitudDeCaracteres +"\n"+   
+        "longitudDeDecimales" + longitudDeDecimales +"\n"+	
+        "tipoDeDatos" + tipoDeDatos +"\n"+			          
+        "nulo" + nulo +"\n"+			                
+        "autoIncrement" + autoIncrement +"\n"+			      
+        "permiteRepetido" + permiteRepetido +"\n"+
+        "---------------------------------------------\n";
+    
+        
+        
+        
+    }
+    
+    
+    
     
 }

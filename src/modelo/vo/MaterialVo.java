@@ -18,8 +18,8 @@ public class MaterialVo extends VoGenerales{
 
     public MaterialVo() {
         MaterialIT i = new MaterialIT();
-        relacionCampo.put(i.getIdPDC().getNombre(), this::getId);
-        relacionCampo.put(i.getMaterialPDC().getNombre(), this::getMaterial);
+        relacionCampo.put(i.getID().getNombre(), this::getId);
+        relacionCampo.put(i.getMATERIAL().getNombre(), this::getMaterial);
     
     }
     

@@ -19,12 +19,12 @@ public class EntradaLoteVo extends VoGenerales{
 
     public EntradaLoteVo() {
         EntradaLoteIT i = new EntradaLoteIT();
-        relacionCampo.put(i.getIdPDC().getNombre(), ()->this.getId());
-        relacionCampo.put(i.getFechaRecepcionLotePDC().getNombre(), ()->this.getFechaRecepcionLote());
-        relacionCampo.put(i.getCantidadPDC().getNombre(), ()->this.getCantidad());
-        relacionCampo.put(i.getIdRefaccionPDC().getNombre(), ()->this.getIdRefaccion());
-        relacionCampo.put(i.getIdEmpleadoPDC().getNombre(), ()->this.getIdEmpleado());
-        relacionCampo.put(i.getObservacionesPDC().getNombre(), ()->this.getObservaciones());
+        relacionCampo.put(i.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(i.getFECHA_RECEPCION_LOTE().getNombre(), ()->this.getFechaRecepcionLote());
+        relacionCampo.put(i.getCANTIDAD().getNombre(), ()->this.getCantidad());
+        relacionCampo.put(i.getID_REFACCION().getNombre(), ()->this.getIdRefaccion());
+        relacionCampo.put(i.getID_EMPLEADO().getNombre(), ()->this.getIdEmpleado());
+        relacionCampo.put(i.getOBSERVACIONES().getNombre(), ()->this.getObservaciones());
     
     }
 
