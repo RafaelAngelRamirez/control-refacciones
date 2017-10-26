@@ -317,6 +317,27 @@ public class ParametrosDeCampo {
     public void setPermiteRepetido(boolean permiteRepetido) {
         this.permiteRepetido = permiteRepetido;
     }
+
+    @Override
+    public String toString() {
+        return 
+        "---------------------------------------------\n"+
+        "nombre" + nombre +"\n"+			                
+        "nombreParaMostrar" + nombreParaMostrar +"\n"+      
+        "longitudDeCaracteres" + longitudDeCaracteres +"\n"+   
+        "longitudDeDecimales" + longitudDeDecimales +"\n"+	
+        "tipoDeDatos" + tipoDeDatos +"\n"+			          
+        "nulo" + nulo +"\n"+			                
+        "autoIncrement" + autoIncrement +"\n"+			      
+        "permiteRepetido" + permiteRepetido +"\n"+
+        "---------------------------------------------\n";
+    
+        
+        
+        
+    }
+    
+    
     
     
 }

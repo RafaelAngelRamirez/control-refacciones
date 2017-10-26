@@ -128,15 +128,14 @@ public class Logica {
     }
     
     /**
-     * Consulta la lista de todos los proveedores y solo devuelve al proveedor-
-     * empresa que se filtre como parametro.
-     * 
-     * @param id El id del proveedor a filtrar. 
-     * @return La lista coincidente de proveedores.
+     * Consulta los proveedores que estan seleccionados con el id de la máquina
+     * que se le pase como parametro. 
+     * @param vo La refacción de la cual se quiere buscar las máquinas. 
+     * @return La lista de máquinas relacionadas. 
      */
-    public List<RelacionRefaccionProveedorVo> proveedorConsultarMarcas(int id){
+    public List<ProveedorVo> proveedorConsultarMarcas(RefaccionVo vo){
         RelacionRefaccionProveedorDao dao = new RelacionRefaccionProveedorDao(coordinador);
-        return dao.consultarProveedores(id);
+        return dao.consultarProveedores(vo);
         
     }
     
@@ -598,17 +597,17 @@ public class Logica {
                     // VACIO.
                     if (valor.isEmpty() || valor.equals("-1")|| valor.equals("-1.0") ) {
                         boolean ningunoDeLosAnteriores = true;
-                        if (_PDC.getNombre().equals(rIT.getIMPORTANCIA().getNombre())) {
+                        if (_PDC.getNombre().equals(RefaccionIT.getIMPORTANCIA().getNombre())) {
                             //MENSAJE PARA IMPORTANCIA.
                             vNulo.setMensajeDeError("Debes definir la importancia de la refacción.");
                             ningunoDeLosAnteriores = false;
                         }
-                        if(_PDC.getNombre().equals(rIT.getID_MATERIAL().getNombre())){
+                        if(_PDC.getNombre().equals(RefaccionIT.getID_MATERIAL().getNombre())){
                             //MENSAJE PARA MATERIAL.
                             vNulo.setMensajeDeError("Debes registrar un material");
                             ningunoDeLosAnteriores = false;
                         }
-                        if(_PDC.getNombre().equals(rIT.getUNIDAD().getNombre())){
+                        if(_PDC.getNombre().equals(RefaccionIT.getUNIDAD().getNombre())){
                             //MENSAJE PARA UNIDAD.
                             vNulo.setMensajeDeError("Debes registrar una unidad.");
                             ningunoDeLosAnteriores = false;
@@ -639,7 +638,7 @@ public class Logica {
                      //DEFINIRA COMO TRUE DE QUE PASO LA VALIDACION.
                      // CUANDO SE VALIDA UN UPDATE EL CÓDIGO INTERNO SE VALIDA
                      // PARA QUE NO ESTE REPEDITO CON OTRO.
-                     if (_PDC.getNombre().equals(rIT.getCODIGO_INTERNO().getNombre())) {
+                     if (_PDC.getNombre().equals(RefaccionIT.getCODIGO_INTERNO().getNombre())) {
                          if (validandoUpdate) {
                          //SI ESTAMOS VALIDANDO UNA MODIFICAION ENTRA AQUI.
                             if (this.refaccionExisteCodigoInterno(vo)) {
@@ -669,18 +668,18 @@ public class Logica {
                 COMPROBAMOS QUE EL STOCK MINIMO Y MAXIMO ESTEN BIEN.
                 ----------------------------------------------------------------
                 */
-                if (_PDC.getNombre().equals(rIT.getSTOCK_MAXIMO().getNombre())) {
+                if (_PDC.getNombre().equals(RefaccionIT.getSTOCK_MAXIMO().getNombre())) {
                     String smax = vo.getRelacionCampo().get(
-                            rIT.getSTOCK_MAXIMO().getNombre()).call()+"";
+                            RefaccionIT.getSTOCK_MAXIMO().getNombre()).call()+"";
                     String smin = vo.getRelacionCampo().get(
-                            rIT.getSTOCK_MINIMO().getNombre()).call()+"";
+                            RefaccionIT.getSTOCK_MINIMO().getNombre()).call()+"";
                     if (!smax.equals("-1.0") && !smin.equals("-1.0")) {
                         float fmax = Float.parseFloat(smax);
                         float fmin = Float.parseFloat(smin);
                         
                         if (fmax<fmin) {
                             Validacion val = new Validacion();
-                            val.setNombreDeCampo(rIT.getSTOCK_MAXIMO());
+                            val.setNombreDeCampo(RefaccionIT.getSTOCK_MAXIMO());
                             val.setMensajeDeError(
                                     "El stock máximo("+fmax+") no puede ser menor "
                                     + "\nque el stock mínimo("+fmin+")");
@@ -688,7 +687,7 @@ public class Logica {
                             listaValidaciones.add(val);
                         }else if (fmax==fmin && fmax!=0 && fmin!=0) {
                             Validacion val = new Validacion();
-                            val.setNombreDeCampo(rIT.getSTOCK_MAXIMO());
+                            val.setNombreDeCampo(RefaccionIT.getSTOCK_MAXIMO());
                             val.setMensajeDeError(
                                     "El stock máximo no puede ser igual"
                                     + "\nque el stock mínimo.");
@@ -698,7 +697,7 @@ public class Logica {
                         
                         if (fmin==0) {
                             Validacion val = new Validacion();
-                            val.setNombreDeCampo(rIT.getSTOCK_MINIMO());
+                            val.setNombreDeCampo(RefaccionIT.getSTOCK_MINIMO());
                             val.setMensajeDeError(
                                     "El stock mínimo no puede 0.");
                             val.setValido(false);
@@ -707,7 +706,7 @@ public class Logica {
                         
                         if (fmax==0) {
                             Validacion val = new Validacion();
-                            val.setNombreDeCampo(rIT.getSTOCK_MAXIMO());
+                            val.setNombreDeCampo(RefaccionIT.getSTOCK_MAXIMO());
                             val.setMensajeDeError(
                                     "El stock máximo no puede 0.");
                             val.setValido(false);
@@ -726,8 +725,7 @@ public class Logica {
     
     public List<Validacion> refaccionValidarCamposMaquinaModelo(List<RelacionRefaccionMaquinaModeloVo> lista){
         Validacion val = new Validacion();
-        RelacionRefaccionMaquinaModeloIT it = new RelacionRefaccionMaquinaModeloIT();
-        val.setNombreDeCampo(it.getID_MAQUINA_MODELO());
+        val.setNombreDeCampo(RelacionRefaccionMaquinaModeloIT.getID_MAQUINA_MODELO());
         if (lista.isEmpty()) {
             val.setMensajeDeError("No has seleccionado ningún modelo para esta refacción.");
             val.setValido(false);

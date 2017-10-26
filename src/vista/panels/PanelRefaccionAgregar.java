@@ -27,7 +27,6 @@ import modelo.vo.ImagenRefaccionVo;
 import modelo.vo.ImportanciaVo;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
-import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
@@ -55,8 +54,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
     UtilidadesComboBox_ _ComboUnidad;
     UtilidadesComboBox_ _ComboMaterial;
 
-    UtilidadesListas_ _ListaProveedor;
-    UtilidadesListas_ _ListaProveedorSeleccionado;
     UtilidadesListas_ _ListaMaquinaModelo;
     UtilidadesListas_ _ListasMaquinasSeleccionadas;
     
@@ -288,16 +285,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         }
     }
     
-    public void cargarListaProveedor(){
-        List<ProveedorVo> lista = this.getCoordinador().proveedoresConsultarMarcas();
-        HashMap<String, Object> datos= new HashMap<>();
-        _ListaProveedor.limpiar();
-        for (ProveedorVo vo : lista) {
-            datos.put(vo.getEmpresa(), vo.getId());
-        }
-        _ListaProveedor.cargarLista(datos);
-    
-    }
     public void cargarListaMaquinaModelo(){
         List<MaquinaModeloVo> lista = this.getCoordinador().maquinaModeloConsultar();
         HashMap<String, Object> datos = new HashMap<>();
@@ -1176,8 +1163,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ComboMaterial.setErrorQuitar();
 
 
-        _ListaProveedor.setErrorQuitar();
-        _ListaProveedorSeleccionado.setErrorQuitar();
 
         _ListaMaquinaModelo.setErrorQuitar();
         _ListasMaquinasSeleccionadas.setErrorQuitar();
@@ -1267,14 +1252,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
             vo.setFicheroImagen(f);
             vo.setNombreParaMostrar(f.getName());
             listaiVo.add(vo);
-        }
-        
-        //CARGAMOS LOS PROVEEDORES QUE VAN A RELACIONARSE CON ESTA REFACCIÓN.
-        List<Object> pSeleccionado = _ListaProveedorSeleccionado.getItems_ObjectsRelacionados();
-        for (Object i : pSeleccionado) {
-            RelacionRefaccionProveedorVo v = new RelacionRefaccionProveedorVo();
-            v.setIdProveedor((int)i);
-            listarrpVo.add(v);
         }
         
         
@@ -1384,16 +1361,6 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
         }
         
-        //VALIDAMOS PROVEEDOR.
-        for (Validacion v : valRelacionRP) {
-            if (!v.isValido()) {
-                _ListaProveedorSeleccionado.setError(v.getMensajeDeError());
-                todoValido = false;
-            }else{
-                _ListaProveedorSeleccionado.setErrorQuitar();
-            
-            }
-        }
         //VALIDAMOS MAQUINAMODELO
         for (Validacion v : valRelacionRMM) {
             if (!v.isValido()) {

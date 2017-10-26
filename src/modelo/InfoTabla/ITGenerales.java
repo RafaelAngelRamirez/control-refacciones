@@ -17,9 +17,9 @@ public class ITGenerales {
     /**
      * Los campos de la tabla. 
      */
-    protected static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+    protected final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
 
-    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+    public  List<ParametrosDeCampo> getCAMPOS_PDC() {
         return CAMPOS_PDC;
     }
     

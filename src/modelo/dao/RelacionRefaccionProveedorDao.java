@@ -18,7 +18,6 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
     RelacionRefaccionProveedorIT it;
     public RelacionRefaccionProveedorDao(Coordinador coordinador) {
         super(coordinador);
-        this.it = new RelacionRefaccionProveedorIT();
     }
     
     public boolean guardarLista(List<RelacionRefaccionProveedorVo> listaVo){
@@ -56,19 +55,38 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
         return conexion.executeUpdate(sql, mapa);
     }
     
-    public List<RelacionRefaccionProveedorVo> consultarProveedores(int id){
+    /**
+     * Consulta los proveedores que estan seleccionados con el id de la máquina
+     * que se le pase como parametro. 
+     * @param vo La refacción de la cual se quiere buscar las máquinas. 
+     * @return La lista de máquinas relacionadas. 
+     */
+    public List<ProveedorVo> consultarProveedores(RefaccionVo vo){
         conexion = new Conexion(coordinador);
-        List<RelacionRefaccionProveedorVo> lrrpvo = new ArrayList<>();
+        List<ProveedorVo> lrrpvo = new ArrayList<>();
         ProveedorIT pit = new ProveedorIT();
-
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         return lrrpvo;
     }
+    
     
     
     public boolean modificar(List<RelacionRefaccionProveedorVo> vo){
         conexion = new Conexion(coordinador);
         String sql = "DELETE FROM "+RelacionRefaccionProveedorIT.NOMBRE_TABLA +
-                " WHERE " +it.getID_REFACCION().getNombre() + "=?" ;
+                " WHERE " +
+                RelacionRefaccionProveedorIT.getID_REFACCION().getNombre() + "=?" ;
         conexion.executeUpdate(sql, vo.get(0).getIdRefaccion()+"");
         
         return guardarLista(vo);
