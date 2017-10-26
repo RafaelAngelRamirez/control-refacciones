@@ -5,7 +5,11 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import modelo.ParametrosDeCampo;
+
 
 /**
  *
@@ -21,7 +25,17 @@ public class RelacionSeccionMaqRefaccionIT extends ITGenerales{
     private static final ParametrosDeCampo ID_REFACCION = new ParametrosDeCampo();
     private static final ParametrosDeCampo ID_SECCION_MAQUINA = new ParametrosDeCampo();
 
-    public RelacionSeccionMaqRefaccionIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         ID_REFACCION.setNombre("idRefaccion");
         ID_REFACCION.setLongitudDeCaracteres(11);
         ID_REFACCION.setTipoDeDatos("int");

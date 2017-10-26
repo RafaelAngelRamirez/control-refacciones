@@ -5,7 +5,11 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import modelo.ParametrosDeCampo;
+
 
 /**
  *
@@ -17,7 +21,17 @@ public static final String NOMBRE_TABLA = "relacionrefaccionproveedor";
 private static final ParametrosDeCampo ID_PROVEEDOR = new ParametrosDeCampo();
 private static final ParametrosDeCampo ID_REFACCION = new ParametrosDeCampo();
 
-    public RelacionRefaccionProveedorIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
 
         ID_REFACCION.setNombre("idRefaccion");

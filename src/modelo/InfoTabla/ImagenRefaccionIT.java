@@ -5,7 +5,11 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import modelo.ParametrosDeCampo;
+
 import java.io.File;
 import javax.swing.JOptionPane;
 
@@ -24,7 +28,17 @@ public class ImagenRefaccionIT extends ITGenerales{
     private static final ParametrosDeCampo NOMBRE_PARA_MOSTRAR = new ParametrosDeCampo();
     private static final ParametrosDeCampo NOMBRE_SERVIDOR = new ParametrosDeCampo();
 
-    public ImagenRefaccionIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
         
         ID_REFACCION.setNombre("idRefaccion");

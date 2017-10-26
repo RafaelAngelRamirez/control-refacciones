@@ -1,7 +1,11 @@
 
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import modelo.ParametrosDeCampo;
+
 
 /**
  *
@@ -17,7 +21,17 @@ public class ImagenProveedorIT extends ITGenerales{
     private static final ParametrosDeCampo NOMBRE_PARA_MOSTRAR = new ParametrosDeCampo();
     private static final ParametrosDeCampo NOMBRE_SERVIDOR = new ParametrosDeCampo();
 
-    public ImagenProveedorIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
         
         ID_PROVEEDOR.setNombre("idProveedor");

@@ -5,7 +5,11 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import modelo.ParametrosDeCampo;
+
 
 /**
  *
@@ -22,7 +26,17 @@ public class MaquinaModeloIT extends ITGenerales{
     private static final ParametrosDeCampo ANIO = new ParametrosDeCampo();
     private static final ParametrosDeCampo ID_PROVEEDOR = new ParametrosDeCampo();
 
-    public MaquinaModeloIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
        
         ID.setNombre("id");
         ID.setNombreParaMostrar("ID");

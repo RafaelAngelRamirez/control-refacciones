@@ -1,6 +1,10 @@
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import modelo.ParametrosDeCampo;
+
 
 /**
  *
@@ -15,7 +19,17 @@ public class DepartamentoIT extends ITGenerales{
     private static final ParametrosDeCampo ID = new ParametrosDeCampo();
     private static final ParametrosDeCampo DEPARTAMENTO = new ParametrosDeCampo();
 
-    public DepartamentoIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
         ID.setNombre("id");
         ID.setLongitudDeCaracteres(11);

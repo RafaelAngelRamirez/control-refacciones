@@ -1,6 +1,10 @@
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import modelo.ParametrosDeCampo;
+
 
 public class MaquinaIT extends ITGenerales{
     /**
@@ -13,7 +17,17 @@ public class MaquinaIT extends ITGenerales{
     private static final ParametrosDeCampo NUMERO_DE_MAQUINA = new ParametrosDeCampo();
     private static final ParametrosDeCampo MATRICULA = new ParametrosDeCampo();
 
-    public MaquinaIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
         ID.setNombre("id");
         ID.setLongitudDeCaracteres(11);

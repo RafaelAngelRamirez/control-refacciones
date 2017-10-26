@@ -5,7 +5,11 @@
  */
 package modelo.InfoTabla;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import modelo.ParametrosDeCampo;
+
 
 /**
  *
@@ -19,7 +23,17 @@ public class MaquinaHistorialNombresIT extends ITGenerales{
     private static final ParametrosDeCampo NOMBRE_ANTERIOR = new ParametrosDeCampo();
     private static final ParametrosDeCampo FECHA_DE_CAMBIO = new ParametrosDeCampo();
 
-    public MaquinaHistorialNombresIT() {
+    
+    /**
+     * Los campos de la tabla. 
+     */
+    private static final List<ParametrosDeCampo> CAMPOS_PDC = new ArrayList<>();
+
+    public static List<ParametrosDeCampo> getCAMPOS_PDC() {
+        return CAMPOS_PDC;
+    }
+    
+    static {
         
         ID_MAQUINA.setNombre("idMaquina");
         ID_MAQUINA.setLongitudDeCaracteres(11);

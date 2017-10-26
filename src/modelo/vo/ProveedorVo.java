@@ -1,10 +1,8 @@
 package modelo.vo;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.Callable;
 import modelo.InfoTabla.ProveedorIT;
-import modelo.dao.ProveedorDao;
 
 /**
  *
@@ -25,13 +23,13 @@ public class ProveedorVo extends VoGenerales{
     public ProveedorVo() {
         ProveedorIT pit = new ProveedorIT();
                 
-        relacionCampo.put(pit.getEMPRESA_PROVEEDOR().getNombre(), ()->this.getEmpresa());
-        relacionCampo.put(pit.getID().getNombre(), ()->this.getId());
-        relacionCampo.put(pit.getID_PAIS().getNombre(), ()->this.getIdPais());
-        relacionCampo.put(pit.getNOMBRE_CONTACTO().getNombre(), ()->this.getNombreContacto());
-        relacionCampo.put(pit.getPAGINA_WEB().getNombre(), ()->this.getPaginaWeb());
-        relacionCampo.put(pit.getTELEFONO().getNombre(), ()->this.getTelefono());
-        relacionCampo.put(pit.getEMAIL().getNombre(), ()->this.getEmail());
+        relacionCampo.put(ProveedorIT.getEMPRESA_PROVEEDOR().getNombre(), ()->this.getEmpresa());
+        relacionCampo.put(ProveedorIT.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(ProveedorIT.getID_PAIS().getNombre(), ()->this.getIdPais());
+        relacionCampo.put(ProveedorIT.getNOMBRE_CONTACTO().getNombre(), ()->this.getNombreContacto());
+        relacionCampo.put(ProveedorIT.getPAGINA_WEB().getNombre(), ()->this.getPaginaWeb());
+        relacionCampo.put(ProveedorIT.getTELEFONO().getNombre(), ()->this.getTelefono());
+        relacionCampo.put(ProveedorIT.getEMAIL().getNombre(), ()->this.getEmail());
         
     }
 
