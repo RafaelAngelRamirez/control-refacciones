@@ -27,21 +27,20 @@ public class RefaccionVo extends VoGenerales{
     byte refaccionDeConsumoUnico;
 
     public RefaccionVo() {
-        RefaccionIT it = new RefaccionIT();
         
-        relacionCampo.put(it.getCODIGO_PROVEEDOR().getNombre(), ()->this.getCodigoProveedor());
-        relacionCampo.put(it.getCODIGO_INTERNO().getNombre(), ()->this.getCodigoInterno());
-        relacionCampo.put(it.getDESCRIPCION().getNombre(), ()->this.getDescripcion());
-        relacionCampo.put(it.getID().getNombre(), ()->this.getId());
-        relacionCampo.put(it.getID_MATERIAL().getNombre(), ()->this.getIdMaterial());
-        relacionCampo.put(it.getIMPORTANCIA().getNombre(), ()->this.getImportancia());
-        relacionCampo.put(it.getNOMBRE().getNombre(), ()->this.getNombre());
-        relacionCampo.put(it.getPARA_QUE_ES().getNombre(), ()->this.getParaQueEs());
-        relacionCampo.put(it.getQUE_ES().getNombre(), ()->this.getQueEs());
-        relacionCampo.put(it.getSTOCK_MAXIMO().getNombre(), ()->this.getStockMaximo());
-        relacionCampo.put(it.getSTOCK_MINIMO().getNombre(), ()->this.getStockMinimo());
-        relacionCampo.put(it.getREFACCION_DE_CONSUMO_UNICO().getNombre(), ()->this.getRefaccionDeConsumoUnico());
-        relacionCampo.put(it.getUNIDAD().getNombre(), ()->this.getUnidad());
+        relacionCampo.put(RefaccionIT.getCODIGO_PROVEEDOR().getNombre(), ()->this.getCodigoProveedor());
+        relacionCampo.put(RefaccionIT.getCODIGO_INTERNO().getNombre(), ()->this.getCodigoInterno());
+        relacionCampo.put(RefaccionIT.getDESCRIPCION().getNombre(), ()->this.getDescripcion());
+        relacionCampo.put(RefaccionIT.getID().getNombre(), ()->this.getId());
+        relacionCampo.put(RefaccionIT.getID_MATERIAL().getNombre(), ()->this.getIdMaterial());
+        relacionCampo.put(RefaccionIT.getIMPORTANCIA().getNombre(), ()->this.getImportancia());
+        relacionCampo.put(RefaccionIT.getNOMBRE().getNombre(), ()->this.getNombre());
+        relacionCampo.put(RefaccionIT.getPARA_QUE_ES().getNombre(), ()->this.getParaQueEs());
+        relacionCampo.put(RefaccionIT.getQUE_ES().getNombre(), ()->this.getQueEs());
+        relacionCampo.put(RefaccionIT.getSTOCK_MAXIMO().getNombre(), ()->this.getStockMaximo());
+        relacionCampo.put(RefaccionIT.getSTOCK_MINIMO().getNombre(), ()->this.getStockMinimo());
+        relacionCampo.put(RefaccionIT.getREFACCION_DE_CONSUMO_UNICO().getNombre(), ()->this.getRefaccionDeConsumoUnico());
+        relacionCampo.put(RefaccionIT.getUNIDAD().getNombre(), ()->this.getUnidad());
     
     }
 

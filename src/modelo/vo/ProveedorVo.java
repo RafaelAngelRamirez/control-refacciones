@@ -95,7 +95,14 @@ public class ProveedorVo extends VoGenerales{
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 
+        "id:" + id+"\n"+                            
+        "nombreContacto:" + nombreContacto+"\n"+
+        "telefono:" + telefono+"\n"+
+        "email:" + email+"\n"+
+        "empresa:" + empresa+"\n"+
+        "paginaWeb:" + paginaWeb+"\n"+
+        "idPais:" + idPais+"\n";
     }
     
     

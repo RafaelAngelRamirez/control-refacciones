@@ -83,7 +83,7 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
                     +" = "+
                     ProveedorIT.NOMBRE_TABLA+"."+ProveedorIT.getID().getNombre()
                 +" WHERE "+
-                    MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getID_PROVEEDOR().getNombre()
+                    MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getID().getNombre()
                 +" IN ( SELECT "+
                             RelacionRefaccionMaquinaModeloIT.getID_MAQUINA_MODELO().getNombre() 
                         +" FROM "+

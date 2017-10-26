@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import modelo.InfoTabla.ImagenRefaccionIT;
@@ -311,9 +310,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
             for (ProveedorVo vo : lpvo) {
                 pvoMapa.put(vo.getEmpresa(), vo);
             }
-            System.out.println(pvoMapa.toString());
             _ListaProveedor.cargarLista(pvoMapa);
-            JOptionPane.showMessageDialog(null, pvoMapa.toString());
         }
     
     }
