@@ -55,7 +55,7 @@ public class ProveedorDao extends DAOGenerales{
         
         List<ProveedorVo> l = new ArrayList<>();
         try {
-            String sql = "SELECT " +it.getID().getNombre() +", "+it.getEmpresaProveedorPDC().getNombre()
+            String sql = "SELECT " +it.getID().getNombre() +", "+it.getEMPRESA_PROVEEDOR().getNombre()
                     + " FROM " + ProveedorIT.NOMBRE_TABLA;
             ResultSet r = conexion.executeQuery(sql);            
             
@@ -63,7 +63,7 @@ public class ProveedorDao extends DAOGenerales{
             while (r.next()) {
                 ProveedorVo vo = new ProveedorVo();
                 vo.setId(r.getInt(it.getID().getNombre()));
-                vo.setEmpresa(r.getString(it.getEmpresaProveedorPDC().getNombre()));
+                vo.setEmpresa(r.getString(it.getEMPRESA_PROVEEDOR().getNombre()));
                 l.add(vo);
             }
         } catch (SQLException ex) {
@@ -82,7 +82,7 @@ public class ProveedorDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + ProveedorIT.NOMBRE_TABLA
-                    + " WHERE "+ it.getEmpresaProveedorPDC().getNombre() + "= ?";
+                    + " WHERE "+ it.getEMPRESA_PROVEEDOR().getNombre() + "= ?";
             
             HashMap<Integer, Object > datos= new HashMap<>();
             datos.put(1, proveedor);
@@ -110,7 +110,7 @@ public class ProveedorDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         try {
             String sql = "SELECT COUNT(*) FROM " + ProveedorIT.NOMBRE_TABLA
-                    + " WHERE "+ it.getEmpresaProveedorPDC().getNombre() + "= ?"
+                    + " WHERE "+ it.getEMPRESA_PROVEEDOR().getNombre() + "= ?"
                     + " AND " + it.getID().getNombre() + "<> ?";
             
             HashMap<Integer, Object > datos= new HashMap<>();
@@ -154,7 +154,7 @@ public class ProveedorDao extends DAOGenerales{
                 ProveedorIT.NOMBRE_TABLA+"."+it.getNOMBRE_CONTACTO().getNombre() +", "+
                 ProveedorIT.NOMBRE_TABLA+"."+it.getTELEFONO().getNombre() +", "+
                 ProveedorIT.NOMBRE_TABLA+"."+it.getEMAIL().getNombre() +", "+
-                ProveedorIT.NOMBRE_TABLA+"."+it.getEmpresaProveedorPDC().getNombre() +", "+
+                ProveedorIT.NOMBRE_TABLA+"."+it.getEMPRESA_PROVEEDOR().getNombre() +", "+
                 ProveedorIT.NOMBRE_TABLA+"."+it.getPAGINA_WEB().getNombre() +", "+
                 PaisIT.NOMBRE_TABLA+"."+pit.getPAIS().getNombre()+
                 " FROM " 
@@ -171,7 +171,7 @@ public class ProveedorDao extends DAOGenerales{
         try {
             if (r.next()) {
                 vo.setEmail(r.getString(it.getEMAIL().getNombre()));
-                vo.setEmpresa(r.getString(it.getEmpresaProveedorPDC().getNombre()));
+                vo.setEmpresa(r.getString(it.getEMPRESA_PROVEEDOR().getNombre()));
                 vo.setId(r.getInt(it.getID().getNombre()));
                 vo.setIdPais(r.getString(pit.getPAIS().getNombre()));
                 vo.setNombreContacto(r.getString(it.getNOMBRE_CONTACTO().getNombre()));
@@ -200,7 +200,7 @@ public class ProveedorDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "UPDATE " + ProveedorIT.NOMBRE_TABLA 
                 +" SET " + 
-                it.getEmpresaProveedorPDC().getNombre() + "=?, "+
+                it.getEMPRESA_PROVEEDOR().getNombre() + "=?, "+
                 it.getNOMBRE_CONTACTO().getNombre() + "=?, "+
                 it.getTELEFONO().getNombre() + "=?, "+
                 it.getPAGINA_WEB().getNombre() + "=?, "+

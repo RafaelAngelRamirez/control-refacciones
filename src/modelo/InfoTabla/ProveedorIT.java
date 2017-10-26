@@ -5,6 +5,8 @@
  */
 package modelo.InfoTabla;
 
+import modelo.ParametrosDeCampo;
+
 /**
  *
  * @author Particular
@@ -108,7 +110,7 @@ public class ProveedorIT extends ITGenerales{
 
     
 
-    public static ParametrosDeCampo getEmpresaProveedorPDC() {
+    public static ParametrosDeCampo getEMPRESA_PROVEEDOR() {
         return EMPRESA_PROVEEDOR;
     }
 

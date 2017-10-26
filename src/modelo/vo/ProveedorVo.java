@@ -25,7 +25,7 @@ public class ProveedorVo extends VoGenerales{
     public ProveedorVo() {
         ProveedorIT pit = new ProveedorIT();
                 
-        relacionCampo.put(pit.getEmpresaProveedorPDC().getNombre(), ()->this.getEmpresa());
+        relacionCampo.put(pit.getEMPRESA_PROVEEDOR().getNombre(), ()->this.getEmpresa());
         relacionCampo.put(pit.getID().getNombre(), ()->this.getId());
         relacionCampo.put(pit.getID_PAIS().getNombre(), ()->this.getIdPais());
         relacionCampo.put(pit.getNOMBRE_CONTACTO().getNombre(), ()->this.getNombreContacto());

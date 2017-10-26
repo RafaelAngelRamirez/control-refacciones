@@ -143,7 +143,7 @@ public class MaquinaModeloDao extends DAOGenerales{
                     + MaquinaModeloIT.NOMBRE_TABLA+"."+it.getID().getNombre() +", "
                     + MaquinaModeloIT.NOMBRE_TABLA+"."+it.getAnioPDC().getNombre() +", "
                     + MaquinaModeloIT.NOMBRE_TABLA+"."+it.getMODELO().getNombre() +", "
-                    + ProveedorIT.NOMBRE_TABLA+"."+pit.getEmpresaProveedorPDC().getNombre() 
+                    + ProveedorIT.NOMBRE_TABLA+"."+pit.getEMPRESA_PROVEEDOR().getNombre() 
                     + " FROM " + MaquinaModeloIT.NOMBRE_TABLA
                     + " INNER JOIN " + ProveedorIT.NOMBRE_TABLA 
                     + " ON " +
@@ -154,7 +154,7 @@ public class MaquinaModeloDao extends DAOGenerales{
             
             ResultSet r = conexion.executeQuery(sql, id+"");
             r.next();
-            vo.setIdProveedor(r.getString(pit.getEmpresaProveedorPDC().getNombre()));
+            vo.setIdProveedor(r.getString(pit.getEMPRESA_PROVEEDOR().getNombre()));
             vo.setModelo(r.getString(it.getMODELO().getNombre()));
             vo.setAnio(r.getInt(it.getAnioPDC().getNombre()));
             vo.setId(r.getInt(it.getID().getNombre()));

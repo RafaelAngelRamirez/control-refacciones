@@ -18,7 +18,7 @@ import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
-import modelo.InfoTabla.ParametrosDeCampo;
+import modelo.ParametrosDeCampo;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;

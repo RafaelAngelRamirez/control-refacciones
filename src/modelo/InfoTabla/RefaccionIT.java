@@ -5,6 +5,7 @@
  */
 package modelo.InfoTabla;
 
+import modelo.ParametrosDeCampo;
 import java.util.List;
 
 /**

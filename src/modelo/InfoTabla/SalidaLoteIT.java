@@ -1,6 +1,8 @@
 
 package modelo.InfoTabla;
 
+import modelo.ParametrosDeCampo;
+
 /**
  *
  * @author Particular

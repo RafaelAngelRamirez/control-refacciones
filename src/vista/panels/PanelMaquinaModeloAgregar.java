@@ -77,7 +77,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         MaquinaModeloIT mmit = new MaquinaModeloIT();
         ProveedorIT pit = new ProveedorIT();
         etiquetaAno.setText(mmit.getAnioPDC().getNombreParaMostrar());
-        etiquetaMarca.setText("Marca-"+pit.getEmpresaProveedorPDC().getNombreParaMostrar());
+        etiquetaMarca.setText("Marca-"+pit.getEMPRESA_PROVEEDOR().getNombreParaMostrar());
         etiquetaModeloMaquina.setText(mmit.getMODELO().getNombreParaMostrar());
         
         /* 
@@ -105,7 +105,7 @@ public class PanelMaquinaModeloAgregar extends JPanelBase {
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         _TxtAnio.setTamanoDeCampo(mmit.getAnioPDC().getLongitudDeCaracteres());
         _TxtModeloMaquina.setTamanoDeCampo(mmit.getMODELO().getLongitudDeCaracteres());
-        _comboMarca.setTamanoDeCampo(pit.getEmpresaProveedorPDC().getLongitudDeCaracteres());
+        _comboMarca.setTamanoDeCampo(pit.getEMPRESA_PROVEEDOR().getLongitudDeCaracteres());
         
         //CAMPOS QUE REQUIEREN TEXO EN MAYUSCULAS.
         _TxtModeloMaquina.setPermitirSoloMayusculas();

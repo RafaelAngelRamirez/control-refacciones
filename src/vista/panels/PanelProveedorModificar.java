@@ -65,7 +65,7 @@ public class PanelProveedorModificar extends JPanelBase {
         PaisIT paisit = new PaisIT();
 
         this.etiquetaEmail.setText(pit.getEMAIL().getNombreParaMostrar());
-        this.etiquetaEmpresa.setText(pit.getEmpresaProveedorPDC().getNombreParaMostrar());
+        this.etiquetaEmpresa.setText(pit.getEMPRESA_PROVEEDOR().getNombreParaMostrar());
         this.etiquetaNombrecontacto.setText(pit.getNOMBRE_CONTACTO().getNombreParaMostrar());
         this.etiquetaPaginaWeb.setText(pit.getPAGINA_WEB().getNombreParaMostrar());
         this.etiquetaPais.setText(paisit.getPAIS().getNombreParaMostrar());
@@ -106,7 +106,7 @@ public class PanelProveedorModificar extends JPanelBase {
                 
        
         //ASIGNAMOS EL TAMAÑO DE CAMPO
-        _TxtEmpresa.setTamanoDeCampo(pit.getEmpresaProveedorPDC().getLongitudDeCaracteres());
+        _TxtEmpresa.setTamanoDeCampo(pit.getEMPRESA_PROVEEDOR().getLongitudDeCaracteres());
         _TxtNombreContacto.setTamanoDeCampo(pit.getNOMBRE_CONTACTO().getLongitudDeCaracteres());
         _TxtTelefono.setTamanoDeCampo(pit.getTELEFONO().getLongitudDeCaracteres());
         _TxtPaginaWeb.setTamanoDeCampo(pit.getPAGINA_WEB().getLongitudDeCaracteres());
@@ -631,7 +631,7 @@ public class PanelProveedorModificar extends JPanelBase {
             boolean todoValido = true;
             ProveedorIT iT = new ProveedorIT();
             for (Validacion validacione : validaciones) {
-                if (validacione.getNombreDeCampo().equals(iT.getEmpresaProveedorPDC().getNombre())) {
+                if (validacione.getNombreDeCampo().equals(iT.getEMPRESA_PROVEEDOR().getNombre())) {
                     if (!validacione.isValido()) {
                         _TxtEmpresa.setError(validacione.getMensajeDeError());
                     }else{

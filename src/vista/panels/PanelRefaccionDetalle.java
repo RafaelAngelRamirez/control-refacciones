@@ -107,7 +107,7 @@ public class PanelRefaccionDetalle extends JPanelBase {
         etiquetaMaquinas.setText(mmit.getMODELO().getNombreParaMostrar());
         etiquetaNombreDeLaRefaccion.setText(rit.getNOMBRE().getNombreParaMostrar());
         etiquetaParaQueEs.setText(rit.getPARA_QUE_ES().getNombreParaMostrar());
-        etiquetaProveedores.setText(pit.getEmpresaProveedorPDC().getNombreParaMostrar());
+        etiquetaProveedores.setText(pit.getEMPRESA_PROVEEDOR().getNombreParaMostrar());
         etiquetaQueEs.setText(rit.getQUE_ES().getNombreParaMostrar());
         etiquetaStockMax.setText(rit.getSTOCK_MAXIMO().getNombreParaMostrar());
         etiquetaStockMin.setText(rit.getSTOCK_MINIMO().getNombreParaMostrar());

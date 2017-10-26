@@ -5,6 +5,7 @@
  */
 package modelo.InfoTabla;
 
+import modelo.ParametrosDeCampo;
 import java.io.File;
 import javax.swing.JOptionPane;
 

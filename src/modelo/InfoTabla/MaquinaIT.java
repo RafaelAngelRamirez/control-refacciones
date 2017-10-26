@@ -1,5 +1,7 @@
 package modelo.InfoTabla;
 
+import modelo.ParametrosDeCampo;
+
 public class MaquinaIT extends ITGenerales{
     /**
     * El nombre de la tabla en la base de datos. 

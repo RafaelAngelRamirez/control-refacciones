@@ -1,11 +1,17 @@
 package modelo.dao;
 
 import controlador.Coordinador;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Conexion;
+import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.ProveedorIT;
+import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.vo.*;
 
@@ -64,19 +70,41 @@ public class RelacionRefaccionProveedorDao extends DAOGenerales{
     public List<ProveedorVo> consultarProveedores(RefaccionVo vo){
         conexion = new Conexion(coordinador);
         List<ProveedorVo> lrrpvo = new ArrayList<>();
-        ProveedorIT pit = new ProveedorIT();
         
+        String sql = "SELECT " +
+                    ProveedorIT.NOMBRE_TABLA+"."+ProveedorIT.getID().getNombre()+" ,"+
+                    ProveedorIT.NOMBRE_TABLA+"."+ProveedorIT.getEMPRESA_PROVEEDOR().getNombre()
+                +" FROM "+
+                    ProveedorIT.NOMBRE_TABLA
+                +" JOIN "+
+                    MaquinaModeloIT.NOMBRE_TABLA
+                +" ON "+
+                    MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getID_PROVEEDOR().getNombre()
+                    +" = "+
+                    ProveedorIT.NOMBRE_TABLA+"."+ProveedorIT.getID().getNombre()
+                +" WHERE "+
+                    MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getID_PROVEEDOR().getNombre()
+                +" IN ( SELECT "+
+                            RelacionRefaccionMaquinaModeloIT.getID_MAQUINA_MODELO().getNombre() 
+                        +" FROM "+
+                            RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
+                        +" WHERE "+
+                            RelacionRefaccionMaquinaModeloIT.getID_REFACCION().getNombre()+" =? )"
+                +" GROUP BY " +
+                    ProveedorIT.NOMBRE_TABLA+"."+ProveedorIT.getID().getNombre();
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        ResultSet r = conexion.executeQuery(sql, vo.getId());
+        try {
+            while (r.next()) {
+                ProveedorVo pvo = new ProveedorVo();
+                pvo.setId(r.getInt(ProveedorIT.getID().getNombre()));
+                pvo.setEmpresa(r.getString(ProveedorIT.getEMPRESA_PROVEEDOR().getNombre()));
+                lrrpvo.add(pvo);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RelacionRefaccionProveedorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                            
         return lrrpvo;
     }
     
