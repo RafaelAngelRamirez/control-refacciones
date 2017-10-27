@@ -63,7 +63,6 @@ import vista.panels.PanelProveedorModificar;
 import vista.panels.PanelProveedorRegistrar;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionDetalle;
-import vista.panels.PanelRefaccionModificar;
 import vista.panels.PanelRefaccionesConsulta;
 import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
@@ -90,7 +89,6 @@ public class Coordinador {
     
     private PanelRefaccionesConsulta panelRefaccionConsulta;
     private PanelRefaccionAgregar panelRefaccionAgregar;
-    private PanelRefaccionModificar panelRefaccionModificar;
     
     private PanelMaquinaModeloAgregar panelMaquinaModeloAgregar;
     private PanelRefaccionDetalle panelRefaccionDetalle;
@@ -265,10 +263,6 @@ public class Coordinador {
         return panelRefaccionAgregar;
     }
 
-    public void setPanelRefaccionModificar(PanelRefaccionModificar panelRefaccionModificar) {
-        this.panelRefaccionModificar = panelRefaccionModificar;
-    }
-    
     public PanelImagenRefaccionDetalle getPanelImagenDetalle() {
         return panelImagenDetalle;
     }
