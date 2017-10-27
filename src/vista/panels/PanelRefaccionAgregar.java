@@ -29,7 +29,6 @@ import modelo.vo.MaquinaModeloVo;
 import modelo.vo.MaterialVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
-import modelo.vo.RelacionRefaccionProveedorVo;
 import modelo.vo.UnidadVo;
 import org.jdesktop.swingx.JXImageView;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
@@ -244,6 +243,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _ListaMaquinaModelo.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(false));
         _ListasMaquinasSeleccionadas.setValueChange(()->_ListaMaquinaModelo.cambioEntreListas(true));
         
+        etiquetaRefaccionesPendientesPorModificar.setVisible(false);
         
         
         //ACCIONES DE BOTONES
@@ -263,6 +263,130 @@ public class PanelRefaccionAgregar extends JPanelBase {
         ========================================================================
         */
     }
+    
+    int idModificandoseActualmente = -1;
+    public void configurar(int id, int idRestantesCantidad){
+        /*
+        =======================================================================
+            INICIO CARGA DE ELEMENTOS 
+        ///////////////////////////////////////////////////////////////////////
+        */
+        idModificandoseActualmente = id;
+        cargarRefaccionAModificar(idModificandoseActualmente, idRestantesCantidad);
+        etiquetaRefaccionesPendientesPorModificar.setVisible(true);
+        
+        /* 
+        ////////////////////////////////////////////////////////////////////////
+            FIN CARGA DE ELEMENTOS 
+        ========================================================================
+        */
+    
+    }
+    
+    public void cargarRefaccionAModificar(int id, int idRestantesCantidad){
+        
+        etiquetaRefaccionesPendientesPorModificar.setText("Refacciones por modificar: "+idRestantesCantidad);
+        
+        RefaccionVo rvo = this.getCoordinador().refaccionConsultar(id);
+        List<RelacionRefaccionMaquinaModeloVo> lmmvo = this.getCoordinador().maquinaModeloConsultar(id);
+        
+        
+        _TxtNombreDeLaRefaccion.setText(rvo.getNombre());
+        _TxtCodigo.setText(rvo.getCodigoInterno());
+        _TxtCodigoDelProveedor.setText(rvo.getCodigoProveedor());
+        _TxtStockMin.setText(rvo.getStockMinimo()+"");
+        _TxtStockMax.setText(rvo.getStockMaximo()+"");
+        _TxtDescripcion.setText(rvo.getDescripcion());
+        _TxtQueEs.setText(rvo.getQueEs());
+        _TxtParaQueEs.setText(rvo.getParaQueEs());
+        
+        if (rvo.getRefaccionDeConsumoUnico()==(byte)1) {
+            checkEsDeConsumoUnico.setSelected(true);
+        } else {
+            checkEsDeConsumoUnico.setSelected(false);
+        }
+            
+        
+        
+//        //CARGAMOS LOS COMBOS PARA SELECCIONAR EL ELEMENTO QUE ESTA GUADRADO EN 
+//        // LA BASE. 
+//        cargarListasYCombos();
+        
+        _RadioImportancia.setSelectRadio((String)rvo.getImportancia());
+        _ComboMaterial.setSelectedItem((String)rvo.getIdMaterial());
+        
+        _ComboUnidad.setSelectedItem((String)rvo.getUnidad());
+        
+        //CARGAMOS LOS DATOS YA GUARDADOS EN SUS LISTAS Y LOS ELIMINANOD DE LA 
+        // OTRA. 
+        
+              
+        HashMap<String, Object> mmvoMapa = new HashMap<>();
+        for (RelacionRefaccionMaquinaModeloVo vo : lmmvo) {
+            _ListaMaquinaModelo.removeElement(
+                    vo.getMaquinaModeloVo().getModelo()
+                    + " "+vo.getMaquinaModeloVo().getAnio());
+            
+            mmvoMapa.put(vo.getMaquinaModeloVo().getModelo()
+                    + " "+vo.getMaquinaModeloVo().getAnio(), 
+                    vo.getIdMaquinaModelo());
+        }
+        
+        _ListasMaquinasSeleccionadas.cargarLista(mmvoMapa);
+        cargarImagenes(id);
+    }
+    
+     private List<ImagenRefaccionVo> listaImagenesRefaccion;
+    /**
+     * Carga las imagenes que esten relacionadas con id que se le pase.   
+     * @param id El id que corresponde a la refacción.
+     */
+    public void cargarImagenes(int id){
+        listaImagenesRefaccion = this.getCoordinador().imagenRefaccionConsultar(id);
+        _ImagenesRefacciones.limpiarComponenteURL();
+        for (ImagenRefaccionVo vo : listaImagenesRefaccion) {
+            UtilidadesJXViewImage_.TransporteImagenesURL t = new UtilidadesJXViewImage_.TransporteImagenesURL();
+            t.setIdImagen(vo.getIdRefaccion());
+            t.setNombreImagen(vo.getNombreParaMostrar());
+            t.setNombreImagenServidor(vo.getNombreServidor());
+            t.setUrl(vo.getUrlImagen());
+            _ImagenesRefacciones.addIMagenes(t);
+        }
+        _ImagenesRefacciones.cargarPrimeraImagen();
+        
+    }
+    
+    private boolean unaSolaRefaccion;
+    /**
+     * True para definir que es una sola refacción y que no se ejecuta de nuevo
+     * la operación que carga las refacciónes pendientes. 
+     * @param unaSolaRefaccion
+     */
+    public void setUnaSolaRefaccion(boolean unaSolaRefaccion) {
+        this.unaSolaRefaccion = unaSolaRefaccion;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     public JTextArea getTxtDescripcion() {
@@ -669,6 +793,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         etiquetaNombreDeLaRefaccion1 = new javax.swing.JLabel();
         txtBusqueda = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        etiquetaRefaccionesPendientesPorModificar = new javax.swing.JLabel();
 
         etiquetaNombreDeLaRefaccion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion.setText("Nombre de la refaccion.");
@@ -928,6 +1053,9 @@ public class PanelRefaccionAgregar extends JPanelBase {
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_buscar.png"))); // NOI18N
 
+        etiquetaRefaccionesPendientesPorModificar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        etiquetaRefaccionesPendientesPorModificar.setText("Refacciones pendientes");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -973,8 +1101,12 @@ public class PanelRefaccionAgregar extends JPanelBase {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(etiquetaImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(etiquetaImportancia, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(6, 6, 6)
+                                                        .addComponent(etiquetaRefaccionesPendientesPorModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(radioAkta)
                                                 .addGap(9, 9, 9)
                                                 .addComponent(radioMedia)
@@ -1115,10 +1247,13 @@ public class PanelRefaccionAgregar extends JPanelBase {
                                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(etiquetaImportancia)
                                             .addComponent(radioAkta)
                                             .addComponent(radioMedia)
-                                            .addComponent(radioBaja))))
+                                            .addComponent(radioBaja)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(etiquetaImportancia)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(etiquetaRefaccionesPendientesPorModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
@@ -1178,20 +1313,27 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _TxtParaQueEs.setErrorQuitar();
         
         _RadioImportancia.setErrorQuitar();
-        
-        this.getCoordinador().refaccionAbrirPanelConsultaRefacciones();
+        this.getCoordinador().refaccionAbrirPanelModificar(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        guardar();
+    }
+    
+    
+    private void guardar() {                                           
         RefaccionVo rVo = new RefaccionVo();
         
         //LAS LISTAS QUE CONTENDRAN LOS DATOS PARA LAS MULTIPLES RELACIONES QUE TENEMOS.
         List<ImagenRefaccionVo> listaiVo = new ArrayList<>();
         List<RelacionRefaccionMaquinaModeloVo> listarrmmVo = new ArrayList<>();
-        List<RelacionRefaccionProveedorVo> listarrpVo = new ArrayList<>();
+//        List<RelacionRefaccionProveedorVo> listarrpVo = new ArrayList<>();
               
         
         //VO DE REFACCION.
+        if (idModificandoseActualmente!=-1) {
+            rVo.setId(idModificandoseActualmente);
+        }
         rVo.setCodigoProveedor(_TxtCodigoDelProveedor.getText());
         rVo.setCodigoInterno(_TxtCodigo.getText());
         rVo.setDescripcion(_TxtDescripcion.getText());
@@ -1257,14 +1399,17 @@ public class PanelRefaccionAgregar extends JPanelBase {
         
         //VALIDACIONES
         //REFACCION
-        List<Validacion> valRefaccion = 
-                this.getCoordinador().refaccionValidarCampos(rVo);
+        List<Validacion> valRefaccion;
+        if (idModificandoseActualmente==-1) {
+           valRefaccion = this.getCoordinador().refaccionValidarCampos(rVo);
+        }else{
+           valRefaccion = this.getCoordinador().refaccionValidarCampos(rVo, true);
+        }
+        
         //RELACION MAQUINAMODELO
         List<Validacion> valRelacionRMM = 
                 this.getCoordinador().refaccionValidarCamposMaquinaModelo(listarrmmVo);
-        //RELACION PROVEEDOR
-        List<Validacion> valRelacionRP = 
-                this.getCoordinador().refaccionValidarCamposProveedor(listarrpVo);
+        
                 
         //SI ESTA VARIABLE QUEDA EN TRUE QUIERE DECIR QUE TODAS LAS VALIDACIONES
         //PASARON.
@@ -1276,7 +1421,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             System.out.println(v.toString());
             
             //NOMBRE DE LA REFACCION.
-            if (v.getNombreDeCampo().equals(t.getNOMBRE().getNombre())) {
+            if (v.getNombreDeCampo().equals(RefaccionIT.getNOMBRE().getNombre())) {
                 if (!v.isValido()) {
                     _TxtNombreDeLaRefaccion.setError(v.getMensajeDeError());
                 } else {
@@ -1285,7 +1430,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //CODIGO INTERNO DE LA REFACCION
-            if (v.getNombreDeCampo().equals(t.getCODIGO_INTERNO().getNombre())) {
+            if (v.getNombreDeCampo().equals(RefaccionIT.getCODIGO_INTERNO().getNombre())) {
                 if (!v.isValido()) {
                     _TxtCodigo.setError(v.getMensajeDeError());
                 } else {
@@ -1294,7 +1439,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //UNIDAD
-            if (v.getNombreDeCampo().equals(t.getUNIDAD().getNombre())) {
+            if (v.getNombreDeCampo().equals(RefaccionIT.getUNIDAD().getNombre())) {
                 if (!v.isValido()) {
                     _ComboUnidad.setError(v.getMensajeDeError());
                 } else {
@@ -1303,7 +1448,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //STOCK MINIMO
-            if (v.getNombreDeCampo().equals(t.getSTOCK_MINIMO().getNombre())) {
+            if (v.getNombreDeCampo().equals(RefaccionIT.getSTOCK_MINIMO().getNombre())) {
                 if (!v.isValido()) {
                     _TxtStockMin.setError(v.getMensajeDeError());
                 } else {
@@ -1312,7 +1457,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //STOCK MAXIMO
-            if (v.getNombreDeCampo().equals(t.getSTOCK_MAXIMO().getNombre())) {
+            if (v.getNombreDeCampo().equals(RefaccionIT.getSTOCK_MAXIMO().getNombre())) {
                 if (!v.isValido()) {
                     _TxtStockMax.setError(v.getMensajeDeError());
                 } else {
@@ -1321,7 +1466,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
            
             //CODIGO EXTERNO DE LA REFACCIÓN.
-            if (v.getNombreDeCampo().equals(t.getCODIGO_PROVEEDOR().getNombre())) {
+            if (v.getNombreDeCampo().equals(RefaccionIT.getCODIGO_PROVEEDOR().getNombre())) {
                 if (!v.isValido()) {
                     _TxtCodigoDelProveedor.setError(v.getMensajeDeError());
                 } else {
@@ -1330,7 +1475,8 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //MATERIAL - DE QUE ESTA ECHO.
-            if (v.getNombreDeCampo().equals(t.getID_MATERIAL().getNombre())) {
+            if (!v.getNombreDeCampo().equals(RefaccionIT.getID_MATERIAL().getNombre())) {
+            } else {
                 if (!v.isValido()) {
                     _ComboMaterial.setError(v.getMensajeDeError());
                 } else {
@@ -1339,7 +1485,8 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //DESCRIPCION
-            if (v.getNombreDeCampo().equals(t.getDESCRIPCION().getNombre())) {
+            if (!v.getNombreDeCampo().equals(RefaccionIT.getDESCRIPCION().getNombre())) {
+            } else {
                 if (!v.isValido()) {
                     _TxtDescripcion.setError(v.getMensajeDeError());
                 } else {
@@ -1348,7 +1495,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
             
             //IMPORTANCIA
-            if (v.getNombreDeCampo().equals(t.getIMPORTANCIA().getNombre())) {
+            if (v.getNombreDeCampo().equals(RefaccionIT.getIMPORTANCIA().getNombre())) {
                 if (!v.isValido()) {
                     _RadioImportancia.setError(v.getMensajeDeError());
                 } else {
@@ -1373,46 +1520,86 @@ public class PanelRefaccionAgregar extends JPanelBase {
         
         if (todoValido) {
             //GUARDAMOS LA REFACCIÓN.
-            this.getCoordinador().refaccionGuardar(rVo);
-            //OBTENEMOS EL ID GENERADO.
-            int idRefaccion = this.getCoordinador().refaccionConsultarUltimoId();
-            if (idRefaccion==-1) {
-                JOptionPane.showMessageDialog(this, "Hubo un error y se pudieron guardar algúnos datos.\n\n"
-                        + "Puedes revisar si los datos de la refacción se almacenarón\n"
-                        + "y asociar de nuevo la información modificandola directamente."
-                        + "", "Error", JOptionPane.ERROR_MESSAGE);
-            }else{
-                //ASOCIAMOS LOS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN
-                //ALMACENADA. 
-                for (ImagenRefaccionVo iVo : listaiVo) {
-                    iVo.setIdRefaccion(idRefaccion);
-                }
-                for (RelacionRefaccionMaquinaModeloVo rr : listarrmmVo) {
-                    rr.setIdRefaccion(idRefaccion);
-                }
+            boolean guardadoModificadoCorrecto = 
+                    idModificandoseActualmente==-1 
+                    ? getCoordinador().refaccionGuardar(rVo):
+                    getCoordinador().refaccionModificar(rVo);
+            
+            if(guardadoModificadoCorrecto){
+                //OBTENEMOS EL ID GENERADO.
+                if (idModificandoseActualmente==-1) {
+                    
+                    int idRefaccion = this.getCoordinador().refaccionConsultarUltimoId();
+                    if (idRefaccion==-1) {
+                        JOptionPane.showMessageDialog(this, "Hubo un error y se pudieron guardar algúnos datos.\n\n"
+                                + "Puedes revisar si los datos de la refacción se almacenarón\n"
+                                + "y asociar de nuevo la información modificandola directamente."
+                                + "", "Error", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        //ASOCIAMOS LOS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN
+                        //ALMACENADA. 
+                        for (ImagenRefaccionVo iVo : listaiVo) {
+                            iVo.setIdRefaccion(idRefaccion);
+                        }
+                        for (RelacionRefaccionMaquinaModeloVo rr : listarrmmVo) {
+                            rr.setIdRefaccion(idRefaccion);
+                        }
 
-                for (RelacionRefaccionProveedorVo aa : listarrpVo) {
-                    aa.setIdRefaccion(idRefaccion);
-                }
+                        if (this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo)) {
+                            String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
+                            if (errorImg!=null) {
+                                JOptionPane.showMessageDialog(
+                                        null,
+                                        "No se cargaron las siguientes imagenes: \n\n" + errorImg,
+                                        "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
+                            }
 
-                if (this.getCoordinador().relacionRefaccionMaquinaModeloGuardarLista(listarrmmVo)) {
-                    String errorImg = this.getCoordinador().imagenRefaccionGuardarLista(listaiVo);
-                    if (errorImg!=null) {
-                        JOptionPane.showMessageDialog(
-                                null,
-                                "No se cargaron las siguientes imagenes: \n\n" + errorImg,
-                                "Error cargando imagenes", JOptionPane.ERROR_MESSAGE);
+                            limpiarTodo();
+                            JOptionPane.showMessageDialog(
+                                    getCoordinador().getMarcoParaVentanaPrincipal(),
+                                    "Se guardo la refaccción correctamente.");
+                            getCoordinador().actualizarTodoLoVisible();
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Algo paso y no se "
+                                    + "pudo guardar la refacción.");
+                        }
+                    }
+                } else {
+                    int idRefaccion = this.idModificandoseActualmente;
+                    //ASOCIAMOS LOS DATOS QUE SE VAN A RELACIONAR CON LA REFACCIÓN RECIEN
+                    //ALMACENADA. 
+                    for (ImagenRefaccionVo iVo : listaiVo) {
+                        iVo.setIdRefaccion(idRefaccion);
                     }
 
-                    limpiarTodo();
-                    JOptionPane.showMessageDialog(
-                            getCoordinador().getMarcoParaVentanaPrincipal(),
-                            "Se guardo la refaccción correctamente.");
-                    getCoordinador().actualizarTodoLoVisible();
-                }else{
-                    JOptionPane.showMessageDialog(this, "Algo paso y no se "
-                            + "pudo guardar la refacción.");
+                    for (RelacionRefaccionMaquinaModeloVo rr : listarrmmVo) {
+                        rr.setIdRefaccion(idRefaccion);
+                    }
+
+                    if(getCoordinador().relacionRefaccionMaquinaModeloModificarLista(listarrmmVo)){
+                        limpiarTodo();
+                        getCoordinador().actualizarTodoLoVisible();
+                        JOptionPane.showMessageDialog(
+                                getCoordinador().getMarcoParaVentanaPrincipal(),
+                                "Se actualizo la refaccción correctamente.");
+                        //SI SE PUSO EN TRUE ENTONCES YA NO REVISAMOS SI HAY MÁS REFACCIONES
+                        // POR MODIFICAR Y ABRIRMOS LA CONSULTA DE REFACCIONES. 
+                        if (unaSolaRefaccion) {
+                            unaSolaRefaccion = false;
+                            getCoordinador().refaccionAbrirPanelConsultaRefacciones();
+                        }else{
+                        //SIRVE PARA ITERAR SOBRE LA LISTA QUE CONTIENE LAS RERFACCIONES 
+                        // SELECCIONADAS PARA MODIFICAR.
+                            this.getCoordinador().refaccionAbrirPanelModificar();
+                        }
+                    
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Al parecer no se pudieron guardar algúnos cambios."
+                                + "\n Puedes revisarlos para ver que sucedio");
+                    }
                 }
+            }else{
+                JOptionPane.showMessageDialog(this, "Algo paso y no se pudo completar la acción.");
             }
         }
     }
@@ -1430,6 +1617,8 @@ public class PanelRefaccionAgregar extends JPanelBase {
         _TxtParaQueEs.setText("");
         
         _RadioImportancia.clearSelection();
+        
+        idModificandoseActualmente = -1;
         
         opAct.actualizarPanel();
         
@@ -1469,6 +1658,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion1;
     private javax.swing.JLabel etiquetaParaQueEs;
     private javax.swing.JLabel etiquetaQueEs;
+    private javax.swing.JLabel etiquetaRefaccionesPendientesPorModificar;
     private javax.swing.JLabel etiquetaStockMax;
     private javax.swing.JLabel etiquetaStockMin;
     private javax.swing.JLabel etiquetaUnidad;
@@ -1505,7 +1695,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
     @Override
     public void configurar() {
-        System.out.println("CONFIGURAR: "+getClass().getSimpleName() + " no tiene nada que configurar.");
+        etiquetaRefaccionesPendientesPorModificar.setVisible(false);
     }
 
 }

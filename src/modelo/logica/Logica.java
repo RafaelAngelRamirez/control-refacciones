@@ -18,12 +18,12 @@ import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
-import modelo.ParametrosDeCampo;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.InfoTabla.SalidaLoteIT;
+import modelo.ParametrosDeCampo;
 import modelo.dao.DepartamentoDao;
 import modelo.dao.EmpleadoDao;
 import modelo.dao.EntradaLoteDao;
@@ -572,8 +572,7 @@ public class Logica {
         List<Validacion> listaValidaciones = new ArrayList<>();
         
         //LOS CAMPOS DE LA TABLA RECORRIDOS UNO POR UNO.
-        RefaccionIT rIT = new RefaccionIT();
-        List<ParametrosDeCampo> listaPDC =rIT.getCAMPOS_PDC();
+        List<ParametrosDeCampo> listaPDC =RefaccionIT.getCAMPOS_PDC();
         //RECORREMOS CADA CAMPO.
         listaPDC.forEach((_PDC) -> {
             try {
@@ -643,7 +642,7 @@ public class Logica {
                          //SI ESTAMOS VALIDANDO UNA MODIFICAION ENTRA AQUI.
                             if (this.refaccionExisteCodigoInterno(vo)) {
                                 vRepetido.setMensajeDeError(" Otra refacción ya tiene asignado este código.\n"
-                                        + "Cambialo por uno diferente o modifica la refación que lo tiene asignado.");
+                                        + "Cambialo por uno diferente o modifica la refación que lo tiene asignado."+vo.toString());
                                 vRepetido.setValido(false);
                             }else{
                                 vRepetido.setValido(true);
@@ -869,6 +868,7 @@ public class Logica {
     /**
      * Guarda la lista de MaquinaModelo relacionada con una refaccion. 
      * @param listaVo La lista de maquina-modelo a guardar. 
+     * @return  
      */
     public boolean relacionRefaccionMaquinaModeloGuardarLista(List<RelacionRefaccionMaquinaModeloVo> listaVo){
         RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
@@ -879,6 +879,7 @@ public class Logica {
      * Actualiza la lista de máquinas relacionadas con una refacción.
      * @param lvo La lista de RelacionRefaccionMaquinaModeloVo que se quieren
      * actualizar. 
+     * @return  
      */
     public boolean relacionRefaccionMaquinaModeloModificarLista(
             List<RelacionRefaccionMaquinaModeloVo> lvo){

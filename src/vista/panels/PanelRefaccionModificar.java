@@ -1484,7 +1484,6 @@ public class PanelRefaccionModificar extends JPanelBase {
         
         //VO DE REFACCION.
         rVo.setId(idModificandoseActualmente);
-        rVo.setCodigoProveedor(_TxtCodigoDelProveedor.getText());
         rVo.setCodigoInterno(_TxtCodigo.getText());
         rVo.setDescripcion(_TxtDescripcion.getText());
         rVo.setIdMaterial(_ComboMaterial.getSelectedItem_idRetorno());

@@ -20,7 +20,6 @@ import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.PaisIT;
-import modelo.ParametrosDeCampo;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
@@ -28,6 +27,7 @@ import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.InfoTabla.SalidaLoteIT;
 import modelo.InfoTabla.SeccionDeMaquinaIT;
 import modelo.InfoTabla.UnidadIT;
+import modelo.ParametrosDeCampo;
 import modelo.logica.ComparacionLotes;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
@@ -261,8 +261,8 @@ public class Coordinador {
         this.panelMaquinaModeloModificar = panelMaquinaModeloModificar;
     }
     
-    public PanelRefaccionModificar getPanelRefaccionModificar() {
-        return panelRefaccionModificar;
+    public PanelRefaccionAgregar getPanelRefaccionModificar() {
+        return panelRefaccionAgregar;
     }
 
     public void setPanelRefaccionModificar(PanelRefaccionModificar panelRefaccionModificar) {
@@ -874,7 +874,7 @@ public class Coordinador {
         return a;
     }
     
-    public void refaccionAbrirPanelAgregar(){
+    public void refaccionAbrirPanelRegistrar(){
         this.coordinadorPaneles.setJPanel(panelRefaccionAgregar);
         panelRefaccionAgregar.configurar();
     }
@@ -1023,10 +1023,10 @@ public class Coordinador {
      * @param lvo La lista de RelacionRefaccionMaquinaModeloVo que se quieren
      * actualizar. 
      */
-    public void relacionRefaccionMaquinaModeloModificarLista(
+    public boolean relacionRefaccionMaquinaModeloModificarLista(
             List<RelacionRefaccionMaquinaModeloVo> lvo){
         setTablaModificada(RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA);
-        this.logica.relacionRefaccionMaquinaModeloModificarLista(lvo);
+        return this.logica.relacionRefaccionMaquinaModeloModificarLista(lvo);
     }
     
     /* 
