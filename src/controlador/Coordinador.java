@@ -52,6 +52,7 @@ import modelo.vo.SeccionDeMaquinaVO;
 import modelo.vo.UnidadVo;
 import vista.UtilidadesIntefaz.JDialogBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
+import vista.panels.PanelCarga;
 import vista.panels.PanelEmpleadoAgregar;
 import vista.panels.PanelEmpleadoModificar;
 import vista.panels.PanelEntradaLote;
@@ -104,11 +105,9 @@ public class Coordinador {
     private PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarDeLote;
     private PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros;
     private PanelSeccionMaquinaRelacionModeloMaquina panelSeccionMaquinaRelacionModeloMaquina;
-    
+    private PanelCarga panelCarga;
+
     private ControladorActualizacionGUI_BD controladorActualizacionGUI_BD;
-    
-    
-    
     
     public void salirDelSistema(){
 //        JOptionPane.showMessageDialog(null, "saliendo!");
@@ -136,6 +135,14 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
 
+    public PanelCarga getPanelCarga() {
+        return panelCarga;
+    }
+
+    public void setPanelCarga(PanelCarga panelCarga) {
+        this.panelCarga = panelCarga;
+    }
+    
     public CapturaDeSucesos getCapturaDeSucesos() {
         return capturaDeSucesos;
     }
@@ -1647,8 +1654,6 @@ public class Coordinador {
     public boolean seccionDeMaquinaEliminar(SeccionDeMaquinaVO seccionDeMaquinaVO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
     
     
     

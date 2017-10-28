@@ -530,7 +530,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             KeyStroke atajo_Debug = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_MASK);
             modoDebug.setAtajoDeTeclado(atajo_Debug);
             this.addItemOMenu(modoDebug);
-
+            
         
         //AÑADIMOS LOS DIALOGOS.
        

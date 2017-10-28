@@ -26,6 +26,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import modelo.logica.Logica;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
+import vista.panels.PanelCarga;
 import vista.panels.PanelEmpleadoAgregar;
 import vista.panels.PanelEmpleadoModificar;
 import vista.panels.PanelEntradaLote;
@@ -119,7 +120,7 @@ public class Principal {
         PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarPorLote = new PanelSalidaDeLoteCantidadADescontarDeLote();
         PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros = new PanelMaquinaAsignarNumeros();
         PanelSeccionMaquinaRelacionModeloMaquina panelSeccionMaquinaRelacionModeloMaquina = new PanelSeccionMaquinaRelacionModeloMaquina();
-        
+        PanelCarga panelCarga = new PanelCarga();
                 
                 
         
@@ -153,6 +154,7 @@ public class Principal {
         coordinador.setPanelSalidaDeLoteCantidadADescontarDeLote(panelSalidaDeLoteCantidadADescontarPorLote);
         coordinador.setPanelMaquinaAsignarNumeros(panelMaquinaAsignarNumeros);
         coordinador.setPanelSeccionMaquinaRelacionModeloMaquina(panelSeccionMaquinaRelacionModeloMaquina);
+        coordinador.setPanelCarga(panelCarga);
         
         /*
         ====================================================================

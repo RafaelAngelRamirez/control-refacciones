@@ -254,6 +254,8 @@ public class Conexion {
                     }
                 }
             }
+            
+            
             if (executeOrUpdate) {
                 rs = preparedStatement.executeQuery();
             }else{
@@ -262,6 +264,7 @@ public class Conexion {
             }
             String sqlMostrar = preparedStatement.toString().split(":")[1];
             System.out.println("[SQL -> PreparedStatement]"+sqlMostrar);
+            
             
             this.queryExitoso = true;
         } catch (SQLException ex) {
@@ -284,6 +287,8 @@ public class Conexion {
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
         return rs;
     }
     
