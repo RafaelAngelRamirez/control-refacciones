@@ -184,9 +184,36 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
             _listaQueSeSelecciona.getRelacionDatoId().remove(valor);
         }
         
+       
+        
+        _listaQueSeSelecciona.ordenarLista();
+        _listaALaQueSeAgregaLaSeleccion.ordenarLista();
+        
         _listaQueSeSelecciona.setListaEnMantenimiento(false);
         _listaALaQueSeAgregaLaSeleccion.setListaEnMantenimiento(false);
     }
+    
+    public void ordenarLista(){
+    
+        @SuppressWarnings("unchecked")
+        DefaultListModel<String> dlm = this.getDefaultListModel();
+        
+        List<String> ordenar = new ArrayList<>();
+        
+        for (Object o : dlm.toArray()) {
+            ordenar.add((String)o);
+        }
+        
+        Collections.sort(ordenar);
+        
+        dlm.clear();
+        ordenar.forEach((t)->{
+            dlm.addElement(t);
+        });
+        
+        
+    }
+    
     
     /**
      * Gestiona el cambio de datos entre dos listas definidas previamente con 

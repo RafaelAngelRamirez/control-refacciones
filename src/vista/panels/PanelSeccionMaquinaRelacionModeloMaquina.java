@@ -448,11 +448,11 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             /*Carga las refacciones compatibles o las quita*/
             
         RetrasarEjecucionDeOperacion tempCargaAgregar = new RetrasarEjecucionDeOperacion(this);
-        tempCargaAgregar.setTiempoDeRetraso(300);
+        tempCargaAgregar.setTiempoDeRetraso(500);
         tempCargaAgregar.setOperacion(this::cargarListaDeRefaccionesParaSeleccionar);
         
         RetrasarEjecucionDeOperacion tempCargaEliminar = new RetrasarEjecucionDeOperacion(this);
-        tempCargaEliminar.setTiempoDeRetraso(300);
+        tempCargaEliminar.setTiempoDeRetraso(500);
         tempCargaEliminar.setOperacion(this::quitarDeLaListaDeRefacciones);
             
         _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(tempCargaAgregar::ejecutar, false);
@@ -816,23 +816,23 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     }
     
     
-    /**
-     * Agrega los datos al mapa para ordenar la relacion entre el modelo de máquina
-     * y la refafacción. 
-     */
-    private void agregarDatosAlMapaRefacciones() {
-//        //OBTENEMOS EL MODELO DE MÁQUINA SELECCIONADO. 
-//        MaquinaModeloVo mmVOSeleccionado = 
-//                (MaquinaModeloVo)_listaModelosMaquinaAsignados.getSelectValueObject();
-//        
-//        //OBTENEMOS TODAS LAS REFACCIONES QUE SE LE ASIGNARON.
-//        @SuppressWarnings("unchecked")
-//        List<RefaccionVo> listRefaccionesSeleccionadas =
-//                (List<RefaccionVo>)(List<?>)_listaRefaccionesAsignadas;
-//
-//        //CARGAMOS EL MAPA. 
-//        mapaDeRelaciones.put(mmVOSeleccionado, listRefaccionesSeleccionadas);  
-    }
+//    /**
+//     * Agrega los datos al mapa para ordenar la relacion entre el modelo de máquina
+//     * y la refafacción. 
+//     */
+//    private void agregarDatosAlMapaRefacciones() {
+////        //OBTENEMOS EL MODELO DE MÁQUINA SELECCIONADO. 
+////        MaquinaModeloVo mmVOSeleccionado = 
+////                (MaquinaModeloVo)_listaModelosMaquinaAsignados.getSelectValueObject();
+////        
+////        //OBTENEMOS TODAS LAS REFACCIONES QUE SE LE ASIGNARON.
+////        @SuppressWarnings("unchecked")
+////        List<RefaccionVo> listRefaccionesSeleccionadas =
+////                (List<RefaccionVo>)(List<?>)_listaRefaccionesAsignadas;
+////
+////        //CARGAMOS EL MAPA. 
+////        mapaDeRelaciones.put(mmVOSeleccionado, listRefaccionesSeleccionadas);  
+//    }
     
     /**
      * Filtra las refacciones tomando en cuenta la lista de maquinas modelos 
@@ -942,6 +942,12 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
      */
     @SuppressWarnings("unchecked")
     private void quitarDeLaListaDeRefacciones() {
+        HiloConPrecarga h = new HiloConPrecarga(
+                this::quitarDeLaListaDeRefacciones_Operaciones, 
+                getCoordinador().getPanelCarga());
+        h.start();
+    }
+    private void quitarDeLaListaDeRefacciones_Operaciones() {
         
         //REVISAMOS LAS REFACCIONES QUE SON COMPATIBLES QUE ESTAN SELECCIONADAS.
         if (!_listaModelosMaquinaAsignados.isEmpty()) {
@@ -969,10 +975,8 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                                 listRVOCompatibles.remove(v);
                             }
                         });
-                JOptionPane.showMessageDialog(null, "aqui");
                 _listaRefaccionesAsignadas.limpiar();
                 mapaDeRefaccionesSeleccionadas = mapaRVOAsignadas;
-                JOptionPane.showMessageDialog(null, "aqui");
                 _listaRefaccionesAsignadas.cargarLista(mapaRVOAsignadas);
             }
 
@@ -984,51 +988,6 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         }
     }
     
-    
-//    private class TemporizarCarga{
-//        Runnable operacion;
-//        boolean repetir = false;
-//        Hilo esteHilo;
-//
-//        private TemporizarCarga() {
-//            this.esteHilo = new Hilo();
-//        }
-//
-//        public Runnable getOperacion() {
-//            return operacion;
-//        }
-//
-//        public void setOperacion(Runnable operacion) {
-//            this.operacion = operacion;
-//        }
-//        int contador = 0;
-//        public void ejecutar(){
-//            repetir = true;
-//            contador++;
-//            if (!esteHilo.isAlive()) {
-//                esteHilo = new Hilo();
-//                esteHilo.start();
-//            }
-//        }
-//        
-//        private class Hilo extends Thread{
-//
-//            @Override
-//            public void run() {
-//                try {
-//                    while (repetir) {                    
-//                        repetir = false;
-//                        esteHilo.sleep(100);
-//                    }
-//                operacion.run();
-//                } catch (InterruptedException ex) {
-//                    Logger.getLogger(PanelSeccionMaquinaRelacionModeloMaquina.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//            
-//        }
-//        
-//    }
 
 }
 
