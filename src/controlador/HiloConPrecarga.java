@@ -6,10 +6,10 @@
 package controlador;
 
 import javax.swing.JPanel;
-import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 
 /**
- *
+ * Esta clase ejecuta la precarga mostrando un panel que se le defina hasta que la
+ * operación que se le pase como parametro termine. 
  * @author Particular
  */
 public class HiloConPrecarga extends Thread{
@@ -18,19 +18,12 @@ public class HiloConPrecarga extends Thread{
     Precarga precarga;
     JPanel panel;
     int tiempo;
-    MarcoParaVentanaPrincipal principal;
-    
 
-    public MarcoParaVentanaPrincipal getPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(MarcoParaVentanaPrincipal principal) {
-        this.principal = principal;
-    }
-    
-    
-
+    /**
+     * Define un nuevo hilo con precarga y panel no modal. Esta es la opción básica. 
+     * @param operacion La operación que se quiere precargar. 
+     * @param panel El panel que se mostrará durante la precarga. 
+     */
     public HiloConPrecarga(Runnable operacion, JPanel panel) {
         this.panel = panel;
         this.operacion = operacion;
@@ -40,6 +33,15 @@ public class HiloConPrecarga extends Thread{
         precarga.mostrarPrecarga();
     }
     
+    /**
+     * Define un nuevo hilo con precarga.
+     * @param operacion La operación que se quiere ejecutar con precarga. 
+     * @param panel El panel que se mostrara durante la precarga. 
+     * @param tiempo El tiempo que durara en empezar a cerrarse el panel despues
+     * de que la operacion que se quiere ejecutar haya terminado. 
+     * @param encima Si el panel será modal o no. Este puede traer algúnas complicaciones. 
+     * Se discreto en su uso. 
+     */
     public HiloConPrecarga(Runnable operacion, JPanel panel, int tiempo, boolean encima) {
         this.panel = panel;
         this.operacion = operacion;
