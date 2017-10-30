@@ -13,13 +13,15 @@ import javax.swing.JPanel;
  */
 public class PanelCarga extends JPanel{
 
+    private static final long serialVersionUID = 1L;
     /**
      * Creates new form JPanelCarga
      */
     public PanelCarga() {
         initComponents();
-        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,25 +32,28 @@ public class PanelCarga extends JPanel{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        etiquetaTexto = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("...procesando...");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 110, 20));
+        etiquetaTexto.setBackground(new java.awt.Color(0, 67, 115));
+        etiquetaTexto.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
+        etiquetaTexto.setForeground(new java.awt.Color(255, 255, 255));
+        etiquetaTexto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaTexto.setText("CARGANDO");
+        add(etiquetaTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 420, 20));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/precarga.gif"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 250));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 180));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel etiquetaTexto;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 
+    
 }

@@ -93,7 +93,6 @@ public class FicherosOperacionesServidor_ {
                 return true;
             }else{
                 this.respuesta = r;
-                JOptionPane.showMessageDialog(null, respuesta);
                 return false;
             }
             

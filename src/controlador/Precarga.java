@@ -1,6 +1,5 @@
 package controlador;
 
-import java.awt.FlowLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -18,8 +17,13 @@ public class Precarga {
     JPanel panel;
     Thread esteHilo;
     boolean ejecutado;
+    int tiempo;
     
     boolean  repetir;
+
+    public Precarga() {
+        this.tiempo = -1;
+    }
 
     public JPanel getPanel() {
         return panel;
@@ -29,6 +33,11 @@ public class Precarga {
         this.panel = panel;
     }
        
+    void mostrarPrecarga(int tiempo) {
+        mostrarPrecarga();
+        this.tiempo = tiempo;
+    }
+     
     public synchronized void mostrarPrecarga(){
         repetir = true;
         if (ejecutado) {
@@ -40,6 +49,8 @@ public class Precarga {
             mostrarPrecarga();
         }
     }
+    
+    
 
     public synchronized void terminarPrecarga(){
         mensaje="";
@@ -51,6 +62,8 @@ public class Precarga {
         terminarPrecarga();
         this.mensaje = mensaje;
     }
+
+   
    
         
     private class PrecargaHilo extends Thread{
@@ -58,22 +71,40 @@ public class Precarga {
         @Override
         public void run() {
             try {
-                JDialog precarga = mostrarCarga();
                 
-                while (!salir) {
-                        precarga.requestFocus();
-                        esteHilo.sleep(100);
-                        if (!repetir) {
-                            salir = true;
-                        }
-                }
-                
-                esteHilo.sleep(1000);
-                precarga.dispose();
+                esteHilo.sleep(500);
+                if (repetir) {
+                    JDialog precarga = mostrarCarga();
+                    Thread h = new Thread(()->precarga.setVisible(true));
+                    h.start();
+    //                precarga.setAlwaysOnTop(true);
+                    while (!salir) {
+                            esteHilo.sleep(50);
+                            if (!repetir) {
+                                salir = true;
+                            }
+                    }
+    //                precarga.setModal(true);
+                    if (tiempo!=-1) {
+                        esteHilo.sleep(tiempo);
+                    }else{
+                        esteHilo.sleep(200);
 
-                if (!mensaje.equals("")) {
-                    JOptionPane.showMessageDialog(null, mensaje);
+                    }
+                    float i = 1;
+                    while (i>=0.1f) {                    
+                        precarga.setOpacity(i);
+                        i-=0.01f;
+                        esteHilo.sleep(3);
 
+                    }
+                    precarga.dispose();
+
+
+                    if (!mensaje.equals("")) {
+                        JOptionPane.showMessageDialog(null, mensaje);
+
+                    }
                 }
             } catch (InterruptedException ex) {
                 Logger.getLogger(Precarga.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,20 +113,32 @@ public class Precarga {
         }
     }
     
+    
+    boolean encima;
+
+    public boolean isEncima() {
+        return encima;
+    }
+
+    public void setEncima(boolean encima) {
+        this.encima = encima;
+    }
+    
+    
+    
     public synchronized JDialog mostrarCarga(){
-        JDialog dialogoPrecarga;
-        dialogoPrecarga = new JDialog();
-        dialogoPrecarga.setLayout(new FlowLayout());
-        dialogoPrecarga.dispose();
-        dialogoPrecarga.setUndecorated(true);
+        
+        JDialog d;
+        d = new JDialog();
+        d.add(panel);
+        d.setUndecorated(true);
+        d.pack();
+        d.setSize(panel.getSize());
+        d.setAlwaysOnTop(encima);
 
-        dialogoPrecarga.add(panel);
-        dialogoPrecarga.setSize(panel.getSize());
-        dialogoPrecarga.pack();
-
-        dialogoPrecarga.setVisible(true);
-        dialogoPrecarga.setLocationRelativeTo(null);
-        return dialogoPrecarga;
+        d.setLocationRelativeTo(null);
+        
+        return d;
     }
     
 }

@@ -576,7 +576,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         //ESTA LINEA HACE QUE SE TERMINE COMPLETAMENTE LA EJECUCIÓN CUANDO
         // SE CIERRA LA VENTANA DESDE LA BARRA. 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setVisible(true);
     }
     
     /**

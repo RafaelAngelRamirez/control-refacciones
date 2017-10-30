@@ -760,6 +760,7 @@ public class Coordinador {
                 // ESTEN SELECCIONADAS EN LA TABLA.
                 if (refaccionesPorModificarId.isEmpty()) {
                     refaccionesPorModificarId = this.getPanelRefaccionConsulta().getIdSeleccionados();
+                    JOptionPane.showMessageDialog(null, "refacciones por modificar:"+refaccionesPorModificarId.size());
                 }
                 // SI refaccionesPorModificarId NO ESTA VACIO ENTONCES QUIERE
                 //DECIR QUE SE SELECCIONARON ELEMENTOS DE LA TABLA.

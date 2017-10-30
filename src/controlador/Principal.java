@@ -53,7 +53,16 @@ public class Principal {
     
     public static void main(String[] args) {
         
-        iniciarPrograma();
+//        iniciarPrograma();
+        
+        PanelCarga panelCargaInicio = new PanelCarga();
+        
+        
+        HiloConPrecarga hilo = new HiloConPrecarga(()->iniciarPrograma(), panelCargaInicio, 1000, true);
+        hilo.start();
+        
+        
+        
     }
     
     private static void iniciarPrograma(){
@@ -195,9 +204,10 @@ public class Principal {
             INICIO DE SISTEMA
         ====================================================================
         */
+        
         System.out.println("[+] Iniciando sistema");
         marcoParaVentanaPrincipal.init();
-        marcoParaVentanaPrincipal.setVisible(true);
+        
         
     }
 }

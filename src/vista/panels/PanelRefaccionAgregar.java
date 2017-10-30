@@ -250,6 +250,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         opAct.add(UnidadIT.NOMBRE_TABLA, this::cargarComboUnidad);
         opAct.add(MaterialIT.NOMBRE_TABLA, this::cargarComboMaterial);
         opAct.add(ImportanciaIT.NOMBRE_TABLA, this::cargarCheck);
+//        opAct.add(ImagenRefaccionIT.NOMBRE_TABLA, ()->cargarImagenes());
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -333,7 +334,9 @@ public class PanelRefaccionAgregar extends JPanelBase {
     }
     
      private List<ImagenRefaccionVo> listaImagenesRefaccion;
-    /**
+    
+     
+     /**
      * Carga las imagenes que esten relacionadas con id que se le pase.   
      * @param id El id que corresponde a la refacción.
      */
@@ -1247,28 +1250,68 @@ public class PanelRefaccionAgregar extends JPanelBase {
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 
     private void btnSiguienteImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteImagenActionPerformed
-        _ImagenesRefacciones.siguienteAnterior(true);
+        if (idModificandoseActualmente==-1) {
+            _ImagenesRefacciones.siguienteAnterior(true);
+            
+        }else{
+            _ImagenesRefacciones.imagenSiguiente();
+        }
+        
     }//GEN-LAST:event_btnSiguienteImagenActionPerformed
 
     private void btnRegresarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarImagenActionPerformed
-        _ImagenesRefacciones.siguienteAnterior(false);
+        if (idModificandoseActualmente==-1) {
+            _ImagenesRefacciones.siguienteAnterior(false);
+            
+        }else{
+            _ImagenesRefacciones.imagenAnterior();
+        }
     }//GEN-LAST:event_btnRegresarImagenActionPerformed
 
     private void btnEliminarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarImagenActionPerformed
-        _ImagenesRefacciones.eliminarImagenSeleccionada();
+        if (idModificandoseActualmente==-1) {
+            _ImagenesRefacciones.eliminarImagenSeleccionada();
+        }else{
+            eliminarDesdeWeb();
+        }
+
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
 
+    private void eliminarDesdeWeb(){
+        UtilidadesJXViewImage_.TransporteImagenesURL imagenEliminar = _ImagenesRefacciones.obtenerImagenActual();
+        if (imagenEliminar!=null) {
+            int r = JOptionPane.showConfirmDialog(
+                    this, 
+                    "¿Estas segúro que quieres eliminar la imágen?"
+                            + "\n Esta acción no se puede deshacer.",
+                    "Eliminar imagen.", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.WARNING_MESSAGE);
+            if (r==JOptionPane.YES_OPTION) {
+                ImagenRefaccionVo vo = new ImagenRefaccionVo();
+                vo.setIdRefaccion(imagenEliminar.getIdImagen());
+                vo.setNombreServidor(imagenEliminar.getNombreImagenServidor());
+                this.getCoordinador().imagenRefaccionEliminar(vo);
+                getCoordinador().actualizarTodoLoVisible();
+            }
+        }
+    }
+    
     private void comboUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUnidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboUnidadActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        limpiar();
-        this.getCoordinador().refaccionAbrirPanelModificar(true);
+        HiloConPrecarga h = new HiloConPrecarga(this::cancelar, getCoordinador().getPanelCarga());
+        h.start();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    
-    
+    private void cancelar(){
+        Thread h = new Thread(()->this.getCoordinador().refaccionAbrirPanelModificar(true));
+        Thread h2 = new Thread(this::limpiar);
+        h.start();
+        h2.start();
+    }
     
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -1474,9 +1517,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
             }
         }
         
-        String mensajes = "";
         if (todoValido) {
-            
             //GUARDAMOS LA REFACCIÓN.
             boolean guardadoModificadoCorrecto = 
                     idModificandoseActualmente==-1 
@@ -1513,11 +1554,13 @@ public class PanelRefaccionAgregar extends JPanelBase {
                             }
 
                             limpiarTodo();
-                            mensajes = "Se guardo la refaccción correctamente.";
+                            JOptionPane.showMessageDialog(
+                                    getCoordinador().getMarcoParaVentanaPrincipal(),
+                                    "Se guardo la refaccción correctamente.");
                             getCoordinador().actualizarTodoLoVisible();
                         }else{
-                            mensajes = "Algo paso y no se "
-                                    + "pudo guardar la refacción.";
+                            JOptionPane.showMessageDialog(this, "Algo paso y no se "
+                                    + "pudo guardar la refacción.");
                         }
                     }
                 } else {
@@ -1533,9 +1576,11 @@ public class PanelRefaccionAgregar extends JPanelBase {
                     }
 
                     if(getCoordinador().relacionRefaccionMaquinaModeloModificarLista(listarrmmVo)){
-                        limpiar();
+                        limpiarTodo();
                         getCoordinador().actualizarTodoLoVisible();
-                        mensajes = "Se actualizo la refaccción correctamente.";
+                        JOptionPane.showMessageDialog(
+                                getCoordinador().getMarcoParaVentanaPrincipal(),
+                                "Se actualizo la refaccción correctamente.");
                         //SI SE PUSO EN TRUE ENTONCES YA NO REVISAMOS SI HAY MÁS REFACCIONES
                         // POR MODIFICAR Y ABRIRMOS LA CONSULTA DE REFACCIONES. 
                         if (unaSolaRefaccion) {
@@ -1548,12 +1593,12 @@ public class PanelRefaccionAgregar extends JPanelBase {
                         }
                     
                     }else{
-                        mensajes = "Al parecer no se pudieron guardar algúnos cambios."
-                                + "\n Puedes revisarlos para ver que sucedio";
+                        JOptionPane.showMessageDialog(null, "Al parecer no se pudieron guardar algúnos cambios."
+                                + "\n Puedes revisarlos para ver que sucedio");
                     }
                 }
             }else{
-                mensajes = "Algo paso y no se pudo completar la acción.";
+                JOptionPane.showMessageDialog(this, "Algo paso y no se pudo completar la acción.");
             }
         }
     }
