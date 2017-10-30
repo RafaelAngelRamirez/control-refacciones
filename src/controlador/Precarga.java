@@ -88,14 +88,14 @@ public class Precarga {
                     if (tiempo!=-1) {
                         esteHilo.sleep(tiempo);
                     }else{
-                        esteHilo.sleep(200);
+                        esteHilo.sleep(100);
 
                     }
                     float i = 1;
                     while (i>=0.1f) {                    
                         precarga.setOpacity(i);
                         i-=0.01f;
-                        esteHilo.sleep(3);
+                        esteHilo.sleep(1);
 
                     }
                     precarga.dispose();

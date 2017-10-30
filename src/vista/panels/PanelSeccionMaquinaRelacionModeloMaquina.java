@@ -6,6 +6,7 @@
 package vista.panels;
 
 import controlador.CoordinadorPaneles;
+import controlador.HiloConPrecarga;
 import controlador.RetrasarEjecucionDeOperacion;
 import java.util.HashMap;
 import java.util.List;
@@ -447,9 +448,11 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             /*Carga las refacciones compatibles o las quita*/
             
         RetrasarEjecucionDeOperacion tempCargaAgregar = new RetrasarEjecucionDeOperacion(this);
+        tempCargaAgregar.setTiempoDeRetraso(300);
         tempCargaAgregar.setOperacion(this::cargarListaDeRefaccionesParaSeleccionar);
         
         RetrasarEjecucionDeOperacion tempCargaEliminar = new RetrasarEjecucionDeOperacion(this);
+        tempCargaEliminar.setTiempoDeRetraso(300);
         tempCargaEliminar.setOperacion(this::quitarDeLaListaDeRefacciones);
             
         _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(tempCargaAgregar::ejecutar, false);
@@ -732,7 +735,17 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         _listaRefaccionesDisponibles.limpiar();
     }
 
+    
+    
     private void cargarListaDeRefaccionesParaSeleccionar() {
+        HiloConPrecarga h = 
+                new HiloConPrecarga(
+                        this::cargarListaDeRefaccionesParaSeleccionar_operacion, 
+                        getCoordinador().getPanelCarga());
+        h.start();
+    }
+    
+    private void cargarListaDeRefaccionesParaSeleccionar_operacion() {
         //SELECCIONAMOS LA LISTA DE REFACCIONES QUE ESTAN ASIGNADAS Y LAS
         //UTILIZAMOS PARA FILTRAR LAS REFACCIONES QUE SERAN COMPATIBLES CON
         // ESTA SECCIÓN.
