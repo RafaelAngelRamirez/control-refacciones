@@ -85,6 +85,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
 
     @Override
     public void initConfig() {
+        
         /*
         =======================================================================
             INICIO SETEO NOMBRES DE ETIQUETA<
