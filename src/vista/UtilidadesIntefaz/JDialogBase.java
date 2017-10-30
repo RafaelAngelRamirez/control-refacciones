@@ -2,6 +2,7 @@
 package vista.UtilidadesIntefaz;
 
 import controlador.Coordinador;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,6 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.KeyStroke;
-import controlador.capturadeerrores.ExcepcionPersonalizada;
 
 /**
  * Este dialogo es el que permite mostrar los paneles de manera flotante. 
@@ -134,6 +134,11 @@ public class JDialogBase extends JDialog{
             this.setTitle(c.getTitle());
             this.setLocationRelativeTo(c.getLocationRelativeTo());
             this.setDefaultCloseOperation(c.getDefaultCloseOperation());
+            if (c.isUndecorated()) {
+                this.dispose();
+                this.setUndecorated(c.isUndecorated());
+            }
+            
             
         } catch (ExcepcionPersonalizada ex) {
             Logger.getLogger(JDialogBase.class.getName()).log(Level.SEVERE, null, ex);

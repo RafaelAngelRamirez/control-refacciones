@@ -70,10 +70,10 @@ public class FicherosOperacionesServidor_ {
             String r = subida.finish();
             if(r.contains("-$1")){
                 this.respuesta = r.replace("-$1", "");
-                JOptionPane.showMessageDialog(null, respuesta);
                 return true;
             }else{
                 this.respuesta = r;
+                JOptionPane.showMessageDialog(null, respuesta);
                 return false;
             }
         } catch (IOException ex) {
@@ -93,7 +93,6 @@ public class FicherosOperacionesServidor_ {
                 return true;
             }else{
                 this.respuesta = r;
-                JOptionPane.showMessageDialog(null, respuesta);
                 return false;
             }
             

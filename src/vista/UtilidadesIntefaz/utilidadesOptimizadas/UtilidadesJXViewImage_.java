@@ -6,6 +6,7 @@
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
 import controlador.Coordinador;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import controlador.capturadeerrores.Suceso;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,7 +25,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import controlador.capturadeerrores.ExcepcionPersonalizada;
 import org.jdesktop.swingx.JXImageView;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
@@ -147,7 +147,6 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
     public void cargarImagenesArrastrando(boolean arrastrar){
         this.jxImagenView.setDragEnabled(arrastrar);
     }
-
     
     /**
      * Muestra un JFileChooser y prepara las imágenes para la vista previa.
@@ -156,6 +155,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
      * 
      */
     public void cargarImagenes(){
+        
         if (this.filtros.isEmpty()) {
             try {
                 throw new ExcepcionPersonalizada("No has definido filtros.",
@@ -193,6 +193,7 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
         //CARGA LA PRIMERA IMAGEN DE LA LISTA.
         this.siguienteAnterior(true);
         this.comprobarVisibilidadDeImagenes();
+        
     }
     
     /**

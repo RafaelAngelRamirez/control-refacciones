@@ -26,6 +26,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import modelo.logica.Logica;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
+import vista.panels.PanelCarga;
 import vista.panels.PanelEmpleadoAgregar;
 import vista.panels.PanelEmpleadoModificar;
 import vista.panels.PanelEntradaLote;
@@ -37,7 +38,6 @@ import vista.panels.PanelProveedorModificar;
 import vista.panels.PanelProveedorRegistrar;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionDetalle;
-import vista.panels.PanelRefaccionModificar;
 import vista.panels.PanelRefaccionesConsulta;
 import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
@@ -53,7 +53,16 @@ public class Principal {
     
     public static void main(String[] args) {
         
-        iniciarPrograma();
+//        iniciarPrograma();
+        
+        PanelCarga panelCargaInicio = new PanelCarga();
+        
+        
+        HiloConPrecarga hilo = new HiloConPrecarga(()->iniciarPrograma(), panelCargaInicio, 1000, true);
+        hilo.start();
+        
+        
+        
     }
     
     private static void iniciarPrograma(){
@@ -106,7 +115,6 @@ public class Principal {
         //PANELES
         PanelRefaccionesConsulta panelConsultaRefacciones = new PanelRefaccionesConsulta();
         PanelRefaccionAgregar panelRefaccionAgregar = new PanelRefaccionAgregar();
-        PanelRefaccionModificar panelRefaccionModificar = new PanelRefaccionModificar();
         PanelProveedorRegistrar panelProveedorRegistrar = new PanelProveedorRegistrar();
         PanelMaquinaModeloAgregar panelMaquinaModeloAgregar = new PanelMaquinaModeloAgregar();
         PanelRefaccionDetalle panelRefaccionDetalle = new PanelRefaccionDetalle();
@@ -121,7 +129,7 @@ public class Principal {
         PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarPorLote = new PanelSalidaDeLoteCantidadADescontarDeLote();
         PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros = new PanelMaquinaAsignarNumeros();
         PanelSeccionMaquinaRelacionModeloMaquina panelSeccionMaquinaRelacionModeloMaquina = new PanelSeccionMaquinaRelacionModeloMaquina();
-        
+        PanelCarga panelCarga = new PanelCarga();
                 
                 
         
@@ -144,7 +152,6 @@ public class Principal {
         coordinador.setPanelMaquinaModeloAgregar(panelMaquinaModeloAgregar);
         coordinador.setPanelRefaccionDetalle(panelRefaccionDetalle);
         coordinador.setPanelImagenDetalle(panelImagenDetalle);
-        coordinador.setPanelRefaccionModificar(panelRefaccionModificar);
         coordinador.setPanelMaquinaModeloModificar(panelMaquinaModeloModificar);
         coordinador.setPanelProveedorModificar(panelProveedorModificar);
         coordinador.setPanelEntradaLote(panelEntradaLote);
@@ -156,6 +163,7 @@ public class Principal {
         coordinador.setPanelSalidaDeLoteCantidadADescontarDeLote(panelSalidaDeLoteCantidadADescontarPorLote);
         coordinador.setPanelMaquinaAsignarNumeros(panelMaquinaAsignarNumeros);
         coordinador.setPanelSeccionMaquinaRelacionModeloMaquina(panelSeccionMaquinaRelacionModeloMaquina);
+        coordinador.setPanelCarga(panelCarga);
         
         /*
         ====================================================================
@@ -167,7 +175,6 @@ public class Principal {
         
         panelConsultaRefacciones.setCoordinador(coordinador);
         panelRefaccionAgregar.setCoordinador(coordinador);
-        panelRefaccionModificar.setCoordinador(coordinador);
         panelProveedorRegistrar.setCoordinador(coordinador);
         panelMaquinaModeloAgregar.setCoordinador(coordinador);
         panelRefaccionDetalle.setCoordinador(coordinador);
@@ -197,9 +204,10 @@ public class Principal {
             INICIO DE SISTEMA
         ====================================================================
         */
+        
         System.out.println("[+] Iniciando sistema");
         marcoParaVentanaPrincipal.init();
-        marcoParaVentanaPrincipal.setVisible(true);
+        
         
     }
 }

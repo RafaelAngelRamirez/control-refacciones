@@ -344,7 +344,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 registroRefacciones.setNombre(CoordinadorPaneles.PANEL_REGISTRAR_NUEVA_REFACCION);
                 registroRefacciones.setPadre(menuRefaccion);
                 registroRefacciones.setImagen(imgRegistro);
-                registroRefacciones.setAccionDelItem(()->coordinador.refaccionAbrirPanelAgregar());
+                registroRefacciones.setAccionDelItem(()->coordinador.refaccionAbrirPanelRegistrar
+        ());
                 this.addItemOMenu(registroRefacciones);
 
                 MenuConstructor modificarRefaccion = new MenuConstructor();
@@ -529,7 +530,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             KeyStroke atajo_Debug = javax.swing.KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_MASK);
             modoDebug.setAtajoDeTeclado(atajo_Debug);
             this.addItemOMenu(modoDebug);
-
+            
         
         //AÑADIMOS LOS DIALOGOS.
        
@@ -575,7 +576,8 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         //ESTA LINEA HACE QUE SE TERMINE COMPLETAMENTE LA EJECUCIÓN CUANDO
         // SE CIERRA LA VENTANA DESDE LA BARRA. 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setVisible(true);
     }
     
     /**

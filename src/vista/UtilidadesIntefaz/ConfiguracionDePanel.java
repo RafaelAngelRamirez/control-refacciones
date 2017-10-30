@@ -3,10 +3,6 @@ package vista.UtilidadesIntefaz;
 
 import java.awt.Component;
 import java.awt.Point;
-import java.util.concurrent.Callable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import controlador.capturadeerrores.ExcepcionPersonalizada;
 
 /**
  *
@@ -21,6 +17,11 @@ public class ConfiguracionDePanel{
     private int defaultCloseOperation;
     private Point ultimaPosicionDeDialogo;
     private JDialogBase dialogoTemporal;
+    private boolean undecorated;
+
+    public ConfiguracionDePanel() {
+        this.undecorated = false;
+    }
 
     public JDialogBase getDialogoTemporal() {
         return dialogoTemporal;
@@ -29,9 +30,15 @@ public class ConfiguracionDePanel{
     public void setDialogoTemporal(JDialogBase dialogoTemporal) {
         this.dialogoTemporal = dialogoTemporal;
     }
-    
-    
 
+    public boolean isUndecorated() {
+        return undecorated;
+    }
+
+    public void setUndecorated(boolean undecorated) {
+        this.undecorated = undecorated;
+    }
+    
     public boolean isModal() {
         return modal;
     }
@@ -92,6 +99,7 @@ public class ConfiguracionDePanel{
         "                modal->"+modal+n+
         "            resizable->"+resizable+n+
         "ultimaPosicionDelDialogo->"+ultimaPosicionDeDialogo+n+
+        "              undecorate->"+undecorated+n+
         "                title->"+title+n;
         return m;
 

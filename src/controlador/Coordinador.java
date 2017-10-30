@@ -20,7 +20,6 @@ import modelo.InfoTabla.MaquinaIT;
 import modelo.InfoTabla.MaquinaModeloIT;
 import modelo.InfoTabla.MaterialIT;
 import modelo.InfoTabla.PaisIT;
-import modelo.ParametrosDeCampo;
 import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
@@ -28,6 +27,7 @@ import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.InfoTabla.SalidaLoteIT;
 import modelo.InfoTabla.SeccionDeMaquinaIT;
 import modelo.InfoTabla.UnidadIT;
+import modelo.ParametrosDeCampo;
 import modelo.logica.ComparacionLotes;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
@@ -52,6 +52,7 @@ import modelo.vo.SeccionDeMaquinaVO;
 import modelo.vo.UnidadVo;
 import vista.UtilidadesIntefaz.JDialogBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
+import vista.panels.PanelCarga;
 import vista.panels.PanelEmpleadoAgregar;
 import vista.panels.PanelEmpleadoModificar;
 import vista.panels.PanelEntradaLote;
@@ -63,7 +64,6 @@ import vista.panels.PanelProveedorModificar;
 import vista.panels.PanelProveedorRegistrar;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionDetalle;
-import vista.panels.PanelRefaccionModificar;
 import vista.panels.PanelRefaccionesConsulta;
 import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
@@ -90,7 +90,6 @@ public class Coordinador {
     
     private PanelRefaccionesConsulta panelRefaccionConsulta;
     private PanelRefaccionAgregar panelRefaccionAgregar;
-    private PanelRefaccionModificar panelRefaccionModificar;
     
     private PanelMaquinaModeloAgregar panelMaquinaModeloAgregar;
     private PanelRefaccionDetalle panelRefaccionDetalle;
@@ -106,11 +105,9 @@ public class Coordinador {
     private PanelSalidaDeLoteCantidadADescontarDeLote panelSalidaDeLoteCantidadADescontarDeLote;
     private PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros;
     private PanelSeccionMaquinaRelacionModeloMaquina panelSeccionMaquinaRelacionModeloMaquina;
-    
+    private PanelCarga panelCarga;
+
     private ControladorActualizacionGUI_BD controladorActualizacionGUI_BD;
-    
-    
-    
     
     public void salirDelSistema(){
 //        JOptionPane.showMessageDialog(null, "saliendo!");
@@ -138,6 +135,14 @@ public class Coordinador {
     ////////////////////////////////////////////////////////////////////////
      */
 
+    public PanelCarga getPanelCarga() {
+        return panelCarga;
+    }
+
+    public void setPanelCarga(PanelCarga panelCarga) {
+        this.panelCarga = panelCarga;
+    }
+    
     public CapturaDeSucesos getCapturaDeSucesos() {
         return capturaDeSucesos;
     }
@@ -261,14 +266,10 @@ public class Coordinador {
         this.panelMaquinaModeloModificar = panelMaquinaModeloModificar;
     }
     
-    public PanelRefaccionModificar getPanelRefaccionModificar() {
-        return panelRefaccionModificar;
+    public PanelRefaccionAgregar getPanelRefaccionModificar() {
+        return panelRefaccionAgregar;
     }
 
-    public void setPanelRefaccionModificar(PanelRefaccionModificar panelRefaccionModificar) {
-        this.panelRefaccionModificar = panelRefaccionModificar;
-    }
-    
     public PanelImagenRefaccionDetalle getPanelImagenDetalle() {
         return panelImagenDetalle;
     }
@@ -759,6 +760,7 @@ public class Coordinador {
                 // ESTEN SELECCIONADAS EN LA TABLA.
                 if (refaccionesPorModificarId.isEmpty()) {
                     refaccionesPorModificarId = this.getPanelRefaccionConsulta().getIdSeleccionados();
+                    JOptionPane.showMessageDialog(null, "refacciones por modificar:"+refaccionesPorModificarId.size());
                 }
                 // SI refaccionesPorModificarId NO ESTA VACIO ENTONCES QUIERE
                 //DECIR QUE SE SELECCIONARON ELEMENTOS DE LA TABLA.
@@ -874,7 +876,7 @@ public class Coordinador {
         return a;
     }
     
-    public void refaccionAbrirPanelAgregar(){
+    public void refaccionAbrirPanelRegistrar(){
         this.coordinadorPaneles.setJPanel(panelRefaccionAgregar);
         panelRefaccionAgregar.configurar();
     }
@@ -1023,10 +1025,10 @@ public class Coordinador {
      * @param lvo La lista de RelacionRefaccionMaquinaModeloVo que se quieren
      * actualizar. 
      */
-    public void relacionRefaccionMaquinaModeloModificarLista(
+    public boolean relacionRefaccionMaquinaModeloModificarLista(
             List<RelacionRefaccionMaquinaModeloVo> lvo){
         setTablaModificada(RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA);
-        this.logica.relacionRefaccionMaquinaModeloModificarLista(lvo);
+        return this.logica.relacionRefaccionMaquinaModeloModificarLista(lvo);
     }
     
     /* 
@@ -1653,8 +1655,6 @@ public class Coordinador {
     public boolean seccionDeMaquinaEliminar(SeccionDeMaquinaVO seccionDeMaquinaVO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
     
     
     
