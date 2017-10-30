@@ -29,12 +29,21 @@ public class RetrasarEjecucionDeOperacion {
     
     JPanelBase panel;
 
+    /**
+     * Ejecuta la operación despues del retraso solo si el panel que se le 
+     * pase como parámetro es visible. 
+     * @param panel El panel que se quiere comprobar si es visible. 
+     */
     public RetrasarEjecucionDeOperacion(JPanelBase panel) {
         this.ejecutado = false;
         this.tiempoDeRetraso = -1;
         this.esteHilo = new Hilo();
         this.panel = panel;
     }
+
+    /**
+     * Ejecuta la operación que se defina despues del retraso. 
+     */
     public RetrasarEjecucionDeOperacion() {
         this.ejecutado = false;
         this.tiempoDeRetraso = -1;
@@ -99,17 +108,25 @@ public class RetrasarEjecucionDeOperacion {
         
         @Override
         public void run() {
+            //REPETIR EL CICLO HASTA QUE SE SE DEJE DE RECIVIR repetir=true DESDE
+            // LA OPERACION ejecutar();
             while (repetir) {                    
                 try {
+                    //SE CAMBIA A false PARA QUE TERMINE EL CICLO SI DURANTE LA
+                    // ESPERA POR DEFECTO NO SE VUELVE A EJECUTAR ejectuar()
                     repetir = false;
                     if (tiempoDeRetraso==-1) {
+                        //SI NO SE DEFINIO EL TIEMPO DE RETRASO ENTONCES 
+                        // SE PONE POR DEFECTO 100 MILISEGUNDOS. 
                         tiempoDeRetraso=100;
                     }
+                    //ESPERAMOS PARA COMPROBAR repetir = false NO SE HAYA CAMBIADO. 
                     esteHilo.sleep(tiempoDeRetraso);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(RetrasarEjecucionDeOperacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            //DE
             if (panel!=null) {
                 if (panel.soyVisible()) {
                     operacion.run();
