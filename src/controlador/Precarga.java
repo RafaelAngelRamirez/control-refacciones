@@ -180,11 +180,15 @@ public class Precarga {
         JDialog d;
         d = new JDialog();
         d.add(panel);
+        d.getRootPane().setOpaque(false);
+        panel.setOpaque(false);
+        panel.getRootPane().setOpaque(false);
+        
         d.setUndecorated(true);
         d.pack();
         d.setSize(panel.getSize());
         d.setAlwaysOnTop(encima);
-
+        
         d.setLocationRelativeTo(null);
         
         return d;

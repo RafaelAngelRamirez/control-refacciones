@@ -8,10 +8,12 @@ package vista.panels;
 import controlador.CoordinadorPaneles;
 import controlador.HiloConPrecarga;
 import controlador.RetrasarEjecucionDeOperacion;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.SeccionDeMaquinaIT;
 import modelo.Textos;
 import modelo.vo.MaquinaModeloVo;
@@ -92,10 +94,11 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         jScrollPane9 = new javax.swing.JScrollPane();
         listaRefaccionesDisponibles = new javax.swing.JList<>();
         btnLimpiar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         txtBusqueda = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        etiquetaNombreDeLaRefaccion7 = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
@@ -105,6 +108,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                 btnCancelarActionPerformed(evt);
             }
         });
+        add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(737, 835, -1, -1));
 
         btnEliminar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_tache.png"))); // NOI18N
@@ -114,22 +118,28 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                 btnEliminarActionPerformed(evt);
             }
         });
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(744, 83, -1, -1));
 
         etiquetaNombre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombre.setText("Nombre.");
+        add(etiquetaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 93, -1, -1));
 
         txtNombre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNombre.setMaximumSize(new java.awt.Dimension(395, 2147483647));
         txtNombre.setMinimumSize(new java.awt.Dimension(395, 35));
+        add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 122, 562, 35));
 
         etiquetaNombreDeLaRefaccion1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         etiquetaNombreDeLaRefaccion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_titulo_SeccionMaquina Registro y asignacion de secciones.png"))); // NOI18N
         etiquetaNombreDeLaRefaccion1.setText("Registrar/modificar seccion");
+        add(etiquetaNombreDeLaRefaccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 6, 361, 42));
 
         listaSecciones.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         listaSecciones.setFocusable(false);
         jScrollPane5.setViewportView(listaSecciones);
+
+        add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 359, 147));
 
         btnGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_palomita.png"))); // NOI18N
@@ -139,37 +149,53 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                 btnGuardarActionPerformed(evt);
             }
         });
+        add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(842, 835, -1, -1));
 
         listaModelosMaquinaAsignados.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         listaModelosMaquinaAsignados.setFocusable(false);
         jScrollPane6.setViewportView(listaModelosMaquinaAsignados);
 
+        add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 215, 569, -1));
+
         listaModelosMaquinaDisponibles.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         listaModelosMaquinaDisponibles.setFocusable(false);
         jScrollPane7.setViewportView(listaModelosMaquinaDisponibles);
 
+        add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 215, 358, -1));
+
         etiquetaNombreDeLaRefaccion.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         etiquetaNombreDeLaRefaccion.setText("Modelos disponibles.");
+        add(etiquetaNombreDeLaRefaccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 192, 270, -1));
 
         etiquetaNombreDeLaRefaccion3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         etiquetaNombreDeLaRefaccion3.setText("Modelos asignados.");
+        add(etiquetaNombreDeLaRefaccion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 192, 270, -1));
 
+        etiquetaNombreDeLaRefaccion4.setBackground(new java.awt.Color(51, 51, 51));
         etiquetaNombreDeLaRefaccion4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        etiquetaNombreDeLaRefaccion4.setText("Asignar sección a modelo de máquina.");
+        etiquetaNombreDeLaRefaccion4.setText("Selecciona un modelo de máquina de la lista de \"Modelos asignados\" para relacionarlo con una o varias refacciones. ");
+        etiquetaNombreDeLaRefaccion4.setOpaque(true);
+        add(etiquetaNombreDeLaRefaccion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 354, 933, -1));
 
         etiquetaNombreDeLaRefaccion5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         etiquetaNombreDeLaRefaccion5.setText("Refacciones disponibles.");
+        add(etiquetaNombreDeLaRefaccion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 404, 270, -1));
 
         etiquetaNombreDeLaRefaccion6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         etiquetaNombreDeLaRefaccion6.setText("Refacciones asignadas.");
+        add(etiquetaNombreDeLaRefaccion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 623, 270, -1));
 
         listaRefaccionesAsignadas.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         listaRefaccionesAsignadas.setFocusable(false);
         jScrollPane8.setViewportView(listaRefaccionesAsignadas);
 
+        add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 643, 933, 185));
+
         listaRefaccionesDisponibles.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         listaRefaccionesDisponibles.setFocusable(false);
         jScrollPane9.setViewportView(listaRefaccionesDisponibles);
+
+        add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 427, 933, 185));
 
         btnLimpiar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_limpiar.png"))); // NOI18N
@@ -179,139 +205,23 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                 btnLimpiarActionPerformed(evt);
             }
         });
-
-        jTextPane1.setEditable(false);
-        jTextPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTextPane1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jTextPane1.setText("Selecciona un modelo de máquina de la lista de \"Modelos asignados\" para relacionarlo con una o varias refacciones. ");
-        jTextPane1.setFocusCycleRoot(false);
-        jTextPane1.setFocusable(false);
-        jTextPane1.setOpaque(false);
-        jTextPane1.setRequestFocusEnabled(false);
-        jScrollPane1.setViewportView(jTextPane1);
+        add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(846, 83, -1, -1));
 
         txtBusqueda.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtBusqueda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBusqueda.setMaximumSize(new java.awt.Dimension(395, 2147483647));
         txtBusqueda.setMinimumSize(new java.awt.Dimension(395, 35));
+        add(txtBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 386, 539, 35));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/iconos_buscar.png"))); // NOI18N
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 386, -1, 31));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(etiquetaNombreDeLaRefaccion5, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 991, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 132, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(0, 291, Short.MAX_VALUE)
-                                        .addComponent(btnCancelar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnGuardar))
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(etiquetaNombre)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnEliminar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnLimpiar))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(etiquetaNombreDeLaRefaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(etiquetaNombreDeLaRefaccion3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(etiquetaNombreDeLaRefaccion6, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(etiquetaNombreDeLaRefaccion4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(300, 300, 300))))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane6, jScrollPane7, jScrollPane8, jScrollPane9});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(etiquetaNombreDeLaRefaccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnLimpiar)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(etiquetaNombre))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(etiquetaNombreDeLaRefaccion4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaNombreDeLaRefaccion)
-                    .addComponent(etiquetaNombreDeLaRefaccion3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane7)
-                    .addComponent(jScrollPane6))
-                .addGap(53, 53, 53)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(etiquetaNombreDeLaRefaccion5)
-                    .addComponent(etiquetaNombreDeLaRefaccion6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
-                .addGap(12, 12, 12))
-        );
+        etiquetaNombreDeLaRefaccion7.setBackground(new java.awt.Color(51, 51, 51));
+        etiquetaNombreDeLaRefaccion7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        etiquetaNombreDeLaRefaccion7.setText("Asignar sección a modelo de máquina.");
+        etiquetaNombreDeLaRefaccion7.setOpaque(true);
+        add(etiquetaNombreDeLaRefaccion7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 163, 933, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -348,14 +258,13 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion4;
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion5;
     private javax.swing.JLabel etiquetaNombreDeLaRefaccion6;
+    private javax.swing.JLabel etiquetaNombreDeLaRefaccion7;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JList<String> listaModelosMaquinaAsignados;
     private javax.swing.JList<String> listaModelosMaquinaDisponibles;
     private javax.swing.JList<String> listaRefaccionesAsignadas;
@@ -372,8 +281,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             INICIO SETEO NOMBRES DE ETIQUETA
         ///////////////////////////////////////////////////////////////////////
         */
-        SeccionDeMaquinaIT sdmIT = new SeccionDeMaquinaIT();
-        etiquetaNombre.setText(sdmIT.getNOMBRE_SECCION().getNombreParaMostrar());
+        etiquetaNombre.setText(SeccionDeMaquinaIT.getNOMBRE_SECCION().getNombreParaMostrar());
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -413,7 +321,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         
         //ASIGNAMOS EL TAMAÑO DE CAMPO
         
-        _txtNombre.setTamanoDeCampo(sdmIT.getNOMBRE_SECCION().getLongitudDeCaracteres());
+        _txtNombre.setTamanoDeCampo(SeccionDeMaquinaIT.getNOMBRE_SECCION().getLongitudDeCaracteres());
         _txtBusqueda.setTamanoDeCampo(200);
         
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
@@ -435,8 +343,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         btnEliminar.setNextFocusableComponent(btnLimpiar);
         btnLimpiar.setNextFocusableComponent(_txtNombre.getThis());
         
-        //ACCIONES ESPECELIALES.
-            /*Cargar las secciones seleccionadas*/
+        //ACCIONES ESPECELIALES.            /*Cargar las secciones seleccionadas*/
         _listaSecciones.setValueChange(this::cargarDatosDeListaParaModificar);
         
         _listaModelosMaquinaDisponibles.setValueChange(()->_listaModelosMaquinaDisponibles.cambioEntreListas(false));
@@ -458,8 +365,14 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(tempCargaAgregar::ejecutar, false);
         _listaModelosMaquinaDisponibles.addOperacionAlIntercambiarItem(tempCargaEliminar::ejecutar, true);
         
+        
+        RetrasarEjecucionDeOperacion tempBusqueda = new RetrasarEjecucionDeOperacion(this);
+        tempBusqueda.setTiempoDeRetraso(400);
+        tempBusqueda.setOperacion(this::filtrarRefaccionesDisponibles);
+        
+        
             /*Filtra las refacciones*/
-        _txtBusqueda.setKeyRelease(this::filtrarRefaccionesDisponibles, OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
+        _txtBusqueda.setKeyRelease(tempBusqueda::ejecutar, OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
 
             /**/
         
@@ -636,94 +549,12 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
      * Guarda las nuevas relaciones entre las secciones y las refacciones.  
      */
     private void guardarNuevaSeccion(){
-//        SeccionDeMaquinaIT sdmit = new SeccionDeMaquinaIT();
-//
-//        //OBTENEMOS LA NUEVA SECCIÓN.
-//        SeccionDeMaquinaVO sdmvo = new SeccionDeMaquinaVO();
-//        sdmvo.setNombreSeccion(_txtNombre.getText());
-//        
-//        //VALIDAMOS QUE NO ESTE REPETIDA. 
-//        List<Validacion> listVal = getCoordinador().seccionDeMaquinaValidar(sdmvo);
-//        
-//        boolean todoValido = true;
-//        for (Validacion val : listVal) {
-//            if (val.getNombreDeCampo().equals(sdmit.getNombreSeccionPDC().getNombre())) {
-//                if (val.isValido()) {
-//                    _txtNombre.setErrorQuitar();
-//                }else{
-//                    _txtNombre.setError(val.getMensajeDeError());
-//                    todoValido = false;
-//                }
-//            }
-//        }
-//        
-//        if (todoValido) {
-//        //LA SECCION NO EXISTE ENTONCES LA GUARDAMOS Y OBTENEMOS SU ID.
-//            if (getCoordinador().seccionDeMaquinaGuardar(sdmvo)) {
-//                todoValido = true;
-//                //CARGAMOS EL ID DE LA REFACCION GENERADO.
-//                sdmvo.setId(getCoordinador().seccionDeMaquinaUltimoId());
-//                if (sdmvo.getId()==-1) {
-//                    todoValido = false;
-//                    JOptionPane.showMessageDialog(this, "Algo paso y no se pudieron guardar"
-//                            + " las refacciones que se relacionaron. "
-//                            + "\nIntentalo recargando esta ventana.");
-//                }
-//            }else{
-//                todoValido = false;
-//            }
-//        }
-//        
-        
-        //LA LISTA QUE CONTENDRA LAS REFACCIONES COMPATIBLES. 
-        
-//        if (todoValido) {
-//            //SI LA SECCIÓN SE GUARDO ENTONCES PROCEDEMOS A RELACIONAR EL MAPA
-//            // CON LA REFACCIÓN. PARA ESTO SOLO NECESITAMOS LA REFACCIÓN
-//            // POR QUE YA TENEMOS FILTRADO QUE SI ES COMPATIBLE CON EL MODELO
-//            // DE LA MÁQUINA Y APARTE YA SABEMOS QUE EXISTE LA RELACIÓN.
-//            
-//            //DECARGAMOS TODAS LAS REFACCIONES EN UNA LISTA. 
-//            // REVISANDO QUE NO ESTEN REPEDITAS. 
-////            mapaDeRelaciones.forEach((MaquinaModeloVo mmvo, List<RefaccionVo> listRVO) -> {
-////                for (RefaccionVo rvo : listRVO) {
-////                   RelacionSeccionMaqRefaccionVO rsmrvo = new RelacionSeccionMaqRefaccionVO();
-////                   rsmrvo.setIdRefaccion(rvo.getId());
-////                   rsmrvo.setIdSeccionMaquina(sdmvo.getId());
-////                   listRelacion.add(rsmrvo);
-////                }
-////            });
-//            
-//            if (listRelacion.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, 
-//                        "<html>No seleccionaste ningúna refacción para \n"
-//                        + " relacionarla con esta sección. Solo se guardo la sección."
-//                                + "<html>");
-//                todoValido = false;
-//            }
-//        }    
-         
-//        if (todoValido) {
-//            //GUARDAMOS LA RELACION ENTRE LA SECCIÓN Y LA REFACCIÓN.
-//            if (getCoordinador().seccionDeMaquinaRelacionRefaccionGuardar(listRelacion)) {
-//                getCoordinador().actualizarTodoLoVisible();
-//                JOptionPane.showMessageDialog(this, "Se guardo la sección \""+sdmvo.getNombreSeccion()+"\" "
-//                        + "correctamente.");
-//            }else{
-//                JOptionPane.showMessageDialog(this, "No se pudo guardar la relación \n"
-//                        + "entre las refacciones y la sección, pero si se guardo la sección.\n"
-//                        + " Intenta modificar la sección de nuevo para agregar las refacciones asignadas.");
-//            }
-//        }
+        JOptionPane.showMessageDialog(null, "pendiente!! guardar nueva seccion");
     }
     
     private void modificarSeccion(){
-        //PARA MODIFICAR LA REFACCIONES UTILIZAMOS UN PROCEMIENTO SIMILIAR AL
-        // DEL GUARDADO. SOLO QUE PRIMERO OCUPAMOS OBTENER TODAS LAS REFACCIONES
-        // QUE ESTABAN ASIGNADAS A LA SECCION PERO AHORA SI QUE COINCIDAN CON LOS MODELOS
-        // QUE TANBIEN ESTAN ASIGNADOS. LO BUENO ES QUE YA TENEMOS ESO. 
         
-        
+        JOptionPane.showMessageDialog(null, "pendiente!! modificar seccion");
     }
     
     @Override
@@ -750,15 +581,13 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         //UTILIZAMOS PARA FILTRAR LAS REFACCIONES QUE SERAN COMPATIBLES CON
         // ESTA SECCIÓN.
         
+        
         // OBTENEMOS LOS MODELOS SELECCIONADOS. 
         @SuppressWarnings("unchecked")
         List<MaquinaModeloVo> listMMVOAsignados =
                 (List<MaquinaModeloVo>)(List<?>) _listaModelosMaquinaAsignados.getItems_ObjectsRelacionados();
         if (!listMMVOAsignados.isEmpty()) {
-             //OBTENEMOS LAS REFACCIONES COMPATIBLES. 
-            List<RefaccionVo> listRefaccionesCompatiblesConModelo = 
-                getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(listMMVOAsignados);
-            cargarRefaccioneEnListaDisponibles(listRefaccionesCompatiblesConModelo);
+            filtrarRefaccionesDisponibles();
         }else{
             _listaRefaccionesDisponibles.limpiar();
         }
@@ -776,14 +605,17 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
 
         listRVO.forEach(
                 rvo->{
-                    String a  = Textos.formatearEspacios(12, rvo.getCodigoProveedor(), "|");
-                    String b  = Textos.formatearEspacios(25, rvo.getNombre(), "|");
-                    String c  = Textos.formatearEspacios(25, rvo.getCodigoInterno(), "|");
-                    System.out.println(a+b+c);
+                    String a  = Textos.formatearEspacios(
+                            RefaccionIT.getCODIGO_PROVEEDOR().getLongitudDeCaracteres(), 
+                            rvo.getCodigoProveedor(), "|");
+                    String b  = Textos.formatearEspacios(
+                            RefaccionIT.getCODIGO_INTERNO().getLongitudDeCaracteres(), 
+                            rvo.getCodigoInterno(), "|");
+                    String c  = Textos.formatearEspacios(45, rvo.getNombre(), "|");
                     
                     //SI LA REFACCIÓN YA LA TENEMOS SELECCIONADA ENTONCES NO LA MOSTRAMOS
                     if(!mapaDeRefaccionesSeleccionadas.containsKey(a+b+c)){
-                        mapaDisponibles.put(a+b+c, rvo);
+                        mapaDisponibles.put(c+a+b, rvo);
                     }
                 });
         
@@ -792,51 +624,15 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     }
 
     private void cargarListaDeRefaccionesParaGuardarNuevo() {
-//        // SOLO CARGAMOS LAS REFACCIONES PARA ASIGNARLAS A LA MÁQUINA MODELO.
-//        Object a = _listaModelosMaquinaAsignados.getSelectValueObject();
-//        if (!a.equals(-1)) {
-//            MaquinaModeloVo mmvo = (MaquinaModeloVo)a;
-//
-//            //CARGAMOS LAS REFACCIONES COMPATIBLES. 
-//            List<RefaccionVo> listRefacccionesCompatibles = 
-//                    getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(mmvo);
-//            JOptionPane.showMessageDialog(null, "Estamos en guardar nuevo"+listRefacccionesCompatibles.toString());
-//
-//            HashMap<String, Object> mapaDisponibles = new HashMap<>();
-//            listRefacccionesCompatibles.forEach(vo->{
-//                
-//                mapaDisponibles.put(vo.getNombre(), vo);
-//            });
-//
-//            _listaRefaccionesDisponibles.cargarLista(mapaDisponibles);
-//            
-//        }
-        
-        
+        JOptionPane.showMessageDialog(null, "pendiente cargar lista de refacciones para guardar nuevo");
     }
     
-    
-//    /**
-//     * Agrega los datos al mapa para ordenar la relacion entre el modelo de máquina
-//     * y la refafacción. 
-//     */
-//    private void agregarDatosAlMapaRefacciones() {
-////        //OBTENEMOS EL MODELO DE MÁQUINA SELECCIONADO. 
-////        MaquinaModeloVo mmVOSeleccionado = 
-////                (MaquinaModeloVo)_listaModelosMaquinaAsignados.getSelectValueObject();
-////        
-////        //OBTENEMOS TODAS LAS REFACCIONES QUE SE LE ASIGNARON.
-////        @SuppressWarnings("unchecked")
-////        List<RefaccionVo> listRefaccionesSeleccionadas =
-////                (List<RefaccionVo>)(List<?>)_listaRefaccionesAsignadas;
-////
-////        //CARGAMOS EL MAPA. 
-////        mapaDeRelaciones.put(mmVOSeleccionado, listRefaccionesSeleccionadas);  
-//    }
     
     /**
      * Filtra las refacciones tomando en cuenta la lista de maquinas modelos 
      * asignadas. 
+     * 
+     * @param agregandoLimpiando True cuando se este agregando, false cuando se este limpiando.
      */
     @SuppressWarnings("unchecked")
     private void filtrarRefaccionesDisponibles() {
@@ -850,7 +646,8 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                 List<RefaccionVo> listRVO = 
                         getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(
                                 listMMVo, _txtBusqueda.getText());
-
+                
+                listRVO = filtrarRefaccionesYaAsignadas_Agregando(listRVO);
                 cargarRefaccioneEnListaDisponibles(listRVO);
             }else{
                 //EL CAMPO DE BUSQUEDA ESTA VACIO. CARGAMOS TODO. 
@@ -860,6 +657,8 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                 List<RefaccionVo> listRVO = 
                         getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(
                                 listMMVo);
+                
+                listRVO = filtrarRefaccionesYaAsignadas_Agregando(listRVO);
                 cargarRefaccioneEnListaDisponibles(listRVO);
             }
         }else{
@@ -867,6 +666,28 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             //REFACCIONES.
             _listaRefaccionesDisponibles.limpiar();
         }
+    }
+    
+    /**
+     * Esta operación se encarga de filtrar las refacciones existentes cuando se 
+     * ejecuta una busqueda. 
+     */
+    private List<RefaccionVo> filtrarRefaccionesYaAsignadas_Agregando(List<RefaccionVo> listRVO){
+        // BUSCAMOS SI LA LISTA CONTIENE ELEMENTOS REPETIDOS QUE YA FUERON AGREGADOS EL MAPA
+        // DE REFACCIONES SELECCIONADAS.
+        List<RefaccionVo> listaRemover = new ArrayList<>();
+        mapaDeRefaccionesSeleccionadas.forEach((String t, Object o)->{
+            listRVO.forEach((rvo)->{
+                RefaccionVo vo = (RefaccionVo)o;
+                if (rvo.getId()== vo.getId()) {
+                    listaRemover.add(rvo);
+                }
+            });
+        });
+        
+        listRVO.removeAll(listaRemover);
+        
+        return listRVO;
         
     }
     
@@ -947,45 +768,68 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                 getCoordinador().getPanelCarga());
         h.start();
     }
+    @SuppressWarnings("unchecked")
     private void quitarDeLaListaDeRefacciones_Operaciones() {
         
-        //REVISAMOS LAS REFACCIONES QUE SON COMPATIBLES QUE ESTAN SELECCIONADAS.
+        //SI LA LISTA DE ASIGNADOS CONTIENE ALGO CONTINUAMOS, SI NO LIMPIAMOS.
         if (!_listaModelosMaquinaAsignados.isEmpty()) {
             
+            List<RefaccionVo> listRVOCompatibles;
+            _txtBusqueda.setText();
+            //OBTENEMOS LOS MODELOS ASIGNADOS.
             List<MaquinaModeloVo> listMMVO = 
                     (List<MaquinaModeloVo>)(List<?>)
                     _listaModelosMaquinaAsignados.getItems_ObjectsRelacionados();
 
-            List<RefaccionVo> listRVOCompatibles = 
+//            OBTENEMOS TODAS LAS REFACCIONES COMPATIBLES. 
+            listRVOCompatibles = 
                     getCoordinador().refaccionConsultarCompatiblesConMaquinaModelo(listMMVO);
 
-            if (!_listaRefaccionesAsignadas.isEmpty()) {
-
-                //OBTENEMOS LAS QUE YA TENIAMOS SELECCIONADAS Y
-                //ELIMINAMOS LAS REFACCIONES QUE NO SEAN COMPATIBLES CON TRA LA LISTA DE 
-                //COMPATIBLES. 
-
-                HashMap<String, Object> mapaRVOAsignadas = new HashMap<>();
-
-                _listaRefaccionesAsignadas.getItems().forEach(
-                        (Object nombre, Object vo)->{
-                            if (listRVOCompatibles.contains(vo)) {
-                                mapaRVOAsignadas.put(nombre.toString(), vo);
-                                RefaccionVo v = (RefaccionVo)vo;
-                                listRVOCompatibles.remove(v);
-                            }
-                        });
-                _listaRefaccionesAsignadas.limpiar();
-                mapaDeRefaccionesSeleccionadas = mapaRVOAsignadas;
-                _listaRefaccionesAsignadas.cargarLista(mapaRVOAsignadas);
-            }
-
+                //AHORA REVISAMOS LAS REFACCIONES QUE YA NO SON COMPATIBLES Y
+                // QUE ESTAN EN EL MAPA. LAS FILTRAMOS AQUI.
+            listRVOCompatibles = filtrarRefaccionesYaAsignadas_Limpiando(listRVOCompatibles);
             cargarRefaccioneEnListaDisponibles(listRVOCompatibles);
+            filtrarRefaccionesDisponibles();
         }else{
             mapaDeRefaccionesSeleccionadas.clear();
             _listaRefaccionesDisponibles.limpiar();
             _listaRefaccionesAsignadas.limpiar();
         }
+    }
+
+    /**
+     * Filtra las refacciones que ya no son compatibles y quita de la 
+     * lista las que ya no deben estar. 
+     */
+    private List<RefaccionVo> filtrarRefaccionesYaAsignadas_Limpiando(List<RefaccionVo> listRVOCompatibles) {
+        List<String> dejarEnElMapa = new ArrayList<>();
+        mapaDeRefaccionesSeleccionadas.forEach((String t, Object o)->{
+            RefaccionVo vo = (RefaccionVo)o;
+            listRVOCompatibles.forEach((RefaccionVo rvo) -> {
+                if (rvo.getId()==vo.getId()) {
+                    dejarEnElMapa.add(t);
+                    return;
+                }
+            });
+        });
+        
+        HashMap<String,Object> mapaTemp = new HashMap<>();
+        dejarEnElMapa.forEach(t->{
+            
+            if (mapaDeRefaccionesSeleccionadas.containsKey(t)) {
+                mapaTemp.put(t, mapaDeRefaccionesSeleccionadas.get(t));
+            }
+        });
+        
+        mapaDeRefaccionesSeleccionadas.clear();
+        mapaDeRefaccionesSeleccionadas.putAll(mapaTemp);
+        
+        _listaRefaccionesAsignadas.limpiar();
+        _listaRefaccionesAsignadas.cargarLista(mapaDeRefaccionesSeleccionadas);
+        
+               
+        return filtrarRefaccionesYaAsignadas_Agregando(listRVOCompatibles);
+
     }
     
 

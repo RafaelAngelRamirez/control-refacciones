@@ -1533,7 +1533,7 @@ public class Logica {
         return d.consultarCompatiblesConMaquinaModelo(mmvo);
 
     }
-
+    
     /**
      * Consulta todas las refacciones que sean compatibles con la máquina modelo 
      * que se le pase como parametro filtradas por el texto. s

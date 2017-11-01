@@ -1635,7 +1635,7 @@ public class Coordinador {
     public List<RefaccionVo> refaccionConsultarCompatiblesConMaquinaModelo(List<MaquinaModeloVo>  mmvo) {
         return logica.refaccionConsultarCompatiblesConMaquinaModelo(mmvo);
     }
-
+    
     /**
      * Consulta todas las refacciones que sean compatibles con la máquina modelo 
      * filtrandolas con el parametro de texto que se le pase. 

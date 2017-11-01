@@ -32,26 +32,31 @@ public class PanelCarga extends JPanel{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        etiquetaTexto = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        etiquetaTexto.setBackground(new java.awt.Color(0, 67, 115));
-        etiquetaTexto.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
-        etiquetaTexto.setForeground(new java.awt.Color(255, 255, 255));
-        etiquetaTexto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaTexto.setText("CARGANDO");
-        add(etiquetaTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 420, 20));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagenes/precarga.gif"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 180));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel etiquetaTexto;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 

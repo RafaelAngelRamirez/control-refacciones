@@ -160,7 +160,6 @@ public class RefaccionVo extends VoGenerales{
         String b= "       | ";
         
         String c =  "\n                     Id" +b+ id+
-                    "\n            idRefaccion" +b+ nombre+
                     "\n                 nombre" +b+ nombre+    
                     "\n             idMaterial" +b+ idMaterial+    
                     "\n            importancia" +b+ importancia+   

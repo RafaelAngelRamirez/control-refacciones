@@ -272,6 +272,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
         cargarRefaccionAModificar(idModificandoseActualmente, idRestantesCantidad);
         etiquetaRefaccionesPendientesPorModificar.setVisible(true);
         btnGuardar.setText("Modificar");
+        btnGuardar.setEnabled(true);
         
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -1321,7 +1322,8 @@ public class PanelRefaccionAgregar extends JPanelBase {
     }
     
     
-    private void guardar() {     
+    private void guardar() {  
+        btnGuardar.setEnabled(false);
         RefaccionVo rVo = new RefaccionVo();
         
         //LAS LISTAS QUE CONTENDRAN LOS DATOS PARA LAS MULTIPLES RELACIONES QUE TENEMOS.
@@ -1602,6 +1604,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
                 JOptionPane.showMessageDialog(this, "Algo paso y no se pudo completar la acción.");
             }
         }
+        btnGuardar.setEnabled(true);
     }
     
     public void limpiarTodo(){
@@ -1725,6 +1728,7 @@ public class PanelRefaccionAgregar extends JPanelBase {
     public void configurar() {
         etiquetaRefaccionesPendientesPorModificar.setVisible(false);
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(true);
         limpiarTodo();
     }
 

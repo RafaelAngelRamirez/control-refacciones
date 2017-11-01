@@ -55,8 +55,7 @@ public class ConsolaDeErrores extends javax.swing.JFrame {
         txtAreaConsola.setWrapStyleWord(true);
         txtAreaConsola.setDoubleBuffered(true);
         txtAreaConsola.setDragEnabled(true);
-        txtAreaConsola.setFocusable(false);
-        txtAreaConsola.setOpaque(false);
+        txtAreaConsola.setRequestFocusEnabled(false);
         jScrollPane1.setViewportView(txtAreaConsola);
 
         btnLimpiar.setText("Limpiar");
