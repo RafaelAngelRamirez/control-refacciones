@@ -23,6 +23,7 @@ import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
 import modelo.InfoTabla.SalidaLoteIT;
+import modelo.InfoTabla.SeccionDeMaquinaIT;
 import modelo.ParametrosDeCampo;
 import modelo.dao.DepartamentoDao;
 import modelo.dao.EmpleadoDao;
@@ -37,9 +38,9 @@ import modelo.dao.MaterialDao;
 import modelo.dao.PaisDao;
 import modelo.dao.ProveedorDao;
 import modelo.dao.RefaccionDao;
-import modelo.dao.RelaccionSeccionDeMaquinaRefaccionDAO;
 import modelo.dao.RelacionRefaccionMaquinaModeloDao;
 import modelo.dao.RelacionRefaccionProveedorDao;
+import modelo.dao.RelacionSeccionDeMaquinaRefaccionDAO;
 import modelo.dao.SalidaLoteDao;
 import modelo.dao.SeccionDeMaquinaDAO;
 import modelo.dao.UnidadDao;
@@ -58,7 +59,7 @@ import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
-import modelo.vo.RelacionSeccionMaqRefaccionVO;
+import modelo.vo.RelacionSeccionDeMaquinaRefaccionVO;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.SeccionDeMaquinaVO;
 import modelo.vo.UnidadVo;
@@ -347,6 +348,21 @@ public class Logica {
     public List<RelacionRefaccionMaquinaModeloVo> maquinaModeloConsultarModeloAnio(int id){
         RelacionRefaccionMaquinaModeloDao dao = new RelacionRefaccionMaquinaModeloDao(coordinador);
         return dao.consultarModeloAnio(id);
+    }
+    
+    /** 
+     * Consulta todas las máquinas que esten relacionadas con la lista de refacciones
+     * que se le pase como parametro.
+     * @param listRVO La lista de refacciones de las que se quiere obtener 
+     * su relación con la máquina modelo. 
+     * @return La lista de maquinas modelos relacionadas con la lista
+     * de refacciones. 
+     */
+    public List<MaquinaModeloVo> maquinaModeloConsultarModeloAnio(List<RefaccionVo> listRVO){
+        RelacionRefaccionMaquinaModeloDao dao = new RelacionRefaccionMaquinaModeloDao(coordinador);
+        return dao.consultarModeloAnio(listRVO);
+
+    
     }
     
     /**
@@ -886,6 +902,7 @@ public class Logica {
         RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
         return d.modificar(lvo);
     }
+    
     
     /* 
     ////////////////////////////////////////////////////////////////////////
@@ -1491,16 +1508,18 @@ public class Logica {
         return d.ultimoId();
     }
     
-    /**
-     * Guarda la relacion que hay entre la sección de la máquina y la refacción.
-     * @param listRelacion Lista de refacciones relacionadas.
-     * @return True si todo fue bien. 
+     /**
+     * Guarda la relacion entre la refacción y la sección de máquina.  
+     * @param listaRelacionSeccionDeMaquinaRefaccionVO La relación entre la sección
+     * y la refacción.
+     * @return True si todo fue correcto. 
      */
-    public boolean seccionDeMaquinaRelacionRefaccionGuardar(List<RelacionSeccionMaqRefaccionVO> listRelacion) {
-        RelaccionSeccionDeMaquinaRefaccionDAO d = new RelaccionSeccionDeMaquinaRefaccionDAO(coordinador);
-        return d.guardarRelacion(listRelacion);
-    }
+    public boolean refaccionRelacionSeccionMaquinaGuardar(List<RelacionSeccionDeMaquinaRefaccionVO> listaRelacionSeccionDeMaquinaRefaccionVO) {
+        RelacionSeccionDeMaquinaRefaccionDAO d = new RelacionSeccionDeMaquinaRefaccionDAO(coordinador);
+        return d.guardarRelacion(listaRelacionSeccionDeMaquinaRefaccionVO);
+        
 
+    }
     /**
      * Revisa que la mátricula que se le pase como parametro no este ya registradas.
      * @param vo La máquina con la matricula a revisar.
@@ -1545,6 +1564,46 @@ public class Logica {
         RelacionRefaccionMaquinaModeloDao d = new RelacionRefaccionMaquinaModeloDao(coordinador);
         return d.consultarCompatiblesConMaquinaModelo(mmvo, texto);
     }
+    
+    
+    /**
+     * Valida que la sección este correcta. 
+     * @param sdmvo Los datos de la sección.
+     * @return El resultado de las validaciones. 
+     */
+    public List<Validacion> seccionDeMaquinaValidar(SeccionDeMaquinaVO sdmvo) {
+        List<Validacion> listVal = new ArrayList<>();
+        for (ParametrosDeCampo parametrosDeCampo : SeccionDeMaquinaIT.getCAMPOS_PDC()) {
+            
+            if (parametrosDeCampo.getNombre().equals(SeccionDeMaquinaIT.getNOMBRE_SECCION().getNombre())) {
+                Validacion val = new Validacion();
+                val.setNombreDeCampo(parametrosDeCampo);
+                if (sdmvo.getNombreSeccion().isEmpty()) {
+                    val.setMensajeDeError("No has definido un nombre.");
+                    val.setValido(false);
+                } else {
+                    val.setValido(true);
+                }
+                listVal.add(val);
+            }
+        }
+        return listVal;
+
+
+    }
+
+    /**
+     * Consulta todas las refacciones que esten relacionadas con el id de seccion
+     * que se le pase como parametro. 
+     * @param idActual
+     * @return La lista de refacciones compatibles con la sección.
+     */
+    public List<RefaccionVo> refaccionRelacionSeccionMaquinaConsultar(SeccionDeMaquinaVO idActual) {
+        RelacionSeccionDeMaquinaRefaccionDAO d = new RelacionSeccionDeMaquinaRefaccionDAO(coordinador);
+        return d.consultarRefacciones(idActual);
+    }
+
+   
     
 
     

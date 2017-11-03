@@ -2,7 +2,6 @@
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
 import controlador.Coordinador;
-import controlador.capturadeerrores.Suceso;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -117,7 +116,6 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
      * Limpia el contendi del combo.
      */
     public void limpiar(){
-        System.out.println("[!]Limpiando combo!");
         this.comboBox.removeAllItems();
         defaultComboBoxModel.removeAllElements();
         
@@ -128,7 +126,6 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
      * @param elementoARemover El object que se quiere remover.
      */
     public void removeItem(Object elementoARemover){
-        System.out.println("[!]Limpiando elemento de combo!");
         this.comboBox.removeItem(elementoARemover);
     }
     /**
@@ -142,11 +139,9 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
         if (this.isEmpty()) {
             return -1;
         }else{
-            System.out.println("estamos en el combo:");
             for (Map.Entry<String, Object> entry : relacionDatoObjeto.entrySet()) {
                 String key = entry.getKey();
                 Object value = entry.getValue();
-                System.out.println("relacionDatoId: " + key + "- "+value);
                 
             }
             return this.relacionDatoObjeto.get((String)this.comboBox.getSelectedItem());
@@ -197,30 +192,14 @@ public class UtilidadesComboBox_ extends OperacionesBasicasPorDefinir{
      * @return True si contiene el elemento.
      */
     public boolean contieneElItemEscrito(Object itemEscrito){
-        Suceso s = new Suceso();
-        s.setClase(this);
-        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-        s.setTextoAMostrar("[!]Comprobando si el elemento escrito esta en el combo.");
-        System.out.println(s);
         
         String elementoEscrito = itemEscrito+"";
         for (int i = 0; i < defaultComboBoxModel.getSize(); i++) {
             String elemento =defaultComboBoxModel.getElementAt(i);
             if (elemento.equals(elementoEscrito)) {
-                Suceso s1 = new Suceso();
-                s1.setClase(this);
-                s1.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-                s1.setTextoAMostrar("        [!]Esta en combo.");
-                System.out.println(s1);
-
                 return true;
             }
         }
-        Suceso s3 = new Suceso();
-        s3.setClase(this);
-        s3.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-        s3.setTextoAMostrar("        [!]No esta en el combo.");
-        System.out.println(s3);
         return false;
     }
     

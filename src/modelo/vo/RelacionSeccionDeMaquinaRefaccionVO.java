@@ -5,19 +5,19 @@
  */
 package modelo.vo;
 
-import modelo.InfoTabla.RelacionSeccionMaqRefaccionIT;
+import modelo.InfoTabla.RelacionSeccionDeMaquinaRefaccionIT;
 
 /**
  *
  * @author Particular
  */
-public class RelacionSeccionMaqRefaccionVO extends VoGenerales{
+public class RelacionSeccionDeMaquinaRefaccionVO extends VoGenerales{
     
     private Object idRefaccion;
     private Object idSeccionMaquina;
 
-    public RelacionSeccionMaqRefaccionVO() {
-        RelacionSeccionMaqRefaccionIT i = new RelacionSeccionMaqRefaccionIT();
+    public RelacionSeccionDeMaquinaRefaccionVO() {
+        RelacionSeccionDeMaquinaRefaccionIT i = new RelacionSeccionDeMaquinaRefaccionIT();
         
         relacionCampo.put(i.getID_REFACCION().getNombre(), this::getIdRefaccion);
         relacionCampo.put(i.getID_SECCION_MAQUINA().getNombre(), this::getIdSeccionMaquina);
@@ -40,7 +40,7 @@ public class RelacionSeccionMaqRefaccionVO extends VoGenerales{
         this.idSeccionMaquina = idSeccionMaquina;
     }
 
-    public boolean equals(RelacionSeccionMaqRefaccionVO obj) {
+    public boolean equals(RelacionSeccionDeMaquinaRefaccionVO obj) {
          return obj.equals(idRefaccion) && obj.equals(idSeccionMaquina);
          
     }

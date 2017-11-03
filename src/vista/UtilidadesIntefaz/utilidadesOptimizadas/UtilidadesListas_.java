@@ -85,12 +85,31 @@ public class UtilidadesListas_ extends OperacionesBasicasPorDefinir{
     }
     
     /**
-     * Cambia los elementos que se pasen a la segúnda lista.
+     * Cambia el elemento que se le pase como parametro de una lista a otra. 
+     * La refarencia a usar es el nombre que muestra la lista. Si la lista no
+     * contiene el elemento entonces marca un error. 
+     * 
      * @param dato El dato que se quiere interacambiar.
      */
+    @SuppressWarnings({"unchecked", "unchecked"})
     public void cambioEntreListas(Object dato){
-        defaultListModel.removeElement(dato);
-        this.ComponenteListaAAgregar.getDefaultListModel().addElement(dato);
+        if (!defaultListModel.contains(dato)) {
+            try {
+                throw new ExcepcionPersonalizada(
+                        "El objeto: '"+dato+"' no esta dentro de la lista.",
+                        this, "cambioEntreListas(Object dato)");
+            } catch (ExcepcionPersonalizada ex) {
+                Logger.getLogger(UtilidadesListas_.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            
+            Object valor = relacionDatoId.remove(dato);
+            ComponenteListaAAgregar.getRelacionDatoId().put(dato, valor);
+            
+            
+            defaultListModel.removeElement(dato);
+            this.ComponenteListaAAgregar.getDefaultListModel().addElement(dato);
+        }    
     }
     
     

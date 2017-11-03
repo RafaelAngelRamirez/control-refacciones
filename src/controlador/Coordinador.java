@@ -6,7 +6,6 @@ import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
 import java.math.BigDecimal;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import javax.swing.JDialog;
@@ -24,10 +23,10 @@ import modelo.InfoTabla.ProveedorIT;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.RelacionRefaccionMaquinaModeloIT;
 import modelo.InfoTabla.RelacionRefaccionProveedorIT;
+import modelo.InfoTabla.RelacionSeccionDeMaquinaRefaccionIT;
 import modelo.InfoTabla.SalidaLoteIT;
 import modelo.InfoTabla.SeccionDeMaquinaIT;
 import modelo.InfoTabla.UnidadIT;
-import modelo.ParametrosDeCampo;
 import modelo.logica.ComparacionLotes;
 import modelo.logica.Logica;
 import modelo.logica.Validacion;
@@ -46,7 +45,7 @@ import modelo.vo.ProveedorVo;
 import modelo.vo.RefaccionVo;
 import modelo.vo.RelacionRefaccionMaquinaModeloVo;
 import modelo.vo.RelacionRefaccionProveedorVo;
-import modelo.vo.RelacionSeccionMaqRefaccionVO;
+import modelo.vo.RelacionSeccionDeMaquinaRefaccionVO;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.SeccionDeMaquinaVO;
 import modelo.vo.UnidadVo;
@@ -640,6 +639,22 @@ public class Coordinador {
         return this.logica.maquinaModeloConsultarModeloAnio(id);
     
     }
+    
+    
+    /** 
+     * Consulta todas las máquinas que esten relacionadas con la lista de refacciones
+     * que se le pase como parametro.
+     * @param listRVO La lista de refacciones de las que se quiere obtener 
+     * su relación con la máquina modelo. 
+     * @return La lista de maquinas modelos relacionadas con la lista
+     * de refacciones. 
+     */
+    public List<MaquinaModeloVo> maquinaModeloConsultarModeloAnio(List<RefaccionVo> listRVO){
+        return this.logica.maquinaModeloConsultarModeloAnio(listRVO);
+    
+    }
+    
+    /**/
     /* 
     ////////////////////////////////////////////////////////////////////////
         FIN DE REGISTRO DE MAQUINAS Y MAQUINAS MODELO
@@ -1029,6 +1044,7 @@ public class Coordinador {
         setTablaModificada(RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA);
         return this.logica.relacionRefaccionMaquinaModeloModificarLista(lvo);
     }
+    
     
     /* 
     ////////////////////////////////////////////////////////////////////////
@@ -1563,36 +1579,12 @@ public class Coordinador {
     }
 
     /**
-     * Esto que hace????
-     * @param idActual
-     * @return
-     */
-    public List<MaquinaModeloVo> maquinaModeloRelacionSeccion(SeccionDeMaquinaVO idActual) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
      * Valida que la sección este correcta. 
      * @param sdmvo Los datos de la sección.
      * @return El resultado de las validaciones. 
      */
     public List<Validacion> seccionDeMaquinaValidar(SeccionDeMaquinaVO sdmvo) {
-        SeccionDeMaquinaIT it = new SeccionDeMaquinaIT();
-        List<Validacion> listVal = new ArrayList<>();
-        for (ParametrosDeCampo parametrosDeCampo : it.getCAMPOS_PDC()) {
-            
-            if (parametrosDeCampo.getNombre().equals(it.getID().getNombre())) {
-                Validacion val = new Validacion();
-                if (sdmvo.getNombreSeccion().isEmpty()) {
-                    val.setMensajeDeError("No has definido un nombre.");
-                    val.setValido(false);
-                } else {
-                    val.setValido(true);
-                }
-                listVal.add(val);
-            }
-        }
-        return listVal;
+       return logica.seccionDeMaquinaValidar(sdmvo);
     }
 
     /**
@@ -1616,16 +1608,7 @@ public class Coordinador {
         return logica.seccionDeMaquinaUltimoId();
     }
 
-    /**
-     * Guarda la relacion que hay entre la sección de la máquina y la refacción.
-     * @param listRelacion Lista de refacciones relacionadas.
-     * @return True si todo fue bien. 
-     */
-    public boolean seccionDeMaquinaRelacionRefaccionGuardar(List<RelacionSeccionMaqRefaccionVO> listRelacion) {
-        return logica.seccionDeMaquinaRelacionRefaccionGuardar(listRelacion);
-        
-    }
-
+    
     /**
      * Consulta todas las refacciones que sean compatibles con la máquina modelo 
      * que se le pase como parametro. 
@@ -1647,12 +1630,33 @@ public class Coordinador {
         return logica.refaccionConsultarCompatiblesConMaquinaModelo(listMMVO, texto);
     }
 
-    public List<RefaccionVo> refaccionRelacionSeccionMaquina(SeccionDeMaquinaVO idActual) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Guarda la relacion entre la refacción y la sección de máquina.  
+     * @param listaRelacionSeccionDeMaquinaRefaccionVO La relación entre la sección
+     * y la refacción.
+     * @return True si todo fue correcto. 
+     */
+    public boolean refaccionRelacionSeccionMaquinaGuardar(List<RelacionSeccionDeMaquinaRefaccionVO> listaRelacionSeccionDeMaquinaRefaccionVO) {
+        boolean a = logica.refaccionRelacionSeccionMaquinaGuardar(listaRelacionSeccionDeMaquinaRefaccionVO);
+        if (a) {
+            setTablaModificada(RelacionSeccionDeMaquinaRefaccionIT.NOMBRE_TABLA);
+        }
+        return a;
     }
 
     public boolean seccionDeMaquinaEliminar(SeccionDeMaquinaVO seccionDeMaquinaVO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    /**
+     * Consulta todas las refacciones que esten relacionadas con el id de seccion
+     * que se le pase como parametro. 
+     * @param idActual
+     * @return La lista de refacciones compatibles con la sección. 
+     */
+    public List<RefaccionVo> refaccionRelacionSeccionMaquinaConsultar(SeccionDeMaquinaVO idActual) {
+        return logica.refaccionRelacionSeccionMaquinaConsultar(idActual);
     }
     
     

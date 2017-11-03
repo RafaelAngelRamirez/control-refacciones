@@ -93,24 +93,19 @@ public class PanelRefaccionDetalle extends JPanelBase {
             INICIO SETEO NOMBRES DE ETIQUETA
         ///////////////////////////////////////////////////////////////////////
         */
-        RefaccionIT rit = new RefaccionIT();
-        ProveedorIT pit = new ProveedorIT();
-        MaquinaModeloIT mmit = new MaquinaModeloIT();
-        MaterialIT mit = new MaterialIT();
-        ImportanciaIT iit= new ImportanciaIT();
         
-        etiquetaCodigoDelProveedor.setText(rit.getCODIGO_PROVEEDOR().getNombreParaMostrar());
-        etiquetaCodigoInterno.setText(rit.getCODIGO_INTERNO().getNombreParaMostrar());
-        etiquetaDeQueEstaEcho.setText(mit.getMATERIAL().getNombreParaMostrar());
-        etiquetaDescripcion.setText(rit.getDESCRIPCION().getNombreParaMostrar());
-        etiquetaImportancia.setText(iit.getIMPORTANCIA().getNombreParaMostrar());
-        etiquetaMaquinas.setText(mmit.getMODELO().getNombreParaMostrar());
-        etiquetaNombreDeLaRefaccion.setText(rit.getNOMBRE().getNombreParaMostrar());
-        etiquetaParaQueEs.setText(rit.getPARA_QUE_ES().getNombreParaMostrar());
-        etiquetaProveedores.setText(pit.getEMPRESA_PROVEEDOR().getNombreParaMostrar());
-        etiquetaQueEs.setText(rit.getQUE_ES().getNombreParaMostrar());
-        etiquetaStockMax.setText(rit.getSTOCK_MAXIMO().getNombreParaMostrar());
-        etiquetaStockMin.setText(rit.getSTOCK_MINIMO().getNombreParaMostrar());
+        etiquetaCodigoDelProveedor.setText(RefaccionIT.getCODIGO_PROVEEDOR().getNombreParaMostrar());
+        etiquetaCodigoInterno.setText(RefaccionIT.getCODIGO_INTERNO().getNombreParaMostrar());
+        etiquetaDeQueEstaEcho.setText(MaterialIT.getMATERIAL().getNombreParaMostrar());
+        etiquetaDescripcion.setText(RefaccionIT.getDESCRIPCION().getNombreParaMostrar());
+        etiquetaImportancia.setText(ImportanciaIT.getIMPORTANCIA().getNombreParaMostrar());
+        etiquetaMaquinas.setText(MaquinaModeloIT.getMODELO().getNombreParaMostrar());
+        etiquetaNombreDeLaRefaccion.setText(RefaccionIT.getNOMBRE().getNombreParaMostrar());
+        etiquetaParaQueEs.setText(RefaccionIT.getPARA_QUE_ES().getNombreParaMostrar());
+        etiquetaProveedores.setText(ProveedorIT.getEMPRESA_PROVEEDOR().getNombreParaMostrar());
+        etiquetaQueEs.setText(RefaccionIT.getQUE_ES().getNombreParaMostrar());
+        etiquetaStockMax.setText(RefaccionIT.getSTOCK_MAXIMO().getNombreParaMostrar());
+        etiquetaStockMin.setText(RefaccionIT.getSTOCK_MINIMO().getNombreParaMostrar());
                
         /* 
         ////////////////////////////////////////////////////////////////////////
@@ -318,7 +313,8 @@ public class PanelRefaccionDetalle extends JPanelBase {
     public void cargarMaquinaModelo(){
         _ListaMaquinaModelo.limpiar();
         if (idRefaccion!=-1) {
-            List<RelacionRefaccionMaquinaModeloVo> lmmvo = this.getCoordinador().maquinaModeloConsultar(idRefaccion);
+            List<RelacionRefaccionMaquinaModeloVo> lmmvo = 
+                    this.getCoordinador().maquinaModeloConsultar(idRefaccion);
                 HashMap<String, Object> mmvoMapa = new HashMap<>();
                 for (RelacionRefaccionMaquinaModeloVo vo : lmmvo) {
                     mmvoMapa.put(vo.getMaquinaModeloVo().getModelo()

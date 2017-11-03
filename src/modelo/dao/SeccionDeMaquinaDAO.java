@@ -22,7 +22,6 @@ import modelo.vo.SeccionDeMaquinaVO;
  */
 public class SeccionDeMaquinaDAO extends DAOGenerales{
     
-    SeccionDeMaquinaIT it = new SeccionDeMaquinaIT();
     public SeccionDeMaquinaDAO(Coordinador coordinador) {
         super(coordinador);
     }
@@ -40,8 +39,8 @@ public class SeccionDeMaquinaDAO extends DAOGenerales{
         try {
             while (r.next()) {
                 SeccionDeMaquinaVO vo = new SeccionDeMaquinaVO();
-                vo.setId(r.getInt(it.getID().getNombre()));
-                vo.setNombreSeccion(r.getString(it.getNOMBRE_SECCION().getNombre()));
+                vo.setId(r.getInt(SeccionDeMaquinaIT.getID().getNombre()));
+                vo.setNombreSeccion(r.getString(SeccionDeMaquinaIT.getNOMBRE_SECCION().getNombre()));
                 list.add(vo);
             }
         } catch (SQLException ex) {
@@ -58,7 +57,7 @@ public class SeccionDeMaquinaDAO extends DAOGenerales{
     public boolean guardar(SeccionDeMaquinaVO sdmvo) {
         conexion = new Conexion(coordinador);
         String sql = "INSERT INTO " + SeccionDeMaquinaIT.NOMBRE_TABLA +
-                " (null, ?)";
+                " VALUES (null, ?)";
         return conexion.executeUpdate(sql, sdmvo.getNombreSeccion());
     }
 
@@ -68,7 +67,7 @@ public class SeccionDeMaquinaDAO extends DAOGenerales{
      */
     public int ultimoId() {
         conexion = new Conexion(coordinador);
-        String sql = "SELECT MAX("+it.getID().getNombre()+") FROM " 
+        String sql = "SELECT MAX("+SeccionDeMaquinaIT.getID().getNombre()+") FROM " 
                 +SeccionDeMaquinaIT.NOMBRE_TABLA;
         ResultSet r = conexion.executeQuery(sql);
         try {

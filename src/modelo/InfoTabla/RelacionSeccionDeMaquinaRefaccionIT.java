@@ -15,7 +15,7 @@ import modelo.ParametrosDeCampo;
  *
  * @author Particular
  */
-public class RelacionSeccionMaqRefaccionIT extends ITGenerales{
+public class RelacionSeccionDeMaquinaRefaccionIT extends ITGenerales{
     
      /*
     * El nombre de la tabla en la base de datos. 

@@ -223,7 +223,56 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
         }
         return list;
     }
-
+    
+    
+    public List<MaquinaModeloVo> consultarModeloAnio(List<RefaccionVo> listRVO){
+        conexion = new Conexion(coordinador);
+        List<MaquinaModeloVo> listMMVO = new ArrayList<>();
+        HashMap<Integer, Object> mapa = new HashMap<>();
+        int cont = 1;
+        
+        String sql = "SELECT " +
+                MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getID().getNombre()+", "+
+                MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getMODELO().getNombre()+", "+
+                MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getAnioPDC().getNombre()
+                +" FROM "+
+                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA
+                +" JOIN "+
+                MaquinaModeloIT.NOMBRE_TABLA
+                +" ON "+
+                MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getID().getNombre()
+                +" = "+
+                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+RelacionRefaccionMaquinaModeloIT.getID_MAQUINA_MODELO().getNombre()
+                +" WHERE "+
+                RelacionRefaccionMaquinaModeloIT.NOMBRE_TABLA+"."+RelacionRefaccionMaquinaModeloIT.getID_REFACCION().getNombre()
+                +" IN ( ";
+        
+        for (Iterator<RefaccionVo> i = listRVO.iterator(); i.hasNext();) {
+            RefaccionVo rvo = i.next();
+            
+            sql+= i.hasNext()? " ?, " :" ? )";
+            mapa.put(cont, rvo.getId());
+            cont++;
+        }
+        
+        sql += " GROUP BY " + MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getID().getNombre();
+        
+        ResultSet r = conexion.executeQuery(sql, mapa);
+        
+        try {
+            while (r.next()) {
+                MaquinaModeloVo mmvo = new MaquinaModeloVo();
+                mmvo.setId(r.getInt(MaquinaModeloIT.getID().getNombre()));
+                mmvo.setModelo(r.getString(MaquinaModeloIT.getMODELO().getNombre()));
+                mmvo.setAnio(r.getInt(MaquinaModeloIT.getAnioPDC().getNombre()));
+                
+                listMMVO.add(mmvo);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RelacionRefaccionMaquinaModeloDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listMMVO;
+    }
     
     
     

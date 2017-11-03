@@ -62,7 +62,12 @@ public class RelacionRefaccionMaquinaModeloVo extends VoGenerales{
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 
+        "idMaquinaModelo" + idMaquinaModelo +
+        "idRefaccion" + idRefaccion +
+        "maquinaModeloVo" + maquinaModeloVo +
+        "refaccionVo" + refaccionVo;
+
     }
     
     

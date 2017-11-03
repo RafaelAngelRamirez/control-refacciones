@@ -6,6 +6,7 @@
 package vista.UtilidadesIntefaz.utilidadesOptimizadas;
 
 import controlador.Coordinador;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
-import controlador.capturadeerrores.ExcepcionPersonalizada;
 import vista.UtilidadesIntefaz.OperacionesBasicasPorDefinir;
 
 /**
@@ -56,7 +56,6 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir {
     public void setComponente(JRadioButton radio) {
         this.radios.add(radio);
         this.grupo.add(radio);
-        System.out.println("[!]Radio button seteado: " + radio.getText());
     }
     
     

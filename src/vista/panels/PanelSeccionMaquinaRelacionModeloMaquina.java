@@ -16,8 +16,10 @@ import javax.swing.JOptionPane;
 import modelo.InfoTabla.RefaccionIT;
 import modelo.InfoTabla.SeccionDeMaquinaIT;
 import modelo.Textos;
+import modelo.logica.Validacion;
 import modelo.vo.MaquinaModeloVo;
 import modelo.vo.RefaccionVo;
+import modelo.vo.RelacionSeccionDeMaquinaRefaccionVO;
 import modelo.vo.SeccionDeMaquinaVO;
 import vista.UtilidadesIntefaz.ConfiguracionDePanel;
 import vista.UtilidadesIntefaz.ConfirmacionExahustiva;
@@ -233,14 +235,17 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        guardar();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    public void guardar(){
         if (idActual==null) {
             guardarNuevaSeccion();
         }else{
             modificarSeccion();
         }
-        
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
+    }
+    
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
@@ -344,6 +349,8 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         btnLimpiar.setNextFocusableComponent(_txtNombre.getThis());
         
         //ACCIONES ESPECELIALES.            /*Cargar las secciones seleccionadas*/
+        
+        
         _listaSecciones.setValueChange(this::cargarDatosDeListaParaModificar);
         
         _listaModelosMaquinaDisponibles.setValueChange(()->_listaModelosMaquinaDisponibles.cambioEntreListas(false));
@@ -353,11 +360,12 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         _listaRefaccionesAsignadas.setValueChange(this::quitarRefaccionCompatible);
         
             /*Carga las refacciones compatibles o las quita*/
-            
+        
+        
         RetrasarEjecucionDeOperacion tempCargaAgregar = new RetrasarEjecucionDeOperacion(this);
         tempCargaAgregar.setTiempoDeRetraso(500);
         tempCargaAgregar.setOperacion(this::cargarListaDeRefaccionesParaSeleccionar);
-        
+       
         RetrasarEjecucionDeOperacion tempCargaEliminar = new RetrasarEjecucionDeOperacion(this);
         tempCargaEliminar.setTiempoDeRetraso(500);
         tempCargaEliminar.setOperacion(this::quitarDeLaListaDeRefacciones);
@@ -418,6 +426,8 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         _listaSecciones.cargarLista(mapa);
 
     }
+   
+    
     
     /**
      * Carga los datos para modificarlos de la sección que se seleccione de la
@@ -432,14 +442,57 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             _txtNombre.setText(v.getNombreSeccion());
             idActual = v;
             
-            //OBTENEMOS LA LISTA DE LOS MODELOS RELACCIONADOS C
-            //QUE YA ESTABAN ASGINADOS.
-            List<MaquinaModeloVo> listVOQuitar = getCoordinador().maquinaModeloRelacionSeccion(idActual);
-            //CARGAMOS LA LISTA DE MODELOS DE MÁQUINA. 
-            cargarListaMaqModelo(listVOQuitar);
-        }else{
-            cargarListaRefacciones();
+            //OBTENEMOS TODAS LAS REFACCIONES RELACIONADAS CON LA SECCION.
+            List<RefaccionVo> listRVOCompatibles = 
+                    getCoordinador().refaccionRelacionSeccionMaquinaConsultar(idActual);
+            
+            
+            
+            //OBTENEMOS TODAS LAS MAQUINAS RELACIONADAS 
+            List<MaquinaModeloVo> listMMVOCompatibles = 
+                    this.getCoordinador().maquinaModeloConsultarModeloAnio(listRVOCompatibles);
+            
+            
+            //MOVEMOS LOS MODELOS DE MAQUIANS RELACIONADAS.
+            listMMVOCompatibles.forEach((mmvo)->{
+                String nombre = mmvo.getModelo() + " "
+                        +mmvo.getAnio();
+                
+                _listaModelosMaquinaDisponibles.cambioEntreListas(nombre);
+            });
+            
+            // LE DAMOS FORMATO A LAS REFACCIONES YA ASIGNADAS Y LAS PONEMOS 
+            // EN EL MAPA.
+            
+            mapaDeRefaccionesAsignadas.clear();
+            mapaDeRefaccionesAsignadas = formatoParaListaDeRefacciones(listRVOCompatibles);
+            
+            
+            
+            
+            _listaRefaccionesAsignadas.cargarLista(mapaDeRefaccionesAsignadas);
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+//            cargarListaMaqModelo(listVOQuitar);
         }
+//        else{
+//            cargarListaRefacciones();
+//        }
     }
      
     /**
@@ -496,7 +549,6 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             
             //PASAMOS LOS DATOS DE LA LISTA A LOS MAPAS
             listMMVOdisponibles.forEach(vo->{
-                mapaDisponibles.put(vo.getModelo()+" "+vo.getAnio(), vo);
             });
             
             listMaquinaModeloAsigandos.forEach(vo->{
@@ -516,13 +568,13 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
      * (modificar una seccion) carga las refacciones ya seleccionadas. 
      *
      */
-    private void cargarListaRefacciones(){
-        if (idActual== null) {
-            cargarListaDeRefaccionesParaGuardarNuevo();
-        }else{
-            cargarListaDeRefaccionesParaSeleccionar();
-        }
-    }
+//    private void cargarListaRefacciones(){
+//        if (idActual== null) {
+//            cargarListaDeRefaccionesParaGuardarNuevo();
+//        }else{
+//            cargarListaDeRefaccionesParaSeleccionar();
+//        }
+//    }
     
     private void eliminarSeccion() {
         Object a = _listaSecciones.getSelectValueObject();
@@ -549,7 +601,78 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
      * Guarda las nuevas relaciones entre las secciones y las refacciones.  
      */
     private void guardarNuevaSeccion(){
-        JOptionPane.showMessageDialog(null, "pendiente!! guardar nueva seccion");
+        
+        //OBTENEMOS EL NOMBRE LA SECCION.
+        SeccionDeMaquinaVO vo = new SeccionDeMaquinaVO();
+        vo.setNombreSeccion(_txtNombre.getText());
+        
+        // OBTENEMOS TODAS LAS REFACCIONES QUE SE VAN A RELACIONAR.
+        @SuppressWarnings("unchecked")
+        List<RefaccionVo> listRVO = 
+                (List<RefaccionVo>)(List<?>)
+                _listaRefaccionesAsignadas.getItems_ObjectsRelacionados();
+        
+        //VALIDAMOS QUE TODO SEA CORRECTO.
+        List<Validacion> listVal = getCoordinador().seccionDeMaquinaValidar(vo);
+        
+        
+        boolean todoValido = true;
+        for (Validacion val : listVal) {
+            if (val.getNombreDeCampo().equals(SeccionDeMaquinaIT.getNOMBRE_SECCION().getNombre())) {
+                
+                if (val.isValido()) {
+                    _txtNombre.setErrorQuitar();
+                }else{
+                    _txtNombre.setError(val.getMensajeDeError());
+                    todoValido=false;
+                }
+            }
+        }
+        
+        if (todoValido) {
+            if (_listaRefaccionesAsignadas.isEmpty()) {
+                _listaRefaccionesAsignadas.setError("No has seleccionado ningúna refacción.");
+                todoValido = false;
+            }else{
+                _listaRefaccionesAsignadas.setErrorQuitar();
+            }
+        }
+        
+        //GUARDAMOS LA SECCION
+        if (todoValido) {
+            String mensajes;
+            if (getCoordinador().seccionDeMaquinaGuardar(vo)) {
+                //OBTENEMOS EL ÚLTIMO ID.
+                int id = getCoordinador().seccionDeMaquinaUltimoId();
+                if (id!=-1) {
+                    //CREAMOS LA LISTA DONDE SE RELACIONARAN.
+                    List<RelacionSeccionDeMaquinaRefaccionVO> listRelacion= new ArrayList<>();
+
+                    listRVO.forEach((v)->{ 
+                        RelacionSeccionDeMaquinaRefaccionVO r = new RelacionSeccionDeMaquinaRefaccionVO();
+                        r.setIdRefaccion(v.getId());
+                        r.setIdSeccionMaquina(id);
+                        listRelacion.add(r);
+                    });
+
+                    if (getCoordinador().refaccionRelacionSeccionMaquinaGuardar(listRelacion)) {
+                        limpiar();
+                        getCoordinador().actualizarTodoLoVisible();
+                        mensajes = "La refacción se guardo correctamente.";
+                    }else{
+                        mensajes = "La sección se guardo pero las relaciones con \n"
+                                + "las refacciones no. Intenta modificar la refacción.";
+                    }
+                }else{ 
+                    mensajes = "La sección se guardo pero no se pudieron relacionar "
+                            + "\n las refacciones. Puedes intentar modificarla"
+                            + "\n para añadir las relaciones.";
+                }
+            }else{
+                mensajes = "Algo paso y no se pudo guardar la refacción correctamente.";
+            }
+            JOptionPane.showMessageDialog(this, mensajes);
+        }
     }
     
     private void modificarSeccion(){
@@ -559,11 +682,12 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     
     @Override
     public void limpiar(){
-        mapaDeRefaccionesSeleccionadas.clear();
+        mapaDeRefaccionesAsignadas.clear();
         idActual = null;
         cargarListaMaqModelo();
         _listaRefaccionesAsignadas.limpiar();
         _listaRefaccionesDisponibles.limpiar();
+        _txtNombre.setText();
     }
 
     
@@ -601,7 +725,23 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         
         //CARGAMOS LA LISTA DE DISPONIBLES.
         _listaRefaccionesDisponibles.limpiar();
+        
+        HashMap<String, Object> mapaFormateado = formatoParaListaDeRefacciones(listRVO);
         HashMap<String, Object> mapaDisponibles = new HashMap<>();
+        
+        mapaFormateado.forEach((String s, Object o)->{
+            //SI LA REFACCIÓN YA LA TENEMOS SELECCIONADA ENTONCES NO LA MOSTRAMOS
+            if(!mapaDeRefaccionesAsignadas.containsKey(s)){
+                mapaDisponibles.put(s, o);
+            }
+        });
+        mapaFormateado = null;
+        _listaRefaccionesDisponibles.cargarLista(mapaDisponibles);
+    }
+    
+    private HashMap<String, Object> formatoParaListaDeRefacciones(List<RefaccionVo> listRVO){
+        
+        HashMap<String, Object> mapaFormateado = new HashMap<>();
 
         listRVO.forEach(
                 rvo->{
@@ -610,22 +750,18 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
                             rvo.getCodigoProveedor(), "|");
                     String b  = Textos.formatearEspacios(
                             RefaccionIT.getCODIGO_INTERNO().getLongitudDeCaracteres(), 
-                            rvo.getCodigoInterno(), "|");
+                            rvo.getCodigoInterno(), " ");
                     String c  = Textos.formatearEspacios(45, rvo.getNombre(), "|");
-                    
-                    //SI LA REFACCIÓN YA LA TENEMOS SELECCIONADA ENTONCES NO LA MOSTRAMOS
-                    if(!mapaDeRefaccionesSeleccionadas.containsKey(a+b+c)){
-                        mapaDisponibles.put(c+a+b, rvo);
-                    }
+                
+                mapaFormateado.put(a+b+c, rvo);
                 });
         
-
-        _listaRefaccionesDisponibles.cargarLista(mapaDisponibles);
+        return mapaFormateado;
     }
-
-    private void cargarListaDeRefaccionesParaGuardarNuevo() {
-        JOptionPane.showMessageDialog(null, "pendiente cargar lista de refacciones para guardar nuevo");
-    }
+//
+//    private void cargarListaDeRefaccionesParaGuardarNuevo() {
+//        JOptionPane.showMessageDialog(null, "pendiente cargar lista de refacciones para guardar nuevo");
+//    }
     
     
     /**
@@ -676,7 +812,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         // BUSCAMOS SI LA LISTA CONTIENE ELEMENTOS REPETIDOS QUE YA FUERON AGREGADOS EL MAPA
         // DE REFACCIONES SELECCIONADAS.
         List<RefaccionVo> listaRemover = new ArrayList<>();
-        mapaDeRefaccionesSeleccionadas.forEach((String t, Object o)->{
+        mapaDeRefaccionesAsignadas.forEach((String t, Object o)->{
             listRVO.forEach((rvo)->{
                 RefaccionVo vo = (RefaccionVo)o;
                 if (rvo.getId()== vo.getId()) {
@@ -692,7 +828,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
     }
     
     
-    HashMap<String, Object>mapaDeRefaccionesSeleccionadas = new HashMap<>();
+    HashMap<String, Object>mapaDeRefaccionesAsignadas = new HashMap<>();
     /**
      * Esta función pasa el item que se seleccione a la lista de refacciones 
      * asignadas y la elimina de la otra. Tambien revisa que este limpia de
@@ -708,10 +844,10 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             String nombre = _listaRefaccionesDisponibles.getText();
 
             //LO CARGAMOS AL MAPA.
-            mapaDeRefaccionesSeleccionadas.put(nombre, rvoSeleccionado);
+            mapaDeRefaccionesAsignadas.put(nombre, rvoSeleccionado);
 
             _listaRefaccionesAsignadas.limpiar();
-            _listaRefaccionesAsignadas.cargarLista(mapaDeRefaccionesSeleccionadas);
+            _listaRefaccionesAsignadas.cargarLista(mapaDeRefaccionesAsignadas);
 
             //AHORA LO QUITAMOS DE LA OTRA LISTA.
             _listaRefaccionesDisponibles.removeElement(nombre);
@@ -730,7 +866,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             String nombre = _listaRefaccionesAsignadas.getText();
                         
             //LO QUITAMOS DEL MAPA. 
-            mapaDeRefaccionesSeleccionadas.remove(nombre);
+            mapaDeRefaccionesAsignadas.remove(nombre);
             
             
             //QUITAMOS DE LA LISTA DE ASIGNADOS.
@@ -791,7 +927,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
             cargarRefaccioneEnListaDisponibles(listRVOCompatibles);
             filtrarRefaccionesDisponibles();
         }else{
-            mapaDeRefaccionesSeleccionadas.clear();
+            mapaDeRefaccionesAsignadas.clear();
             _listaRefaccionesDisponibles.limpiar();
             _listaRefaccionesAsignadas.limpiar();
         }
@@ -803,7 +939,7 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
      */
     private List<RefaccionVo> filtrarRefaccionesYaAsignadas_Limpiando(List<RefaccionVo> listRVOCompatibles) {
         List<String> dejarEnElMapa = new ArrayList<>();
-        mapaDeRefaccionesSeleccionadas.forEach((String t, Object o)->{
+        mapaDeRefaccionesAsignadas.forEach((String t, Object o)->{
             RefaccionVo vo = (RefaccionVo)o;
             listRVOCompatibles.forEach((RefaccionVo rvo) -> {
                 if (rvo.getId()==vo.getId()) {
@@ -816,16 +952,16 @@ public class PanelSeccionMaquinaRelacionModeloMaquina extends JPanelBase {
         HashMap<String,Object> mapaTemp = new HashMap<>();
         dejarEnElMapa.forEach(t->{
             
-            if (mapaDeRefaccionesSeleccionadas.containsKey(t)) {
-                mapaTemp.put(t, mapaDeRefaccionesSeleccionadas.get(t));
+            if (mapaDeRefaccionesAsignadas.containsKey(t)) {
+                mapaTemp.put(t, mapaDeRefaccionesAsignadas.get(t));
             }
         });
         
-        mapaDeRefaccionesSeleccionadas.clear();
-        mapaDeRefaccionesSeleccionadas.putAll(mapaTemp);
+        mapaDeRefaccionesAsignadas.clear();
+        mapaDeRefaccionesAsignadas.putAll(mapaTemp);
         
         _listaRefaccionesAsignadas.limpiar();
-        _listaRefaccionesAsignadas.cargarLista(mapaDeRefaccionesSeleccionadas);
+        _listaRefaccionesAsignadas.cargarLista(mapaDeRefaccionesAsignadas);
         
                
         return filtrarRefaccionesYaAsignadas_Agregando(listRVOCompatibles);

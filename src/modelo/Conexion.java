@@ -115,7 +115,6 @@ public class Conexion {
         Suceso s = new Suceso();
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-        s.setTextoAMostrar("[SQL] EJECUTANDO QUERY");
         System.out.println(s);
         return this.ejecutarSentencia(sql, datos, true);
     }
@@ -150,7 +149,6 @@ public class Conexion {
     public boolean executeUpdate(String sql, HashMap<Integer, Object> datos){
         Suceso s = new Suceso();
         s.setClase(this);
-        s.setTextoAMostrar("[SQL] EJECUTANDO UPDATE");
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
         System.out.println(s);
         this.ejecutarSentencia(sql, datos, false);
@@ -181,7 +179,6 @@ public class Conexion {
         Suceso s = new Suceso();
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-        s.setTextoAMostrar("[SQL] EJECUTANDO UPDATE");
         System.out.println(s);
         HashMap<Integer, Object> map = new HashMap<>();
         map.put(1, datos);
@@ -214,34 +211,26 @@ public class Conexion {
                 for (Map.Entry<Integer, Object> entry : datos.entrySet()) {
                     Integer posicion = entry.getKey();
                     String dato = entry.getValue()+"";
-                    System.out.println("[INFO PRE-CONEXION]depurando conexion preparedstatement");
                     switch(TipoDeDato.encontrarTipoDeDato(dato)){
                         case TipoDeDato.STRING:
-                            System.out.println("[PREPARED STATEMENT] |string");
                             preparedStatement.setString(posicion, dato);
                             break;
                         case TipoDeDato.INTEGER:
-                            System.out.println("[PREPARED STATEMENT] |integer");
                             preparedStatement.setInt(posicion, Integer.parseInt(dato));
                             break;
                         case TipoDeDato.FLOAT:
-                            System.out.println("[PREPARED STATEMENT] |float");
                             preparedStatement.setFloat(posicion, Float.parseFloat(dato));
                             break;
                         case TipoDeDato.DOUBLE:
-                            System.out.println("[PREPARED STATEMENT] |double");
                             preparedStatement.setDouble(posicion, Float.parseFloat(dato));
                             break;
                         case TipoDeDato.DATE:
-                            System.out.println("[PREPARED STATEMENT] |date");
                             preparedStatement.setDate(posicion, java.sql.Date.valueOf(dato));
                             break;
                         case TipoDeDato.TIMESTAMP:
-                            System.out.println("[PREPARED STATEMENT] |TimeStamp");
                             preparedStatement.setTimestamp(posicion, java.sql.Timestamp.valueOf(dato));
                             break;
                         case TipoDeDato.BYTE:
-                            System.out.println("[PREPARED STATEMENT] |Byte");
                             preparedStatement.setByte(posicion, Byte.parseByte(dato));
                             break;
                         default:
@@ -262,9 +251,6 @@ public class Conexion {
                 rs = null;
                 preparedStatement.executeUpdate();
             }
-            String sqlMostrar = preparedStatement.toString().split(":")[1];
-            System.out.println("[SQL -> PreparedStatement]"+sqlMostrar);
-            
             
             this.queryExitoso = true;
         } catch (SQLException ex) {
@@ -282,11 +268,6 @@ public class Conexion {
         }
         
         
-        try {
-            System.out.println("Conexion cerrada:"+conexion.isClosed());
-        } catch (SQLException ex) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         
         return rs;
