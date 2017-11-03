@@ -209,7 +209,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 this.r.run();
-                System.out.println("[+] Ejecutando accion de menú inicio.");
             }
         }.parametros(this.accionMenuInicio));
         

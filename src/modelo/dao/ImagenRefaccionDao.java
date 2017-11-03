@@ -115,7 +115,6 @@ public class ImagenRefaccionDao extends DAOGenerales{
                 } else {
                     nombreImagen = ConexionDatos.IMAGENES_RUTA_COMPLETA + v.getNombreServidor();
                 }
-                System.out.println("nombre de imagen "+nombreImagen);
                 URL u = new URL(nombreImagen);
                 v.setUrlImagen(u);
                 
@@ -157,7 +156,6 @@ public class ImagenRefaccionDao extends DAOGenerales{
         }
         ficheros.setImagenAEliminar(img);
         if (ficheros.eliminarImagen()) {
-            System.out.println(ficheros.getRespuesta());
             return true;
         }
         System.out.println(ficheros.getRespuesta());

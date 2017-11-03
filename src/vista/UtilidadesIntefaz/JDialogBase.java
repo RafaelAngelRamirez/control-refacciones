@@ -41,7 +41,6 @@ public class JDialogBase extends JDialog{
             }
             @Override
             public void componentResized(ComponentEvent e) {
-                System.out.println("aquiii");
                 dialogo.tamanoDeDialogo = dialogo.getSize();
             }
 

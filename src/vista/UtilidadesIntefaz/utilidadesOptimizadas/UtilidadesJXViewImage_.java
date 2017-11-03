@@ -176,13 +176,11 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
         //ESCOGEMOS LOS FICHEROS.
         if(respuesta == JFileChooser.APPROVE_OPTION){
             File[] imagenes = jFileChooser.getSelectedFiles();
-            System.out.println("[!] Imagenes seleccionadas");
             for (File archivo : imagenes) {
                 for (String ext : this.extencionesAdmitidas) {
                     if(archivo.getName().indexOf(ext) != -1){
                         //ESTAS SON LAS IMAGENES QUE SE CARGARAN EN EL PREVIO.   
                         this.imagenesPorCargar.add(archivo);
-                        System.out.println("     | " +archivo.getName());
                         //MUY IMPORTANTE ESTE BREAK PARA QUE NO CARGA VARIAS 
                         // VECES LA MISMA IMAGEN.
                         break;
@@ -473,7 +471,6 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
                 //NO HAY IMAGENES CARGARDAS.
                 String mensaje = "No se a cargado ningúna imagen.";
                 JOptionPane.showMessageDialog(this.formularioPadre, mensaje);
-                System.out.println("[!] " + mensaje);
                 reiniciar();
             }
         }else{
@@ -485,7 +482,6 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
                 s.setClase(this);
                 s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
                 s.setTextoAMostrar("[!]Iniciando vista previa.");
-                System.out.println(s);
                 this.contadorImagenActiva = 0;
                 this.imagenActiva = this.imagenesPorCargar.get(
                         this.contadorImagenActiva);
@@ -495,11 +491,6 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
                     this.jxImagenView.setImage(this.imagenActiva);
                     
                 } catch (IOException ex) {
-                    Suceso s1 = new Suceso();
-                    s1.setClase(this);
-                    s1.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-                    s1.setTextoAMostrar("[ERROR] ALGO PASO");
-                    System.out.println(s1);
                     JOptionPane.showMessageDialog(this.formularioPadre,
                             "La imagen no se puede cargar. \n Se eliminara"
                                     + "de la lista.");
@@ -515,45 +506,19 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
                     s1.setClase(this);
                     s1.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
                     s1.setTextoAMostrar("[!]Cambiando vista previa - derecha.");
-                    System.out.println(s1);
                     //HACIA LA DERECHA.
                     if ((this.imagenesPorCargar.size()-1)>this.contadorImagenActiva) {
                         //TODAVIA HAY MÁS IMAGENES POR CARGAR.
-                        Suceso s2 = new Suceso();
-                        s2.setClase(this);
-                        s2.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-                        s2.setTextoAMostrar("[!]Hay más imagenes - derecha.");
-                        System.out.println(s2);
                         this.contadorImagenActiva++;
                     }else{
                         //LLEGAMOS AL FINAL DE LA LISTA.
-                        Suceso s2 = new Suceso();
-                        s2.setClase(this);
-                        s2.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-                        s2.setTextoAMostrar("[!]No hay más imagenes - reiniciando.");
-                        System.out.println(s2);
                         this.contadorImagenActiva = 0;
                     }
                 } else {
                     //HACIA LA IZQUIERDA
-                    Suceso s1 = new Suceso();
-                    s1.setClase(this);
-                    s1.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-                    s1.setTextoAMostrar("[!]Cambiando vista previa - izquierda.");
-                    System.out.println(s1);
                     if (this.contadorImagenActiva==0) {
-                        Suceso s2 = new Suceso();
-                        s2.setClase(this);
-                        s2.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-                        s2.setTextoAMostrar("[!]Hay más imagenes - izquierda.");
-                        System.out.println(s2);
                         this.contadorImagenActiva = this.imagenesPorCargar.size()-1;
                     } else {
-                        Suceso s3 = new Suceso();
-                        s3.setClase(this);
-                        s3.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-                        s3.setTextoAMostrar("[!]No hay más imagenes - reiniciando.");
-                        System.out.println(s3);
                         this.contadorImagenActiva--;
                     }
                 }
@@ -562,21 +527,13 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
                 //DEFINIMOS LA IMAGEN POR CARGAR.
                 this.imagenActiva = 
                         this.imagenesPorCargar.get(this.contadorImagenActiva);
-                System.out.println(
-                        "[INFO]Imágen activa: " + this.imagenActiva.getName());
                 try {
                     //LA COLOCAMOS EL EL PREVIO.
                     this.jxImagenView.setImage(this.imagenActiva);
                 } catch (IOException ex) {
-                    Suceso s3 = new Suceso();
-                    s3.setClase(this);
-                    s3.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-                    s3.setTextoAMostrar("[ERROR] ALGO PASO");
-                    System.out.println(s3);
                     String a = "La imagen "+imagenActiva.getName()+" no se puede cargar. "
                                     + "\n Se eliminara de la lista.";
                     JOptionPane.showMessageDialog(this.formularioPadre,a);
-                    System.out.println("[ERROR] " + a);
                     this.imagenesPorCargar.remove(this.imagenActiva);
                     siguienteAnterior(direccion);
                     Logger.getLogger(UtilidadesJXViewImage_.class
@@ -594,8 +551,6 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
     
     
     private void comprobarVisibilidadDeImagenes(){
-        System.out.println("[!]Comptrobando compatibilidad de imagenes.");
-                
         for (File file : imagenesPorCargar) {
             //FILE SOLO LO UTILIZE PARA ITINERAR EN EL TOTAL DE IMAGENES.
             // PRECIO DE IMAGENES HACE EL RECORRIDO Y CARGA PARA VER SI SON 
@@ -604,31 +559,6 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
         }
     }
     
-//    private void escalarImagen(){
-//        System.out.println("[!] Escalando imagen.", this);
-//        try {
-//            BufferedImage imagen = ImageIO.read(this.imagenActiva);
-//            System.out.println("        [-] Tamaño de imagen:" 
-//                    + imagen.getHeight() +  "x" +imagen.getWidth(), this);
-//            double vistaAltura = this.jxImagenView.getHeight();
-//            double vistaAnchura = this.jxImagenView.getWidth();
-//            
-//            double imagenAlto = imagen.getHeight();
-//            double imagenAncho = imagen.getWidth();
-//            
-//            double escala;
-//            
-//            if (imagenAlto>imagenAncho) {
-//                escala = vistaAltura/imagenAlto;
-//            } else {
-//                escala = vistaAnchura/imagenAncho;
-//            }
-//            escala = escala;
-//            this.jxImagenView.setScale(escala);
-//        } catch (IOException ex) {
-//            Logger.getLogger(UtilidadesJXViewImage_.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
     
     public void eliminarImagenSeleccionada(){
         if(this.imagenActiva!= null ){
@@ -646,7 +576,6 @@ public class UtilidadesJXViewImage_ extends OperacionesBasicasPorDefinir {
                     this.seEliminoUltimaImagen = false;
                 }
                 this.siguienteAnterior(true);
-                System.out.println("[!!] "+a);
                 JOptionPane.showMessageDialog(this.formularioPadre, a );
 
             }else{

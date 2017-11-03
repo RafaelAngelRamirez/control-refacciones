@@ -6,6 +6,7 @@
 package vista.UtilidadesIntefaz;
 
 import controlador.Coordinador;
+import controlador.capturadeerrores.ExcepcionPersonalizada;
 import controlador.capturadeerrores.Suceso;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
@@ -21,7 +22,6 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JTextField;
-import controlador.capturadeerrores.ExcepcionPersonalizada;
 
 /**
  * Operaciones básicas sobre los componentes gráficos.
@@ -145,9 +145,6 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
     
     /**/
     private void componenteAEnfocar(){
-        System.out.println(
-                "[!] Componente ejecutando accion:" + this.nombre );
-        
         this.componenteSiguienteAEnfocar.requestFocusInWindow();
         
         if (reclamarMayusculasOMinusculas && !this.exepcionALaReglaMayusculasYNumeros) {
@@ -178,8 +175,6 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
                 + "componente: "+ this.nombre);
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-        System.out.println(s);
-        
         esteComponente.addFocusListener( new FocusListener() {
             
             Runnable accionRecivida;
@@ -300,18 +295,6 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
             Component esteComponente,
             keyActionAlmacen act){
             
-        Suceso s = new Suceso();
-        s.setClase(this);
-        s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-        s.setTextoAMostrar(
-            "[!] Asignando accion a: '"+this.nombre+"'"
-                    + "\n"
-                    + "\tTecla:" + act.getCodigoDeCaracter()
-                    + "\tEvento:" + act.getEvento()
-                    + "\tAccion:" + act.getAccion());
-        System.out.println(s);
-
-
         esteComponente.setFocusTraversalKeysEnabled(false);
 
         KeyListener keyListener = new KeyListener() {
@@ -761,15 +744,12 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
 
             @Override
             public void focusLost(FocusEvent e) {
-                System.out.println("[+]Mayusculas foco perdido: " + this.operaciones.nombre);
                 //AQUI LE DECIMOS QUE CORTE LA CADENA SI ESTA MÁS LARGA DE LO 
                 // QUE DEFINIMOS EN setMaximoDeCaracteres(int numero); xP
                 // Y TAMBIEN PONE EN MAYUSCULAS TODA LA CADENA SI SE SETEO COMO MAYUSCULAS,
                 // POR SI ACASO PASA ALGO COMO PEGAR TEXTO EN MINUSCULAS.
                 String texto = this.operaciones.filtrarCantidadDeLetras(this.operaciones.getText());
                 if (this.operaciones.solicitadoMayusculas) {
-                    System.out.println(""
-                            + "     [!]MAYUSCULAS SOLICITADAS - Cadena puesta en mayusculas.");
                     this.operaciones.setText(texto.toUpperCase());
                 }
             }
@@ -810,7 +790,6 @@ public  abstract class OperacionesBasicasPorDefinir extends SenalarErroresSobreG
         s.setTextoAMostrar("[i]Ajustanto espacios: " + this.nombre);
         s.setClase(this);
         s.setComoSeMostraraLaInfo(Suceso.INFO_CLASE);
-        System.out.println(s);
         this.setText(this.quitarEspaciosSobrantes(this.getText()));
     }
     
