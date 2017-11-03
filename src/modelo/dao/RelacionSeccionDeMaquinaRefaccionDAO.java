@@ -83,7 +83,6 @@ public class RelacionSeccionDeMaquinaRefaccionDAO extends DAOGenerales{
                 +" WHERE "+
                     RelacionSeccionDeMaquinaRefaccionIT.getID_SECCION_MAQUINA().getNombre() +" = ? ";
         
-        System.out.println(sql);
         ResultSet r = conexion.executeQuery(sql, idActual.getId());
         try {
             while (r.next()) {
