@@ -9,6 +9,7 @@ import controlador.Coordinador;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,5 +78,88 @@ public class SeccionDeMaquinaDAO extends DAOGenerales{
             Logger.getLogger(SeccionDeMaquinaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
+    }
+
+    /**
+     * Valida que el nombre de la sección que se le pase como parametro no este
+     * ya registrado exceptuando la comprobación contra la refacción que se 
+     * esta actualizando. 
+     * @param sdmvo La sección que se quiere revisar que al cambiar el nombre
+     * este no pertenezca a otra refacción.
+     * @return True si existe. 
+     */
+    public boolean nombreYaExiste(SeccionDeMaquinaVO sdmvo) {
+        return nombreYaExisteORepetido(sdmvo, true);
+    }
+    
+    /**
+     * Valida que el nombre de la sección que se le pase como parametro no este
+     * repetido. 
+     * @param sdmvo La sección que se quiere revisar y que es nueva. 
+     * @return True si ya se registro un nombre 
+     */
+    public boolean nombreRepetido(SeccionDeMaquinaVO sdmvo) {
+        return nombreYaExisteORepetido(sdmvo, false);
+    }
+    
+    private boolean nombreYaExisteORepetido(SeccionDeMaquinaVO sdmvo, boolean update) {
+        conexion = new Conexion(coordinador);
+        
+        String sql = "SELECT COUNT(*) FROM "+SeccionDeMaquinaIT.NOMBRE_TABLA
+                +" WHERE "+
+                SeccionDeMaquinaIT.NOMBRE_TABLA+"."
+                +SeccionDeMaquinaIT.getNOMBRE_SECCION().getNombre();
+        ResultSet r;
+        if (update) {
+            
+            sql+=" = ? AND " + SeccionDeMaquinaIT.getID().getNombre() + " <> ?";
+            HashMap<Integer, Object> mapa = new HashMap<>();
+            mapa.put(1, sdmvo.getNombreSeccion());
+            mapa.put(2, sdmvo.getId());
+            r = conexion.executeQuery(sql, mapa);
+            
+        }else{
+            sql+=" = ?";
+            r = conexion.executeQuery(sql, sdmvo.getNombreSeccion());
+        }
+        
+        boolean a = false;
+        try {
+            r.next();
+            a = r.getInt(1)>0;
+        } catch (SQLException ex) {
+            Logger.getLogger(SeccionDeMaquinaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return a;
+    }
+    
+    
+    /**
+     * Actualiza una seccion de máquina. 
+     * @param vo La sección que se quiere modificar. 
+     * @return True si se modifico correctamente. 
+     */
+    public boolean update(SeccionDeMaquinaVO vo) {
+        conexion = new Conexion(coordinador);
+        String sql = "UPDATE " + SeccionDeMaquinaIT.NOMBRE_TABLA
+                +" SET "+
+                SeccionDeMaquinaIT.getNOMBRE_SECCION().getNombre()
+                +" = ? WHERE "+
+                SeccionDeMaquinaIT.getID().getNombre()
+                +" = ?";
+        HashMap<Integer, Object> mapa = new HashMap<>();
+        mapa.put(1, vo.getNombreSeccion());
+        mapa.put(2, vo.getId());
+        
+        return conexion.executeUpdate(sql, mapa);
+    }
+
+    public boolean eliminar(SeccionDeMaquinaVO vo) {
+        conexion = new Conexion(coordinador);
+        String sql = "DELETE FROM " +SeccionDeMaquinaIT.NOMBRE_TABLA
+                +" WHERE "+ SeccionDeMaquinaIT.getID().getNombre() +"=?";
+        
+        return conexion.executeUpdate(sql, vo.getId());
+
     }
 }

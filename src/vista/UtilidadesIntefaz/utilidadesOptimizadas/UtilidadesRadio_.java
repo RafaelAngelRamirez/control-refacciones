@@ -98,6 +98,7 @@ public class UtilidadesRadio_ extends OperacionesBasicasPorDefinir {
     }
     
     /**
+     * 
      * Señala un erro sobre el radioButton y muestra un mensaje.  
      * @param mensaje El mensaje a mostrar.
      */

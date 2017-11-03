@@ -1586,6 +1586,15 @@ public class Coordinador {
     public List<Validacion> seccionDeMaquinaValidar(SeccionDeMaquinaVO sdmvo) {
        return logica.seccionDeMaquinaValidar(sdmvo);
     }
+    
+    /**
+     * Valida que la sección este correcta cuando se hace un update. 
+     * @param sdmvo Los datos de la sección.
+     * @return El resultado de las validaciones. 
+     */
+    public List<Validacion> seccionDeMaquinaValidarUpdate(SeccionDeMaquinaVO sdmvo) {
+       return logica.seccionDeMaquinaValidarUpdate(sdmvo);
+    }
 
     /**
      * Guarda una sección de máquina en la BD.
@@ -1644,8 +1653,12 @@ public class Coordinador {
         return a;
     }
 
-    public boolean seccionDeMaquinaEliminar(SeccionDeMaquinaVO seccionDeMaquinaVO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean seccionDeMaquinaEliminar(SeccionDeMaquinaVO vo) {
+        if (logica.seccionDeMaquinaEliminar(vo)) {
+            setTablaModificada(SeccionDeMaquinaIT.NOMBRE_TABLA);
+            return true;
+        }
+        return false;
     }
     
     
@@ -1657,6 +1670,25 @@ public class Coordinador {
      */
     public List<RefaccionVo> refaccionRelacionSeccionMaquinaConsultar(SeccionDeMaquinaVO idActual) {
         return logica.refaccionRelacionSeccionMaquinaConsultar(idActual);
+    }
+
+    /**
+     * Actualiza una seccion de máquina. 
+     * @param vo La sección que se quiere modificar. 
+     * @return True si se modifico correctamente. 
+     */
+    public boolean seccionDeMaquinaUpdate(SeccionDeMaquinaVO vo) {
+        return logica.seccionDeMaquinaUpdate(vo);
+    }
+
+    /**
+     * Actualiza la relación entre una sección de máquina y las refacciones que 
+     * se le pasen como paramtro.
+     * @param listRelacion Las nuevas relaciónes que se sustituiran a las anteriores. 
+     * @return True si se modifico correctamente. 
+     */
+    public boolean refaccionRelacionSeccionMaquinaActualizar(List<RelacionSeccionDeMaquinaRefaccionVO> listRelacion) {
+        return logica.refaccionRelacionSeccionMaquinaActualizar(listRelacion);
     }
     
     

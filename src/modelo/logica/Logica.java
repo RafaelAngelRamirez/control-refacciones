@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.FicherosOperaciones;
 import modelo.InfoTabla.EmpleadoIT;
 import modelo.InfoTabla.EntradaLoteIT;
@@ -1567,30 +1568,67 @@ public class Logica {
     
     
     /**
+     * Valida que la sección este correcta cuando hacemos un update. 
+     * @param sdmvo Los datos de la sección.
+     * @return El resultado de las validaciones. 
+     */
+    public List<Validacion> seccionDeMaquinaValidarUpdate(SeccionDeMaquinaVO sdmvo) {
+        return seccionDeMaquinaValidar(sdmvo, true);
+    }
+    
+    /**
      * Valida que la sección este correcta. 
      * @param sdmvo Los datos de la sección.
      * @return El resultado de las validaciones. 
      */
     public List<Validacion> seccionDeMaquinaValidar(SeccionDeMaquinaVO sdmvo) {
+        return seccionDeMaquinaValidar(sdmvo, false);
+    }
+    
+    /**
+     * Valida que la sección este correcta. 
+     * @param sdmvo Los datos de la sección.
+     * @return El resultado de las validaciones. 
+     */
+    private List<Validacion> seccionDeMaquinaValidar(SeccionDeMaquinaVO sdmvo, boolean update) {
         List<Validacion> listVal = new ArrayList<>();
         for (ParametrosDeCampo parametrosDeCampo : SeccionDeMaquinaIT.getCAMPOS_PDC()) {
             
             if (parametrosDeCampo.getNombre().equals(SeccionDeMaquinaIT.getNOMBRE_SECCION().getNombre())) {
                 Validacion val = new Validacion();
                 val.setNombreDeCampo(parametrosDeCampo);
+
                 if (sdmvo.getNombreSeccion().isEmpty()) {
                     val.setMensajeDeError("No has definido un nombre.");
                     val.setValido(false);
                 } else {
-                    val.setValido(true);
+                    //VALIDAMOS QUE NO ESTE REPETIDO EL NOMBRE. 
+                    if (update) {
+                        JOptionPane.showMessageDialog(null, "validando update:"+update);
+                        //VALIDANDO CONTRA OTROS MENOS CONTRA SI.
+                       if(seccionDeMaquinaNombreYaExiste(sdmvo)){
+                           val.setMensajeDeError("El nombre ya fue asignado a otra sección.");
+                           val.setValido(false);
+                       }else{
+                           val.setValido(true);
+                       } 
+                    }else{
+                        //VALIDANDO QUE NO EXISTA EN LA TABLA. 
+                        if (seccionDeMaquinaNombreRepetido(sdmvo)) {
+                            val.setMensajeDeError("El nombre que proporcionaste ya esta registrado.");
+                            val.setValido(false);
+                        } else {
+                            val.setValido(true);
+                        }
+                    }
                 }
                 listVal.add(val);
             }
         }
         return listVal;
-
-
     }
+    
+    
 
     /**
      * Consulta todas las refacciones que esten relacionadas con el id de seccion
@@ -1602,8 +1640,59 @@ public class Logica {
         RelacionSeccionDeMaquinaRefaccionDAO d = new RelacionSeccionDeMaquinaRefaccionDAO(coordinador);
         return d.consultarRefacciones(idActual);
     }
+    
+    
+    /**
+     * Valida que el nombre de la sección que se le pase como parametro no este
+     * ya registrado exceptuando la comprobación contra la refacción que se 
+     * esta actualizando. 
+     * @param sdmvo La sección que se quiere revisar que al cambiar el nombre
+     * este no pertenezca a otra refacción.
+     * @return True si existe. 
+     */
+    public boolean seccionDeMaquinaNombreYaExiste(SeccionDeMaquinaVO sdmvo) {
+        SeccionDeMaquinaDAO d = new SeccionDeMaquinaDAO(coordinador);
+        return d.nombreYaExiste(sdmvo);
+        
+    }
 
-   
+    /**
+     * Valida que el nombre de la sección que se le pase como parametro no este
+     * repetido. 
+     * @param sdmvo La sección que se quiere revisar y que es nueva. 
+     * @return True si ya se registro un nombre 
+     */
+    public boolean seccionDeMaquinaNombreRepetido(SeccionDeMaquinaVO sdmvo) {
+        SeccionDeMaquinaDAO d = new SeccionDeMaquinaDAO(coordinador);
+        return d.nombreRepetido(sdmvo);
+    }
+
+    /**
+     * Actualiza una seccion de máquina. 
+     * @param vo La sección que se quiere modificar. 
+     * @return True si se modifico correctamente. 
+     */
+    public boolean seccionDeMaquinaUpdate(SeccionDeMaquinaVO vo) {
+        SeccionDeMaquinaDAO d = new SeccionDeMaquinaDAO(coordinador);
+        return d.update(vo);
+        
+    }
+
+    /**
+     * Actualiza la relación entre una sección de máquina y las refacciones que 
+     * se le pasen como paramtro.
+     * @param listRelacion Las nuevas relaciónes que se sustituiran a las anteriores. 
+     * @return True si se modifico correctamente. 
+     */
+    public boolean refaccionRelacionSeccionMaquinaActualizar(List<RelacionSeccionDeMaquinaRefaccionVO> listRelacion) {
+        RelacionSeccionDeMaquinaRefaccionDAO d = new RelacionSeccionDeMaquinaRefaccionDAO(coordinador);
+        return d.actualizar(listRelacion);
+    }
+
+    public boolean seccionDeMaquinaEliminar(SeccionDeMaquinaVO vo) {
+        SeccionDeMaquinaDAO d = new SeccionDeMaquinaDAO(coordinador);
+        return d.eliminar(vo);
+    }
     
 
     

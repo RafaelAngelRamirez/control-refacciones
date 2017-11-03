@@ -11,11 +11,138 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,106,0,0,3,-79"/>
   </AuxValues>
 
-  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-    <Property name="useNullLayout" type="boolean" value="false"/>
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="jScrollPane5" min="-2" pref="359" max="-2" attributes="0"/>
+                      <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="etiquetaNombreDeLaRefaccion1" min="-2" pref="361" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="etiquetaNombre" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Component id="btnLimpiar" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtNombre" min="-2" pref="562" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="etiquetaNombreDeLaRefaccion7" min="-2" pref="933" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="etiquetaNombreDeLaRefaccion" min="-2" pref="270" max="-2" attributes="0"/>
+                      <EmptySpace min="94" pref="94" max="-2" attributes="0"/>
+                      <Component id="etiquetaNombreDeLaRefaccion3" min="-2" pref="270" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="jScrollPane7" min="-2" pref="358" max="-2" attributes="0"/>
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="jScrollPane6" min="-2" pref="569" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="etiquetaNombreDeLaRefaccion4" min="-2" pref="933" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="etiquetaNombreDeLaRefaccion5" min="-2" pref="270" max="-2" attributes="0"/>
+                      <EmptySpace min="94" pref="94" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
+                      <Component id="txtBusqueda" min="-2" pref="539" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="jScrollPane9" min="-2" pref="933" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="etiquetaNombreDeLaRefaccion6" min="-2" pref="270" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="jScrollPane8" min="-2" pref="933" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="720" pref="720" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                      <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane5" min="-2" pref="147" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="etiquetaNombreDeLaRefaccion1" min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <Component id="etiquetaNombre" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnLimpiar" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="txtNombre" min="-2" pref="35" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+              <Component id="etiquetaNombreDeLaRefaccion7" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="etiquetaNombreDeLaRefaccion" min="-2" max="-2" attributes="0"/>
+                  <Component id="etiquetaNombreDeLaRefaccion3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane7" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane6" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+              <Component id="etiquetaNombreDeLaRefaccion4" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                      <Component id="etiquetaNombreDeLaRefaccion5" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jLabel1" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="txtBusqueda" min="-2" pref="35" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+              <Component id="jScrollPane9" min="-2" pref="185" max="-2" attributes="0"/>
+              <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+              <Component id="etiquetaNombreDeLaRefaccion6" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+              <Component id="jScrollPane8" min="-2" pref="185" max="-2" attributes="0"/>
+              <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnCancelar">
@@ -31,11 +158,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
       </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="737" y="835" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JButton" name="btnEliminar">
       <Properties>
@@ -50,11 +172,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
       </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="744" y="83" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaNombre">
       <Properties>
@@ -63,11 +180,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Nombre."/>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="377" y="93" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombre">
       <Properties>
@@ -82,11 +194,6 @@
           <Dimension value="[395, 35]"/>
         </Property>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="377" y="122" width="562" height="35"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaNombreDeLaRefaccion1">
       <Properties>
@@ -98,21 +205,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Registrar/modificar seccion"/>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="377" y="6" width="361" height="42"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane5">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="6" width="359" height="147"/>
-        </Constraint>
-      </Constraints>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
@@ -145,21 +242,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
       </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="842" y="835" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane6">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="370" y="215" width="569" height="-1"/>
-        </Constraint>
-      </Constraints>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
@@ -183,11 +270,6 @@
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="215" width="358" height="-1"/>
-        </Constraint>
-      </Constraints>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
@@ -214,11 +296,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Modelos disponibles."/>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="192" width="270" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaNombreDeLaRefaccion3">
       <Properties>
@@ -227,11 +304,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Modelos asignados."/>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="370" y="192" width="270" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaNombreDeLaRefaccion4">
       <Properties>
@@ -244,11 +316,6 @@
         <Property name="text" type="java.lang.String" value="Selecciona un modelo de m&#xe1;quina de la lista de &quot;Modelos asignados&quot; para relacionarlo con una o varias refacciones. "/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="354" width="933" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaNombreDeLaRefaccion5">
       <Properties>
@@ -257,11 +324,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Refacciones disponibles."/>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="404" width="270" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaNombreDeLaRefaccion6">
       <Properties>
@@ -270,21 +332,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Refacciones asignadas."/>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="623" width="270" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane8">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="643" width="933" height="185"/>
-        </Constraint>
-      </Constraints>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
@@ -308,11 +360,6 @@
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="427" width="933" height="185"/>
-        </Constraint>
-      </Constraints>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
@@ -345,11 +392,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarActionPerformed"/>
       </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="846" y="83" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtBusqueda">
       <Properties>
@@ -364,11 +406,6 @@
           <Dimension value="[395, 35]"/>
         </Property>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="400" y="386" width="539" height="35"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -379,11 +416,6 @@
           <Image iconType="3" name="/vista/imagenes/iconos_buscar.png"/>
         </Property>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="370" y="386" width="-1" height="31"/>
-        </Constraint>
-      </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaNombreDeLaRefaccion7">
       <Properties>
@@ -396,11 +428,6 @@
         <Property name="text" type="java.lang.String" value="Asignar secci&#xf3;n a modelo de m&#xe1;quina."/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="163" width="933" height="-1"/>
-        </Constraint>
-      </Constraints>
     </Component>
   </SubComponents>
 </Form>

@@ -97,9 +97,30 @@ public class RelacionSeccionDeMaquinaRefaccionDAO extends DAOGenerales{
         } catch (SQLException ex) {
             Logger.getLogger(RelacionSeccionDeMaquinaRefaccionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return listRVO;
     }
-
     
+    /**
+     * Actualiza la relación entre una sección de máquina y las refacciones que 
+     * se le pasen como paramtro. Para esto elimina toda las relaciones y luego las crea de nuevo.
+     * @param listRelacion Las nuevas relaciónes que se sustituiran a las anteriores. 
+     * @return True si se modifico correctamente. 
+     */
+    public boolean actualizar(List<RelacionSeccionDeMaquinaRefaccionVO> listRelacion) {
+        if (eliminarRelacionConSeccionDeMaquina((int)listRelacion.get(0).getIdRefaccion())) {
+            return guardarRelacion(listRelacion);
+        }
+        return false;
+    }
+    
+    public boolean eliminarRelacionConSeccionDeMaquina(int idSeccion){
+        conexion = new Conexion(coordinador);
+        String sql = " DELETE FROM " +
+                        RelacionSeccionDeMaquinaRefaccionIT.NOMBRE_TABLA
+                        +" WHERE "+
+                        RelacionSeccionDeMaquinaRefaccionIT.getID_SECCION_MAQUINA().getNombre()+" = ? ;";
+        return conexion.executeUpdate(sql, idSeccion);
+        
+        
+    }
 }

@@ -42,7 +42,11 @@ public class Conexion {
         this.exitosa = Miconexion();
     }
 
-    //CREAMOS UNA CONEXION CONSTANTE. 
+    public Connection getConexion() {
+        return conexion;
+    }
+
+    //CREAMOS UNA CONEXION. 
     private boolean Miconexion(){
         try{
             if (coordinador.isDebugMode()) {

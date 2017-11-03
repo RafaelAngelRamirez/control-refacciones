@@ -81,7 +81,6 @@ public class RelacionRefaccionMaquinaModeloDao extends DAOGenerales{
     public List<RelacionRefaccionMaquinaModeloVo> consultarModeloAnio(int id){
         conexion = new Conexion(coordinador);
         List<RelacionRefaccionMaquinaModeloVo> lrrmm = new ArrayList<>();
-        MaquinaModeloIT mmit = new MaquinaModeloIT();
         String sql = "SELECT "
                 +MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getMODELO().getNombre() + " ,"
                 +MaquinaModeloIT.NOMBRE_TABLA+"."+MaquinaModeloIT.getAnioPDC().getNombre() + " ,"

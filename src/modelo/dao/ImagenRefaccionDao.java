@@ -27,10 +27,8 @@ import modelo.vo.ImagenRefaccionVo;
  */
 public class ImagenRefaccionDao extends DAOGenerales{
     
-    private final ImagenRefaccionIT it;
     public ImagenRefaccionDao(Coordinador coordinador) {
         super(coordinador);
-        this.it = new ImagenRefaccionIT();
     }
     
     public String guardarLista(List<ImagenRefaccionVo> listaVo){
@@ -100,15 +98,15 @@ public class ImagenRefaccionDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         List<ImagenRefaccionVo> livo = new ArrayList<>();
         String sql = "SELECT * FROM " + ImagenRefaccionIT.NOMBRE_TABLA 
-                + " WHERE " + it.getID_REFACCION().getNombre() +"= ?";
+                + " WHERE " + ImagenRefaccionIT.getID_REFACCION().getNombre() +"= ?";
         ResultSet r = conexion.executeQuery(sql, id+"");
 
         try {
             while (r.next()) {
                 ImagenRefaccionVo v = new ImagenRefaccionVo();
-                v.setNombreParaMostrar(r.getString(it.getNOMBRE_PARA_MOSTRAR().getNombre()));
-                v.setNombreServidor(r.getString(it.getNOMBRE_SERVIDOR().getNombre()));
-                v.setIdRefaccion(r.getInt(it.getID_REFACCION().getNombre()));
+                v.setNombreParaMostrar(r.getString(ImagenRefaccionIT.getNOMBRE_PARA_MOSTRAR().getNombre()));
+                v.setNombreServidor(r.getString(ImagenRefaccionIT.getNOMBRE_SERVIDOR().getNombre()));
+                v.setIdRefaccion(r.getInt(ImagenRefaccionIT.getID_REFACCION().getNombre()));
                 String nombreImagen;
                 if (coordinador.isDebugMode()) {
                     nombreImagen = ConexionDatos.IMAGENES_RUTA_COMPLETA_PRUEBA + v.getNombreServidor();
@@ -128,11 +126,11 @@ public class ImagenRefaccionDao extends DAOGenerales{
     
     public boolean eliminar (ImagenRefaccionVo vo){
         conexion = new Conexion(coordinador);
-        String sql = "DELETE FROM " + ImagenRefaccionIT.NOMBRE_TABLA
+        String sql = ImagenRefaccionIT.getNOMBRE_SERVIDOR().getNombre()
+                + "DELETE FROM " + ImagenRefaccionIT.NOMBRE_TABLA
                 + " WHERE "
-                + it.getID_REFACCION().getNombre()
+                + ImagenRefaccionIT.getID_REFACCION().getNombre()
                 + "=?  AND "
-                + it.getNOMBRE_SERVIDOR().getNombre()
                 + "=?";
         
         HashMap<Integer, Object> mapa = new HashMap<>();
