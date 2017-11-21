@@ -121,42 +121,42 @@ public class RefaccionDao extends DAOGenerales{
             UnidadIT uit = new UnidadIT();
             String sql =
                     "SELECT "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getID().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getCODIGO_INTERNO().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getCODIGO_PROVEEDOR().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getNOMBRE().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getDESCRIPCION().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getSTOCK_MINIMO().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getSTOCK_MAXIMO().getNombre() + ", "
-                    + UnidadIT.NOMBRE_TABLA +"."+uit.getUNIDAD().getNombre() + ", "
-                    + ImportanciaIT.NOMBRE_TABLA +"."+iit.getIMPORTANCIA().getNombre() + 
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getID().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getCODIGO_INTERNO().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getCODIGO_PROVEEDOR().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getNOMBRE().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getDESCRIPCION().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getSTOCK_MINIMO().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getSTOCK_MAXIMO().getNombre() + ", "
+                    + UnidadIT.NOMBRE_TABLA +"."+UnidadIT.getUNIDAD().getNombre() + ", "
+                    + ImportanciaIT.NOMBRE_TABLA +"."+ImportanciaIT.getIMPORTANCIA().getNombre() + 
                     " FROM " + RefaccionIT.NOMBRE_TABLA +
                     
                     " INNER JOIN " + ImportanciaIT.NOMBRE_TABLA +
                     " ON " + 
-                    ImportanciaIT.NOMBRE_TABLA +"."+ iit.getID().getNombre() 
+                    ImportanciaIT.NOMBRE_TABLA +"."+ ImportanciaIT.getID().getNombre() 
                     + " = " + 
-                    RefaccionIT.NOMBRE_TABLA+"."+it.getIMPORTANCIA().getNombre() +
+                    RefaccionIT.NOMBRE_TABLA+"."+RefaccionIT.getIMPORTANCIA().getNombre() +
                     " INNER JOIN " + UnidadIT.NOMBRE_TABLA +
                     " ON " + 
-                    UnidadIT.NOMBRE_TABLA +"."+ uit.getID().getNombre() 
+                    UnidadIT.NOMBRE_TABLA +"."+ UnidadIT.getID().getNombre() 
                     + " = " + 
-                    RefaccionIT.NOMBRE_TABLA+"."+it.getUNIDAD().getNombre() 
+                    RefaccionIT.NOMBRE_TABLA+"."+RefaccionIT.getUNIDAD().getNombre() 
                     ;
             
             String regexp = " REGEXP '.*"+busqueda+"|"+busqueda+".*' ";
            
             String sqlBusqueda = 
                     " WHERE " +
-                    it.getNOMBRE().getNombre() + regexp
+                    RefaccionIT.getNOMBRE().getNombre() + regexp
                     + " OR " + 
-                    it.getCODIGO_INTERNO().getNombre() + regexp
+                    RefaccionIT.getCODIGO_INTERNO().getNombre() + regexp
                     + " OR " + 
-                    it.getCODIGO_PROVEEDOR().getNombre() + regexp
+                    RefaccionIT.getCODIGO_PROVEEDOR().getNombre() + regexp
                     + " OR " + 
-                    it.getDESCRIPCION().getNombre() + regexp
+                    RefaccionIT.getDESCRIPCION().getNombre() + regexp
                     + " OR " + 
-                    ImportanciaIT.NOMBRE_TABLA+"."+iit.getIMPORTANCIA().getNombre() + regexp;
+                    ImportanciaIT.NOMBRE_TABLA+"."+ImportanciaIT.getIMPORTANCIA().getNombre() + regexp;
             
             if (!busqueda.isEmpty()) {
                 sql += sqlBusqueda;
@@ -164,22 +164,18 @@ public class RefaccionDao extends DAOGenerales{
             
             sql += "LIMIT 20";
             
-            
-            
-                    
-            
             ResultSet r = conexion.executeQuery(sql);
             while (r.next()) {
                 RefaccionVo v = new RefaccionVo();
-                v.setId(r.getInt(it.getID().getNombre()));
-                v.setCodigoInterno(r.getString(it.getCODIGO_INTERNO().getNombre()));
-                v.setCodigoProveedor(r.getString(it.getCODIGO_PROVEEDOR().getNombre()));
-                v.setNombre(r.getString(it.getNOMBRE().getNombre()));
-                v.setDescripcion(r.getString(it.getDESCRIPCION().getNombre()));
-                v.setImportancia(r.getString(iit.getIMPORTANCIA().getNombre()));
-                v.setStockMaximo(r.getDouble(it.getSTOCK_MAXIMO().getNombre()));
-                v.setStockMinimo(r.getDouble(it.getSTOCK_MINIMO().getNombre()));
-                v.setUnidad(r.getString(uit.getUNIDAD().getNombre()));
+                v.setId(r.getInt(RefaccionIT.getID().getNombre()));
+                v.setCodigoInterno(r.getString(RefaccionIT.getCODIGO_INTERNO().getNombre()));
+                v.setCodigoProveedor(r.getString(RefaccionIT.getCODIGO_PROVEEDOR().getNombre()));
+                v.setNombre(r.getString(RefaccionIT.getNOMBRE().getNombre()));
+                v.setDescripcion(r.getString(RefaccionIT.getDESCRIPCION().getNombre()));
+                v.setImportancia(r.getString(ImportanciaIT.getIMPORTANCIA().getNombre()));
+                v.setStockMaximo(r.getDouble(RefaccionIT.getSTOCK_MAXIMO().getNombre()));
+                v.setStockMinimo(r.getDouble(RefaccionIT.getSTOCK_MINIMO().getNombre()));
+                v.setUnidad(r.getString(UnidadIT.getUNIDAD().getNombre()));
                 
                 listaVo.add(v);
             }
@@ -203,58 +199,58 @@ public class RefaccionDao extends DAOGenerales{
             MaterialIT mit = new MaterialIT();
             String sql =
                     "SELECT "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getID().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getNOMBRE().getNombre() + ", "
-                    + MaterialIT.NOMBRE_TABLA +"."+mit.getMATERIAL().getNombre() + ", "
-                    + ImportanciaIT.NOMBRE_TABLA +"."+iit.getIMPORTANCIA().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getSTOCK_MINIMO().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getSTOCK_MAXIMO().getNombre() + ", "
-                    + UnidadIT.NOMBRE_TABLA +"."+uit.getUNIDAD().getNombre() + ", " 
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getCODIGO_INTERNO().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getCODIGO_PROVEEDOR().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getDESCRIPCION().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getQUE_ES().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getREFACCION_DE_CONSUMO_UNICO().getNombre() + ", "
-                    + RefaccionIT.NOMBRE_TABLA +"."+it.getPARA_QUE_ES().getNombre() 
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getID().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getNOMBRE().getNombre() + ", "
+                    + MaterialIT.NOMBRE_TABLA +"."+MaterialIT.getMATERIAL().getNombre() + ", "
+                    + ImportanciaIT.NOMBRE_TABLA +"."+ImportanciaIT.getIMPORTANCIA().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getSTOCK_MINIMO().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getSTOCK_MAXIMO().getNombre() + ", "
+                    + UnidadIT.NOMBRE_TABLA +"."+UnidadIT.getUNIDAD().getNombre() + ", " 
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getCODIGO_INTERNO().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getCODIGO_PROVEEDOR().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getDESCRIPCION().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getQUE_ES().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getREFACCION_DE_CONSUMO_UNICO().getNombre() + ", "
+                    + RefaccionIT.NOMBRE_TABLA +"."+RefaccionIT.getPARA_QUE_ES().getNombre() 
                     +
                     " FROM " + RefaccionIT.NOMBRE_TABLA 
                     +
                     " INNER JOIN " + ImportanciaIT.NOMBRE_TABLA +
                     " ON " + 
-                    ImportanciaIT.NOMBRE_TABLA +"."+ iit.getID().getNombre() 
+                    ImportanciaIT.NOMBRE_TABLA +"."+ ImportanciaIT.getID().getNombre() 
                     + " = " + 
-                    RefaccionIT.NOMBRE_TABLA+"."+it.getIMPORTANCIA().getNombre() +
+                    RefaccionIT.NOMBRE_TABLA+"."+RefaccionIT.getIMPORTANCIA().getNombre() +
                     
                     " INNER JOIN " + MaterialIT.NOMBRE_TABLA +
                     " ON " + 
-                    MaterialIT.NOMBRE_TABLA +"."+ mit.getID().getNombre() 
+                    MaterialIT.NOMBRE_TABLA +"."+ MaterialIT.getID().getNombre() 
                     + " = " + 
-                    RefaccionIT.NOMBRE_TABLA+"."+it.getID_MATERIAL().getNombre() +
+                    RefaccionIT.NOMBRE_TABLA+"."+RefaccionIT.getID_MATERIAL().getNombre() +
                     
                     " INNER JOIN " + UnidadIT.NOMBRE_TABLA +
                     " ON " + 
-                    UnidadIT.NOMBRE_TABLA +"."+ uit.getID().getNombre() 
+                    UnidadIT.NOMBRE_TABLA +"."+ UnidadIT.getID().getNombre() 
                     + " = " + 
-                    RefaccionIT.NOMBRE_TABLA+"."+it.getUNIDAD().getNombre() +
+                    RefaccionIT.NOMBRE_TABLA+"."+RefaccionIT.getUNIDAD().getNombre() +
                     
-                    " WHERE " + RefaccionIT.NOMBRE_TABLA+"."+it.getID().getNombre() +" = ?" ;
+                    " WHERE " + RefaccionIT.NOMBRE_TABLA+"."+RefaccionIT.getID().getNombre() +" = ?" ;
             
             
             ResultSet r = conexion.executeQuery(sql, id+"");
             r.next();
-            v.setId(r.getInt(it.getID().getNombre()));
-            v.setCodigoInterno(r.getString(it.getCODIGO_INTERNO().getNombre()));
-            v.setCodigoProveedor(r.getString(it.getCODIGO_PROVEEDOR().getNombre()));
-            v.setNombre(r.getString(it.getNOMBRE().getNombre()));
-            v.setDescripcion(r.getString(it.getDESCRIPCION().getNombre()));
-            v.setImportancia(r.getString(iit.getIMPORTANCIA().getNombre()));
-            v.setStockMaximo(r.getDouble(it.getSTOCK_MAXIMO().getNombre()));
-            v.setStockMinimo(r.getDouble(it.getSTOCK_MINIMO().getNombre()));
-            v.setUnidad(r.getString(uit.getUNIDAD().getNombre()));
-            v.setParaQueEs(r.getString(it.getPARA_QUE_ES().getNombre()));
-            v.setQueEs(r.getString(it.getQUE_ES().getNombre()));
-            v.setRefaccionDeConsumoUnico(r.getByte(it.getREFACCION_DE_CONSUMO_UNICO().getNombre()));
-            v.setIdMaterial(r.getString(mit.getMATERIAL().getNombre()));
+            v.setId(r.getInt(RefaccionIT.getID().getNombre()));
+            v.setCodigoInterno(r.getString(RefaccionIT.getCODIGO_INTERNO().getNombre()));
+            v.setCodigoProveedor(r.getString(RefaccionIT.getCODIGO_PROVEEDOR().getNombre()));
+            v.setNombre(r.getString(RefaccionIT.getNOMBRE().getNombre()));
+            v.setDescripcion(r.getString(RefaccionIT.getDESCRIPCION().getNombre()));
+            v.setImportancia(r.getString(ImportanciaIT.getIMPORTANCIA().getNombre()));
+            v.setStockMaximo(r.getDouble(RefaccionIT.getSTOCK_MAXIMO().getNombre()));
+            v.setStockMinimo(r.getDouble(RefaccionIT.getSTOCK_MINIMO().getNombre()));
+            v.setUnidad(r.getString(UnidadIT.getUNIDAD().getNombre()));
+            v.setParaQueEs(r.getString(RefaccionIT.getPARA_QUE_ES().getNombre()));
+            v.setQueEs(r.getString(RefaccionIT.getQUE_ES().getNombre()));
+            v.setRefaccionDeConsumoUnico(r.getByte(RefaccionIT.getREFACCION_DE_CONSUMO_UNICO().getNombre()));
+            v.setIdMaterial(r.getString(MaterialIT.getMATERIAL().getNombre()));
             
                 
         } catch (SQLException ex) {
@@ -269,19 +265,19 @@ public class RefaccionDao extends DAOGenerales{
         String sql = 
             "UPDATE " + RefaccionIT.NOMBRE_TABLA 
             + " SET " +
-                it.getNOMBRE().getNombre()+ "= ? , " +
-                it.getID_MATERIAL().getNombre()+ "= ? , " +
-                it.getIMPORTANCIA().getNombre()+ "= ? , " +
-                it.getSTOCK_MINIMO().getNombre()+ "= ? , " +
-                it.getSTOCK_MAXIMO().getNombre()+ "= ? , " +
-                it.getUNIDAD().getNombre()+ "= ? , " +
-                it.getCODIGO_INTERNO().getNombre()+ "= ? , " +
-                it.getCODIGO_PROVEEDOR().getNombre()+ "= ? , " +
-                it.getDESCRIPCION().getNombre()+ "= ? , " +
-                it.getQUE_ES().getNombre()+ "= ? , " +
-                it.getPARA_QUE_ES().getNombre()+ "= ? ,   " +
-                it.getREFACCION_DE_CONSUMO_UNICO().getNombre()+ "= ?  " 
-            + " WHERE " + it.getID().getNombre() + "= ?";
+                RefaccionIT.getNOMBRE().getNombre()+ "= ? , " +
+                RefaccionIT.getID_MATERIAL().getNombre()+ "= ? , " +
+                RefaccionIT.getIMPORTANCIA().getNombre()+ "= ? , " +
+                RefaccionIT.getSTOCK_MINIMO().getNombre()+ "= ? , " +
+                RefaccionIT.getSTOCK_MAXIMO().getNombre()+ "= ? , " +
+                RefaccionIT.getUNIDAD().getNombre()+ "= ? , " +
+                RefaccionIT.getCODIGO_INTERNO().getNombre()+ "= ? , " +
+                RefaccionIT.getCODIGO_PROVEEDOR().getNombre()+ "= ? , " +
+                RefaccionIT.getDESCRIPCION().getNombre()+ "= ? , " +
+                RefaccionIT.getQUE_ES().getNombre()+ "= ? , " +
+                RefaccionIT.getPARA_QUE_ES().getNombre()+ "= ? ,   " +
+                RefaccionIT.getREFACCION_DE_CONSUMO_UNICO().getNombre()+ "= ?  " 
+            + " WHERE " + RefaccionIT.getID().getNombre() + "= ?";
         
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getNombre());
