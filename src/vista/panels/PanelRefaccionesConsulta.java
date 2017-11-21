@@ -6,8 +6,9 @@
 package vista.panels;
 
 import controlador.CoordinadorPaneles;
-import controlador.RetrasarEjecucionDeOperacion;
+import controlador.HiloConPrecarga;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
@@ -100,18 +101,15 @@ public class PanelRefaccionesConsulta extends JPanelBase {
 
         //ACCIONES ESPECIALES.
         
-        RetrasarEjecucionDeOperacion retrasarBusqueda = new RetrasarEjecucionDeOperacion(this);
-        retrasarBusqueda.setOperacion(this::busqueda);
-        
-            _TxtFiltrarRefaccion.setKeyRelease(retrasarBusqueda::ejecutar, OperacionesBasicasPorDefinir.TECLA_CUALQUIERA);
-            _TablaRefacciones.setDobleClick(()->this.mostrarDetalleRefaccion());
-        
+        _TxtFiltrarRefaccion.setKeyPressAction(this::busqueda, OperacionesBasicasPorDefinir.TECLA_ENTER);
+        _TablaRefacciones.setDobleClick(()->this.mostrarDetalleRefaccion());
+
         
         //ACCIONES DE BOTONES
         
         //ACTUALIZACIONES DE TABLA. 
-         opAct.add(RefaccionIT.NOMBRE_TABLA, this::cargarRefaccionesInicio);
-         opAct.add(EntradaLoteIT.NOMBRE_TABLA, this::cargarRefaccionesInicio);
+         opAct.add(RefaccionIT.NOMBRE_TABLA, this::limpiarTabla);
+         opAct.add(EntradaLoteIT.NOMBRE_TABLA, this::limpiarTabla);
          
         
         /*
@@ -125,17 +123,25 @@ public class PanelRefaccionesConsulta extends JPanelBase {
 
     public void configurar(){
     }
-    public void cargarRefaccionesInicio(){
-        this.cargarRefacciones("");
+    public void limpiarTabla(){
+        cargarRefacciones("");
+        _TxtFiltrarRefaccion.setText();
     }
    
     public void busqueda(){
-        cargarRefacciones(_TxtFiltrarRefaccion.getText());
-    
+        HiloConPrecarga h = new HiloConPrecarga(
+                ()->cargarRefacciones(_TxtFiltrarRefaccion.getText()), 
+                getCoordinador().getPanelCarga());
+        h.start();
     }
     
     public void cargarRefacciones(String busqueda){
-        List<RefaccionVo> listaVo = this.getCoordinador().refaccionConsultarTodoBusqueda(busqueda);
+        List<RefaccionVo> listaVo;
+        if (busqueda.isEmpty()) {
+            listaVo = new ArrayList<>();
+        }else{
+            listaVo = this.getCoordinador().refaccionConsultarTodoBusqueda(busqueda);
+        }
         RefaccionIT rit = new RefaccionIT();
         UnidadIT uit = new UnidadIT();
         ImportanciaIT iit = new ImportanciaIT();
@@ -173,9 +179,9 @@ public class PanelRefaccionesConsulta extends JPanelBase {
             
             mt.addDatos(mapaDatos);
         }
-        _TablaRefacciones.setTamanoMinimoDeColumna(new int[]{      0,   0,   0,   0,   0,   0,   0, 0  ,   0,   0});
-        _TablaRefacciones.setTamanoMaximoDeColumna(new int[]{     50, 200, 200,1000,1000, 200, 200, 200, 200, 200});
-        _TablaRefacciones.setTamanoPreferidoDeColumna(new int[]{  20, 100, 200,0600,0600,  80, 100, 100, 120, 100});
+        _TablaRefacciones.setTamanoMinimoDeColumna(new int[]{     0,   0,   0,   0,   0,   0,   0, 0  ,   0,   0});
+        _TablaRefacciones.setTamanoMaximoDeColumna(new int[]{     0, 200, 200,1000,1000, 200, 200, 200, 200, 200});
+        _TablaRefacciones.setTamanoPreferidoDeColumna(new int[]{  0, 100, 200,0600,0600,  80, 100, 100, 120, 100});
         _TablaRefacciones.setTableModel(mt);
         
     }
