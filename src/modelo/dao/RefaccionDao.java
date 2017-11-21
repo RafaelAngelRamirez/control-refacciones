@@ -158,14 +158,13 @@ public class RefaccionDao extends DAOGenerales{
                     + " OR " + 
                     ImportanciaIT.NOMBRE_TABLA+"."+iit.getIMPORTANCIA().getNombre() + regexp;
             
-            String sqlOrden =  
-                    " ORDER BY "+  ImportanciaIT.NOMBRE_TABLA +"."+ iit.getID().getNombre() +" ASC ";
-            
             if (!busqueda.isEmpty()) {
                 sql += sqlBusqueda;
             }
             
-            sql+=sqlOrden;
+            sql += "LIMIT 20";
+            
+            
             
                     
             
