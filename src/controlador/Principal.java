@@ -228,6 +228,16 @@ public class Principal {
         System.out.println("[+] Iniciando sistema");
         marcoParaVentanaPrincipal.init();
         
+//        
+//        JOptionPane.showMessageDialog(null, "Enviando correo.");
+//        
+//        
+//        String destinatario =  "rafa.yael@gmail.com"; //A quien le quieres escribir.
+//        String asunto = "Prueba de envío de correos electrónicos. ";
+//        String cuerpo = "Este es un correo que solo contiene texto. ";
+//           
+//        EnviarCorreo.enviarConGMail(destinatario, asunto, cuerpo);
+        
         
     }
 }

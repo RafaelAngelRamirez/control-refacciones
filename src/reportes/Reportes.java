@@ -38,7 +38,6 @@ public class Reportes {
 
     public void setCoordinador(Coordinador coordinador) {
         this.coordinador = coordinador;
-        
     }
     
     
@@ -46,11 +45,18 @@ public class Reportes {
         j.setTitle(titulo);
         j.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
         j.setVisible(true);
-        
-        
     }
     
-    public void cargarReporte(String ruta, String titulo){
+    /**
+     * Para poner precarga al reporte. 
+     */
+    private void generarReporte(String ruta, String titulo){
+        HiloConPrecarga hcp = new HiloConPrecarga(()-> cargarReporte(ruta, titulo)
+                , coordinador.getPanelCarga());
+        hcp.start();
+    }
+    
+    private void cargarReporte(String ruta, String titulo){
         try {
             LOG.log(Level.INFO, "Cargando reporte:  {0}", ruta);
             Conexion conexion = new Conexion(coordinador);
@@ -67,10 +73,12 @@ public class Reportes {
         }
     }
     
+    /**
+     * Genera un reporte de todas las existencias de refacciones. 
+     */
     public void refaccionExistencias(){
-        HiloConPrecarga hcp = new HiloConPrecarga(()->cargarReporte(REFACCION_EXISTENCIAS, REFACCION_EXISTENCIAS_TITULO)
-                , coordinador.getPanelCarga());
-        hcp.start();
+        generarReporte(REFACCION_EXISTENCIAS, REFACCION_EXISTENCIAS_TITULO);
+        
     }
     
     
