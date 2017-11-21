@@ -281,11 +281,11 @@ public class RefaccionDao extends DAOGenerales{
         
         HashMap<Integer, Object> mapa = new HashMap<>();
         mapa.put(1, vo.getNombre());
-        mapa.put(2, (int)vo.getIdMaterial());
-        mapa.put(3, (int)vo.getImportancia());
+        mapa.put(2, vo.getIdMaterial());
+        mapa.put(3, vo.getImportancia());
         mapa.put(4, vo.getStockMinimo());
         mapa.put(5, vo.getStockMaximo());
-        mapa.put(6, (int)vo.getUnidad());
+        mapa.put(6, vo.getUnidad());
         mapa.put(7, vo.getCodigoInterno());
         mapa.put(8, vo.getCodigoProveedor());
         mapa.put(9, vo.getDescripcion());
