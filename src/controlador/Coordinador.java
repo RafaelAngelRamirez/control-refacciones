@@ -49,6 +49,7 @@ import modelo.vo.RelacionSeccionDeMaquinaRefaccionVO;
 import modelo.vo.SalidaLoteVo;
 import modelo.vo.SeccionDeMaquinaVO;
 import modelo.vo.UnidadVo;
+import reportes.Reportes;
 import vista.UtilidadesIntefaz.JDialogBase;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 import vista.panels.PanelCarga;
@@ -64,6 +65,7 @@ import vista.panels.PanelProveedorRegistrar;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionDetalle;
 import vista.panels.PanelRefaccionesConsulta;
+import vista.panels.PanelReportesGenerar;
 import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
 import vista.panels.PanelSalidaDeLoteSeleccionLotes;
@@ -105,8 +107,11 @@ public class Coordinador {
     private PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros;
     private PanelSeccionMaquinaRelacionModeloMaquina panelSeccionMaquinaRelacionModeloMaquina;
     private PanelCarga panelCarga;
+    private PanelReportesGenerar panelReportesGenerar;
 
     private ControladorActualizacionGUI_BD controladorActualizacionGUI_BD;
+    
+    private Reportes reportes;
     
     public void salirDelSistema(){
 //        JOptionPane.showMessageDialog(null, "saliendo!");
@@ -133,6 +138,18 @@ public class Coordinador {
     GETS AND SETS
     ////////////////////////////////////////////////////////////////////////
      */
+
+    public void setReportes(Reportes reportes) {
+        this.reportes = reportes;
+    }
+
+    public PanelReportesGenerar getPanelReportesGenerar() {
+        return panelReportesGenerar;
+    }
+
+    public void setPanelReportesGenerar(PanelReportesGenerar panelReportesGenerar) {
+        this.panelReportesGenerar = panelReportesGenerar;
+    }
 
     public PanelCarga getPanelCarga() {
         return panelCarga;
@@ -1690,6 +1707,34 @@ public class Coordinador {
     public boolean refaccionRelacionSeccionMaquinaActualizar(List<RelacionSeccionDeMaquinaRefaccionVO> listRelacion) {
         return logica.refaccionRelacionSeccionMaquinaActualizar(listRelacion);
     }
+    
+    /* 
+    ========================================================================
+       INICIO DE REPORTES
+    ////////////////////////////////////////////////////////////////////////
+    */
+
+    /**
+     *Abre el dialogo que permite generar reportes. 
+     */
+    public void reportesAbrirDialogo(){
+        JDialogBase d = getCoordinadorPaneles().ifContainsReturnElseCreate(panelReportesGenerar);
+        d.setVisible(true);
+    }
+    
+    /**
+     * Genera un reporte con las existencias de todas las refacciones. 
+     */
+    public void reporteRefaccionExistencia(){
+        reportes.refaccionExistencias();
+    }
+    
+    
+     /* 
+    ////////////////////////////////////////////////////////////////////////
+        FIN DE REPORTES
+    ========================================================================
+    */
     
     
     

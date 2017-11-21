@@ -230,56 +230,6 @@ public class MarcoParaVentanaPrincipal extends JFrame{
         panelSuperContenedor.add(this.contenedorParaPaneles);
         this.add(panelSuperContenedor);
         
-//        /*------------------------------------------------------------
-//            CREAMOS LOS MENUS DE LA BARRA DE MENUS
-//            ===================
-//            EJEMPLO DE CREACION
-//            ===================
-//            
-//            COMENTAR ESTAS LINEAS CUANDO SE IMPLEMENTE EL SISTEMA.
-//        ------------------------------------------------------------*/
-//
-//        MenuConstructor mArchivo = new MenuConstructor();
-//        mArchivo.setMenu();
-//        mArchivo.setNombre("Cambiar Modulos");
-//        mArchivo.setImagen("imagenes/iconos_siguiente.png");
-//        
-//        MenuConstructor mArchivo1 = new MenuConstructor();
-//        mArchivo1.setMenu();
-//        mArchivo1.setNombre("otro menu");
-//        mArchivo1.setImagen("imagenes/iconos_siguiente.png");
-//        mArchivo1.setPadre(mArchivo);
-//        
-//        MenuConstructor p1 = new MenuConstructor();
-//        p1.setItem();
-//        p1.setNombre("Agregar Empresa");
-//        p1.setPanel(this.coordinador.getFormulario());
-//        p1.setImagen("imagenes/iconos_mas.png");
-//        p1.setPadre(mArchivo);
-//        
-//        MenuConstructor p2 = new MenuConstructor();
-//        p2.setItem();
-//        p2.setNombre("Ventana Roja");
-//        p2.setPanel(this.coordinador.getPanelPrimeraVentana());
-//        p2.setImagen("imagenes/iconos_palomita.png");
-//        p2.setPadre(mArchivo);
-//        
-//      
-//        MenuConstructor p3 = new MenuConstructor();
-//        p3.setItem();
-//        p3.setNombre("Accion directa");
-//        p3.setImagen("imagenes/iconos_icono_principal.png");
-//        p3.setAccionDelItem(()->this.accion("accion directa"));
-//        p3.setPadre(mArchivo1);
-//        
-//        //AÑADIMOS TODOS LOS MENUS.
-//        this.addItemOMenu(mArchivo);
-//        this.addItemOMenu(mArchivo1);
-//        this.addItemOMenu(p1);
-//        this.addItemOMenu(p2);
-//        this.addItemOMenu(p3);
-
-
 
 //        /*------------------------------------------------------------
 //            NOMBRAMOS LOS PANELES CON VARIABLES ESTATICAS
@@ -323,6 +273,22 @@ public class MarcoParaVentanaPrincipal extends JFrame{
             refaccionDetalle.setAccionDelItem(
                     ()->this.getCoordinador().refaccionAbrirDetalleRefaccion());
             this.addItemOMenu(refaccionDetalle);
+            
+            MenuConstructor menuReportes = new MenuConstructor();
+            menuReportes.setMenu();
+            menuReportes.setNombre("Reportes");
+            menuReportes.setPadre(menuConsultar);
+            menuReportes.setImagen(imgMenus);
+            this.addItemOMenu(menuReportes);
+            
+                MenuConstructor generarReportes = new MenuConstructor();
+                generarReportes.setItem();
+                generarReportes.setNombre(CoordinadorPaneles.PANEL_REPORTES_GENERAR);
+                generarReportes.setPadre(menuReportes);
+                generarReportes.setAccionDelItem(
+                        ()->this.getCoordinador().reportesAbrirDialogo());
+                this.addItemOMenu(generarReportes);
+            
         
         //MENU MODIFICAR DATOS. 
         MenuConstructor menuModificarDatos = new MenuConstructor();
@@ -343,8 +309,7 @@ public class MarcoParaVentanaPrincipal extends JFrame{
                 registroRefacciones.setNombre(CoordinadorPaneles.PANEL_REGISTRAR_NUEVA_REFACCION);
                 registroRefacciones.setPadre(menuRefaccion);
                 registroRefacciones.setImagen(imgRegistro);
-                registroRefacciones.setAccionDelItem(()->coordinador.refaccionAbrirPanelRegistrar
-        ());
+                registroRefacciones.setAccionDelItem(()->coordinador.refaccionAbrirPanelRegistrar());
                 this.addItemOMenu(registroRefacciones);
 
                 MenuConstructor modificarRefaccion = new MenuConstructor();

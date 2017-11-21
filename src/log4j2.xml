@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <!--<Property name="log-path">logs</Property>-->
+    </Properties>
+ 
+    <Appenders>
+        <RollingFile name="file-log" fileName="LogsAlmacen.log" filePattern="LogsAlmacen-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%5p] - %c{1}:%L %d{yyyy-MM-dd HH:mm:ss} - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"  modulate="true" />
+            </Policies>
+        </RollingFile>
+ 
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%5p] - %c{1}:%L %d{yyyy-MM-dd HH:mm:ss} - %m%n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+     
+               
+        <Root level="trace">
+            <appender-ref ref="console" />
+            <appender-ref ref="file-log" />
+        </Root>
+        
+        
+    </Loggers>
+</Configuration>

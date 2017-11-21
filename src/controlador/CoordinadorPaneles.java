@@ -95,6 +95,11 @@ public class CoordinadorPaneles {
      */
     public static final String PANEL_SECCION_DE_MAQUINAS = "Asignar secciones de máquina.";
     
+    /**
+     * 
+     */
+    public static final String PANEL_REPORTES_GENERAR = "Generar reportes.";
+    
     private final HashMap<JPanelBase, JDialogBase> dialogosAbiertos;
 
     public CoordinadorPaneles() {

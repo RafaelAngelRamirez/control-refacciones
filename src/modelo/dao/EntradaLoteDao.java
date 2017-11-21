@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.InfoTabla.EntradaLoteIT;
 import modelo.vo.EntradaLoteVo;
@@ -48,11 +47,13 @@ public class EntradaLoteDao extends DAOGenerales{
     public float existencia(int id){
         conexion = new Conexion(coordinador);
         try {
-            String sql = "SELECT SUM("+it.getCANTIDAD().getNombre()+")"
+            String sql = "SELECT SUM("+EntradaLoteIT.getCANTIDAD().getNombre()+")"
                     +" FROM " +
                     EntradaLoteIT.NOMBRE_TABLA
                     +" WHERE "+
-                    it.getID_REFACCION().getNombre()+"=?";
+                    EntradaLoteIT.getID_REFACCION().getNombre()+"=?";
+            
+            
             ResultSet r = conexion.executeQuery(sql, id+"");
             r.next();
             return r.getFloat(1);

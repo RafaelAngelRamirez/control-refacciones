@@ -19,12 +19,13 @@ import com.bulenkov.darcula.DarculaLaf;
 import controlador.ActualizacionDeComponentesGráficos.ControladorActualizacionGUI_BD;
 import controlador.capturadeerrores.CapturaDeSucesos;
 import controlador.capturadeerrores.ConsolaDeErrores;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import modelo.logica.Logica;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import reportes.Reportes;
 import vista.UtilidadesIntefaz.VentanaPrincipal.MarcoParaVentanaPrincipal;
 import vista.panels.PanelCarga;
 import vista.panels.PanelEmpleadoAgregar;
@@ -39,6 +40,7 @@ import vista.panels.PanelProveedorRegistrar;
 import vista.panels.PanelRefaccionAgregar;
 import vista.panels.PanelRefaccionDetalle;
 import vista.panels.PanelRefaccionesConsulta;
+import vista.panels.PanelReportesGenerar;
 import vista.panels.PanelSalidaDeLote;
 import vista.panels.PanelSalidaDeLoteCantidadADescontarDeLote;
 import vista.panels.PanelSalidaDeLoteSeleccionLotes;
@@ -49,11 +51,18 @@ import vista.panels.PanelSeccionMaquinaRelacionModeloMaquina;
  * @author Rafael Ángel Ramírez Estrada
  */
 public class Principal {
+    
+    private static final Logger LOG = LogManager.getLogger(Principal.class.getName());
 
     
     public static void main(String[] args) {
-        
 //        iniciarPrograma();
+         LOG.trace("trace message");
+        LOG.debug("debug message");
+        LOG.warn("warn message");
+        LOG.info("info message");
+        LOG.error("error message");
+        LOG.fatal("fatal message");
         
         PanelCarga panelCargaInicio = new PanelCarga();
         
@@ -72,7 +81,7 @@ public class Principal {
                 UIManager.setLookAndFeel(darcula);
                 
         } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
        
@@ -130,6 +139,10 @@ public class Principal {
         PanelMaquinaAsignarNumeros panelMaquinaAsignarNumeros = new PanelMaquinaAsignarNumeros();
         PanelSeccionMaquinaRelacionModeloMaquina panelSeccionMaquinaRelacionModeloMaquina = new PanelSeccionMaquinaRelacionModeloMaquina();
         PanelCarga panelCarga = new PanelCarga();
+        PanelReportesGenerar panelReportesGenerar = new PanelReportesGenerar();
+        
+        Reportes reportes = new Reportes();
+        
                 
                 
         
@@ -164,6 +177,10 @@ public class Principal {
         coordinador.setPanelMaquinaAsignarNumeros(panelMaquinaAsignarNumeros);
         coordinador.setPanelSeccionMaquinaRelacionModeloMaquina(panelSeccionMaquinaRelacionModeloMaquina);
         coordinador.setPanelCarga(panelCarga);
+        coordinador.setPanelReportesGenerar(panelReportesGenerar);
+        
+        
+        coordinador.setReportes(reportes);
         
         /*
         ====================================================================
@@ -190,8 +207,11 @@ public class Principal {
         panelSalidaDeLoteCantidadADescontarPorLote.setCoordinador(coordinador);
         panelMaquinaAsignarNumeros.setCoordinador(coordinador);
         panelSeccionMaquinaRelacionModeloMaquina.setCoordinador(coordinador);
+        panelReportesGenerar.setCoordinador(coordinador);
         
         logica.setCoordinador(coordinador);
+        
+        reportes.setCoordinador(coordinador);
         
         
         /*
