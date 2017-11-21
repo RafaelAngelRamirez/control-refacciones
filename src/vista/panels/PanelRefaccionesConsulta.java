@@ -34,11 +34,11 @@ import vista.UtilidadesIntefaz.utilidadesOptimizadas.UtilidadesTxt_;
 public class PanelRefaccionesConsulta extends JPanelBase {
 
     private static final long serialVersionUID = 1L;
-    
+
     UtilidadesTxt_ _TxtFiltrarRefaccion;
     UtilidadesTabla_ _TablaRefacciones;
-    
-    
+
+
     /**
      * Creates new form GestionDeRefacciones
      */
@@ -54,15 +54,15 @@ public class PanelRefaccionesConsulta extends JPanelBase {
 
     @Override
     public void initConfig() {
-        
+
         /*
         =======================================================================
             INICIO SETEO NOMBRES DE ETIQUETA
         ///////////////////////////////////////////////////////////////////////
         */
-        
-               
-        /* 
+
+
+        /*
         ////////////////////////////////////////////////////////////////////////
             FIN SETEO NOMBRES DE ETIQUETA
         ========================================================================
@@ -75,66 +75,78 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         //INICIAMOS LAS UTILIDADES.
         _TxtFiltrarRefaccion = new UtilidadesTxt_(getCoordinador());
         _TablaRefacciones = new UtilidadesTabla_(getCoordinador());
-        
-        
+
+
         //SETEAMOS LOS COMPONENTES DENTRO DE LA UTILIDAD.
-        
+
         _TxtFiltrarRefaccion.setComponente(getTxtBusqueda());
         _TablaRefacciones.setComponente(getTablaRefacciones());
-        
-       
+
+
         //ASIGNAMOS EL TAMAÑO DE CAMPO
-        
+
         _TxtFiltrarRefaccion.setTamanoDeCampo(200);
-        
+
         //CAMPOS QUE REQUIEREN TEXTO EN MAYUSCULAS.
-        
+
         _TxtFiltrarRefaccion.setPermitirSoloMayusculas();
-        
+
         //CAMPOS NUMÉRICOS
-        
+
         //QUITAMOS LOS ESPACIOS SOBRANTES DESPUES DE DEJAR EL CAMPO.
-               
-        
+
+
         //TRAVEL POLICY
-        
+
 
         //ACCIONES ESPECIALES.
-        
+
         _TxtFiltrarRefaccion.setKeyPressAction(this::busqueda, OperacionesBasicasPorDefinir.TECLA_ENTER);
         _TablaRefacciones.setDobleClick(()->this.mostrarDetalleRefaccion());
 
-        
+
         //ACCIONES DE BOTONES
-        
-        //ACTUALIZACIONES DE TABLA. 
+
+        //ACTUALIZACIONES DE TABLA.
          opAct.add(RefaccionIT.NOMBRE_TABLA, this::limpiarTabla);
          opAct.add(EntradaLoteIT.NOMBRE_TABLA, this::limpiarTabla);
-         
-        
+
+
         /*
         ////////////////////////////////////////////////////////////////////////
         FIN SETEO DE UTILIDADES
         ========================================================================
          */
     }
-    
-    
 
+
+
+    @Override
     public void configurar(){
     }
+
+    /**
+     * Pone la tabla en 0
+     */
     public void limpiarTabla(){
         cargarRefacciones("");
         _TxtFiltrarRefaccion.setText();
     }
-   
+
+    /**
+     * Busca el texto que se defina en el campo de busqueda. 
+     */
     public void busqueda(){
         HiloConPrecarga h = new HiloConPrecarga(
-                ()->cargarRefacciones(_TxtFiltrarRefaccion.getText()), 
+                ()->cargarRefacciones(_TxtFiltrarRefaccion.getText()),
                 getCoordinador().getPanelCarga());
         h.start();
     }
     
+    /**
+     * Carga las refacciones.
+     * @param busqueda El filtro de busqueda. 
+     */
     public void cargarRefacciones(String busqueda){
         List<RefaccionVo> listaVo;
         if (busqueda.isEmpty()) {
@@ -142,27 +154,23 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         }else{
             listaVo = this.getCoordinador().refaccionConsultarTodoBusqueda(busqueda);
         }
-        RefaccionIT rit = new RefaccionIT();
-        UnidadIT uit = new UnidadIT();
-        ImportanciaIT iit = new ImportanciaIT();
-      
-    
+
         String[] titulos = {
-            rit.getID().getNombreParaMostrar(),
-            rit.getCODIGO_INTERNO().getNombreParaMostrar(),
-            rit.getCODIGO_PROVEEDOR().getNombreParaMostrar(),
-            rit.getNOMBRE().getNombreParaMostrar(),
-            rit.getDESCRIPCION().getNombreParaMostrar(),
-            iit.getIMPORTANCIA().getNombreParaMostrar(),
-            rit.getSTOCK_MAXIMO().getNombreParaMostrar(),
-            rit.getSTOCK_MINIMO().getNombreParaMostrar(),
+            RefaccionIT.getID().getNombreParaMostrar(),
+            RefaccionIT.getCODIGO_INTERNO().getNombreParaMostrar(),
+            RefaccionIT.getCODIGO_PROVEEDOR().getNombreParaMostrar(),
+            RefaccionIT.getNOMBRE().getNombreParaMostrar(),
+            RefaccionIT.getDESCRIPCION().getNombreParaMostrar(),
+            ImportanciaIT.getIMPORTANCIA().getNombreParaMostrar(),
+            RefaccionIT.getSTOCK_MAXIMO().getNombreParaMostrar(),
+            RefaccionIT.getSTOCK_MINIMO().getNombreParaMostrar(),
             "Existencia",
-            uit.getUNIDAD().getNombreParaMostrar()
-            
+            UnidadIT.getUNIDAD().getNombreParaMostrar()
+
         };
         UtilidadesModeloDeTabla_ mt = new UtilidadesModeloDeTabla_();
         mt.setTitulosDeLaTabla(titulos);
-        
+
         for (RefaccionVo vo : listaVo) {
             float existencia = getCoordinador().entradaLoteExistencia(vo.getId());
             HashMap<Integer, Object> mapaDatos = new HashMap<>();
@@ -171,26 +179,29 @@ public class PanelRefaccionesConsulta extends JPanelBase {
             mapaDatos.put(3, vo.getCodigoProveedor());
             mapaDatos.put(4, vo.getNombre());
             mapaDatos.put(5, vo.getDescripcion());
-            mapaDatos.put(6, (String)vo.getImportancia());
+            mapaDatos.put(6, vo.getImportancia());
             mapaDatos.put(7, vo.getStockMaximo()+"");
             mapaDatos.put(8, vo.getStockMinimo()+"");
             mapaDatos.put(9, existencia);
-            mapaDatos.put(10, (String)vo.getUnidad());
-            
+            mapaDatos.put(10,vo.getUnidad());
+
             mt.addDatos(mapaDatos);
         }
         _TablaRefacciones.setTamanoMinimoDeColumna(new int[]{     0,   0,   0,   0,   0,   0,   0, 0  ,   0,   0});
         _TablaRefacciones.setTamanoMaximoDeColumna(new int[]{     0, 200, 200,1000,1000, 200, 200, 200, 200, 200});
         _TablaRefacciones.setTamanoPreferidoDeColumna(new int[]{  0, 100, 200,0600,0600,  80, 100, 100, 120, 100});
         _TablaRefacciones.setTableModel(mt);
-        
+
     }
-    
+
+    /**
+     * Muestra el detalle de la refacción. 
+     */
     public void mostrarDetalleRefaccion(){
         getCoordinador().refaccionAbrirDetalleRefaccion(_TablaRefacciones.getDatoDeTabla(0)+"");
     }
-   
-   
+
+
     public JTextField getTxtBusqueda() {
         return txtFiltrarRefacciones;
     }
@@ -295,11 +306,11 @@ public class PanelRefaccionesConsulta extends JPanelBase {
         }
          return i;
     }
-    
+
     /**
-     * Retorna el 1er id seleccionado. 
-     * @return Numero de id guadarado en la columna id. 
-     */ 
+     * Retorna el 1er id seleccionado.
+     * @return Numero de id guadarado en la columna id.
+     */
     public int getIdSeleccionado(){
         int a = Integer.parseInt(this._TablaRefacciones.getDatoDeTabla(0)+"");
         return a;
