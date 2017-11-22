@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="776" leftMargin="8" rightMargin="8" topMargin="8" bottomMargin="8" whenResourceMissingType="Empty" uuid="625c33c3-0f36-479a-aa14-1e6f13e53987">
-	<property name="ireport.zoom" value="1.4363522962149997"/>
+	<property name="ireport.zoom" value="2.1029633968883816"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="minimo">
@@ -47,16 +47,14 @@ refaccion.codigoProveedor,
 refaccion.descripcion,
 importancia.importancia,
 unidad.unidad,
-ifnull(temp.suma, 0) as suma
+existenciarefaccion.existencia
 
 
 from refaccion 
 join importancia on importancia.id=refaccion.importancia 
 join unidad on unidad.id = refaccion.unidad 
-left join (
-	select entradalote.idRefaccion,SUM(entradalote.cantidad)
-	as suma from entradalote GROUP BY entradalote.idRefaccion) as temp 
-ON temp.idRefaccion=refaccion.id ORDER BY importancia.importancia ASC]]>
+join existenciarefaccion on existenciarefaccion.idRefaccion= refaccion.id 
+ORDER BY refaccion.codigoInterno ASC]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -82,7 +80,9 @@ ON temp.idRefaccion=refaccion.id ORDER BY importancia.importancia ASC]]>
 	<field name="unidad" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="suma" class="java.lang.Double"/>
+	<field name="existencia" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -277,7 +277,7 @@ ON temp.idRefaccion=refaccion.id ORDER BY importancia.importancia ASC]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Calibri Light" isBold="false" isStrikeThrough="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{suma}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{existencia}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement style="minimo" mode="Opaque" x="731" y="0" width="45" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="537624e2-7639-46b4-9537-e4857c31f959"/>
