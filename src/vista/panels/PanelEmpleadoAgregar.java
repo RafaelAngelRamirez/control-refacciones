@@ -248,6 +248,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
     
         
     private boolean guardarDepartamento(){
+        activarBotones(false);
         String elementoEscrito = this._comboDepartamentos.getText();
         if (this._comboDepartamentos.contieneElItemEscrito()) {
             this._comboDepartamentos.setSelectedItem(elementoEscrito);
@@ -274,6 +275,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
         }
         this.cargarComboDepartamentos();
         this._comboDepartamentos.setSelectedItem(elementoEscrito);
+        activarBotones(true);
         return true;
         
     }
@@ -294,6 +296,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
         
         _txtNombre.setErrorQuitar();
         _comboDepartamentos.setErrorQuitar();
+        activarBotones(true);
     }
     
     public boolean cancelar(){
@@ -321,6 +324,7 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
     
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        activarBotones(false);
         EmpleadoVo vo = new EmpleadoVo();
         vo.setNombre(_txtNombre.getText());
         vo.setIdDepartamento(_comboDepartamentos.getSelectedItem_idRetorno());
@@ -369,6 +373,8 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
                         JOptionPane.ERROR_MESSAGE);
             }
         }
+        
+        activarBotones(true);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
    
@@ -381,6 +387,9 @@ public class PanelEmpleadoAgregar extends vista.UtilidadesIntefaz.JPanelBase{
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
+    private void activarBotones(boolean enable){
+        btnGuardar.setEnabled(enable);
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

@@ -29,6 +29,7 @@ import modelo.ParametrosDeCampo;
 import modelo.dao.DepartamentoDao;
 import modelo.dao.EmpleadoDao;
 import modelo.dao.EntradaLoteDao;
+import modelo.dao.ExistenciaRefaccionDAO;
 import modelo.dao.ImagenProveedorDao;
 import modelo.dao.ImagenRefaccionDao;
 import modelo.dao.ImportanciaDao;
@@ -1169,7 +1170,7 @@ public class Logica {
     }
     
     public float entradaLoteExistencia(int id){
-        EntradaLoteDao d = new EntradaLoteDao(coordinador);
+        ExistenciaRefaccionDAO d = new ExistenciaRefaccionDAO(coordinador);
         return d.existencia(id);
     }
     

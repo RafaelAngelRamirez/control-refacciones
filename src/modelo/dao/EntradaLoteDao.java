@@ -19,13 +19,11 @@ import modelo.vo.EntradaLoteVo;
  */
 public class EntradaLoteDao extends DAOGenerales{
     
-    EntradaLoteIT it;
     
     public EntradaLoteDao(Coordinador coordinador) {
         super(coordinador);
-        this.it = new EntradaLoteIT();
     }
-    
+
     public boolean guardar(EntradaLoteVo vo){
         conexion = new Conexion(coordinador);
         String sql = "INSERT INTO "+ EntradaLoteIT.NOMBRE_TABLA 
@@ -44,6 +42,7 @@ public class EntradaLoteDao extends DAOGenerales{
     
     }
     
+    @Deprecated
     public float existencia(int id){
         conexion = new Conexion(coordinador);
         try {
@@ -75,10 +74,10 @@ public class EntradaLoteDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "SELECT * FROM " + EntradaLoteIT.NOMBRE_TABLA
                 +" WHERE "+
-                it.getID_REFACCION().getNombre()+" = ?";
+                EntradaLoteIT.getID_REFACCION().getNombre()+" = ?";
         String sqlTodo =
                 " AND "+
-                it.getCANTIDAD().getNombre()+" >0";
+                EntradaLoteIT.getCANTIDAD().getNombre()+" >0";
         if (!todosLosLotes) {
             sql+=sqlTodo;
         }
@@ -88,9 +87,9 @@ public class EntradaLoteDao extends DAOGenerales{
         try {
             while (r.next()) {
                 EntradaLoteVo vo = new EntradaLoteVo();
-                vo.setCantidad(r.getFloat(it.getCANTIDAD().getNombre()));
-                vo.setFechaRecepcionLote(r.getDate(it.getFECHA_RECEPCION_LOTE().getNombre()));
-                vo.setId(r.getInt(it.getID().getNombre()));
+                vo.setCantidad(r.getFloat(EntradaLoteIT.getCANTIDAD().getNombre()));
+                vo.setFechaRecepcionLote(r.getDate(EntradaLoteIT.getFECHA_RECEPCION_LOTE().getNombre()));
+                vo.setId(r.getInt(EntradaLoteIT.getID().getNombre()));
                 listVo.add(vo);
             }
         } catch (SQLException ex) {
@@ -112,34 +111,34 @@ public class EntradaLoteDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String sql = "SELECT * FROM "+EntradaLoteIT.NOMBRE_TABLA 
                 +" WHERE "+
-                it.getID_REFACCION().getNombre()+"=?"
+                EntradaLoteIT.getID_REFACCION().getNombre()+"=?"
                 +" AND "+
-                it.getCANTIDAD().getNombre() +">0"
+                EntradaLoteIT.getCANTIDAD().getNombre() +">0"
                 +" AND "+
-                it.getFECHA_RECEPCION_LOTE().getNombre()+" = " 
-                +"(SELECT min("+it.getFECHA_RECEPCION_LOTE().getNombre()+") "
+                EntradaLoteIT.getFECHA_RECEPCION_LOTE().getNombre()+" = " 
+                +"(SELECT min("+EntradaLoteIT.getFECHA_RECEPCION_LOTE().getNombre()+") "
                         + " FROM "+EntradaLoteIT.NOMBRE_TABLA
                         + " WHERE "+
-                        it.getID_REFACCION().getNombre()+ " =? "
+                        EntradaLoteIT.getID_REFACCION().getNombre()+ " =? "
                         + " AND "+
-                        it.getCANTIDAD().getNombre() +">0 )" 
+                        EntradaLoteIT.getCANTIDAD().getNombre() +">0 )" 
                 +" AND "+
-                it.getID().getNombre() +" = "+
-                "(SELECT min("+it.getID().getNombre()+") "
+                EntradaLoteIT.getID().getNombre() +" = "+
+                "(SELECT min("+EntradaLoteIT.getID().getNombre()+") "
                         +" FROM "+
                         EntradaLoteIT.NOMBRE_TABLA
                         +" WHERE "+
-                        it.getID_REFACCION().getNombre()+"= ?"
+                        EntradaLoteIT.getID_REFACCION().getNombre()+"= ?"
                         +" AND "+ 
-                        it.getCANTIDAD().getNombre() + " >0 "
+                        EntradaLoteIT.getCANTIDAD().getNombre() + " >0 "
                         +" AND " + 
-                        it.getFECHA_RECEPCION_LOTE().getNombre() +" = "
-                        +"(SELECT min("+it.getFECHA_RECEPCION_LOTE().getNombre() +") "
+                        EntradaLoteIT.getFECHA_RECEPCION_LOTE().getNombre() +" = "
+                        +"(SELECT min("+EntradaLoteIT.getFECHA_RECEPCION_LOTE().getNombre() +") "
                             + " FROM " + EntradaLoteIT.NOMBRE_TABLA 
                             + " WHERE "+
-                            it.getID_REFACCION().getNombre() + " =? "
+                            EntradaLoteIT.getID_REFACCION().getNombre() + " =? "
                             + " AND "+
-                            it.getCANTIDAD().getNombre() +">0 )"+
+                            EntradaLoteIT.getCANTIDAD().getNombre() +">0 )"+
                 ")";
         HashMap<Integer, Object> datos = new HashMap<>();
         datos.put(1, id);
@@ -151,9 +150,9 @@ public class EntradaLoteDao extends DAOGenerales{
         try {
             if(r.next()){
                 vo = new EntradaLoteVo();
-                vo.setId(r.getInt(it.getID().getNombre()));
-                vo.setFechaRecepcionLote(r.getDate(it.getFECHA_RECEPCION_LOTE().getNombre()));
-                vo.setCantidad(r.getFloat(it.getCANTIDAD().getNombre()));
+                vo.setId(r.getInt(EntradaLoteIT.getID().getNombre()));
+                vo.setFechaRecepcionLote(r.getDate(EntradaLoteIT.getFECHA_RECEPCION_LOTE().getNombre()));
+                vo.setCantidad(r.getFloat(EntradaLoteIT.getCANTIDAD().getNombre()));
             }
         
         } catch (SQLException ex) {
@@ -174,7 +173,7 @@ public class EntradaLoteDao extends DAOGenerales{
         conexion = new Conexion(coordinador);
         String signos="";
         String sql = "UPDATE "+ EntradaLoteIT.NOMBRE_TABLA;
-              sql += " SET " + it.getCANTIDAD().getNombre()+"= CASE " + it.getID().getNombre();
+              sql += " SET " + EntradaLoteIT.getCANTIDAD().getNombre()+"= CASE " + EntradaLoteIT.getID().getNombre();
         
         int contador = 1;
         for (EntradaLoteVo a : listaELVParaActualizar) {
@@ -187,7 +186,7 @@ public class EntradaLoteDao extends DAOGenerales{
         }
         sql+=" END ";
         
-        sql+=" WHERE "+it.getID().getNombre()+" IN ("+signos+")" ;
+        sql+=" WHERE "+EntradaLoteIT.getID().getNombre()+" IN ("+signos+")" ;
         
         HashMap<Integer, Object> mapa = new HashMap<>();
         
