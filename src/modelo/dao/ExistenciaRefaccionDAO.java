@@ -37,7 +37,7 @@ public class ExistenciaRefaccionDAO extends DAOGenerales{
             Logger.getLogger(ExistenciaRefaccionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
-        return 0;
+        return -1;
     }
     
 }
